@@ -1,0 +1,910 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=big5" />
+<link rel="stylesheet" type="text/css" href="../../link.css">
+<title>Solar Eclipse Calculator  日食計算機</title>
+<style type="text/css">
+<!--
+body,td,th {
+	font-family: Arial, Helvetica, sans-serif;
+}
+body {
+	background-color:#CCCCFF;
+	margin: 0;
+}
+.style1 {	font-size: 16px;
+	font-weight: bold;
+}
+.style12 {font-size: 14px}
+#container{text-align: center; background-color:#CCCCFF;}
+#containercontent{width: 990px; text-align: left; padding:5px 5px 5px 5px; margin: 0 auto; background-color:#FFFFFF; background-image: url(../../bg_17.png);}
+input, select {
+	font-family: Arial, Helvetica, sans-serif;
+}
+OPTION.visible{
+	background-color:#FFFF99;
+}
+span {/*border:medium;
+border-left:medium;
+border-bottom-style:dashed;*/
+}
+-->
+</style>
+<script type="text/javascript">
+function ajaxFunction(lat,longi,tz,height,dst,ecldate)
+{
+var xmlHttp;
+try
+  {
+  // Firefox, Opera 8.0+, Safari
+  xmlHttp=new XMLHttpRequest();
+  }
+catch (e)
+  {
+  // Internet Explorer
+  try
+    {
+    xmlHttp=new ActiveXObject("Msxml2.XMLHTTP");
+    }
+  catch (e)
+    {
+    try
+      {
+      xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
+      }
+    catch (e)
+      {
+      alert("Your browser does not support AJAX!");
+      return false;
+      }
+    }
+  }
+  xmlHttp.onreadystatechange=function()
+    {
+    if(xmlHttp.readyState==4)
+      {
+      document.getElementById("txtHint").innerHTML=xmlHttp.responseText;
+      }
+    }
+  var longlink = "run.php?ecldate="+ecldate+"&lat="+lat+"&long="+longi+"&tz="+tz+"&height="+height+"&dst="+dst;
+  xmlHttp.open("GET",longlink,true);
+  xmlHttp.send(null);
+}
+
+function subroutine(){
+	var lat = document.getElementById("lat").value;
+	var longi = document.getElementById("longi").value;
+	var tz = document.getElementById("tz").value;	
+	var height = document.getElementById("height").value;
+	var ecldate = document.eclform.ecldate.value;
+	if (document.eclform.dst[0].checked){var dst = 0;}else{var dst = 1;}
+	ajaxFunction(lat,longi,tz,height,dst,ecldate);
+}
+
+//http://www.rgagnon.com/jsdetails/js-0066.html
+function openChild(file,window,size) {
+	if (size == 1){
+    	childWindow=open(file,window,'resizable=no,width=700,height=200,status=no,location=no');
+	} else if (size == 2){
+    	childWindow=open(file,window,'resizable=no,width=800,height=200,status=no,location=no');
+	} else if (size == 3){
+    	childWindow=open(file,window,'resizable=no,width=600,height=120,status=no,location=no');
+	} 
+	
+    if (childWindow.opener == null) childWindow.opener = self;
+}
+</script>
+</head>
+
+<body>
+
+<div id="container"><div id="containercontent">
+<link rel="stylesheet" type="text/css" href="/weather/chrome/chrometheme/chromestyle5.css" />
+
+<style type="text/css">
+<!--
+.stylemenu {
+ 	font-size: 14px;
+ 	font-weight: bold;
+ 	font: arial;
+}
+#upcontainer{
+	background-color:#FFFFCC;
+}
+-->
+</style>
+
+<div style="margin: 0 auto" id="upcontainer">
+<center><a href="/weather/chinese/index_main.html">
+<img src="/weather/chrome/titleboth.png" style="border-style: none"></a></center>
+
+<table class="stylemenu" width=100%><tr><td>
+<span id="dt">
+<script language="javascript">
+// Current time ==========================================
+setInterval('dispDate()', 200);
+function dispDate(){
+
+	var day="";
+	var month="";
+	var myweekday="";
+	var year="";
+	newdate = new Date();
+	mydate = new Date();
+	dston =  new Date('April 4, 1999 2:59:59');
+	dstoff = new Date('october 31, 1999 2:59:59');
+	var myzone = newdate.getTimezoneOffset();
+	newtime=newdate.getTime();
+	
+	var zonea = -8;  // references your time zone. positive is west!
+	
+	dst = "香港時間 HKT";
+	
+	var newzone = (zonea*60*60*1000);
+	newtimea = newtime+(myzone*60*1000)-newzone;
+	mydate.setTime(newtimea);
+	myweekday = mydate.getDay();
+	mymonth = mydate.getMonth();
+	myday= mydate.getDate();
+	myyear= mydate.getYear();
+	year = myyear;
+	
+	if (year < 2000)
+	year = year + 1900;
+	myhours = mydate.getHours();
+	if (myhours < 10){myhours = "0" + myhours;};
+	myminutes = mydate.getMinutes();
+	if (myminutes < 10){mytime = ":0" + myminutes;}else{mytime = ":" + myminutes;};
+	myseconds = mydate.getSeconds();
+	if (myseconds < 10){mytime += ":0" + myseconds;}else{mytime += ":" + myseconds;};
+	
+	arday = new Array("星期日 Sun ","星期一 Mon","星期二 Tue","星期三 Wed","星期四 Thu","星期五 Fri","星期六 Sat")
+	armonth = new Array("Jan ","Feb ","Mar ","Apr ","May ","Jun ","Jul ","Aug ","Sep ", "Oct ","Nov ","Dec ")
+	// rename locale as needed.
+	
+	var time = ("時間 Time: " + year + "/" + (mymonth+1) + "/" + myday + " " + arday[myweekday] + " " + myhours + mytime+ ", " + dst);
+
+  	document.getElementById('dt').innerHTML = time;
+}
+// Current time ends =====================================
+</script>
+</span>
+</td>
+<td align="center">
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_pub="hkwwinfo";
+var addthis_language = "zh";
+var addthis_header_color = "#ffffff";
+var addthis_header_background = "#000000";
+var addthis_brand = "香港天氣觀測站";
+var addthis_localize = {
+    share_caption: "加到我的最愛 / 共享",
+    email_caption: "電郵分享",
+    email: "電子郵件",
+    favorites: "加到我的最愛", 
+    more: "更多" }; 
+</script>
+<a href="http://www.addthis.com/bookmark.php?v=20" onmouseout="addthis_close()" onclick="return addthis_open(this, '', '[URL]', '[TITLE]');return addthis_sendto()"><img src="http://s7.addthis.com/static/btn/lg-share-zh.gif" width="125" height="16" alt="Bookmark and Share" style="border:0"/></a><script type="text/javascript" src="http://s7.addthis.com/js/200/addthis_widget.js"></script>
+<!-- AddThis Button END -->
+</td>
+<td align="right">
+<iframe id="content" frameborder="0" height="20" width="230" scrolling="no" src="/cgi-bin/TMmany.cgi" name="content"></iframe>
+</td></tr></table>
+
+<script type="text/javascript">
+
+/***********************************************
+* Bookmark site script- c Dynamic Drive DHTML code library (www.dynamicdrive.com)
+* This notice MUST stay intact for legal use
+* Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
+***********************************************/
+
+/* Modified to support Opera */
+function bookmarksite(title,url){
+if (window.sidebar) // firefox
+	window.sidebar.addPanel(title, url, "");
+else if(window.opera && window.print){ // opera
+	var elem = document.createElement('a');
+	elem.setAttribute('href',url);
+	elem.setAttribute('title',title);
+	elem.setAttribute('rel','sidebar');
+	elem.click();
+} 
+else if(document.all)// ie
+	window.external.AddFavorite(url, title);
+}
+</script>
+
+<script type="text/javascript" src="/weather/chrome/chromejs/chrome.js">
+/***********************************************
+* Chrome CSS Drop Down Menu- c Dynamic Drive DHTML code library (www.dynamicdrive.com)
+* This notice MUST stay intact for legal use
+* Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
+***********************************************/
+</script>
+
+<div class="chromestyle" id="chromemenu">
+<ul>
+<li><a href="#" rel="dropmenu1">A. 天氣資訊</a></li>
+<li><a href="#" rel="dropmenu2">B. 天文資訊</a></li>
+<li><a href="#" rel="dropmenu3">C. 熱帶氣旋</a></li>
+<li><a href="#" rel="dropmenu4">D. 本站活動</a></li>	
+<li><a href="#" rel="dropmenu5">E. 其他資訊</a></li>	
+<li><a href="/weather/chinese/search.html">F. 搜尋本站</a></li>
+</ul>
+</div>
+
+<!--1st drop down menu -->                                                   
+<div id="dropmenu1" class="dropmenudiv" style="width: 175px;">
+<a href="/weather/chinese/index_main.html">主頁</a>
+<a href="/weather/chinese/warnings.html">現時生效警告</a>
+<a href="/weather/chinese/weather1.html">分區天氣</a>
+<a href="/weather/chinese/weather2.html">雨量</a>
+<a href="/weather/chinese/weather3.html">紫外線指數</a>
+<a href="/weather/chinese/weather4.html">華南海域天氣報告</a>
+<a href="/weather/chinese/weather5.html">香港天氣預測</a>
+<!--<a href="/weather/chinese/envir/index.html">空氣污染水平</a>-->
+<a href="/weather/chinese/photos.html">天氣照片</a>
+<a href="/weather/chinese/wxchart.html">天氣圖</a>
+<a href="/weather/chinese/satrad.html">衛星 / 雷達圖像</a>
+<!--<a href="/weather/chinese/past.html">過去天氣</a>-->
+<a href="/weather/southchina.html">華南天氣要素圖</a>
+</div>
+
+
+<!--2nd drop down menu -->                                                
+<div id="dropmenu2" class="dropmenudiv" style="width: 175px;">
+<a href="/weather/chinese/sunrise.php">香港天文資料</a>
+<a href="/weather/chinese/worldclock.html">世界時間</a>
+<a href="/weather/solar/solarinfo.html">世界各大城市太陽資訊</a>
+<a href="/weather/special/index.html">特別天文事件</a>
+<a href="/weather/special/eclipsefigures_solar.html">日食日期和數字</a>
+<a href="/weather/special/eclipsefigures_lunar.html">月食日期和數字</a>
+<a href="/weather/special/eclipseqa1c.html">日月食問與答</a>
+<a href="/weather/special/eclipsecalc/index.html">日食計算機</a>
+</div>
+
+<!--3rd drop down menu -->                                                   
+<div id="dropmenu3" class="dropmenudiv" style="width: 175px;">
+<a href="/weather/latesttc.html">最新熱帶氣旋資訊</a>
+<a href="/weather/chinese/hkoinfo.html">天文台之熱帶氣旋資訊</a>
+<a href="/weather/storminfo/index.html">官方熱帶氣旋路徑資料</a>
+<a href="/weather/signalprob/index.html">熱帶氣旋信號機率 <img src="/weather/new.gif"></a>
+<a href="/weather/chinese/agencytc.html">各站預測路徑圖</a>
+<a href="/weather/tcarchive.html">熱帶氣旋資料庫</a>
+<a href="/weather/tcsimilar/tcsimilar.html">熱帶氣旋尋找工具</a>
+<a href="/weather/tcreview.html">重要熱帶氣旋回顧</a>
+<a href="/weather/tcsignalwind3.html">影響香港氣旋之風速數據</a>
+<a href="/weather/chinese/enso.html">厄爾尼諾-南方濤動動態</a>
+<a href="/weather/chinese/nwquik.html">西北太平洋: ASCAT 風場圖</a>
+<a href="/weather/chinese/nwwind.html">西北太平洋: 風 / 分析</a>
+<a href="/weather/chinese/nwsteer.html">西北太平洋: 駛流圖</a>
+<a href="/weather/tcname.html">參考資料: 熱帶氣旋名稱</a>
+<a href="/weather/chinese/beaufort.html">參考資料: 蒲福氏風級</a>
+<a href="/weather/chinese/tcclass.html">參考資料: 熱帶氣旋分類</a>
+<a href="/weather/chinese/tcpolicy.html">參考資料: 熱帶氣旋發佈機制</a>
+<a href="/weather/chinese/tclink.html">有關熱帶氣旋之連結</a>
+</div>
+
+<!--4th drop down menu -->                                                   
+<div id="dropmenu4" class="dropmenudiv" style="width: 175px;">
+<a href="/weather/sticker/index.html">實時天氣資訊圖</a>
+<a href="/weather/monthly.html">月氣候展望</a>
+<a href="/weather/vote/index.html">本站選舉</a>
+<a href="http://www.hk-mcc.net/onetouch/" target="_blank">* 一觸即發遊戲</a>
+<a href="http://www.hk-mcc.net/monthly/" target="_blank">* 月氣候展望比賽</a>
+</div>
+
+<!--5th drop down menu -->                                                   
+<div id="dropmenu5" class="dropmenudiv" style="width: 175px;">
+<a href="/weather/chinese/usefullink.html">其他氣象連結</a>
+<a href="/weather/chinese/partner.html">合作網站</a>
+<a href="/weather/chinese/aboutus.html">關於我們</a>
+<a href="/weather/chinese/disclaimer.html">本站聲明</a>
+<!--<a href="http://users3.smartgb.com/g/g.php?a=s&i=g35-05344-c1" target="_blank">* 留言版 1</a>
+<a href="http://globalguest.com/gb2/HKWW/guestbook.html" target="_blank">* 留言版 2</a>-->
+<a href="http://weatherhk.blogspot.com/" target="_blank">* 網誌 "望天打卦"</a>
+</div>
+</div>
+
+<script type="text/javascript">
+cssdropdown.startchrome("chromemenu")
+</script>
+
+<div id="chgdomain">
+</div>
+
+<!--<script type="text/javascript" src="http://www.hkww.org/weather/showhidechgdomain2.js"></script>-->
+
+<p><span class="style1">Astronomical Info / 天文資訊 > <a href="../index.html">Special Astronomical Events</a> / <a href="../index.html">特別天文事件</a> > Solar Eclipse Calculator  日食計算機 [<a href="javascript:this.location.reload();">Refresh 更新</a>]</span></p>
+<table width="90%" border="0">
+  <tr>
+    <td bgcolor="#FFCC33"><strong><a name="2" id="2"></a><img src="/weather/tri.gif"><span class="style1">Solar Eclipse Calculator  日食計算機</span></strong></td>
+  </tr>
+</table>
+<p class="style12">Using the following utility, you can calculate how a particular eclipse will look like for a particular place on Earth. 利用這個計算機，你可以知道地球上某一點所見的日食情況。</p>
+<form name="eclform" class="style12">
+1. Please select eclipse (GMT times) 請選擇日食日期 (根據格林尼治標準時間) :
+<select name="ecldate">
+<option class = 'visible' value="19010518">1901 May 18th (Sat) (Total 全食)</option>
+<option class = 'visible' value="19011111">1901 November 11th (Mon) (Annular 環食)</option>
+<option  value="19020408">1902 April 8th (Tue) (Partial 偏食)</option>
+<option  value="19020507">1902 May 7th (Wed) (Partial 偏食)</option>
+<option class = 'visible' value="19021031">1902 October 31st (Fri) (Partial 偏食)</option>
+<option class = 'visible' value="19030329">1903 March 29th (Sun) (Annular 環食)</option>
+<option  value="19030921">1903 September 21st (Mon) (Total 全食)</option>
+<option class = 'visible' value="19040317">1904 March 17th (Thu) (Annular 環食)</option>
+<option  value="19040909">1904 September 9th (Fri) (Total 全食)</option>
+<option  value="19050306">1905 March 6th (Mon) (Annular 環食)</option>
+<option  value="19050830">1905 August 30th (Wed) (Total 全食)</option>
+<option  value="19060223">1906 February 23rd (Fri) (Partial 偏食)</option>
+<option  value="19060721">1906 July 21st (Sat) (Partial 偏食)</option>
+<option  value="19060820">1906 August 20th (Mon) (Partial 偏食)</option>
+<option class = 'visible' value="19070114">1907 January 14th (Mon) (Total 全食)</option>
+<option  value="19070710">1907 July 10th (Wed) (Annular 環食)</option>
+<option  value="19080103">1908 January 3rd (Fri) (Total 全食)</option>
+<option  value="19080628">1908 June 28th (Sun) (Annular 環食)</option>
+<option  value="19081223">1908 December 23rd (Wed) (Hybrid 全環食)</option>
+<option class = 'visible' value="19090617">1909 June 17th (Thu) (Hybrid 全環食)</option>
+<option  value="19091212">1909 December 12th (Sun) (Partial 偏食)</option>
+<option  value="19100509">1910 May 9th (Mon) (Total 全食)</option>
+<option  value="19101102">1910 November 2nd (Wed) (Partial 偏食)</option>
+<option  value="19110428">1911 April 28th (Fri) (Total 全食)</option>
+<option class = 'visible' value="19111022">1911 October 22nd (Sun) (Annular 環食)</option>
+<option  value="19120417">1912 April 17th (Wed) (Hybrid 全環食)</option>
+<option  value="19121010">1912 October 10th (Thu) (Total 全食)</option>
+<option  value="19130406">1913 April 6th (Sun) (Partial 偏食)</option>
+<option  value="19130831">1913 August 31st (Sun) (Partial 偏食)</option>
+<option  value="19130930">1913 September 30th (Tue) (Partial 偏食)</option>
+<option  value="19140225">1914 February 25th (Wed) (Annular 環食)</option>
+<option  value="19140821">1914 August 21st (Fri) (Total 全食)</option>
+<option  value="19150214">1915 February 14th (Sun) (Annular 環食)</option>
+<option class = 'visible' value="19150810">1915 August 10th (Tue) (Annular 環食)</option>
+<option  value="19160203">1916 February 3rd (Thu) (Total 全食)</option>
+<option  value="19160730">1916 July 30th (Sun) (Annular 環食)</option>
+<option  value="19161224">1916 December 24th (Sun) (Partial 偏食)</option>
+<option  value="19170123">1917 January 23rd (Tue) (Partial 偏食)</option>
+<option  value="19170619">1917 June 19th (Tue) (Partial 偏食)</option>
+<option  value="19170719">1917 July 19th (Thu) (Partial 偏食)</option>
+<option  value="19171214">1917 December 14th (Fri) (Annular 環食)</option>
+<option  value="19180608">1918 June 8th (Sat) (Total 全食)</option>
+<option  value="19181203">1918 December 3rd (Tue) (Annular 環食)</option>
+<option  value="19190529">1919 May 29th (Thu) (Total 全食)</option>
+<option  value="19191122">1919 November 22nd (Sat) (Annular 環食)</option>
+<option  value="19200518">1920 May 18th (Tue) (Partial 偏食)</option>
+<option  value="19201110">1920 November 10th (Wed) (Partial 偏食)</option>
+<option  value="19210408">1921 April 8th (Fri) (Annular 環食)</option>
+<option  value="19211001">1921 October 1st (Sat) (Total 全食)</option>
+<option  value="19220328">1922 March 28th (Tue) (Annular 環食)</option>
+<option  value="19220921">1922 September 21st (Thu) (Total 全食)</option>
+<option  value="19230317">1923 March 17th (Sat) (Annular 環食)</option>
+<option  value="19230910">1923 September 10th (Mon) (Total 全食)</option>
+<option  value="19240305">1924 March 5th (Wed) (Partial 偏食)</option>
+<option  value="19240731">1924 July 31st (Thu) (Partial 偏食)</option>
+<option  value="19240830">1924 August 30th (Sat) (Partial 偏食)</option>
+<option  value="19250124">1925 January 24th (Sat) (Total 全食)</option>
+<option  value="19250720">1925 July 20th (Mon) (Annular 環食)</option>
+<option  value="19260114">1926 January 14th (Thu) (Total 全食)</option>
+<option class = 'visible' value="19260709">1926 July 9th (Fri) (Annular 環食)</option>
+<option  value="19270103">1927 January 3rd (Mon) (Annular 環食)</option>
+<option  value="19270629">1927 June 29th (Wed) (Total 全食)</option>
+<option  value="19271224">1927 December 24th (Sat) (Partial 偏食)</option>
+<option  value="19280519">1928 May 19th (Sat) (Total 全食)</option>
+<option  value="19280617">1928 June 17th (Sun) (Partial 偏食)</option>
+<option  value="19281112">1928 November 12th (Mon) (Partial 偏食)</option>
+<option class = 'visible' value="19290509">1929 May 9th (Thu) (Total 全食)</option>
+<option  value="19291101">1929 November 1st (Fri) (Annular 環食)</option>
+<option  value="19300428">1930 April 28th (Mon) (Hybrid 全環食)</option>
+<option  value="19301021">1930 October 21st (Tue) (Total 全食)</option>
+<option  value="19310418">1931 April 18th (Sat) (Partial 偏食)</option>
+<option  value="19310912">1931 September 12th (Sat) (Partial 偏食)</option>
+<option  value="19311011">1931 October 11th (Sun) (Partial 偏食)</option>
+<option  value="19320307">1932 March 7th (Mon) (Annular 環食)</option>
+<option  value="19320831">1932 August 31st (Wed) (Total 全食)</option>
+<option  value="19330224">1933 February 24th (Fri) (Annular 環食)</option>
+<option class = 'visible' value="19330821">1933 August 21st (Mon) (Annular 環食)</option>
+<option class = 'visible' value="19340214">1934 February 14th (Wed) (Total 全食)</option>
+<option  value="19340810">1934 August 10th (Fri) (Annular 環食)</option>
+<option  value="19350105">1935 January 5th (Sat) (Partial 偏食)</option>
+<option  value="19350203">1935 February 3rd (Sun) (Partial 偏食)</option>
+<option  value="19350630">1935 June 30th (Sun) (Partial 偏食)</option>
+<option  value="19350730">1935 July 30th (Tue) (Partial 偏食)</option>
+<option  value="19351225">1935 December 25th (Wed) (Annular 環食)</option>
+<option class = 'visible' value="19360619">1936 June 19th (Fri) (Total 全食)</option>
+<option  value="19361213">1936 December 13th (Sun) (Annular 環食)</option>
+<option  value="19370608">1937 June 8th (Tue) (Total 全食)</option>
+<option  value="19371202">1937 December 2nd (Thu) (Annular 環食)</option>
+<option  value="19380529">1938 May 29th (Sun) (Total 全食)</option>
+<option  value="19381121">1938 November 21st (Mon) (Partial 偏食)</option>
+<option  value="19390419">1939 April 19th (Wed) (Annular 環食)</option>
+<option  value="19391012">1939 October 12th (Thu) (Total 全食)</option>
+<option  value="19400407">1940 April 7th (Sun) (Annular 環食)</option>
+<option  value="19401001">1940 October 1st (Tue) (Total 全食)</option>
+<option  value="19410327">1941 March 27th (Thu) (Annular 環食)</option>
+<option class = 'visible' value="19410921">1941 September 21st (Sun) (Total 全食)</option>
+<option  value="19420316">1942 March 16th (Mon) (Partial 偏食)</option>
+<option  value="19420812">1942 August 12th (Wed) (Partial 偏食)</option>
+<option  value="19420910">1942 September 10th (Thu) (Partial 偏食)</option>
+<option  value="19430204">1943 February 4th (Thu) (Total 全食)</option>
+<option  value="19430801">1943 August 1st (Sun) (Annular 環食)</option>
+<option  value="19440125">1944 January 25th (Tue) (Total 全食)</option>
+<option class = 'visible' value="19440720">1944 July 20th (Thu) (Annular 環食)</option>
+<option  value="19450114">1945 January 14th (Sun) (Annular 環食)</option>
+<option  value="19450709">1945 July 9th (Mon) (Total 全食)</option>
+<option  value="19460103">1946 January 3rd (Thu) (Partial 偏食)</option>
+<option  value="19460530">1946 May 30th (Thu) (Partial 偏食)</option>
+<option  value="19460629">1946 June 29th (Sat) (Partial 偏食)</option>
+<option  value="19461123">1946 November 23rd (Sat) (Partial 偏食)</option>
+<option  value="19470520">1947 May 20th (Tue) (Total 全食)</option>
+<option  value="19471112">1947 November 12th (Wed) (Annular 環食)</option>
+<option class = 'visible' value="19480509">1948 May 9th (Sun) (Annular 環食)</option>
+<option  value="19481101">1948 November 1st (Mon) (Total 全食)</option>
+<option  value="19490428">1949 April 28th (Thu) (Partial 偏食)</option>
+<option  value="19491021">1949 October 21st (Fri) (Partial 偏食)</option>
+<option  value="19500318">1950 March 18th (Sat) (Annular 環食)</option>
+<option  value="19500912">1950 September 12th (Tue) (Total 全食)</option>
+<option  value="19510307">1951 March 7th (Wed) (Annular 環食)</option>
+<option  value="19510901">1951 September 1st (Sat) (Annular 環食)</option>
+<option  value="19520225">1952 February 25th (Mon) (Total 全食)</option>
+<option  value="19520820">1952 August 20th (Wed) (Annular 環食)</option>
+<option class = 'visible' value="19530214">1953 February 14th (Sat) (Partial 偏食)</option>
+<option  value="19530711">1953 July 11th (Sat) (Partial 偏食)</option>
+<option  value="19530809">1953 August 9th (Sun) (Partial 偏食)</option>
+<option  value="19540105">1954 January 5th (Tue) (Annular 環食)</option>
+<option  value="19540630">1954 June 30th (Wed) (Total 全食)</option>
+<option class = 'visible' value="19541225">1954 December 25th (Sat) (Annular 環食)</option>
+<option class = 'visible' value="19550620">1955 June 20th (Mon) (Total 全食)</option>
+<option class = 'visible' value="19551214">1955 December 14th (Wed) (Annular 環食)</option>
+<option  value="19560608">1956 June 8th (Fri) (Total 全食)</option>
+<option  value="19561202">1956 December 2nd (Sun) (Partial 偏食)</option>
+<option class = 'visible' value="19570430">1957 April 30th (Tue) (Annular 環食)</option>
+<option  value="19571023">1957 October 23rd (Wed) (Total 全食)</option>
+<option class = 'visible' value="19580419">1958 April 19th (Sat) (Annular 環食)</option>
+<option  value="19581012">1958 October 12th (Sun) (Total 全食)</option>
+<option  value="19590408">1959 April 8th (Wed) (Annular 環食)</option>
+<option  value="19591002">1959 October 2nd (Fri) (Total 全食)</option>
+<option  value="19600327">1960 March 27th (Sun) (Partial 偏食)</option>
+<option  value="19600920">1960 September 20th (Tue) (Partial 偏食)</option>
+<option  value="19610215">1961 February 15th (Wed) (Total 全食)</option>
+<option  value="19610811">1961 August 11th (Fri) (Annular 環食)</option>
+<option class = 'visible' value="19620205">1962 February 5th (Mon) (Total 全食)</option>
+<option  value="19620731">1962 July 31st (Tue) (Annular 環食)</option>
+<option  value="19630125">1963 January 25th (Fri) (Annular 環食)</option>
+<option  value="19630720">1963 July 20th (Sat) (Total 全食)</option>
+<option  value="19640114">1964 January 14th (Tue) (Partial 偏食)</option>
+<option  value="19640610">1964 June 10th (Wed) (Partial 偏食)</option>
+<option  value="19640709">1964 July 9th (Thu) (Partial 偏食)</option>
+<option  value="19641204">1964 December 4th (Fri) (Partial 偏食)</option>
+<option  value="19650530">1965 May 30th (Sun) (Total 全食)</option>
+<option class = 'visible' value="19651123">1965 November 23rd (Tue) (Annular 環食)</option>
+<option class = 'visible' value="19660520">1966 May 20th (Fri) (Annular 環食)</option>
+<option  value="19661112">1966 November 12th (Sat) (Total 全食)</option>
+<option  value="19670509">1967 May 9th (Tue) (Partial 偏食)</option>
+<option  value="19671102">1967 November 2nd (Thu) (Total 全食)</option>
+<option  value="19680328">1968 March 28th (Thu) (Partial 偏食)</option>
+<option  value="19680922">1968 September 22nd (Sun) (Total 全食)</option>
+<option class = 'visible' value="19690318">1969 March 18th (Tue) (Annular 環食)</option>
+<option  value="19690911">1969 September 11th (Thu) (Annular 環食)</option>
+<option  value="19700307">1970 March 7th (Sat) (Total 全食)</option>
+<option  value="19700831">1970 August 31st (Mon) (Annular 環食)</option>
+<option  value="19710225">1971 February 25th (Thu) (Partial 偏食)</option>
+<option  value="19710722">1971 July 22nd (Thu) (Partial 偏食)</option>
+<option  value="19710820">1971 August 20th (Fri) (Partial 偏食)</option>
+<option  value="19720116">1972 January 16th (Sun) (Annular 環食)</option>
+<option  value="19720710">1972 July 10th (Mon) (Total 全食)</option>
+<option  value="19730104">1973 January 4th (Thu) (Annular 環食)</option>
+<option  value="19730630">1973 June 30th (Sat) (Total 全食)</option>
+<option  value="19731224">1973 December 24th (Mon) (Annular 環食)</option>
+<option  value="19740620">1974 June 20th (Thu) (Total 全食)</option>
+<option  value="19741213">1974 December 13th (Fri) (Partial 偏食)</option>
+<option  value="19750511">1975 May 11th (Sun) (Partial 偏食)</option>
+<option  value="19751103">1975 November 3rd (Mon) (Partial 偏食)</option>
+<option  value="19760429">1976 April 29th (Thu) (Annular 環食)</option>
+<option  value="19761023">1976 October 23rd (Sat) (Total 全食)</option>
+<option  value="19770418">1977 April 18th (Mon) (Annular 環食)</option>
+<option  value="19771012">1977 October 12th (Wed) (Total 全食)</option>
+<option  value="19780407">1978 April 7th (Fri) (Partial 偏食)</option>
+<option class = 'visible' value="19781002">1978 October 2nd (Mon) (Partial 偏食)</option>
+<option  value="19790226">1979 February 26th (Mon) (Total 全食)</option>
+<option  value="19790822">1979 August 22nd (Wed) (Annular 環食)</option>
+<option class = 'visible' value="19800216">1980 February 16th (Sat) (Total 全食)</option>
+<option  value="19800810">1980 August 10th (Sun) (Annular 環食)</option>
+<option  value="19810204">1981 February 4th (Wed) (Annular 環食)</option>
+<option  value="19810731">1981 July 31st (Fri) (Total 全食)</option>
+<option  value="19820125">1982 January 25th (Mon) (Partial 偏食)</option>
+<option  value="19820621">1982 June 21st (Mon) (Partial 偏食)</option>
+<option  value="19820720">1982 July 20th (Tue) (Partial 偏食)</option>
+<option  value="19821215">1982 December 15th (Wed) (Partial 偏食)</option>
+<option class = 'visible' value="19830611">1983 June 11th (Sat) (Total 全食)</option>
+<option  value="19831204">1983 December 4th (Sun) (Annular 環食)</option>
+<option  value="19840530">1984 May 30th (Wed) (Annular 環食)</option>
+<option  value="19841122">1984 November 22nd (Thu) (Total 全食)</option>
+<option  value="19850519">1985 May 19th (Sun) (Partial 偏食)</option>
+<option  value="19851112">1985 November 12th (Tue) (Total 全食)</option>
+<option  value="19860409">1986 April 9th (Wed) (Partial 偏食)</option>
+<option  value="19861003">1986 October 3rd (Fri) (Hybrid 全環食)</option>
+<option  value="19870329">1987 March 29th (Sun) (Hybrid 全環食)</option>
+<option class = 'visible' value="19870923">1987 September 23rd (Wed) (Annular 環食)</option>
+<option class = 'visible' value="19880318">1988 March 18th (Fri) (Total 全食)</option>
+<option  value="19880911">1988 September 11th (Sun) (Annular 環食)</option>
+<option  value="19890307">1989 March 7th (Tue) (Partial 偏食)</option>
+<option  value="19890831">1989 August 31st (Thu) (Partial 偏食)</option>
+<option  value="19900126">1990 January 26th (Fri) (Annular 環食)</option>
+<option  value="19900722">1990 July 22nd (Sun) (Total 全食)</option>
+<option  value="19910115">1991 January 15th (Tue) (Annular 環食)</option>
+<option  value="19910711">1991 July 11th (Thu) (Total 全食)</option>
+<option  value="19920104">1992 January 4th (Sat) (Annular 環食)</option>
+<option  value="19920630">1992 June 30th (Tue) (Total 全食)</option>
+<option class = 'visible' value="19921224">1992 December 24th (Thu) (Partial 偏食)</option>
+<option  value="19930521">1993 May 21st (Fri) (Partial 偏食)</option>
+<option  value="19931113">1993 November 13th (Sat) (Partial 偏食)</option>
+<option  value="19940510">1994 May 10th (Tue) (Annular 環食)</option>
+<option  value="19941103">1994 November 3rd (Thu) (Total 全食)</option>
+<option  value="19950429">1995 April 29th (Sat) (Annular 環食)</option>
+<option class = 'visible' value="19951024">1995 October 24th (Tue) (Total 全食)</option>
+<option  value="19960417">1996 April 17th (Wed) (Partial 偏食)</option>
+<option  value="19961012">1996 October 12th (Sat) (Partial 偏食)</option>
+<option class = 'visible' value="19970309">1997 March 9th (Sun) (Total 全食)</option>
+<option  value="19970902">1997 September 2nd (Tue) (Partial 偏食)</option>
+<option  value="19980226">1998 February 26th (Thu) (Total 全食)</option>
+<option class = 'visible' value="19980822">1998 August 22nd (Sat) (Annular 環食)</option>
+<option  value="19990216">1999 February 16th (Tue) (Annular 環食)</option>
+<option  value="19990811">1999 August 11th (Wed) (Total 全食)</option>
+<option  value="20000205">2000 February 5th (Sat) (Partial 偏食)</option>
+<option  value="20000701">2000 July 1st (Sat) (Partial 偏食)</option>
+<option  value="20000731">2000 July 31st (Mon) (Partial 偏食)</option>
+<option  value="20001225">2000 December 25th (Mon) (Partial 偏食)</option>
+<option  value="20010621">2001 June 21st (Thu) (Total 全食)</option>
+<option  value="20011214">2001 December 14th (Fri) (Annular 環食)</option>
+<option class = 'visible' value="20020610">2002 June 10th (Mon) (Annular 環食)</option>
+<option  value="20021204">2002 December 4th (Wed) (Total 全食)</option>
+<option  value="20030531">2003 May 31st (Sat) (Annular 環食)</option>
+<option  value="20031123">2003 November 23rd (Sun) (Total 全食)</option>
+<option  value="20040419">2004 April 19th (Mon) (Partial 偏食)</option>
+<option  value="20041014">2004 October 14th (Thu) (Partial 偏食)</option>
+<option  value="20050408">2005 April 8th (Fri) (Hybrid 全環食)</option>
+<option  value="20051003">2005 October 3rd (Mon) (Annular 環食)</option>
+<option  value="20060329">2006 March 29th (Wed) (Total 全食)</option>
+<option  value="20060922">2006 September 22nd (Fri) (Annular 環食)</option>
+<option class = 'visible' value="20070319">2007 March 19th (Mon) (Partial 偏食)</option>
+<option  value="20070911">2007 September 11th (Tue) (Partial 偏食)</option>
+<option  value="20080207">2008 February 7th (Thu) (Annular 環食)</option>
+<option class = 'visible' value="20080801">2008 August 1st (Fri) (Total 全食)</option>
+<option class = 'visible' value="20090126">2009 January 26th (Mon) (Annular 環食)</option>
+<option class = 'visible' value="20090722">2009 July 22nd (Wed) (Total 全食)</option>
+<option class = 'visible' value="20100115">2010 January 15th (Fri) (Annular 環食)</option>
+<option  value="20100711">2010 July 11th (Sun) (Total 全食)</option>
+<option  value="20110104">2011 January 4th (Tue) (Partial 偏食)</option>
+<option  value="20110601">2011 June 1st (Wed) (Partial 偏食)</option>
+<option  value="20110701">2011 July 1st (Fri) (Partial 偏食)</option>
+<option  value="20111125">2011 November 25th (Fri) (Partial 偏食)</option>
+<option class = 'visible' value="20120520">2012 May 20th (Sun) (Annular 環食)</option>
+<option  value="20121113">2012 November 13th (Tue) (Total 全食)</option>
+<option  value="20130510">2013 May 10th (Fri) (Annular 環食)</option>
+<option  value="20131103">2013 November 3rd (Sun) (Hybrid 全環食)</option>
+<option  value="20140429">2014 April 29th (Tue) (Annular 環食)</option>
+<option  value="20141023">2014 October 23rd (Thu) (Partial 偏食)</option>
+<option  value="20150320">2015 March 20th (Fri) (Total 全食)</option>
+<option  value="20150913">2015 September 13th (Sun) (Partial 偏食)</option>
+<option class = 'visible' value="20160309">2016 March 9th (Wed) (Total 全食)</option>
+<option  value="20160901">2016 September 1st (Thu) (Annular 環食)</option>
+<option  value="20170226">2017 February 26th (Sun) (Annular 環食)</option>
+<option  value="20170821">2017 August 21st (Mon) (Total 全食)</option>
+<option  value="20180215">2018 February 15th (Thu) (Partial 偏食)</option>
+<option  value="20180713">2018 July 13th (Fri) (Partial 偏食)</option>
+<option  value="20180811">2018 August 11th (Sat) (Partial 偏食)</option>
+<option  value="20190106">2019 January 6th (Sun) (Partial 偏食)</option>
+<option  value="20190702">2019 July 2nd (Tue) (Total 全食)</option>
+<option class = 'visible' value="20191226">2019 December 26th (Thu) (Annular 環食)</option>
+<option class = 'visible' value="20200621">2020 June 21st (Sun) (Annular 環食)</option>
+<option  value="20201214">2020 December 14th (Mon) (Total 全食)</option>
+<option  value="20210610" selected>2021 June 10th (Thu) (Annular 環食)</option>
+<option  value="20211204">2021 December 4th (Sat) (Total 全食)</option>
+<option  value="20220430">2022 April 30th (Sat) (Partial 偏食)</option>
+<option  value="20221025">2022 October 25th (Tue) (Partial 偏食)</option>
+<option class = 'visible' value="20230420">2023 April 20th (Thu) (Hybrid 全環食)</option>
+<option  value="20231014">2023 October 14th (Sat) (Annular 環食)</option>
+<option  value="20240408">2024 April 8th (Mon) (Total 全食)</option>
+<option  value="20241002">2024 October 2nd (Wed) (Annular 環食)</option>
+<option  value="20250329">2025 March 29th (Sat) (Partial 偏食)</option>
+<option  value="20250921">2025 September 21st (Sun) (Partial 偏食)</option>
+<option  value="20260217">2026 February 17th (Tue) (Annular 環食)</option>
+<option  value="20260812">2026 August 12th (Wed) (Total 全食)</option>
+<option  value="20270206">2027 February 6th (Sat) (Annular 環食)</option>
+<option  value="20270802">2027 August 2nd (Mon) (Total 全食)</option>
+<option  value="20280126">2028 January 26th (Wed) (Annular 環食)</option>
+<option class = 'visible' value="20280722">2028 July 22nd (Sat) (Total 全食)</option>
+<option  value="20290114">2029 January 14th (Sun) (Partial 偏食)</option>
+<option  value="20290612">2029 June 12th (Tue) (Partial 偏食)</option>
+<option  value="20290711">2029 July 11th (Wed) (Partial 偏食)</option>
+<option  value="20291205">2029 December 5th (Wed) (Partial 偏食)</option>
+<option class = 'visible' value="20300601">2030 June 1st (Sat) (Annular 環食)</option>
+<option  value="20301125">2030 November 25th (Mon) (Total 全食)</option>
+<option class = 'visible' value="20310521">2031 May 21st (Wed) (Annular 環食)</option>
+<option  value="20311114">2031 November 14th (Fri) (Hybrid 全環食)</option>
+<option  value="20320509">2032 May 9th (Sun) (Annular 環食)</option>
+<option class = 'visible' value="20321103">2032 November 3rd (Wed) (Partial 偏食)</option>
+<option  value="20330330">2033 March 30th (Wed) (Total 全食)</option>
+<option  value="20330923">2033 September 23rd (Fri) (Partial 偏食)</option>
+<option  value="20340320">2034 March 20th (Mon) (Total 全食)</option>
+<option  value="20340912">2034 September 12th (Tue) (Annular 環食)</option>
+<option  value="20350309">2035 March 9th (Fri) (Annular 環食)</option>
+<option class = 'visible' value="20350902">2035 September 2nd (Sun) (Total 全食)</option>
+<option  value="20360227">2036 February 27th (Wed) (Partial 偏食)</option>
+<option  value="20360723">2036 July 23rd (Wed) (Partial 偏食)</option>
+<option  value="20360821">2036 August 21st (Thu) (Partial 偏食)</option>
+<option  value="20370116">2037 January 16th (Fri) (Partial 偏食)</option>
+<option  value="20370713">2037 July 13th (Mon) (Total 全食)</option>
+<option  value="20380105">2038 January 5th (Tue) (Annular 環食)</option>
+<option  value="20380702">2038 July 2nd (Fri) (Annular 環食)</option>
+<option  value="20381226">2038 December 26th (Sun) (Total 全食)</option>
+<option  value="20390621">2039 June 21st (Tue) (Annular 環食)</option>
+<option  value="20391215">2039 December 15th (Thu) (Total 全食)</option>
+<option  value="20400511">2040 May 11th (Fri) (Partial 偏食)</option>
+<option  value="20401104">2040 November 4th (Sun) (Partial 偏食)</option>
+<option  value="20410430">2041 April 30th (Tue) (Total 全食)</option>
+<option class = 'visible' value="20411025">2041 October 25th (Fri) (Annular 環食)</option>
+<option class = 'visible' value="20420420">2042 April 20th (Sun) (Total 全食)</option>
+<option class = 'visible' value="20421014">2042 October 14th (Tue) (Annular 環食)</option>
+<option  value="20430409">2043 April 9th (Thu) (Total 全食)</option>
+<option  value="20431003">2043 October 3rd (Sat) (Annular 環食)</option>
+<option  value="20440228">2044 February 28th (Sun) (Annular 環食)</option>
+<option  value="20440823">2044 August 23rd (Tue) (Total 全食)</option>
+<option  value="20450216">2045 February 16th (Thu) (Annular 環食)</option>
+<option  value="20450812">2045 August 12th (Sat) (Total 全食)</option>
+<option  value="20460205">2046 February 5th (Mon) (Annular 環食)</option>
+<option  value="20460802">2046 August 2nd (Thu) (Total 全食)</option>
+<option class = 'visible' value="20470126">2047 January 26th (Sat) (Partial 偏食)</option>
+<option  value="20470623">2047 June 23rd (Sun) (Partial 偏食)</option>
+<option  value="20470722">2047 July 22nd (Mon) (Partial 偏食)</option>
+<option  value="20471216">2047 December 16th (Mon) (Partial 偏食)</option>
+<option  value="20480611">2048 June 11th (Thu) (Annular 環食)</option>
+<option  value="20481205">2048 December 5th (Sat) (Total 全食)</option>
+<option  value="20490531">2049 May 31st (Mon) (Annular 環食)</option>
+<option class = 'visible' value="20491125">2049 November 25th (Thu) (Hybrid 全環食)</option>
+<option  value="20500520">2050 May 20th (Fri) (Hybrid 全環食)</option>
+<option  value="20501114">2050 November 14th (Mon) (Partial 偏食)</option>
+<option  value="20510411">2051 April 11th (Tue) (Partial 偏食)</option>
+<option  value="20511004">2051 October 4th (Wed) (Partial 偏食)</option>
+<option  value="20520330">2052 March 30th (Sat) (Total 全食)</option>
+<option  value="20520922">2052 September 22nd (Sun) (Annular 環食)</option>
+<option class = 'visible' value="20530320">2053 March 20th (Thu) (Annular 環食)</option>
+<option class = 'visible' value="20530912">2053 September 12th (Fri) (Total 全食)</option>
+<option  value="20540309">2054 March 9th (Mon) (Partial 偏食)</option>
+<option  value="20540803">2054 August 3rd (Mon) (Partial 偏食)</option>
+<option  value="20540902">2054 September 2nd (Wed) (Partial 偏食)</option>
+<option  value="20550127">2055 January 27th (Wed) (Partial 偏食)</option>
+<option  value="20550724">2055 July 24th (Sat) (Total 全食)</option>
+<option  value="20560116">2056 January 16th (Sun) (Annular 環食)</option>
+<option  value="20560712">2056 July 12th (Wed) (Annular 環食)</option>
+<option  value="20570105">2057 January 5th (Fri) (Total 全食)</option>
+<option class = 'visible' value="20570701">2057 July 1st (Sun) (Annular 環食)</option>
+<option  value="20571226">2057 December 26th (Wed) (Total 全食)</option>
+<option  value="20580522">2058 May 22nd (Wed) (Partial 偏食)</option>
+<option  value="20580621">2058 June 21st (Fri) (Partial 偏食)</option>
+<option  value="20581116">2058 November 16th (Sat) (Partial 偏食)</option>
+<option  value="20590511">2059 May 11th (Sun) (Total 全食)</option>
+<option class = 'visible' value="20591105">2059 November 5th (Wed) (Annular 環食)</option>
+<option  value="20600430">2060 April 30th (Fri) (Total 全食)</option>
+<option  value="20601024">2060 October 24th (Sun) (Annular 環食)</option>
+<option  value="20610420">2061 April 20th (Wed) (Total 全食)</option>
+<option  value="20611013">2061 October 13th (Thu) (Annular 環食)</option>
+<option  value="20620311">2062 March 11th (Sat) (Partial 偏食)</option>
+<option class = 'visible' value="20620903">2062 September 3rd (Sun) (Partial 偏食)</option>
+<option class = 'visible' value="20630228">2063 February 28th (Wed) (Annular 環食)</option>
+<option class = 'visible' value="20630824">2063 August 24th (Fri) (Total 全食)</option>
+<option class = 'visible' value="20640217">2064 February 17th (Sun) (Annular 環食)</option>
+<option  value="20640812">2064 August 12th (Tue) (Total 全食)</option>
+<option  value="20650205">2065 February 5th (Thu) (Partial 偏食)</option>
+<option  value="20650703">2065 July 3rd (Fri) (Partial 偏食)</option>
+<option  value="20650802">2065 August 2nd (Sun) (Partial 偏食)</option>
+<option  value="20651227">2065 December 27th (Sun) (Partial 偏食)</option>
+<option  value="20660622">2066 June 22nd (Tue) (Annular 環食)</option>
+<option  value="20661217">2066 December 17th (Fri) (Total 全食)</option>
+<option  value="20670611">2067 June 11th (Sat) (Annular 環食)</option>
+<option  value="20671206">2067 December 6th (Tue) (Hybrid 全環食)</option>
+<option  value="20680531">2068 May 31st (Thu) (Total 全食)</option>
+<option  value="20681124">2068 November 24th (Sat) (Partial 偏食)</option>
+<option  value="20690421">2069 April 21st (Sun) (Partial 偏食)</option>
+<option  value="20690520">2069 May 20th (Mon) (Partial 偏食)</option>
+<option  value="20691015">2069 October 15th (Tue) (Partial 偏食)</option>
+<option class = 'visible' value="20700411">2070 April 11th (Fri) (Total 全食)</option>
+<option  value="20701004">2070 October 4th (Sat) (Annular 環食)</option>
+<option  value="20710331">2071 March 31st (Tue) (Annular 環食)</option>
+<option  value="20710923">2071 September 23rd (Wed) (Total 全食)</option>
+<option  value="20720319">2072 March 19th (Sat) (Partial 偏食)</option>
+<option class = 'visible' value="20720912">2072 September 12th (Mon) (Total 全食)</option>
+<option class = 'visible' value="20730207">2073 February 7th (Tue) (Partial 偏食)</option>
+<option  value="20730803">2073 August 3rd (Thu) (Total 全食)</option>
+<option class = 'visible' value="20740127">2074 January 27th (Sat) (Annular 環食)</option>
+<option class = 'visible' value="20740724">2074 July 24th (Tue) (Annular 環食)</option>
+<option  value="20750116">2075 January 16th (Wed) (Total 全食)</option>
+<option class = 'visible' value="20750713">2075 July 13th (Sat) (Annular 環食)</option>
+<option  value="20760106">2076 January 6th (Mon) (Total 全食)</option>
+<option  value="20760601">2076 June 1st (Mon) (Partial 偏食)</option>
+<option  value="20760701">2076 July 1st (Wed) (Partial 偏食)</option>
+<option  value="20761126">2076 November 26th (Thu) (Partial 偏食)</option>
+<option  value="20770522">2077 May 22nd (Sat) (Total 全食)</option>
+<option  value="20771115">2077 November 15th (Mon) (Annular 環食)</option>
+<option  value="20780511">2078 May 11th (Wed) (Total 全食)</option>
+<option  value="20781104">2078 November 4th (Fri) (Annular 環食)</option>
+<option  value="20790501">2079 May 1st (Mon) (Total 全食)</option>
+<option  value="20791024">2079 October 24th (Tue) (Annular 環食)</option>
+<option  value="20800321">2080 March 21st (Thu) (Partial 偏食)</option>
+<option  value="20800913">2080 September 13th (Fri) (Partial 偏食)</option>
+<option  value="20810310">2081 March 10th (Mon) (Annular 環食)</option>
+<option class = 'visible' value="20810903">2081 September 3rd (Wed) (Total 全食)</option>
+<option  value="20820227">2082 February 27th (Fri) (Annular 環食)</option>
+<option class = 'visible' value="20820824">2082 August 24th (Mon) (Total 全食)</option>
+<option  value="20830216">2083 February 16th (Tue) (Partial 偏食)</option>
+<option  value="20830715">2083 July 15th (Thu) (Partial 偏食)</option>
+<option  value="20830813">2083 August 13th (Fri) (Partial 偏食)</option>
+<option  value="20840107">2084 January 7th (Fri) (Partial 偏食)</option>
+<option  value="20840703">2084 July 3rd (Mon) (Annular 環食)</option>
+<option  value="20841227">2084 December 27th (Wed) (Total 全食)</option>
+<option class = 'visible' value="20850622">2085 June 22nd (Fri) (Annular 環食)</option>
+<option  value="20851216">2085 December 16th (Sun) (Annular 環食)</option>
+<option  value="20860611">2086 June 11th (Tue) (Total 全食)</option>
+<option class = 'visible' value="20861206">2086 December 6th (Fri) (Partial 偏食)</option>
+<option  value="20870502">2087 May 2nd (Fri) (Partial 偏食)</option>
+<option  value="20870601">2087 June 1st (Sun) (Partial 偏食)</option>
+<option  value="20871026">2087 October 26th (Sun) (Partial 偏食)</option>
+<option  value="20880421">2088 April 21st (Wed) (Total 全食)</option>
+<option  value="20881014">2088 October 14th (Thu) (Annular 環食)</option>
+<option  value="20890410">2089 April 10th (Sun) (Annular 環食)</option>
+<option class = 'visible' value="20891004">2089 October 4th (Tue) (Total 全食)</option>
+<option  value="20900331">2090 March 31st (Fri) (Partial 偏食)</option>
+<option  value="20900923">2090 September 23rd (Sat) (Total 全食)</option>
+<option  value="20910218">2091 February 18th (Sun) (Partial 偏食)</option>
+<option  value="20910815">2091 August 15th (Wed) (Total 全食)</option>
+<option  value="20920207">2092 February 7th (Thu) (Annular 環食)</option>
+<option  value="20920803">2092 August 3rd (Sun) (Annular 環食)</option>
+<option  value="20930127">2093 January 27th (Tue) (Total 全食)</option>
+<option  value="20930723">2093 July 23rd (Thu) (Annular 環食)</option>
+<option  value="20940116">2094 January 16th (Sat) (Total 全食)</option>
+<option  value="20940613">2094 June 13th (Sun) (Partial 偏食)</option>
+<option  value="20940712">2094 July 12th (Mon) (Partial 偏食)</option>
+<option  value="20941207">2094 December 7th (Tue) (Partial 偏食)</option>
+<option  value="20950602">2095 June 2nd (Thu) (Total 全食)</option>
+<option class = 'visible' value="20951127">2095 November 27th (Sun) (Annular 環食)</option>
+<option class = 'visible' value="20960522">2096 May 22nd (Tue) (Total 全食)</option>
+<option class = 'visible' value="20961115">2096 November 15th (Thu) (Annular 環食)</option>
+<option  value="20970511">2097 May 11th (Sat) (Total 全食)</option>
+<option  value="20971104">2097 November 4th (Mon) (Annular 環食)</option>
+<option  value="20980401">2098 April 1st (Tue) (Partial 偏食)</option>
+<option  value="20980925">2098 September 25th (Thu) (Partial 偏食)</option>
+<option  value="20981024">2098 October 24th (Fri) (Partial 偏食)</option>
+<option  value="20990321">2099 March 21st (Sat) (Annular 環食)</option>
+<option  value="20990914">2099 September 14th (Mon) (Total 全食)</option>
+<option  value="21000310">2100 March 10th (Wed) (Annular 環食)</option>
+<option  value="21000904">2100 September 4th (Sat) (Total 全食)</option>
+</select>
+<br>
+<table width="98%" class="style12">
+  <tr>
+    <td width="19%" rowspan="3" valign="top">2. Please enter 請輸入 :<br>
+      (Please see notes below 請參閱下面 &quot;備註&quot; 一欄)</td>
+    <td colspan="2" valign="middle">Latitude 緯度 :
+      <input type="text" name="lat" id="lat" size ="8">
+       Longitude 經度 : 
+       <input type="text" name="longi" id="longi" size ="8">
+       <br></td>
+    <td valign="middle">[<a href="javascript:openChild('selectlocation.html','win2',1)">Select Location 選擇地點</a>] [<a href="javascript:openChild('latlongconversion.html','win3',2)">Unit Conversion 單位轉換</a>]</td>
+  </tr>
+  <tr>
+    <td colspan="2">Elevation (m) 海拔 (米) :      
+      <input type="text" name="height" id="height" size ="8"></td>
+    <td width="36%">[<a href="javascript:openChild('heightconversion.html','win4',3)">Unit Conversion 單位轉換</a>]</td>
+  </tr>
+  <tr>
+    <td width="30%">Time ahead of GMT 比格林尼治標準時間快 :      </td>
+    <td width="15%"><input type="text" name="tz" id="tz" size ="5">
+hours 小時</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+
+3. Daylight saving time on eclipse date? 於日食當天有沒有實行日光節約時間 ? 
+<input type="radio" name="dst" id="dst" value="0" checked>
+No 沒有 
+<input type="radio" name="dst" id="dst" value="1">
+Yes 有
+<br><br>
+<input type="button" name="submit" value="Submit 提交" onClick="subroutine()">
+</form>
+<span id="txtHint" class="style12">
+</span>
+
+<p class="style12">Notes 備註:</p>
+<ol>
+  <li class="style12">Positive and negative latitudes represent north and south of equator respectively, while positive and negative longitudes are for locations east and west of the prime meridian respectively. 正經/緯度表示東經和北緯，而負經/緯度則表示西經和南緯。</li>
+  <li class="style12">Please limit your elevation input to 50,000 or below, or otherwise accuracy of output cannot be guaranteed. 請限制高度至海拔 50,000 米或以下，否則計算結果未必準確。</li>
+  <li class="style12">For places behind GMT, please enter a negative time offset. Also note that the &quot;time zone&quot; input cell is for the standard time of your location; if daylight saving time is in force on eclipse date, click the &quot;yes&quot; radio button instead of manually adding 1 to the time zone offset. 如你所在地區的時間比格林尼治時間慢的話，請於時間差一格中輸入負數。如你的地區於日食當天正實行日光節約時間，請於 &quot;於日食當天有沒有實行日光節約時間 ?&quot; 一欄中剔選 &quot;有&quot;，而盡量不要於時間差一格中自行調整，以免造成混亂。</li>
+  <li class="style12">Please enable pop-up windows to use the &quot;select location&quot; and &quot;unit conversion&quot; utilities. 請解封彈出式視窗以使用 &quot;選擇地點&quot; 和 &quot;單位轉換&quot; 之功能。</li>
+  <li class="style12">(About the results) Do not confuse &quot;Magnitude&quot; and &quot;Obscuration&quot; - their definitions are given in our <a href="../eclipseglossary.html" target="_blank">eclipse glossary</a>. For total eclipses, the magnitude is defined as the ratio of lunar (angular) diameter to solar (angular) diameter. (關於所得結果) 請不要混淆 &quot;食分&quot; 和 &quot;覆蓋面積比&quot; - 可參閱我們的<a href="../eclipseglossary.html" target="_blank">日月食術語</a>頁以得知它們的定義。在日全食中，食分為月球的視直徑和太陽的視直徑之比例。</li>
+  <li class="style12">(About the results) &quot;Central&quot; phase refers to either total or annular phase.  (關於所得結果) &quot;中心食&quot; 指的是全食或環食。</li>
+  <li class="style12">&quot;Zenith Position Angle&quot; refers to the direction that the line from the centre of the Sun to the centre of the Moon points to, with respect to the zenith (i.e. the &quot;top&quot; of the solar disk for the observer. This direction is measured in an anticlockwise manner, just like that presented in a star map. The point of contact just at the start and the end of the total phase (NOT annular) is located at [Zenith Position Angle + 180 degrees], since the point of contact is in opposite direction to the line joining solar and lunar centres. &quot;天頂方位角&quot; 為由太陽中心畫出連接月球中心的直線所指的方向，其零度點為觀測者所望到的太陽的頂部。就像星圖那樣，這個角度是以逆時針方向量度的。在日全食剛開始和結束的一刻，太陽與月球圓盤的內切點為 [天頂方位角 + 180度]；這是因為 &quot;由太陽中心畫出連接月球中心的直線&quot; 正好指向內切點的對面。</li>
+  <li class="style12">In common usage, UTC is roughly the same as GMT. 在一般普通用法，UTC 和 GMT 大致相等。</li>
+  </ol>
+<p><span class="style12">References 參考資料:</span></p>
+<ol>
+  <li class="style12"><em>Astronomical Algorithms </em> by Jean Meeus;</li>
+  <li class="style12">Eclipse Predictions by Fred Espenak, NASA's GSFC (<a href="http://eclipse.gsfc.nasa.gov/solar.html" target="_blank">http://eclipse.gsfc.nasa.gov/solar.html</a>);</li>
+  <li class="style12"><em>The Astronomical Almanac for the Year 2007</em> by Nautical Almanac Office, United States Naval Observatory &amp; Her Majesty's Nautical Almanac Office, Royal Greenwich Observatory;</li>
+  <li class="style12"><em>Javascript Eclipse Calculator V3.3</em> by Chris O'Byrne and Stephen McCann (<a href="http://www.chris.obyrne.com/Eclipses/calculator.html" target="_blank">http://www.chris.obyrne.com/Eclipses/calculator.html</a>);</li>
+  <li class="style12"><em>Explanatory Supplement to the Astronomical Almanac</em> by P. Kenneth Seidelmann.</li>
+  </ol>
+<table width="90%" border="0">
+  <tr>
+    <td bgcolor="#FFCC33"><strong><img src="/weather/tri.gif"><span class="style1">Revision History 更新歷程</span></strong></td>
+  </tr>
+</table>
+<ul>
+  <li><span class="style12">2019/05/18: Added a link to NASA maps for the viewing of global circumstances of the selected eclipse. 加入美國太空總署圖片連結以顯示所選日食之全球狀況</span></li>
+  <li><span class="style12">2012/05/20: Corrected DST adjustment problem and wording in figures. 修正日光節約時間問題及圖像字眼</span></li>
+  <li><span class="style12">2009/07/09: Trial version of the eclipse calculator added. 日食計算機試驗版開始使用</span></li>
+</ul>
+<head>
+<style type="text/css">
+<!--
+.styledate {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: normal;
+}
+-->
+</style>
+</head>
+
+
+<p class="styledate">Last Accessed 最近訪問日期: Wed Jun 09 2021 16:28:52 HKT<br />
+Last Modified 最近修訂日期: Sat May 18 2019</p>
+
+<!-- Begin of Hotrank Counter - DO NOT MODIFY -->
+ <SCRIPT LANGUAGE="JavaScript"
+SRC="http://h02.hotrank.com.tw/hotrank.js?myid=h02-61932"></SCRIPT><!--
+---- End of Hotrank Counter - DO NOT MODIFY --><a target="_blank"
+href="http://ph02.hotrank.com.tw/reg/rp?myid=h02-61932"><IMG BORDER="0"
+SRC="http://pic.hotrank.com.tw/images/report.gif" ALT="觀看訪客統計報表 Web Traffic Statistics"></a><br>    <br>
+
+<!-- Start of StatCounter Code -->
+<br />
+<table align="center">
+  <tr align="center">
+    <td><script type="text/javascript">
+var sc_project=2739915; 
+var sc_invisible=0; 
+var sc_partition=27; 
+var sc_security="79dbc3c0"; 
+</script>
+      <script type="text/javascript" src="http://www.statcounter.com/counter/counter_xhtml.js"></script>
+        <noscript>
+        <div align="center"><a href="http://www.statcounter.com/"><img src="http://c28.statcounter.com/2739915/0/79dbc3c0/0/" alt="free hit counter" /></a></div>
+      </noscript>
+        <!-- End of StatCounter Code -->
+      <br><a href="http://my.statcounter.com/project/standard/stats.php?project_id=2739915&guest=1" target="_blank">Statistics</font></a></td>
+  </tr>
+</table>
+    <!-- Histats.com  START  --> 
+    <script  type="text/javascript" language="javascript"> 
+ var s_sid = 146094;var st_dominio = 4; 
+ var cimg = 0;var cwi =150;var che =30; 
+      </script> 
+    <script  type="text/javascript" language="javascript" src="http://s10.histats.com/js9.js"></script> 
+      <noscript>
+      <a href="http://www.histats.com" target="_blank"> 
+      <img  src="http://s4.histats.com/stats/0.gif?146094&1" alt="unique visitors counter" border="0"></a> 
+      </noscript> 
+      <!-- Histats.com  END  --> 
+    
+    <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+        </script>
+    <script type="text/javascript">
+_uacct = "UA-352618-5";
+urchinTracker();
+      </script>
+    
+  </div>
+</div>
+</body>
+</html>
