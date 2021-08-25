@@ -7,30 +7,24 @@
 <body>
 
 <style>
-	#txt{
-	width: 100%;
-	margin: 100px;
-	font-size: 100px;
-	text-align: center;
+#txt{
+	font-size: 5em;
+	word-wrap: break-word;
 	}
 
-a: visited{
-	color: deepskyblue;
-}
-a: link{
-	color: red;
+a{
+	color: darkred;
 }
 
-h2{
-	font-size: 45px;
+a:hover{
+	color: crimson;
+	background-color: white;
+}
+
+html{
+	background-color: #FF033E;
 	text-align: center;
-}
-
-
-
-html{background-color: #FF033E;
-	text-align: center;
-	padding: 200px;
+	padding-top: 250px;
 	color: #FFFFFF;
 	font-family: 'kumbh sans', serif;
 }
@@ -56,34 +50,20 @@ function startTime() {
  n = checkTime(n);
 
 
- document.getElementById('txt').innerHTML =
-d +"/"+ n +"/"+ y +"&nbsp" + h + ":" + m + ":"  + s ;
+ document.getElementById('txt').innerHTML =d +"/"+ n +"/"+ y +"&nbsp" + h + ":" + m + ":"  + s ;
  var t = setTimeout(startTime, 500);
 }
 function checkTime(i) {
  if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
  return i;
-
-
-
-
-
-
 }
+
 </script>
 </head>
 
 <body onload="startTime()">
-
 <div id="txt"></div>
-
-
- 
-
-
-
-
-
-***HK TIME (GMT+08)<a href="https://www.timeanddate.com/time/map/">Click Me To Know More About Time Zone</a>***
+<p>***HK TIME (GMT+08) <a href="https://www.timeanddate.com/time/map/">Click Me To Know More About Time Zone</a> ***</p>
 </body>
+
 </html>
