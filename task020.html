@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>Random number</title>
+	<link rel="icon" href="Images/1f381.png" type="mightyeagle/png" sizes="32x32">
+	<link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans&display=swap" rel="stylesheet">
+</head>
+<body>
+<style>
+	html{
+	background-color:#D6021D;
+	text-align: center;
+	padding: 200px;
+	color: #FFFFFF;
+	font-family: 'serfi', serif;
+	font-size: 50px;
+}
+
+button{
+	background-color:#D6021D;
+	font-family: 'serif', serif;
+	text-decoration: none;
+	display: inline-block;
+	border: none;
+	border-radius: 10px;
+	padding:25px;
+	color:#FFFFFF;
+	font-size: 25px;
+	outline: none;
+
+}
+
+button:hover{
+	background-color:#D6021D;
+	color:white;
+	
+
+}
+
+</style>
+
+
+
+<p>Random number(1-250)</p>
+
+<button onclick="myFunction()">click here to get a random number</button>
+
+<p id="demo"></p>
+
+<script>
+function myFunction(){
+	document.getElementById("demo").innerHTML=Math.floor(Math.random()*250)
+}
+
+</script>
+</body>
+</html>
