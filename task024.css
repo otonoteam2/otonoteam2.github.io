@@ -1,81 +1,48 @@
-displayHours = hours;
-}
-
-//Display updated time values to user
-document.getElementById("display").innerHTML =Math.floor(Math.random()*100);
-}
-
-
-
-
-function startStop(){
-
-if(status === "stopped"){
-
-//Start the stopwatch (by calling the setInterval() function)
-interval = window.setInterval(stopWatch, 0);
-document.getElementById("startStop").innerHTML = "停止抽獎";
-status = "started";
-
-}
-else{
-
-window.clearInterval(interval);
-document.getElementById("startStop").innerHTML = "重新抽獎";
-status = "stopped";
-
-}
-
-}
 container{
-height: 300px;
-width: 100%;
+    height: 300px;
+    width: 100%;
 }
 
 #display{
-width: 100%;
-font-size: 72px;
-text-align: center;
-margin: 0px auto;
-color: white;
+    width: 100%;
+    font-size: 72px;
+    text-align: center;
+    margin: 0px auto;
+    color: white;
 }
 
 .buttons{
-text-align: center
-;
+    text-align: center
+    ;
 
 }
 
 .html{
-text-align: center;
-
+	text-align: center;
+	
 }
 button{
-text-decoration: none;
-font-family: 'Kumbh Sans', sans-serif;
-display: inline-block;
-border: none;
-border-radius: 3px;
-padding:200px;
-color:#6500A7;
-font-size: 20px;
-width: 100px;
-height: 50px;
-outline: none;
-background-color: #00FFD3;
+	text-decoration: none;
+	font-family: 'Kumbh Sans', sans-serif;
+	display: inline-block;
+	border: none;
+	border-radius: 3px;
+	padding:200px;
+	color:#6500A7;
+	font-size: 20px;
+	width: 100px;
+	height: 50px;
+	outline: none;
+	background-color: red;
 }
 
 html{
-text-align: center;
-background-color: #33CAFF;
-padding: 200px;
+	text-align: center;
+	background-color: hotpink;
+	padding: 200px;
 }
 
 button:hover{
-background-color: pink
+	background-color: pink
 
 }
-
-
-
-
