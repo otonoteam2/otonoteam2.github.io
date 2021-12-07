@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html id="myDiv">
+<head>
+	<title>Have you press...</title>
+	<link rel="icon" href="Images/KEYBOARD.png" type="image/png" sizes="32x32">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">\
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<body><meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		
+			p{
+			font-family: 'Poppins', sans-serif;
+			font-size: 50px;
+		}
+
+		html{
+			padding-top: 200px;
+			text-align: center;
+			background-color: #FFCAD9;
+		}
+	</style>
+
+<p>キーボードの「A-K」を押してみてください</p>
+
+<input type="text" size="40" onkeydown="myFunction(event)">
+
+<script>
+function myFunction(event) {
+ var x = event.key;
+
+ // If the pressed keyboard button is "a" or "A" (using caps lock or shift), alert some text.
+ if (x == "a" || x == "あ") {
+    document.getElementById("myDiv").style.backgroundColor = "red";
+ }
+ if (x == "b" || x == "い") {
+   document.getElementById("myDiv").style.backgroundColor = "Indigo";
+ }
+ if (x == "c" || x == "う") {
+    document.getElementById("myDiv").style.backgroundColor = "Yellow"; 
+ }
+ if (x == "d" || x == "え") {
+    document.getElementById("myDiv").style.backgroundColor = "Silver";
+ }
+ if (x == "e" || x == "お") {
+   document.getElementById("myDiv").style.backgroundColor = "Orange" 
+ }
+ if (x == "f" || x == "は") {
+   alert ("HaHa");
+ }
+
+ if (x == "g" || x == "す") {
+     document.getElementById("myDiv").style.backgroundColor = "purple";
+    setTimeout(myFunction , 0);
+    function myFunction() {
+ alert('すなみ！');
+}
+
+ }
+ if (x == "h" || x == "な") {
+ setTimeout(myFunction , 0);
+    function myFunction() {
+ alert('すなみ！');
+}
+   document.getElementById("myDiv").style.backgroundColor = "lightpink";
+ }
+ if (x == "i" || x == "み") {
+    document.body.style.backgroundColor = "red";
+ }
+ if (x == "j" || x == "わ") {
+   alert ("水曜日");
+ }
+ if (x == "k" || x == "か") {
+   alert ("火曜日");
+ }
+ 
+
+}
+
+</script>
+
+</body>
+</html>
