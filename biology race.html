@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Otono Biology - Cell Biology</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto Slab', serif;
+            text-align: center;
+        }
+        ol{text-align: left;
+            display: inline-block;
+
+        }
+        li{
+            padding: 5px;
+            font-size: 20px;
+        }
+
+        #timer {
+            font-size: 2rem;
+            font-weight: bold;
+            color: red;
+        }
+        input {
+            border-radius: 100px;
+            padding: 5px;
+            background-color: yellow;
+        }
+        table {
+            margin: auto;
+            border-collapse: collapse;
+            width: 50%;
+        }
+        td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        /* Purple Start Button */
+        #startButton {
+            background-color: purple;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #resetButton {
+            background-color: red;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Otono Biology - Cell Biology</h1>
+<p>Answer in lower case :)</p>
+<p>Purple is correct and red is wrong</p>
+
+<!-- **Table is back!** -->
+<table>
+    <tr>
+        <td>not true nucleus</td>
+        <td>flagella</td>
+        <td>lysosomes</td>
+    </tr>
+    <tr>
+        <td>ribosomes</td>
+        <td>plant</td>
+        <td>vacuole</td>
+    </tr>
+    <tr>
+        <td>plasma membrane</td>
+        <td>eukaryotic</td>
+        <td>smaller</td>
+    </tr>
+        <tr>
+        <td>cytoplasm</td>
+        <td>operons</td>
+        <td>centrioles</td>
+    </tr>
+    <tr>
+        <td>golgi apparatus</td>
+        <td>nucleoid</td>
+        <td>transcription factors</td>
+    </tr>
+    <tr>
+        <td>plasma membrane</td>
+        <td>eukaryotic</td>
+        <td>smaller</td>
+    </tr>
+</table>
+
+<h2>Time Left: <span id="timer">399</span> seconds</h2>
+
+<!-- Start & Reset Buttons -->
+<button id="startButton" onclick="startTimer()">Start</button>
+<button id="resetButton" onclick="resetQuiz()" disabled>Reset</button>
+
+<!-- FORM START -->
+<form id="quizForm" onsubmit="return false;">
+    <ol>
+        <li> Prokaryotic cells have <input id="myText" type="text" disabled></li>
+        <li> The Prokaryotic cells are generally <input id="myText2" type="text" disabled></li>
+        <li> Prokaryotic cells have smaller <input id="myText3" type="text" disabled></li>
+        <li><input id="myText4" type="text" disabled> Mitochondria are present in <input id="myText4b" type="text" disabled> cells </li>
+        <li> Chloroplasts are found in <input id="myText5" type="text" disabled> cells</li>
+        <li> Some prokaryotic cells have <input id="myText6" type="text" disabled> for movement.</li>
+        <li> Both prokaryotic and eukaryotic cells have a <input id="myText7" type="text" disabled></li>
+        <li><input id="myText8" type="text" disabled> are membrane-bound organelles containing enzymes that digest worn-out cell parts or foreign substances</li>
+        <li> Plant cells often have a large <input id="myText9" type="text" disabled> for storing water, nutrients, and waste</li>
+        <li> Prokaryotic cells regulate gene expression using <input id="myText10" type="text" disabled> </li>
+        <li> Ribosomes in eukaryotic cells are found either free in the <input id="myText11" type="text" disabled> </li>
+        <li> The <input id="myText12" type="text" disabled> modifies, sorts, and packages proteins and lipids for storage or transport out of the cell. </li>
+        <li> Eukaryotic animal cells have <input id="myText13" type="text" disabled> that are involved in cell division.</li>
+        <li> In prokaryotic cells, DNA is found in the <input id="myText14" type="text" disabled> region of the cell. </li>
+        <li> eukaryotic cells regulate gene expression through more complex mechanisms involving <input id="myText15" type="text" disabled>. </li>
+
+
+        <br>
+        <input type="submit" onclick="myFunction()" value="Submit" disabled id="submitButton">
+    </ol>
+</form>
+<!-- FORM END -->
+
+<script>
+    let timeLeft = 399; // Timer in seconds
+    let timerActive = false;
+    let timerInterval;
+
+    function startTimer() {
+        if (!timerActive) {
+            timerActive = true;
+            document.getElementById('startButton').disabled = true;
+            document.getElementById('resetButton').disabled = false;
+            enableInputs(true);
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+    }
+
+    function updateTimer() {
+        document.getElementById('timer').textContent = timeLeft;
+
+        if (timeLeft > 0) {
+            timeLeft--;
+        } else {
+            clearInterval(timerInterval);
+            alert("Time's up! Auto-submitting your answers...");
+            document.getElementById('quizForm').submit();
+        }
+    }
+
+    function resetQuiz() {
+        clearInterval(timerInterval);
+        timeLeft = 399;
+        document.getElementById('timer').textContent = timeLeft;
+        timerActive = false;
+        document.getElementById('startButton').disabled = false;
+        document.getElementById('resetButton').disabled = true;
+        enableInputs(false);
+        document.getElementById('quizForm').reset();
+    }
+
+    function enableInputs(enabled) {
+        let inputs = document.querySelectorAll("input[type='text']");
+        inputs.forEach(input => {
+            input.disabled = !enabled;
+            input.style.backgroundColor = enabled ? "yellow" : "#ddd";
+        });
+        document.getElementById('submitButton').disabled = !enabled;
+    }
+
+    function myFunction() {
+        validateAnswer("myText", "not true nucleus");
+        validateAnswer("myText2", "smaller");
+        validateAnswer("myText3", "ribosomes");
+        validateAnswer("myText4", "eukaryotic");
+        validateAnswer("myText4b", "eukaryotic");
+        validateAnswer("myText5", "plant");
+        validateAnswer("myText6", "flagella");
+        validateAnswer("myText7", "plasma membrane");
+        validateAnswer("myText8", "lysosomes");
+        validateAnswer("myText9", "vacuole");
+        validateAnswer("myText10", "operons");
+        validateAnswer("myText11", "cytoplasm");
+        validateAnswer("myText12", "golgi apparatus");
+        validateAnswer("myText13", "centrioles");
+        validateAnswer("myText14", "nucleoid");
+        validateAnswer("myText15", "transcription factors");
+    }
+
+    function validateAnswer(inputId, correctAnswer) {
+        let inputField = document.getElementById(inputId);
+        if (inputField.value.trim() === correctAnswer) {
+            inputField.style.backgroundColor = "indigo"; // Fixed correct answer color
+        } else {
+            inputField.style.backgroundColor = "red";
+        }
+    }
+</script>
+
+<!-- Anti-Source Code Protection -->
+<script>
+const disabledKeys = ["u", "I"];
+const showAlert = e => {
+    e.preventDefault();
+    return alert("Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!");
+};
+document.addEventListener("contextmenu", e => { showAlert(e); });
+document.addEventListener("keydown", e => {
+    if ((e.ctrlKey && disabledKeys.includes(e.key)) || e.key === "F12") {
+        showAlert(e);
+    }
+});
+</script>
+
+</body>
+</html>
