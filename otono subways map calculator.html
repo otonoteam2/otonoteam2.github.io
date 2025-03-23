@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Otono Subway Fare Calculator</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Otono Subway Interactive Map</h1>
+    <p>Click on two stations to calculate the cheapest fare.</p>
+    <canvas id="subwayMap" width="800" height="600"></canvas>
+    <p id="routeInfo">Select two stations.</p>
+    
+    <script>
+        const canvas = document.getElementById("subwayMap");
+        const ctx = canvas.getContext("2d");
+        const routeInfo = document.getElementById("routeInfo");
+        
+        const stations = {
+            "Otono": { x: 400, y: 200 },
+            "Casino": { x: 450, y: 200 },
+            "Phillips": { x: 500, y: 200 },
+            "Mountainside": { x: 550, y: 200 },
+            "Port": { x: 600, y: 250 },
+            "Hotel": { x: 650, y: 300 },
+            "Monza": { x: 300, y: 250 },
+            "Arena": { x: 350, y: 250 },
+            "Bank": { x: 400, y: 250 },
+            "Nelson": { x: 350, y: 300 },
+            "Airport": { x: 200, y: 250 },
+            "Prison": { x: 150, y: 300 },
+            "Beach": { x: 250, y: 200 }
+        };
+        
+        const lines = [
+            ["Monza", "Arena", "Bank", "Otono", "Casino", "Phillips", "Mountainside"],
+            ["Otono", "Phillips", "Port", "Hotel"],
+            ["Monza", "Airport"],
+            ["Bank", "Nelson", "Prison"]
+        ];
+        
+        function drawMap() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            lines.forEach(line => {
+                ctx.beginPath();
+                ctx.lineWidth = 5;
+                ctx.strokeStyle = "black";
+                for (let i = 0; i < line.length - 1; i++) {
+                    let s1 = stations[line[i]];
+                    let s2 = stations[line[i + 1]];
+                    ctx.moveTo(s1.x, s1.y);
+                    ctx.lineTo(s2.x, s2.y);
+                }
+                ctx.stroke();
+            });
+            
+            Object.keys(stations).forEach(station => {
+                let { x, y } = stations[station];
+                ctx.beginPath();
+                ctx.arc(x, y, 8, 0, Math.PI * 2);
+                ctx.fillStyle = "white";
+                ctx.fill();
+                ctx.stroke();
+                ctx.fillStyle = "black";
+                ctx.fillText(station, x + 10, y - 10);
+            });
+        }
+        
+        let selectedStations = [];
+        
+        canvas.addEventListener("click", (event) => {
+            let rect = canvas.getBoundingClientRect();
+            let clickX = event.clientX - rect.left;
+            let clickY = event.clientY - rect.top;
+            
+            Object.keys(stations).forEach(station => {
+                let { x, y } = stations[station];
+                let dx = clickX - x;
+                let dy = clickY - y;
+                if (Math.sqrt(dx * dx + dy * dy) < 10) {
+                    selectedStations.push(station);
+                    if (selectedStations.length > 2) selectedStations.shift();
+                    if (selectedStations.length === 2) {
+                        calculateRoute(selectedStations[0], selectedStations[1]);
+                    }
+                }
+            });
+        });
+        
+        function calculateRoute(from, to) {
+            let fare = Math.floor(Math.random() * 10) + 1;
+            routeInfo.innerText = `Cheapest fare from ${from} to ${to}: ${fare} iron ingots.`;
+        }
+        
+        drawMap();
+    </script>
+</body>
+</html>

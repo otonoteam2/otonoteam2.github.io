@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Otono Subways Fare Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .station {
+            font-weight: bold;
+            padding: 5px;
+        }
+        .castle { color: red; }
+        .wyatt { color: orange; }
+        .circle { color: yellow; }
+        .ligne-verte { color: green; }
+        .monza { color: blue; }
+        .central { color: purple; }
+    </style>
+</head>
+<body>
+    <h1>Otono Subways Fare Calculator</h1>
+    <label for="from">From:</label>
+    <select id="from"></select>
+    <label for="to">To:</label>
+    <select id="to"></select>
+    <button onclick="calculateFare()">Calculate Fare</button>
+    <p id="result"></p>
+    <p id="route"></p>
+    <img src="Images/subwaysmap.png" alt="Otono Subways"height="150">
+
+    <script>
+        const stations = [
+            "Tardis", "Castle", "Otono", "Wyatt", "Monza", "School", "Bridge", "Jurassic", "Temple", "Lowe", "Angus", "Drummond", "Mansion", "Joshua", "Darcy", "Wickland", "Barley", "Mountbatten", "Airport", "Casino", "Nelson", "Bank", "Bath", "Daso", "Central", "Hotel", "Port", "Cruise", "Mountainside", "Station", "Glucose", "Sainsbury's", "Beach", "Andy", "Arena", "Monaco", "Ikea", "Phillips", "Prison", "Village", "Devlin"
+        ];
+
+        const fares = {
+        
+       "Otono": { 
+        "Casino": 2,        // Circle Line
+        "Andy": 5,          // Circle Line
+        "School": 2,        // Monza Line
+        "Bank": 2,          // Monza Line
+        "Castle": 2,        // Castle Line
+        "Village": 3,       // Central Line
+        "Bath": 1           // Central Line
+    },
+    "Casino": { "Otono": 2, "Phillips": 2, "School": 2 }, //circle line
+    "Phillips": { "Casino": 2, "Mountainside": 3 },
+    "Mountainside": { "Phillips": 3, "Port": 3, "Central": 3 },
+    "Port": { "Mountainside": 3, "Cruise": 3, "Hotel": 2 },
+    "Cruise": { "Port": 3, "Bridge": 3 },
+    "Bridge": { "Cruise": 3, "School": 3, "Jurassic": 6, "Wickland": 1 },
+    "School": { "Bridge": 3, "Prison": 3, "Casino": 2, "Otono": 2 },
+    "Prison": { "School": 3, "Airport": 3 },
+    "Airport": { "Prison": 3, "Glucose": 3, "Monza": 8 },
+    "Glucose": { "Airport": 3, "Sainsbury's": 3 },
+    "Sainsbury's": { "Glucose": 3, "Beach": 3 },
+    "Beach": { "Sainsbury's": 3, "Andy": 3 },
+    "Andy": { "Beach": 3, "Otono": 5 },
+    "Ikea": { "Monaco": 3 }, //monza line
+    "Monaco": { "Ikea": 3, "Wickland": 6 },
+    "Wickland": { "Monaco": 6, "Bridge": 1 },
+    "Bank": { "Otono": 2, "Arena": 4 },
+    "Arena": { "Bank": 4, "Monza": 2 },
+    "Monza": { "Arena": 2, "Airport": 8 },
+    "Tardis": { "Castle": 3 }, //castle line
+    "Castle": { "Tardis": 3, "Otono": 2 },
+    "Jurassic": { "Bridge": 6, "Drummond": 3 },
+    "Drummond": { "Jurassic": 3, "Wyatt": 3 },
+    "Wyatt": { "Drummond": 3, "Temple": 2 },
+    "Temple": { "Wyatt": 2 },
+    "Village": { "Otono": 3 }, //central line
+    "Bath": { "Otono": 1, "Daso": 1 },
+    "Daso": { "Bath": 1, "Central": 2 },
+    "Central": { "Daso": 2, "Mountainside": 1, "Hotel": 2 },
+    "Hotel": { "Central": 2, "Port": 2 },
+    "Station": { "Mountainside": 8 },
+    "Mountainside": { "Station": 8, "Mansion": 9 },  
+    "Mansion": { "Mountainside": 9, "Monza": 3 },  
+    "Monza": { "Mansion": 3, "Nelson": 2 },  
+    "Nelson": { "Monza": 2, "Bank": 2 },  
+    "Bank": { "Nelson": 2 },
+};
+
+        
+
+        function populateDropdowns() {
+            const fromSelect = document.getElementById("from");
+            const toSelect = document.getElementById("to");
+            stations.forEach(station => {
+                let option1 = new Option(station, station);
+                let option2 = new Option(station, station);
+                fromSelect.add(option1);
+                toSelect.add(option2);
+            });
+        }
+        console.log(fares);
+
+        function findCheapestRoute(start, end) {
+            let costs = {};
+            let previous = {};
+            let unvisited = new Set(stations);
+            stations.forEach(station => costs[station] = Infinity);
+            costs[start] = 0;
+            
+            while (unvisited.size > 0) {
+                let current = [...unvisited].reduce((a, b) => costs[a] < costs[b] ? a : b);
+                unvisited.delete(current);
+                if (current === end) break;
+                
+                for (let neighbor in fares[current]) {
+                    if (!unvisited.has(neighbor)) continue;
+                    let newCost = costs[current] + fares[current][neighbor];
+                    if (newCost < costs[neighbor]) {
+                        costs[neighbor] = newCost;
+                        previous[neighbor] = current;
+                    }
+                }
+            }
+            
+            if (costs[end] === Infinity) return { cost: -1, path: [] };
+            let path = [];
+            for (let at = end; at; at = previous[at]) path.push(at);
+            return { cost: costs[end], path: path.reverse() };
+        }
+
+        function calculateFare() {
+            let from = document.getElementById("from").value;
+            let to = document.getElementById("to").value;
+            let result = findCheapestRoute(from, to);
+            
+            if (result.cost === -1) {
+                document.getElementById("result").textContent = "No route available!";
+                document.getElementById("route").textContent = "";
+            } else {
+                document.getElementById("result").textContent = `Fare: ${result.cost} iron ingots.`;
+                document.getElementById("route").textContent = `Route: ${result.path.join(" → ")}`;
+            }
+        }
+
+        window.onload = populateDropdowns;
+    </script>
+</body>
+</html>
