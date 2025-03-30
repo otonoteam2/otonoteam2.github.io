@@ -97,9 +97,14 @@
         <td>transcription factors</td>
     </tr>
     <tr>
-        <td>plasma membrane</td>
-        <td>eukaryotic</td>
-        <td>smaller</td>
+        <td>compartmentalized</td>
+        <td>plasmids</td>
+        <td>cytoplasm</td>
+    </tr>
+    <tr>
+        <td>circular</td>
+        <td>transcription factors</td>
+        <td></td>
     </tr>
 </table>
 
@@ -203,17 +208,17 @@
         validateAnswer("myText13", "centrioles");
         validateAnswer("myText14", "nucleoid");
         validateAnswer("myText15", "transcription factors");
-        validateAnswer("MyText16", "compartmentalized");
-        validateAnswer("MyText17", "plasmids")
-        validateAnswer("MyText18", "cytoplasm")
-        validateAnswer("MyText19", "circular")
-        validateAnswer("MyText20", "transcription factors")
+        validateAnswer("myText16", "compartmentalized");
+        validateAnswer("myText17", "plasmids");
+        validateAnswer("myText18", "cytoplasm");
+        validateAnswer("myText19", "circular");
+        validateAnswer("myText20", "transcription factors");
     }
 
     function validateAnswer(inputId, correctAnswer) {
         let inputField = document.getElementById(inputId);
         if (inputField.value.trim() === correctAnswer) {
-            inputField.style.backgroundColor = "indigo"; // Fixed correct answer color
+            inputField.style.backgroundColor = "purple"; // Fixed correct answer color
         } else {
             inputField.style.backgroundColor = "red";
         }
