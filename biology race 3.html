@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Otono Biology - Specialized Cells</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto Slab', serif;
+            text-align: center;
+        }
+        ol{text-align: left;
+            display: inline-block;
+
+        }
+        li{
+            padding: 5px;
+            font-size: 20px;
+        }
+
+        #timer {
+            font-size: 2rem;
+            font-weight: bold;
+            color: red;
+        }
+        input {
+            border-radius: 100px;
+            padding: 5px;
+            background-color: yellow;
+        }
+        table {
+            margin: auto;
+            border-collapse: collapse;
+            width: 50%;
+        }
+        td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        /* Purple Start Button */
+        #startButton {
+            background-color: purple;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #resetButton {
+            background-color: red;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Otono Biology - Specialized Cells</h1>
+<p>Answer in lower case :)</p>
+<p>Purple is correct and red is wrong</p>
+
+<!-- **Table is back!** -->
+<table>
+    <tr>
+        <td>red blood cells</td>
+        <td>nucleus</td>
+        <td>hemoglobin</td>
+    </tr>
+    <tr>
+        <td>nerve cells</td>
+        <td>axons</td>
+        <td>myelin sheath</td>
+    </tr>
+    <tr>
+        <td>root hair cells</td>
+        <td>elongated shape</td>
+        <td>chloroplasts</td>
+    </tr>
+        <tr>
+        <td>ciliated epithelial cells</td>
+        <td>cilia</td>
+        <td>microvilli</td>
+    </tr>
+    <tr>
+        <td>xylem cells</td>
+        <td>lignin</td>
+        <td>organelles</td>
+    </tr>
+    <tr>
+        <td>phloem</td>
+        <td>energy</td>
+        <td>white blood cells</td>
+    </tr>
+    <tr>
+        <td>phagocytes</td>
+        <td>Drummond</td>
+        <td>Drummond</td>
+    </tr>
+</table>
+
+<h2>Time Left: <span id="timer">359</span> seconds</h2>
+
+<!-- Start & Reset Buttons -->
+<button id="startButton" onclick="startTimer()">Start</button>
+<button id="resetButton" onclick="resetQuiz()" disabled>Reset</button>
+
+<!-- FORM START -->
+<form id="quizForm" onsubmit="return false;">
+    <ol>
+        <li><input id="myText" type="text" disabled> are specialized cells that transport oxygen in the blood.</li>
+        <li>Red blood cells lack a <input id="myText2" type="text" disabled> to maximize space for hemoglobin.</li>
+        <li>The protein <input id="myText3" type="text" disabled> in red blood cells binds to oxygen for transport.</li>
+        <li><input id="myText4" type="text" disabled> are specialized cells that transmit electrical impulses in the nervous system. </li>
+        <li> Nerve cells have long extensions called <input id="myText5" type="text" disabled> that help transmit signals over long distances.</li>
+        <li> The insulating layer around the axon that speeds up nerve impulses is called the <input id="myText6" type="text" disabled> </li>
+        <li><input id="myText7" type="text" disabled> cells are found in plant roots and are adapted for absorbing water and minerals. </li>
+        <li> Root hair cells have a large surface area due to their <input id="myText8" type="text" disabled>, which helps them absorb water more efficiently. </li>
+        <li> Unlike most plant cells, root hair cells do not contain <input id="myText9" type="text" disabled> because they do not carry out photosynthesis.  </li>
+        <li><input id="myText10" type="text" disabled> cells are responsible for moving mucus and trapped particles out of the airways. </li>
+        <li> The hair-like structures on ciliated epithelial cells that help move mucus are called <input id="myText11" type="text" disabled></li>
+        <li> The finger-like projections on villi cells that increase the surface area for absorption are called <input id="myText12" type="text" disabled> </li>
+        <li> <input id="myText13" type="text" disabled> cells in plants transport water from the roots to the leaves. </li>
+        <li> Xylem cells are strengthened by a substance called <input id="myText14" type="text" disabled> to prevent collapse. </li>
+        <li> Unlike most plant cells, mature xylem cells do not contain <input id="myText15" type="text" disabled> to allow free flow of water.</li>
+        <li> <input id="myText16" type="text" disabled> cells transport sugars and nutrients in plants.</li>
+        <li> Phloem cells contain companion cells that provide them with <input id="myText17" type="text" disabled> for transport.</li>
+        <li> <input id="myText18" type="text" disabled> are specialized cells in the immune system that help fight infections.</li>
+        <li> Some white blood cells called <input id="myText19" type="text" disabled> can engulf and digest harmful bacteria.</li>
+
+
+        <br>
+        <input type="submit" onclick="myFunction()" value="Submit" disabled id="submitButton">
+    </ol>
+</form>
+<!-- FORM END -->
+
+<script>
+    let timeLeft = 359; // Timer in seconds
+    let timerActive = false;
+    let timerInterval;
+
+    function startTimer() {
+        if (!timerActive) {
+            timerActive = true;
+            document.getElementById('startButton').disabled = true;
+            document.getElementById('resetButton').disabled = false;
+            enableInputs(true);
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+    }
+
+    function updateTimer() {
+        document.getElementById('timer').textContent = timeLeft;
+
+        if (timeLeft > 0) {
+            timeLeft--;
+        } else {
+            clearInterval(timerInterval);
+            alert("Time's up! Auto-submitting your answers...");
+            document.getElementById('quizForm').submit();
+        }
+    }
+
+    function resetQuiz() {
+        clearInterval(timerInterval);
+        timeLeft = 359;
+        document.getElementById('timer').textContent = timeLeft;
+        timerActive = false;
+        document.getElementById('startButton').disabled = false;
+        document.getElementById('resetButton').disabled = true;
+        enableInputs(false);
+        document.getElementById('quizForm').reset();
+    }
+
+    function enableInputs(enabled) {
+        let inputs = document.querySelectorAll("input[type='text']");
+        inputs.forEach(input => {
+            input.disabled = !enabled;
+            input.style.backgroundColor = enabled ? "yellow" : "#ddd";
+        });
+        document.getElementById('submitButton').disabled = !enabled;
+    }
+
+    function myFunction() {
+        validateAnswer("myText", "red blood cells");
+        validateAnswer("myText2", "nucleus");
+        validateAnswer("myText3", "hemoglobin");
+        validateAnswer("myText4", "nerve cells");
+        validateAnswer("myText5", "axons");
+        validateAnswer("myText6", "myelin sheath");
+        validateAnswer("myText7", "root hair cells");
+        validateAnswer("myText8", "elongated shape");
+        validateAnswer("myText9", "chloroplasts");
+        validateAnswer("myText10", "ciliated epithelial cells");
+        validateAnswer("myText11", "cilia");
+        validateAnswer("myText12", "microvilli");
+        validateAnswer("myText13", "xylem cells");
+        validateAnswer("myText14", "lignin");
+        validateAnswer("myText15", "organelles");
+        validateAnswer("myText16", "phloem");
+        validateAnswer("myText17", "energy");
+        validateAnswer("myText18", "white blood cells");
+        validateAnswer("myText19", "phagocytes");
+    }
+
+    function validateAnswer(inputId, correctAnswer) {
+        let inputField = document.getElementById(inputId);
+        if (inputField.value.trim() === correctAnswer) {
+            inputField.style.backgroundColor = "purple"; // Fixed correct answer color
+        } else {
+            inputField.style.backgroundColor = "red";
+        }
+    }
+</script>
+
+<!-- Anti-Source Code Protection -->
+<script>
+const disabledKeys = ["u", "I"];
+const showAlert = e => {
+    e.preventDefault();
+    return alert("Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!");
+};
+document.addEventListener("contextmenu", e => { showAlert(e); });
+document.addEventListener("keydown", e => {
+    if ((e.ctrlKey && disabledKeys.includes(e.key)) || e.key === "F12") {
+        showAlert(e);
+    }
+});
+</script>
+
+</body>
+</html>
