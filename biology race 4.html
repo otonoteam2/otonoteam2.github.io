@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Otono Biology - Diffusion and Osmosis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto Slab', serif;
+            text-align: center;
+        }
+        ol{text-align: left;
+            display: inline-block;
+
+        }
+        li{
+            padding: 5px;
+            font-size: 20px;
+        }
+
+        #timer {
+            font-size: 2rem;
+            font-weight: bold;
+            color: red;
+        }
+        input {
+            border-radius: 100px;
+            padding: 5px;
+            background-color: yellow;
+        }
+        table {
+            margin: auto;
+            border-collapse: collapse;
+            width: 50%;
+        }
+        td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        /* Purple Start Button */
+        #startButton {
+            background-color: purple;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #resetButton {
+            background-color: red;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Otono Biology - Diffusion and Osmosis</h1>
+<p>Answer in lower case :)</p>
+<p>Purple is correct and red is wrong</p>
+
+<!-- **Table is back!** -->
+<table>
+    <tr>
+        <td>lungs</td>
+        <td>exocytosis</td>
+        <td>endocytosis</td>
+    </tr>
+    <tr>
+        <td>active transport</td>
+        <td>carrier</td>
+        <td>atp</td>
+    </tr>
+    <tr>
+        <td>active transport</td>
+        <td>crenation</td>
+        <td>lysis</td>
+    </tr>
+        <tr>
+        <td>turgor</td>
+        <td>turgid</td>
+        <td>plasmolysed</td>
+    </tr>
+    <tr>
+        <td>isotonic</td>
+        <td>hypotonic</td>
+        <td>hypertonic</td>
+    </tr>
+    <tr>
+        <td>channel</td>
+        <td>facilitated</td>
+        <td>small</td>
+    </tr>
+    <tr>
+        <td>steeper</td>
+        <td>partially permeable</td>
+        <td>higher</td>
+    </tr>
+    <tr>
+        <td>osmosis</td>
+        <td>random</td>
+        <td>diffusion</td>
+</table>
+
+<h2>Time Left: <span id="timer">429</span> seconds</h2>
+
+<!-- Start & Reset Buttons -->
+<button id="startButton" onclick="startTimer()">Start</button>
+<button id="resetButton" onclick="resetQuiz()" disabled>Reset</button>
+
+<!-- FORM START -->
+<form id="quizForm" onsubmit="return false;">
+    <ol>
+        <li>The movement of molecules from an area of high concentration to an area of low concentration is called <input id="myText" type="text" disabled></li>
+        <li>Diffusion occurs due to the <input id="myText2" type="text" disabled> movement of particles.</li>
+        <li>The movement of water molecules across a partially permeable membrane is called <input id="myText3" type="text" disabled></li>
+        <li>Osmosis occurs from a region of <input id="myText4" type="text" disabled> water potential to a region of lower water potential.</li>
+        <li>A membrane that allows only certain molecules to pass through is called <input id="myText5" type="text" disabled></li>
+        <li>The rate of diffusion increases when the concentration gradient is <input id="myText6" type="text" disabled> </li>
+        <li><input id="myText7" type="text" disabled> molecules, like oxygen and carbon dioxide, can diffuse freely across the cell membrane.</li>
+        <li>The process by which large or charged molecules pass through a membrane with the help of transport proteins is called <input id="myText8" type="text" disabled> diffusion.</li>
+        <li>Facilitated diffusion uses <input id="myText9" type="text" disabled> proteins to help substances cross the membrane.</li>
+        <li>In osmosis, a solution with a higher concentration of solutes and lower water concentration is called <input id="myText10" type="text" disabled></li>
+        <li>In osmosis, a solution with a lower concentration of solutes and higher water concentration is called <input id="myText11" type="text" disabled></li>
+        <li>If two solutions have the same concentration, they are said to be <input id="myText12" type="text" disabled> </li>
+        <li>When a plant cell is placed in a hypertonic solution, it loses water and becomes <input id="myText13" type="text" disabled></li>
+        <li>When a plant cell is placed in a hypotonic solution, it swells and becomes <input id="myText14" type="text" disabled> to prevent collapse. </li>
+        <li>The pressure exerted by the cell membrane against the cell wall in plant cells is called <input id="myText15" type="text" disabled> pressure. </li>
+        <li>When an animal cell is placed in a hypotonic solution, it may burst in a process called <input id="myText16" type="text" disabled>.</li>
+        <li>When an animal cell is placed in a hypertonic solution, it shrinks in a process called <input id="myText17" type="text" disabled>. </li>
+        <li>The movement of molecules against the concentration gradient, requiring energy, is called <input id="myText18" type="text" disabled>. </li>
+        <li>Active transport requires energy in the form of <input id="myText19" type="text" disabled>. </li>
+        <li>Active transport is carried out by <input id="myText20" type="text" disabled> proteins in the cell membrane. </li>
+        <li>The uptake of minerals into plant roots against the concentration gradient is an example of <input id="myText21" type="text" disabled>. </li>
+        <li>The process by which cells engulf large particles or liquids using vesicles is called <input id="myText22" type="text" disabled>.  </li>
+        <li>The process by which cells release substances using vesicles is called <input id="myText23" type="text" disabled>. </li>
+        <li>The diffusion of oxygen into red blood cells occurs in the <input id="myText24" type="text" disabled>. </li>
+
+
+        <br>
+        <input type="submit" onclick="myFunction()" value="Submit" disabled id="submitButton">
+    </ol>
+</form>
+<!-- FORM END -->
+
+<script>
+    let timeLeft = 429; // Timer in seconds
+    let timerActive = false;
+    let timerInterval;
+
+    function startTimer() {
+        if (!timerActive) {
+            timerActive = true;
+            document.getElementById('startButton').disabled = true;
+            document.getElementById('resetButton').disabled = false;
+            enableInputs(true);
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+    }
+
+    function updateTimer() {
+        document.getElementById('timer').textContent = timeLeft;
+
+        if (timeLeft > 0) {
+            timeLeft--;
+        } else {
+            clearInterval(timerInterval);
+            alert("Time's up! Auto-submitting your answers...");
+            document.getElementById('quizForm').submit();
+        }
+    }
+
+    function resetQuiz() {
+        clearInterval(timerInterval);
+        timeLeft = 429;
+        document.getElementById('timer').textContent = timeLeft;
+        timerActive = false;
+        document.getElementById('startButton').disabled = false;
+        document.getElementById('resetButton').disabled = true;
+        enableInputs(false);
+        document.getElementById('quizForm').reset();
+    }
+
+    function enableInputs(enabled) {
+        let inputs = document.querySelectorAll("input[type='text']");
+        inputs.forEach(input => {
+            input.disabled = !enabled;
+            input.style.backgroundColor = enabled ? "yellow" : "#ddd";
+        });
+        document.getElementById('submitButton').disabled = !enabled;
+    }
+
+    function myFunction() {
+        validateAnswer("myText", "diffusion");
+        validateAnswer("myText2", "random");
+        validateAnswer("myText3", "osmosis");
+        validateAnswer("myText4", "higher");
+        validateAnswer("myText5", "partially permeable");
+        validateAnswer("myText6", "steeper");
+        validateAnswer("myText7", "small");
+        validateAnswer("myText8", "facilitated");
+        validateAnswer("myText9", "channel");
+        validateAnswer("myText10", "hypertonic");
+        validateAnswer("myText11", "hypotonic");
+        validateAnswer("myText12", "isotonic");
+        validateAnswer("myText13", "plasmolysed");
+        validateAnswer("myText14", "turgid");
+        validateAnswer("myText15", "turgor");
+        validateAnswer("myText16", "lysis");
+        validateAnswer("myText17", "crenation");
+        validateAnswer("myText18", "active transport");
+        validateAnswer("myText19", "atp");
+        validateAnswer("myText20", "carrier");
+        validateAnswer("myText21", "active transport");
+        validateAnswer("myText22", "endocytosis");
+        validateAnswer("myText23", "exocytosis");
+        validateAnswer("myText24", "lungs");
+    }
+
+    function validateAnswer(inputId, correctAnswer) {
+        let inputField = document.getElementById(inputId);
+        if (inputField.value.trim() === correctAnswer) {
+            inputField.style.backgroundColor = "purple"; // Fixed correct answer color
+        } else {
+            inputField.style.backgroundColor = "red";
+        }
+    }
+</script>
+
+<!-- Anti-Source Code Protection -->
+<script>
+const disabledKeys = ["u", "I"];
+const showAlert = e => {
+    e.preventDefault();
+    return alert("Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!");
+};
+document.addEventListener("contextmenu", e => { showAlert(e); });
+document.addEventListener("keydown", e => {
+    if ((e.ctrlKey && disabledKeys.includes(e.key)) || e.key === "F12") {
+        showAlert(e);
+    }
+});
+</script>
+
+</body>
+</html>

@@ -112,7 +112,7 @@
         <td>acrosome</td>
 </table>
 
-<h2>Time Left: <span id="timer">359</span> seconds</h2>
+<h2>Time Left: <span id="timer">429</span> seconds</h2>
 
 <!-- Start & Reset Buttons -->
 <button id="startButton" onclick="startTimer()">Start</button>
@@ -154,7 +154,7 @@
 <!-- FORM END -->
 
 <script>
-    let timeLeft = 359; // Timer in seconds
+    let timeLeft = 429; // Timer in seconds
     let timerActive = false;
     let timerInterval;
 
@@ -182,7 +182,7 @@
 
     function resetQuiz() {
         clearInterval(timerInterval);
-        timeLeft = 359;
+        timeLeft = 429;
         document.getElementById('timer').textContent = timeLeft;
         timerActive = false;
         document.getElementById('startButton').disabled = false;
