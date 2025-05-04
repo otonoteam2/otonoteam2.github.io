@@ -37,11 +37,11 @@
     <script>
       const stations = [
     "Select", "Otono", "Airport", "Andy", "Angus", "Arena", "Bank", "Barley", "Bath", "Beach", 
-    "Bridge", "Buckley", "Casino", "Castle", "Central", "Crater", "Cruise", "Darcy", "Daso", 
-    "Devlin", "Drummond", "Felix", "Glucose", "Grimmxr", "Hernandez", "Hotel", "Ikea", "Ink", 
+    "Bridge", "Buckley", "Casino", "Castle", "Central", "Chateau", "Crater", "Cruise", "Darcy", "Daso", 
+    "Devlin", "Drummond", "Felix", "Glucose", "Grimxr", "Hernandez", "Hiscott", "Hotel", "Ikea", "Ink", 
     "Jurassic", "Joshua", "Kempson", "Lowe", "Mansion", "Monaco", "Monza", "Mountainside", 
-    "Mountbatten", "Nelson", "Phillips", "Pickard", "Port", "Prison", "Riverside", "Sainsbury's", 
-    "School", "Station", "Tardis", "Temple", "Torran", "Uranus", "Wickland", "Wyatt"
+    "Mountbatten", "Nelson", "Oganesson", "Oimberling", "Phillips", "Pickard", "Port", "Prison", "Riverside", "Sainsbury's", 
+    "School", "Tardis", "Temple", "Torran", "Trevor", "Tuckwell", "Uranus", "Wickland", "Wyatt"
 ];
         
         const fares = {
@@ -51,7 +51,7 @@
             "Mountainside": { "Phillips": 3, "Port": 3, "Central": 3, "Station": 8 },
             "Port": { "Mountainside": 3, "Cruise": 3, "Hotel": 2 },
             "Cruise": { "Port": 3, "Bridge": 3 },
-            "Bridge": { "Cruise": 3, "School": 3, "Jurassic": 6, "Wickland": 1 },
+            "Bridge": { "Cruise": 3, "School": 3, "Jurassic": 6, "Wickland": 1, "Buckley": 9 },
             "School": { "Bridge": 3, "Prison": 3, "Casino": 2, "Otono": 2 },
             "Prison": { "School": 3, "Airport": 3 },
             "Airport": { "Prison": 3, "Glucose": 3, "Monza": 8 },
@@ -76,7 +76,7 @@
             "Daso": { "Bath": 1, "Central": 2 },
             "Central": { "Daso": 2, "Mountainside": 1, "Hotel": 2 },
             "Hotel": { "Central": 2, "Port": 2 },
-            "Station": { "Mountainside": 8 },   //la ligne verte
+            "Chateau": { "Mountainside": 8 },   //la ligne verte
             "Mansion": { "Mountainside": 9, "Monza": 3, "Joshua": 5 },
             "Nelson": { "Monza": 2, "Bank": 2, "Joshua": 5 },
             "Joshua": { "Darcy": 4, "Mansion": 5, "Nelson": 5 },  // Added Nelson here  
@@ -86,7 +86,26 @@
             "Barley": { "Mountbatten": 4, "Darcy": 4 },
             "Darcy": { "Barley": 4, "Joshua": 4 },
             "Lowe": { "Angus": 3, "Devlin": 4 },
-            "Devlin": { "Lowe": 4 }  
+            "Devlin": { "Lowe": 4, "Hiscott": 3, "Pickard": 4, "Ink": 1 },
+            "Buckley": { "Bridge": 9, "Uranus": 6 },    // oganesson line
+            "Uranus": { "Buckley": 6, "Riverside": 2 },
+            "Riverside": { "Crater": 5, "Uranus": 2 },
+            "Crater": { "Riverside": 5, "Hernandez": 4, "Pickard": 4, "Hiscott": 5 },
+            "Hernandez": { "Oganesson": 3, "Crater": 4 },
+            "Oganesson": { "Hernandez": 3, "Eagle": 5, "Kempson": 3 },
+            "Eagle": { "Oganesson": 5, "Torran": 2 },
+            "Torran": { "Eagle": 2 },
+            "Kempson": { "Oganesson": 3, "Trevor": 3 },
+            "Pickard": { "Crater": 4, "Devlin": 4 },    //devlin line
+            "Hiscott": { "Crater": 5, "Devlin": 3 },
+            "Ink": { "Devlin": 1, "Tuckwell": 7 },
+            "Tuckwell": { "Ink": 7, "Felix": 6, "Grimxr": 3 },
+            "Grimxr": { "Tuckwell": 3, "Oimberling": 99 },
+            "Felix": { "Tuckwell": 6 },
+            "Oimberling": { "Grimxr": 99 },
+
+
+
 
         };
 
