@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Otono Biology - Active Transport</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto Slab', serif;
+            text-align: center;
+        }
+        ol{text-align: left;
+            display: inline-block;
+
+        }
+        li{
+            padding: 5px;
+            font-size: 20px;
+        }
+
+        #timer {
+            font-size: 2rem;
+            font-weight: bold;
+            color: red;
+        }
+        input {
+            border-radius: 100px;
+            padding: 5px;
+            background-color: yellow;
+        }
+        table {
+            margin: auto;
+            border-collapse: collapse;
+            width: 50%;
+        }
+        td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        /* Purple Start Button */
+        #startButton {
+            background-color: purple;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #resetButton {
+            background-color: red;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Otono Biology - Active Transport</h1>
+<p>Answer in lower case :)</p>
+<p>Purple is correct and red is wrong</p>
+
+<!-- **Table is back!** -->
+<table>
+    <tr>
+        <td>active transport</td>
+        <td>atp</td>
+        <td>against</td>
+    </tr>
+    <tr>
+        <td>carrier</td>
+        <td>active transport</td>
+        <td>nitrate</td>
+    </tr>
+    <tr>
+        <td>mitochondrion</td>
+        <td>electrochemical</td>
+        <td>nephron</td>
+    </tr>
+        <tr>
+        <td>villi</td>
+        <td>salt</td>
+        <td>carrier</td>
+    </tr>
+    <tr>
+        <td>selectively permeable</td>
+        <td>energy-requiring</td>
+        <td>mitochondria</td>
+    </tr>
+    <tr>
+        <td>higher</td>
+        <td>aerobic</td>
+        <td>actively</td>
+    </tr>
+    <tr>
+        <td>phagocytosis</td>
+        <td>ions and nutrients</td>
+        <td>Drummond</td>
+    </tr>
+</table>
+
+<h2>Time Left: <span id="timer">399</span> seconds</h2>
+
+<!-- Start & Reset Buttons -->
+<button id="startButton" onclick="startTimer()">Start</button>
+<button id="resetButton" onclick="resetQuiz()" disabled>Reset</button>
+
+<!-- FORM START -->
+<form id="quizForm" onsubmit="return false;">
+    <ol>
+        <li>The movement of molecules from a lower concentration to a higher concentration using energy is called <input id="myText" type="text" disabled></li>
+        <li>Active transport requires energy in the form of. <input id="myText2" type="text" disabled></li>
+        <li>Unlike diffusion, active transport moves substances <input id="myText3" type="text" disabled> their concentration gradient. </li>
+        <li>Active transport is carried out by special <input id="myText4" type="text" disabled> proteins in the cell membrane. </li>
+        <li>The uptake of minerals from the soil by plant root hair cells occurs through <input id="myText5" type="text" disabled>. </li>
+        <li>Active transport is important in absorbing <input id="myText6" type="text" disabled> ions into plant roots. </li>
+        <li>The organelle that provides ATP for active transport is the <input id="myText7" type="text" disabled>. </li>
+        <li>The sodium-potassium pump helps generate an <input id="myText8" type="text" disabled> gradient needed for nerve impulses. </li>
+        <li>Active transport helps prevent dehydration by reabsorbing water in the <input id="myText9" type="text" disabled> of the kidney. </li>
+        <li>In the small intestine, glucose is absorbed into the blood through active transport in the <input id="myText10" type="text" disabled>. </li>
+        <li>In marine fish, active transport helps remove excess <input id="myText11" type="text" disabled> from their gills. </li>
+        <li>A <input id="myText12" type="text" disabled> protein changes shape to transport molecules during active transport. </li>
+        <li>The cell membrane is <input id="myText13" type="text" disabled>, allowing active transport to control what enters and exits the cell. </li>
+        <li>Without ATP, active transport cannot occur because it is an <input id="myText14" type="text" disabled> process. </li>
+        <li>Cells that perform a lot of active transport have a large number of <input id="myText15" type="text" disabled>. </li>
+        <li>Active transport allows the absorption of nutrients even when their concentration is <input id="myText16" type="text" disabled> inside the cell than outside. </li>
+        <li>The energy for active transport is released during <input id="myText17" type="text" disabled> respiration. </li>
+        <li>Unlike passive transport, active transport moves substances <input id="myText18" type="text" disabled> instead of just allowing them to spread naturally. </li>
+        <li>Active transport is used by white blood cells to take in harmful bacteria through a process called <input id="myText19" type="text" disabled>. </li>
+        <li>Active transport ensures that cells maintain the correct balance of <input id="myText20" type="text" disabled> for proper function. </li>
+
+
+        <br>
+        <input type="submit" onclick="myFunction()" value="Submit" disabled id="submitButton">
+    </ol>
+</form>
+<!-- FORM END -->
+
+<script>
+    let timeLeft = 399; // Timer in seconds
+    let timerActive = false;
+    let timerInterval;
+
+    function startTimer() {
+        if (!timerActive) {
+            timerActive = true;
+            document.getElementById('startButton').disabled = true;
+            document.getElementById('resetButton').disabled = false;
+            enableInputs(true);
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+    }
+
+    function updateTimer() {
+        document.getElementById('timer').textContent = timeLeft;
+
+        if (timeLeft > 0) {
+            timeLeft--;
+        } else {
+            clearInterval(timerInterval);
+            alert("Time's up! Auto-submitting your answers...");
+            document.getElementById('quizForm').submit();
+        }
+    }
+
+    function resetQuiz() {
+        clearInterval(timerInterval);
+        timeLeft = 399;
+        document.getElementById('timer').textContent = timeLeft;
+        timerActive = false;
+        document.getElementById('startButton').disabled = false;
+        document.getElementById('resetButton').disabled = true;
+        enableInputs(false);
+        document.getElementById('quizForm').reset();
+    }
+
+    function enableInputs(enabled) {
+        let inputs = document.querySelectorAll("input[type='text']");
+        inputs.forEach(input => {
+            input.disabled = !enabled;
+            input.style.backgroundColor = enabled ? "yellow" : "#ddd";
+        });
+        document.getElementById('submitButton').disabled = !enabled;
+    }
+
+    function myFunction() {
+        validateAnswer("myText", "active transport");
+        validateAnswer("myText2", "atp");
+        validateAnswer("myText3", "against");
+        validateAnswer("myText4", "carrier");
+        validateAnswer("myText5", "active transport");
+        validateAnswer("myText6", "nitrate");
+        validateAnswer("myText7", "mitochondrion");
+        validateAnswer("myText8", "electrochemical");
+        validateAnswer("myText9", "nephron");
+        validateAnswer("myText10", "villi");
+        validateAnswer("myText11", "salt");
+        validateAnswer("myText12", "carrier");
+        validateAnswer("myText13", "selectively permeable");
+        validateAnswer("myText14", "energy-requiring");
+        validateAnswer("myText15", "mitochondria");
+        validateAnswer("myText16", "higher");
+        validateAnswer("myText17", "aerobic");
+        validateAnswer("myText18", "actively");
+        validateAnswer("myText19", "phagocytosis");
+        validateAnswer("myText20", "ions and nutrients");
+    }
+
+    function validateAnswer(inputId, correctAnswer) {
+        let inputField = document.getElementById(inputId);
+        if (inputField.value.trim() === correctAnswer) {
+            inputField.style.backgroundColor = "purple"; // Fixed correct answer color
+        } else {
+            inputField.style.backgroundColor = "red";
+        }
+    }
+</script>
+
+<!-- Anti-Source Code Protection -->
+<script>
+const disabledKeys = ["u", "I"];
+const showAlert = e => {
+    e.preventDefault();
+    return alert("Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!");
+};
+document.addEventListener("contextmenu", e => { showAlert(e); });
+document.addEventListener("keydown", e => {
+    if ((e.ctrlKey && disabledKeys.includes(e.key)) || e.key === "F12") {
+        showAlert(e);
+    }
+});
+</script>
+
+</body>
+</html>

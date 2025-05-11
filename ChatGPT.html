@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html>
+<body>
+<script>
+print("Hello! I'm GPT 5o 🤖. Type 'exit' to quit.\n")
+
+def chatbot_response(user_input):
+    user_input = user_input.lower()
+
+    if "hello" in user_input:
+        return "Hi there! How can I help you today?"
+    elif "your name" in user_input:
+        return "I'm GPT 5o, your friendly chatbot!"
+    elif "bye" in user_input or "exit" in user_input:
+        return "Goodbye! Have a great day!"
+    else:
+        return "I'm not sure how to respond to that. Can you try something else?"
+
+while True:
+    user_input = input("You: ")
+    if user_input.lower() == "exit":
+        print("GPT 5o: Goodbye!")
+        break
+    response = chatbot_response(user_input)
+    print("GPT 5o:", response)
+</script>
+</body>
+</html>
