@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Otono Biology - Organisation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto Slab', serif;
+            text-align: center;
+        }
+        ol{text-align: left;
+            display: inline-block;
+
+        }
+        li{
+            padding: 5px;
+            font-size: 20px;
+        }
+
+        #timer {
+            font-size: 2rem;
+            font-weight: bold;
+            color: red;
+        }
+        input {
+            border-radius: 100px;
+            padding: 5px;
+            background-color: yellow;
+        }
+        table {
+            margin: auto;
+            border-collapse: collapse;
+            width: 50%;
+        }
+        td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        /* Purple Start Button */
+        #startButton {
+            background-color: purple;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #resetButton {
+            background-color: red;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Otono Biology - Organisation</h1>
+<p>Answer in lower case :)</p>
+<p>Purple is correct and red is wrong</p>
+
+<!-- **Table is back!** -->
+<table>
+    <tr>
+        <td>tissue</td>
+        <td>muscle</td>
+        <td>mitochondria</td>
+    </tr>
+    <tr>
+        <td>cardiac</td>
+        <td>skeletal</td>
+        <td>smooth</td>
+    </tr>
+    <tr>
+        <td>epithelial</td>
+        <td>trachea</td>
+        <td>nervous</td>
+    </tr>
+        <tr>
+        <td>neurons</td>
+        <td>connective</td>
+        <td>connective</td>
+    </tr>
+    <tr>
+        <td>adipose</td>
+        <td>bone</td>
+        <td>cushioning</td>
+    </tr>
+    <tr>
+        <td>xylem</td>
+        <td>lignin</td>
+        <td>phloem</td>
+    </tr>
+    <tr>
+        <td>translocation</td>
+        <td>companion</td>
+        <td>Drummond</td>
+    </tr>
+</table>
+
+<h2>Time Left: <span id="timer">399</span> seconds</h2>
+
+<!-- Start & Reset Buttons -->
+<button id="startButton" onclick="startTimer()">Start</button>
+<button id="resetButton" onclick="resetQuiz()" disabled>Reset</button>
+
+<!-- FORM START -->
+<form id="quizForm" onsubmit="return false;">
+    <ol>
+        <li>A group of similar cells that work together to perform a function is called a  <input id="myText" type="text" disabled>. </li>
+        <li>The tissue responsible for movement in animals is called <input id="myText2" type="text" disabled> tissue. </li>
+        <li>Muscle tissue contains a large number of <input id="myText3" type="text" disabled> to provide energy for contraction. </li>
+        <li>The type of muscle tissue found in the heart is called <input id="myText4" type="text" disabled> muscle. </li>
+        <li>The type of muscle tissue that is under voluntary control is called <input id="myText5" type="text" disabled> muscle. </li>
+        <li>Active transport is important in absorbing <input id="myText6" type="text" disabled> ions into plant roots. </li>
+        <li>The tissue that covers and protects body surfaces and internal organs is called <input id="myText7" type="text" disabled> tissue. </li>
+        <li>Ciliated epithelial tissue is found in the <input id="myText8" type="text" disabled> and helps move mucus. </li>
+        <li>The tissue responsible for transmitting electrical signals in the body is called <input id="myText9" type="text" disabled> tissue. </li>
+        <li>Nervous tissue is made up of specialized cells called <input id="myText10" type="text" disabled>. </li>
+        <li>The tissue that connects, supports, and binds other tissues is called <input id="myText11" type="text" disabled> tissue. </li>
+        <li>Blood is a type of <input id="myText12" type="text" disabled> tissue that transports oxygen, nutrients, and waste. </li>
+        <li>Fat-storing tissue in animals is called <input id="myText13" type="text" disabled> tissue. </li>
+        <li>The hard, supportive tissue that makes up the skeleton is called <input id="myText14" type="text" disabled> tissue. </li>
+        <li>Cartilage is a type of connective tissue that provides <input id="myText15" type="text" disabled> between bones. </li>
+        <li>The transport tissue in plants that carries water is called <input id="myText16" type="text" disabled>. </li>
+        <li>Xylem tissue is strengthened by a substance called <input id="myText17" type="text" disabled>. </li>
+        <li>The transport tissue in plants that carries sugars is called <input id="myText18" type="text" disabled>. </li>
+        <li>The process by which phloem transports sugars is called <input id="myText19" type="text" disabled>. </li>
+        <li>Phloem cells work together with <input id="myText20" type="text" disabled> cells to transport nutrients. </li>
+
+
+        <br>
+        <input type="submit" onclick="myFunction()" value="Submit" disabled id="submitButton">
+    </ol>
+</form>
+<!-- FORM END -->
+
+<script>
+    let timeLeft = 399; // Timer in seconds
+    let timerActive = false;
+    let timerInterval;
+
+    function startTimer() {
+        if (!timerActive) {
+            timerActive = true;
+            document.getElementById('startButton').disabled = true;
+            document.getElementById('resetButton').disabled = false;
+            enableInputs(true);
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+    }
+
+    function updateTimer() {
+        document.getElementById('timer').textContent = timeLeft;
+
+        if (timeLeft > 0) {
+            timeLeft--;
+        } else {
+            clearInterval(timerInterval);
+            alert("Time's up! Auto-submitting your answers...");
+            document.getElementById('quizForm').submit();
+        }
+    }
+
+    function resetQuiz() {
+        clearInterval(timerInterval);
+        timeLeft = 399;
+        document.getElementById('timer').textContent = timeLeft;
+        timerActive = false;
+        document.getElementById('startButton').disabled = false;
+        document.getElementById('resetButton').disabled = true;
+        enableInputs(false);
+        document.getElementById('quizForm').reset();
+    }
+
+    function enableInputs(enabled) {
+        let inputs = document.querySelectorAll("input[type='text']");
+        inputs.forEach(input => {
+            input.disabled = !enabled;
+            input.style.backgroundColor = enabled ? "yellow" : "#ddd";
+        });
+        document.getElementById('submitButton').disabled = !enabled;
+    }
+
+    function myFunction() {
+        validateAnswer("myText", "tissue");
+        validateAnswer("myText2", "muscle");
+        validateAnswer("myText3", "mitochondria");
+        validateAnswer("myText4", "cardiac");
+        validateAnswer("myText5", "skeletal");
+        validateAnswer("myText6", "smooth");
+        validateAnswer("myText7", "epithelial");
+        validateAnswer("myText8", "trachea");
+        validateAnswer("myText9", "nervous");
+        validateAnswer("myText10", "neurons");
+        validateAnswer("myText11", "connective");
+        validateAnswer("myText12", "connective");
+        validateAnswer("myText13", "adipose");
+        validateAnswer("myText14", "bone");
+        validateAnswer("myText15", "cushioning");
+        validateAnswer("myText16", "xylem");
+        validateAnswer("myText17", "lignin");
+        validateAnswer("myText18", "phloem");
+        validateAnswer("myText19", "translocation");
+        validateAnswer("myText20", "companion");
+    }
+
+    function validateAnswer(inputId, correctAnswer) {
+        let inputField = document.getElementById(inputId);
+        if (inputField.value.trim() === correctAnswer) {
+            inputField.style.backgroundColor = "purple"; // Fixed correct answer color
+        } else {
+            inputField.style.backgroundColor = "red";
+        }
+    }
+</script>
+
+<!-- Anti-Source Code Protection -->
+<script>
+const disabledKeys = ["u", "I"];
+const showAlert = e => {
+    e.preventDefault();
+    return alert("Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!");
+};
+document.addEventListener("contextmenu", e => { showAlert(e); });
+document.addEventListener("keydown", e => {
+    if ((e.ctrlKey && disabledKeys.includes(e.key)) || e.key === "F12") {
+        showAlert(e);
+    }
+});
+</script>
+
+</body>
+</html>
