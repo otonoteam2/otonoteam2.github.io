@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Otono Biology - Organisation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto Slab', serif;
+            text-align: center;
+        }
+        ol{text-align: left;
+            display: inline-block;
+
+        }
+        li{
+            padding: 5px;
+            font-size: 20px;
+        }
+
+        #timer {
+            font-size: 2rem;
+            font-weight: bold;
+            color: red;
+        }
+        input {
+            border-radius: 100px;
+            padding: 5px;
+            background-color: yellow;
+        }
+        table {
+            margin: auto;
+            border-collapse: collapse;
+            width: 50%;
+        }
+        td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        /* Purple Start Button */
+        #startButton {
+            background-color: purple;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #resetButton {
+            background-color: red;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Otono Biology - Organisation</h1>
+<p>Answer in lower case :)</p>
+<p>Purple is correct and red is wrong</p>
+
+<!-- **Table is back!** -->
+<table>
+    <tr>
+        <td>organ</td>
+        <td>organ system</td>
+        <td>homeostasis</td>
+    </tr>
+    <tr>
+        <td>heart</td>
+        <td>blood vessels</td>
+        <td>capillaries</td>
+    </tr>
+    <tr>
+        <td>arteries</td>
+        <td>veins</td>
+        <td>aorta</td>
+    </tr>
+        <tr>
+        <td>red blood cells</td>
+        <td>mechanical</td>
+        <td>small intestine</td>
+    </tr>
+    <tr>
+        <td>amylase</td>
+        <td>liver</td>
+        <td>cushioning</td>
+    </tr>
+    <tr>
+        <td>bacteria</td>
+        <td>water</td>
+        <td>peristalsis</td>
+    </tr>
+    <tr>
+        <td>lungs</td>
+        <td>trachea</td>
+        <td>Drummond</td>
+    </tr>
+</table>
+
+<h2>Time Left: <span id="timer">399</span> seconds</h2>
+
+<!-- Start & Reset Buttons -->
+<button id="startButton" onclick="startTimer()">Start</button>
+<button id="resetButton" onclick="resetQuiz()" disabled>Reset</button>
+
+<!-- FORM START -->
+<form id="quizForm" onsubmit="return false;">
+    <ol>
+        <li>A group of tissues working together to perform a function is called an  <input id="myText" type="text" disabled>. </li>
+        <li>A group of organs that work together to perform a function is called an <input id="myText2" type="text" disabled>. </li>
+        <li>The human body is made up of multiple organ systems that work together to maintain <input id="myText3" type="text" disabled>. </li>
+        <li>The organ responsible for pumping blood around the body is the <input id="myText4" type="text" disabled>. </li>
+        <li>The circulatory system consists of the heart, <input id="myText5" type="text" disabled>, and blood. </li>
+        <li>The three types of blood vessels are arteries, veins, and <input id="myText6" type="text" disabled>. </li>
+        <li><input id="myText7" type="text" disabled>carry oxygenated blood away from the heart. </li>
+        <li><input id="myText8" type="text" disabled>carry deoxygenated blood back to the heart. </li>
+        <li>The main artery that carries oxygenated blood from the heart to the body is the <input id="myText9" type="text" disabled>. </li>
+        <li>The blood cells responsible for carrying oxygen are called <input id="myText10" type="text" disabled>. </li>
+        <li>The digestive system breaks down food into smaller molecules through <input id="myText11" type="text" disabled> and chemical digestion. </li>
+        <li>The organ where most digestion and nutrient absorption occurs is the <input id="myText12" type="text" disabled>. </li>
+        <li>The enzyme that breaks down starch into sugars is called <input id="myText13" type="text" disabled>. </li>
+        <li>The organ that produces bile to help digest fats is the <input id="myText14" type="text" disabled>. </li>
+        <li>The tube that carries food from the mouth to the stomach is the <input id="myText15" type="text" disabled>. </li>
+        <li>The acidic fluid in the stomach helps break down food and kill <input id="myText16" type="text" disabled>. </li>
+        <li>The large intestine absorbs <input id="myText17" type="text" disabled> from undigested food. </li>
+        <li>The muscular contractions that move food through the digestive system are called <input id="myText18" type="text" disabled>. </li>
+        <li>The organ responsible for gas exchange in the body is the <input id="myText19" type="text" disabled>. </li>
+        <li>The tube that connects the mouth and nose to the lungs is the <input id="myText20" type="text" disabled>. </li>
+
+
+        <br>
+        <input type="submit" onclick="myFunction()" value="Submit" disabled id="submitButton">
+    </ol>
+</form>
+<!-- FORM END -->
+
+<script>
+    let timeLeft = 399; // Timer in seconds
+    let timerActive = false;
+    let timerInterval;
+
+    function startTimer() {
+        if (!timerActive) {
+            timerActive = true;
+            document.getElementById('startButton').disabled = true;
+            document.getElementById('resetButton').disabled = false;
+            enableInputs(true);
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+    }
+
+    function updateTimer() {
+        document.getElementById('timer').textContent = timeLeft;
+
+        if (timeLeft > 0) {
+            timeLeft--;
+        } else {
+            clearInterval(timerInterval);
+            alert("Time's up! Auto-submitting your answers...");
+            document.getElementById('quizForm').submit();
+        }
+    }
+
+    function resetQuiz() {
+        clearInterval(timerInterval);
+        timeLeft = 399;
+        document.getElementById('timer').textContent = timeLeft;
+        timerActive = false;
+        document.getElementById('startButton').disabled = false;
+        document.getElementById('resetButton').disabled = true;
+        enableInputs(false);
+        document.getElementById('quizForm').reset();
+    }
+
+    function enableInputs(enabled) {
+        let inputs = document.querySelectorAll("input[type='text']");
+        inputs.forEach(input => {
+            input.disabled = !enabled;
+            input.style.backgroundColor = enabled ? "yellow" : "#ddd";
+        });
+        document.getElementById('submitButton').disabled = !enabled;
+    }
+
+    function myFunction() {
+        validateAnswer("myText", "organ");
+        validateAnswer("myText2", "organ system");
+        validateAnswer("myText3", "homeostasis");
+        validateAnswer("myText4", "heart");
+        validateAnswer("myText5", "blood vessels");
+        validateAnswer("myText6", "capillaries");
+        validateAnswer("myText7", "arteries");
+        validateAnswer("myText8", "veins");
+        validateAnswer("myText9", "aorta");
+        validateAnswer("myText10", "red blood cells");
+        validateAnswer("myText11", "mechanical");
+        validateAnswer("myText12", "small intestine");
+        validateAnswer("myText13", "amylase");
+        validateAnswer("myText14", "liver");
+        validateAnswer("myText15", "esophagus");
+        validateAnswer("myText16", "bacteria");
+        validateAnswer("myText17", "water");
+        validateAnswer("myText18", "peristalsis");
+        validateAnswer("myText19", "lungs");
+        validateAnswer("myText20", "trachea");
+    }
+
+    function validateAnswer(inputId, correctAnswer) {
+        let inputField = document.getElementById(inputId);
+        if (inputField.value.trim() === correctAnswer) {
+            inputField.style.backgroundColor = "purple"; // Fixed correct answer color
+        } else {
+            inputField.style.backgroundColor = "red";
+        }
+    }
+</script>
+
+<!-- Anti-Source Code Protection -->
+<script>
+const disabledKeys = ["u", "I"];
+const showAlert = e => {
+    e.preventDefault();
+    return alert("Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!");
+};
+document.addEventListener("contextmenu", e => { showAlert(e); });
+document.addEventListener("keydown", e => {
+    if ((e.ctrlKey && disabledKeys.includes(e.key)) || e.key === "F12") {
+        showAlert(e);
+    }
+});
+</script>
+
+</body>
+</html>
