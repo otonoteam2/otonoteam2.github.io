@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Chess Board (With Basic Clicks)</title>
+    <style>
+        /* CSS starts here */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        #chessboard {
+            display: grid;
+            grid-template-columns: repeat(8, 50px); /* 8 columns, each 50px wide */
+            grid-template-rows: repeat(8, 50px);    /* 8 rows, each 50px high */
+            border: 2px solid #333;
+        }
+
+        .square {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px; /* For piece representation */
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+        }
+
+        .light {
+            background-color: #f0d9b5; /* Light squares */
+        }
+
+        .dark {
+            background-color: #b58863; /* Dark squares */
+        }
+
+        /* Basic styling for pieces (using unicode characters) */
+        .piece {
+            cursor: grab;
+        }
+
+        .selected {
+            border: 3px solid #4CAF50; /* Green border for selected piece */
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        }
+
+        .highlight-move {
+            background-color: rgba(76, 175, 80, 0.4); /* Semi-transparent green for potential moves */
+        }
+        /* CSS ends here */
+    </style>
+</head>
+<body>
+    <h1>Simple Chess Board</h1>
+    <div id="chessboard"></div>
+    <p>Current Turn: <span id="turnIndicator">White</span></p>
+
+    <script>
+        // JavaScript starts here
+        document.addEventListener('DOMContentLoaded', () => {
+            const chessboard = document.getElementById('chessboard');
+            const turnIndicator = document.getElementById('turnIndicator');
+            const boardSize = 8; // 8x8 board
+
+            // Internal representation of the board
+            // Using a 2D array: board[rank][file]
+            // Lowercase = Black, Uppercase = White, null = empty
+            let board = [
+                ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
+                ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
+                [null, null, null, null, null, null, null, null],
+                [null, null, null, null, null, null, null, null],
+                [null, null, null, null, null, null, null, null],
+                [null, null, null, null, null, null, null, null],
+                ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
+                ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
+            ];
+
+            // Unicode chess pieces map
+            const pieces = {
+                'r': '♜', 'n': '♞', 'b': '♝', 'q': '♛', 'k': '♚', 'p': '♟',
+                'R': '♖', 'N': '♘', 'B': '♗', 'Q': '♕', 'K': '♔', 'P': '♙'
+            };
+
+            let selectedPiece = null; // Stores the currently selected piece's element
+            let selectedSquareCoords = null; // Stores [rank, file] of the selected piece
+            let currentTurn = 'white'; // 'white' or 'black'
+
+            // --- Board Rendering Functions ---
+            function renderBoard() {
+                chessboard.innerHTML = ''; // Clear existing board
+                turnIndicator.textContent = currentTurn.charAt(0).toUpperCase() + currentTurn.slice(1);
+
+                for (let rank = 0; rank < boardSize; rank++) {
+                    for (let file = 0; file < boardSize; file++) {
+                        const square = document.createElement('div');
+                        square.classList.add('square');
+
+                        // Determine square color
+                        const isLightSquare = (rank + file) % 2 === 0;
+                        square.classList.add(isLightSquare ? 'light' : 'dark');
+
+                        // Store coordinates on the square element for easy access
+                        square.dataset.rank = rank;
+                        square.dataset.file = file;
+
+                        // Add piece if present in our internal board state
+                        const pieceChar = board[rank][file];
+                        if (pieceChar) {
+                            const pieceElement = document.createElement('span');
+                            pieceElement.classList.add('piece');
+                            pieceElement.innerHTML = pieces[pieceChar];
+                            // Store piece type and color for easier handling
+                            pieceElement.dataset.type = pieceChar.toLowerCase();
+                            pieceElement.dataset.color = (pieceChar === pieceChar.toUpperCase()) ? 'white' : 'black';
+                            square.appendChild(pieceElement);
+                        }
+
+                        // Add event listener for clicks on squares
+                        square.addEventListener('click', handleSquareClick);
+                        chessboard.appendChild(square);
+                    }
+                }
+            }
+
+            // --- Event Handling for Clicks ---
+            function handleSquareClick(event) {
+                const clickedSquare = event.currentTarget; // The div.square that was clicked
+                const targetRank = parseInt(clickedSquare.dataset.rank);
+                const targetFile = parseInt(clickedSquare.dataset.file);
+
+                const pieceOnClickedSquare = clickedSquare.querySelector('.piece');
+
+                // If a piece is currently selected
+                if (selectedPiece) {
+                    const selectedPieceColor = selectedPiece.dataset.color;
+
+                    // If clicking the same selected piece, deselect it
+                    if (selectedSquareCoords[0] === targetRank && selectedSquareCoords[1] === targetFile) {
+                        deselectPiece();
+                        return;
+                    }
+
+                    // Check if the target square has a piece of the SAME color (cannot capture own piece)
+                    if (pieceOnClickedSquare && pieceOnClickedSquare.dataset.color === selectedPieceColor) {
+                        // If user clicks another piece of the same color, select that new piece
+                        deselectPiece(); // Deselect the old one
+                        selectPiece(pieceOnClickedSquare, targetRank, targetFile);
+                        return;
+                    }
+
+                    // Attempt to move the selected piece
+                    // --- Simplistic Move Logic (NO CHESS RULES APPLIED YET) ---
+                    const fromRank = selectedSquareCoords[0];
+                    const fromFile = selectedSquareCoords[1];
+
+                    // Move piece in internal board state
+                    board[targetRank][targetFile] = board[fromRank][fromFile]; // Move the piece
+                    board[fromRank][fromFile] = null; // Clear the original square
+
+                    deselectPiece(); // Always deselect after a move attempt
+
+                    // Switch turns
+                    currentTurn = (currentTurn === 'white') ? 'black' : 'white';
+                    renderBoard(); // Re-render the board to reflect the move and new turn
+                }
+                // If no piece is selected, and a piece was clicked
+                else if (pieceOnClickedSquare) {
+                    const pieceColor = pieceOnClickedSquare.dataset.color;
+                    // Only allow selecting pieces of the current turn's color
+                    if (pieceColor === currentTurn) {
+                        selectPiece(pieceOnClickedSquare, targetRank, targetFile);
+                    } else {
+                        console.log(`It's ${currentTurn}'s turn. You clicked a ${pieceColor} piece.`);
+                    }
+                }
+            }
+
+            function selectPiece(pieceElement, rank, file) {
+                deselectPiece(); // Ensure only one piece is selected at a time
+
+                selectedPiece = pieceElement;
+                selectedSquareCoords = [rank, file];
+
+                // Add selected class to the piece's parent square
+                pieceElement.closest('.square').classList.add('selected');
+
+                // Highlight all squares for potential moves (VERY SIMPLISTIC, NO RULE CHECKING)
+                document.querySelectorAll('.square').forEach(square => {
+                    if (square !== pieceElement.closest('.square')) { // Don't highlight the piece's own square
+                        square.classList.add('highlight-move');
+                    }
+                });
+            }
+
+            function deselectPiece() {
+                if (selectedPiece) {
+                    selectedPiece.closest('.square').classList.remove('selected');
+                    selectedPiece = null;
+                    selectedSquareCoords = null;
+                }
+                // Remove all move highlights
+                document.querySelectorAll('.highlight-move').forEach(square => {
+                    square.classList.remove('highlight-move');
+                });
+            }
+
+            // Initial board rendering when the page loads
+            renderBoard();
+        });
+        // JavaScript ends here
+    </script>
+</body>
+</html>

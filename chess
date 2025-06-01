@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Chess Board</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Simple Chess Board</h1>
+    <div id="chessboard"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#chessboard {
+    display: grid;
+    grid-template-columns: repeat(8, 50px); /* 8 columns, each 50px wide */
+    grid-template-rows: repeat(8, 50px);    /* 8 rows, each 50px high */
+    border: 2px solid #333;
+}
+
+.square {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px; /* For piece representation */
+}
+
+.light {
+    background-color: #f0d9b5; /* Light squares */
+}
+
+.dark {
+    background-color: #b58863; /* Dark squares */
+}
+
+/* Basic styling for pieces (using unicode characters) */
+.piece {
+    cursor: grab;
+}
+document.addEventListener('DOMContentLoaded', () => {
+    const chessboard = document.getElementById('chessboard');
+    const boardSize = 8;
+
+    // Unicode chess pieces (simplified for demonstration)
+    const pieces = {
+        'r': '♜', 'n': '♞', 'b': '♝', 'q': '♛', 'k': '♚', 'p': '♟',
+        'R': '♖', 'N': '♘', 'B': '♗', 'Q': '♕', 'K': '♔', 'P': '♙'
+    };
+
+    // Initial board setup (FEN string simplified for this example)
+    // This is just a visual representation, not a game state.
+    const initialBoardFEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
+
+    function setupBoard() {
+        let rank = 0;
+        let file = 0;
+        let isLightSquare = true;
+
+        for (let i = 0; i < boardSize * boardSize; i++) {
+            const square = document.createElement('div');
+            square.classList.add('square');
+            square.classList.add(isLightSquare ? 'light' : 'dark');
+
+            // Toggle color for next square
+            if ((file + 1) % boardSize === 0) { // End of a rank
+                isLightSquare = !isLightSquare; // Invert for next rank
+            }
+            isLightSquare = !isLightSquare;
+
+            // Place initial pieces based on a simplified FEN-like concept
+            // This part is very basic and doesn't fully parse FEN.
+            // It just places a few pieces to show the concept.
+            const pieceChar = getPieceFromInitialSetup(rank, file, initialBoardFEN);
+            if (pieceChar && pieces[pieceChar]) {
+                const pieceElement = document.createElement('span');
+                pieceElement.classList.add('piece');
+                pieceElement.innerHTML = pieces[pieceChar];
+                square.appendChild(pieceElement);
+            }
+
+            chessboard.appendChild(square);
+
+            file++;
+            if (file >= boardSize) {
+                file = 0;
+                rank++;
+            }
+        }
+    }
+
+    // A very, very simplistic function to get a piece based on initial setup.
+    // This is NOT a full FEN parser and is highly simplified for this demo.
+    function getPieceFromInitialSetup(rank, file, fen) {
+        const ranks = fen.split('/');
+        const currentRankString = ranks[rank];
+        let currentFile = 0;
+        for (let i = 0; i < currentRankString.length; i++) {
+            const char = currentRankString[i];
+            if (!isNaN(parseInt(char))) {
+                currentFile += parseInt(char);
+            } else {
+                if (currentFile === file) {
+                    return char;
+                }
+                currentFile++;
+            }
+        }
+        return null;
+    }
+
+    setupBoard();
+});
