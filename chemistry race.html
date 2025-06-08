@@ -1,46 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Otono Chemistry - Atomic Structure</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Otono Biology - Organisation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Roboto Slab', serif;
             text-align: center;
-            background-color: #f9f9f9;
-            padding: 20px;
         }
-        ol {
-            text-align: left;
+        ol{text-align: left;
             display: inline-block;
-            max-width: 700px;
+
         }
-        li {
-            padding: 7px;
+        li{
+            padding: 5px;
             font-size: 20px;
         }
+
         #timer {
             font-size: 2rem;
             font-weight: bold;
             color: red;
-            margin: 15px 0;
         }
-        input[type="text"] {
+        input {
             border-radius: 100px;
-            padding: 5px 10px;
+            padding: 5px;
             background-color: yellow;
-            border: 2px solid #ccc;
-            font-size: 18px;
-            width: 150px;
-            transition: background-color 0.3s;
         }
         table {
-            margin: 20px auto;
+            margin: auto;
             border-collapse: collapse;
-            width: 60%;
-            font-size: 18px;
+            width: 50%;
         }
         td {
             border: 1px solid black;
@@ -48,103 +40,113 @@
             text-align: center;
         }
         tr:nth-child(even) {
-            background-color: #e8e8e8;
+            background-color: #f2f2f2;
         }
-        #startButton, #resetButton {
-            font-size: 16px;
-            padding: 10px 25px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: 5px;
-        }
+        /* Purple Start Button */
         #startButton {
             background-color: purple;
             color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
         }
         #resetButton {
             background-color: red;
             color: white;
-        }
-        #submitButton {
-            background-color: green;
-            color: white;
-            font-size: 18px;
-            padding: 10px 30px;
-            border-radius: 8px;
+            font-size: 16px;
+            padding: 10px 20px;
             border: none;
-            margin-top: 15px;
+            border-radius: 5px;
             cursor: pointer;
-        }
-        #submitButton:disabled {
-            background-color: #aaa;
-            cursor: not-allowed;
         }
     </style>
 </head>
 <body>
 
-<h1>Otono Chemistry - Atomic Structure</h1>
+<h1>Otono Biology - Organisation</h1>
 <p>Answer in lower case :)</p>
-<p>Purple means correct, red means wrong</p>
+<p>Purple is correct and red is wrong</p>
 
+<!-- **Table is back!** -->
 <table>
     <tr>
-        <td>proton</td>
-        <td>electron</td>
-        <td>neutron</td>
+        <td>element</td>
+        <td>compound</td>
+        <td>atom</td>
     </tr>
     <tr>
+        <td>energy levels</td>
         <td>nucleus</td>
-        <td>atomic number</td>
-        <td>mass number</td>
-    </tr>
-    <tr>
-        <td>shell</td>
-        <td>ion</td>
-        <td>isotope</td>
-    </tr>
-    <tr>
         <td>positive</td>
-        <td>negative</td>
+    </tr>
+    <tr>
         <td>neutral</td>
+        <td>negative</td>
+        <td>atomic</td>
+    </tr>
+        <tr>
+        <td>atomic</td>
+        <td>properties</td>
+        <td>outer</td>
+    </tr>
+    <tr>
+        <td>metals</td>
+        <td>sharing</td>
+        <td>acidic</td>
+    </tr>
+    <tr>
+        <td>neutral</td>
+        <td>less</td>
+        <td>greater</td>
+    </tr>
+    <tr>
+        <td>created</td>
+        <td>chemical</td>
+        <td>Drummond</td>
     </tr>
 </table>
 
 <h2>Time Left: <span id="timer">399</span> seconds</h2>
 
+<!-- Start & Reset Buttons -->
 <button id="startButton" onclick="startTimer()">Start</button>
 <button id="resetButton" onclick="resetQuiz()" disabled>Reset</button>
 
+<!-- FORM START -->
 <form id="quizForm" onsubmit="return false;">
     <ol>
-        <li>The particle with a positive charge in an atom is called a <input id="q1" type="text" disabled></li>
-        <li>The centre of an atom where protons and neutrons are found is the <input id="q2" type="text" disabled></li>
-        <li>The number of protons in an atom is called the <input id="q3" type="text" disabled></li>
-        <li>The particle with no charge found in the nucleus is the <input id="q4" type="text" disabled></li>
-        <li>Electrons orbit the nucleus in energy levels called <input id="q5" type="text" disabled></li>
-        <li>An atom that has lost or gained electrons is called an <input id="q6" type="text" disabled></li>
-        <li>Atoms with the same number of protons but different numbers of neutrons are called <input id="q7" type="text" disabled></li>
-        <li>Electrons have a negative charge of <input id="q8" type="text" disabled></li>
-        <li>The total number of protons and neutrons in an atom is called the <input id="q9" type="text" disabled></li>
-        <li>Neutrons have no electrical <input id="q10" type="text" disabled></li>
-        <li>Protons have a charge of <input id="q11" type="text" disabled></li>
-        <li>The outermost shell of electrons is called the <input id="q12" type="text" disabled></li>
-        <li>Atoms with equal protons and electrons are electrically <input id="q13" type="text" disabled></li>
-        <li>The charge on an electron is equal in size but opposite in <input id="q14" type="text" disabled></li>
-        <li>The mass of a proton is approximately 1 <input id="q15" type="text" disabled></li>
-        <li>Isotopes have the same atomic number but different <input id="q16" type="text" disabled></li>
-        <li>The element’s identity is defined by the number of <input id="q17" type="text" disabled></li>
-        <li>Electrons are found in the <input id="q18" type="text" disabled> surrounding the nucleus</li>
-        <li>The nucleus is positively charged because of <input id="q19" type="text" disabled></li>
-        <li>Atoms with the same mass number but different atomic numbers are called <input id="q20" type="text" disabled></li>
+        <li>An <input id="myText" type="text" disabled> is a substance that cannot be broken down into simpler substances. </li>
+        <li>A <input id="myText2" type="text" disabled> is made up of two or more elements chemically bonded together. </li>
+        <li>The smallest unit of an element is an <input id="myText3" type="text" disabled>. </li>
+        <li>Electrons are found in <input id="myText4" type="text" disabled> around the nucleus. </li>
+        <li>The center of an atom is called the <input id="myText5" type="text" disabled>. </li>
+        <li>Protons have a <input id="myText6" type="text" disabled> charge. </li>
+        <li>Neutrons are <input id="myText7" type="text" disabled> in charge. </li>
+        <li>Electrons have a <input id="myText8" type="text" disabled> charge. </li>
+        <li>The number of protons in an atom is called its <input id="myText9" type="text" disabled> number. </li>
+        <li>The periodic table is arranged by increasing <input id="myText10" type="text" disabled> number. </li>
+        <li>Groups on the periodic table contain elements with similar <input id="myText11" type="text" disabled>. </li>
+        <li>Atoms bond to achieve a full <input id="myText12" type="text" disabled> shell. </li>
+        <li>Ionic bonds form between <input id="myText13" type="text" disabled> and nonmetals. </li>
+        <li>Covalent bonds involve the <input id="myText14" type="text" disabled> of electrons. </li>
+        <li>The pH scale measures how <input id="myText15" type="text" disabled> or basic a solution is. </li>
+        <li>A solution with a pH of 7 is <input id="myText16" type="text" disabled>. </li>
+        <li>An acid has a pH <input id="myText17" type="text" disabled> than 7. </li>
+        <li>A base has a pH <input id="myText18" type="text" disabled> than 7. </li>
+        <li>The law of conservation of mass states that matter cannot be <input id="myText19" type="text" disabled> or destroyed. </li>
+        <li>A <input id="myText20" type="text" disabled> reaction involves the exchange of energy and the rearrangement of atoms. </li>
 
-        <input type="submit" onclick="checkAnswers()" value="Submit" disabled id="submitButton" />
+
+        <br>
+        <input type="submit" onclick="myFunction()" value="Submit" disabled id="submitButton">
     </ol>
 </form>
+<!-- FORM END -->
 
 <script>
-    let timeLeft = 399;
+    let timeLeft = 399; // Timer in seconds
     let timerActive = false;
     let timerInterval;
 
@@ -160,12 +162,13 @@
 
     function updateTimer() {
         document.getElementById('timer').textContent = timeLeft;
+
         if (timeLeft > 0) {
             timeLeft--;
         } else {
             clearInterval(timerInterval);
             alert("Time's up! Auto-submitting your answers...");
-            checkAnswers();
+            document.getElementById('quizForm').submit();
         }
     }
 
@@ -178,64 +181,47 @@
         document.getElementById('resetButton').disabled = true;
         enableInputs(false);
         document.getElementById('quizForm').reset();
-        clearColors();
-        document.getElementById('submitButton').disabled = true;
     }
 
-    function enableInputs(enable) {
-        const inputs = document.querySelectorAll("input[type='text']");
+    function enableInputs(enabled) {
+        let inputs = document.querySelectorAll("input[type='text']");
         inputs.forEach(input => {
-            input.disabled = !enable;
-            input.style.backgroundColor = enable ? "yellow" : "#ddd";
+            input.disabled = !enabled;
+            input.style.backgroundColor = enabled ? "yellow" : "#ddd";
         });
-        document.getElementById('submitButton').disabled = !enable;
+        document.getElementById('submitButton').disabled = !enabled;
     }
 
-    function clearColors() {
-        const inputs = document.querySelectorAll("input[type='text']");
-        inputs.forEach(input => {
-            input.style.backgroundColor = "yellow";
-        });
-    }
+function myFunction() {
+    validateAnswer("myText", "element");
+    validateAnswer("myText2", "compound");
+    validateAnswer("myText3", "atom");
+    validateAnswer("myText4", "energy levels");
+    validateAnswer("myText5", "nucleus");
+    validateAnswer("myText6", "positive");
+    validateAnswer("myText7", "neutral");
+    validateAnswer("myText8", "negative");
+    validateAnswer("myText9", "atomic");
+    validateAnswer("myText10", "atomic");
+    validateAnswer("myText11", "properties");
+    validateAnswer("myText12", "outer");
+    validateAnswer("myText13", "metals");
+    validateAnswer("myText14", "sharing");
+    validateAnswer("myText15", "acidic");
+    validateAnswer("myText16", "neutral");
+    validateAnswer("myText17", "less");
+    validateAnswer("myText18", "greater");
+    validateAnswer("myText19", "created");
+    validateAnswer("myText20", "chemical");
+}
 
-    function checkAnswers() {
-        const answers = {
-            q1: "proton",
-            q2: "nucleus",
-            q3: "atomic number",
-            q4: "neutron",
-            q5: "shell",
-            q6: "ion",
-            q7: "isotope",
-            q8: "negative",
-            q9: "mass number",
-            q10: "charge",
-            q11: "positive",
-            q12: "valence",
-            q13: "neutral",
-            q14: "charge",
-            q15: "atomic mass unit",
-            q16: "neutrons",
-            q17: "protons",
-            q18: "shells",
-            q19: "protons",
-            q20: "ions"
-        };
-
-        for (const [id, correctAnswer] of Object.entries(answers)) {
-            const input = document.getElementById(id);
-            if (input.value.trim().toLowerCase() === correctAnswer) {
-                input.style.backgroundColor = "purple";
-            } else {
-                input.style.backgroundColor = "red";
-            }
+    function validateAnswer(inputId, correctAnswer) {
+        let inputField = document.getElementById(inputId);
+        if (inputField.value.trim() === correctAnswer) {
+            inputField.style.backgroundColor = "purple"; // Fixed correct answer color
+        } else {
+            inputField.style.backgroundColor = "red";
         }
-        clearInterval(timerInterval);
-        timerActive = false;
-        document.getElementById('startButton').disabled = false;
-        document.getElementById('resetButton').disabled = true;
-        enableInputs(false);
-        alert("Quiz submitted! Review your answers by the colors.");
     }
 </script>
 
@@ -244,7 +230,7 @@
 const disabledKeys = ["u", "I"];
 const showAlert = e => {
     e.preventDefault();
-    alert("Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!");
+    return alert("Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!");
 };
 document.addEventListener("contextmenu", e => { showAlert(e); });
 document.addEventListener("keydown", e => {
