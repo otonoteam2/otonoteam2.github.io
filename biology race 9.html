@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Otono Biology - Digestive System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto Slab', serif;
+            text-align: center;
+        }
+        ol{text-align: left;
+            display: inline-block;
+
+        }
+        li{
+            padding: 5px;
+            font-size: 20px;
+        }
+
+        #timer {
+            font-size: 2rem;
+            font-weight: bold;
+            color: red;
+        }
+        input {
+            border-radius: 100px;
+            padding: 5px;
+            background-color: yellow;
+        }
+        table {
+            margin: auto;
+            border-collapse: collapse;
+            width: 50%;
+        }
+        td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        /* Purple Start Button */
+        #startButton {
+            background-color: purple;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #resetButton {
+            background-color: red;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Otono Biology - Digestive System</h1>
+<p>Answer in lower case :)</p>
+<p>Purple is correct and red is wrong</p>
+
+<!-- **Table is back!** -->
+<table>
+    <tr>
+        <td>digestion</td>
+        <td>mechanical</td>
+        <td>mouth</td>
+    </tr>
+    <tr>
+        <td>amylase</td>
+        <td>esophagus</td>
+        <td>peristalsis</td>
+    </tr>
+    <tr>
+        <td>stomach</td>
+        <td>pepsin</td>
+        <td>gastric juice</td>
+    </tr>
+        <tr>
+        <td>chyme</td>
+        <td>duodenum</td>
+        <td>liver</td>
+    </tr>
+    <tr>
+        <td>gallbladder</td>
+        <td>pancreas</td>
+        <td>lipase</td>
+    </tr>
+    <tr>
+        <td>villi</td>
+        <td>surface area</td>
+        <td>bloodstream</td>
+    </tr>
+    <tr>
+        <td>liver</td>
+        <td>absorption</td>
+        <td>Drummond</td>
+    </tr>
+</table>
+
+<h2>Time Left: <span id="timer">399</span> seconds</h2>
+
+<!-- Start & Reset Buttons -->
+<button id="startButton" onclick="startTimer()">Start</button>
+<button id="resetButton" onclick="resetQuiz()" disabled>Reset</button>
+
+<!-- FORM START -->
+<form id="quizForm" onsubmit="return false;">
+    <ol>
+        <li>The process of breaking down food into smaller molecules is called <input id="myText" type="text" disabled>. </li>
+        <li>The two types of digestion are <input id="myText2" type="text" disabled> digestion and chemical digestion. </li>
+        <li>The organ where digestion begins is the <input id="myText3" type="text" disabled>. </li>
+        <li>The enzyme in saliva that breaks down starch is called <input id="myText4" type="text" disabled>. </li>
+        <li>The muscular tube that connects the mouth to the stomach is the <input id="myText5" type="text" disabled>. </li>
+        <li>The wave-like muscle contractions that push food along the digestive tract are called <input id="myText6" type="text" disabled>. </li>
+        <li>The organ that produces acid and enzymes to break down food is the <input id="myText7" type="text" disabled>. </li>
+        <li>The acidic liquid in the stomach that helps digestion is called <input id="myText8" type="text" disabled>. </li>
+        <li>Enzymes are not <input id="myText9" type="text" disabled> in a reaction, meaning they can be reused. </li>
+        <li>The partially digested food that leaves the stomach and enters the small intestine is called <input id="myText10" type="text" disabled>. </li>
+        <li>The first part of the small intestine where bile and pancreatic enzymes are released is the <input id="myText11" type="text" disabled>. </li>
+        <li>The organ that produces bile to help digest fats is the <input id="myText12" type="text" disabled>. </li>
+        <li>Bile is stored in the <input id="myText13" type="text" disabled> before being released into the small intestine. </li>
+        <li>The organ that produces digestive enzymes such as amylase, lipase, and protease is the <input id="myText14" type="text" disabled>. </li>
+        <li>The enzyme <input id="myText15" type="text" disabled> breaks down fats into glycerol and fatty acids. </li>
+        <li>The inner surface of the small intestine is covered with tiny finger-like structures called <input id="myText16" type="text" disabled> pH. </li>
+        <li>The purpose of villi is to increase <input id="myText17" type="text" disabled> for nutrient absorption. </li>
+        <li>The small intestine absorbs nutrients into the <input id="myText18" type="text" disabled>. </li>
+        <li>The blood vessels inside villi transport glucose and amino acids to the <input id="myText19" type="text" disabled>. </li>
+        <li>The process of moving nutrients from the digestive system into the blood is called <input id="myText20" type="text" disabled>. </li>
+
+
+        <br>
+        <input type="submit" onclick="myFunction()" value="Submit" disabled id="submitButton">
+    </ol>
+</form>
+<!-- FORM END -->
+
+<script>
+    let timeLeft = 399; // Timer in seconds
+    let timerActive = false;
+    let timerInterval;
+
+    function startTimer() {
+        if (!timerActive) {
+            timerActive = true;
+            document.getElementById('startButton').disabled = true;
+            document.getElementById('resetButton').disabled = false;
+            enableInputs(true);
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+    }
+
+    function updateTimer() {
+        document.getElementById('timer').textContent = timeLeft;
+
+        if (timeLeft > 0) {
+            timeLeft--;
+        } else {
+            clearInterval(timerInterval);
+            alert("Time's up! Auto-submitting your answers...");
+            document.getElementById('quizForm').submit();
+        }
+    }
+
+    function resetQuiz() {
+        clearInterval(timerInterval);
+        timeLeft = 399;
+        document.getElementById('timer').textContent = timeLeft;
+        timerActive = false;
+        document.getElementById('startButton').disabled = false;
+        document.getElementById('resetButton').disabled = true;
+        enableInputs(false);
+        document.getElementById('quizForm').reset();
+    }
+
+    function enableInputs(enabled) {
+        let inputs = document.querySelectorAll("input[type='text']");
+        inputs.forEach(input => {
+            input.disabled = !enabled;
+            input.style.backgroundColor = enabled ? "yellow" : "#ddd";
+        });
+        document.getElementById('submitButton').disabled = !enabled;
+    }
+
+    function myFunction() {
+        validateAnswer("myText", "digestion");
+        validateAnswer("myText2", "mechanical");
+        validateAnswer("myText3", "mouth");
+        validateAnswer("myText4", "amylase");
+        validateAnswer("myText5", "esophagus");
+        validateAnswer("myText6", "peristalsis");
+        validateAnswer("myText7", "stomach");
+        validateAnswer("myText8", "pepsin");
+        validateAnswer("myText9", "gastric juice");
+        validateAnswer("myText10", "chyme");
+        validateAnswer("myText11", "duodenum");
+        validateAnswer("myText12", "liver");
+        validateAnswer("myText13", "gallbladder");
+        validateAnswer("myText14", "pancreas");
+        validateAnswer("myText15", "lipase");
+        validateAnswer("myText16", "villi");
+        validateAnswer("myText17", "surface area");
+        validateAnswer("myText18", "bloodstream");
+        validateAnswer("myText19", "liver");
+        validateAnswer("myText20", "absorption");
+    }
+
+    function validateAnswer(inputId, correctAnswer) {
+        let inputField = document.getElementById(inputId);
+        if (inputField.value.trim() === correctAnswer) {
+            inputField.style.backgroundColor = "purple"; // Fixed correct answer color
+        } else {
+            inputField.style.backgroundColor = "red";
+        }
+    }
+</script>
+
+<!-- Anti-Source Code Protection -->
+<script>
+const disabledKeys = ["u", "I"];
+const showAlert = e => {
+    e.preventDefault();
+    return alert("Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!");
+};
+document.addEventListener("contextmenu", e => { showAlert(e); });
+document.addEventListener("keydown", e => {
+    if ((e.ctrlKey && disabledKeys.includes(e.key)) || e.key === "F12") {
+        showAlert(e);
+    }
+});
+</script>
+
+</body>
+</html>
