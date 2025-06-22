@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Otono Chemistry</title>
+    <title>Otono Chemistry - States of Matter and Phase Changes</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -65,50 +65,50 @@
 </head>
 <body>
 
-<h1>Otono Chemistry - The Periodic Table</h1>
+<h1>Otono Chemistry - States of Matter and Phase Changes</h1>
 <p>Answer in lower case :)</p>
 <p>Purple is correct and red is wrong</p>
 
 <!-- **Table is back!** -->
 <table>
     <tr>
-        <td>element</td>
-        <td>compound</td>
-        <td>atom</td>
+        <td>solid</td>
+        <td>liquid</td>
+        <td>gas</td>
     </tr>
     <tr>
-        <td>energy levels</td>
-        <td>nucleus</td>
-        <td>positive</td>
+        <td>plasma</td>
+        <td>melting</td>
+        <td>freezing</td>
     </tr>
     <tr>
-        <td>neutral</td>
-        <td>negative</td>
-        <td>atomic</td>
-    </tr>
-        <tr>
-        <td>atomic</td>
-        <td>properties</td>
-        <td>outer</td>
+        <td>evaporation</td>
+        <td>condensation</td>
+        <td>sublimation</td>
     </tr>
     <tr>
-        <td>metals</td>
-        <td>sharing</td>
-        <td>acidic</td>
+        <td>deposition</td>
+        <td>volume</td>
+        <td>shape</td>
     </tr>
     <tr>
-        <td>neutral</td>
-        <td>less</td>
-        <td>greater</td>
+        <td>particles</td>
+        <td>energy</td>
+        <td>increase</td>
     </tr>
     <tr>
-        <td>created</td>
-        <td>chemical</td>
-        <td>Drummond</td>
+        <td>decrease</td>
+        <td>compress</td>
+        <td>expand</td>
+    </tr>
+    <tr>
+        <td>kinetic</td>
+        <td>matter</td>
+        <td>temperature</td>
     </tr>
 </table>
 
-<h2>Time Left: <span id="timer">399</span> seconds</h2>
+<h2>Time Left: <span id="timer">409</span> seconds</h2>
 
 <!-- Start & Reset Buttons -->
 <button id="startButton" onclick="startTimer()">Start</button>
@@ -117,26 +117,29 @@
 <!-- FORM START -->
 <form id="quizForm" onsubmit="return false;">
     <ol>
-        <li>An <input id="myText" type="text" disabled> is a substance that cannot be broken down into simpler substances. </li>
-        <li>A <input id="myText2" type="text" disabled> is made up of two or more elements chemically bonded together. </li>
-        <li>The smallest unit of an element is an <input id="myText3" type="text" disabled>. </li>
-        <li>Electrons are found in <input id="myText4" type="text" disabled> around the nucleus. </li>
-        <li>The center of an atom is called the <input id="myText5" type="text" disabled>. </li>
-        <li>Protons have a <input id="myText6" type="text" disabled> charge. </li>
-        <li>Neutrons are <input id="myText7" type="text" disabled> in charge. </li>
-        <li>Electrons have a <input id="myText8" type="text" disabled> charge. </li>
-        <li>The number of protons in an atom is called its <input id="myText9" type="text" disabled> number. </li>
-        <li>The periodic table is arranged by increasing <input id="myText10" type="text" disabled> number. </li>
-        <li>Groups on the periodic table contain elements with similar <input id="myText11" type="text" disabled>. </li>
-        <li>Atoms bond to achieve a full <input id="myText12" type="text" disabled> shell. </li>
-        <li>Ionic bonds form between <input id="myText13" type="text" disabled> and nonmetals. </li>
-        <li>Covalent bonds involve the <input id="myText14" type="text" disabled> of electrons. </li>
-        <li>The pH scale measures how <input id="myText15" type="text" disabled> or basic a solution is. </li>
-        <li>A solution with a pH of 7 is <input id="myText16" type="text" disabled>. </li>
-        <li>An acid has a pH <input id="myText17" type="text" disabled> than 7. </li>
-        <li>A base has a pH <input id="myText18" type="text" disabled> than 7. </li>
-        <li>The law of conservation of mass states that matter cannot be <input id="myText19" type="text" disabled> or destroyed. </li>
-        <li>A <input id="myText20" type="text" disabled> reaction involves the exchange of energy and the rearrangement of atoms. </li>
+    <li><input id="q1" type="text" disabled> has a definite shape and volume.</li>
+    <li><input id="q2" type="text" disabled> has a definite volume but no definite shape.</li>
+    <li><input id="q3" type="text" disabled> has no definite shape or volume.</li>
+    <li><input id="q4" type="text" disabled> is a high-energy state of matter found in stars.</li>
+    <li>The process of changing from solid to liquid is called <input id="q5" type="text" disabled>.</li>
+    <li>The process of changing from liquid to solid is called <input id="q6" type="text" disabled>.</li>
+    <li><input id="q7" type="text" disabled> is the change from liquid to gas at the surface.</li>
+    <li><input id="q8" type="text" disabled> occurs when gas becomes a liquid.</li>
+    <li><input id="q9" type="text" disabled> is the direct change from solid to gas.</li>
+    <li><input id="q10" type="text" disabled> is the direct change from gas to solid.</li>
+    <li>Solids have a fixed <input id="q11" type="text" disabled> and shape.</li>
+    <li>Liquids take the <input id="q12" type="text" disabled> of their container.</li>
+    <li>Gases can <input id="q13" type="text" disabled> to fit any space.</li>
+    <li>As matter is heated, <input id="q14" type="text" disabled> increases.</li>
+    <li>When energy is removed, temperature <input id="q15" type="text" disabled>.</li>
+    <li>When matter changes state, its <input id="q16" type="text" disabled> moves faster or slower.</li>
+    <li><input id="q17" type="text" disabled> energy is the energy of motion in particles.</li>
+    <li>All substances are made of <input id="q18" type="text" disabled>.</li>
+    <li>Solids resist compression because their <input id="q19" type="text" disabled> are tightly packed.</li>
+    <li>Gases can <input id="q20" type="text" disabled> easily due to the space between particles.</li>
+    <li>The amount of matter in an object is called <input id="q21" type="text" disabled>.</li>
+    <li>The measure of the average kinetic energy of particles is <input id="q22" type="text" disabled>.</li>
+    <li>Heating a substance generally causes it to <input id="q23" type="text" disabled>.</li>
 
 
         <br>
@@ -146,7 +149,7 @@
 <!-- FORM END -->
 
 <script>
-    let timeLeft = 399; // Timer in seconds
+    let timeLeft = 409; // Timer in seconds
     let timerActive = false;
     let timerInterval;
 
@@ -174,7 +177,7 @@
 
     function resetQuiz() {
         clearInterval(timerInterval);
-        timeLeft = 399;
+        timeLeft = 409;
         document.getElementById('timer').textContent = timeLeft;
         timerActive = false;
         document.getElementById('startButton').disabled = false;
@@ -192,27 +195,30 @@
         document.getElementById('submitButton').disabled = !enabled;
     }
 
-function myFunction() {
-    validateAnswer("myText", "element");
-    validateAnswer("myText2", "compound");
-    validateAnswer("myText3", "atom");
-    validateAnswer("myText4", "energy levels");
-    validateAnswer("myText5", "nucleus");
-    validateAnswer("myText6", "positive");
-    validateAnswer("myText7", "neutral");
-    validateAnswer("myText8", "negative");
-    validateAnswer("myText9", "atomic");
-    validateAnswer("myText10", "atomic");
-    validateAnswer("myText11", "properties");
-    validateAnswer("myText12", "outer");
-    validateAnswer("myText13", "metals");
-    validateAnswer("myText14", "sharing");
-    validateAnswer("myText15", "acidic");
-    validateAnswer("myText16", "neutral");
-    validateAnswer("myText17", "less");
-    validateAnswer("myText18", "greater");
-    validateAnswer("myText19", "created");
-    validateAnswer("myText20", "chemical");
+function validateAnswers() {
+    validateAnswer("q1", "solid");
+    validateAnswer("q2", "liquid");
+    validateAnswer("q3", "gas");
+    validateAnswer("q4", "plasma");
+    validateAnswer("q5", "melting");
+    validateAnswer("q6", "freezing");
+    validateAnswer("q7", "evaporation");
+    validateAnswer("q8", "condensation");
+    validateAnswer("q9", "sublimation");
+    validateAnswer("q10", "deposition");
+    validateAnswer("q11", "volume");
+    validateAnswer("q12", "shape");
+    validateAnswer("q13", "compress");
+    validateAnswer("q14", "energy");
+    validateAnswer("q15", "decrease");
+    validateAnswer("q16", "particles");
+    validateAnswer("q17", "kinetic");
+    validateAnswer("q18", "matter");
+    validateAnswer("q19", "particles");
+    validateAnswer("q20", "compress");
+    validateAnswer("q21", "matter");
+    validateAnswer("q22", "temperature");
+    validateAnswer("q23", "expand");
 }
 
     function validateAnswer(inputId, correctAnswer) {
