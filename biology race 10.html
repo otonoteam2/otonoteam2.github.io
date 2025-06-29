@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Otono Biology - Infections And Response</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto Slab', serif;
+            text-align: center;
+        }
+        ol{text-align: left;
+            display: inline-block;
+
+        }
+        li{
+            padding: 5px;
+            font-size: 20px;
+        }
+
+        #timer {
+            font-size: 2rem;
+            font-weight: bold;
+            color: red;
+        }
+        input {
+            border-radius: 100px;
+            padding: 5px;
+            background-color: yellow;
+        }
+        table {
+            margin: auto;
+            border-collapse: collapse;
+            width: 50%;
+        }
+        td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        /* Purple Start Button */
+        #startButton {
+            background-color: purple;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #resetButton {
+            background-color: red;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Otono Biology - Infections and Response</h1>
+<p>Answer in lower case :)</p>
+<p>Purple is correct and red is wrong</p>
+
+<!-- **Table is back!** -->
+<table>
+    <tr>
+        <td>microorganism</td>
+        <td>viruses</td>
+        <td>vectors</td>
+    </tr>
+    <tr>
+        <td>infectious</td>
+        <td>stomach acid</td>
+        <td>prokaryotic</td>
+    </tr>
+    <tr>
+        <td>toxins</td>
+        <td>antibiotics</td>
+        <td>tuberculosis</td>
+    </tr>
+        <tr>
+        <td>e coli</td>
+        <td>smaller</td>
+        <td>reproduce</td>
+    </tr>
+</table>
+
+<h2>Time Left: <span id="timer">309</span> seconds</h2>
+
+<!-- Start & Reset Buttons -->
+<button id="startButton" onclick="startTimer()">Start</button>
+<button id="resetButton" onclick="resetQuiz()" disabled>Reset</button>
+
+<!-- FORM START -->
+<form id="quizForm" onsubmit="return false;">
+    <ol>
+        <li>A pathogen is a <input id="myText" type="text" disabled> that causes disease. </li>
+        <li>The four main types of pathogens are bacteria, <input id="myText2" type="text" disabled>, fungi, and protists. </li>
+        <li>Pathogens can be spread through air, water, direct contact, and <input id="myText3" type="text" disabled>. </li>
+        <li>Diseases caused by pathogens are known as <input id="myText4" type="text" disabled> diseases. </li>
+        <li>The body's first line of defense against pathogens includes the skin, mucus, and <input id="myText5" type="text" disabled>. </li>
+        <li>Bacteria are <input id="myText6" type="text" disabled>, meaning they do not have a nucleus. </li>
+        <li>Bacteria cause disease by producing <input id="myText7" type="text" disabled> that damage cells and tissues. </li>
+        <li>A bacterial infection can be treated using <input id="myText8" type="text" disabled>. </li>
+        <li>One example of a bacterial disease is <input id="myText9" type="text" disabled>, which causes lung infections. </li>
+        <li>The bacteria that cause food poisoning include Salmonella and <input id="myText10" type="text" disabled>. </li>
+        <li>Viruses are much <input id="myText11" type="text" disabled> than bacteria and cannot survive without a host. </li>
+        <li>Unlike bacteria, viruses are not made of cells and must <input id="myText12" type="text" disabled> inside a host cell. </li>
+
+        <br>
+        <input type="submit" onclick="myFunction()" value="Submit" disabled id="submitButton">
+    </ol>
+</form>
+<!-- FORM END -->
+
+<script>
+    let timeLeft = 309; // Timer in seconds
+    let timerActive = false;
+    let timerInterval;
+
+    function startTimer() {
+        if (!timerActive) {
+            timerActive = true;
+            document.getElementById('startButton').disabled = true;
+            document.getElementById('resetButton').disabled = false;
+            enableInputs(true);
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+    }
+
+    function updateTimer() {
+        document.getElementById('timer').textContent = timeLeft;
+
+        if (timeLeft > 0) {
+            timeLeft--;
+        } else {
+            clearInterval(timerInterval);
+            alert("Time's up! Auto-submitting your answers...");
+            document.getElementById('quizForm').submit();
+        }
+    }
+
+    function resetQuiz() {
+        clearInterval(timerInterval);
+        timeLeft = 309;
+        document.getElementById('timer').textContent = timeLeft;
+        timerActive = false;
+        document.getElementById('startButton').disabled = false;
+        document.getElementById('resetButton').disabled = true;
+        enableInputs(false);
+        document.getElementById('quizForm').reset();
+    }
+
+    function enableInputs(enabled) {
+        let inputs = document.querySelectorAll("input[type='text']");
+        inputs.forEach(input => {
+            input.disabled = !enabled;
+            input.style.backgroundColor = enabled ? "yellow" : "#ddd";
+        });
+        document.getElementById('submitButton').disabled = !enabled;
+    }
+
+    function myFunction() {
+        validateAnswer("myText", "microorganism");
+        validateAnswer("myText2", "viruses");
+        validateAnswer("myText3", "vectors");
+        validateAnswer("myText4", "infectious");
+        validateAnswer("myText5", "stomach acid");
+        validateAnswer("myText6", "prokaryotic");
+        validateAnswer("myText7", "toxins");
+        validateAnswer("myText8", "antibiotics");
+        validateAnswer("myText9", "tuberculosis");
+        validateAnswer("myText10", "e coli");
+        validateAnswer("myText11", "smaller");
+        validateAnswer("myText12", "reproduce");
+    }
+
+    function validateAnswer(inputId, correctAnswer) {
+        let inputField = document.getElementById(inputId);
+        if (inputField.value.trim() === correctAnswer) {
+            inputField.style.backgroundColor = "purple"; // Fixed correct answer color
+        } else {
+            inputField.style.backgroundColor = "red";
+        }
+    }
+</script>
+
+<!-- Anti-Source Code Protection -->
+<script>
+const disabledKeys = ["u", "I"];
+const showAlert = e => {
+    e.preventDefault();
+    return alert("Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!");
+};
+document.addEventListener("contextmenu", e => { showAlert(e); });
+document.addEventListener("keydown", e => {
+    if ((e.ctrlKey && disabledKeys.includes(e.key)) || e.key === "F12") {
+        showAlert(e);
+    }
+});
+</script>
+
+</body>
+</html>
