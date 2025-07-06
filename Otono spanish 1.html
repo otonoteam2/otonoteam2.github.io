@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GCSE Spanish Practice</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff8e1;
+      padding: 20px;
+      color: #222;
+    }
+    h1 {
+      background: #ffcc00;
+      color: #b30000;
+      padding: 10px;
+      border-radius: 8px;
+    }
+    .question {
+      border: 2px solid #ff6666;
+      background: #fff3f3;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+    .button {
+      padding: 10px 20px;
+      margin: 5px;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .start { background: #e53935; }
+    .pause { background: #ffb300; }
+    .stop  { background: #b71c1c; }
+    .submit { background: #388e3c; }
+    .button:hover { opacity: 0.9; }
+
+    #score, #resultText {
+      font-size: 1.3em;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🇪🇸 GCSE Spanish Writing & Translation Practice</h1>
+
+  <p><strong>Time Left:</strong> <span id="timer">999</span> seconds</p>
+  <button class="button start" onclick="startTimer()">Start</button>
+  <button class="button pause" onclick="pauseTimer()">Pause</button>
+  <button class="button stop" onclick="stopTimer()">Stop</button>
+
+  <div class="question">
+    <h2>1. 70-word Writing Task (30 marks)</h2>
+    <p id="question70"></p>
+    <textarea id="answer70" disabled></textarea>
+  </div>
+
+  <div class="question">
+    <h2>2. Translate this paragraph into Spanish (20 marks)</h2>
+    <p id="translationParagraph"></p>
+    <textarea id="translationAnswer" disabled></textarea>
+  </div>
+
+  <div class="question">
+    <h2>3. 110-word Writing Task (50 marks)</h2>
+    <p id="question110"></p>
+    <textarea id="answer110" disabled></textarea>
+  </div>
+
+  <button class="button submit" onclick="submitAnswers()">Submit Answers</button>
+
+  <p id="score"></p>
+  <p id="resultText"></p>
+
+  <script>
+    const writing70Questions = [
+      "Describe a school trip you enjoyed recently.",
+      "Write about your best friend and what you do together.",
+      "Describe a celebration or party you went to recently.",
+      "Write about a typical day in your life.",
+      "Describe your house and your ideal house.",
+      "Write about what you do to help the environment.",
+      "Write about your last holiday.",
+      "Describe your favorite subject and why you like it.",
+      "Write about your hobbies and interests.",
+      "Describe a time you helped someone."
+    ];
+
+    const writing110Questions = [
+      "Describe a special day with your family or friends.",
+      "Write about your plans for the future.",
+      "Describe a healthy lifestyle and what you do to stay fit.",
+      "Write about a time you had a problem and how you solved it.",
+      "Describe your town and what you like/dislike about it.",
+      "Write about a job you would like to have.",
+      "Describe how you use technology in your daily life.",
+      "Write about a holiday in another country.",
+      "Describe your daily routine and any changes you'd like to make.",
+      "Write about your school and how it could be improved."
+    ];
+
+    const translationParagraphs = [
+      "There are two new students in my class and I get on best with a boy who is called Lucas. He is going to live in the countryside where they do a lot to protect the environment. Yesterday, we went to pick up rubbish in the park. We were lucky because it did not rain.",
+      "My sister got married in January last year. Her husband is Spanish, but he speaks English very well. They have bought a house near the coast. I would like to go there in the summer, before returning to school. They say that the weather is good and it will be a fantastic week.",
+      "In the winter, it is cold in our towns and I think that we must do more for the homeless people. When I left school yesterday, I went to buy a video game that was quite expensive. I was sad because I saw an old lady who was living on the street.",
+      "My parents work a lot and sometimes they are very tired. However, they always help me with my homework and we eat together every evening. I love spending time with them and we often watch films at the weekend.",
+      "Last weekend I went to the cinema with my friends. We watched an action film that was very exciting. Afterwards, we ate in a restaurant. I ordered pizza and ice cream. It was delicious!"
+    ];
+
+    // Randomly assign questions
+    document.getElementById("question70").innerText =
+      writing70Questions[Math.floor(Math.random() * writing70Questions.length)];
+    document.getElementById("question110").innerText =
+      writing110Questions[Math.floor(Math.random() * writing110Questions.length)];
+    document.getElementById("translationParagraph").innerText =
+      translationParagraphs[Math.floor(Math.random() * translationParagraphs.length)];
+
+    let timeLeft = 999;
+    let timerInterval = null;
+    let isRunning = false;
+
+    function startTimer() {
+      if (isRunning) return;
+      isRunning = true;
+      enableTextareas(true);
+      timerInterval = setInterval(() => {
+        if (timeLeft > 0) {
+          timeLeft--;
+          document.getElementById("timer").textContent = timeLeft;
+        } else {
+          stopTimer();
+          alert("Time's up!");
+        }
+      }, 1000);
+    }
+
+    function pauseTimer() {
+      clearInterval(timerInterval);
+      isRunning = false;
+    }
+
+    function stopTimer() {
+      clearInterval(timerInterval);
+      isRunning = false;
+      enableTextareas(false);
+    }
+
+    function enableTextareas(enable) {
+      document.getElementById("answer70").disabled = !enable;
+      document.getElementById("translationAnswer").disabled = !enable;
+      document.getElementById("answer110").disabled = !enable;
+    }
+
+    function submitAnswers() {
+      const ans70 = document.getElementById("answer70").value.trim();
+      const ansTrans = document.getElementById("translationAnswer").value.trim();
+      const ans110 = document.getElementById("answer110").value.trim();
+
+      const words70 = ans70.split(/\s+/).filter(Boolean).length;
+      const words110 = ans110.split(/\s+/).filter(Boolean).length;
+
+      let score70 = words70 >= 60 && words70 <= 100 ? 30 : (words70 >= 50 ? 20 : (words70 >= 30 ? 10 : 0));
+      let scoreTrans = ansTrans.length > 100 ? 20 : (ansTrans.length > 50 ? 10 : 5);
+      let score110 = words110 >= 100 && words110 <= 170 ? 50 : (words110 >= 80 ? 30 : (words110 >= 50 ? 15 : 0));
+
+      const totalScore = score70 + scoreTrans + score110;
+      let result = "";
+      let grade = "";
+
+      // Grade assignment
+      if (totalScore >= 95) grade = "A";
+      else if (totalScore >= 80) grade = "B";
+      else if (totalScore >= 70) grade = "C";
+      else if (totalScore >= 66) grade = "D";
+      else if (totalScore >= 60) grade = "E";
+      else if (totalScore >= 45) grade = "F";
+      else if (totalScore >= 30) grade = "G";
+      else if (totalScore >= 15) grade = "H";
+      else grade = "H-";
+
+      if (totalScore >= 90) result = `Distinction ✅`;
+      else if (totalScore >= 80) result = `Merit ✅`;
+      else if (totalScore >= 66) result = `Pass ✅`;
+      else result = `Fail ❌`;
+
+      document.getElementById("score").innerText = `Total Score: ${totalScore}/100`;
+      document.getElementById("resultText").innerText =
+        `${result} (You scored ${totalScore} out of 100) — Grade: ${grade}`;
+    }
+  </script>
+</body>
+</html>

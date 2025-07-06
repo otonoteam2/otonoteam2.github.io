@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Otono Biology - Immune System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto Slab', serif;
+            text-align: center;
+        }
+        ol{text-align: left;
+            display: inline-block;
+
+        }
+        li{
+            padding: 5px;
+            font-size: 20px;
+        }
+
+        #timer {
+            font-size: 2rem;
+            font-weight: bold;
+            color: red;
+        }
+        input {
+            border-radius: 100px;
+            padding: 5px;
+            background-color: yellow;
+        }
+        table {
+            margin: auto;
+            border-collapse: collapse;
+            width: 50%;
+        }
+        td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        /* Purple Start Button */
+        #startButton {
+            background-color: purple;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #resetButton {
+            background-color: red;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Otono Biology - Immune System</h1>
+<p>Answer in lower case :)</p>
+<p>Purple is correct and red is wrong</p>
+
+<!-- **Table is back!** -->
+<table>
+    <tr>
+        <td>pathogens</td>
+        <td>stomach acid</td>
+        <td>specific</td>
+    </tr>
+    <tr>
+        <td>white blood cell</td>
+        <td>leukocytes</td>
+        <td>phagocytosis</td>
+    </tr>
+    <tr>
+        <td>phagocyte</td>
+        <td>enzymes</td>
+        <td>antigens</td>
+    </tr>
+        <tr>
+        <td>waste</td>
+        <td>lymphocytes</td>
+        <td>proteins</td>
+    </tr>
+</table>
+
+<h2>Time Left: <span id="timer">309</span> seconds</h2>
+
+<!-- Start & Reset Buttons -->
+<button id="startButton" onclick="startTimer()">Start</button>
+<button id="resetButton" onclick="resetQuiz()" disabled>Reset</button>
+
+<!-- FORM START -->
+<form id="quizForm" onsubmit="return false;">
+    <ol>
+        <li>The immune system helps protect the body against <input id="myText" type="text" disabled>. </li>
+        <li>The first line of defense includes physical barriers like the skin, mucus, and <input id="myText2" type="text" disabled>. </li>
+        <li>If pathogens enter the body, the <input id="myText3" type="text" disabled> immune response is triggered. </li>
+        <li>The main type of blood cells involved in the immune response are called <input id="myText4" type="text" disabled>. </li>
+        <li>White blood cells are also known as <input id="myText5" type="text" disabled>. </li>
+        <li>The process where white blood cells engulf and digest pathogens is called <input id="myText6" type="text" disabled>. </li>
+        <li>The type of white blood cell that carries out phagocytosis is called a <input id="myText7" type="text" disabled>. </li>
+        <li>After engulfing a pathogen, phagocytes break it down using <input id="myText8" type="text" disabled>. </li>
+        <li>Phagocytes recognize pathogens by detecting their <input id="myText9" type="text" disabled>. </li>
+        <li>The remains of broken-down pathogens are removed from the body as <input id="myText10" type="text" disabled>. </li>
+        <li>Another type of white blood cell called <input id="myText11" type="text" disabled> produces antibodies. </li>
+        <li>Antibodies are <input id="myText12" type="text" disabled> that help destroy pathogens. </li>
+
+        <br>
+        <input type="submit" onclick="myFunction()" value="Submit" disabled id="submitButton">
+    </ol>
+</form>
+<!-- FORM END -->
+
+<script>
+    let timeLeft = 309; // Timer in seconds
+    let timerActive = false;
+    let timerInterval;
+
+    function startTimer() {
+        if (!timerActive) {
+            timerActive = true;
+            document.getElementById('startButton').disabled = true;
+            document.getElementById('resetButton').disabled = false;
+            enableInputs(true);
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+    }
+
+    function updateTimer() {
+        document.getElementById('timer').textContent = timeLeft;
+
+        if (timeLeft > 0) {
+            timeLeft--;
+        } else {
+            clearInterval(timerInterval);
+            alert("Time's up! Auto-submitting your answers...");
+            document.getElementById('quizForm').submit();
+        }
+    }
+
+    function resetQuiz() {
+        clearInterval(timerInterval);
+        timeLeft = 309;
+        document.getElementById('timer').textContent = timeLeft;
+        timerActive = false;
+        document.getElementById('startButton').disabled = false;
+        document.getElementById('resetButton').disabled = true;
+        enableInputs(false);
+        document.getElementById('quizForm').reset();
+    }
+
+    function enableInputs(enabled) {
+        let inputs = document.querySelectorAll("input[type='text']");
+        inputs.forEach(input => {
+            input.disabled = !enabled;
+            input.style.backgroundColor = enabled ? "yellow" : "#ddd";
+        });
+        document.getElementById('submitButton').disabled = !enabled;
+    }
+
+    function myFunction() {
+        validateAnswer("myText", "pathogens");
+        validateAnswer("myText2", "stomach acid");
+        validateAnswer("myText3", "specific");
+        validateAnswer("myText4", "white blood cell");
+        validateAnswer("myText5", "leukocytes");
+        validateAnswer("myText6", "phagocytosis");
+        validateAnswer("myText7", "phagocyte");
+        validateAnswer("myText8", "enzymes");
+        validateAnswer("myText9", "antigens");
+        validateAnswer("myText10", "waste");
+        validateAnswer("myText11", "lymphocytes");
+        validateAnswer("myText12", "proteins");
+    }
+
+    function validateAnswer(inputId, correctAnswer) {
+        let inputField = document.getElementById(inputId);
+        if (inputField.value.trim() === correctAnswer) {
+            inputField.style.backgroundColor = "purple"; // Fixed correct answer color
+        } else {
+            inputField.style.backgroundColor = "red";
+        }
+    }
+</script>
+
+<!-- Anti-Source Code Protection -->
+<script>
+const disabledKeys = ["u", "I"];
+const showAlert = e => {
+    e.preventDefault();
+    return alert("Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!");
+};
+document.addEventListener("contextmenu", e => { showAlert(e); });
+document.addEventListener("keydown", e => {
+    if ((e.ctrlKey && disabledKeys.includes(e.key)) || e.key === "F12") {
+        showAlert(e);
+    }
+});
+</script>
+
+</body>
+</html>
