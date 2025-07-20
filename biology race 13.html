@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Otono Biology - Glucose</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto Slab', serif;
+            text-align: center;
+        }
+        ol{text-align: left;
+            display: inline-block;
+
+        }
+        li{
+            padding: 5px;
+            font-size: 20px;
+        }
+
+        #timer {
+            font-size: 2rem;
+            font-weight: bold;
+            color: red;
+        }
+        input {
+            border-radius: 100px;
+            padding: 5px;
+            background-color: yellow;
+        }
+        table {
+            margin: auto;
+            border-collapse: collapse;
+            width: 50%;
+        }
+        td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        /* Purple Start Button */
+        #startButton {
+            background-color: purple;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #resetButton {
+            background-color: red;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Otono Biology - Glucose</h1>
+<p>Answer in lower case :)</p>
+<p>Purple is correct and red is wrong</p>
+
+<!-- **Table is back!** -->
+<table>
+<tr>
+    <td>Benedict’s</td>
+    <td>brick-red</td>
+    <td>sucrose</td>
+</tr>
+<tr>
+    <td>hydrochloric</td>
+    <td>iodine</td>
+    <td>blue</td>
+</tr>
+<tr>
+    <td>emulsion</td>
+    <td>ethanol</td>
+    <td>emulsion</td>
+</tr>
+<tr>
+    <td>Biuret</td>
+    <td>sodium</td>
+    <td>purple</td>
+</tr>
+<tr>
+    <td>reducing</td>
+    <td>Sucrose</td>
+    <td>blue</td>
+</tr>
+<tr>
+    <td>orange-brown</td>
+    <td>water</td>
+    <td>peptide</td>
+</tr>
+<tr>
+    <td>blue</td>
+    <td>milky</td>
+    <td>Benedict’s</td>
+</tr>
+<tr>
+    <td>brick-red</td>
+    <td>Glucose</td>
+    <td>Fructose</td>
+</tr>
+<tr>
+    <td>Maltose</td>
+    <td>hydrochloric</td>
+    <td>Benedict’s</td>
+</tr>
+<tr>
+    <td>Lactose</td>
+    <td>brick-red</td>
+    <td>blue</td>
+</tr>
+</table>
+
+<h2>Time Left: <span id="timer">429</span> seconds</h2>
+
+<!-- Start & Reset Buttons -->
+<button id="startButton" onclick="startTimer()">Start</button>
+<button id="resetButton" onclick="resetQuiz()" disabled>Reset</button>
+
+<!-- FORM START -->
+<form id="quizForm" onsubmit="return false;">
+    <ol>
+        <li>To test for reducing sugars, you use <input id="q1" type="text" disabled>.</li>
+    <li>A positive Benedict’s test turns from blue to <input id="q2" type="text" disabled>.</li>
+    <li>Non-reducing sugars like <input id="q3" type="text" disabled> require hydrolysis before testing.</li>
+    <li>Hydrolysis of sucrose uses dilute <input id="q4" type="text" disabled> acid.</li>
+    <li>The test for starch uses <input id="q5" type="text" disabled> solution.</li>
+    <li>A positive starch test gives a <input id="q6" type="text" disabled>-black colour.</li>
+    <li>To test for lipids, the <input id="q7" type="text" disabled> test is used.</li>
+    <li>The emulsion test uses <input id="q8" type="text" disabled> and water.</li>
+    <li>A cloudy white <input id="q9" type="text" disabled> indicates the presence of lipids.</li>
+    <li>The test for proteins is the <input id="q10" type="text" disabled> test.</li>
+    <li>Biuret reagent contains <input id="q11" type="text" disabled> hydroxide and copper sulfate.</li>
+    <li>A positive protein test turns the solution <input id="q12" type="text" disabled>.</li>
+    <li>Glucose and fructose are examples of <input id="q13" type="text" disabled> sugars.</li>
+    <li><input id="q14" type="text" disabled> is a non-reducing sugar.</li>
+    <li>The initial colour of Benedict’s solution is <input id="q15" type="text" disabled>.</li>
+    <li>A negative starch test leaves the iodine solution <input id="q16" type="text" disabled>.</li>
+    <li>Lipids are soluble in ethanol but not in <input id="q17" type="text" disabled>.</li>
+    <li>The Biuret test turns purple in the presence of <input id="q18" type="text" disabled> groups.</li>
+    <li>If no protein is present, the Biuret solution stays <input id="q19" type="text" disabled>.</li>
+    <li>In the emulsion test, lipids appear as a <input id="q20" type="text" disabled> suspension.</li>
+    <li>To test for reducing sugars, including glucose and fructose, we use <input id="q21" type="text" disabled> reagent.</li>
+    <li>When Benedict’s reagent is heated with a reducing sugar, it changes from blue to <input id="q22" type="text" disabled>.</li>
+    <li><input id="q23" type="text" disabled> and <input id="q24" type="text" disabled> are reducing sugars and will give a positive Benedict’s test.</li>
+    <li><input id="q25" type="text" disabled> is a disaccharide that is also a reducing sugar and will react with Benedict’s reagent.</li>
+</ul>
+
+        <br>
+        <input type="submit" onclick="myFunction()" value="Submit" disabled id="submitButton">
+    </ol>
+</form>
+<!-- FORM END -->
+
+<script>
+    let timeLeft = 429; // Timer in seconds
+    let timerActive = false;
+    let timerInterval;
+
+    function startTimer() {
+        if (!timerActive) {
+            timerActive = true;
+            document.getElementById('startButton').disabled = true;
+            document.getElementById('resetButton').disabled = false;
+            enableInputs(true);
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+    }
+
+    function updateTimer() {
+        document.getElementById('timer').textContent = timeLeft;
+
+        if (timeLeft > 0) {
+            timeLeft--;
+        } else {
+            clearInterval(timerInterval);
+            alert("Time's up! Auto-submitting your answers...");
+            document.getElementById('quizForm').submit();
+        }
+    }
+
+    function resetQuiz() {
+        clearInterval(timerInterval);
+        timeLeft = 429;
+        document.getElementById('timer').textContent = timeLeft;
+        timerActive = false;
+        document.getElementById('startButton').disabled = false;
+        document.getElementById('resetButton').disabled = true;
+        enableInputs(false);
+        document.getElementById('quizForm').reset();
+    }
+
+    function enableInputs(enabled) {
+        let inputs = document.querySelectorAll("input[type='text']");
+        inputs.forEach(input => {
+            input.disabled = !enabled;
+            input.style.backgroundColor = enabled ? "yellow" : "#ddd";
+        });
+        document.getElementById('submitButton').disabled = !enabled;
+    }
+
+   
+function myFunction() {
+    validateAnswer("q1", "Benedict’s");
+    validateAnswer("q2", "brick-red");
+    validateAnswer("q3", "sucrose");
+    validateAnswer("q4", "hydrochloric");
+    validateAnswer("q5", "iodine");
+    validateAnswer("q6", "blue");
+    validateAnswer("q7", "emulsion");
+    validateAnswer("q8", "ethanol");
+    validateAnswer("q9", "emulsion");
+    validateAnswer("q10", "Biuret");
+    validateAnswer("q11", "sodium");
+    validateAnswer("q12", "purple");
+    validateAnswer("q13", "reducing");
+    validateAnswer("q14", "Sucrose");
+    validateAnswer("q15", "blue");
+    validateAnswer("q16", "orange-brown");
+    validateAnswer("q17", "water");
+    validateAnswer("q18", "peptide");
+    validateAnswer("q19", "blue");
+    validateAnswer("q20", "milky");
+    validateAnswer("q21", "Benedict’s");
+    validateAnswer("q22", "brick-red");
+    validateAnswer("q23", "Glucose");
+    validateAnswer("q24", "Fructose");
+    validateAnswer("q25", "Maltose");
+}
+
+    function validateAnswer(inputId, correctAnswer) {
+        let inputField = document.getElementById(inputId);
+        if (inputField.value.trim() === correctAnswer) {
+            inputField.style.backgroundColor = "purple"; // Fixed correct answer color
+        } else {
+            inputField.style.backgroundColor = "red";
+        }
+    }
+</script>
+
+<!-- Anti-Source Code Protection -->
+<script>
+const disabledKeys = ["u", "I"];
+const showAlert = e => {
+    e.preventDefault();
+    return alert("Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!");
+};
+document.addEventListener("contextmenu", e => { showAlert(e); });
+document.addEventListener("keydown", e => {
+    if ((e.ctrlKey && disabledKeys.includes(e.key)) || e.key === "F12") {
+        showAlert(e);
+    }
+});
+</script>
+
+</body>
+</html>
