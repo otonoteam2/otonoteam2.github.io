@@ -35,20 +35,22 @@
     <img src="./Images/aprilplan.png" alt="Otono Subways" height="600">
 
     <script>
-      const stations = [
-    "Select", "Otono", "Airport", "Andy", "Angus", "Arena", "Bank", "Barley", "Bath", "Beach", 
-    "Bridge", "Buckley", "Casino", "Castle", "Central", "Chateau", "Crater", "Cruise", "Darcy", "Daso", 
-    "Devlin", "Drummond", "Felix", "Glucose", "Grimxr", "Hernandez", "Hiscott", "Hotel", "Ikea", "Ink", 
-    "Jurassic", "Joshua", "Kempson", "Lowe", "Mansion", "Monaco", "Monza", "Mountainside", 
-    "Mountbatten", "Nelson", "Oganesson", "Phillips", "Pickard", "Port", "Prison", "Riverside", "Sainsbury's", 
-    "School", "Tardis", "Temple", "Torran", "Trevor", "Tuckwell", "Uranus", "Wickland", "Wyatt"
-];
-        
+        const stations = [
+            "Select", "Otono", "Andy", "Angus", "Arena", "Airport", "Barley", "Bank", "Bath", 
+            "Beach", "Bridge", "Buckley", "Castle", "Central", "Chateau", "Casino", "Crater", 
+            "Cruise", "Darcy", "Daso", "Devlin", "Drummond", "Eagle", "Felix", "Glucose", "Grimxr", 
+            "Hernandez", "Hiscott", "Hotel", "Ikea", "Ink", "Joshua", "Jurassic", "Kempson", 
+            "Lowe", "Mansion", "Monaco", "Monza", "Mountbatten", "Mountainside", "Nelson", 
+            "Oganesson", "Phillips", "Pickard", "Port", "Prison", "Riverside", "Sainsbury's", 
+            "School", "Temple", "Tardis", "Torran", "Trevor", "Tuckwell", "Uranus", "Wickland", 
+            "Wyatt", "Village"
+        ];
+
         const fares = {
-            "Otono": { "Casino": 2, "Andy": 5, "School": 2, "Bank": 2, "Castle": 2, "Village": 3, "Bath": 3 }, //otono station
-            "Casino": { "Otono": 2, "Phillips": 2, "School": 2 }, //circle line
+            "Otono": { "Casino": 2, "Andy": 5, "School": 2, "Bank": 2, "Castle": 2, "Village": 3, "Bath": 3 },
+            "Casino": { "Otono": 2, "Phillips": 2, "School": 2 },
             "Phillips": { "Casino": 2, "Mountainside": 3 },
-            "Mountainside": { "Phillips": 3, "Port": 3, "Central": 3, "Station": 8 },
+            "Mountainside": { "Phillips": 3, "Port": 3, "Central": 3, "Chateau": 8, "Mansion": 9 },
             "Port": { "Mountainside": 3, "Cruise": 3, "Hotel": 2 },
             "Cruise": { "Port": 3, "Bridge": 3 },
             "Bridge": { "Cruise": 3, "School": 3, "Jurassic": 6, "Wickland": 1, "Buckley": 9 },
@@ -59,35 +61,34 @@
             "Sainsbury's": { "Glucose": 3, "Beach": 3 },
             "Beach": { "Sainsbury's": 3, "Andy": 3 },
             "Andy": { "Beach": 3, "Otono": 5 },
-            "Ikea": { "Monaco": 3 },    //monza line
+            "Ikea": { "Monaco": 3 },
             "Monaco": { "Ikea": 3, "Wickland": 6 },
             "Wickland": { "Monaco": 6, "Bridge": 1 },
             "Bank": { "Otono": 2, "Arena": 4 },
             "Arena": { "Bank": 4, "Monza": 2 },
-            "Monza": { "Arena": 2, "Airport": 8, "Mansion": 2 },
-            "Tardis": { "Castle": 3 },  //castle line
+            "Monza": { "Arena": 2, "Airport": 8, "Mansion": 2, "Nelson": 2 },
+            "Tardis": { "Castle": 3 },
             "Castle": { "Tardis": 3, "Otono": 2 },
             "Jurassic": { "Bridge": 6, "Drummond": 3 },
             "Drummond": { "Jurassic": 3, "Wyatt": 3 },
             "Wyatt": { "Drummond": 3, "Temple": 2, "Angus": 3, "Mountbatten": 4 },
             "Temple": { "Wyatt": 2 },
-            "Village": { "Otono": 3 },  //central line
-            "Bath": { "Otono": 1, "Daso": 1 },
+            "Village": { "Otono": 3 },
+            "Bath": { "Otono": 3, "Daso": 1 },
             "Daso": { "Bath": 1, "Central": 2 },
-            "Central": { "Daso": 2, "Mountainside": 1, "Hotel": 2 },
+            "Central": { "Daso": 2, "Mountainside": 3, "Hotel": 2 },
             "Hotel": { "Central": 2, "Port": 2 },
-            "Chateau": { "Mountainside": 8 },   //la ligne verte
-            "Mansion": { "Mountainside": 9, "Monza": 3, "Joshua": 5 },
+            "Chateau": { "Mountainside": 8 },
+            "Mansion": { "Mountainside": 9, "Monza": 2, "Joshua": 5 },
             "Nelson": { "Monza": 2, "Bank": 2, "Joshua": 5 },
-            "Joshua": { "Darcy": 4, "Mansion": 5, "Nelson": 5 },  // Added Nelson here  
+            "Joshua": { "Darcy": 4, "Mansion": 5, "Nelson": 5 },
             "Angus": { "Lowe": 3, "Wyatt": 3 },
-            "Wyatt": { "Drummond": 3, "Temple": 2, "Angus": 3, "Mountbatten": 4 },
-            "Mountbatten": { "Barley": 4, "Wyatt": 3 },
+            "Mountbatten": { "Barley": 4, "Wyatt": 4 },
             "Barley": { "Mountbatten": 4, "Darcy": 4 },
             "Darcy": { "Barley": 4, "Joshua": 4 },
             "Lowe": { "Angus": 3, "Devlin": 4 },
             "Devlin": { "Lowe": 4, "Hiscott": 3, "Pickard": 4, "Ink": 1 },
-            "Buckley": { "Bridge": 9, "Uranus": 6 },    // oganesson line
+            "Buckley": { "Bridge": 9, "Uranus": 6 },
             "Uranus": { "Buckley": 6, "Riverside": 2 },
             "Riverside": { "Crater": 5, "Uranus": 2 },
             "Crater": { "Riverside": 5, "Hernandez": 4, "Pickard": 4, "Hiscott": 5 },
@@ -96,22 +97,23 @@
             "Eagle": { "Oganesson": 5, "Torran": 2 },
             "Torran": { "Eagle": 2 },
             "Kempson": { "Oganesson": 3, "Trevor": 3 },
-            "Pickard": { "Crater": 4, "Devlin": 4 },    //devlin line
+            "Pickard": { "Crater": 4, "Devlin": 4 },
             "Hiscott": { "Crater": 5, "Devlin": 3 },
             "Ink": { "Devlin": 1, "Tuckwell": 7 },
             "Tuckwell": { "Ink": 7, "Felix": 6, "Grimxr": 3 },
             "Grimxr": { "Tuckwell": 3 },
-            "Felix": { "Tuckwell": 6 },
-
-
-
-
+            "Felix": { "Tuckwell": 6 }
         };
 
         function populateDropdowns() {
             const fromSelect = document.getElementById("from");
             const toSelect = document.getElementById("to");
-            stations.forEach(station => {
+
+            // Alphabetical except Otono at the top
+            const sortedStations = ["Otono", ...stations.filter(s => s !== "Otono" && s !== "Select").sort()];
+            sortedStations.unshift("Select");
+
+            sortedStations.forEach(station => {
                 fromSelect.add(new Option(station, station));
                 toSelect.add(new Option(station, station));
             });
@@ -151,4 +153,3 @@
     </script>
 </body>
 </html>
-
