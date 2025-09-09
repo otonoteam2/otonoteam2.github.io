@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Otono Team Birthday Countdown</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #111;
+        color: #fff;
+        text-align: center;
+        padding: 20px;
+    }
+    h1 {
+        font-size: 2.5em;
+        margin-bottom: 20px;
+    }
+    .member {
+        margin: 20px 0;
+        font-size: 1.5em;
+    }
+    .countdown {
+        font-size: 1.2em;
+        margin-top: 10px;
+    }
+    .green { color: #00FF00; }
+    .yellow { color: #FFFF00; }
+    .pink { color: #FF69B4; }
+    .blue { color: #1E90FF; }
+    .purple { color: #800080; } /* true purple */
+    .red { color: #FF4500; }
+    .black { color: #000000; }
+    .orange { color: #FFA500; }
+    .lightblue { color: #87CEFA; }
+</style>
+</head>
+<body>
+
+<h1>🎉 Otono Team Birthday Countdown 🎉</h1>
+
+<!-- Language Selector -->
+<p>
+    Select Language: 
+    <button onclick="setLanguage('en')">🇬🇧 English</button>
+    <button onclick="setLanguage('fr')">🇫🇷 Français</button>
+</p>
+
+<div id="members"></div>
+
+<script>
+const languageTexts = {
+    en: { age: "Age", birthdayIn: "Birthday in" },
+    fr: { age: "Âge", birthdayIn: "Anniversaire dans" }
+};
+
+let currentLang = 'en';
+function setLanguage(lang) {
+    currentLang = lang;
+    renderMembers();
+}
+
+// Member data
+const members = [
+    {name: "Grandpa Belt", dob: "1944-05-18", colors: ["green","yellow"], emojis: "🎰🟢"},
+    {name: "Grandma Sleep", dob: "1947-03-08", colors: ["pink","blue"], emojis: "🛌🌙"},
+    {name: "Mr Ribbon Cutter", dob: "1971-10-08", colors: ["blue","orange"], emojis: "✂️🎀"},
+    {name: "Big Guy", dob: "1962-05-10", colors: ["green"], emojis: "💪🥩"},
+    {name: "Middle Guy", dob: "1970-10-27", colors: ["purple","pink"], emojis: "📚☕"},
+    {name: "Ivy", dob: "1974-09-09", colors: ["yellow","red"], emojis: "🌟❤️"},
+    {name: "Gary", dob: "1973-07-04", colors: ["blue","lightblue"], emojis: "👨‍🍳🍴"},
+    {name: "Lit M Ealing", dob: "2005-05-10", colors: ["pink","black"], emojis: "🐱📖"},
+    {name: "Jessica", dob: "2007-10-22", colors: ["yellow","red"], emojis: "🎨🎹"},
+    {name: "Red Bird", dob: "2010-01-15", colors: ["red","purple"], emojis: "🇫🇷🎵"},
+    {name: "OWing King", dob: "2010-01-13", colors: ["lightblue","yellow"], emojis: "🏎️🟦"},
+    {name: "Luke Green", dob: "2012-04-30", colors: ["green","black"], emojis: "⚫🖤"}
+];
+
+// Helper: calculate age
+function getAge(dob) {
+    const birth = new Date(dob);
+    const today = new Date();
+    let age = today.getFullYear() - birth.getFullYear();
+    const m = today.getMonth() - birth.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--;
+    return age;
+}
+
+// Helper: calculate next birthday countdown
+function getCountdown(dob) {
+    const today = new Date();
+    let birth = new Date(dob);
+    birth.setFullYear(today.getFullYear());
+    if (birth < today) birth.setFullYear(today.getFullYear() + 1);
+    const diff = birth - today;
+    const days = Math.floor(diff / (1000*60*60*24));
+    const hours = Math.floor((diff / (1000*60*60)) % 24);
+    const minutes = Math.floor((diff / (1000*60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+    return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+}
+
+// Render members
+function renderMembers() {
+    const container = document.getElementById("members");
+    container.innerHTML = "";
+    members.forEach(member => {
+        // Create colored name
+        let nameHTML = "";
+        member.colors.forEach((c,i) => {
+            nameHTML += `<span class="${c}">${i===0 ? member.name : member.name}</span>`;
+        });
+
+        const age = getAge(member.dob);
+        const birthdayDate = new Date(member.dob).toLocaleDateString(currentLang, {
+            day: 'numeric', month: 'long', year: 'numeric'
+        });
+        const countdown = getCountdown(member.dob);
+
+        container.innerHTML += `
+            <div class="member">
+                ${nameHTML} ${member.emojis} <br>
+                <span>${languageTexts[currentLang].age}: ${age}</span> | 
+                <span>Birthday: ${birthdayDate}</span><br>
+                <span class="countdown">${languageTexts[currentLang].birthdayIn}: ${countdown}</span>
+            </div>
+        `;
+    });
+}
+
+// Update countdown every second
+setInterval(renderMembers, 1000);
+renderMembers();
+
+</script>
+</body>
+</html>
