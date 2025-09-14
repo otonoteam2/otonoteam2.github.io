@@ -10,15 +10,14 @@
             font-family: 'Roboto Slab', serif;
             text-align: center;
         }
-        ol{text-align: left;
+        ol {
+            text-align: left;
             display: inline-block;
-
         }
-        li{
+        li {
             padding: 5px;
             font-size: 20px;
         }
-
         #timer {
             font-size: 2rem;
             font-weight: bold;
@@ -70,7 +69,7 @@
 <p>Purple is correct and red is wrong</p>
 <p>Some answers on the table can be fake!</p>
 
-<!-- **Table is back!** -->
+<!-- Table -->
 <table>
     <tr>
         <td>ribosomes</td>
@@ -87,7 +86,7 @@
         <td>cell wall</td>
         <td>gastric juice</td>
     </tr>
-        <tr>
+    <tr>
         <td>smooth er</td>
         <td>lysosome</td>
         <td>mitochondria</td>
@@ -105,7 +104,12 @@
 <button id="startButton" onclick="startTimer()">Start</button>
 <button id="resetButton" onclick="resetQuiz()" disabled>Reset</button>
 <br>
-<img src="images/plantcell.png" width="1000px">
+
+<!-- Image -->
+<!-- Use relative path, make sure the images folder is uploaded to the same server -->
+<img src="./images/plantcell.png" width="1000px" alt="Plant Cell Diagram">
+
+<!-- Quiz Form -->
 <form id="quizForm" onsubmit="return false;">
     <ol>
         <li><input id="myText" type="text" disabled></li>
@@ -122,13 +126,10 @@
         <li><input id="myText12" type="text" disabled></li>
         <li><input id="myText13" type="text" disabled></li>
 
-
         <br>
         <input type="submit" onclick="myFunction()" value="Submit" disabled id="submitButton">
     </ol>
 </form>
-</body>
-
 
 <script>
     let timeLeft = 319; // Timer in seconds
@@ -196,26 +197,26 @@
     function validateAnswer(inputId, correctAnswer) {
         let inputField = document.getElementById(inputId);
         if (inputField.value.trim() === correctAnswer) {
-            inputField.style.backgroundColor = "purple"; // Fixed correct answer color
+            inputField.style.backgroundColor = "purple"; // Correct answer
         } else {
             inputField.style.backgroundColor = "red";
         }
     }
-    </script>
+</script>
 
 <!-- Anti-Source Code Protection -->
 <script>
-const disabledKeys = ["u", "I"];
-const showAlert = e => {
-    e.preventDefault();
-    return alert("Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!");
-};
-document.addEventListener("contextmenu", e => { showAlert(e); });
-document.addEventListener("keydown", e => {
-    if ((e.ctrlKey && disabledKeys.includes(e.key)) || e.key === "F12") {
-        showAlert(e);
-    }
-});
+    const disabledKeys = ["u", "I"];
+    const showAlert = e => {
+        e.preventDefault();
+        return alert("Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!");
+    };
+    document.addEventListener("contextmenu", e => { showAlert(e); });
+    document.addEventListener("keydown", e => {
+        if ((e.ctrlKey && disabledKeys.includes(e.key)) || e.key === "F12") {
+            showAlert(e);
+        }
+    });
 </script>
 
 </body>
