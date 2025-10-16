@@ -32,28 +32,34 @@
     <button onclick="calculateFare()">Calculate Fare</button>
     <p id="result"></p>
     <p id="route"></p>
-    <img src="./Images/aprilplan.png" alt="Otono Subways" height="600">
+    <img src="./Images/septemberplan25.png" alt="Otono Subways" height="600">
 
     <script>
         const stations = [
             "Select", "Otono", "Andy", "Angus", "Arena", "Airport", "Barley", "Bank", "Bath", 
-            "Beach", "Bridge", "Buckley", "Castle", "Central", "Chateau", "Casino", "Crater", 
+            "Beach", "Bridge", "Castle", "Central", "Chateau", "Casino", "Crater", 
             "Cruise", "Darcy", "Daso", "Devlin", "Drummond", "Eagle", "Felix", "Glucose", "Grimxr", 
             "Hernandez", "Hiscott", "Hotel", "Ikea", "Ink", "Joshua", "Jurassic", "Kempson", 
             "Lowe", "Mansion", "Monaco", "Monza", "Mountbatten", "Mountainside", "Nelson", 
             "Oganesson", "Phillips", "Pickard", "Port", "Prison", "Riverside", "Sainsbury's", 
             "School", "Temple", "Tardis", "Torran", "Trevor", "Tuckwell", "Uranus", "Wickland", 
-            "Wyatt", "Village"
+            "Wyatt", "Village", "Ong", "Cinema", "Clock", "Culley", "Paige", "Willow", "Helyar", "Melon", "Raphael",
+            "Julie", "McDonald's", "Relon", "Tenassine", "Tesseract", "Dinosaur", "Pencil", "Belt", "Biology", "Chemistry",
+            "Physics", "Tangent", "Sine", "Cosine", "Luker", "Mercury", "Venus", "Terra", "Moon", "Mars", "Jupiter", "Saturn",
+            "Neptune", "iPhone", "Synergy", "Tesco", "Edexcel", "Morrisons", "Exposure", "Birling", "Prelude", "Diarrhoea", "Airways",
+            "Airbus", "Stearn", "Coombe", "Doctor", "Nayra", "AQA", "ChatGPT", "Bass", "Tenor", "Contralto", "Luke", "Benjamin", 
+            "Webb", "Soprano", "Weeks", "France", "Khaghanian", "Carrot", "Trumpet", "Invigilator",
+            "Defence", "black", "Tassomai", "Barium", "Marseillaise", "Dormir", "House"
         ];
 
         const fares = {
-            "Otono": { "Casino": 2, "Andy": 5, "School": 2, "Bank": 2, "Castle": 2, "Village": 3, "Bath": 3 },
+            "Otono": { "Casino": 2, "Andy": 5, "School": 2, "Bank": 2, "Castle": 2, "Village": 3, "Bath": 3, "Ong": 7 },
             "Casino": { "Otono": 2, "Phillips": 2, "School": 2 },
             "Phillips": { "Casino": 2, "Mountainside": 3 },
             "Mountainside": { "Phillips": 3, "Port": 3, "Central": 3, "Chateau": 8, "Mansion": 9 },
-            "Port": { "Mountainside": 3, "Cruise": 3, "Hotel": 2 },
+            "Port": { "Mountainside": 3, "Cruise": 3, "Hotel": 2, "Pencil": 4 },
             "Cruise": { "Port": 3, "Bridge": 3 },
-            "Bridge": { "Cruise": 3, "School": 3, "Jurassic": 6, "Wickland": 1, "Buckley": 9 },
+            "Bridge": { "Cruise": 3, "School": 3, "Jurassic": 6, "Wickland": 1, "Luker": 9 },
             "School": { "Bridge": 3, "Prison": 3, "Casino": 2, "Otono": 2 },
             "Prison": { "School": 3, "Airport": 3 },
             "Airport": { "Prison": 3, "Glucose": 3, "Monza": 8 },
@@ -67,7 +73,13 @@
             "Bank": { "Otono": 2, "Arena": 4 },
             "Arena": { "Bank": 4, "Monza": 2 },
             "Monza": { "Arena": 2, "Airport": 8, "Mansion": 2, "Nelson": 2 },
-            "Tardis": { "Castle": 3 },
+            "Tardis": { "Castle": 3, "Coombe": 2 },
+            "Stearn": { "Tardis": 2, "Coombe": 2 },
+            "Coombe": { "Doctor": 2, "Stearn": 2 },
+            "Doctor": { "Nayra": 2, "Coombe": 2 },
+            "Nayra": { "Coombe": 2, "AQA": 4 },
+            "AQA": { "Edexcel": 6, "Nayra": 4 },
+            "ChatGPT": { "Edexcel": 4 },
             "Castle": { "Tardis": 3, "Otono": 2 },
             "Jurassic": { "Bridge": 6, "Drummond": 3 },
             "Drummond": { "Jurassic": 3, "Wyatt": 3 },
@@ -77,39 +89,67 @@
             "Bath": { "Otono": 3, "Daso": 1 },
             "Daso": { "Bath": 1, "Central": 2 },
             "Central": { "Daso": 2, "Mountainside": 3, "Hotel": 2 },
+            "Pencil": { "Port": 4, "Belt": 2 },
+            "Belt": { "Felix": 3, "Pencil": 2, "Biology": 3, "Dinosaur": 3 },
             "Hotel": { "Central": 2, "Port": 2 },
-            "Chateau": { "Mountainside": 8 },
+            "Chateau": { "Mountainside": 8, "Ong": 6, "Cinema": 2, "Marseillaise": 7 },
             "Mansion": { "Mountainside": 9, "Monza": 2, "Joshua": 5 },
             "Nelson": { "Monza": 2, "Bank": 2, "Joshua": 5 },
-            "Joshua": { "Darcy": 4, "Mansion": 5, "Nelson": 5 },
+            "Joshua": { "Darcy": 4, "Nelson": 5, "Soprano": 2, "Webb": 4 },
             "Angus": { "Lowe": 3, "Wyatt": 3 },
             "Mountbatten": { "Barley": 4, "Wyatt": 4 },
             "Barley": { "Mountbatten": 4, "Darcy": 4 },
             "Darcy": { "Barley": 4, "Joshua": 4 },
             "Lowe": { "Angus": 3, "Devlin": 4 },
             "Devlin": { "Lowe": 4, "Hiscott": 3, "Pickard": 4, "Ink": 1 },
-            "Buckley": { "Bridge": 9, "Uranus": 6 },
-            "Uranus": { "Buckley": 6, "Riverside": 2 },
+            "Luker": { "Bridge": 9, "Uranus": 6 },
+            "Uranus": { "Luker": 6, "Riverside": 2 },
             "Riverside": { "Crater": 5, "Uranus": 2 },
             "Crater": { "Riverside": 5, "Hernandez": 4, "Pickard": 4, "Hiscott": 5 },
             "Hernandez": { "Oganesson": 3, "Crater": 4 },
             "Oganesson": { "Hernandez": 3, "Eagle": 5, "Kempson": 3 },
-            "Eagle": { "Oganesson": 5, "Torran": 2 },
+            "Eagle": { "Oganesson": 5, "Torran": 2, "Melon": 2, "Raphael": 4 },
             "Torran": { "Eagle": 2 },
             "Kempson": { "Oganesson": 3, "Trevor": 3 },
             "Pickard": { "Crater": 4, "Devlin": 4 },
             "Hiscott": { "Crater": 5, "Devlin": 3 },
             "Ink": { "Devlin": 1, "Tuckwell": 7 },
             "Tuckwell": { "Ink": 7, "Felix": 6, "Grimxr": 3 },
-            "Grimxr": { "Tuckwell": 3 },
-            "Felix": { "Tuckwell": 6 }
+            "Grimxr": { "Tuckwell": 3, "Melon": 2, "Culley": 4 },
+            "Felix": { "Tuckwell": 6, "Belt": 2 },
+            "Ong": { "Otono": 7, "Chateau": 6 },
+            "Cinema": { "Chateau": 2, "Clock": 2, "Culley": 2 },
+            "Clock": { "Cinema": 2, "Paige": 4, "Tesseract": 3, "Dinosaur": 3 },
+            "Culley": { "Cinema": 2, "Grimxr": 4 },
+            "Paige": { "Clock": 4, "Willow": 2 },
+            "Willow": { "Paige": 2, "Helyar": 2 },
+            "Helyar": { "Willow": 2, "Raphael": 2 },
+            "Melon": { "Grimxr": 2, "Eagle": 2 },
+            "Raphael": { "Diarrhoea": 2, "Relon": 2, "Julie": 2 },
+            "Relon": { "Raphael": 2, "Tenassine": 2 },
+            "Tenassine": { "Relon": 2 },
+            "Julie": { "McDonald's": 4, "Raphael": 2 },
+            "McDonald's": { "Julie": 4 },
+            "Marseillaise": { "Dormir": 1, "Chateau": 7 },
+            "Dormir": { "Marseillaise": 1 },
+            "Tesseract": { "Clock": 3 },
+            "Dinosaur": { "Clock": 3, "Pencil": 3 },
+            "Biology": { "Chemistry": 3, "Pencil": 3 },
+            "Chemistry": { "Biology": 3, "Physics": 3 },
+            "Physics": { "Sine": 3, "Chemistry": 3 },
+            "Sine": { "Physics": 3, "Cosine": 1 },
+            "Cosine": { "Tangent": 1 },
+            "Tangent": { "Sine": 1 },
+            "House": { "Mansion": 3, "Joshua": 3 },
+            "ChatGPT": { "Edexcel": 6 },
+            "Edexcel": { "AQA": 6, "ChatGPT": 6 },
+
         };
 
         function populateDropdowns() {
             const fromSelect = document.getElementById("from");
             const toSelect = document.getElementById("to");
 
-            // Alphabetical except Otono at the top
             const sortedStations = ["Otono", ...stations.filter(s => s !== "Otono" && s !== "Select").sort()];
             sortedStations.unshift("Select");
 
@@ -123,10 +163,12 @@
             let costs = {}, previous = {}, unvisited = new Set(stations);
             stations.forEach(station => costs[station] = Infinity);
             costs[start] = 0;
+
             while (unvisited.size) {
                 let current = [...unvisited].reduce((a, b) => costs[a] < costs[b] ? a : b);
                 unvisited.delete(current);
                 if (current === end) break;
+
                 for (let neighbor in fares[current]) {
                     if (!unvisited.has(neighbor)) continue;
                     let newCost = costs[current] + fares[current][neighbor];
@@ -136,6 +178,7 @@
                     }
                 }
             }
+
             let path = [], at = end;
             while (at) { path.push(at); at = previous[at]; }
             return { cost: costs[end], path: path.reverse() };
@@ -144,6 +187,10 @@
         function calculateFare() {
             let from = document.getElementById("from").value;
             let to = document.getElementById("to").value;
+            if(from === "Select" || to === "Select") {
+                alert("Please select both start and destination stations.");
+                return;
+            }
             let result = findCheapestRoute(from, to);
             document.getElementById("result").textContent = `Fare: ${result.cost} iron ingots.`;
             document.getElementById("route").textContent = `Route: ${result.path.join(" → ")}`;

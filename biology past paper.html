@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Otono Biology - Past Paper Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { font-family: 'Roboto Slab', serif; text-align: center; }
+    ol { text-align: left; display: inline-block; }
+    li { padding: 10px; font-size: 18px; }
+    #timer { font-size: 2rem; font-weight: bold; color: red; }
+    input, textarea { border-radius: 10px; padding: 5px; background-color: yellow; width: 400px; }
+    #startButton, #resetButton, #submitButton { font-size: 16px; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin: 5px; }
+    #startButton { background-color: purple; color: white; }
+    #resetButton { background-color: red; color: white; }
+    #submitButton { background-color: green; color: white; }
+    #results { font-size: 1.5rem; margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<h1>Otono Biology - Past Paper Quiz</h1>
+<p>Answer in lower case :)</p>
+<p>Purple = correct, Red = wrong</p>
+
+<h2>Time Left: <span id="timer">599</span> seconds</h2>
+
+<button id="startButton" onclick="startTimer()">Start</button>
+<button id="resetButton" onclick="resetQuiz()" disabled>Reset</button>
+
+<form id="quizForm" onsubmit="return false;">
+<ol>
+    <li>Suggest two reasons why the drinks company uses fructose rather than glucose (do not refer to sweetness):
+        <textarea id="q1" disabled></textarea>
+    </li>
+    <li>Describe how a student could test the drink for sugar. Give the colour of a positive result:
+        <textarea id="q2" disabled></textarea>
+    </li>
+    <li>Describe how a student could test the drink for protein. Give the colour of a positive result:
+        <textarea id="q3" disabled></textarea>
+    </li>
+    <li>What type of microorganism causes measles?
+        <input id="q4" type="text" disabled>
+    </li>
+    <li>Suggest two ways the spread of measles can be reduced (do not refer to vaccination):
+        <textarea id="q5" disabled></textarea>
+    </li>
+    <li>Describe how the measles vaccine helps a person become immune to measles:
+        <textarea id="q6" disabled></textarea>
+    </li>
+    <li>Explain how viruses cause illness:
+        <textarea id="q7" disabled></textarea>
+    </li>
+    <li>Give three reasons why clinical trials are needed:
+        <textarea id="q8" disabled></textarea>
+    </li>
+    <br>
+    <input type="submit" onclick="calculateResults()" value="Submit" disabled id="submitButton">
+</ol>
+</form>
+
+<div id="results"></div>
+
+<script>
+let timeLeft = 599;
+let timerActive = false;
+let timerInterval;
+
+function startTimer() {
+    if (!timerActive) {
+        timerActive = true;
+        document.getElementById('startButton').disabled = true;
+        document.getElementById('resetButton').disabled = false;
+        enableInputs(true);
+        timerInterval = setInterval(updateTimer, 1000);
+    }
+}
+
+function updateTimer() {
+    document.getElementById('timer').textContent = timeLeft;
+    if (timeLeft > 0) {
+        timeLeft--;
+    } else {
+        clearInterval(timerInterval);
+        alert("Time's up! Auto-submitting your answers...");
+        calculateResults();
+    }
+}
+
+function resetQuiz() {
+    clearInterval(timerInterval);
+    timeLeft = 599;
+    document.getElementById('timer').textContent = timeLeft;
+    timerActive = false;
+    document.getElementById('startButton').disabled = false;
+    document.getElementById('resetButton').disabled = true;
+    enableInputs(false);
+    document.getElementById('quizForm').reset();
+    document.getElementById('results').textContent = "";
+}
+
+function enableInputs(enabled) {
+    let inputs = document.querySelectorAll("input[type='text'], textarea");
+    inputs.forEach(input => {
+        input.disabled = !enabled;
+        input.style.backgroundColor = enabled ? "yellow" : "#ddd";
+    });
+    document.getElementById('submitButton').disabled = !enabled;
+}
+
+function validateAnswer(inputId, correctAnswers) {
+    const inputField = document.getElementById(inputId);
+    const answer = inputField.value.trim().toLowerCase();
+    if (!Array.isArray(correctAnswers)) correctAnswers = [correctAnswers];
+    for (let ans of correctAnswers) {
+        if (answer.includes(ans.toLowerCase())) {
+            inputField.style.backgroundColor = "purple";
+            return true;
+        }
+    }
+    inputField.style.backgroundColor = "red";
+    return false;
+}
+
+function calculateResults() {
+    clearInterval(timerInterval);
+    const totalMarks = 19; // total marks (adjust if needed)
+    let score = 0;
+
+    if (validateAnswer("q1", ["cheap availability","long shelf life"])) score += 2;
+    if (validateAnswer("q2", ["benedict's solution, brick-red","benedict solution, brick-red"])) score += 3;
+    if (validateAnswer("q3", ["biuret solution, purple"])) score += 2;
+    if (validateAnswer("q4", "virus")) score += 1;
+    if (validateAnswer("q5", ["isolation","good hygiene","stay at home"])) score += 2;
+    if (validateAnswer("q6", ["stimulates antibody production","memory cells formed","immune system responds"])) score += 4;
+    if (validateAnswer("q7", ["damage cells","produce toxins","interfere with cell function"])) score += 2;
+    if (validateAnswer("q8", ["safety","effectiveness","correct dosage"])) score += 3;
+
+    const percentage = Math.round((score/totalMarks)*100);
+
+    let color;
+    if (percentage < 66) color = "red";
+    else if (percentage < 80) color = "plum";
+    else if (percentage < 90) color = "mediumorchid";
+    else color = "indigo";
+
+    document.getElementById('results').textContent = `Your results: ${score}/${totalMarks} (${percentage}%)`;
+    document.getElementById('results').style.color = color;
+
+    enableInputs(false);
+    document.getElementById('submitButton').disabled = true;
+}
+</script>
+</body>
+</html>

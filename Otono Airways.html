@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Otono Airways Booking System</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #4a004a;
+    margin: 0;
+    padding: 0;
+  }
+
+  header {
+    background: linear-gradient(90deg, #d0004a, #4a004a);
+    color: white;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .container {
+    padding: 20px;
+    max-width: 1000px;
+    margin: auto;
+  }
+
+  label, select, input {
+    display: block;
+    margin: 10px 0;
+    font-size: 1rem;
+  }
+
+  select, input[type=number] {
+    padding: 5px;
+  }
+
+  .btn-book {
+    background: #d0004a;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 10px;
+  }
+
+  .btn-book:hover {
+    background: #4a004a;
+  }
+
+  .seat-info {
+    margin: 5px 0;
+  }
+
+  .language-select {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+
+  .language-select button {
+    cursor: pointer;
+    padding: 5px 10px;
+    border: 1px solid #4a004a;
+    background: white;
+  }
+
+  .language-select button.active {
+    background: #4a004a;
+    color: white;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Otono Airways Flight Booking ✈️</h1>
+  <!-- INSERT IMAGE: Logo here if needed -->
+</header>
+
+<div class="container">
+
+  <div class="language-select">
+    <button id="lang-en" class="active">🇬🇧 English</button>
+    <button id="lang-fr">🇫🇷 Français</button>
+  </div>
+
+  <label id="from-label">Departure:</label>
+  <select id="departure">
+    <option value="">Select Departure</option>
+    <!-- All departure cities -->
+    <option value="London">London</option>
+  <option value="Paris">Paris</option>
+  <option value="Berlin">Berlin</option>
+  <option value="Rome">Rome</option>
+  <option value="Madrid">Madrid</option>
+  <option value="Amsterdam">Amsterdam</option>
+  <option value="Vienna">Vienna</option>
+  <option value="Zurich">Zurich</option>
+  <option value="Dublin">Dublin</option>
+  <option value="Brussels">Brussels</option>
+  <option value="Lisbon">Lisbon</option>
+  <option value="Copenhagen">Copenhagen</option>
+  <option value="Oslo">Oslo</option>
+  <option value="Stockholm">Stockholm</option>
+  <option value="Barcelona">Barcelona</option>
+  <option value="Warsaw">Warsaw</option>
+  <option value="Munich">Munich</option>
+  <option value="Milan">Milan</option>
+  <option value="Frankfurt">Frankfurt</option>
+  <option value="Prague">Prague</option>
+  <option value="Budapest">Budapest</option>
+  <option value="Athens">Athens</option>
+  <option value="Hong Kong">Hong Kong</option>
+  <option value="Tokyo">Tokyo</option>
+  <option value="Singapore">Singapore</option>
+  <option value="Sydney">Sydney</option>
+  <option value="Dubai">Dubai</option>
+  <option value="New York">New York (JFK)</option>
+  <option value="Los Angeles">Los Angeles</option>
+  <option value="Chicago">Chicago</option>
+  <option value="Honolulu">Honolulu</option>
+  <option value="Melbourne">Melbourne</option>
+  <option value="Johannesburg">Johannesburg</option>
+  <option value="Cape Town">Cape Town</option>
+  <option value="Lagos">Lagos</option>
+  <option value="Nairobi">Nairobi</option>
+  <option value="Cairo">Cairo</option>
+  </select>
+
+  <label id="to-label">Arrival:</label>
+  <select id="arrival">
+    <option value="">Select Arrival</option>
+    <label id="to-label">Arrival:</label>
+  <!-- Same cities as departure for convenience -->
+  <option value="London">London</option>
+  <option value="Paris">Paris</option>
+  <option value="Berlin">Berlin</option>
+  <option value="Rome">Rome</option>
+  <option value="Madrid">Madrid</option>
+  <option value="Amsterdam">Amsterdam</option>
+  <option value="Vienna">Vienna</option>
+  <option value="Zurich">Zurich</option>
+  <option value="Dublin">Dublin</option>
+  <option value="Brussels">Brussels</option>
+  <option value="Lisbon">Lisbon</option>
+  <option value="Copenhagen">Copenhagen</option>
+  <option value="Oslo">Oslo</option>
+  <option value="Stockholm">Stockholm</option>
+  <option value="Barcelona">Barcelona</option>
+  <option value="Warsaw">Warsaw</option>
+  <option value="Munich">Munich</option>
+  <option value="Milan">Milan</option>
+  <option value="Frankfurt">Frankfurt</option>
+  <option value="Prague">Prague</option>
+  <option value="Budapest">Budapest</option>
+  <option value="Athens">Athens</option>
+  <option value="Hong Kong">Hong Kong</option>
+  <option value="Tokyo">Tokyo</option>
+  <option value="Singapore">Singapore</option>
+  <option value="Sydney">Sydney</option>
+  <option value="Dubai">Dubai</option>
+  <option value="New York">New York (JFK)</option>
+  <option value="Los Angeles">Los Angeles</option>
+  <option value="Chicago">Chicago</option>
+  <option value="Honolulu">Honolulu</option>
+  <option value="Melbourne">Melbourne</option>
+  <option value="Johannesburg">Johannesburg</option>
+  <option value="Cape Town">Cape Town</option>
+  <option value="Lagos">Lagos</option>
+  <option value="Nairobi">Nairobi</option>
+  <option value="Cairo">Cairo</option>
+</select>
+  </select>
+
+  <label id="flight-label">Flight:</label>
+  <select id="flight">
+    <option value="">Select Flight</option>
+  </select>
+
+  <label id="aircraft-label">Aircraft:</label>
+  <input type="text" id="aircraft" readonly>
+
+  <label id="class-label">Class:</label>
+  <select id="seatClass">
+    <option value="">Select Class</option>
+  </select>
+
+  <label id="quantity-label">Tickets:</label>
+  <input type="number" id="quantity" min="1" value="1">
+
+  <div class="seat-info" id="seatInfo"></div>
+
+  <button class="btn-book" id="bookBtn">Book Flight</button>
+</div>
+
+<script>
+// ---- Aircraft Capacities ----
+const aircraftCapacity = {
+  "A380": { "Otono One": 8, "First": 16, "Business": 72, "Premium Economy": 63, "Economy": 318 },
+  "777": { "Otono One": 4, "First": 10, "Business": 48, "Premium Economy": 40, "Economy": 151 },
+  "787": { "First": 6, "Business": 43, "Premium Economy": 42, "Economy": 110 },
+  "747": { "Otono One": 8, "First": 14, "Business": 68, "Premium Economy": 40, "Economy": 272 },
+  "A350": { "Business": 56, "Premium Economy": 56, "Economy": 219 },
+  "A320": { "Business": 40, "Economy": 86 }
+};
+
+// ---- Flight Data ----
+let flightsData = {
+  // Asia
+  "London-Hong Kong": [
+    {number:"OT114", aircraft:"A350", seats: {...aircraftCapacity["A350"]}},
+    {number:"OT118", aircraft:"777", seats: {...aircraftCapacity["777"]}},
+    {number:"OT120", aircraft:"A380", seats: {...aircraftCapacity["A380"]}}
+  ],
+  "Hong Kong-London": [
+    {number:"OT115", aircraft:"A350", seats: {...aircraftCapacity["A350"]}},
+    {number:"OT119", aircraft:"777", seats: {...aircraftCapacity["777"]}},
+    {number:"OT121", aircraft:"A380", seats: {...aircraftCapacity["A380"]}}
+  ],
+  // Europe Paris high demand
+  "London-Paris": [
+    {number:"OT400", aircraft:"A320", seats: {...aircraftCapacity["A320"]}},
+    {number:"OT402", aircraft:"A320", seats: {...aircraftCapacity["A320"]}},
+    {number:"OT404", aircraft:"A320", seats: {...aircraftCapacity["A320"]}},
+    {number:"OT406", aircraft:"A320", seats: {...aircraftCapacity["A320"]}},
+    {number:"OT408", aircraft:"A320", seats: {...aircraftCapacity["A320"]}},
+    {number:"OT410", aircraft:"A320", seats: {...aircraftCapacity["A320"]}},
+    {number:"OT412", aircraft:"A320", seats: {...aircraftCapacity["A320"]}},
+    {number:"OT414", aircraft:"A320", seats: {...aircraftCapacity["A320"]}},
+    {number:"OT416", aircraft:"A320", seats: {...aircraftCapacity["A320"]}}
+  ],
+  "Paris-London": [
+    {number:"OT401", aircraft:"A320", seats: {...aircraftCapacity["A320"]}},
+    {number:"OT403", aircraft:"A320", seats: {...aircraftCapacity["A320"]}},
+    {number:"OT405", aircraft:"A320", seats: {...aircraftCapacity["A320"]}},
+    {number:"OT407", aircraft:"A320", seats: {...aircraftCapacity["A320"]}},
+    {number:"OT409", aircraft:"A320", seats: {...aircraftCapacity["A320"]}},
+    {number:"OT411", aircraft:"A320", seats: {...aircraftCapacity["A320"]}},
+    {number:"OT413", aircraft:"A320", seats: {...aircraftCapacity["A320"]}},
+    {number:"OT415", aircraft:"A320", seats: {...aircraftCapacity["A320"]}},
+    {number:"OT417", aircraft:"A320", seats: {...aircraftCapacity["A320"]}}
+  ]
+  // Add all other destinations similarly for OT100–799
+};
+
+// Copy for easier manipulation
+let seatsAvailable = JSON.parse(JSON.stringify(flightsData));
+
+// ---- DOM Elements ----
+const departure = document.getElementById("departure");
+const arrival = document.getElementById("arrival");
+const flightSelect = document.getElementById("flight");
+const aircraftInput = document.getElementById("aircraft");
+const seatClass = document.getElementById("seatClass");
+const quantity = document.getElementById("quantity");
+const seatInfo = document.getElementById("seatInfo");
+const bookBtn = document.getElementById("bookBtn");
+
+// ---- Language Selection ----
+document.getElementById("lang-en").addEventListener("click",()=>setLanguage("en"));
+document.getElementById("lang-fr").addEventListener("click",()=>setLanguage("fr"));
+
+function setLanguage(lang){
+  if(lang==="en"){
+    document.getElementById("lang-en").classList.add("active");
+    document.getElementById("lang-fr").classList.remove("active");
+    document.getElementById("from-label").innerText="Departure:";
+    document.getElementById("to-label").innerText="Arrival:";
+    document.getElementById("flight-label").innerText="Flight:";
+    document.getElementById("aircraft-label").innerText="Aircraft:";
+    document.getElementById("class-label").innerText="Class:";
+    document.getElementById("quantity-label").innerText="Tickets:";
+    bookBtn.innerText="Book Flight";
+  } else {
+    document.getElementById("lang-en").classList.remove("active");
+    document.getElementById("lang-fr").classList.add("active");
+    document.getElementById("from-label").innerText="Départ :";
+    document.getElementById("to-label").innerText="Arrivée :";
+    document.getElementById("flight-label").innerText="Vol :";
+    document.getElementById("aircraft-label").innerText="Avion :";
+    document.getElementById("class-label").innerText="Classe :";
+    document.getElementById("quantity-label").innerText="Billets :";
+    bookBtn.innerText="Réserver le vol";
+  }
+}
+
+// ---- Populate Flights ----
+function updateFlights(){
+  flightSelect.innerHTML = "<option value=''>Select Flight</option>";
+  let route = departure.value+"-"+arrival.value;
+  if(seatsAvailable[route]){
+    seatsAvailable[route].forEach(f=>{
+      flightSelect.innerHTML += `<option value="${f.number}">${f.number}</option>`;
+    });
+  }
+  aircraftInput.value="";
+  seatClass.innerHTML="<option value=''>Select Class</option>";
+  seatInfo.innerText="";
+}
+
+departure.addEventListener("change",updateFlights);
+arrival.addEventListener("change",updateFlights);
+
+// ---- Populate Classes ----
+flightSelect.addEventListener("change",()=>{
+  let route = departure.value+"-"+arrival.value;
+  let flightNum = flightSelect.value;
+  if(route && flightNum){
+    let flightObj = seatsAvailable[route].find(f=>f.number===flightNum);
+    aircraftInput.value = flightObj.aircraft;
+    seatClass.innerHTML="<option value=''>Select Class</option>";
+    Object.keys(flightObj.seats).forEach(cls=>{
+      seatClass.innerHTML += `<option value="${cls}">${cls} (${flightObj.seats[cls]} seats left)</option>`;
+    });
+  }
+});
+
+// ---- Booking Function ----
+bookBtn.addEventListener("click",()=>{
+  let route = departure.value+"-"+arrival.value;
+  let flightNum = flightSelect.value;
+  let cls = seatClass.value;
+  let qty = parseInt(quantity.value);
+  if(!route || !flightNum || !cls || !qty) { alert("Please fill all fields"); return; }
+
+  let flightObj = seatsAvailable[route].find(f=>f.number===flightNum);
+
+  // Otono One rule
+  if(cls==="Otono One"){
+    if(flightObj.seats["First"]<2){
+      alert("You must book 2 First Class tickets to unlock Otono One!");
+      return;
+    }
+  }
+
+  if(flightObj.seats[cls]>=qty){
+    flightObj.seats[cls] -= qty;
+    alert(`Booked ${qty} ${cls} ticket(s) on flight ${flightNum}!`);
+    // Update seat count
+    seatClass.querySelector(`option[value="${cls}"]`).innerText=`${cls} (${flightObj.seats[cls]} seats left)`;
+  } else {
+    alert("Not enough seats left in this class!");
+  }
+});
+
+// ---- Reset flights every night (local 00:00) ----
+function resetFlights(){
+  seatsAvailable = JSON.parse(JSON.stringify(flightsData));
+}
+setInterval(()=>{
+  let now = new Date();
+  if(now.getHours()===0 && now.getMinutes()===0){
+    resetFlights();
+    alert("Flights have been reset!");
+  }
+},60000); // check every minute
+
+</script>
+
+</body>
+</html>
