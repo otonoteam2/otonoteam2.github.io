@@ -185,16 +185,18 @@
 
         // Populate dropdowns without Oimberling initially
         function populateDropdowns() {
-            const fromSelect = document.getElementById("from");
-            const toSelect = document.getElementById("to");
+           const fromSelect = document.getElementById("from");
+          const toSelect = document.getElementById("to");
 
-            const sortedStations = ["Select", ...stations.sort()];
+         // Separate Otono from the rest
+          const otherStations = stations.filter(station => station !== "Otono").sort();
+          const sortedStations = ["Select", "Otono", ...otherStations];
 
-            sortedStations.forEach(station => {
-                fromSelect.add(new Option(station, station));
-                toSelect.add(new Option(station, station));
-            });
-        }
+          sortedStations.forEach(station => {
+             fromSelect.add(new Option(station, station));
+             toSelect.add(new Option(station, station));
+              });
+            }
 
         // Dijkstra algorithm for cheapest route
         function findCheapestRoute(start, end) {
