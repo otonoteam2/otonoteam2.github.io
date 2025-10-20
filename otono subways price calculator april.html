@@ -11,7 +11,7 @@
 </style>
 </head>
 <body>
-<h1>Otono Subways Fare Calculator</h1>
+<h1>Otono Subways April Plan 2025</h1>
 
 <label for="from">From:</label>
 <select id="from"></select>
@@ -29,39 +29,31 @@
 <p id="result"></p>
 <p id="route"></p>
 
-<img id="subwayImage" src="./Images/septemberplan25.png" alt="Otono Subways">
+<img id="subwayImage" src="./Images/aprilplan.png" alt="Otono Subways">
 
 <script>
     const stations = [
         "Otono","Casino","Phillips","Mountainside","Port","Cruise","Bridge","School",
         "Prison","Airport","Glucose","Sainsbury's","Beach","Andy","Ikea","Monaco",
-        "Wickland","Bank","Arena","Monza","Airways","Airbus","Tardis","Stearn",
-        "Coombe","Doctor","Nayra","AQA","ChatGPT","Castle","Jurassic","Drummond",
-        "Wyatt","Temple","Village","Bath","Daso","Central","Pencil","Belt","Hotel",
+        "Wickland","Bank","Arena","Monza","Tardis","Castle","Jurassic","Drummond",
+        "Wyatt","Temple","Village","Bath","Daso","Central","Hotel",
         "Chateau","Mansion","Nelson","Joshua","Angus","Mountbatten","Barley","Darcy",
-        "Lowe","Devlin","Luker","Uranus","Riverside","Crater","Hernandez","Oganesson",
+        "Lowe","Devlin","Buckley","Uranus","Riverside","Crater","Hernandez","Oganesson",
         "Eagle","Torran","Kempson","Pickard","Hiscott","Ink","Tuckwell","Grimmxr",
-        "Felix","Ong","Cinema","Clock","Culley","Paige","Willow","Helyar","Melon",
-        "Raphael","Relon","Tenassine","Julie","McDonald's","Marseillaise","Dormir",
-        "Tesseract","Dinosaur","Biology","Chemistry","Physics","Sine","Cosine","Tangent",
-        "House","Edexcel","Saturn","Jupiter","Mars","Terra","Moon","Venus","Mercury",
-        "Neptune","iPhone","Synergy","Tesco","Morrisons","Exposure","Birling","Prelude",
-        "Diarrhoea","Khaghanian","Carrot","Luke","Trumpet","Invigilator","black",
-        "Barium","Bass","Tenor","Contralto","Benjamin","Webb","Soprano","Weeks",
-        "France"
+        "Felix"
     ];
 
     const fares = {
-            "Otono": { "Casino": 2, "Andy": 5, "School": 4, "Bank": 2, "Castle": 2, "Village": 3, "Bath": 3, "Ong": 7 },
+            "Otono": { "Casino": 2, "Andy": 5, "School": 4, "Bank": 2, "Castle": 2, "Village": 3, "Bath": 3 },
             "Casino": { "Otono": 2, "Phillips": 2, "School": 2 },
             "Phillips": { "Casino": 2, "Mountainside": 3 },
             "Mountainside": { "Phillips": 3, "Port": 3, "Central": 3, "Chateau": 8, "Mansion": 9 },
-            "Port": { "Mountainside": 3, "Cruise": 3, "Hotel": 2, "Pencil": 4 },
+            "Port": { "Mountainside": 3, "Cruise": 3, "Hotel": 2 },
             "Cruise": { "Port": 3, "Bridge": 3 },
-            "Bridge": { "Cruise": 3, "School": 3, "Jurassic": 6, "Wickland": 1, "Luker": 9 },
+            "Bridge": { "Cruise": 3, "School": 3, "Jurassic": 6, "Wickland": 1, "Buckley": 9 },
             "School": { "Bridge": 3, "Prison": 3, "Casino": 2, "Otono": 2 },
             "Prison": { "School": 3, "Airport": 3 },
-            "Airport": { "Prison": 3, "Glucose": 3, "Monza": 8, "Airways": 1 },
+            "Airport": { "Prison": 3, "Glucose": 3, "Monza": 8 },
             "Glucose": { "Airport": 3, "Sainsbury's": 3 },
             "Sainsbury's": { "Glucose": 3, "Beach": 3 },
             "Beach": { "Sainsbury's": 3, "Andy": 3 },
@@ -72,15 +64,6 @@
             "Bank": { "Otono": 2, "Arena": 4 },
             "Arena": { "Bank": 4, "Monza": 2 },
             "Monza": { "Arena": 2, "Airport": 8, "Mansion": 2, "Nelson": 2 },
-            "Airways": { "Airport": 1, "Airbus": 1 },
-            "Airbus": { "Airways": 1, "Barium": 8 },
-            "Tardis": { "Castle": 3, "Coombe": 2 },
-            "Stearn": { "Tardis": 2, "Coombe": 2 },
-            "Coombe": { "Doctor": 2, "Stearn": 2 },
-            "Doctor": { "Nayra": 2, "Coombe": 2 },
-            "Nayra": { "Coombe": 2, "AQA": 4 },
-            "AQA": { "Edexcel": 6, "Nayra": 4 },
-            "ChatGPT": { "Edexcel": 4, "Edexcel": 6 },
             "Castle": { "Tardis": 3, "Otono": 2 },
             "Jurassic": { "Bridge": 6, "Drummond": 3 },
             "Drummond": { "Jurassic": 3, "Wyatt": 3 },
@@ -90,90 +73,32 @@
             "Bath": { "Otono": 3, "Daso": 1 },
             "Daso": { "Bath": 1, "Central": 2 },
             "Central": { "Daso": 2, "Mountainside": 3, "Hotel": 2 },
-            "Pencil": { "Port": 4, "Belt": 2 },
-            "Belt": { "Felix": 3, "Pencil": 2, "Biology": 3, "Dinosaur": 3 },
             "Hotel": { "Central": 2, "Port": 2 },
-            "Chateau": { "Mountainside": 8, "Ong": 6, "Cinema": 2, "Marseillaise": 7 },
+            "Chateau": { "Mountainside": 8 },
             "Mansion": { "Mountainside": 9, "Monza": 2, "Joshua": 5 },
             "Nelson": { "Monza": 2, "Bank": 2, "Joshua": 5 },
-            "Joshua": { "Darcy": 4, "Nelson": 5, "Soprano": 2, "Webb": 4 },
+            "Joshua": { "Darcy": 4, "Nelson": 5 },
             "Angus": { "Lowe": 3, "Wyatt": 3 },
             "Mountbatten": { "Barley": 4, "Wyatt": 4 },
             "Barley": { "Mountbatten": 4, "Darcy": 4 },
             "Darcy": { "Barley": 4, "Joshua": 4 },
             "Lowe": { "Angus": 3, "Devlin": 4 },
             "Devlin": { "Lowe": 4, "Hiscott": 3, "Pickard": 4, "Ink": 1 },
-            "Luker": { "Bridge": 9, "Uranus": 6 },
-            "Uranus": { "Luker": 6, "Riverside": 2, "Saturn": 2, "Neptune": 2 },
+            "Buckley": { "Bridge": 9, "Uranus": 6 },
+            "Uranus": { "Buckley": 6, "Riverside": 2 },
             "Riverside": { "Crater": 5, "Uranus": 2 },
             "Crater": { "Riverside": 5, "Hernandez": 4, "Pickard": 4, "Hiscott": 5 },
             "Hernandez": { "Oganesson": 3, "Crater": 4 },
             "Oganesson": { "Hernandez": 3, "Eagle": 5, "Kempson": 3 },
-            "Eagle": { "Oganesson": 5, "Torran": 2, "Melon": 2, "Raphael": 4, "Bass": 3 },
+            "Eagle": { "Oganesson": 5, "Torran": 2 },
             "Torran": { "Eagle": 2 },
             "Kempson": { "Oganesson": 3, "Trevor": 3 },
             "Pickard": { "Crater": 4, "Devlin": 4 },
             "Hiscott": { "Crater": 5, "Devlin": 3 },
             "Ink": { "Devlin": 1, "Tuckwell": 7 },
             "Tuckwell": { "Ink": 7, "Felix": 6, "Grimmxr": 3 },
-            "Grimmxr": { "Tuckwell": 3, "Melon": 2, "Culley": 4 },
-            "Felix": { "Tuckwell": 6, "Belt": 2 },
-            "Ong": { "Otono": 7, "Chateau": 6 },
-            "Cinema": { "Chateau": 2, "Clock": 2, "Culley": 2 },
-            "Clock": { "Cinema": 2, "Paige": 4, "Tesseract": 3, "Dinosaur": 3 },
-            "Culley": { "Cinema": 2, "Grimmxr": 4 },
-            "Paige": { "Clock": 4, "Willow": 2 },
-            "Willow": { "Paige": 2, "Helyar": 2 },
-            "Helyar": { "Willow": 2, "Raphael": 2 },
-            "Melon": { "Grimmxr": 2, "Eagle": 2 },
-            "Raphael": { "Diarrhoea": 2, "Relon": 2, "Julie": 2 },
-            "Relon": { "Raphael": 2, "Tenassine": 2 },
-            "Tenassine": { "Relon": 2 },
-            "Julie": { "McDonald's": 4, "Raphael": 2 },
-            "McDonald's": { "Julie": 4 },
-            "Marseillaise": { "Dormir": 1, "Chateau": 7 },
-            "Dormir": { "Marseillaise": 1 },
-            "Tesseract": { "Clock": 3 },
-            "Dinosaur": { "Clock": 3, "Pencil": 3 },
-            "Biology": { "Chemistry": 3, "Pencil": 3 },
-            "Chemistry": { "Biology": 3, "Physics": 3 },
-            "Physics": { "Sine": 3, "Chemistry": 3 },
-            "Sine": { "Physics": 3, "Cosine": 1 },
-            "Cosine": { "Tangent": 1 },
-            "Tangent": { "Sine": 1 },
-            "House": { "Mansion": 3, "Joshua": 3 },
-            "Edexcel": { "AQA": 6, "ChatGPT": 6, "Tesco": 2, "Morrisons": 4 },
-            "Saturn": { "Uranus": 2, "Jupiter": 2 },
-            "Jupiter": { "Saturn": 2, "Mars": 2 },
-            "Mars": { "Jupiter": 2, "Terra": 2 },
-            "Terra": { "Mars": 2, "Venus": 2, "Moon": 1 },
-            "Moon": { "Terra": 1 },
-            "Venus": { "Terra": 2, "Mercury": 2, "Khaghanian": 3, "Carrot": 2 },
-            "Mercury": { "Venus": 2, "Neptune": 2 },
-            "Neptune": { "Uranus": 2, "Mercury": 2, "Contralto": 2, "Luke": 2 },
-            "iPhone": { "Synergy": 2 },
-            "Synergy": { "iPhone": 2, "Tesco": 2 },
-            "Tesco": { "Synergy": 2, "Edexcel": 2 },
-            "Morrisons": { "Edexcel": 4, "Exposure": 6 },
-            "Exposure": { "Birling": 2, "Morrisons": 6, "Diarrhoea": 2 },
-            "Birling": { "Exposure": 2, "Prelude": 2 },
-            "Prelude": { "Birling": 2 },
-            "Diarrhoea": { "Exposure": 2, "Raphael": 2 },
-            "Khaghanian": { "Venus": 2 },
-            "Carrot": { "Venus": 2, "Luke": 4 },
-            "Luke": { "Carrot": 4, "Trumpet": 5, "Neptune": 2, "Benjamin": 4 },
-            "Trumpet": { "Luke": 5, "Invigilator": 2 },
-            "Invigilator": { "Trumpet": 2, "black": 3 },
-            "black": { "Invigilator": 3, "Tassomai": 3 },
-            "Barium": { "Tassomai": 6, "Airbus": 8 },
-            "Bass": { "Eagle": 3, "Tenor": 3 },
-            "Tenor": { "Bass": 3, "Contralto": 4 },
-            "Contralto": { "Tenor": 4, "Neptune": 2 },
-            "Benjamin": { "Luke": 4, "Webb": 4 },
-            "Webb": { "Joshua": 4, "Benjamin": 4 },
-            "Soprano": { "Joshua": 2, "Weeks": 2 },
-            "Weeks": { "France": 2, "Soprano": 2 },
-            "France": { "Weeks": 2 }
+            "Grimmxr": { "Tuckwell": 3 },
+            "Felix": { "Tuckwell": 6 }
         };
 
     function populateDropdowns() {
@@ -245,9 +170,8 @@
             else if (promo !== "") validCode=false;
 
             // Secret codes
-            if (secret === "AprilPlan") { window.location.href="otonoteam2.github.io/otono%20subways%20price%20calculator%20april.html"; return; }
+            if (secret === "AprilPlan") { window.location.href="https://www.example-april.com"; return; }
             else if (secret === "MarchPlan") { window.location.href="https://www.example-march.com"; return; }
-            else if (secret === "OI2025!SubWay") { window.location.href="otonoteam2.github.io/otono%20subways%20price%20calculator%20secret.html"; return; }
             else if (secret !== "") validCode=false;
 
             if (!validCode) alert("Invalid Code!");
