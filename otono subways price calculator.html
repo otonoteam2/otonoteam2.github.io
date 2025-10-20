@@ -24,7 +24,7 @@
 <label for="secret">Enter secret code:</label>
 <input type="password" id="secret" placeholder="Enter code">
 <br>
-<button onclick="calculateFare()">Calculate Fare</button>
+<button onclick="calculateFare()">Calculate Fare/Redeem Code</button>
 
 <p id="result"></p>
 <p id="route"></p>
@@ -245,15 +245,15 @@
             else if (promo !== "") validCode=false;
 
             // Secret codes
- if (secret === "AprilPlan") {
+ if (secret === "AprilPlan25") {
     window.location.href = "https://otonoteam2.github.io/otono%20subways%20price%20calculator%20april.html";
     return;
 }
-else if (secret === "MarchPlan") {
-    window.location.href = "https://www.example-march.com";
+else if (secret === "MarchPlan25") {
+    window.location.href = "otonoteam2.github.io/otono%20subways%20price%20calculator%20march.html";
     return;
 }
-else if (secret === "OI2025!SubWay") {
+else if (secret === "OI2026!SubWay") {
     window.location.href = "https://otonoteam2.github.io/otono%20subways%20price%20calculator%20secret.html";
     return;
 }
