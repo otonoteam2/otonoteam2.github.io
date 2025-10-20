@@ -245,10 +245,19 @@
             else if (promo !== "") validCode=false;
 
             // Secret codes
-            if (secret === "AprilPlan") { window.location.href="otonoteam2.github.io/otono%20subways%20price%20calculator%20april.html"; return; }
-            else if (secret === "MarchPlan") { window.location.href="https://www.example-march.com"; return; }
-            else if (secret === "OI2025!SubWay") { window.location.href="otonoteam2.github.io/otono%20subways%20price%20calculator%20secret.html"; return; }
-            else if (secret !== "") validCode=false;
+ if (secret === "AprilPlan") {
+    window.location.href = "https://otonoteam2.github.io/otono%20subways%20price%20calculator%20april.html";
+    return;
+}
+else if (secret === "MarchPlan") {
+    window.location.href = "https://www.example-march.com";
+    return;
+}
+else if (secret === "OI2025!SubWay") {
+    window.location.href = "https://otonoteam2.github.io/otono%20subways%20price%20calculator%20secret.html";
+    return;
+}
+else if (secret !== "") validCode = false;
 
             if (!validCode) alert("Invalid Code!");
 
