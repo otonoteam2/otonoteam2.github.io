@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Otono Missions Generator</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #8B008B, #FF0000);
+        color: #fff;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 700px;
+        margin: 50px auto;
+        background: rgba(0,0,0,0.7);
+        padding: 25px;
+        border-radius: 20px;
+        box-shadow: 0 0 25px #FF1493;
+    }
+    h1 {
+        text-align: center;
+        font-size: 2.2em;
+        margin-bottom: 20px;
+        color: #FFD700;
+    }
+    label {
+        display: block;
+        margin: 10px 0 5px;
+        font-size: 1.1em;
+    }
+    input[type="checkbox"] {
+        transform: scale(1.3);
+        margin-right: 10px;
+    }
+    button {
+        display: block;
+        margin: 20px auto;
+        padding: 12px 25px;
+        font-size: 1.2em;
+        background: #FF1493;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        color: #fff;
+        transition: background 0.3s;
+    }
+    button:hover { background: #FF69B4; }
+    ul {
+        margin-top: 20px;
+        padding: 0;
+        list-style-type: none;
+    }
+    li {
+        padding: 10px;
+        margin: 6px 0;
+        border-radius: 10px;
+        font-weight: bold;
+    }
+    .common { background: #ADD8E6; color: #000; }
+    .uncommon { background: #0000FF; color: #fff; }
+    .rare { background: #800080; color: #fff; }
+    .ultra-rare { background: #FF0000; color: #fff; }
+    .epic { background: #FFFF00; color: #000; }
+    .legendary { background: #FF69B4; color: #fff; }
+    .mythic { background: #4B0082; color: #fff; }
+    .bonus { color: #FFD700; font-weight: bold; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Otono Missions Generator</h1>
+    <label><input type="checkbox" id="otonoCard"> I own an Otono Card 💎</label>
+    <label><input type="checkbox" id="proPass"> I own a Pro Pass 🚀</label>
+    <button onclick="generateMissions()">Generate Missions</button>
+    <ul id="missionList"></ul>
+</div>
+
+<script>
+// Missions array
+const missions = [
+    // Daily / Common / Uncommon / Rare
+    {name:"Use black ink to write 10 letters ✒️", xp:25, rarity:"uncommon", chance:30},
+    {name:"Place 25 blocks in the Otono Minecraft server ⛏️", xp:40, rarity:"rare", chance:15},
+    {name:"Win a race on Roblox 🏎️", xp:70, rarity:"ultra-rare", chance:5},
+    {name:"Help a player in Roblox 🤝", xp:30, rarity:"uncommon", chance:30},
+    {name:"Earn 5000 cash in Roblox Jailbreak 💰", xp:40, rarity:"rare", chance:15},
+    {name:"Collect 50 coins in Otono Shop 💰", xp:30, rarity:"uncommon", chance:30},
+    {name:"Use a 2x Coins Ticket 🎟️", xp:20, rarity:"uncommon", chance:30},
+    {name:"Place 50 blocks in Minecraft ⛏️", xp:50, rarity:"rare", chance:15},
+    {name:"Win a 2-player race on Roblox 🏎️", xp:50, rarity:"rare", chance:15},
+    {name:"Rob 2 small stores in Jailbreak 🏪", xp:25, rarity:"common", chance:50},
+    {name:"Rob a train in Jailbreak 🚂", xp:30, rarity:"uncommon", chance:30},
+    {name:"Taze a criminal in Jailbreak ⚡", xp:20, rarity:"common", chance:50},
+    {name:"Arrest 5 criminals in Jailbreak 👮", xp:40, rarity:"rare", chance:15},
+    {name:"Bust some criminals in a bank robbery 🏦", xp:50, rarity:"rare", chance:15},
+    {name:"Find 3 items in Bury Things 🔎", xp:25, rarity:"uncommon", chance:30},
+    {name:"Hide 5 items in Bury Things 🏠", xp:30, rarity:"uncommon", chance:30},
+    {name:"Win a Roblox Bedwars match 🛡️", xp:65, rarity:"ultra-rare", chance:5},
+    {name:"Destroy a bed in Roblox Bedwars 🛏️", xp:60, rarity:"ultra-rare", chance:5},
+    {name:"Purchase diamond armor in Roblox Bedwars 💎", xp:55, rarity:"rare", chance:15},
+    {name:"Kill a police in Roblox Jailbreak 👮", xp:50, rarity:"rare", chance:15},
+    {name:"Rob the Crown Jewel in Jailbreak 👑", xp:70, rarity:"ultra-rare", chance:5},
+    {name:"Find 5 items in Bury Things 🔎", xp:30, rarity:"uncommon", chance:30},
+    {name:"Hide 8 items in Bury Things 🏠", xp:35, rarity:"uncommon", chance:30},
+    {name:"Win a Bury Things round 🏆", xp:45, rarity:"rare", chance:15},
+    {name:"Collect 2000 cash in Jailbreak 💰", xp:25, rarity:"common", chance:50},
+    {name:"Use a 20% discount ticket 🎟️", xp:15, rarity:"common", chance:50},
+    {name:"Use double coins ticket 🎟️", xp:15, rarity:"common", chance:50},
+    {name:"Place 100 blocks in Otono Minecraft server ⛏️", xp:50, rarity:"rare", chance:15},
+    {name:"Help a new player in Roblox 🤝", xp:25, rarity:"common", chance:40},
+    {name:"Win a 3-player race on Roblox 🏎️", xp:55, rarity:"rare", chance:20},
+    {name:"Collect 5 gems in Otono Shop 💎", xp:30, rarity:"uncommon", chance:30},
+    {name:"Complete a 2-hour Roblox session 🕒", xp:25, rarity:"common", chance:40},
+    {name:"Check in on the Otono Card 💎💰", xp:25, rarity:"common", chance:50}, // card bonus
+    {name:"Complete all daily missions ✅", xp:100, rarity:"bonus"},
+
+    // Epic / Legendary / Mythic
+    {name:"Rob the Oil Rig in Jailbreak 🛢️", xp:75, rarity:"legendary", time:"10 days", chance:13},
+    {name:"Defeat the CEO in Jailbreak 👔", xp:90, rarity:"legendary", time:"14 days", chance:13},
+    {name:"Win 3 Bedwars matches 🛡️", xp:95, rarity:"epic", time:"7 days", chance:85},
+    {name:"Destroy 5 beds in Roblox Bedwars 🛏️", xp:90, rarity:"epic", time:"7 days", chance:85},
+    {name:"Purchase 5 diamond items in Roblox Bedwars 💎", xp:85, rarity:"epic", time:"7 days", chance:85},
+    {name:"Collect 15,000 bounty in Jailbreak 💰", xp:140, rarity:"legendary", time:"14 days", chance:13},
+    {name:"Survive 15 minutes as criminal in Jailbreak 🏃", xp:135, rarity:"legendary", time:"10 days", chance:13},
+    {name:"Survive 15 minutes as police in Jailbreak 👮", xp:135, rarity:"legendary", time:"10 days", chance:13},
+    {name:"Win a Bury Things round 🏆", xp:80, rarity:"epic", time:"7 days", chance:85},
+    {name:"Hide 10 items in Bury Things 🏠", xp:85, rarity:"epic", time:"7 days", chance:85},
+    {name:"Find 10 items in Bury Things 🔎", xp:85, rarity:"epic", time:"7 days", chance:85},
+    {name:"Invite 3 friends to Bury Things 🔗", xp:75, rarity:"epic", time:"7 days", chance:85},
+    {name:"Board an Otono Airways A380 ✈️", xp:90, rarity:"epic", time:"7 days", chance:85},
+    {name:"Survive a long haul flight in Economy 🛫", xp:100, rarity:"epic", time:"7 days", chance:85},
+    {name:"Take an Otono Airways ride Premium+ 💺", xp:110, rarity:"epic", time:"10 days", chance:85},
+    {name:"Speak in French for 3 minutes 🇫🇷", xp:115, rarity:"legendary", time:"7 days", chance:13},
+    {name:"Sing the chorus of La Marseillaise 🎶", xp:140, rarity:"mythic", time:"10 days", chance:2},
+    {name:"Special Otono Master Challenge 💎", xp:150, rarity:"mythic", time:"14 days", chance:2},
+    
+    // Extra Jailbreak high-tier missions
+    {name:"Rob the Bank in Jailbreak 🏦", xp:50, rarity:"rare", time:"7 days", chance:15},
+    {name:"Rob the Jewellery Store in Jailbreak 💎", xp:50, rarity:"rare", time:"7 days", chance:15},
+    {name:"Rob the Power Plant in Jailbreak ⚡", xp:55, rarity:"rare", time:"7 days", chance:15},
+    {name:"Rob the Cargo Plane in Jailbreak ✈️", xp:55, rarity:"rare", time:"7 days", chance:15},
+    {name:"Rob the Crown Jewel in Jailbreak 👑", xp:65, rarity:"ultra-rare", time:"10 days", chance:5},
+    {name:"Rob the Tomb in Jailbreak ⚰️", xp:65, rarity:"ultra-rare", time:"10 days", chance:5}
+];
+
+// Shuffle helper
+function shuffle(array) { return array.sort(() => Math.random() - 0.5); }
+
+// Generate missions
+function generateMissions() {
+    const list = document.getElementById("missionList");
+    list.innerHTML = "";
+
+    const isPro = document.getElementById("proPass").checked;
+    const hasCard = document.getElementById("otonoCard").checked;
+
+    // Separate daily and epic/mythic missions
+    let daily = missions.filter(m => !["epic","legendary","mythic"].includes(m.rarity) && m.rarity !== "bonus");
+    let epic = missions.filter(m => ["epic","legendary","mythic"].includes(m.rarity));
+
+    daily = shuffle(daily);
+    const missionCount = isPro ? 6 : 4;
+
+    // Add daily missions
+    for (let i = 0; i < missionCount && i < daily.length; i++) {
+        const m = daily[i];
+        const li = document.createElement("li");
+        li.textContent = `${m.name} (XP: ${m.xp})`;
+        li.classList.add(m.rarity);
+        list.appendChild(li);
+    }
+
+    // Mandatory
+    const mandatory = missions.find(m => m.rarity === "bonus");
+    if (mandatory) {
+        const li = document.createElement("li");
+        li.textContent = `${mandatory.name} (XP: ${mandatory.xp})`;
+        li.classList.add("bonus");
+        list.appendChild(li);
+    }
+
+    // Card bonus
+    if (hasCard) {
+        const li = document.createElement("li");
+        li.textContent = "Check in on the Otono Card 💎💰 (bonus)";
+        li.classList.add("bonus");
+        list.appendChild(li);
+    }
+
+    // Random epic/mythic mission
+    if (epic.length) {
+        const epicMission = shuffle(epic)[0];
+        const li = document.createElement("li");
+        li.textContent = `${epicMission.name} (XP: ${epicMission.xp}, Time: ${epicMission.time || "N/A"})`;
+        li.classList.add(epicMission.rarity);
+        list.appendChild(li);
+    }
+}
+</script>
+</body>
+</html>
