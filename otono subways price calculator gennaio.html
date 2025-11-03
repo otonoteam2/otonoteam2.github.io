@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Otono Subways Fare Calculator</title>
+<style>
+    body { font-family: Arial, sans-serif; text-align: center; }
+    #subwayImage { margin-top: 20px; height: 600px; }
+    input, select, button { margin: 5px; padding: 5px; }
+</style>
+</head>
+<body>
+<h1>Otono Subways January Plan 2025</h1>
+
+<label for="from">From:</label>
+<select id="from"></select>
+<label for="to">To:</label>
+<select id="to"></select>
+<br>
+<label for="promo">Enter promo code:</label>
+<input type="text" id="promo" placeholder="Enter promo code">
+<br>
+<label for="secret">Enter secret code:</label>
+<input type="password" id="secret" placeholder="Enter code">
+<br>
+<button onclick="calculateFare()">Calculate Fare</button>
+
+<p id="result"></p>
+<p id="route"></p>
+
+<img id="subwayImage" src="./Images/gennaio.png" alt="Otono Subways">
+
+<script>
+    const stations = [
+        "Otono","Casino","Phillips","Mountainside","Port","Cruise","Bridge","School",
+        "Airport","Glucose","Sainsbury's","Beach","Andy","Bank","Arena","Monza","Tardis",
+        "Castle","Village","Bath","Daso","Central","Hotel","Mansion"
+    ];
+
+    const fares = {
+            "Otono": { "Casino": 2, "Andy": 5, "School": 4, "Bank": 2, "Castle": 2, "Village": 3, "Bath": 3 },
+            "Casino": { "Otono": 2, "Phillips": 2, "School": 2 },
+            "Phillips": { "Casino": 2, "Mountainside": 3 },
+            "Mountainside": { "Phillips": 3, "Port": 3, "Central": 3, "Castle": 8, "Mansion": 9 },
+            "Port": { "Mountainside": 3, "Cruise": 3, "Hotel": 2 },
+            "Cruise": { "Port": 3, "Bridge": 3 },
+            "Bridge": { "Cruise": 3, "School": 3 },
+            "School": { "Bridge": 3, "Airport": 3, "Casino": 2, "Otono": 2 },
+            "Airport": { "School": 3, "Glucose": 3, "Monza": 8 },
+            "Glucose": { "Airport": 3, "Sainsbury's": 3 },
+            "Sainsbury's": { "Glucose": 3, "Beach": 3 },
+            "Beach": { "Sainsbury's": 3, "Andy": 3 },
+            "Andy": { "Beach": 3, "Otono": 5 },
+            "Bank": { "Otono": 2, "Arena": 4, "Mansion": 2 },
+            "Arena": { "Bank": 4, "Monza": 2 },
+            "Monza": { "Arena": 2, "Airport": 8, "Mansion": 3 },
+            "Castle": { "Tardis": 3, "Otono": 2, "Mountainside": 8 },
+            "Village": { "Otono": 3 },
+            "Bath": { "Otono": 3, "Daso": 1 },
+            "Daso": { "Bath": 1, "Central": 2 },
+            "Central": { "Daso": 2, "Mountainside": 3, "Hotel": 2 },
+            "Hotel": { "Central": 2, "Port": 2 },
+            "Mansion": { "Mountainside": 9, "Monza": 2 }
+
+        };
+
+    function populateDropdowns() {
+        const fromSelect = document.getElementById("from");
+        const toSelect = document.getElementById("to");
+
+        // "Otono" at top, rest sorted
+        const otherStations = stations.filter(s => s !== "Otono").sort();
+        const sortedStations = ["Select", "Otono", ...otherStations];
+
+        sortedStations.forEach(station => {
+            fromSelect.add(new Option(station, station));
+            toSelect.add(new Option(station, station));
+        });
+    }
+
+    function findCheapestRoute(start, end) {
+        // ... your fares object here ...
+        // Implement Dijkstra algorithm exactly as you had before
+        let costs = {}, previous = {}, unvisited = new Set(stations);
+        stations.forEach(station => costs[station] = Infinity);
+        costs[start] = 0;
+
+        while (unvisited.size) {
+            let current = [...unvisited].reduce((a,b)=>costs[a]<costs[b]?a:b);
+            unvisited.delete(current);
+            if (current===end) break;
+            if (!fares[current]) continue;
+
+            for (let neighbor in fares[current]) {
+                if (!unvisited.has(neighbor)) continue;
+                let newCost = costs[current] + fares[current][neighbor];
+                if (newCost < costs[neighbor]) {
+                    costs[neighbor] = newCost;
+                    previous[neighbor] = current;
+                }
+            }
+        }
+
+        let path = [];
+        let at = end;
+        if (previous[at] !== undefined || at === start) {
+            while(at){ path.push(at); at=previous[at]; }
+            path.reverse();
+        } else { path = ["No route found"]; costs[end]="N/A"; }
+
+        return { cost: costs[end], path };
+    }
+
+    function calculateFare() {
+        const from = document.getElementById("from").value;
+        const to = document.getElementById("to").value;
+        const promo = document.getElementById("promo").value.trim();
+        const secret = document.getElementById("secret").value.trim();
+
+        if (from==="Select" || to==="Select") {
+            alert("Please select both start and destination stations.");
+            return;
+        }
+
+        const result = findCheapestRoute(from, to);
+        let fare = result.cost;
+        let validCode = true;
+
+        if (fare !== "N/A") {
+            // Promo discounts
+            if (promo === "SAVE15" && fare >= 50) fare -= 15;
+            else if (promo === "SAVE40") fare = Math.round(fare*0.6);
+            else if (promo !== "") validCode=false;
+
+            // Secret codes
+            if (secret === "AprilPlan") { window.location.href="https://www.example-april.com"; return; }
+            else if (secret === "MarchPlan") { window.location.href="https://www.example-march.com"; return; }
+            else if (secret !== "") validCode=false;
+
+            if (!validCode) alert("Invalid Code!");
+
+            fare = Math.max(0, fare);
+        }
+
+        document.getElementById("result").textContent = `Fare: ${fare} iron ingots.`;
+        document.getElementById("route").textContent = `Route: ${result.path.join(" → ")}`;
+    }
+
+    // Populate dropdowns after page loads
+    window.onload = populateDropdowns;
+</script>
+</body>
+</html>
