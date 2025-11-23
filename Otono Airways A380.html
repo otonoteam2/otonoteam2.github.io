@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Otono Airways A380 Seat Map - Fleet V3</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+        .animate-fade-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+<div id="root"></div>
+
+<script type="text/babel">
+    const { useState, useMemo } = React;
+
+    // --- Icons ---
+    const IconWrapper = ({ children, size = 24, className = "" }) => (
+        <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>{children}</svg>
+    );
+    const Plane = (props) => <IconWrapper {...props}><path d="M2 12h20"/><path d="M13 2l9 10-9 10"/><path d="M2 12l5-5m-5 5l5 5"/></IconWrapper>;
+    const Star = (props) => <IconWrapper {...props}><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></IconWrapper>;
+    const Coffee = (props) => <IconWrapper {...props}><path d="M18 8h1a4 4 0 0 1 0 8h-1" /><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" /><line x1="6" y1="1" x2="6" y2="4" /><line x1="10" y1="1" x2="10" y2="4" /><line x1="14" y1="1" x2="14" y2="4" /></IconWrapper>;
+    const User = (props) => <IconWrapper {...props}><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></IconWrapper>;
+    const Bath = (props) => <IconWrapper {...props}><path d="M9 6 6.5 3.5a1.5 1.5 0 0 0-1-1C5.5 2.5 5 3 5 4v8" /><line x1="10" y1="5" x2="8" y2="7" /><path d="M2 12h20" /><path d="M7 19v2" /><path d="M17 19v2" /></IconWrapper>;
+    const ArrowUp = (props) => <IconWrapper {...props}><line x1="12" y1="19" x2="12" y2="5" /><polyline points="5 12 12 5 19 12" /></IconWrapper>;
+
+    // --- Configuration ---
+
+    const DECK_UPPER = 'UPPER';
+    const DECK_LOWER = 'LOWER';
+
+    const CLASS_OTONO_ONE = 'Otono One';
+    const CLASS_FIRST = 'First Class';
+    const CLASS_BUSINESS = 'Business';
+    const CLASS_PREM_ECO = 'Premium Economy';
+    const CLASS_ECONOMY = 'Economy';
+
+    // New Color Scheme
+    const CLASS_COLORS = {
+      [CLASS_OTONO_ONE]: 'bg-purple-900 border-yellow-400 text-yellow-100', // Deep Purple & Gold
+      [CLASS_FIRST]: 'bg-purple-700 border-purple-300 text-white',         // Purple
+      [CLASS_BUSINESS]: 'bg-red-900 border-red-700 text-white',            // Dark Red
+      [CLASS_PREM_ECO]: 'bg-red-700 border-red-500 text-white',            // Medium Red
+      [CLASS_ECONOMY]: 'bg-red-500 border-red-400 text-white hover:bg-red-400 hover:border-red-300', // Red
+    };
+
+    // --- Pricing Logic ---
+
+    const getPrice = (type, row, features) => {
+      // Otono One
+      if (type === CLASS_OTONO_ONE) return '£14,000';
+      
+      // First Class
+      if (type === CLASS_FIRST) return '£6,500';
+
+      // Business
+      if (type === CLASS_BUSINESS) return '£3,200';
+
+      // Premium Economy
+      if (type === CLASS_PREM_ECO) return '£2,000';
+
+      // Economy
+      if (type === CLASS_ECONOMY) {
+        // Extra Legroom or Preferred
+        if (features.includes('Extra Legroom') || features.includes('Preferred Seat')) {
+          return '£1,650';
+        }
+        // Rear Cabin (Rows 68-77)
+        if (row >= 68 && row <= 77) {
+          return '£1,350';
+        }
+        // Standard
+        return '£1,500';
+      }
+      return 'N/A';
+    };
+
+    const createSeat = (id, type, row, col, isAisle = false, features = []) => ({
+      id, type, row, col, isAisle,
+      isOccupied: Math.random() > 0.85,
+      features,
+      price: getPrice(type, row, features),
+    });
+
+    // --- Data Generation Logic ---
+
+    // UPPER DECK
+    const generateUpperDeck = () => {
+      let cabins = [];
+      
+      // Cabin 1: Otono One (Rows 1-2)
+      let c1 = [];
+      [1, 2].forEach(row => {
+        c1.push(createSeat(`${row}A`, CLASS_OTONO_ONE, row, 'A', false, ['Suite', 'Shower Access', 'Privacy']));
+        c1.push(createSeat(`${row}K`, CLASS_OTONO_ONE, row, 'K', false, ['Suite', 'Shower Access', 'Privacy']));
+      });
+      cabins.push({ name: "Cabin 1", seats: c1 });
+
+      // Cabin 2: First Class (Rows 5-9)
+      let c2 = [];
+      [5, 6, 7, 8, 9].forEach(row => {
+        if (row !== 9) {
+            c2.push(createSeat(`${row}A`, CLASS_FIRST, row, 'A', false, ['Privacy', 'Shower Access', 'Suite']));
+            c2.push(createSeat(`${row}K`, CLASS_FIRST, row, 'K', false, ['Privacy', 'Shower Access', 'Suite']));
+        }
+        if (row !== 7) {
+            c2.push(createSeat(`${row}D`, CLASS_FIRST, row, 'D', true, ['Center Pair', 'Shower Access', 'Suite']));
+            c2.push(createSeat(`${row}G`, CLASS_FIRST, row, 'G', true, ['Center Pair', 'Shower Access', 'Suite']));
+        }
+      });
+      cabins.push({ name: "Cabin 2", seats: c2 });
+
+      // Cabin 3: Premium Economy (Rows 42-50)
+      let c3 = [];
+      for (let row = 42; row <= 50; row++) {
+        const isExtraLegroom = row === 42;
+        const feats = isExtraLegroom ? ['Extra Legroom'] : [];
+        
+        ['A','C','D','F','G','H','K'].forEach(col => {
+    let isAisle = ['C','D','G','H'].includes(col);
+    // Copy feats so we don’t mutate the original array
+    let seatFeats = [...feats];
+    if (col === 'A' || col === 'K') seatFeats.push('Storage Bin');
+    let seat = createSeat(`${row}${col}`, CLASS_PREM_ECO, row, col, isAisle, seatFeats);
+    c3.push(seat);
+});
+}
+      cabins.push({ name: "Cabin 3", seats: c3 });
+
+      // Cabin 4: Economy Upper (Rows 80-93)
+      let c4 = [];
+      for (let row = 80; row <= 93; row++) {
+        const cols = ['A','C','D','E','F','G','H','K'];
+        cols.forEach(col => {
+            if (row === 83 && ['A','C','H','K'].includes(col)) return;
+
+            let feats = [];
+            if (row === 84 && ['A','C','H','K'].includes(col)) feats.push('Extra Legroom');
+            if (col === 'A' || col === 'K') feats.push('Storage Bin');
+
+            let isAisle = ['C','D','G','H'].includes(col);
+            c4.push(createSeat(`${row}${col}`, CLASS_ECONOMY, row, col, isAisle, feats));
+        });
+      }
+      cabins.push({ name: "Cabin 4", seats: c4 });
+
+      return cabins;
+    };
+
+    // LOWER DECK
+    const generateLowerDeck = () => {
+      let cabins = [];
+
+      // Cabin 1: Business (11, 12, 15-19)
+      let c1 = [];
+      const c1Rows = [11, 12, 15, 16, 17, 18, 19];
+      c1Rows.forEach(row => {
+        c1.push(createSeat(`${row}A`, CLASS_BUSINESS, row, 'A', false, ['Lie-flat']));
+        c1.push(createSeat(`${row}K`, CLASS_BUSINESS, row, 'K', false, ['Lie-flat']));
+        
+        if (row !== 11 && row !== 12) {
+             c1.push(createSeat(`${row}D`, CLASS_BUSINESS, row, 'D', true, ['Lie-flat', 'Center']));
+             c1.push(createSeat(`${row}G`, CLASS_BUSINESS, row, 'G', true, ['Lie-flat', 'Center']));
+        }
+      });
+      cabins.push({ name: "Cabin 1", seats: c1 });
+
+      // Cabin 2: Business (25-37)
+      let c2 = [];
+      for (let row = 25; row <= 37; row++) {
+        c2.push(createSeat(`${row}A`, CLASS_BUSINESS, row, 'A', false, ['Lie-flat']));
+        c2.push(createSeat(`${row}K`, CLASS_BUSINESS, row, 'K', false, ['Lie-flat']));
+        if (row !== 25 && row !== 37) {
+            c2.push(createSeat(`${row}D`, CLASS_BUSINESS, row, 'D', true, ['Lie-flat', 'Center']));
+            c2.push(createSeat(`${row}G`, CLASS_BUSINESS, row, 'G', true, ['Lie-flat', 'Center']));
+        }
+      }
+      cabins.push({ name: "Cabin 2", seats: c2 });
+
+      // Cabin 3: Economy (51-67)
+      let c3 = [];
+      // Rows 51, 52 added
+      for (let row = 51; row <= 67; row++) {
+        const cols = ['A','B','C', 'D','E','F','G', 'H','J','K'];
+        cols.forEach(col => {
+            // Row 67 Exception: No A, No K
+            if (row === 67 && (col === 'A' || col === 'K')) return;
+
+            // Features
+            let feats = [];
+            if (row === 51) feats.push('Extra Legroom');
+            if (row === 67) feats.push('Preferred Seat'); // Remaining 67 seats
+
+            let isAisle = ['C','D','G','H'].includes(col);
+            c3.push(createSeat(`${row}${col}`, CLASS_ECONOMY, row, col, isAisle, feats));
+        });
+      }
+      cabins.push({ name: "Cabin 3", seats: c3 });
+
+      // Cabin 4: Economy (68-77)
+      let c4 = [];
+      for (let row = 68; row <= 77; row++) {
+         ['A','B','C', 'D','E','F','G', 'H','J','K'].forEach(col => {
+            if (row === 77 && ['D','E','F','G'].includes(col)) return;
+
+            let feats = [];
+            if (row === 68) feats.push('Extra Legroom');
+            if (row === 77) feats.push('Preferred Seat');
+
+            let isAisle = ['C','D','G','H'].includes(col);
+            c4.push(createSeat(`${row}${col}`, CLASS_ECONOMY, row, col, isAisle, feats));
+        });
+      }
+      cabins.push({ name: "Cabin 4", seats: c4 });
+
+      return cabins;
+    };
+
+    // --- Components ---
+
+    const Seat = ({ seat, onSelect, isSelected }) => {
+      const baseClasses = "w-7 h-8 m-[1px] md:m-0.5 rounded-sm text-[9px] flex items-center justify-center font-bold cursor-pointer transition-all duration-200";
+      let typeClasses = CLASS_COLORS[seat.type];
+      
+      // Override color for Extra Legroom / Preferred if Economy to make them pop?
+      // Keeping consistent class colors for now, but maybe add a border?
+      let borderClass = "";
+      if (seat.features.includes('Extra Legroom')) borderClass = "border-b-4 border-yellow-400";
+      
+      if (seat.isOccupied) {
+        typeClasses = "bg-gray-300 text-gray-400 cursor-not-allowed border-gray-200";
+        borderClass = "";
+      } else if (isSelected) {
+        typeClasses = "bg-green-500 text-white ring-2 ring-green-300 border-green-600 scale-125 z-10 shadow-lg";
+      } else {
+        typeClasses += " hover:scale-110 hover:z-10";
+      }
+
+      // Otono One
+      if (seat.type === CLASS_OTONO_ONE) {
+        return (
+          <div 
+            onClick={() => !seat.isOccupied && onSelect(seat)}
+            className={`w-16 h-16 m-2 rounded-lg text-xs flex flex-col items-center justify-center font-serif border-2 ${typeClasses} ${seat.isOccupied ? '' : 'hover:shadow-xl'}`}
+          >
+            <span>{seat.id}</span>
+            <span className="text-[8px] opacity-75">SUITE</span>
+          </div>
+        );
+      }
+      // First Class
+      if (seat.type === CLASS_FIRST) {
+         return (
+          <div 
+            onClick={() => !seat.isOccupied && onSelect(seat)}
+            className={`w-10 h-10 m-1 rounded-md text-[10px] flex items-center justify-center border ${typeClasses}`}
+          >
+            {seat.id}
+          </div>
+        );
+      }
+
+      return (
+        <div 
+          onClick={() => !seat.isOccupied && onSelect(seat)}
+          className={`${baseClasses} ${typeClasses} ${borderClass} border`}
+          title={seat.features.join(', ')}
+        >
+          {seat.id.replace(/[0-9]/g, '')}
+        </div>
+      );
+    };
+
+    const ShowerSuite = () => (
+      <div className="flex flex-col items-center justify-center bg-blue-100 border border-blue-300 text-blue-800 p-2 rounded-lg w-24 h-24 m-2 text-xs text-center shadow-inner">
+        <Bath size={24} className="mb-1" />
+        <span className="font-bold">Shower Spa</span>
+        <span className="text-[9px]">Otono One & First</span>
+      </div>
+    );
+
+    const Stairs = ({ label, isLower = false }) => (
+      <div className={`w-full ${isLower ? 'h-16 w-32 mx-auto rounded-lg border-2' : 'h-10 border-y-2'} bg-gray-200 border-gray-300 flex flex-col items-center justify-center my-2 opacity-60 bg-[url('https://www.transparenttextures.com/patterns/diagmonds-light.png')]`}>
+        {isLower && <ArrowUp size={16} className="text-gray-500 mb-1" />}
+        <span className="text-gray-500 text-[10px] font-bold uppercase tracking-widest text-center leading-tight">{label}</span>
+      </div>
+    );
+
+    const Lounge = () => (
+      <div className="w-full bg-purple-900 text-white p-6 rounded-b-3xl flex flex-col items-center justify-center mt-4 border-t-4 border-red-600 shadow-2xl relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+        <div className="z-10 flex items-center space-x-4">
+          <Coffee size={32} />
+          <div className="text-center">
+            <h3 className="text-xl font-bold font-serif">The Otono Lounge</h3>
+            <p className="text-xs text-purple-200">Open to ALL Classes</p>
+          </div>
+        </div>
+      </div>
+    );
+
+    const DeckMap = ({ deck, cabins, onSelect, selectedSeat }) => {
+      return (
+        <div className="flex flex-col items-center bg-white rounded-3xl shadow-2xl border-4 border-gray-300 p-2 md:p-4 w-full max-w-2xl mx-auto relative overflow-hidden min-h-[800px]">
+          {/* Fuselage Top */}
+          <div className="w-full h-32 bg-gray-100 absolute top-0 rounded-t-[50%] border-b border-gray-200 -z-10"></div>
+          
+          <div className="mt-8 mb-4 w-full flex justify-center z-10">
+            {deck === DECK_UPPER ? (
+              <div className="flex justify-between w-full px-4 md:px-8">
+                <ShowerSuite />
+                <div className="flex flex-col justify-end pb-4 w-full mx-2">
+                   <Stairs label="Grand Staircase" />
+                </div>
+                <ShowerSuite />
+              </div>
+            ) : (
+              <div className="w-full text-center py-4 text-gray-400 font-bold">COCKPIT BELOW</div>
+            )}
+          </div>
+
+          <div className="w-full flex flex-col items-center space-y-2">
+            
+            {cabins.map((cabin, cIdx) => {
+                const rows = {};
+                cabin.seats.forEach(s => {
+                    if (!rows[s.row]) rows[s.row] = [];
+                    rows[s.row].push(s);
+                });
+                const rowNumbers = Object.keys(rows).sort((a,b) => a-b);
+
+                return (
+                    <div key={cabin.name} className="w-full flex flex-col items-center">
+                        {/* Cabin Separator */}
+                        {cIdx > 0 && (
+                            <div className="w-full flex items-center justify-center my-4">
+                                <div className="h-12 w-full bg-gray-100 border-y border-gray-200 flex items-center justify-center">
+                                    <span className="text-[10px] text-gray-400 tracking-widest uppercase">Galley / Exit</span>
+                                </div>
+                            </div>
+                        )}
+
+                        {rowNumbers.map(rowNum => {
+                            const rowSeats = rows[rowNum].sort((a,b) => a.col.localeCompare(b.col));
+                            const rInt = parseInt(rowNum);
+                            
+                            // Check if this row is part of the Grand Staircase block (Lower Deck 11 & 12)
+                            const isGrandStairRow = deck === DECK_LOWER && (rInt === 11 || rInt === 12);
+
+                            return (
+                                <div key={rowNum} className="flex items-center justify-center w-full my-0.5">
+                                    <span className="w-6 text-[10px] text-gray-400 text-right mr-1 font-mono">{rowNum}</span>
+                                    <div className="flex relative">
+                                        
+                                        {/* Grand Staircase Visual Block on Lower Deck */}
+                                        {isGrandStairRow && (
+                                            <div className="absolute left-1/2 top-0 -translate-x-1/2 w-24 h-full bg-gray-200 border-x border-gray-300 flex items-center justify-center z-0">
+                                                 {rInt === 11 && <span className="text-[8px] text-gray-400 font-bold uppercase">Grand</span>}
+                                                 {rInt === 12 && <span className="text-[8px] text-gray-400 font-bold uppercase">Staircase</span>}
+                                            </div>
+                                        )}
+
+                                        {rowSeats.map((seat, i) => {
+                                            // Aisle Spacing Logic
+                                            let spacer = null;
+                                            
+                                            // Lower Deck Economy
+                                            if (deck === DECK_LOWER && seat.type === CLASS_ECONOMY) {
+                                                if (seat.col === 'D' && i > 0) spacer = <div className="w-3 md:w-6"></div>; 
+                                                if (seat.col === 'H') spacer = <div className="w-3 md:w-6"></div>; 
+                                            }
+                                            // Upper Deck Economy
+                                            else if (deck === DECK_UPPER && seat.type === CLASS_ECONOMY) {
+                                                if (seat.col === 'D') spacer = <div className="w-3 md:w-6"></div>;
+                                                if (seat.col === 'H') spacer = <div className="w-3 md:w-6"></div>;
+                                            }
+                                            // Business
+                                            else if (seat.type === CLASS_BUSINESS) {
+                                                // If rows 11/12, we need huge gap for stairs
+                                                if (isGrandStairRow) {
+                                                     if (seat.col === 'K') spacer = <div className="w-24 md:w-32"></div>;
+                                                } else {
+                                                    if (seat.col === 'D') spacer = <div className="w-4 md:w-8"></div>;
+                                                    if (seat.col === 'K') spacer = <div className="w-4 md:w-8"></div>;
+                                                }
+                                            }
+                                            // Prem Eco
+                                            else if (seat.type === CLASS_PREM_ECO) {
+                                                if (seat.col === 'D') spacer = <div className="w-3 md:w-6"></div>;
+                                                if (seat.col === 'H') spacer = <div className="w-3 md:w-6"></div>;
+                                            }
+                                            
+                                            return (
+                                                <React.Fragment key={seat.id}>
+                                                    {spacer}
+                                                    <Seat seat={seat} onSelect={onSelect} isSelected={selectedSeat?.id === seat.id} />
+                                                </React.Fragment>
+                                            );
+                                        })}
+                                    </div>
+                                    <span className="w-6 text-[10px] text-gray-400 text-left ml-1 font-mono">{rowNum}</span>
+                                </div>
+                            );
+                        })}
+                    </div>
+                );
+            })}
+          </div>
+
+          <div className="mt-8 w-full z-10">
+            {deck === DECK_UPPER ? (
+              <>
+                 <Stairs label="Spiral Staircase" />
+                 <Lounge />
+              </>
+            ) : (
+              <>
+                <div className="w-full py-4 text-center text-gray-400">
+                    <div className="w-full h-8 bg-gray-100 my-2 flex items-center justify-center text-[10px] text-gray-400">REAR GALLEY</div>
+                </div>
+                {/* Spiral Staircase Lower Deck */}
+                <Stairs label="Spiral Staircase (Up to Lounge)" isLower={true} />
+              </>
+            )}
+          </div>
+          
+          <div className="w-full h-24 bg-gray-100 absolute bottom-0 rounded-b-[40%] border-t border-gray-200 -z-0"></div>
+        </div>
+      );
+    };
+
+    function App() {
+      const [currentDeck, setCurrentDeck] = useState(DECK_UPPER);
+      const [selectedSeat, setSelectedSeat] = useState(null);
+      
+      const upperCabins = useMemo(() => generateUpperDeck(), []);
+      const lowerCabins = useMemo(() => generateLowerDeck(), []);
+
+      return (
+        <div className="min-h-screen bg-slate-50 font-sans text-slate-800 pb-20">
+          
+          <header className="bg-gradient-to-r from-purple-900 to-red-700 text-white p-4 shadow-lg sticky top-0 z-50">
+            <div className="max-w-4xl mx-auto flex justify-between items-center">
+              <div className="flex items-center space-x-2">
+                <Plane className="transform -rotate-45" size={28} />
+                <div>
+                  <h1 className="text-xl font-bold tracking-wider">OTONO AIRWAYS</h1>
+                  <p className="text-xs text-purple-200">Airbus A380-800 • Flagship</p>
+                </div>
+              </div>
+              <div className="text-right hidden sm:block">
+                <p className="text-sm font-bold italic">"NO MORE FEAR of economy class!"</p>
+                <p className="text-xs opacity-75">Bristol • London • Global</p>
+              </div>
+            </div>
+          </header>
+
+          <main className="max-w-6xl mx-auto mt-6 px-2 md:px-6 flex flex-col md:flex-row gap-8">
+            
+            <div className="w-full md:w-1/3 space-y-6">
+              
+              <div className="bg-white p-4 rounded-xl shadow-md border border-gray-100">
+                <h2 className="text-sm font-bold text-gray-500 uppercase mb-3">Select Deck</h2>
+                <div className="flex space-x-2 bg-gray-100 p-1 rounded-lg">
+                  <button
+                    onClick={() => { setCurrentDeck(DECK_UPPER); setSelectedSeat(null); }}
+                    className={`flex-1 py-3 rounded-md text-sm font-bold transition-all ${currentDeck === DECK_UPPER ? 'bg-white text-purple-700 shadow-sm' : 'text-gray-500 hover:bg-gray-200'}`}
+                  >
+                    Upper Deck
+                    <span className="block text-[9px] font-normal opacity-75">Suites, First, Lounge</span>
+                  </button>
+                  <button
+                    onClick={() => { setCurrentDeck(DECK_LOWER); setSelectedSeat(null); }}
+                    className={`flex-1 py-3 rounded-md text-sm font-bold transition-all ${currentDeck === DECK_LOWER ? 'bg-white text-indigo-700 shadow-sm' : 'text-gray-500 hover:bg-gray-200'}`}
+                  >
+                    Lower Deck
+                    <span className="block text-[9px] font-normal opacity-75">Business, Economy</span>
+                  </button>
+                </div>
+              </div>
+
+              <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100 min-h-[200px]">
+                {selectedSeat ? (
+                  <div className="animate-fade-in">
+                    <div className="flex justify-between items-start mb-4">
+                      <div>
+                        <span className={`px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wide text-white ${CLASS_COLORS[selectedSeat.type].split(' ')[0]}`}>
+                          {selectedSeat.type}
+                        </span>
+                        <h2 className="text-3xl font-bold text-gray-800 mt-2">{selectedSeat.id}</h2>
+                      </div>
+                      <div className="text-right">
+                        <span className="block text-2xl font-bold text-green-600">{selectedSeat.price}</span>
+                        <span className="text-xs text-gray-400">One Way</span>
+                      </div>
+                    </div>
+
+                    <div className="space-y-3">
+                      <div className="flex items-center text-sm text-gray-600">
+                        <User size={16} className="mr-2" />
+                        <span>{selectedSeat.isAisle ? "Aisle Access" : "Window / Interior"}</span>
+                      </div>
+                      {selectedSeat.features && selectedSeat.features.map((feat, i) => (
+                        <div key={i} className="flex items-center text-sm text-gray-600">
+                          <Star size={16} className="mr-2 text-yellow-500" />
+                          <span>{feat}</span>
+                        </div>
+                      ))}
+                      {selectedSeat.type === CLASS_ECONOMY && (
+                        <div className="flex items-center text-sm text-purple-600 font-medium">
+                          <span>34" Legroom Guaranteed</span>
+                        </div>
+                      )}
+                    </div>
+
+                    <button 
+  className="w-full mt-6 bg-red-600 text-white py-3 rounded-lg font-bold hover:bg-red-700 transition-colors shadow-md hover:shadow-lg flex items-center justify-center"
+  onClick={() => {
+    if (selectedSeat) {
+      window.location.href = `otonoteam2.github.io/Otono%20Airways%20A380%20Destinations.html`;
+    } else {
+      alert('Please select a seat first.');
+    }
+  }}
+>
+  Book Seat {selectedSeat ? selectedSeat.id : ''}
+</button>
+</div>
+) : (
+  <div className="h-full flex flex-col items-center justify-center text-gray-400 text-center py-8">
+    <p>Select a seat to view details.</p>
+  </div>
+)}
+</div>
+
+<div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+  <h3 className="text-xs font-bold text-gray-400 uppercase mb-3">Key</h3>
+  <div className="space-y-2">
+    {Object.keys(CLASS_COLORS).map(cls => (
+      <div key={cls} className="flex items-center">
+        <div className={`w-4 h-4 rounded-sm mr-3 ${CLASS_COLORS[cls].split(' ')[0]} border border-black/10`}></div>
+        <span className="text-sm font-medium text-gray-600">{cls}</span>
+      </div>
+    ))}
+    <div className="flex items-center mt-4 pt-4 border-t border-gray-100">
+      <div className="w-4 h-4 rounded-sm mr-3 bg-gray-300"></div>
+      <span className="text-sm text-gray-400">Occupied</span>
+    </div>
+    <div className="flex items-center pt-2">
+      <div className="w-4 h-4 rounded-sm mr-3 bg-red-500 border-b-4 border-yellow-400"></div>
+      <span className="text-sm text-gray-600">Extra Legroom</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<div className="w-full md:w-2/3">
+  <DeckMap 
+    deck={currentDeck} 
+    cabins={currentDeck === DECK_UPPER ? upperCabins : lowerCabins} 
+    onSelect={setSelectedSeat}
+    selectedSeat={selectedSeat}
+  />
+</div>
+</main>
+</div>
+);
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+
+</script>
+
+</body>
+</html>

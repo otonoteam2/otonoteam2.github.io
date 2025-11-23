@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Otono Casino</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom right, purple, red);
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      margin-top: 0;
+    }
+    .game {
+      background: rgba(0, 0, 0, 0.4);
+      padding: 20px;
+      margin: 20px auto;
+      border-radius: 10px;
+      max-width: 500px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover {
+      opacity: 0.8;
+    }
+    .result {
+      font-weight: bold;
+      margin-top: 15px;
+      font-size: 1.3rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎰 Otono Casino 🎲</h1>
+
+  <!-- SLOT MACHINE -->
+  <div class="game">
+    <h2>Slot Machine</h2>
+    <p>Match symbols to win!</p>
+    <div id="slotDisplay">❓ ❓ ❓</div>
+    <button onclick="spinSlots()">SPIN</button>
+    <div id="slotResult" class="result"></div>
+  </div>
+
+  <!-- JACKPOT WHEEL -->
+  <div class="game">
+    <h2>Jackpot Wheel</h2>
+    <p>Spin to test your luck!</p>
+    <div id="wheelDisplay">Press SPIN</div>
+    <button onclick="spinWheel()">SPIN THE WHEEL</button>
+    <div id="wheelResult" class="result"></div>
+  </div>
+
+  <!-- DICE GAME -->
+  <div class="game">
+    <h2>Dice Roll</h2>
+    <p>Roll two dice – highest total wins!</p>
+    <div id="diceDisplay">🎲 + 🎲</div>
+    <button onclick="rollDice()">ROLL</button>
+    <div id="diceResult" class="result"></div>
+  </div>
+
+  <script>
+    // Slot Machine
+    function spinSlots() {
+      const symbols = ["🍒", "🍋", "⭐", "💎", "7️⃣"];
+      const roll = () => symbols[Math.floor(Math.random() * symbols.length)];
+
+      let s1 = roll();
+      let s2 = roll();
+      let s3 = roll();
+
+      document.getElementById("slotDisplay").innerText = `${s1} ${s2} ${s3}`;
+
+      if (s1 === s2 && s2 === s3) {
+        document.getElementById("slotResult").innerText = "JACKPOT!!! ✨";
+      } else {
+        document.getElementById("slotResult").innerText = "No luck, try again!";
+      }
+    }
+
+    // Jackpot Wheel
+    function spinWheel() {
+      const outcomes = [
+        "BIG WIN 5000!",
+        "SMALL WIN 200",
+        "LOSE",
+        "TRY AGAIN",
+        "JACKPOT 10000!!!",
+        "WIN 500",
+      ];
+
+      const result = outcomes[Math.floor(Math.random() * outcomes.length)];
+
+      document.getElementById("wheelDisplay").innerText = "Spinning...";
+
+      setTimeout(() => {
+        document.getElementById("wheelResult").innerText = result;
+        document.getElementById("wheelDisplay").innerText = result;
+      }, 1000);
+    }
+
+    // Dice Game
+    function rollDice() {
+      const roll = () => Math.floor(Math.random() * 6) + 1;
+      let d1 = roll();
+      let d2 = roll();
+
+      document.getElementById("diceDisplay").innerText = `🎲${d1} + 🎲${d2}`;
+
+      const total = d1 + d2;
+
+      if (total >= 10) {
+        document.getElementById("diceResult").innerText = `Amazing! Total = ${total}! You win!`;
+      } else {
+        document.getElementById("diceResult").innerText = `Only ${total}. Try again!`;
+      }
+    }
+  </script>
+</body>
+</html>

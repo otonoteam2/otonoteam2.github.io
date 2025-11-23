@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Otono Airways - Select Destination</title>
+<style>
+body { font-family: Arial, sans-serif; background: #f0f0f0; margin: 0; padding: 20px; }
+h1 { color: #8b0000; }
+.container { max-width: 600px; margin: 50px auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+select, button { width: 100%; padding: 10px; margin-top: 15px; border-radius: 6px; border: 1px solid #ccc; font-size: 16px; }
+button { background: #8b0000; color: white; font-weight: bold; cursor: pointer; transition: 0.2s; }
+button:hover { background: #a20000; }
+a { display: inline-block; margin-top: 20px; text-decoration: none; color: #555; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Select Your Destination</h1>
+<select id="destination">
+<option value="london">London Heathrow (LHR)</option>
+<option value="tokyo">Tokyo Haneda (HND)</option>
+<option value="hongkong">Hong Kong (HKG)</option>
+<option value="newyork">New York JFK (JFK)</option>
+<option value="dubai">Dubai International (DXB)</option>
+<option value="singapore">Singapore Changi (SIN)</option>
+<option value="sydney">Sydney Kingsford Smith (SYD), via Hong Kong (HKG)</option>
+<option value="frankfurt">Frankfurt (FRA)</option>
+<option value="losangeles">Los Angeles LAX (LAX)</option>
+<option value="doha">Doha Hamad International (DOH)</option>
+</select>
+<button onclick="goToBooking()">Proceed to Booking</button>
+<a href="index.html">Go back to main menu</a>
+<a herf="Otono%20Airways%20A380.html">Change Your Seat</a>
+</div>
+
+
+<script>
+function goToBooking() {
+const select = document.getElementById('destination');
+const destination = select.value;
+window.location.href = `booking.html?destination=${destination}`;
+}
+</script>
+</body>
+</html>
