@@ -54,26 +54,26 @@
             z-index: 10;
         }
         
-        /* Occupied Seat Style (New) */
+        /* Occupied Seat Style */
         .seat-occupied {
             background-color: #e5e7eb !important; /* gray-200 */
             border-color: #9ca3af !important; /* gray-400 */
             color: #4b5563 !important; /* gray-600 */
             cursor: not-allowed !important;
-            pointer-events: none; /* Ensure it is unclickable */
-            transform: none !important; /* Disable hover effect */
+            pointer-events: none; 
+            transform: none !important; 
             box-shadow: none !important;
             opacity: 0.8;
         }
 
-
+        /* UPDATED: Green Selection Style */
         .seat.selected {
-            background-color: #facc15 !important; /* yellow-400 */
-            border-color: #a16207 !important; /* amber-700 */
-            color: black !important;
+            background-color: #22c55e !important; /* green-500 */
+            border-color: #15803d !important; /* green-700 */
+            color: white !important;
             transform: scale(1.15);
             z-index: 20;
-            box-shadow: 0 0 15px rgba(250, 204, 21, 0.8);
+            box-shadow: 0 0 15px rgba(34, 197, 94, 0.8);
         }
 
         /* Status Markers */
@@ -113,7 +113,7 @@
             position: relative;
             justify-content: space-between;
         }
-        .seat-group-container { /* Container holding the actual seat groups */
+        .seat-group-container { 
             display: flex;
             justify-content: center;
             align-items: center;
@@ -156,10 +156,11 @@
             <p class="text-slate-600 mb-6">Select your seat for an exceptional journey.</p>
             
             <!-- Variant Selector -->
-            <div class="inline-flex bg-white rounded-lg p-1 shadow-md border border-purple-100">
-                <button onclick="loadVariant('77A')" id="btn-77A" class="variant-btn px-6 py-2 rounded-md font-medium transition-colors bg-purple-900 text-white">77A Variant</button>
-                <button onclick="loadVariant('77J')" id="btn-77J" class="variant-btn px-6 py-2 rounded-md font-medium transition-colors text-slate-500 hover:bg-slate-50">77J Variant</button>
-                <button onclick="loadVariant('77K')" id="btn-77K" class="variant-btn px-6 py-2 rounded-md font-medium transition-colors text-slate-500 hover:bg-slate-50">77K Variant</button>
+            <div class="inline-flex bg-white rounded-lg p-1 shadow-md border border-purple-100 flex-wrap justify-center gap-1">
+                <button onclick="loadVariant('77A')" id="btn-77A" class="variant-btn px-4 py-2 rounded-md font-medium transition-colors bg-purple-900 text-white">77A</button>
+                <button onclick="loadVariant('77J')" id="btn-77J" class="variant-btn px-4 py-2 rounded-md font-medium transition-colors text-slate-500 hover:bg-slate-50">77J</button>
+                <button onclick="loadVariant('77K')" id="btn-77K" class="variant-btn px-4 py-2 rounded-md font-medium transition-colors text-slate-500 hover:bg-slate-50">77K</button>
+                <button onclick="loadVariant('77P')" id="btn-77P" class="variant-btn px-4 py-2 rounded-md font-medium transition-colors text-slate-500 hover:bg-slate-50 border border-purple-200 text-purple-700">77P (Club Europe)</button>
             </div>
         </div>
 
@@ -179,13 +180,21 @@
                         <div class="flex items-center gap-3"><div class="w-6 h-6 rounded bg-red-500 border border-red-300"></div><span>Economy Standard (£1,350)</span></div>
                         <div class="flex items-center gap-3"><div class="w-6 h-6 rounded bg-orange-600 border border-orange-400"></div><span>Preferred Zone / XL (£1,600)</span></div>
                         <div class="flex items-center gap-3"><div class="w-6 h-6 rounded bg-red-800 border border-red-500"></div><span>Economy Rear Cabin (£1,150)</span></div>
-                        
-                        <!-- New Occupied Legend Item -->
                         <div class="flex items-center gap-3"><div class="w-6 h-6 rounded bg-gray-200 border border-gray-400"></div><span>Occupied (Unavailable)</span></div>
                     </div>
+                    
+                    <!-- Specific Club Europe Pricing Legend (Only shows when 77P selected) -->
+                    <div id="club-europe-legend" class="hidden mt-4 pt-4 border-t border-purple-100 bg-purple-50 p-2 rounded">
+                        <h4 class="font-bold text-purple-900 text-xs uppercase mb-2">Club Europe Pricing</h4>
+                        <div class="space-y-1 text-xs text-purple-800">
+                            <div class="flex justify-between"><span>Business:</span> <span class="font-bold">£450</span></div>
+                            <div class="flex justify-between"><span>Premium Eco:</span> <span class="font-bold">£300</span></div>
+                            <div class="flex justify-between"><span>Economy:</span> <span class="font-bold">£200</span></div>
+                        </div>
+                    </div>
+
                     <div class="mt-6 pt-4 border-t border-slate-100 text-xs text-slate-500 space-y-1">
                         <p><span class="font-bold text-red-700">Economy:</span> "NO MORE FEAR!" - 34" Pitch Guaranteed.</p>
-                        <p><span class="font-bold text-orange-600">Preferred Zone:</span> Premium location, extra comfort.</p>
                     </div>
                 </div>
 
@@ -216,7 +225,7 @@
                         </div>
                     </div>
                     
-                    <button class="w-full mt-6 bg-purple-900 text-white py-3 rounded-lg font-bold hover:bg-purple-800 transition-colors shadow-md">
+                    <button class="w-full mt-6 bg-green-600 text-white py-3 rounded-lg font-bold hover:bg-green-700 transition-colors shadow-md">
                         Confirm Seat
                     </button>
                 </div>
@@ -266,14 +275,24 @@
         const PREFERRED_REAR_LETTERS = ['A', 'B', 'C', 'H', 'J', 'K']; 
         const PREFERRED_CUSTOM_LETTERS = ['B', 'C', 'H', 'J']; // R53/51 seats
 
+        // Standard Pricing
         const PRICING = {
             'Otono One': 13000,
             'First Class': 6000,
             'Business Class': 2900,
             'Premium Economy': 1800,
             'Economy Standard': 1350,
-            'Economy Plus': 1600, // Used for Preferred Zone and XL seats
+            'Economy Plus': 1600, 
             'Economy Rear': 1150
+        };
+
+        // Club Europe (77P) Pricing
+        const PRICING_77P = {
+            'Business Class': 450,
+            'Premium Economy': 300,
+            'Economy Standard': 200,
+            'Economy Plus': 240, // No upcharge specified, keeping simple or same
+            'Economy Rear': 180
         };
 
         // Standard Layouts
@@ -285,16 +304,20 @@
             '3-3-3': { groups: [['A', 'B', 'C'], ['D', 'F', 'G'], ['H', 'J', 'K']], letters: ['A', 'B', 'C', 'D', 'F', 'G', 'H', 'J', 'K'] },
         };
 
-        // Custom Layouts (Specific to the rear/taper)
+        // Custom Layouts
         const CUSTOM_LAYOUTS = {
             '2-4-2_Custom': { groups: [['B', 'C'], ['D', 'E', 'F', 'G'], ['H', 'J']], letters: ['B', 'C', 'D', 'E', 'F', 'G', 'H', 'J'] },
-            '2-3-2_Taper': { groups: [['A', 'C'], ['D', 'F', 'G'], ['H', 'K']], letters: ['A', 'C', 'D', 'F', 'G', 'H', 'K'] }
+            '2-3-2_Taper': { groups: [['A', 'C'], ['D', 'E', 'F'], ['H', 'K']], letters: ['A', 'C', 'D', 'E', 'F', 'H', 'K'] },
+            // 77P Specifics
+            '2-3-2_Biz': { groups: [['A', 'C'], ['D', 'F', 'G'], ['H', 'K']], letters: ['A', 'C', 'D', 'F', 'G', 'H', 'K'] },
+            '2-X-2_Biz': { groups: [['A', 'C'], ['H', 'K']], letters: ['A', 'C', 'H', 'K'] }, // Center Gap
+            '2-3-2_Rear_Tail': { groups: [['B', 'C'], ['D', 'F', 'G'], ['H', 'J']], letters: ['B', 'C', 'D', 'F', 'G', 'H', 'J'] }
         };
 
         // --- Occupancy Variables ---
         let occupiedMap = new Set();
-        const OCCUPANCY_RATE_MIN = 0.15; // 15%
-        const OCCUPANCY_RATE_MAX = 0.20; // 20%
+        const OCCUPANCY_RATE_MIN = 0.15; 
+        const OCCUPANCY_RATE_MAX = 0.20; 
 
 
         // --- Data Generation Helpers ---
@@ -318,7 +341,7 @@
                     num: i,
                     type: type,
                     layout: layout,
-                    isXL: xlRows.includes(i) || i === start, // First row in a range is often XL
+                    isXL: xlRows.includes(i) || i === start, 
                     isPreferred: isPreferred,
                     preferredLetters: isPreferred ? customPreferredLetters : [],
                     isRear: isRear
@@ -327,7 +350,7 @@
             return rows;
         }
 
-        // --- Variant Definitions (Same as before) ---
+        // --- Variant Definitions ---
         const VARIANTS = {
             '77A': [
                 { type: 'cabin', rows: [createRow(1, 'Otono One', '1-1', true)] },
@@ -386,6 +409,34 @@
                     { num: 75, type: 'Economy', layout: CUSTOM_LAYOUTS['2-3-2_Taper'], isXL: false, isPreferred: true, preferredLetters: ['A', 'C', 'H', 'K'], isRear: true },
                     { num: 76, type: 'Economy', layout: CUSTOM_LAYOUTS['2-3-2_Taper'], isXL: false, isPreferred: true, preferredLetters: ['A', 'C', 'H', 'K'], isRear: true },
                 ]}
+            ],
+            '77P': [
+                // Club Europe Business (2-3-2)
+                { type: 'cabin', rows: createRange(11, 19, 'Business Class', '2-3-2_Biz', [11]) },
+                { type: 'cabin', rows: [{ num: 20, type: 'Business Class', layout: CUSTOM_LAYOUTS['2-X-2_Biz'], isXL: false, isPreferred: false, isRear: false }] },
+                createGap('Galley / Exit'),
+                // Premium Economy (2-4-2)
+                { type: 'cabin', rows: createRange(27, 34, 'Premium Economy', '2-4-2', [27]) },
+                createGap('Exit'),
+                // Economy Main (3-4-3)
+                { type: 'cabin', rows: [
+                    ...createRange(38, 45, 'Economy', '3-4-3', [38]),
+                    { num: 46, type: 'Economy', layout: CUSTOM_LAYOUTS['2-4-2_Custom'], isXL: false, isPreferred: false, isRear: false }
+                ]},
+                createGap('Exit'),
+                // Economy Mid (3-4-3)
+                { type: 'cabin', rows: [
+                    ...createRange(49, 64, 'Economy', '3-4-3', [49]),
+                    { num: 65, type: 'Economy', layout: CUSTOM_LAYOUTS['2-4-2_Custom'], isXL: false, isPreferred: false, isRear: false }
+                ]},
+                createGap('Galley'),
+                // Economy Rear (3-4-3 -> 3-3-3 -> 2-3-2)
+                { type: 'cabin', rows: [
+                    ...createRange(66, 74, 'Economy', '3-4-3', [], [], true),
+                    ...createRange(75, 78, 'Economy', '3-3-3', [], [], true), // 9-abreast
+                    { num: 79, type: 'Economy', layout: CUSTOM_LAYOUTS['2-3-2_Rear_Tail'], isXL: false, isPreferred: false, isRear: true },
+                    { num: 80, type: 'Economy', layout: CUSTOM_LAYOUTS['2-3-2_Rear_Tail'], isXL: false, isPreferred: false, isRear: true }
+                ]}
             ]
         };
 
@@ -410,21 +461,17 @@
         function generateOccupancyMap(variant) {
             occupiedMap.clear();
             const allSeats = getAllSeatIds(variant);
-            
-            // Calculate the number of seats to occupy (15% to 20% of total)
             const totalSeats = allSeats.length;
             const minOccupied = Math.floor(totalSeats * OCCUPANCY_RATE_MIN);
             const maxOccupied = Math.floor(totalSeats * OCCUPANCY_RATE_MAX);
             const numToOccupy = Math.floor(Math.random() * (maxOccupied - minOccupied + 1)) + minOccupied;
 
-            // Shuffle the array of seats using Fisher-Yates
             let seatsToShuffle = [...allSeats];
             for (let i = seatsToShuffle.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [seatsToShuffle[i], seatsToShuffle[j]] = [seatsToShuffle[j], seatsToShuffle[i]];
             }
 
-            // Add the selected seats to the occupiedMap Set
             seatsToShuffle.slice(0, numToOccupy).forEach(seatId => {
                 occupiedMap.add(seatId);
             });
@@ -439,20 +486,32 @@
             currentVariant = variant;
             selectedSeat = null;
             
-            // Generate new random occupancy map on load/switch
             generateOccupancyMap(variant);
 
             // Update UI Buttons
             document.querySelectorAll('.variant-btn').forEach(btn => {
                 if(btn.id === `btn-${variant}`) {
-                    btn.className = "variant-btn px-6 py-2 rounded-md font-medium transition-colors bg-purple-900 text-white shadow-sm";
+                    btn.className = "variant-btn px-4 py-2 rounded-md font-medium transition-colors bg-purple-900 text-white shadow-sm";
                 } else {
-                    btn.className = "variant-btn px-6 py-2 rounded-md font-medium transition-colors text-slate-500 hover:bg-slate-50";
+                    btn.className = "variant-btn px-4 py-2 rounded-md font-medium transition-colors text-slate-500 hover:bg-slate-50 border border-transparent";
+                }
+                // Keep special border for 77P inactive state
+                if(btn.id === 'btn-77P' && variant !== '77P') {
+                    btn.classList.add('border-purple-200', 'text-purple-700');
                 }
             });
 
             document.getElementById('plane-label').innerText = `BOEING 777-${variant}`;
-            updateInfoPanel(); // Clear selection
+            
+            // Show/Hide Pricing Legend based on variant
+            const ceLegend = document.getElementById('club-europe-legend');
+            if(variant === '77P') {
+                ceLegend.classList.remove('hidden');
+            } else {
+                ceLegend.classList.add('hidden');
+            }
+
+            updateInfoPanel(); 
             renderMap();
         }
 
@@ -510,7 +569,7 @@
                     const seatId = `${row.num}${letter}`;
                     let seatClass = '';
                     let isPreferredSeat = row.isPreferred && row.preferredLetters.includes(letter);
-                    const isOccupied = occupiedMap.has(seatId); // Check occupancy
+                    const isOccupied = occupiedMap.has(seatId); 
 
                     // Determine Style Class
                     if(row.type === 'Otono One') seatClass = 'seat-otono-one';
@@ -531,7 +590,7 @@
                     seatEl.id = seatId;
                     seatEl.innerText = letter;
 
-                    // Set click handler or mark as occupied
+                    // Set click handler
                     if (isOccupied) {
                         seatEl.classList.add('seat-occupied');
                         seatEl.onclick = null;
@@ -539,8 +598,7 @@
                         seatEl.onclick = () => selectSeat(seatId, row.type, row.isXL || isPreferredSeat);
                     }
 
-
-                    // Add markers (only if not occupied, but the CSS overlay handles precedence)
+                    // Add markers
                     if (!isOccupied) {
                         if (row.isXL) {
                             const marker = document.createElement('div');
@@ -560,10 +618,15 @@
                 
                 seatGroupContainer.appendChild(groupDiv);
 
-                // Add aisle gap if it's not the last group
+                // Add aisle gap
                 if (idx < groups.length - 1) {
                     const gapDiv = document.createElement('div');
-                    gapDiv.className = "aisle-gap";
+                    // Otono One / 77P Biz have wider aisles
+                    if (row.type === 'Otono One' || (currentVariant === '77P' && row.type === 'Business Class')) {
+                        gapDiv.className = "w-10";
+                    } else {
+                        gapDiv.className = "aisle-gap";
+                    }
                     seatGroupContainer.appendChild(gapDiv);
                 }
             });
@@ -574,25 +637,39 @@
 
         function getSeatDetails(type, isPlus) {
             let features = [];
-            let price = PRICING[type];
+            let price = 0;
             let isEconomy = false;
 
+            // Determine Pricing based on Variant
+            const pricingTable = currentVariant === '77P' ? PRICING_77P : PRICING;
+
             if (type === 'Otono One') {
-                features = ["Private suite for two", "Closing door", "Full-sized dining table", "Largest IFE screen", "Exclusive amenity kit"];
+                features = ["Private suite", "Closing door", "Dining table"];
+                price = pricingTable['Otono One']; // Not available on 77P but good fallback
             } else if (type === 'First Class') {
-                features = ["Spacious individual suite", "Lie-flat bed", "Fine dining", "Priority services"];
+                features = ["Open suite", "Lie-flat bed"];
+                price = pricingTable['First Class'];
             } else if (type === 'Business Class') {
-                features = ["Direct aisle access", "Lie-flat seat", "Gourmet meal service", "Large workspace"];
+                features = ["Lie-flat seat", "Direct aisle access"];
+                price = pricingTable['Business Class'];
             } else if (type === 'Premium Economy') {
-                features = ["Generous recline", "Wider seat pitch (38\")", "Enhanced meal service", "Dedicated cabin"];
+                features = ["Recliner", "Wider pitch (38\")"];
+                price = pricingTable['Premium Economy'];
             } else if (type.includes('Economy')) {
                 isEconomy = true;
+                price = pricingTable['Economy Standard']; // Default
+                
                 if (isPlus) {
-                    features = ["Preferred Zone or Extra Legroom", "34\" pitch (Guaranteed)", "Window/Aisle location"];
-                    price = PRICING['Economy Plus'];
+                    features = ["Preferred/XL", "34\" pitch"];
+                    price = pricingTable['Economy Plus'] || pricingTable['Economy Standard'];
                 } else {
-                    features = ["34\" pitch (Guaranteed)", "Standard Otono service"];
-                    price = PRICING[type] || PRICING['Economy Standard'];
+                    features = ["34\" pitch"];
+                    if(currentVariant === '77P') {
+                         price = pricingTable['Economy Standard']; // Club Europe Eco is flat £200
+                    } else {
+                         // Standard 777 pricing logic
+                         price = type.includes('Rear') ? pricingTable['Economy Rear'] : pricingTable['Economy Standard'];
+                    }
                 }
             }
             
@@ -600,23 +677,17 @@
         }
 
         function selectSeat(seatId, seatType, isPlus) {
-            // Guard clause: Do not select occupied seats (even if somehow clicked)
-            if (occupiedMap.has(seatId)) {
-                return; 
-            }
+            if (occupiedMap.has(seatId)) return; 
 
-            // Deselect previous seat
             if (selectedSeat) {
                 const prevSeat = document.getElementById(selectedSeat);
                 if (prevSeat) prevSeat.classList.remove('selected');
             }
             
-            // Select new seat
             selectedSeat = seatId;
             const newSeat = document.getElementById(seatId);
             if (newSeat) newSeat.classList.add('selected');
 
-            // Update info panel
             updateInfoPanel(seatId, seatType, isPlus);
         }
 

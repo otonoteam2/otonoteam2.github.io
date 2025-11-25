@@ -165,7 +165,7 @@
 
       let c2 = [];
 
-[5, 6, 7, 8, 9].forEach(row => {
+      [5, 6, 7, 8, 9].forEach(row => {
 
     // --- Row container (prevents spacing gaps) ---
     let rowSeats = [];
@@ -366,7 +366,7 @@
            >
             {seat.id}
            </div>
-         );
+          );
       }
 
       return (
@@ -411,14 +411,14 @@
     const DeckMap = ({ deck, cabins, onSelect, selectedSeat }) => {
       return (
         <div className="flex flex-col items-center bg-white rounded-3xl shadow-2xl border-4 border-gray-300 p-2 md:p-4 w-full max-w-2xl mx-auto relative overflow-hidden min-h-[800px] fuselage-style">
-          {/* Fuselage Top (Removed original simple gray-100 divs and replaced with the fuselage-style on the container) */}
+          {/* Fuselage Top */}
           
           <div className="mt-8 mb-4 w-full flex justify-center z-10">
             {deck === DECK_UPPER ? (
               <div className="flex justify-between w-full px-4 md:px-8">
                 <ShowerSuite />
                 <div className="flex flex-col justify-end pb-4 w-full mx-2">
-                   <Stairs label="Grand Staircase" />
+                    <Stairs label="Grand Staircase" />
                 </div>
                 <ShowerSuite />
               </div>
@@ -484,7 +484,6 @@
                                             }
                                             // Business (1-2-1 / 1-1-1 on stairs)
                                             else if (seat.type === CLASS_BUSINESS) {
-                                                // If rows 11/12, we need huge gap for stairs (A, K only)
                                                 if (isGrandStairRow) {
                                                      if (seat.col === 'K') spacer = <div className="w-24 md:w-32"></div>;
                                                 } else {
@@ -492,11 +491,15 @@
                                                      if (seat.col === 'K') spacer = <div className="w-4 md:w-8"></div>;
                                                 }
                                             }
-                                            // First (1-1-1)
+                                            // --- FIX START ---
+                                            // First (1-2-1) configuration
                                             else if (seat.type === CLASS_FIRST) {
                                                 if (seat.col === 'D') spacer = <div className="w-4 md:w-8"></div>;
-                                                if (seat.col === 'G') spacer = <div className="w-4 md:w-8"></div>;
+                                                // WAS: if (seat.col === 'G')... INCORRECT, pushed G away from D
+                                                // NOW: Put space before K to keep D/G together
+                                                if (seat.col === 'K') spacer = <div className="w-4 md:w-8"></div>;
                                             }
+                                            // --- FIX END ---
                                             
                                             return (
                                                 <React.Fragment key={seat.id}>
@@ -532,7 +535,7 @@
             )}
           </div>
           
-          {/* Fuselage Bottom (Removed original simple gray-100 divs) */}
+          {/* Fuselage Bottom */}
         </div>
       );
     };
@@ -666,14 +669,16 @@
               </div>
             </div>
 
+            {/* MAP COLUMN */}
             <div className="w-full md:w-2/3">
-              <DeckMap 
-                deck={currentDeck} 
-                cabins={currentDeck === DECK_UPPER ? upperCabins : lowerCabins} 
-                onSelect={setSelectedSeat}
-                selectedSeat={selectedSeat}
-              />
+                 <DeckMap 
+                    deck={currentDeck} 
+                    cabins={currentDeck === DECK_UPPER ? upperCabins : lowerCabins}
+                    onSelect={setSelectedSeat}
+                    selectedSeat={selectedSeat}
+                 />
             </div>
+
           </main>
         </div>
       );
@@ -681,8 +686,6 @@
 
     const root = ReactDOM.createRoot(document.getElementById('root'));
     root.render(<App />);
-
 </script>
-
 </body>
 </html>
