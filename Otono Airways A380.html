@@ -137,7 +137,7 @@
     const createSeat = (id, type, row, col, isAisle = false, features = []) => {
         let finalFeatures = [...features];
         // ADD STAR FOR ECONOMY SEATS
-        if (type === CLASS_ECONOMY) {
+        if (type === CLASS_ECONOMY || type === CLASS_PREM_ECO) {
             finalFeatures.push('Standard Otono Service');
         }
 
