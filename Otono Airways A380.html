@@ -93,7 +93,7 @@
     const User = (props) => <IconWrapper {...props}><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></IconWrapper>;
     const Bath = (props) => <IconWrapper {...props}><path d="M9 6 6.5 3.5a1.5 1.5 0 0 0-1-1C5.5 2.5 5 3 5 4v8" /><line x1="10" y1="5" x2="8" y2="7" /><path d="M2 12h20" /><path d="M7 19v2" /><path d="M17 19v2" /></IconWrapper>;
     const ArrowUp = (props) => <IconWrapper {...props}><line x1="12" y1="19" x2="12" y2="5" /><polyline points="5 12 12 5 19 12" /></IconWrapper>;
-    const Wifi = (props) => <IconWrapper {...props}><path d="M5 12.55a11 11 0 0 1 14.08 0" /><path d="M1.42 9a16 16 0 0 1 21.16 0" /><path d="M8.53 16.11a6 6 0 0 1 6.95 0" /><line x1="12" y1="20" x2="12.01" y2="20" /></IconWrapper>;
+    const Wifi = (props) => <IconWrapper {...props}><path d="M5 12.55a11 11 0 0 1 14.08 0" /><path d="M1.44 9a16 16 0 0 1 21.16 0" /><path d="M8.53 16.11a6 6 0 0 1 6.95 0" /><line x1="12" y1="20" x2="12.01" y2="20" /></IconWrapper>;
     const ThumbsUp = (props) => <IconWrapper {...props}><path d="M7 10v12" /><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z" /></IconWrapper>;
     const ThumbsDown = (props) => <IconWrapper {...props}><path d="M17 14V2" /><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22h0a3.13 3.13 0 0 1-3-3.88Z" /></IconWrapper>;
 
@@ -194,7 +194,7 @@
              return { type: 'GOOD', label: 'Preferred Seat', reason: 'Near Exit', icon: ThumbsUp };
         }
 
-        if (r === 83 && ['D', 'G'].includes(c)) {
+        if (r === 83 && ['D', 'G', 'C', 'H', 'J', 'K'].includes(c)) {
              return { type: 'GOOD', label: 'Preferred Seat', reason: 'Near Exit', icon: ThumbsUp };
         }
 
@@ -209,7 +209,7 @@
 
         // 2. BAD SEATS (Light Blue Badge)
         // Back of cabins (potential noise/galley/limited recline)
-        if ([25, 37, 50, 93].includes(r)) {
+        if ([25, 37, 52, 93].includes(r)) {
             return { type: 'BAD', label: 'Bad Seat', reason: 'Near Galley / Limited Recline', icon: ThumbsDown };
         }
         
@@ -294,10 +294,10 @@
         rowSeats.forEach(seat => c2.push(seat));});
         cabins.push({ name: "Cabin 2", seats: c2 });
 
-        // Cabin 3: Premium Economy (Rows 42-50)
+        // Cabin 3: Premium Economy (Rows 44-50)
         let c3 = [];
-        for (let row = 42; row <= 50; row++) {
-            const isExtraLegroom = row === 42;
+        for (let row = 44; row <= 52; row++) {
+            const isExtraLegroom = row === 44;
             const feats = isExtraLegroom ? ['Extra Legroom'] : [];
             
             ['A','C','D','F','G','H','K'].forEach(col => {
@@ -363,9 +363,9 @@
         }
         cabins.push({ name: "Cabin 2", seats: c2 });
 
-        // Cabin 3: Economy (51-67)
+        // Cabin 3: Economy (56-67)
         let c3 = [];
-        for (let row = 51; row <= 67; row++) {
+        for (let row = 56; row <= 67; row++) {
             const cols = ['A','B','C', 'D','E','F','G', 'H','J','K'];
             cols.forEach(col => {
                 // Row 67 Exception: No A, No K
@@ -373,7 +373,7 @@
 
                 // Features
                 let feats = [];
-                if (row === 51) feats.push('Extra Legroom');
+                if (row === 56) feats.push('Extra Legroom');
                 // Removed generic 'Preferred Seat' here, relies on getSeatQuality now
                 
                 let isAisle = ['C','D','G','H'].includes(col);
