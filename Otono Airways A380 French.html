@@ -159,7 +159,7 @@
 
         // Add standard service marker
         if (type === CLASS_ECONOMY || type === CLASS_PREM_ECO) {
-            finalFeatures.push('Standard Otono Service');
+            finalFeatures.push("Service Standard D'Otono");
         }
 
         return {
@@ -177,34 +177,34 @@
 
         // 1. GOOD SEATS (Otono Purple Badge)
         // General Bulkheads/Extra Legroom
-        if (seat.features.includes('Extra Legroom')) {
-            return { type: 'GOOD', label: 'Bon Siège', reason: 'Extra Legroom', icon: ThumbsUp };
+        if (seat.features.includes("Plus d'espace pour les jambes")) {
+            return { type: 'GOOD', label: 'Bon Siège', reason: "Plus d'espace pour les jambes", icon: ThumbsUp };
         }
         // Otono One is always good
         if (seat.type === CLASS_OTONO_ONE) {
-            return { type: 'GOOD', label: 'Suite incroyable', reason: 'Luxury Suite', icon: ThumbsUp };
+            return { type: 'GOOD', label: 'Suite incroyable', reason: 'Suite Luxe', icon: ThumbsUp };
         }
 
         // Specific Economy Good Seats (requested)
         if (r === 67 && ['A', 'B', 'C', 'H', 'J', 'K'].includes(c)) {
-             return { type: 'GOOD', label: 'Siège Préfèré', reason: 'Near Exit', icon: ThumbsUp };
+             return { type: 'GOOD', label: 'Siège Préfèré', reason: 'Près de la sortie', icon: ThumbsUp };
         }
 
         if (r === 82 && ['A', 'B', 'C', 'H', 'J', 'K'].includes(c)) {
-             return { type: 'GOOD', label: 'Siège Préfèré', reason: 'Near Exit', icon: ThumbsUp };
+             return { type: 'GOOD', label: 'Siège Préfèré', reason: 'Près de la sortie', icon: ThumbsUp };
         }
 
         if (r === 83 && ['D', 'G', 'C', 'H', 'J', 'K'].includes(c)) {
-             return { type: 'GOOD', label: 'Siège Préfèré', reason: 'Near Exit', icon: ThumbsUp };
+             return { type: 'GOOD', label: 'Siège Préfèré', reason: 'Près de la sortie', icon: ThumbsUp };
         }
 
         if (r >=11 && r <=16 && ['A', 'D', 'G', 'K'].includes(c)) {
-             return { type: 'GOOD', label: 'Preferred Seat', reason: 'Near Exit', icon: ThumbsUp };
+             return { type: 'GOOD', label: 'Siège Préfèré', reason: 'Près de la sortie', icon: ThumbsUp };
         }
 
         // Example: Upper Deck Window pairs in the rear (A/K)
         if (r >= 83 && r <= 92 && ['A', 'C', 'H', 'K'].includes(c)) {
-             return { type: 'GOOD', label: 'Quiet Window Pair', reason: 'Private Feel', icon: ThumbsUp };
+             return { type: 'GOOD', label: 'Paire de fenêtres silencieuses', reason: 'Sentiment privé', icon: ThumbsUp };
         }
 
         // 2. BAD SEATS (Light Blue Badge)
@@ -658,15 +658,15 @@
                                     onClick={() => { setCurrentDeck(DECK_UPPER); setSelectedSeat(null); }}
                                     className={`flex-1 py-3 rounded-md text-sm font-bold transition-all ${currentDeck === DECK_UPPER ? 'bg-white text-purple-700 shadow-sm' : 'text-gray-500 hover:bg-gray-200'}`}
                                 >
-                                    Upper Deck
-                                    <span className="block text-[9px] font-normal opacity-75">Suites, First, Lounge</span>
+                                    Pont supérieur
+                                    <span className="block text-[9px] font-normal opacity-75">Suites, La Prèmiere, Salon</span>
                                 </button>
                                 <button
                                     onClick={() => { setCurrentDeck(DECK_LOWER); setSelectedSeat(null); }}
                                     className={`flex-1 py-3 rounded-md text-sm font-bold transition-all ${currentDeck === DECK_LOWER ? 'bg-white text-indigo-700 shadow-sm' : 'text-gray-500 hover:bg-gray-200'}`}
                                 >
-                                    Lower Deck
-                                    <span className="block text-[9px] font-normal opacity-75">Business, Economy</span>
+                                    Pont inférieur
+                                    <span className="block text-[9px] font-normal opacity-75">Affaires, Economique</span>
                                 </button>
                             </div>
                         </div>
@@ -724,22 +724,22 @@
                                                     // BOOKING LINK MUST REMAIN
                                                     window.location.href = 'https://otonoteam2.github.io/Otono%20Airways%20A380%20Destinations.html';
                                                 } else {
-                                                    alert('Please select a seat first.');
+                                                    alert("Veuillez d'abord chosir un siège");
                                                 }
                                             }}
                                         >
-                                            Book Seat {selectedSeat ? selectedSeat.id : ''}
+                                            Réserver le siège {selectedSeat ? selectedSeat.id : ''}
                                         </button>
                                 </div>
                             ) : (
                                 <div className="h-full flex flex-col items-center justify-center text-gray-400 text-center py-8">
-                                    <p>Select a seat to view details.</p>
+                                    <p>Sélectionnez un siège pour voir les détails</p>
                                 </div>
                             )}
                         </div>
 
                         <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
-                            <h3 className="text-xs font-bold text-gray-400 uppercase mb-3">Key</h3>
+                            <h3 className="text-xs font-bold text-gray-400 uppercase mb-3">Clé</h3>
                             <div className="space-y-2">
                                 {Object.keys(CLASS_COLORS).map(cls => (
                                     <div key={cls} className="flex items-center">
@@ -749,19 +749,19 @@
                                 ))}
                                 <div className="flex items-center mt-4 pt-4 border-t border-gray-100">
                                     <div className="w-4 h-4 rounded-sm mr-3 bg-gray-300"></div>
-                                    <span className="text-sm text-gray-400">Occupied</span>
+                                    <span className="text-sm text-gray-400">Occupé</span>
                                 </div>
                                 <div className="flex items-center pt-2">
                                     <div className="w-4 h-4 rounded-sm mr-3 bg-red-500 border-b-4 border-yellow-400"></div>
-                                    <span className="text-sm text-gray-600">Extra Legroom</span>
+                                    <span className="text-sm text-gray-600">Plus d'espace pour les jambes</span>
                                 </div>
                                 <div className="flex items-center pt-2">
                                     <div className="w-4 h-4 rounded-sm mr-3 good-seat-badge"></div>
-                                    <span className="text-sm text-gray-600">Good Seat </span>
+                                    <span className="text-sm text-gray-600">Bon Siège </span>
                                 </div>
                                 <div className="flex items-center pt-2">
                                     <div className="w-4 h-4 rounded-sm mr-3 bad-seat-badge"></div>
-                                    <span className="text-sm text-gray-600">Bad Seat </span>
+                                    <span className="text-sm text-gray-600">Mauvais Siège </span>
                                 </div>
                             </div>
                         </div>
