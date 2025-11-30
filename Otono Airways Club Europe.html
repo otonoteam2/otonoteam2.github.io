@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Otono Airways | A320 Family Seat Map (Revised)</title>
+    <title>Otono Airways | A320 Family Seat Map (Revised Occupancy)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap');
@@ -35,12 +35,23 @@
             border-bottom-width: 4px;
         }
 
-        .seat:hover {
+        .seat:not(.seat-occupied):hover {
             transform: scale(1.1);
             z-index: 10;
         }
 
-        /* NEW: Selected Seat Style */
+        /* NEW: Occupied Seat Style (Lighter Grey, no 'X') */
+        .seat.seat-occupied {
+            background-color: rgb(209, 213, 219); /* Gray 300 */
+            border-color: rgb(107, 114, 128); /* Gray 500 */
+            color: rgb(75, 85, 99); /* Gray 600 */
+            cursor: not-allowed;
+        }
+        .seat.seat-occupied:hover {
+            transform: none; /* No scaling on hover for occupied seats */
+        }
+
+        /* Selected Seat Style */
         .seat.seat-selected {
             background-color: rgb(34, 197, 94); /* Green 500 */
             border-color: rgb(21, 128, 61); /* Green 700 */
@@ -65,12 +76,17 @@
         /* Aisle/Gap spacing */
         .aisle-gap { width: 30px; }
         .door-gap { height: 40px; }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #555; }
+        
+        /* Slogan styling */
+        .slogan {
+            font-style: italic;
+            font-weight: 700;
+            text-align: center;
+            margin-top: 0.75rem;
+            color: #ef4444; /* red-500 */
+            border-top: 1px solid #e5e7eb; /* gray-200 */
+            padding-top: 0.75rem;
+        }
 
     </style>
 </head>
@@ -95,14 +111,14 @@
             
             <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-purple-900">
                 <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Select Aircraft Variant</label>
-                <select id="plane-selector" class="w-full p-3 border border-gray-300 rounded-lg font-bold text-slate-700 focus:ring-2 focus:ring-purple-900 outline-none">
+                <select id="plane-selector" class="w-full p-3 border border-gray-300 rounded-lg font-bold text-slate-700 focus:ring-2 focus:ring-purple-900 outline-none bg-white">
                     <option value="a321neo">Airbus A321neo</option>
                     <option value="a321">Airbus A321</option>
                     <option value="a320neo">Airbus A320neo</option>
                     <option value="a320">Airbus A320</option>
                     <option value="a319">Airbus A319</option>
                 </select>
-                <p class="text-xs text-center mt-3 text-red-600 font-bold italic">"NO MORE FEAR of economy class!"</p>
+                <p class="slogan">"NO MORE FEAR of economy class!"</p>
             </div>
 
             <div class="bg-white p-6 rounded-xl shadow-md">
@@ -147,6 +163,17 @@
                         </div>
                         <span class="font-bold">£230</span>
                     </div>
+
+                    <hr class="border-dashed">
+
+                    <div class="flex items-center gap-2">
+                        <div class="w-6 h-6 bg-green-500 border-b-4 border-green-700 rounded text-white flex items-center justify-center text-xs font-bold">✓</div>
+                        <span>Selected Seat</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-6 h-6 bg-gray-300 border-b-4 border-gray-500 rounded text-gray-600 flex items-center justify-center text-xs font-bold">A</div>
+                        <span>Occupied (Unavailable)</span>
+                    </div>
                 </div>
             </div>
 
@@ -163,7 +190,7 @@
                 <hr class="border-gray-200 my-2">
                 <p id="info-features" class="text-sm text-gray-600 italic">Select a seat to see details.</p>
                 <button id="select-button" class="mt-4 w-full bg-purple-900 hover:bg-purple-800 text-white font-bold py-2 rounded transition shadow-lg">
-                    Select seat (11A)
+                    Select seat (---)
                 </button>
             </div>
         </div>
@@ -182,21 +209,32 @@
     </div>
 
     <script>
-        // --- Data Definitions ---
+        // --- Configuration ---
+        const SEAT_OCCUPANCY_RATE = 0.30; 
 
-        // Color Classes based on Otono Brand
+        // --- Data Definitions ---
         const STYLES = {
             BUSINESS: 'bg-red-900 border-red-700 text-white business hover:bg-red-800 hover:border-red-600',
             ECONOMY: 'bg-red-500 border-red-400 text-white hover:bg-red-400 hover:border-red-300',
-            ECONOMY_BACK: 'bg-red-400 border-red-300 text-white hover:bg-red-300 hover:border-red-200' 
+            ECONOMY_BACK: 'bg-red-400 border-red-300 text-white hover:bg-red-300 hover:border-red-200', 
+            OCCUPIED: 'seat-occupied bg-gray-300 border-gray-500 text-gray-600' 
         };
 
         const SEAT_LETTERS = {
-            BUSINESS: ['A', 'C', 'H', 'K'], // Gap in middle
-            ECONOMY: ['A', 'B', 'C', 'H', 'J', 'K'] // Standard 3-3
+            BUSINESS: ['A', 'C', 'H', 'K'],
+            ECONOMY: ['A', 'B', 'C', 'H', 'J', 'K']
         };
 
         let currentSelectedSeat = null;
+        let occupiedSeatsMap = {}; // Stores occupied seats for the current plane
+
+        // --- DOM Elements ---
+        const container = document.getElementById('seat-map-container');
+        const planeSelector = document.getElementById('plane-selector');
+        const planeNameDisplay = document.getElementById('plane-name-display');
+        const infoPanel = document.getElementById('seat-info-panel');
+        const selectButton = document.getElementById('select-button');
+
 
         // Helper to generate range, skipping 13 and 14 for all variants
         const range = (start, end) => 
@@ -223,7 +261,7 @@
                     createRow(63, 'eco', [], ['H', 'J', 'K']) // Row 63: Only H, J, K
                 ],
                 exitRows: [24, 33, 55], 
-                lastRows: [59, 60, 61, 62, 63]
+                lastRows: [59, 60, 61, 62, 63] // Last 5 rows
             },
             'a321': {
                 name: 'Airbus A321',
@@ -240,7 +278,7 @@
                     createRow(63, 'eco', [], ['H', 'J', 'K']) // Row 63: Only H, J, K
                 ],
                 exitRows: [24, 33, 55],
-                lastRows: [59, 60, 61, 62, 63]
+                lastRows: [59, 60, 61, 62, 63] // Last 5 rows
             },
             'a320neo': {
                 name: 'Airbus A320neo',
@@ -254,7 +292,7 @@
                     ...range(33, 55).map(n => createRow(n, 'eco'))
                 ],
                 exitRows: [20, 33, 34],
-                lastRows: [51, 52, 53, 54, 55]
+                lastRows: [51, 52, 53, 54, 55] // Last 5 rows
             },
             'a320': {
                 name: 'Airbus A320',
@@ -266,7 +304,7 @@
                     ...range(33, 55).map(n => createRow(n, 'eco'))
                 ],
                 exitRows: [23, 33, 34], 
-                lastRows: [51, 52, 53, 54, 55]
+                lastRows: [51, 52, 53, 54, 55] // Last 5 rows
             },
             'a319': {
                 name: 'Airbus A319',
@@ -279,47 +317,60 @@
                     ...range(32, 51).map(n => createRow(n, 'eco'))
                 ],
                 exitRows: [21, 32], 
-                lastRows: [48, 49, 50, 51]
+                lastRows: [47, 48, 49, 50, 51] // Last 5 rows
             }
         };
 
         // --- Logic & Rendering ---
-
-        const container = document.getElementById('seat-map-container');
-        const planeSelector = document.getElementById('plane-selector');
-        const planeNameDisplay = document.getElementById('plane-name-display');
-        const infoPanel = document.getElementById('seat-info-panel');
-        const selectButton = document.getElementById('select-button');
-
+        
         function getPrice(planeKey, rowNum, type) {
-    const plane = PLANES[planeKey];
+            const plane = PLANES[planeKey];
 
-    if (type === 'biz') {
-        if (rowNum === 11) return 620; 
-        return 550;
-    }
+            if (type === 'biz') {
+                if (rowNum === 11) return 620;  
+                return 550;
+            }
 
-    if (type === 'eco') {
-        // --- Special rows with £300 ---
-        if ((planeKey === 'a321' || planeKey === 'a321neo' && (rowNum === 28 || rowNum === 45)) ||
-            (planeKey === 'a319' && rowNum === 23)) {
-            return 300;
+            if (type === 'eco') {
+                // --- Special rows with £300 (Missing seats) ---
+                if (((planeKey === 'a321' || planeKey === 'a321neo') && (rowNum === 28 || rowNum === 45)) ||
+                    (planeKey === 'a319' && rowNum === 23)) {
+                    return 300;
+                }
+
+                // --- Standard exit rows (£300) ---
+                if (plane.exitRows.includes(rowNum)) return 300;
+
+                // --- Last 5 rows cheaper (£230) ---
+                if (plane.lastRows.includes(rowNum)) return 230;
+
+                // --- Default economy price (£250) ---
+                return 250;  
+            }
+
+            return 0;
         }
 
-        // --- Standard exit rows ---
-        if (plane.exitRows.includes(rowNum)) return 300;
+        // Function to randomly determine occupied seats
+        function generateOccupancyMap(planeKey) {
+            const occupied = {};
+            const data = PLANES[planeKey];
 
-        // --- Last 5 rows cheaper (£230) ---
-        const last5 = plane.lastRows.slice(-5); 
-        if (last5.includes(rowNum)) return 230;
+            data.rows.forEach(row => {
+                if (row.type !== 'gap') {
+                    const allLetters = row.type === 'biz' ? SEAT_LETTERS.BUSINESS : SEAT_LETTERS.ECONOMY;
+                    const lettersToRender = row.only || allLetters.filter(l => !row.missing.includes(l));
 
-        // --- Default economy price (£250) ---
-        return 250; 
-    }
-
-    // Fallback (should never happen)
-    return 0;
-}
+                    lettersToRender.forEach(letter => {
+                        const seatId = `${row.num}${letter}`;
+                        if (Math.random() < SEAT_OCCUPANCY_RATE) {
+                            occupied[seatId] = true;
+                        }
+                    });
+                }
+            });
+            return occupied;
+        }
 
         function getSeatLabel(rowNum, type) {
             if (rowNum === 11) return "★";
@@ -329,12 +380,31 @@
 
         function handleSeatClick(seatElement, rowNum, letter, type) {
             const seatNum = `${rowNum}${letter}`;
+            
+            // Check if the seat is occupied before proceeding
+            if (seatElement.classList.contains('seat-occupied')) { // Check for class, not STYLES.OCCUPIED directly
+                return; 
+            }
+
             const planeKey = planeSelector.value;
             const price = getPrice(planeKey, rowNum, type);
 
             // 1. Deselect previous seat
             if (currentSelectedSeat) {
                 currentSelectedSeat.classList.remove('seat-selected');
+                // Reapply original styling to the previously selected seat if it's not occupied
+                const prevSeatId = currentSelectedSeat.dataset.seatId;
+                if (!occupiedSeatsMap[prevSeatId]) {
+                    const prevRowNum = parseInt(prevSeatId.match(/\d+/)[0]);
+                    const prevSeatLetter = prevSeatId.match(/[A-Z]/)[0];
+                    const prevRow = PLANES[planeKey].rows.find(r => r.num === prevRowNum && r.type !== 'gap');
+                    if (prevRow) {
+                        let originalStyleClass = prevRow.type === 'biz' ? STYLES.BUSINESS : STYLES.ECONOMY;
+                        if (prevRow.type !== 'biz' && PLANES[planeKey].lastRows.includes(prevRowNum)) originalStyleClass = STYLES.ECONOMY_BACK; 
+                        if (prevRow.type !== 'biz' && PLANES[planeKey].exitRows.includes(prevRowNum)) originalStyleClass = STYLES.ECONOMY + ' ring-2 ring-yellow-400 ring-offset-1'; 
+                        currentSelectedSeat.className = `seat ${originalStyleClass}`;
+                    }
+                }
             }
 
             // 2. Select new seat
@@ -350,26 +420,36 @@
             let className = type === 'biz' ? "Club Europe (Business)" : "Euro Traveller (Economy)";
             document.getElementById('info-class').innerText = className;
 
+            // Update button text
             selectButton.innerText = `Select seat (${seatNum})`;
 
             let features = [];
             if (rowNum === 11) features.push("Front Row Extra Legroom");
+            // Check for special £300 rows that are NOT the main exit rows
+            if (((planeKey === 'a321' || planeKey === 'a321neo') && (rowNum === 28 || rowNum === 45)) ||
+                (planeKey === 'a319' && rowNum === 23)) {
+                features.push("End-of-Cabin Legroom");
+            }
+
             if (PLANES[planeKey].exitRows.includes(rowNum) && type !== 'biz') features.push("Exit Row / Extra Legroom");
+            
             if (type === 'biz') features.push("Blocked Middle Seat Comfort", "Priority Boarding");
-            if (type === 'eco') features.push("Otono Standard 34\" Legroom"); 
+            else features.push("Otono Standard 34\" Legroom"); // Eco standard legroom
             
             document.getElementById('info-features').innerText = features.join(" • ");
         }
 
 
         function renderMap(planeKey) {
+            occupiedSeatsMap = generateOccupancyMap(planeKey);
+
             const data = PLANES[planeKey];
             container.innerHTML = ''; 
             planeNameDisplay.innerText = data.name;
-            currentSelectedSeat = null; // Reset selection
+            currentSelectedSeat = null; 
 
-            // Hide and reset info panel
             infoPanel.classList.add('hidden', 'opacity-0');
+            selectButton.innerText = `Select seat (---)`;
 
 
             data.rows.forEach(row => {
@@ -387,28 +467,27 @@
                     return;
                 }
 
-                // Create Row Container
                 const rowDiv = document.createElement('div');
                 rowDiv.className = 'flex items-center gap-1';
 
-                // Row Number (Left)
                 const rowNumL = document.createElement('div');
                 rowNumL.className = 'w-6 text-[10px] text-gray-400 font-bold text-right mr-2';
                 rowNumL.innerText = row.num;
                 rowDiv.appendChild(rowNumL);
 
-                // Determine which seat letters to render
                 const allLetters = row.type === 'biz' ? SEAT_LETTERS.BUSINESS : SEAT_LETTERS.ECONOMY;
                 const lettersToRender = row.only || allLetters.filter(l => !row.missing.includes(l));
                 
                 const isBiz = row.type === 'biz';
                 
                 allLetters.forEach((letter, index) => {
-                    
-                    // Skip if the letter is not meant to be rendered in this specific row
+                    const seatId = `${row.num}${letter}`;
+                    const isOccupied = occupiedSeatsMap[seatId];
+
+                    const isSpacerNeeded = (isBiz && index === 2) || (!isBiz && index === 3);
+
                     if (!lettersToRender.includes(letter)) {
-                        // We still need to handle the aisle gap correctly, even if the seat is missing
-                        if ((isBiz && index === 2) || (!isBiz && index === 3)) {
+                        if (isSpacerNeeded) {
                             const aisle = document.createElement('div');
                             aisle.className = 'aisle-gap';
                             rowDiv.appendChild(aisle);
@@ -416,34 +495,41 @@
                         return; 
                     }
 
-                    // Add Aisle Gap
-                    if ((isBiz && index === 2) || (!isBiz && index === 3)) {
+                    if (isSpacerNeeded) {
                         const aisle = document.createElement('div');
                         aisle.className = 'aisle-gap';
                         rowDiv.appendChild(aisle);
                     }
 
                     const seat = document.createElement('div');
-                    
+                    seat.dataset.seatId = seatId; // Store seat ID for easy lookup
+
                     // Determine styling
-                    let styleClass = isBiz ? STYLES.BUSINESS : STYLES.ECONOMY;
-                    if (!isBiz && data.lastRows.includes(row.num)) styleClass = STYLES.ECONOMY_BACK; 
-                    if (!isBiz && data.exitRows.includes(row.num)) styleClass = STYLES.ECONOMY + ' ring-2 ring-yellow-400 ring-offset-1'; 
-
+                    let styleClass = '';
+                    if (isOccupied) {
+                        styleClass = STYLES.OCCUPIED;
+                    } else {
+                        if (isBiz) styleClass = STYLES.BUSINESS;
+                        else if (PLANES[planeKey].lastRows.includes(row.num)) styleClass = STYLES.ECONOMY_BACK; 
+                        else if (PLANES[planeKey].exitRows.includes(row.num) || 
+                                 ((planeKey === 'a321' || planeKey === 'a321neo') && (row.num === 28 || row.num === 45)) ||
+                                 (planeKey === 'a319' && row.num === 23)) {
+                            styleClass = STYLES.ECONOMY + ' ring-2 ring-yellow-400 ring-offset-1'; 
+                        } else {
+                            styleClass = STYLES.ECONOMY;
+                        }
+                        seat.onclick = () => handleSeatClick(seat, row.num, letter, row.type);
+                    }
                     seat.className = `seat ${styleClass}`;
-                    seat.innerText = letter;
+                    seat.innerText = letter; // Always show letter, even if occupied
 
-                    // Add label overlay (Star or XL)
                     const label = getSeatLabel(row.num, row.type);
-                    if(label) {
+                    if(label && !isOccupied) {
                         const badge = document.createElement('span');
                         badge.className = 'absolute -top-2 -right-2 bg-yellow-400 text-purple-900 text-[8px] font-bold px-1 rounded';
                         badge.innerText = label;
                         seat.appendChild(badge);
                     }
-
-                    // Click Event
-                    seat.onclick = () => handleSeatClick(seat, row.num, letter, row.type);
 
                     rowDiv.appendChild(seat);
                 });
