@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Otono Biology - Plant Cell</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto Slab', serif;
+            text-align: center;
+        }
+        ol {
+            text-align: left;
+            display: inline-block;
+        }
+        li {
+            padding: 5px;
+            font-size: 20px;
+        }
+        #timer {
+            font-size: 2rem;
+            font-weight: bold;
+            color: red;
+        }
+        input {
+            border-radius: 100px;
+            padding: 5px;
+            background-color: yellow;
+        }
+        table {
+            margin: auto;
+            border-collapse: collapse;
+            width: 50%;
+        }
+        td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        /* Purple Start Button */
+        #startButton {
+            background-color: purple;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #resetButton {
+            background-color: red;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Otono Biology - Plant Cell</h1>
+<p>Answer in lower case :)</p>
+<p>Purple is correct and red is wrong</p>
+<p>Some answers on the table can be fake!</p>
+
+<!-- Table -->
+<table>
+  <table class="center">
+  <tr>
+    <td>alkaline batteries</td>
+    <td>overall energy change of the reaction</td>
+    <td>fuel cells</td>
+  </tr>
+   <tr>
+    <td>chemical cells</td>
+    <td>endothermic reaction</td>
+    <td>reaction profile</td>
+  </tr>
+   <tr>
+    <td>battery</td>
+    <td>activation energy</td>
+    <td>rechargeable cells</td>
+  </tr>
+   <tr>
+    <td>exothermic reaction</td>
+    <td></td>
+    <td></td>
+  </tr>
+  </tr>
+</table>
+
+<h2>Time Left: <span id="timer">289</span> seconds</h2>
+
+<!-- Start & Reset Buttons -->
+<button id="startButton" onclick="startTimer()">Start</button>
+<button id="resetButton" onclick="resetQuiz()" disabled>Reset</button>
+<br>
+
+
+<!-- Quiz Form -->
+<form id="quizForm" onsubmit="return false;">
+    <ol>
+        <li><input id="myText1" type="text1"=> is the minimum amount of energy for particles to collide with in order for a successful reaction to occur.</li>
+
+<li><input id="myText2" type="text" => are non-rechargeable. In non-rechargeable cells and batteries, the chemical reactions stop when one of the reactants has been used up.</li>
+
+<li><input id="myText3" type="text" => consist of two or more cells connected together in series to provide a greater voltage.</li>
+
+<li><input id="myText4" type="text" => are cells that contain chemicals which react to produce electricity.</li>
+
+<li>An <input id="myText5" type="text" => is one that takes in energy from the surroundings so the temperature of the surroundings decreases. The energy needed to break existing bonds is greater than the energy released from forming new bonds.</li>
+
+<li>An <input id="myText6" type="text" => is one that transfers energy to the surroundings so the temperature of the surroundings increases. The energy released from forming new bonds is greater than the energy needed to break existing bonds.</li>
+
+<li><input id="myText7" type="text" => are supplied by an external source of fuel (eg hydrogen) and oxygen or air. The fuel is oxidised electrochemically within the fuel cell to produce a potential difference.</li>
+
+<li>The <input id="myText8" type="text" => is the difference between the sum of the energy needed to break bonds in the reactants and the sum of the energy released when bonds in the products are formed.</li>
+
+<li><input id="myText9" type="text"=> can be used to show the relative energies of reactants and products, the activation energy and the overall energy change of a reaction.</li>
+
+<li><input id="myText10" type="text" => and batteries can be recharged because the chemical reactions are reversed when an external electrical current is supplied.</li>
+
+        <br>
+        <input type="submit" onclick="myFunction()" value="Submit" disabled id="submitButton">
+    </ol>
+</form>
+
+<script>
+    let timeLeft = 319; // Timer in seconds
+    let timerActive = false;
+    let timerInterval;
+
+    function startTimer() {
+        if (!timerActive) {
+            timerActive = true;
+            document.getElementById('startButton').disabled = true;
+            document.getElementById('resetButton').disabled = false;
+            enableInputs(true);
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+    }
+
+    function updateTimer() {
+        document.getElementById('timer').textContent = timeLeft;
+
+        if (timeLeft > 0) {
+            timeLeft--;
+        } else {
+            clearInterval(timerInterval);
+            alert("Time's up! Auto-submitting your answers...");
+            document.getElementById('quizForm').submit();
+        }
+    }
+
+    function resetQuiz() {
+        clearInterval(timerInterval);
+        timeLeft = 319;
+        document.getElementById('timer').textContent = timeLeft;
+        timerActive = false;
+        document.getElementById('startButton').disabled = false;
+        document.getElementById('resetButton').disabled = true;
+        enableInputs(false);
+        document.getElementById('quizForm').reset();
+    }
+
+    function enableInputs(enabled) {
+        let inputs = document.querySelectorAll("input[type='text']");
+        inputs.forEach(input => {
+            input.disabled = !enabled;
+            input.style.backgroundColor = enabled ? "yellow" : "#ddd";
+        });
+        document.getElementById('submitButton').disabled = !enabled;
+    }
+
+    function myFunction() {
+        validateAnswer("myText", "activation energy");
+        validateAnswer("myText2", "alkaline batteries");
+        validateAnswer("myText3", "battery");
+        validateAnswer("myText4", "chemical cells");
+        validateAnswer("myText5", "endothermic reaction");
+        validateAnswer("myText6", "exothermic reaction");
+        validateAnswer("myText7", "fuel cells");
+        validateAnswer("myText8", "overall energy change of the reaction");
+        validateAnswer("myText9", "reaction profile");
+        validateAnswer("myText10", "rechargeable cells");
+    }
+
+    function validateAnswer(inputId, correctAnswer) {
+        let inputField = document.getElementById(inputId);
+        if (inputField.value.trim() === correctAnswer) {
+            inputField.style.backgroundColor = "purple"; // Correct answer
+        } else {
+            inputField.style.backgroundColor = "red";
+        }
+    }
+</script>
+
+<!-- Anti-Source Code Protection -->
+<script>
+    const disabledKeys = ["u", "I"];
+    const showAlert = e => {
+        e.preventDefault();
+        return alert("Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!");
+    };
+    document.addEventListener("contextmenu", e => { showAlert(e); });
+    document.addEventListener("keydown", e => {
+        if ((e.ctrlKey && disabledKeys.includes(e.key)) || e.key === "F12") {
+            showAlert(e);
+        }
+    });
+</script>
+
+</body>
+</html>
