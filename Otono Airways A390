@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Otono Airways | Fantasy Airbus A390 (Triple Decker)</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
+        
+        body { font-family: 'Outfit', sans-serif; background-color: #f0f2f5; }
+        
+        .fuselage {
+            background-color: white;
+            border: 4px solid #cbd5e1;
+            border-radius: 230px 230px 100px 100px;
+            padding: 60px 40px 100px 40px; 
+            width: 500px; /* Wider for 3-6-3 layout */
+            margin: 0 auto;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+        }
+
+        .cockpit {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0; 
+            height: 0; 
+            border-left: 35px solid transparent;
+            border-right: 35px solid transparent;
+            border-bottom: 45px solid #e2e8f0;
+        }
+
+        /* Base Seat Styles */
+        .seat {
+            height: 33px; 
+            margin: 2px;
+            border-radius: 6px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.15s ease-in-out;
+            position: relative;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            min-width: 33px;
+        }
+        
+        /* Seat Size Hierarchy */
+        .seat.otono_one { width: 50px; height: 50px; } 
+        .seat.first { width: 45px; height: 45px; } 
+        .seat.business { width: 40px; height: 40px; } 
+        .seat.prem_eco { width: 36px; height: 36px; } 
+        .seat.economy { width: 33px; height: 33px; } 
+
+        .seat.occupied {
+            background-color: #d1d5db !important; 
+            color: #9ca3af !important; 
+            border: 1px solid #9ca3af !important;
+            cursor: not-allowed;
+            pointer-events: none;
+            box-shadow: none;
+        }
+
+        .seat.selected:not(.occupied) {
+            background-color: #10b981 !important; /* Green-500 */
+            color: white !important;
+            border-color: #059669 !important; 
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
+        }
+
+        .seat:hover:not(.occupied):not(.selected) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            z-index: 10;
+        }
+
+        .row-num {
+            width: 24px;
+            text-align: center;
+            font-size: 11px;
+            color: #64748b;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Specific Otono Colors & Badges */
+        .good-seat-badge { background-color: #c084fc; } /* Light Purple */
+        .bad-seat-badge { background-color: #60a5fa; } /* Light Blue */
+        
+        /* Seat Groups for layout control - Adjusted for 3-6-3 */
+        .seat-group { display: flex; justify-content: center; }
+        .seat-group-1 { width: 54px; } /* Otono/First */
+        .seat-group-2 { width: 95px; } 
+        .seat-group-3 { width: 130px; } 
+        .seat-group-6 { width: 235px; } /* 6 seats in economy */
+
+        .deck-header {
+            font-size: 14px;
+            font-weight: 800;
+            color: #7f1d1d;
+            background-color: #fce7f3;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            border: 1px solid #be185d;
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+    const CLASS_OTONO_ONE = 'otono_one';
+    const CLASS_FIRST = 'first';
+    const CLASS_BUSINESS = 'business';
+    const CLASS_PREM_ECO = 'prem_eco';
+    const CLASS_ECONOMY = 'economy';
+    
+    // New Color Scheme
+    const CLASS_STYLES = {
+        [CLASS_OTONO_ONE]: 'bg-purple-900 border-yellow-400 text-yellow-100', // Deep Purple & Gold
+        [CLASS_FIRST]: 'bg-purple-700 border-purple-300 text-white', // Purple
+        [CLASS_BUSINESS]: 'bg-red-900 border-red-700 text-white', // Dark Red
+        [CLASS_PREM_ECO]: 'bg-red-700 border-red-500 text-white', // Medium Red
+        [CLASS_ECONOMY]: 'bg-red-500 border-red-400 text-white hover:bg-red-400 hover:border-red-300', // Red
+    };
+
+    const App = () => {
+        const [deck, setDeck] = React.useState('Lower');
+        const [occupiedSeats, setOccupiedSeats] = React.useState(new Set());
+        const [selectedSeat, setSelectedSeat] = React.useState(null);
+        const [randomGoodBiz, setRandomGoodBiz] = React.useState(new Set());
+        const [randomGoodFirst, setRandomGoodFirst] = React.useState(new Set());
+
+
+        // --- Configuration Data ---
+        const getRows = (currentDeck) => {
+            let rows = [];
+            const isLower = currentDeck === 'Lower';
+            const isMiddle = currentDeck === 'Middle';
+            const isUpper = currentDeck === 'Upper';
+
+            // Lower Deck (Luxury Focus)
+            if (isLower) {
+                // Otono One (Max 12 Suites) - Rows 1-4 (1-1-1) = 12 seats
+                for (let i = 1; i <= 4; i++) rows.push({ num: i, type: CLASS_OTONO_ONE, layout: '1-1-1' }); 
+                // First Class - Rows 5-8 (1-2-1) = 16 seats
+                for (let i = 5; i <= 8; i++) rows.push({ num: i, type: CLASS_FIRST, layout: '1-2-1' }); 
+                // Business Class - Rows 9-14 (2-3-2) = 42 seats
+                for (let i = 9; i <= 14; i++) rows.push({ num: i, type: CLASS_BUSINESS, layout: '2-3-2' }); 
+                // Economy - Rows 15-28 (3-6-3) = 168 seats
+                for (let i = 15; i <= 28; i++) rows.push({ num: i, type: CLASS_ECONOMY, layout: '3-6-3', exit: i === 15 || i === 23 });
+            }
+
+            // Middle Deck (Balanced Focus)
+            if (isMiddle) {
+                // Business Class - Rows 101-110 (2-3-2) = 70 seats
+                for (let i = 101; i <= 110; i++) rows.push({ num: i, type: CLASS_BUSINESS, layout: '2-3-2', exit: i === 101 }); 
+                // Premium Economy - Rows 111-118 (3-3-3) = 72 seats
+                for (let i = 111; i <= 118; i++) rows.push({ num: i, type: CLASS_PREM_ECO, layout: '3-3-3' });
+                // Economy - Rows 119-138 (3-6-3) = 240 seats
+                for (let i = 119; i <= 138; i++) rows.push({ num: i, type: CLASS_ECONOMY, layout: '3-6-3', exit: i === 119 || i === 129 });
+            }
+
+            // Upper Deck (Standard Focus)
+            if (isUpper) {
+                // Business Class - Rows 201-208 (2-3-2) = 56 seats
+                for (let i = 201; i <= 208; i++) rows.push({ num: i, type: CLASS_BUSINESS, layout: '2-3-2', exit: i === 201 }); 
+                // Premium Economy - Rows 209-215 (3-3-3) = 63 seats
+                for (let i = 209; i <= 215; i++) rows.push({ num: i, type: CLASS_PREM_ECO, layout: '3-3-3' });
+                // Economy - Rows 216-235 (3-6-3) = 240 seats
+                for (let i = 216; i <= 235; i++) rows.push({ num: i, type: CLASS_ECONOMY, layout: '3-6-3', exit: i === 216 || i === 226 });
+            }
+
+            return rows;
+        };
+        
+        const currentRows = getRows(deck);
+
+        // Random Occupancy & Good Seat Generation
+        React.useEffect(() => {
+            const newOccupied = new Set();
+            const newGoodBiz = new Set();
+            const newGoodFirst = new Set();
+            const allRows = getRows('Lower').concat(getRows('Middle')).concat(getRows('Upper'));
+            
+            allRows.forEach(row => {
+                let seats = [];
+                if (row.layout === '1-1-1') seats = ['A', 'E', 'K'];
+                if (row.layout === '1-2-1') seats = ['A','D','G','K'];
+                if (row.layout === '2-3-2') seats = ['A','C','D','F','G','H','K'];
+                if (row.layout === '3-3-3') seats = ['A','B','C','D','F','G','H','J','K'];
+                if (row.layout === '3-6-3') seats = ['A','B','C','D','E','F','G','H','J','K','L'];
+
+                seats.forEach(s => {
+                    const id = `${row.num}${s}`;
+                    // Occupancy (15-25% chance)
+                    if (Math.random() < (0.15 + Math.random() * 0.10)) {
+                        newOccupied.add(id);
+                    }
+                    // Random Good Labels (20% chance for visual)
+                    if (row.type === CLASS_BUSINESS && Math.random() < 0.20) {
+                        newGoodBiz.add(id);
+                    }
+                    if (row.type === CLASS_FIRST && Math.random() < 0.20) {
+                        newGoodFirst.add(id);
+                    }
+                });
+            });
+            setOccupiedSeats(newOccupied);
+            setRandomGoodBiz(newGoodBiz);
+            setRandomGoodFirst(newGoodFirst);
+            setSelectedSeat(null);
+        }, []);
+
+
+        // Pricing, Features & Reasoning Logic
+        const getSeatDetails = (rowNum, seatLetter, type) => {
+            let price = 0;
+            let label = "";
+            let isPreferred = false;
+            let isExtraLegroom = false;
+            let isCheap = false;
+            let isGood = false;
+            let isBad = false;
+            let reason = "";
+            let wifi = "Free High-Speed WiFi";
+            const id = `${rowNum}${seatLetter}`;
+
+            // 1. Base Prices & Cabin Definition
+            if (type === CLASS_OTONO_ONE) {
+                price = 13000; label = "Otono One Suite (for Two)";
+                isGood = true; reason = "Exclusive double suite with door and dual amenities.";
+            } else if (type === CLASS_FIRST) {
+                price = 6000; label = "First Class Suite";
+            } else if (type === CLASS_BUSINESS) {
+                price = 3200; label = "Business Class";
+            } else if (type === CLASS_PREM_ECO) {
+                price = 2150; label = "Premium Economy";
+            } else {
+                price = 1500; label = "Economy Class";
+            }
+            
+            // WiFi differences
+            if (type === CLASS_PREM_ECO) { wifi = "Free Messaging WiFi (£2.50 for High-Speed)"; }
+            if (type === CLASS_ECONOMY) { wifi = "Free Messaging WiFi (£7.50 for High-Speed)"; }
+            
+            // 2. Identify Boundary Rows (Simplified for A390)
+            const exitRows = [15, 23, 101, 119, 129, 201, 216, 226];
+            const lastRows = [4, 8, 14, 28, 110, 118, 138, 208, 215, 235]; 
+            const noisyRows = [4, 8, 14, 28, 101, 110, 111, 138, 201, 208, 215, 235]; // Near lav/galley/stairs
+
+            // 3. Extra Legroom (Bulkhead/Exit Row)
+            if (exitRows.includes(rowNum) && type !== CLASS_OTONO_ONE) { 
+                if (type === CLASS_ECONOMY || type === CLASS_PREM_ECO) {
+                    isExtraLegroom = true;
+                    isGood = true; 
+                    reason = "Extra legroom due to bulkhead/exit row.";
+                }
+            }
+            
+            // 4. Preferred Seats (Economy specific rules)
+            // Last row window seats by tail space (B, C, K, L)
+            if (lastRows.includes(rowNum) && type === CLASS_ECONOMY && (['B', 'C', 'K', 'L'].includes(seatLetter))) {
+                isPreferred = true;
+                isGood = true; 
+                reason = "Preferred Seat: Extra floor space next to the window for bags/comfort.";
+            }
+
+            // 5. Good/Bad Overrides
+
+            // A. Luxury Classes (First/Otono One)
+            if (type === CLASS_FIRST) {
+                if (noisyRows.includes(rowNum)) {
+                    isGood = false; 
+                    isBad = true; 
+                    reason = "Proximity to galley/lavatory reduces suite privacy.";
+                } else if (randomGoodFirst.has(id)) {
+                    isGood = true;
+                    reason = "Prime location within the First Class cabin.";
+                } else {
+                    reason = "Excellent privacy and comfort."
+                }
+            }
+
+            // B. Business Class (Noise Override & Random Good)
+            if (type === CLASS_BUSINESS) {
+                if (noisyRows.includes(rowNum)) {
+                    isGood = false; 
+                    isBad = true; 
+                    reason = "Proximity to galley/lavatory reduces premium comfort.";
+                } else if (randomGoodBiz.has(id)) {
+                    isGood = true; 
+                    reason = "Excellent comfort and direct aisle access.";
+                } else {
+                    reason = "Direct aisle access & wide seat."
+                }
+            }
+            
+            // C. Economy/PE Bad Seats
+            if (type === CLASS_ECONOMY || type === CLASS_PREM_ECO) {
+                
+                // Limited Recline (Bad) - Last rows
+                if (lastRows.includes(rowNum)) {
+                    if (!isGood) {
+                        isBad = true;
+                        reason = "Limited recline due to wall/galley behind.";
+                    }
+                }
+                
+                // Middle Seat (Bad) - Only if in the widest Economy section (E/F/G/H in 3-6-3)
+                if (type === CLASS_ECONOMY && ['E', 'F', 'G', 'H'].includes(seatLetter)) {
+                    if (rowNum > 20 && rowNum < 28 || rowNum > 130 || rowNum > 230) { // Approx rear of cabin
+                        if (!isGood && !isPreferred) {
+                             isBad = true;
+                             reason = "Center-block middle seat located deep in the rear cabin.";
+                        }
+                    }
+                }
+            }
+
+            // Final check to ensure preferred seats are never bad
+            if (isPreferred && isBad) isBad = false;
+            // Bad always overrides Good unless a specific Good rule (like Preferred/Extra Legroom) is set.
+            if (isBad && isGood && type !== CLASS_OTONO_ONE) isGood = false;
+            
+            // Price adjustment for Premium Economy Preferred
+            if (type === CLASS_PREM_ECO && isGood) { price = 2250; label = "Premium Preferred"; }
+
+            return { price, label, isGood, isBad, reason, wifi };
+        };
+
+        const handleSeatClick = (row, seat) => {
+            const id = `${row.num}${seat}`;
+            if (occupiedSeats.has(id)) return;
+            
+            const details = getSeatDetails(row.num, seat, row.type);
+            setSelectedSeat({ id, row: row.num, letter: seat, ...details, deck });
+        };
+
+        // --- Render Helpers ---
+
+        const renderSeat = (row, seat) => {
+            const id = `${row.num}${seat}`;
+            const isOccupied = occupiedSeats.has(id);
+            const isSelected = selectedSeat?.id === id;
+            const details = getSeatDetails(row.num, seat, row.type);
+
+            let classes = `seat ${CLASS_STYLES[row.type]} ${row.type}`;
+            if (isOccupied) classes += ' occupied';
+            if (isSelected) classes = classes.replace(CLASS_STYLES[row.type], '') + ' selected'; 
+            
+            const showBadge = (details.isGood || details.isBad) && (details.isGood || details.isBad);
+
+            const badge = !isOccupied && showBadge && (
+                <>
+                    {details.isGood && <div className="absolute top-[-2px] right-[-2px] w-2.5 h-2.5 rounded-full good-seat-badge border border-white"></div>}
+                    {!details.isGood && details.isBad && <div className="absolute top-[-2px] right-[-2px] w-2.5 h-2.5 rounded-full bad-seat-badge border border-white"></div>}
+                </>
+            );
+
+            return (
+                <div key={seat} className={classes} onClick={() => handleSeatClick(row, seat)}>
+                    {seat}
+                    {badge}
+                </div>
+            );
+        };
+
+        const renderRow = (row) => {
+            let left = [], mid1 = [], mid2 = [], right = [];
+            let leftClass = "", mid1Class = "", mid2Class = "", rightClass = "";
+
+            if (row.layout === '1-1-1') { // Otono One
+                left = ['A']; mid1 = ['E']; right = ['K'];
+                leftClass = "seat-group-1"; mid1Class = "seat-group-1"; mid2Class = "w-0"; rightClass = "seat-group-1";
+            } else if (row.layout === '1-2-1') { // First
+                left = ['A']; mid1 = ['D', 'G']; right = ['K'];
+                leftClass = "seat-group-1"; mid1Class = "seat-group-2"; mid2Class = "w-0"; rightClass = "seat-group-1";
+            } else if (row.layout === '2-3-2') { // Business
+                left = ['A', 'C']; mid1 = ['D', 'F', 'G']; right = ['H', 'K'];
+                leftClass = "seat-group-2"; mid1Class = "seat-group-3"; mid2Class = "w-0"; rightClass = "seat-group-2";
+            } else if (row.layout === '3-3-3') { // Premium Economy
+                left = ['A', 'B', 'C']; mid1 = ['D', 'F', 'G']; right = ['H', 'J', 'K'];
+                leftClass = "seat-group-3"; mid1Class = "seat-group-3"; mid2Class = "w-0"; rightClass = "seat-group-3";
+            } else if (row.layout === '3-6-3') { // Economy
+                left = ['A', 'B', 'C']; mid1 = ['D', 'E', 'F']; mid2 = ['G', 'H', 'J']; right = ['K', 'L'];
+                leftClass = "seat-group-3"; mid1Class = "seat-group-3"; mid2Class = "seat-group-3"; rightClass = "seat-group-2"; 
+                // Need to change the widths for 3-6-3 to fit the extra column
+                left = ['A', 'B', 'C']; 
+                mid1 = ['D', 'E', 'F', 'G', 'H', 'J'];
+                right = ['K', 'L'];
+                leftClass = "seat-group-3"; mid1Class = "seat-group-6"; mid2Class = "w-0"; rightClass = "seat-group-2";
+            }
+
+            return (
+                <div key={row.num} className="relative mb-1">
+                    {row.exit && (
+                         <div className="flex justify-between px-4 mb-4 mt-6">
+                            <div className="text-red-600 font-bold text-xs uppercase tracking-widest flex items-center"><i className="fas fa-chevron-left mr-1"></i> Exit</div>
+                            <div className="text-red-600 font-bold text-xs uppercase tracking-widest flex items-center">Exit <i className="fas fa-chevron-right ml-1"></i></div>
+                        </div>
+                    )}
+                    <div className="flex justify-between items-center">
+                        <div className={`seat-group ${leftClass}`}>{left.map(s => renderSeat(row, s))}</div>
+                        <div className="row-num">{row.num}</div>
+                        <div className={`seat-group ${mid1Class}`}>{mid1.map(s => renderSeat(row, s))}</div>
+                        {row.layout !== '3-6-3' && <div className="row-num">{row.num}</div>}
+                        {row.layout === '3-6-3' ? null : <div className={`seat-group ${mid2Class}`}>{mid2.map(s => renderSeat(row, s))}</div>}
+                        <div className="row-num">{row.num}</div>
+                        <div className={`seat-group ${rightClass}`}>{right.map(s => renderSeat(row, s))}</div>
+                    </div>
+                </div>
+            );
+        };
+
+        return (
+            <div className="max-w-7xl mx-auto p-4 flex flex-col lg:flex-row gap-8">
+                
+                {/* Left Panel: Controls & Info */}
+                <div className="lg:w-[380px] space-y-6 shrink-0">
+                    {/* Header & Deck Select */}
+                    <div className="bg-white p-6 rounded-2xl shadow-sm border-t-4 border-purple-900">
+                        <div className="flex items-center gap-4 mb-6">
+                            <div className="w-14 h-14 bg-purple-900 rounded-full flex items-center justify-center">
+                                <i className="fas fa-rocket text-2xl text-yellow-100"></i>
+                            </div>
+                            <div>
+                                <h1 className="text-2xl font-black text-gray-900 tracking-tight">Otono Airways</h1>
+                                <p className="text-gray-500 font-medium">Airbus A390 Seat Map (Triple Deck)</p>
+                            </div>
+                        </div>
+
+                        <div className="flex bg-gray-100 p-1 rounded-xl mb-4">
+                            {['Lower', 'Middle', 'Upper'].map(d => (
+                                <button key={d} onClick={() => { setDeck(d); setSelectedSeat(null); }} 
+                                    className={`flex-1 py-2.5 rounded-lg font-bold text-sm transition-all ${deck === d ? 'bg-white text-purple-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}>
+                                    {d} Deck
+                                </button>
+                            ))}
+                        </div>
+                        
+                        <p className="text-center text-sm font-medium text-gray-600">Viewing **{deck} Deck** configuration.</p>
+                    </div>
+
+                    {/* Selected Seat Card */}
+                    <div className={`rounded-2xl shadow-lg overflow-hidden transition-all duration-300 ${selectedSeat ? 'opacity-100 translate-y-0' : 'opacity-50 translate-y-4 pointer-events-none'}`}>
+                        {selectedSeat ? (
+                            <div>
+                                <div className={`p-4 ${selectedSeat.isGood ? 'bg-purple-50' : selectedSeat.isBad ? 'bg-blue-50' : 'bg-gray-50'} border-b`}>
+                                    <h2 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-1">Selected Seat</h2>
+                                    <div className="flex justify-between items-baseline">
+                                        <div className="text-4xl font-black text-gray-900">{selectedSeat.id}</div>
+                                        <div className="text-2xl font-black text-green-600">£{selectedSeat.price.toLocaleString()}</div>
+                                    </div>
+                                    <div className="font-bold text-lg mt-1" style={{color: selectedSeat.type === CLASS_OTONO_ONE ? '#9d174d' : selectedSeat.type === CLASS_FIRST ? '#83409b' : '#7f1d1d'}}>{selectedSeat.label}</div>
+                                </div>
+                                
+                                <div className="bg-white p-5 space-y-4">
+                                    {/* Reason */}
+                                    {selectedSeat.reason && (
+                                        <div className="flex items-start">
+                                            <div className={`mt-1 mr-3 shrink-0 ${selectedSeat.isGood ? 'text-purple-500' : 'text-blue-500'}`}>
+                                                <i className={`fas ${selectedSeat.isGood ? 'fa-thumbs-up' : 'fa-info-circle'}`}></i>
+                                            </div>
+                                            <p className="text-sm font-medium text-gray-700 leading-tight">{selectedSeat.reason}</p>
+                                        </div>
+                                    )}
+                                    
+                                    {/* WiFi for this seat */}
+                                    <div className="flex items-start border-t pt-4">
+                                        <div className="mt-1 mr-3 shrink-0 text-blue-500"><i className="fas fa-wifi"></i></div>
+                                        <p className="text-sm font-medium text-gray-700 leading-tight">{selectedSeat.wifi}</p>
+                                    </div>
+
+                                    <button className="w-full bg-gray-900 text-white py-3.5 rounded-xl font-bold text-sm hover:bg-black transition transform active:scale-[0.98]">
+                                        Confirm Seat {selectedSeat.id}
+                                    </button>
+                                </div>
+                            </div>
+                        ) : (
+                             <div className="bg-white p-8 text-center text-gray-400 italic rounded-2xl border-2 border-dashed">
+                                Select a seat on the map to view details.
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Legend */}
+                    <div className="bg-white p-5 rounded-2xl shadow-sm">
+                         <h3 className="font-bold text-gray-900 mb-3 text-sm">Map Key</h3>
+                         <div className="grid grid-cols-2 gap-y-2 gap-x-4 text-xs font-medium text-gray-700">
+                            <div className="flex items-center"><div className="w-4 h-4 rounded-sm mr-3" style={{backgroundColor: '#581c87', border: '1px solid #facc15'}}></div> Otono One (£13,000)</div>
+                            <div className="flex items-center"><div className="w-4 h-4 bg-purple-700 border border-purple-300 mr-3 rounded-sm"></div> First (£6,000)</div>
+                            <div className="flex items-center"><div className="w-4 h-4 bg-red-900 border border-red-700 mr-3 rounded-sm"></div> Business (£3,200)</div>
+                            <div className="flex items-center"><div className="w-4 h-4 bg-red-700 border border-red-500 mr-3 rounded-sm"></div> Prem Eco (£2,150)</div>
+                            <div className="flex items-center"><div className="w-4 h-4 bg-red-500 border border-red-400 mr-3 rounded-sm"></div> Economy (£1,500)</div>
+                            <div className="flex items-center"><div className="w-4 h-4 bg-gray-300 border border-gray-400 mr-3 rounded-sm"></div> Occupied</div>
+                            
+                            <div className="flex items-center pt-2">
+                                <div className="w-4 h-4 rounded-full mr-3 good-seat-badge"></div>
+                                <span>Good Seat (Preferred)</span>
+                            </div>
+                            <div className="flex items-center pt-2">
+                                <div className="w-4 h-4 rounded-full mr-3 bad-seat-badge"></div>
+                                <span>Bad Seat (Noise/Limited Recline)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Right Panel: The Plane */}
+                <div className="flex-1 overflow-x-auto pb-12 pt-4 pl-4">
+                    <div className="fuselage">
+                        <div className="cockpit"></div>
+                        
+                        <div className="deck-header">DECK: {deck.toUpperCase()}</div>
+
+                        {/* Render Rows */}
+                        <div className="mt-6 relative z-10">
+                            {currentRows.map(row => renderRow(row))}
+                        </div>
+
+                        {/* Rear Galley Visual */}
+                        <div className="mt-16 pt-6 border-t-2 border-dashed border-gray-300 text-center">
+                             <div className="flex justify-center gap-16 text-gray-400 mb-2">
+                                <i className="fas fa-restroom fa-lg"></i>
+                                <i className="fas fa-utensils fa-lg"></i>
+                                <i className="fas fa-restroom fa-lg"></i>
+                            </div>
+                            <div className="text-gray-400 text-xs font-bold tracking-[0.3em]">REAR GALLEY & STAIRS</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+</script>
+</body>
+</html>
