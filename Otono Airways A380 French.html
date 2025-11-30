@@ -131,8 +131,8 @@
 
         // Economy
         if (type === CLASS_ECONOMY) {
-            // Extra Legroom or Preferred
-            if (features.includes('Extra Legroom') || features.includes('Preferred Seat')) {
+            // Plus d'espace pour les jambes or Preferred
+            if (features.includes("Plus d'espace pour les jambes") || features.includes('Preferred Seat')) {
                 return '€1,900';
             }
             // Rear Cabin (Rows 68-77)
@@ -176,7 +176,7 @@
         const c = seat.col;
 
         // 1. GOOD SEATS (Otono Purple Badge)
-        // General Bulkheads/Extra Legroom
+        // General Bulkheads/Plus d'espace pour les jambes
         if (seat.features.includes("Plus d'espace pour les jambes")) {
             return { type: 'GOOD', label: 'Bon Siège', reason: "Plus d'espace pour les jambes", icon: ThumbsUp };
         }
@@ -210,20 +210,20 @@
         // 2. BAD SEATS (Light Blue Badge)
         // Back of cabins (potential noise/galley/limited recline)
         if ([25, 37, 52, 93].includes(r)) {
-            return { type: 'BAD', label: 'Bad Seat', reason: 'Near Galley / Limited Recline', icon: ThumbsDown };
+            return { type: 'BAD', label: 'Mauvais Siège', reason: 'Près de la cuisine / Inclinaison limitée', icon: ThumbsDown };
         }
         
         // Specific Economy Bad Seats (requested)
         if (r === 67 && ['D', 'E', 'F', 'G'].includes(c)) {
-             return { type: 'BAD', label: 'Bad Seat', reason: 'Galley Proximity', icon: ThumbsDown };
+             return { type: 'BAD', label: 'Mauvais Siège', reason: 'Près de la cuisine', icon: ThumbsDown };
         }
         if (r === 76 && ['D', 'E', 'F', 'G'].includes(c)) {
-             return { type: 'BAD', label: 'Bad Seat', reason: 'Galley Proximity', icon: ThumbsDown };
+             return { type: 'BAD', label: 'Mauvais Siège', reason: 'Près de la cuisine', icon: ThumbsDown };
         }
         
         // Example: Seats near the lower deck stairs/lavatories (R77)
         if (r === 77) {
-             return { type: 'GOOD', label: 'Quiet Window Trio', reason: 'Private Overhead Bin', icon: ThumbsUp };
+             return { type: 'GOOD', label: 'Trio de fenêtres silencieuses', reason: 'Casse supérieure privée', icon: ThumbsUp };
         }
 
 
@@ -241,8 +241,8 @@
         // Cabin 1: Otono One (Rows 1-2)
         let c1 = [];
         [1, 2].forEach(row => {
-            c1.push(createSeat(`${row}A`, CLASS_OTONO_ONE, row, 'A', false, ['Largest IFE screen', 'Shower Access', 'Private suite for two', 'Fine dining', 'Exclusive amenity kit']));
-            c1.push(createSeat(`${row}K`, CLASS_OTONO_ONE, row, 'K', false, ['Largest IFE screen', 'Shower Access', 'Private suite for two', 'Fine dining', 'Exclusive amenity kit']));
+            c1.push(createSeat(`${row}A`, CLASS_OTONO_ONE, row, 'A', false, ['Le plus grand écran IFE', 'Accès à la douche', 'Suite privée', 'Cuisine raffinée']));
+            c1.push(createSeat(`${row}K`, CLASS_OTONO_ONE, row, 'K', false, ['Le plus grand écran IFE', 'Accès à la douche', 'Suite privée', 'Cuisine raffinée']));
         });
         cabins.push({ name: "Cabin 1", seats: c1 });
 
@@ -259,7 +259,7 @@
                 row,
                 'A',
                 true,
-                ['Shower Access', 'Private suite', 'Larger IFE screen', 'Window seat']
+                ['Écran IFE plus grand', 'Accès à la douche', 'Suite privée', 'Siège fenêtres']
             ));
             rowSeats.push(createSeat(
                 `${row}K`,
@@ -267,7 +267,7 @@
                 row,
                 'K',
                 true,
-                ['Shower Access', 'Private suite', 'Larger IFE screen', 'Window seat']
+                ['Écran IFE plus grand', 'Accès à la douche', 'Suite privée', 'Siège fenêtres']
             ));
         }
 
@@ -279,7 +279,7 @@
                 row,
                 'D',
                 true,
-                ['Center Pair', 'Shower Access', 'Private suite', 'Larger IFE screen']
+                ['Écran IFE plus grand', 'Accès à la douche', 'Suite privée', 'Paire centrale']
             ));
             rowSeats.push(createSeat(
                 `${row}G`,
@@ -287,7 +287,7 @@
                 row,
                 'G',
                 true,
-                ['Center Pair', 'Shower Access', 'Private suite', 'Larger IFE screen']
+                ['Écran IFE plus grand', 'Accès à la douche', 'Suite privée', 'Paire centrale']
             ));
         }
 
@@ -298,12 +298,12 @@
         let c3 = [];
         for (let row = 44; row <= 52; row++) {
             const isExtraLegroom = row === 44;
-            const feats = isExtraLegroom ? ['Extra Legroom'] : [];
+            const feats = isExtraLegroom ? ["Plus d'espace pour les jambes"] : [];
             
             ['A','C','D','F','G','H','K'].forEach(col => {
                 let isAisle = ['C','D','G','H'].includes(col);
                 let seatFeats = [...feats]; 
-                if (col === 'A' || col === 'K') seatFeats.push('Storage Bin');
+                if (col === 'A' || col === 'K') seatFeats.push('Casier de rangement');
                 let seat = createSeat(`${row}${col}`, CLASS_PREM_ECO, row, col, isAisle, seatFeats);
                 c3.push(seat);
             });
@@ -318,11 +318,11 @@
                 if (row === 83 && ['A','C','H','K'].includes(col)) return;
 
                 let feats = [];
-                // *** NEW: Row 80 Extra Legroom ***
-                if (row === 80) feats.push('Extra Legroom');
-                // Previous Extra Legroom row 
-                if (row === 84 && ['A','C','H','K'].includes(col)) feats.push('Extra Legroom');
-                if (col === 'A' || col === 'K') feats.push('Storage Bin');
+                // *** NEW: Row 80 Plus d'espace pour les jambes ***
+                if (row === 80) feats.push("Plus d'espace pour les jambes");
+                // Previous Plus d'espace pour les jambes row 
+                if (row === 84 && ['A','C','H','K'].includes(col)) feats.push("Plus d'espace pour les jambes");
+                if (col === 'A' || col === 'K') feats.push('Casier de rangement');
 
                 let isAisle = ['C','D','G','H'].includes(col);
                 c4.push(createSeat(`${row}${col}`, CLASS_ECONOMY, row, col, isAisle, feats));
@@ -341,12 +341,12 @@
         let c1 = [];
         const c1Rows = [11, 12, 15, 16, 17, 18, 19];
         c1Rows.forEach(row => {
-            c1.push(createSeat(`${row}A`, CLASS_BUSINESS, row, 'A', false, ['Lie-flat', 'Direct aisle access', 'Gourmet meal service']));
-            c1.push(createSeat(`${row}K`, CLASS_BUSINESS, row, 'K', false, ['Lie-flat', 'Direct aisle access', 'Gourmet meal service']));
+            c1.push(createSeat(`${row}A`, CLASS_BUSINESS, row, 'A', false, ['Sièges-lits', "Accès direct à l’allée", 'Service de repas gastronomiques']));
+            c1.push(createSeat(`${row}K`, CLASS_BUSINESS, row, 'K', false, ['Sièges-lits', "Accès direct à l’allée", 'Service de repas gastronomiques']));
             
             if (row !== 11 && row !== 12) {
-                 c1.push(createSeat(`${row}D`, CLASS_BUSINESS, row, 'D', true, ['Lie-flat', 'Center', 'Direct aisle access', 'Gourmet meal service']));
-                 c1.push(createSeat(`${row}G`, CLASS_BUSINESS, row, 'G', true, ['Lie-flat', 'Center', 'Direct aisle access', 'Gourmet meal service']));
+                 c1.push(createSeat(`${row}D`, CLASS_BUSINESS, row, 'D', true, ['Sièges-lits', "Accès direct à l’allée", 'Service de repas gastronomiques', 'Centre']));
+                 c1.push(createSeat(`${row}G`, CLASS_BUSINESS, row, 'G', true, ['Sièges-lits', "Accès direct à l’allée", 'Service de repas gastronomiques', 'Centre']));
             }
         });
         cabins.push({ name: "Cabin 1", seats: c1 });
@@ -354,11 +354,11 @@
         // Cabin 2: Business (25-37)
         let c2 = [];
         for (let row = 25; row <= 37; row++) {
-            c2.push(createSeat(`${row}A`, CLASS_BUSINESS, row, 'A', false, ['Lie-flat', 'Direct aisle access', 'Gourmet meal service']));
-            c2.push(createSeat(`${row}K`, CLASS_BUSINESS, row, 'K', false, ['Lie-flat', 'Direct aisle access', 'Gourmet meal service']));
+            c2.push(createSeat(`${row}A`, CLASS_BUSINESS, row, 'A', false, ['Sièges-lits', "Accès direct à l’allée", 'Service de repas gastronomiques']));
+            c2.push(createSeat(`${row}K`, CLASS_BUSINESS, row, 'K', false, ['Sièges-lits', "Accès direct à l’allée", 'Service de repas gastronomiques']));
             if (row !== 25 && row !== 37) {
-                c2.push(createSeat(`${row}D`, CLASS_BUSINESS, row, 'D', true, ['Lie-flat', 'Center', 'Direct aisle access', 'Gourmet meal service']));
-                c2.push(createSeat(`${row}G`, CLASS_BUSINESS, row, 'G', true, ['Lie-flat', 'Center', 'Direct aisle access', 'Gourmet meal service']));
+                c2.push(createSeat(`${row}D`, CLASS_BUSINESS, row, 'D', true, ['Sièges-lits', "Accès direct à l’allée", 'Service de repas gastronomiques', 'Centre']));
+                c2.push(createSeat(`${row}G`, CLASS_BUSINESS, row, 'G', true, ['Sièges-lits', "Accès direct à l’allée", 'Service de repas gastronomiques', 'Centre']));
             }
         }
         cabins.push({ name: "Cabin 2", seats: c2 });
@@ -373,7 +373,7 @@
 
                 // Features
                 let feats = [];
-                if (row === 56) feats.push('Extra Legroom');
+                if (row === 56) feats.push("Plus d'espace pour les jambes");
                 // Removed generic 'Preferred Seat' here, relies on getSeatQuality now
                 
                 let isAisle = ['C','D','G','H'].includes(col);
@@ -389,7 +389,7 @@
                 if (row === 77 && ['D','E','F','G'].includes(col)) return;
 
                 let feats = [];
-                if (row === 68) feats.push('Extra Legroom');
+                if (row === 68) feats.push("Plus d'espace pour les jambes");
                 // Removed generic 'Preferred Seat' here, relies on getSeatQuality now
                 
                 let isAisle = ['C','D','G','H'].includes(col);
@@ -408,7 +408,7 @@
         let typeClasses = CLASS_COLORS[seat.type];
         
         let borderClass = "";
-        if (seat.features.includes('Extra Legroom')) borderClass = "border-b-4 border-yellow-400";
+        if (seat.features.includes("Plus d'espace pour les jambes")) borderClass = "border-b-4 border-yellow-400";
         
         if (seat.isOccupied) {
             typeClasses = "seat-occupied-style"; 
@@ -476,8 +476,8 @@
             <div className="z-10 flex items-center space-x-4">
                 <Coffee size={32} />
                 <div className="text-center">
-                    <h3 className="text-xl font-bold font-serif">The Otono Lounge</h3>
-                    <p className="text-xs text-purple-200">Open to ALL Classes</p>
+                    <h3 className="text-xl font-bold font-serif">Le salon Otono</h3>
+                    <p className="text-xs text-purple-200">Ouvert à toutes les classes</p>
                 </div>
             </div>
         </div>
@@ -493,7 +493,7 @@
                         <div className="flex justify-between w-full px-4 md:px-8">
                             <ShowerSuite />
                             <div className="flex flex-col justify-end pb-4 w-full mx-2">
-                                <Stairs label="Grand Staircase" />
+                                <Stairs label="Escalier d'honneur" />
                             </div>
                             <ShowerSuite />
                         </div>
@@ -538,8 +538,8 @@
                                                 {/* Grand Staircase Visual Block on Lower Deck */}
                                                 {isGrandStairRow && (
                                                     <div className="absolute left-1/2 top-0 -translate-x-1/2 w-24 h-full bg-gray-200 border-x border-gray-300 flex items-center justify-center z-0">
-                                                        {rInt === 11 && <span className="text-[8px] text-gray-400 font-bold uppercase">Grand</span>}
-                                                        {rInt === 12 && <span className="text-[8px] text-gray-400 font-bold uppercase">Staircase</span>}
+                                                        {rInt === 11 && <span className="text-[8px] text-gray-400 font-bold uppercase">Escalier</span>}
+                                                        {rInt === 12 && <span className="text-[8px] text-gray-400 font-bold uppercase">d'honneur</span>}
                                                     </div>
                                                 )}
 
@@ -592,7 +592,7 @@
                 <div className="mt-8 w-full z-10">
                     {deck === DECK_UPPER ? (
                         <>
-                            <Stairs label="Spiral Staircase" />
+                            <Stairs label="Escalier en colimaçon" />
                             <Lounge />
                         </>
                     ) : (
@@ -601,7 +601,7 @@
                                 <div className="w-full h-8 bg-gray-100 my-2 flex items-center justify-center text-[10px] text-gray-400">REAR GALLEY</div>
                             </div>
                             {/* Spiral Staircase Lower Deck */}
-                            <Stairs label="Spiral Staircase (Up to Lounge)" isLower={true} />
+                            <Stairs label="Escalier en colimaçon (au salon)" isLower={true} />
                         </>
                     )}
                 </div>
