@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Otono Biology B1 Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
+<style>
+    body { font-family: 'Roboto Slab', serif; text-align: center; margin: 20px; }
+    ol { text-align: left; display: inline-block; }
+    li { padding: 5px; font-size: 18px; }
+    #timer { font-size: 2rem; font-weight: bold; color: red; }
+    input[type="text"], textarea { border-radius: 8px; padding: 5px; width: 300px; background-color: yellow; }
+    table { margin: auto; border-collapse: collapse; width: 70%; }
+    td, th { border: 1px solid black; padding: 10px; text-align: center; }
+    tr:nth-child(even) { background-color: #f2f2f2; }
+    button { font-size: 16px; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin: 5px; }
+    #startButton { background-color: purple; color: white; }
+    #resetButton { background-color: red; color: white; }
+    #submitButton { background-color: green; color: white; }
+</style>
+</head>
+<body>
+
+<h1>Otono Biology B1 Quiz</h1>
+<p>Funny number of questions: 21 😎</p>
+<p>Time Limit: <span id="timer">419</span> seconds</p>
+<button id="startButton" onclick="startQuiz()">Start</button>
+<button id="resetButton" onclick="resetQuiz()" disabled>Reset</button>
+
+<!-- Example Image -->
+<img src="Images/plantcell.png" width="600px" alt="Plant Cell Diagram">
+
+<form id="quizForm" onsubmit="return false;">
+<ol>
+    <!-- Multiple Choice -->
+    <li>
+        Which organelle produces ATP?<br>
+        <input type="radio" name="q1" value="mitochondria" disabled> Mitochondria<br>
+        <input type="radio" name="q1" value="nucleus" disabled> Nucleus<br>
+        <input type="radio" name="q1" value="ribosomes" disabled> Ribosomes
+    </li>
+    <li>
+        Which organelle is responsible for protein synthesis?<br>
+        <input type="radio" name="q2" value="ribosomes" disabled> Ribosomes<br>
+        <input type="radio" name="q2" value="golgi" disabled> Golgi Apparatus<br>
+        <input type="radio" name="q2" value="smooth er" disabled> Smooth ER
+    </li>
+    <li>
+        Which structure stores water in plant cells?<br>
+        <input type="radio" name="q3" value="vacuole" disabled> Vacuole<br>
+        <input type="radio" name="q3" value="lysosome" disabled> Lysosome<br>
+        <input type="radio" name="q3" value="golgi" disabled> Golgi Apparatus
+    </li>
+    <li>
+        Plant cells have:<br>
+        <input type="radio" name="q4" value="cell wall" disabled> Cell wall<br>
+        <input type="radio" name="q4" value="cell membrane" disabled> Cell membrane only<br>
+        <input type="radio" name="q4" value="none" disabled> Neither
+    </li>
+    <li>
+        Photosynthesis occurs in:<br>
+        <input type="radio" name="q5" value="chloroplast" disabled> Chloroplast<br>
+        <input type="radio" name="q5" value="mitochondria" disabled> Mitochondria<br>
+        <input type="radio" name="q5" value="ribosomes" disabled> Ribosomes
+    </li>
+
+    <!-- Short Answer -->
+    <li>Function of mitochondria: <input type="text" id="q6" disabled></li>
+    <li>Main component of cell wall: <input type="text" id="q7" disabled></li>
+    <li>Function of ribosomes: <input type="text" id="q8" disabled></li>
+    <li>Function of vacuole: <input type="text" id="q9" disabled></li>
+
+    <!-- Long Answer -->
+    <li>Describe the process of photosynthesis:<br><textarea id="q10" rows="4" cols="50" disabled></textarea></li>
+    <li>Explain the difference between plant and animal cells:<br><textarea id="q11" rows="4" cols="50" disabled></textarea></li>
+
+    <!-- Table question -->
+    <li>
+        Identify the correct organelles in the table (3 correct, comma separated):
+        <table>
+            <tr><td>ribosomes</td><td>golgi apparatus</td><td>cytoplasm</td></tr>
+            <tr><td>vacuole</td><td>amyloplast</td><td>chlroplast</td></tr>
+            <tr><td>cell membrane</td><td>cell wall</td><td>gastric juice</td></tr>
+            <tr><td>smooth er</td><td>lysosome</td><td>mitochondria</td></tr>
+            <tr><td>gallbladder</td><td>nucleus</td><td>round er</td></tr>
+        </table>
+        Correct 3 organelles: <input type="text" id="q12" disabled>
+    </li>
+
+    <!-- More Multiple Choice / Short -->
+    <li>Which organelle is involved in lipid synthesis? <input type="text" id="q13" disabled></li>
+    <li>Which organelle contains digestive enzymes? <input type="text" id="q14" disabled></li>
+    <li>Which part controls the cell? <input type="text" id="q15" disabled></li>
+    <li>What type of cell has a nucleus? <input type="text" id="q16" disabled></li>
+    <li>Where does cellular respiration occur? <input type="text" id="q17" disabled></li>
+    <li>Which organelle is involved in modifying proteins? <input type="text" id="q18" disabled></li>
+    <li>Function of lysosomes: <input type="text" id="q19" disabled></li>
+    <li>Function of smooth ER: <input type="text" id="q20" disabled></li>
+    <li>Function of rough ER: <input type="text" id="q21" disabled></li>
+</ol>
+
+<br>
+<input type="submit" value="Submit" onclick="gradeQuiz()" disabled id="submitButton">
+</form>
+
+<p id="scoreDisplay"></p>
+<p id="result"></p>
+
+<script>
+let timeLeft = 419; // Funny time ending in 9
+let timerInterval;
+let quizActive = false;
+
+function startQuiz() {
+    if(!quizActive){
+        quizActive = true;
+        enableInputs(true);
+        document.getElementById('startButton').disabled = true;
+        document.getElementById('resetButton').disabled = false;
+        timerInterval = setInterval(updateTimer, 1000);
+    }
+}
+
+function updateTimer() {
+    document.getElementById('timer').textContent = timeLeft;
+    if(timeLeft <= 0){
+        clearInterval(timerInterval);
+        alert("Time's up! Auto-submitting...");
+        gradeQuiz();
+    }
+    timeLeft--;
+}
+
+function resetQuiz() {
+    clearInterval(timerInterval);
+    timeLeft = 419;
+    document.getElementById('timer').textContent = timeLeft;
+    quizActive = false;
+    document.getElementById('startButton').disabled = false;
+    document.getElementById('resetButton').disabled = true;
+    document.getElementById('quizForm').reset();
+    enableInputs(false);
+    document.getElementById('result').textContent = "";
+    document.getElementById('scoreDisplay').textContent = "";
+}
+
+function enableInputs(enable){
+    let textInputs = document.querySelectorAll("input[type='text'], textarea, input[type='radio']");
+    textInputs.forEach(input => input.disabled = !enable);
+    document.getElementById('submitButton').disabled = !enable;
+}
+
+function gradeQuiz() {
+    let score = 0;
+
+    // Multiple Choice
+    if(document.querySelector('input[name="q1"]:checked')?.value === "mitochondria") score += 5;
+    if(document.querySelector('input[name="q2"]:checked')?.value === "ribosomes") score += 5;
+    if(document.querySelector('input[name="q3"]:checked')?.value === "vacuole") score += 5;
+    if(document.querySelector('input[name="q4"]:checked')?.value === "cell wall") score += 5;
+    if(document.querySelector('input[name="q5"]:checked')?.value === "chloroplast") score += 5;
+
+    // Short Answer
+    if(document.getElementById("q6").value.trim().toLowerCase() === "respiration") score += 5;
+    if(document.getElementById("q7").value.trim().toLowerCase() === "cellulose") score += 5;
+    if(document.getElementById("q8").value.trim().toLowerCase() === "make proteins") score += 5;
+    if(document.getElementById("q9").value.trim().toLowerCase() === "storage") score += 5;
+
+    // Long Answer keyword checks
+    let photo = document.getElementById("q10").value.toLowerCase();
+    if(photo.includes("sunlight") && photo.includes("glucose") && photo.includes("chlorophyll")) score += 10;
+
+    let diff = document.getElementById("q11").value.toLowerCase();
+    if(diff.includes("cell wall") && diff.includes("vacuole")) score += 10;
+
+    // Table question
+    let tableAns = document.getElementById("q12").value.toLowerCase().replace(/\s/g,'');
+    if(tableAns.includes("ribosomes") && tableAns.includes("golgiapparatus") && tableAns.includes("cytoplasm")) score += 10;
+
+    // Remaining short answers
+    const correctShort = ["smooth er","lysosome","nucleus","eukaryotic","mitochondria","golgi apparatus","digestion","lipid synthesis","protein synthesis"];
+    for(let i=13; i<=21; i++){
+        if(document.getElementById("q"+i).value.trim().toLowerCase() === correctShort[i-13]) score += 5;
+    }
+
+    // Cap total at 100
+    if(score>100) score=100;
+
+    document.getElementById('scoreDisplay').textContent = "Your score is: " + score + "/100";
+
+    if(score >= 90){
+        document.getElementById('result').textContent = "You passed! Distinction 🎉";
+    } else if(score >= 80){
+        document.getElementById('result').textContent = "You passed! Merit 🎉";
+    } else if(score >= 66){
+        document.getElementById('result').textContent = "You passed! ✅";
+    } else{
+        document.getElementById('result').textContent = "You failed ❌";
+    }
+
+    enableInputs(false);
+    clearInterval(timerInterval);
+}
+
+// Anti-source detection
+const showAlert = e => {
+    e.preventDefault();
+    alert("Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!");
+};
+document.addEventListener("contextmenu", e => showAlert(e));
+document.addEventListener("keydown", e => {
+    if(e.ctrlKey && ['u','i'].includes(e.key.toLowerCase()) || e.key === "F12") showAlert(e);
+});
+</script>
+
+</body>
+</html>

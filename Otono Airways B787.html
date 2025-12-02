@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Otono Airways - Boeing 787 Seat Selection (V2)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom Styles based on Otono Requirements */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f4f6;
+        }
+        
+        .fuselage {
+            border-radius: 50% 50% 50% 50% / 15% 15% 10% 10%;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .seat {
+            width: 38px;
+            height: 48px;
+            margin: 3px;
+            border-radius: 6px 6px 12px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.1s, box-shadow 0.1s;
+            user-select: none;
+        }
+
+        .seat:hover:not(.occupied) {
+            transform: scale(1.1);
+            z-index: 10;
+        }
+
+        .seat.occupied {
+            background-color: #d1d5db; /* Gray-300 */
+            color: #9ca3af;
+            cursor: not-allowed;
+            background-image: repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(255,255,255,0.3) 5px, rgba(255,255,255,0.3) 10px);
+        }
+        
+        /* NOTE: The 'blocked' class is removed as requested. */
+
+        .seat.selected {
+            background-color: #10b981 !important; /* Green-500 */
+            border-color: #059669 !important;
+            color: white !important;
+            box-shadow: 0 0 10px #10b981;
+        }
+
+        /* Specific Cabin Widths to manage the 1-2-1 vs 3-3-3 layouts */
+        .row-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 4px;
+        }
+
+        .aisle {
+            width: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            color: #9ca3af;
+        }
+
+        .door-exit {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            text-align: center;
+            padding: 5px;
+            margin: 10px 0;
+            font-size: 10px;
+            font-weight: bold;
+            border-left: 4px solid #ef4444;
+            border-right: 4px solid #ef4444;
+        }
+
+        /* Badge Styling from Request */
+        .good-seat-badge {
+            background-color: #e9d5ff; /* Light Purple */
+            color: #6d28d9; /* Deep Purple */
+            border: 1px solid #d8b4fe;
+        }
+        .bad-seat-badge {
+            background-color: #bfdbfe; /* Light Blue */
+            color: #1e40af; /* Dark Blue */
+            border: 1px solid #93c5fd;
+        }
+    </style>
+</head>
+<body class="pb-20">
+
+    <header class="bg-gradient-to-r from-purple-900 to-red-800 text-white p-4 shadow-lg sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl font-bold flex items-center gap-2">
+                    <span class="text-3xl">✈️</span> Otono Airways
+                </h1>
+                <p class="text-xs text-purple-200 ml-9">Boeing 787 - "NO MORE FEAR of economy class!"</p>
+            </div>
+            <div class="text-right hidden md:block">
+                <p class="font-bold" id="plane-model-label-header">787-8</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto mt-6 flex flex-col lg:flex-row gap-8 px-4">
+        
+        <div class="lg:w-1/3 space-y-6">
+            
+            <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-purple-800">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Select Aircraft</h2>
+                <div class="grid grid-cols-3 gap-2">
+                    <button onclick="loadMap('787-8')" id="btn-787-8" class="variant-btn py-2 px-4 rounded bg-gray-200 hover:bg-purple-100 transition font-bold text-sm">787-8</button>
+                    <button onclick="loadMap('787-9')" id="btn-787-9" class="variant-btn py-2 px-4 rounded bg-gray-200 hover:bg-purple-100 transition font-bold text-sm">787-9</button>
+                    <button onclick="loadMap('787-10')" id="btn-787-10" class="variant-btn py-2 px-4 rounded bg-gray-200 hover:bg-purple-100 transition font-bold text-sm">787-10</button>
+                </div>
+            </div>
+
+            <div id="booking-panel" class="bg-white p-6 rounded-xl shadow-md border-t-4 border-red-600 hidden">
+                <h2 class="text-xl font-bold text-gray-800 mb-2">Selected Seat</h2>
+                <div class="flex justify-between items-end">
+                    <div>
+                        <div id="seat-id" class="text-4xl font-bold text-purple-900">--</div>
+                        <div id="seat-class" class="text-sm font-semibold text-gray-500 uppercase tracking-wide">--</div>
+                    </div>
+                    <div class="text-right">
+                        <div id="seat-price" class="text-3xl font-bold text-red-600">£0</div>
+                    </div>
+                </div>
+                <div id="seat-features" class="mt-4 flex flex-wrap gap-2">
+                    </div>
+                <button class="w-full mt-4 bg-purple-800 text-white font-bold py-3 rounded-lg hover:bg-purple-900 shadow-lg transform active:scale-95 transition">
+                    Confirm Selection
+                </button>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-md">
+                <h3 class="font-bold text-gray-700 mb-3">Seat Status & Pricing</h3>
+                <div class="space-y-2 text-sm">
+                    <div class="flex items-center"><div class="w-4 h-4 rounded mr-2 bg-purple-700 border border-purple-300"></div> First Class (£6300)</div>
+                    <div class="flex items-center"><div class="w-4 h-4 rounded mr-2 bg-red-900 border border-red-700"></div> Business (£3200)</div>
+                    <div class="flex items-center"><div class="w-4 h-4 rounded mr-2 bg-red-700 border border-red-500"></div> Premium Economy (£2150)</div>
+                    <div class="flex items-center"><div class="w-4 h-4 rounded mr-2 bg-red-500 border border-red-400"></div> Economy Standard (£1500)</div>
+                </div>
+
+                <hr class="my-4">
+
+                <h3 class="font-bold text-gray-700 mb-3">Seat Modifiers</h3>
+                <div class="space-y-2 text-sm">
+                    <div class="flex items-center">
+                        <div class="w-4 h-4 rounded-sm mr-3 good-seat-badge"></div>
+                        <span class="text-gray-600 font-bold">Preferred/XL Legroom (£1650)</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-4 h-4 rounded-sm mr-3 bad-seat-badge"></div>
+                        <span class="text-gray-600 font-bold">Bad Seat / Near Galley</span>
+                    </div>
+                    <div class="flex items-center"><div class="w-4 h-4 rounded mr-2 bg-gray-300 border border-gray-400"></div> Occupied</div>
+                    <div class="text-xs text-gray-500 mt-2">Note: Middle seats in the last 5 rows of Economy are £1350.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lg:w-2/3 flex justify-center">
+            <div class="bg-white p-8 rounded-t-[40%] rounded-b-[10%] shadow-2xl min-h-[800px] inline-block relative fuselage border-4 border-gray-300">
+                <div class="w-full h-24 border-b-2 border-gray-200 mb-4 flex flex-col items-center justify-center text-gray-300">
+                    <div class="w-16 h-1 bg-gray-200 mb-1"></div>
+                    <span class="font-bold text-2xl tracking-widest text-purple-900 opacity-20">787</span>
+                    <div class="text-[10px]">COCKPIT</div>
+                </div>
+
+                <div id="seat-map-container" class="flex flex-col items-center">
+                    </div>
+
+                <div class="mt-8 pt-8 border-t border-gray-200 text-center text-gray-400 text-xs">
+                    REAR GALLEY & LAVATORIES
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- CONFIGURATION ---
+
+        const COLORS = {
+            FIRST: 'bg-purple-700 border-purple-300 text-white',
+            BUSINESS: 'bg-red-900 border-red-700 text-white',
+            PREM_ECO: 'bg-red-700 border-red-500 text-white',
+            ECONOMY: 'bg-red-500 border-red-400 text-white hover:bg-red-400 hover:border-red-300',
+        };
+
+        const PRICES = {
+            FIRST: 6300,
+            BUSINESS: 3200,
+            PREM_ECO: 2150,
+            ECONOMY: 1500,
+            ECO_PREFERRED: 1650,
+            ECO_CHEAP: 1350
+        };
+
+        // Helper to generate range
+        function range(start, end) {
+            return Array.from({length: (end - start) + 1}, (v, k) => k + start);
+        }
+
+        // Aircraft Data
+        const FLEET = {
+            '787-8': {
+                lastRow: 66,
+                map: [
+                    { type: 'FIRST', rows: [1, 2], layout: '1-2-1' },
+                    { type: 'DOOR', label: 'EXIT/GALLEY' },
+                    { type: 'BUSINESS', rows: [11, 12, 15], layout: '1-2-1' },
+                    { type: 'BUSINESS', rows: [19, 20, 21, 22, 23, 24, 25, 26], layout: '1-2-1' },
+                    { type: 'DOOR', label: 'EXIT/GALLEY' },
+                    { type: 'PREM_ECO', rows: [37, 38, 39, 40, 41, 42], layout: '2-3-2' },
+                    { type: 'DOOR', label: 'EXIT' },
+                    { type: 'ECONOMY', rows: range(53, 62), layout: '3-3-3' },
+                    { type: 'ECONOMY', rows: [63, 64], layout: '2-3-2' }, // 63/64 A/C/H/K Preferred
+                    { type: 'ECONOMY', rows: [65, 66], layout: 'x-3-x' } // 65/66 Middle seats only
+                ],
+                preferred: {
+                    rows: [53, 37], // XL Legroom rows
+                    seats: ['63A', '63C', '63H', '63K', '64A', '64C', '64H', '64K'] // Taper A/C/H/K
+                },
+                cheapRows: [62, 63, 64, 65, 66] // Last 5
+            },
+            '787-9': {
+                lastRow: 70,
+                map: [
+                    { type: 'FIRST', rows: [1, 2, 3], layout: '1-2-1' },
+                    { type: 'DOOR', label: 'EXIT/GALLEY' },
+                    { type: 'BUSINESS', rows: [11, 12, 15, 16], layout: '1-2-1' },
+                    { type: 'BUSINESS', rows: [19, 20, 21, 22, 23, 24, 25, 26], layout: '1-2-1' },
+                    { type: 'DOOR', label: 'EXIT/GALLEY' },
+                    { type: 'PREM_ECO', rows: [37, 38, 39, 40, 41, 42, 43], layout: '2-3-2' },
+                    { type: 'DOOR', label: 'EXIT' },
+                    { type: 'ECONOMY', rows: range(53, 67), layout: '3-3-3' },
+                    { type: 'ECONOMY', rows: [68, 69, 70], layout: '2-3-2' } // 68-70 A/C/H/K Preferred
+                ],
+                preferred: {
+                    rows: [53, 37],
+                    seats: ['68A','68C','68H','68K','69A','69C','69H','69K','70A','70C','70H','70K']
+                },
+                cheapRows: [66, 67, 68, 69, 70]
+            },
+            '787-10': {
+                lastRow: 72,
+                map: [
+                    { type: 'FIRST', rows: [1, 2, 3], layout: '1-2-1' },
+                    { type: 'DOOR', label: 'EXIT/GALLEY' },
+                    { type: 'BUSINESS', rows: [11, 12, 13, 15, 16, 17, 18], layout: '1-2-1' },
+                    { type: 'BUSINESS', rows: [19, 20, 21, 22, 23, 24, 25, 26], layout: '1-2-1' },
+                    { type: 'DOOR', label: 'EXIT/GALLEY' },
+                    { type: 'PREM_ECO', rows: [37, 38, 39, 40, 41, 42, 43], layout: '2-3-2' },
+                    { type: 'DOOR', label: 'EXIT' },
+                    { type: 'ECONOMY', rows: range(53, 69), layout: '3-3-3' },
+                    { type: 'ECONOMY', rows: [70, 71, 72], layout: '2-3-2' } // 70-72 A/C/H/K Preferred
+                ],
+                preferred: {
+                    rows: [53, 37],
+                    seats: ['70A','70C','70H','70K','71A','71C','71H','71K','72A','72C','72H','72K']
+                },
+                cheapRows: [68, 69, 70, 71, 72]
+            }
+        };
+
+        let currentVariant = '787-8';
+        let selectedSeatEl = null;
+
+        function loadMap(variant) {
+            currentVariant = variant;
+            
+            // Update UI buttons
+            document.querySelectorAll('.variant-btn').forEach(btn => {
+                if(btn.id === `btn-${variant}`) {
+                    btn.classList.remove('bg-gray-200');
+                    btn.classList.add('bg-purple-900', 'text-white', 'shadow-lg');
+                } else {
+                    btn.classList.add('bg-gray-200');
+                    btn.classList.remove('bg-purple-900', 'text-white', 'shadow-lg');
+                }
+            });
+
+            document.getElementById('plane-model-label-header').innerText = variant.toUpperCase();
+            document.getElementById('booking-panel').classList.add('hidden');
+            if(selectedSeatEl) selectedSeatEl.classList.remove('selected');
+            
+            renderSeats(variant);
+        }
+
+        function renderSeats(variant) {
+            const container = document.getElementById('seat-map-container');
+            container.innerHTML = '';
+            
+            const data = FLEET[variant];
+
+            data.map.forEach(section => {
+                if(section.type === 'DOOR') {
+                    const door = document.createElement('div');
+                    door.className = 'door-exit w-full';
+                    door.innerText = section.label;
+                    container.appendChild(door);
+                    return;
+                }
+
+                section.rows.forEach(rowNum => {
+                    const rowDiv = document.createElement('div');
+                    rowDiv.className = 'row-container';
+                    
+                    // Row Number (Left)
+                    const rowLabelL = document.createElement('div');
+                    rowLabelL.className = 'w-4 text-[9px] text-gray-400 flex items-center justify-center mr-1';
+                    rowLabelL.innerText = rowNum;
+                    rowDiv.appendChild(rowLabelL);
+
+                    // Generate Seats based on Layout
+                    const seats = getSeatLetters(section.layout, rowNum);
+                    
+                    seats.forEach(seatLetter => {
+                        if (seatLetter === 'AISLE') {
+                            const aisle = document.createElement('div');
+                            aisle.className = 'aisle';
+                            rowDiv.appendChild(aisle);
+                        } else if (seatLetter === 'GAP') {
+                            // Empty space for layout alignment (Row 65/66 on 787-8)
+                             const gap = document.createElement('div');
+                             gap.className = 'seat'; 
+                             gap.style.visibility = 'hidden';
+                             gap.style.border = 'none'; // Ensure no border shows
+                             gap.style.backgroundColor = 'transparent';
+                             rowDiv.appendChild(gap);
+                        } else {
+                            const seatEl = createSeat(rowNum, seatLetter, section.type, variant);
+                            rowDiv.appendChild(seatEl);
+                        }
+                    });
+
+                    // Row Number (Right)
+                    const rowLabelR = document.createElement('div');
+                    rowLabelR.className = 'w-4 text-[9px] text-gray-400 flex items-center justify-center ml-1';
+                    rowLabelR.innerText = rowNum;
+                    rowDiv.appendChild(rowLabelR);
+
+                    container.appendChild(rowDiv);
+                });
+            });
+        }
+
+        function getSeatLetters(layout) {
+            // Standard Letters
+            // 1-2-1: A - DG - K
+            // 2-3-2: AC - DFG - HK
+            // 3-3-3: ABC - DFG - HJK
+            // x-3-x: GAP GAP GAP - DFG - GAP GAP GAP
+            
+            if (layout === '1-2-1') return ['A', 'AISLE', 'D', 'G', 'AISLE', 'K'];
+            if (layout === '2-3-2') return ['A', 'C', 'AISLE', 'D', 'F', 'G', 'AISLE', 'H', 'K'];
+            if (layout === '3-3-3') return ['A', 'B', 'C', 'AISLE', 'D', 'F', 'G', 'AISLE', 'H', 'J', 'K'];
+            
+            if (layout === 'x-3-x') return ['GAP', 'GAP', 'GAP', 'AISLE', 'D', 'F', 'G', 'AISLE', 'GAP', 'GAP', 'GAP'];
+            
+            return [];
+        }
+
+        function createSeat(row, letter, cabin, variant) {
+            const seatId = `${row}${letter}`;
+            const el = document.createElement('div');
+            el.className = `seat transition-all border-b-4 `;
+            el.innerText = letter;
+
+            // Base Color and Price
+            let baseClass = COLORS[cabin];
+            let price = PRICES[cabin];
+            let note = cabin.replace('_', ' ');
+
+            const data = FLEET[variant];
+            const isCheapRow = data.cheapRows.includes(row);
+            const isPreferredRow = data.preferred.rows.includes(row);
+            const isPreferredSeat = data.preferred.seats.includes(seatId);
+
+            let isSpecial = false;
+            let isBad = false;
+
+            // --- PRICING & SPECIAL SEAT LOGIC ---
+
+            if (cabin === 'ECONOMY') {
+                // Cheap Seats (Last 5 rows, Middles: B, F, J)
+                if (isCheapRow && (letter === 'B' || letter === 'F' || letter === 'J')) {
+                    price = PRICES.ECO_CHEAP;
+                    note = "Eco (Saver - Middle)";
+                }
+                // Preferred / XL Legroom
+                else if (isPreferredRow || isPreferredSeat) {
+                    price = PRICES.ECO_PREFERRED;
+                    note = "Eco Preferred/XL";
+                    // Special visual highlight for Preferred seats
+                    baseClass = "bg-red-600 border-red-500 text-white border-2 border-yellow-300"; 
+                    isSpecial = true;
+                }
+            }
+
+            // Front row of any cabin gets visual legroom
+            if ([1, 11, 19, 37, 53].includes(row)) {
+                el.style.marginBottom = '12px';
+            }
+
+            el.className += ` ${baseClass}`;
+
+            // --- BAD SEAT LOGIC (Near Toilets/Galley) ---
+
+            const currentBad = {
+                '787-8': { peTailRow: 42, tailRow: 66 },
+                '787-9': { peTailRow: 43, tailRow: 70 },
+                '787-10': { peTailRow: 43, tailRow: 72 }
+            }[variant];
+
+            if (
+                // Last row of Business (all seats)
+                row === 26 ||
+                // Last row of Premium Economy (all seats)
+                row === currentBad.peTailRow ||
+                // Last row of Economy (all seats)
+                row === currentBad.tailRow
+            ) {
+                isBad = true;
+                note = (note.includes('Saver') ? note : 'Eco') + ', Near Galley/Lavatory';
+            } else if (
+                // Seats nearest the forward exits/toilets (Rows 2, 11)
+                (row === 2 || row === 11) && (letter === 'A' || letter === 'K')
+            ) {
+                isBad = true;
+                note = (note.includes('Preferred') ? note : 'Seat') + ', Near Lavatory/Exit';
+            }
+
+
+            // --- RANDOM OCCUPANCY ---
+
+            // 20% Occupied
+            if (Math.random() < 0.20) {
+                el.classList.add('occupied');
+                el.title = "Occupied";
+                return el;
+            }
+
+            // Data Attributes for Click Event
+            el.dataset.id = seatId;
+            el.dataset.price = price;
+            el.dataset.note = note;
+            el.dataset.isSpecial = isSpecial;
+            el.dataset.isBad = isBad;
+
+            el.onclick = () => selectSeat(el);
+
+            return el;
+        }
+
+        function selectSeat(el) {
+            if (el.classList.contains('occupied')) return;
+
+            if (selectedSeatEl) {
+                selectedSeatEl.classList.remove('selected');
+            }
+
+            el.classList.add('selected');
+            selectedSeatEl = el;
+
+            const panel = document.getElementById('booking-panel');
+            panel.classList.remove('hidden');
+            
+            document.getElementById('seat-id').innerText = el.dataset.id;
+            document.getElementById('seat-class').innerText = el.dataset.note;
+            document.getElementById('seat-price').innerText = `£${el.dataset.price}`;
+            
+            // Features
+            const featContainer = document.getElementById('seat-features');
+            featContainer.innerHTML = '';
+
+            if (el.dataset.isSpecial === 'true') {
+                const badge = document.createElement('div');
+                badge.className = 'px-2 py-1 rounded text-xs font-bold good-seat-badge flex items-center';
+                badge.innerHTML = `<div class="w-2 h-2 rounded-full bg-purple-600 mr-2"></div> Preferred Seat`;
+                featContainer.appendChild(badge);
+            }
+
+            if (el.dataset.isBad === 'true') {
+                const badge = document.createElement('div');
+                badge.className = 'px-2 py-1 rounded text-xs font-bold bad-seat-badge flex items-center';
+                badge.innerHTML = `<div class="w-2 h-2 rounded-full bg-blue-600 mr-2"></div> Bad Seat/Noise`;
+                featContainer.appendChild(badge);
+            }
+
+            if (el.dataset.isSpecial === 'false' && el.dataset.isBad === 'false') {
+                 const badge = document.createElement('div');
+                badge.className = 'px-2 py-1 rounded text-xs font-bold bg-gray-100 text-gray-600 border border-gray-200';
+                badge.innerText = "Standard Seat";
+                featContainer.appendChild(badge);
+            }
+        }
+
+        // Initialize
+        loadMap('787-8');
+
+    </script>
+</body>
+</html>
