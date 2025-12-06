@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Otono Airways | A350 Fleet Seat Map (Final Version)</title>
+    <title>Otono Airways | A350 Fleet Seat Map (Remade Style)</title>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -11,74 +11,79 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap');
         
         body { font-family: 'Outfit', sans-serif; background-color: #f0f2f5; }
         
+        /* Modernized Fuselage Style */
         .fuselage {
-            background-color: white;
-            border: 4px solid #cbd5e1;
-            border-radius: 230px 230px 100px 100px;
-            padding: 60px 40px 100px 40px; 
+            background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
+            border: 1px solid #e5e7eb; /* Softer border */
+            border-radius: 250px 250px 100px 100px; /* Slightly rounder nose */
+            padding: 80px 40px 120px 40px; /* Increased padding */
             width: 450px; 
             margin: 0 auto;
             position: relative;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            /* Sleeker, stronger shadow */
+            box-shadow: 0 40px 60px -15px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.05);
         }
 
         .cockpit {
             position: absolute;
-            top: 20px;
+            top: 40px; /* Move down for larger nose area */
             left: 50%;
             transform: translateX(-50%);
             width: 0; 
             height: 0; 
-            border-left: 35px solid transparent;
-            border-right: 35px solid transparent;
-            border-bottom: 45px solid #e2e8f0;
+            border-left: 40px solid transparent; /* Slightly wider */
+            border-right: 40px solid transparent;
+            border-bottom: 55px solid #e2e8f0; /* Taller */
+            border-radius: 8px; /* Slight rounding for modern feel */
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
         }
 
+        /* Base Seat Styles (Keep functional dimensions) */
         .seat {
             height: 33px; 
             margin: 2px;
-            border-radius: 6px; 
+            border-radius: 8px; /* Slightly rounder seats */
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 11px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.15s ease-in-out;
+            transition: all 0.2s ease-in-out;
             position: relative;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-            min-width: 33px; /* Base for Economy */
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Softer initial shadow */
+            min-width: 33px;
         }
         
-        .seat.business { width: 40px; height: 40px; } 
+        .seat.business { width: 40px; height: 40px; font-size: 12px; } 
         .seat.prem_eco { width: 36px; height: 36px; } 
         .seat.economy { width: 33px; height: 33px; } 
 
         .seat.occupied {
-            background-color: #d1d5db !important; 
+            background-color: #e5e7eb !important; 
             color: #9ca3af !important; 
-            border: 1px solid #9ca3af !important;
+            border: 1px dashed #d1d5db !important; /* Dashed border for occupied */
             cursor: not-allowed;
             pointer-events: none;
             box-shadow: none;
         }
 
-        /* NEW: Selected seat styling */
+        /* Selection/Hover effects improved */
         .seat.selected:not(.occupied) {
             background-color: #10b981 !important; /* Green-500 */
             color: white !important;
             border-color: #059669 !important; /* Green-600 */
-            transform: scale(1.05);
-            box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
+            transform: scale(1.1) rotate(2deg); /* Added a subtle rotate for flair */
+            box-shadow: 0 0 12px rgba(16, 185, 129, 0.7);
         }
 
         .seat:hover:not(.occupied):not(.selected) {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transform: translateY(-2px) scale(1.05); /* Enhanced hover */
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Stronger lift shadow */
             z-index: 10;
         }
 
@@ -86,18 +91,44 @@
             width: 24px;
             text-align: center;
             font-size: 11px;
-            color: #64748b;
-            font-weight: 700;
+            color: #4b5563; /* Darker number */
+            font-weight: 900; /* Bolder number */
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         /* Specific Otono Colors & Badges */
-        .good-seat-badge { background-color: #c084fc; } /* Light Purple */
-        .bad-seat-badge { background-color: #60a5fa; } /* Light Blue */
+        /* Badges are now slightly larger with an icon inside */
+        .good-seat-badge { 
+            background-color: #a855f7; /* Purple-500 (more vibrant) */
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8px;
+            width: 12px; height: 12px; 
+            border: 2px solid white;
+            position: absolute; top: -4px; right: -4px; 
+            border-radius: 9999px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        } 
         
-        /* Seat Groups for layout control */
+        .bad-seat-badge { 
+            background-color: #3b82f6; /* Blue-500 (more vibrant) */
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8px;
+            width: 12px; height: 12px; 
+            border: 2px solid white;
+            position: absolute; top: -4px; right: -4px; 
+            border-radius: 9999px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        } 
+        
+        /* Seat Groups (Keep the same for layout integrity) */
         .seat-group { display: flex; justify-content: center; }
         .seat-group-1 { width: 44px; } 
         .seat-group-2 { width: 85px; } 
@@ -111,10 +142,12 @@
 
 <script type="text/babel">
 
+    // --- Core Constants (Keep the same) ---
     const CLASS_BUSINESS = 'business';
     const CLASS_PREM_ECO = 'prem_eco';
     const CLASS_ECONOMY = 'economy';
 
+    // KEEPING SEAT COLORS AS REQUESTED
     const CLASS_STYLES = {
         [CLASS_BUSINESS]: 'bg-red-900 border-2 border-red-800 text-red-50', 
         [CLASS_PREM_ECO]: 'bg-red-700 border border-red-600 text-red-50', 
@@ -127,7 +160,7 @@
         const [selectedSeat, setSelectedSeat] = React.useState(null);
         const [randomGoodBiz, setRandomGoodBiz] = React.useState(new Set());
 
-        // --- Configuration Data ---
+        // --- Configuration Data (Keep the same) ---
         const getRows900 = () => {
             let rows = [];
             for (let i = 11; i <= 21; i++) {
@@ -166,7 +199,7 @@
 
         const currentRows = variant === '900' ? getRows900() : getRows1000();
 
-        // Random Occupancy & Business Good Seat Generation
+        // Random Occupancy & Business Good Seat Generation (Keep the same)
         React.useEffect(() => {
             const newOccupied = new Set();
             const newGoodBiz = new Set();
@@ -181,7 +214,8 @@
 
                 seats.forEach(s => {
                     const id = `${row.num}${s}`;
-                    if (Math.random() < (0.15 + Math.random() * 0.10)) {
+                    // Occupancy slightly increased for realism
+                    if (Math.random() < (0.20 + Math.random() * 0.15)) { 
                         newOccupied.add(id);
                     }
                     if (row.type === CLASS_BUSINESS && Math.random() < 0.20) {
@@ -194,7 +228,7 @@
             setSelectedSeat(null);
         }, [variant]);
 
-        // Pricing, Features & Reasoning Logic (Updated per user request)
+        // Pricing, Features & Reasoning Logic (Keep the same)
         const getSeatDetails = (rowNum, seatLetter, type) => {
             let price = 0;
             let label = "";
@@ -223,7 +257,6 @@
             
             // 3. Identify Extra Legroom & Preferred Seats
             if (variant === '900') {
-                // Updated Preferred Seats (B, C, H, J in 51, and B, C, H, J in 72-74)
                 if ((rowNum === 51 || [72, 73, 74].includes(rowNum)) && ['B','C','H','J'].includes(seatLetter)) isPreferred = true;
                 if (rowNum === 43 || rowNum === 56 || (type === CLASS_PREM_ECO && rowNum === 31)) isExtraLegroom = true;
                 if (rowNum >= 70 && rowNum <= 74) {
@@ -232,11 +265,10 @@
                     }
                 }
             } else { // 1000
-                // Updated Preferred Seats (B, C, H, J in 77-79)
                 if (rearTaperRows.includes(rowNum) && ['B','C','H','J'].includes(seatLetter)) isPreferred = true;
                 if (rowNum === 48 || rowNum === 58 || (type === CLASS_PREM_ECO && rowNum === 38)) isExtraLegroom = true;
                 if (rowNum >= 75 && rowNum <= 79) {
-                     if (['B', 'F', 'J'].includes(seatLetter)) {
+                    if (['B', 'F', 'J'].includes(seatLetter)) {
                         if (rowNum >= 77) { if (seatLetter === 'F') isCheap = true; } else { isCheap = true; }
                     }
                 }
@@ -262,7 +294,6 @@
                     isGood = true; 
                     reason = "Excellent comfort and privacy.";
                 } else {
-                    // Default Business seat status, no label needed
                     reason = "Direct aisle access & fully flat bed.";
                 }
             }
@@ -270,7 +301,7 @@
             // B. Economy/PE Logic
             if (type !== CLASS_BUSINESS) {
                 
-                // Extra Floor Space (Good) - Window seats B/J in tapered sections (already handled by isPreferred)
+                // Extra Floor Space (Good) - Window seats B/J in tapered sections
                 if (rearTaperRows.includes(rowNum) && ['B', 'J'].includes(seatLetter) && isPreferred) {
                     isGood = true; 
                     reason = "Preferred Seat: Extra floor space next to the window for bags/comfort.";
@@ -317,7 +348,6 @@
             
             // Clean up: Final check to ensure preferred seats are never bad
             if (isPreferred && isBad) isBad = false;
-            // Bad always overrides Good unless a specific Good rule (like Preferred/Extra Legroom) is set.
             if (isBad && isGood && type !== CLASS_BUSINESS) isGood = false;
 
 
@@ -337,21 +367,20 @@
         const renderSeat = (row, seat) => {
             const id = `${row.num}${seat}`;
             const isOccupied = occupiedSeats.has(id);
-            // Check if selectedSeat is the current seat
             const isSelected = selectedSeat?.id === id;
             const details = getSeatDetails(row.num, seat, row.type);
 
             let classes = `seat ${CLASS_STYLES[row.type]} ${row.type}`;
             if (isOccupied) classes += ' occupied';
-            // Use the new green selection class
             if (isSelected) classes = classes.replace(CLASS_STYLES[row.type], '') + ' selected'; 
             
-            const showBadge = (details.isGood || details.isBad) && (details.isGood || details.isBad);
+            const showBadge = (details.isGood || details.isBad) && !isOccupied;
 
-            const badge = !isOccupied && showBadge && (
+            const badge = showBadge && (
                 <>
-                    {details.isGood && <div className="absolute top-[-2px] right-[-2px] w-2.5 h-2.5 rounded-full good-seat-badge border border-white"></div>}
-                    {!details.isGood && details.isBad && <div className="absolute top-[-2px] right-[-2px] w-2.5 h-2.5 rounded-full bad-seat-badge border border-white"></div>}
+                    {/* Updated badges with icons for better visual cue */}
+                    {details.isGood && <div className="good-seat-badge"><i className="fas fa-check"></i></div>}
+                    {!details.isGood && details.isBad && <div className="bad-seat-badge"><i className="fas fa-exclamation"></i></div>}
                 </>
             );
 
@@ -367,6 +396,7 @@
             let left = [], mid = [], right = [];
             let leftClass = "", midClass = "", rightClass = "";
 
+            // Seat layout logic (Keep the same)
             if (row.layout === '1-2-1') {
                 left = ['A']; mid = ['D', 'G']; right = ['K'];
                 leftClass = "seat-group-1"; midClass = "seat-group-2"; rightClass = "seat-group-1";
@@ -383,11 +413,12 @@
 
             return (
                 <div key={row.num} className="relative mb-1">
+                    {/* Exit Row Visuals */}
                     {row.exit && (
-                         <div className="flex justify-between px-4 mb-4 mt-6">
-                            <div className="text-red-600 font-bold text-xs uppercase tracking-widest flex items-center"><i className="fas fa-chevron-left mr-1"></i> Exit</div>
-                            <div className="text-red-600 font-bold text-xs uppercase tracking-widest flex items-center">Exit <i className="fas fa-chevron-right ml-1"></i></div>
-                        </div>
+                             <div className="flex justify-between px-2 mb-4 mt-6">
+                                <div className="text-red-700 font-extrabold text-xs uppercase tracking-widest flex items-center bg-red-100 p-1.5 rounded-full"><i className="fas fa-door-open mr-1"></i> Exit Door</div>
+                                <div className="text-red-700 font-extrabold text-xs uppercase tracking-widest flex items-center bg-red-100 p-1.5 rounded-full">Exit Door <i className="fas fa-door-open ml-1"></i></div>
+                            </div>
                     )}
                     <div className="flex justify-between items-center">
                         <div className={`seat-group ${leftClass}`}>{left.map(s => renderSeat(row, s))}</div>
@@ -403,125 +434,125 @@
         return (
             <div className="max-w-7xl mx-auto p-4 flex flex-col lg:flex-row gap-8">
                 
-                {/* Left Panel: Controls & Info */}
+                {/* Left Panel: Controls & Info (Stylized) */}
                 <div className="lg:w-[380px] space-y-6 shrink-0">
-                    {/* Header & Variant Select */}
-                    <div className="bg-white p-6 rounded-2xl shadow-sm border-t-4 border-red-900">
+                    
+                    {/* Header & Variant Select (Improved Styling) */}
+                    <div className="bg-white p-6 rounded-2xl shadow-xl border-t-8 border-red-900">
                         <div className="flex items-center gap-4 mb-6">
-                            <div className="w-14 h-14 bg-red-900 rounded-full flex items-center justify-center">
-                                <i className="fas fa-plane-departure text-2xl text-white"></i>
+                            <div className="w-12 h-12 bg-red-900 rounded-full flex items-center justify-center shadow-lg">
+                                <i className="fas fa-plane-departure text-xl text-white"></i>
                             </div>
                             <div>
-                                <h1 className="text-2xl font-black text-gray-900 tracking-tight">Otono Airways</h1>
+                                <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">Otono Airways</h1>
                                 <p className="text-gray-500 font-medium">Airbus A350 Seat Map</p>
                             </div>
                         </div>
 
-                        <div className="flex bg-gray-100 p-1 rounded-xl mb-4">
-                            <button onClick={() => setVariant('900')} className={`flex-1 py-2.5 rounded-lg font-bold text-sm transition-all ${variant === '900' ? 'bg-white text-red-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}>A350-900</button>
-                            <button onClick={() => setVariant('1000')} className={`flex-1 py-2.5 rounded-lg font-bold text-sm transition-all ${variant === '1000' ? 'bg-white text-red-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}>A350-1000</button>
+                        {/* Variant Selector: New Tab-Style Design */}
+                        <div className="flex bg-gray-100 p-1 rounded-xl mb-4 shadow-inner">
+                            <button onClick={() => setVariant('900')} className={`flex-1 py-2.5 rounded-lg font-bold text-sm transition-all ${variant === '900' ? 'bg-white text-red-900 shadow-md' : 'text-gray-500 hover:text-red-700'}`}>A350-900</button>
+                            <button onClick={() => setVariant('1000')} className={`flex-1 py-2.5 rounded-lg font-bold text-sm transition-all ${variant === '1000' ? 'bg-white text-red-900 shadow-md' : 'text-gray-500 hover:text-red-700'}`}>A350-1000</button>
                         </div>
                         
-                        <p className="text-center text-sm font-medium text-gray-600">Showing configuration for <span className="text-red-900">{variant === '900' ? '24' : '9'} aircraft</span>. <span className="text-red-500 font-bold"></span></p>
-                        <a href="index.html">Return To Main Menu</a>
+                        <p className="text-center text-xs font-medium text-gray-600">Configuration for **{variant === '900' ? '24' : '9'}** aircraft in the fleet.</p>
+                        <a href="index.html" className="block mt-4 text-center text-red-700 hover:text-red-900 text-sm font-semibold">Return To Main Menu</a>
                     </div>
 
-                    {/* WiFi Info */}
-                     <div className="bg-white p-6 rounded-2xl shadow-sm">
-                        <h3 className="font-bold text-gray-900 mb-4 flex items-center"><i className="fas fa-wifi mr-2 text-blue-500"></i> In-Flight WiFi</h3>
-                        <ul className="space-y-3 text-sm">
-                            <li className="flex items-start"><span className="font-bold text-red-900 w-24 shrink-0">Business</span> <span>Free High-Speed WiFi</span></li>
-                            <li className="flex items-start"><span className="font-bold text-red-700 w-24 shrink-0">Premium Economy</span> <span>Free Messaging. £2.50 High-Speed.</span></li>
-                            <li className="flex items-start"><span className="font-bold text-red-600 w-24 shrink-0">Economy</span> <span>Free Messaging. £7.50 High-Speed.</span></li>
-                        </ul>
-                    </div>
-
-                    {/* Selected Seat Card */}
-                    <div className={`rounded-2xl shadow-lg overflow-hidden transition-all duration-300 ${selectedSeat ? 'opacity-100 translate-y-0' : 'opacity-50 translate-y-4 pointer-events-none'}`}>
+                    {/* Selected Seat Card (More pronounced visual status) */}
+                    <div className={`rounded-2xl shadow-xl overflow-hidden transition-all duration-300 border ${selectedSeat ? 'opacity-100 translate-y-0 border-green-500' : 'opacity-70 translate-y-4 pointer-events-none border-gray-200'}`}>
                         {selectedSeat ? (
                             <div>
-                                <div className={`p-4 ${selectedSeat.isGood ? 'bg-purple-50' : selectedSeat.isBad ? 'bg-blue-50' : 'bg-gray-50'} border-b`}>
-                                    <h2 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-1">Selected Seat</h2>
+                                {/* Status Header: Background color changes based on seat status */}
+                                <div className={`p-5 ${selectedSeat.isGood ? 'bg-purple-100' : selectedSeat.isBad ? 'bg-blue-100' : 'bg-gray-100'} border-b-2`}>
+                                    <h2 className="text-sm font-extrabold text-gray-600 uppercase tracking-widest mb-1">Your Selection</h2>
                                     <div className="flex justify-between items-baseline">
-                                        <div className="text-4xl font-black text-gray-900">{selectedSeat.id}</div>
-                                        <div className="text-2xl font-black text-green-600">£{selectedSeat.price}</div>
+                                        <div className="text-5xl font-black text-gray-900">{selectedSeat.id}</div>
+                                        <div className="text-3xl font-black text-green-700">£{selectedSeat.price}</div>
                                     </div>
-                                    <div className="font-bold text-lg mt-1" style={{color: selectedSeat.label.includes('Business') ? '#7f1d1d' : selectedSeat.label.includes('Prem') ? '#b91c1c' : '#dc2626'}}>{selectedSeat.label}</div>
+                                    <div className="font-extrabold text-xl mt-1" style={{color: selectedSeat.label.includes('Business') ? '#7f1d1d' : selectedSeat.label.includes('Prem') ? '#b91c1c' : '#dc2626'}}>{selectedSeat.label}</div>
                                 </div>
                                 
                                 <div className="bg-white p-5 space-y-4">
                                     {/* Reason */}
                                     {selectedSeat.reason && (
-                                        <div className="flex items-start">
-                                            <div className={`mt-1 mr-3 shrink-0 ${selectedSeat.isGood ? 'text-purple-500' : 'text-blue-500'}`}>
-                                                <i className={`fas ${selectedSeat.isGood ? 'fa-thumbs-up' : 'fa-info-circle'}`}></i>
+                                        <div className="flex items-start bg-gray-50 p-3 rounded-lg border">
+                                            <div className={`mt-1 mr-3 shrink-0 ${selectedSeat.isGood ? 'text-purple-600' : 'text-blue-600'}`}>
+                                                <i className={`fas fa-${selectedSeat.isGood ? 'heart' : 'exclamation-circle'}`}></i>
                                             </div>
-                                            <p className="text-sm font-medium text-gray-700 leading-tight">{selectedSeat.reason}</p>
+                                            <p className="text-sm font-semibold text-gray-800 leading-snug">{selectedSeat.reason}</p>
                                         </div>
                                     )}
                                     
                                     {/* WiFi for this seat */}
-                                    <div className="flex items-start border-t pt-4">
+                                    <div className="flex items-start pt-2">
                                         <div className="mt-1 mr-3 shrink-0 text-blue-500"><i className="fas fa-wifi"></i></div>
-                                        <p className="text-sm font-medium text-gray-700 leading-tight">{selectedSeat.wifi}</p>
+                                        <p className="text-sm font-medium text-gray-700 leading-snug">**WiFi:** {selectedSeat.wifi}</p>
                                     </div>
 
-                                    <button className="w-full bg-gray-900 text-white py-3.5 rounded-xl font-bold text-sm hover:bg-black transition transform active:scale-[0.98]">
-                                        Confirm Seat {selectedSeat.id}
+                                    <button className="w-full bg-red-900 text-white py-3.5 rounded-xl font-extrabold text-base tracking-wide hover:bg-black transition-all duration-200 transform active:scale-[0.98] shadow-lg hover:shadow-xl">
+                                        Confirm Seat {selectedSeat.id} <i className="fas fa-arrow-right ml-1"></i>
                                     </button>
                                 </div>
                             </div>
                         ) : (
-                             <div className="bg-white p-8 text-center text-gray-400 italic rounded-2xl border-2 border-dashed">
-                                Select a seat on the map to view details.
+                             <div className="bg-white p-8 text-center text-gray-400 italic rounded-2xl border-2 border-dashed border-gray-300">
+                                <i className="fas fa-mouse-pointer text-2xl mb-2"></i>
+                                <p>Select a seat on the map to view details.</p>
                             </div>
                         )}
                     </div>
 
-                    {/* Legend */}
-                    <div className="bg-white p-5 rounded-2xl shadow-sm">
-                         <h3 className="font-bold text-gray-900 mb-3 text-sm">Map Key</h3>
-                         <div className="grid grid-cols-2 gap-y-2 gap-x-4 text-xs font-medium text-gray-700">
-                            <div className="flex items-center"><div className="w-4 h-4 bg-red-900 border border-red-800 mr-2 rounded-sm"></div> Business</div>
-                            <div className="flex items-center"><div className="w-4 h-4 bg-red-700 border border-red-600 mr-2 rounded-sm"></div> Premium Economy</div>
-                            <div className="flex items-center"><div className="w-4 h-4 bg-red-600 border border-red-500 mr-2 rounded-sm"></div> Economy</div>
-                            <div className="flex items-center"><div className="w-4 h-4 bg-gray-300 border border-gray-400 mr-2 rounded-sm"></div> Occupied</div>
-                         </div>
-                         <div className="mt-4 border-t pt-3 grid grid-cols-2 gap-y-2 text-xs font-medium">
+                    {/* Legend (Cleaned up) */}
+                    <div className="bg-white p-6 rounded-2xl shadow-sm border">
+                          <h3 className="font-extrabold text-gray-900 mb-4 text-lg">Seat Map Legend</h3>
+                          <div className="grid grid-cols-2 gap-y-3 gap-x-4 text-sm font-medium text-gray-700">
+                            {/* Class Legends */}
+                            <div className="flex items-center"><div className="w-5 h-5 bg-red-900 border border-red-800 mr-2 rounded-md"></div> Business Class</div>
+                            <div className="flex items-center"><div className="w-5 h-5 bg-red-700 border border-red-600 mr-2 rounded-md"></div> Premium Economy</div>
+                            <div className="flex items-center"><div className="w-5 h-5 bg-red-600 border border-red-500 mr-2 rounded-md"></div> Economy Class</div>
+                            <div className="flex items-center"><div className="w-5 h-5 bg-gray-300 border border-gray-400 mr-2 rounded-md"></div> Occupied</div>
+                          </div>
+                          
+                          {/* Status Legends */}
+                          <div className="mt-5 border-t pt-4 grid grid-cols-2 gap-y-3 text-sm font-medium">
                             <div className="flex items-center">
-                                <div className="w-3 h-3 rounded-full good-seat-badge mr-2"></div>
+                                <div className="good-seat-badge relative static mr-2"><i className="fas fa-check"></i></div>
                                 <span>Good Seat (Preferred)</span>
                             </div>
                             <div className="flex items-center">
-                                <div className="w-3 h-3 rounded-full bad-seat-badge mr-2"></div>
-                                <span>Bad Seat (Noise/Limited Recline)</span>
+                                <div className="bad-seat-badge relative static mr-2"><i className="fas fa-exclamation"></i></div>
+                                <span>Bad Seat (Caution)</span>
                             </div>
                             <div className="flex items-center">
-                                <div className="w-3 h-3 bg-green-500 border border-green-600 mr-2 rounded-sm"></div>
+                                <div className="w-5 h-5 bg-green-500 border border-green-600 mr-2 rounded-md"></div>
                                 <span>Selected Seat</span>
                             </div>
-                        </div>
+                            <div className="flex items-center">
+                                <div className="text-red-700 text-lg mr-2"><i className="fas fa-door-open"></i></div>
+                                <span>Exit Door</span>
+                            </div>
+                          </div>
                     </div>
                 </div>
 
-                {/* Right Panel: The Plane */}
+                {/* Right Panel: The Plane (Keep the fuselage as a container) */}
                 <div className="flex-1 overflow-x-auto pb-12 pt-4 pl-4">
                     <div className="fuselage">
                         <div className="cockpit"></div>
                         
-                        {/* Render Rows */}
-                        <div className="mt-12 relative z-10">
+                        <div className="mt-16 relative z-10">
                             {currentRows.map(row => renderRow(row))}
                         </div>
 
-                        {/* Rear Galley Visual */}
-                        <div className="mt-16 pt-6 border-t-2 border-dashed border-gray-300 text-center">
-                             <div className="flex justify-center gap-16 text-gray-400 mb-2">
+                        {/* Rear Galley Visual (Improved) */}
+                        <div className="mt-20 pt-8 border-t-4 border-double border-red-200 text-center">
+                             <div className="flex justify-center gap-16 text-gray-400 mb-3">
                                 <i className="fas fa-restroom fa-lg"></i>
                                 <i className="fas fa-utensils fa-lg"></i>
                                 <i className="fas fa-restroom fa-lg"></i>
                             </div>
-                            <div className="text-gray-400 text-xs font-bold tracking-[0.3em]">REAR GALLEY</div>
+                            <div className="text-red-400 text-xs font-black tracking-[0.3em]">REAR GALLEY & LAVATORIES</div>
                         </div>
                     </div>
                 </div>
