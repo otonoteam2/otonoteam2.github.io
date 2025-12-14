@@ -207,11 +207,11 @@
                         <span class="font-mono text-white">£4,500</span>
                     </div>
                     <div class="flex items-center justify-between">
-                        <div class="flex items-center"><div class="w-4 h-4 rounded mr-2 bg-red-700 border border-red-500"></div> Premium Economy (XL/Preferred)</div>
+                        <div class="flex items-center"><div class="w-4 h-4 rounded mr-2 bg-red-700 border border-red-500"></div> Prem. Eco (XL/Preferred)</div>
                         <span class="font-mono text-white">£2,600</span>
                     </div>
                     <div class="flex items-center justify-between">
-                        <div class="flex items-center"><div class="w-4 h-4 rounded mr-2 bg-red-700 border border-red-500"></div> Premium Economy (Standard)</div>
+                        <div class="flex items-center"><div class="w-4 h-4 rounded mr-2 bg-red-700 border border-red-500"></div> Prem. Eco (Standard)</div>
                         <span class="font-mono text-white">£2,300</span>
                     </div>
                     <div class="flex items-center justify-between">
@@ -294,7 +294,7 @@
             ECONOMY: 1900,
             PREFERRED_PE: 2600, 
             PREFERRED_ECO: 2150, 
-            BAD: 0 // Price is set to standard, only the note changes
+            BAD: 0 
         };
 
         // Helper
@@ -311,7 +311,7 @@
                 modelName: 'A340-500 (48 Business Seats)',
                 map: [
                     { type: 'DOOR', label: 'EXIT / GALLEY' },
-                    { type: 'FIRST', rows: [4, 5], layout: '1-1-1' }, // 6 Seats total (2 rows)
+                    { type: 'FIRST', rows: [4, 5], layout: '1-1-1' }, // 6 Seats total (2 rows) - FIX IS HERE
                     { type: 'DOOR', label: 'GALLEY / CREW REST' },
                     { type: 'BUSINESS', rows: [11, 12].concat(range(15, 24)), layout: '1-2-1' }, 
                     { type: 'DOOR', label: 'EXIT / GALLEY' },
@@ -328,7 +328,7 @@
                 map: [
                     { type: 'OTONO_ONE', rows: [1], layout: '1-1' }, // 2 Suites
                     { type: 'DOOR', label: 'EXIT / GALLEY' },
-                    { type: 'FIRST', rows: [4, 5], layout: '1-1-1' }, // 6 Seats total
+                    { type: 'FIRST', rows: [4, 5], layout: '1-1-1' }, // 6 Seats total - FIX IS HERE
                     { type: 'DOOR', label: 'GALLEY / CREW REST' },
                     { type: 'BUSINESS', rows: [11, 12].concat(range(15, 28)), layout: '1-2-1' }, 
                     { type: 'DOOR', label: 'EXIT / GALLEY' },
@@ -347,7 +347,7 @@
 
         function getSeatLetters(layout) {
             if (layout === '1-1') return ['A', 'K']; 
-            if (layout === '1-1-1') return ['A', 'F', 'K']; 
+            if (layout === '1-1-1') return ['A', 'F', 'K']; // Corrected for 1-1-1
             if (layout === '1-2-1') return ['A', 'D', 'G', 'K']; 
             if (layout === '2-3-2') return ['A', 'C', 'D', 'F', 'G', 'H', 'K'];
             if (layout === '2-4-2') return ['A', 'C', 'D', 'E', 'F', 'G', 'H', 'K'];
@@ -388,8 +388,7 @@
             // 3. Aft Couple/Quiet Seats (Economy)
             const isAftEco = (variant === '340-500' && row >= 51 && row <= 52) || (variant === '340-600' && row >= 66 && row <= 68);
             if (isAftEco && cabin === 'ECONOMY') {
-                // We'll let the createSeat function handle the letter check for A/C/H/K
-                isPreferred = true; // Mark as preferred
+                isPreferred = true; 
                 price = PRICES.PREFERRED_ECO;
                 note = "Economy Preferred (Quiet Aft Pair)";
                 baseClass = CLASS_COLORS.ECONOMY + " border-2 border-yellow-300";
@@ -398,10 +397,9 @@
             // 4. BAD SEATS
             if (data.badRows.includes(row)) {
                 isBad = true;
-                if (!isPreferred) { // Don't override Preferred note, just add badge
+                if (!isPreferred) { 
                      note = cabin.replace('_', ' ') + " (High Traffic/Limited Recline)";
                 }
-                // Price remains standard unless it's a preferred seat
             }
             
             return { price, note, isPreferred, isBad, baseClass };
@@ -421,7 +419,7 @@
             // OTONO ONE VISUAL
             if (cabin === 'OTONO_ONE') {
                 el.classList.add('otono-one-seat');
-                el.innerText = "S" + letter; // Suite A or K
+                el.innerText = "S" + letter; 
                 el.style.borderBottomWidth = '6px'; 
             }
             
@@ -436,10 +434,9 @@
                 if (!['A', 'C', 'H', 'K'].includes(letter)) {
                      // If it's D, E, F, G in the tail, reset preferred status
                      if (isPreferred) {
-                         // Recalculate based on non-preferred status
                          const standardData = getSeatData(row, cabin, variant);
                          finalClass = standardData.baseClass;
-                         el.dataset.note = standardData.note; // Set back to standard eco
+                         el.dataset.note = standardData.note; 
                      }
                 }
             }
@@ -497,7 +494,7 @@
                         rowContainer.appendChild(gap);
                     }
                 } else if (layout === '1-1-1') { // First: A | Aisle | F | Aisle | K
-                    if (letter === 'A' || letter === 'F') { 
+                    if (letter === 'A' || letter === 'F') { // Aisle after A and F
                         const aisleEl = document.createElement('div');
                         aisleEl.className = 'aisle';
                         rowContainer.appendChild(aisleEl);
@@ -508,7 +505,7 @@
                         aisleEl.className = 'aisle';
                         rowContainer.appendChild(aisleEl);
                     }
-                } else if (layout === '2-3-2') { // Premium Economy: A C | Aisle | D F G | Aisle | H K
+                } else if (layout === '2-3-2') { // Prem Eco: A C | Aisle | D F G | Aisle | H K
                     if (letter === 'C' || letter === 'G') {
                         const aisleEl = document.createElement('div');
                         aisleEl.className = 'aisle';
@@ -609,7 +606,7 @@
 
             const data = FLEET[variant];
             document.getElementById('plane-model-label').innerText = data.modelName;
-            document.getElementById('fleet-count').innerText = variant === '340-600' ? 'A340-600 | 4 in service | Otono One Suites' : 'A340-500 | 2 in service';
+            document.getElementById('fleet-count').innerText = variant === '340-600' ? '4x A340-600 | Otono One Suites' : '2x A340-500';
 
             document.getElementById('booking-panel').classList.add('hidden');
             if(selectedSeatEl) selectedSeatEl.classList.remove('selected');
