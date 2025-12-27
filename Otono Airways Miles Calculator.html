@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Otono Airways Miles Calculator</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: "Segoe UI", Arial, sans-serif;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #7b1fa2, #b71c1c);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .card {
+        width: 580px;
+        background: white;
+        border-radius: 18px;
+        padding: 26px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+    }
+
+    h2 {
+        text-align: center;
+        color: #7b1fa2;
+        margin-bottom: 6px;
+    }
+
+    .subtitle {
+        text-align: center;
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 22px;
+    }
+
+    label {
+        font-weight: 600;
+        margin-top: 14px;
+        display: block;
+    }
+
+    select, button {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        margin-top: 6px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+    }
+
+    button {
+        margin-top: 22px;
+        background: linear-gradient(90deg, #7b1fa2, #b71c1c);
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .result {
+        margin-top: 22px;
+        padding: 16px;
+        border-radius: 12px;
+        background: #f3effb;
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .error {
+        background: #ffe5e5;
+        color: #b71c1c;
+        font-weight: bold;
+    }
+
+    .small {
+        font-size: 13px;
+        text-align: center;
+        color: #666;
+        margin-top: 10px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h2>✈️ Otono Airways</h2>
+    <div class="subtitle">Miles Calculator · Long-haul only (No Europe routes)</div>
+
+    <label>From</label>
+    <select id="from">
+        <option value="LHR">London (LHR)</option>
+        <option value="JFK">New York (JFK)</option>
+        <option value="LAX">Los Angeles (LAX)</option>
+        <option value="MIA">Miami (MIA)</option>
+        <option value="DXB">Dubai (DXB)</option>
+        <option value="HKG">Hong Kong (HKG)</option>
+        <option value="SIN">Singapore (SIN)</option>
+        <option value="BKK">Bangkok (BKK)</option>
+        <option value="HND">Tokyo Haneda (HND)</option>
+        <option value="SYD">Sydney (SYD)</option>
+        <option value="HNL">Honolulu (HNL)</option>
+    </select>
+
+    <label>To</label>
+    <select id="to">
+        <option value="LHR">London (LHR)</option>
+        <option value="JFK">New York (JFK)</option>
+        <option value="LAX">Los Angeles (LAX)</option>
+        <option value="MIA">Miami (MIA)</option>
+        <option value="DXB">Dubai (DXB)</option>
+        <option value="HKG">Hong Kong (HKG)</option>
+        <option value="SIN">Singapore (SIN)</option>
+        <option value="BKK">Bangkok (BKK)</option>
+        <option value="HND">Tokyo Haneda (HND)</option>
+        <option value="SYD">Sydney (SYD)</option>
+        <option value="HNL">Honolulu (HNL)</option>
+    </select>
+
+    <label>Cabin Class</label>
+    <select id="cabin">
+        <option value="1.0">Economy (1.0×)</option>
+        <option value="1.1">Economy Extra Legroom (1.1×)</option>
+        <option value="1.33">Premium Economy (1.33×)</option>
+        <option value="1.4">Premium Economy Extra Legroom (1.4×)</option>
+        <option value="1.66">Business (1.66×)</option>
+        <option value="2.0">First Class (2.0×)</option>
+        <option value="2.5">Otono One (2.5×)</option>
+    </select>
+
+    <label>Membership Tier</label>
+    <select id="tier">
+        <option value="1.0">Bronze (+0%)</option>
+        <option value="1.1">Silver (+10%)</option>
+        <option value="1.25">Gold (+25%)</option>
+        <option value="1.5">Ruby (+50%)</option>
+        <option value="1.75">Amethyst (+75%)</option>
+    </select>
+
+    <button onclick="calculate()">Calculate Miles</button>
+
+    <div class="result" id="result">
+        Select a valid route to calculate miles
+    </div>
+
+    <div class="small">
+        Formula: Distance × Cabin Multiplier × Tier Bonus
+    </div>
+</div>
+
+<script>
+const routes = {
+    // London outbound & inbound
+    "LHR-JFK": 3450, "JFK-LHR": 3450,
+    "LHR-LAX": 5450, "LAX-LHR": 5450,
+    "LHR-MIA": 4400, "MIA-LHR": 4400,
+    "LHR-DXB": 3400, "DXB-LHR": 3400,
+    "LHR-HKG": 5990, "HKG-LHR": 5990,
+    "LHR-SIN": 6750, "SIN-LHR": 6750,
+    "LHR-BKK": 6200, "BKK-LHR": 6200,
+    "LHR-HND": 5950, "HND-LHR": 5950,
+    "LHR-SYD": 10590, "SYD-LHR": 10590, // via HKG
+    "LHR-HNL": 8000, "HNL-LHR": 8000,   // via LAX
+
+    // Non-London long-haul links
+    "HKG-SYD": 4600, "SYD-HKG": 4600,
+    "LAX-HNL": 2550, "HNL-LAX": 2550
+};
+
+function calculate() {
+    const from = document.getElementById("from").value;
+    const to = document.getElementById("to").value;
+    const key = from + "-" + to;
+    const box = document.getElementById("result");
+
+    if (!routes[key] || from === to) {
+        box.className = "result error";
+        box.innerHTML = "❌ Route not operated by Otono Airways";
+        return;
+    }
+
+    const distance = routes[key];
+    const cabin = parseFloat(document.getElementById("cabin").value);
+    const tier = parseFloat(document.getElementById("tier").value);
+
+    const miles = Math.round(distance * cabin * tier);
+
+    box.className = "result";
+    box.innerHTML = `🎉 You will earn <strong>${miles.toLocaleString()}</strong> miles`;
+}
+</script>
+
+</body>
+</html>
+<a href="index.html">Return To Main Menu</a>

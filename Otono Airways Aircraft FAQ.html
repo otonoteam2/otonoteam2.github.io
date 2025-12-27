@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Otono Airways – Aircraft & Fleet FAQ</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: linear-gradient(135deg, #5a2d82, #a0123a);
+        color: #fff;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: 50px auto;
+        background: rgba(0,0,0,0.35);
+        border-radius: 16px;
+        padding: 30px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    h2 {
+        text-align: center;
+        font-weight: normal;
+        opacity: 0.9;
+        margin-bottom: 30px;
+    }
+
+    select, button {
+        width: 100%;
+        padding: 14px;
+        font-size: 16px;
+        border-radius: 10px;
+        border: none;
+        margin-bottom: 15px;
+    }
+
+    select {
+        background: #fff;
+        color: #000;
+    }
+
+    button {
+        background: #ffcc00;
+        color: #000;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+    }
+
+    .answer-box {
+        margin-top: 25px;
+        padding: 20px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 12px;
+        min-height: 120px;
+        line-height: 1.6;
+        font-size: 17px;
+        white-space: pre-wrap;
+    }
+
+    .footer {
+        text-align: center;
+        margin-top: 25px;
+        font-size: 13px;
+        opacity: 0.7;
+    }
+</style>
+</head>
+
+<body>
+<div class="container">
+    <h1>✈️ Otono Airways</h1>
+    <h2>Aircraft & Fleet FAQ</h2>
+
+    <select id="questionSelect">
+        <option value="">Select your question…</option>
+
+        <option value="legroom">How much legroom do you get in Economy Class?</option>
+        <option value="777ten">Why is Otono Airways’ 777 still 10-abreast?</option>
+        <option value="expensive">Why is Otono Airways more expensive than other airlines?</option>
+        <option value="syd">Why does London–Sydney stop in Hong Kong?</option>
+        <option value="a380">Why is the A380 so important to Otono Airways?</option>
+        <option value="retire">Why does Otono still fly the A340 and 747?</option>
+        <option value="lounge">Why can everyone use the onboard lounge?</option>
+        <option value="showers">Why are showers First & Otono One only?</option>
+        <option value="737">Why doesn’t Otono Airways fly the Boeing 737?</option>
+        <option value="a350vs787">Why use both A350 and 787?</option>
+        <option value="moreA380">Will Otono Airways order more A380s?</option>
+        <option value="density">Why avoid ultra-dense Economy?</option>
+        <option value="nonstop">Why not fly everything nonstop?</option>
+        <option value="basic">Why no Basic Economy fares?</option>
+        <option value="trends">Why doesn’t Otono follow airline trends?</option>
+        <option value="future">Is the 777-9 replacing the A380?</option>
+    </select>
+
+    <button onclick="askChatGPT()">Ask ChatGPT</button>
+
+    <div class="answer-box" id="answerBox">
+        ✨ Select a question and press “Ask ChatGPT”.
+    </div>
+
+    <div class="footer">
+        Otono Airways · “NO MORE FEAR of economy class!”
+    </div>
+</div>
+
+<script>
+const answers = {
+    legroom: 
+`Short answer: a lot.
+
+Long answer: 34–35 inches of legroom on wide-body aircraft.
+That’s why people stop kicking your seat, and why we can still sleep after 14 hours.`,
+
+    "777ten": 
+`Yes, it’s 10-abreast.
+No, it’s not a crime.
+
+We use wider seats, generous pitch, and proper padding.
+Capacity without suffering — shocking concept, we know.`,
+
+    expensive: 
+`Because your ticket includes space, calm, lounges, and dignity.
+
+We price the experience.
+Other airlines price the seat number.`,
+
+    syd: 
+`Hong Kong gives better premium demand, smoother connections, and optimal crew rotation.
+
+Nonstop is cool.
+Arriving functional is cooler.`,
+
+    a380: 
+`The A380 *is* Otono Airways.
+
+Two decks, lounges, showers, Otono One, and calm cabins.
+It’s not just an aircraft — it’s the brand.`,
+
+    retire: 
+`They’re fully owned, well maintained, lounge-equipped, and iconic.
+
+We retire aircraft when something better replaces them — not just because Twitter says so.`,
+
+    lounge: 
+`Because movement matters on long flights.
+
+The lounge reduces congestion, improves wellbeing, and stops everyone hovering near the toilets.`,
+
+    showers: 
+`Showers require water, time slots, and crew management.
+
+Limiting access ensures they actually work — instead of becoming a 3-hour queue at 38,000 feet.`,
+
+    "737": 
+`We already have the A320 family.
+
+Adding the 737 would mean more training, more complexity, and zero benefit. Hard pass.`,
+
+    a350vs787: 
+`Different jobs, different aircraft.
+
+A350: premium comfort.
+787: efficiency and flexibility.
+
+One size never fits all.`,
+
+    moreA380: 
+`No new builds — but the current fleet is staying a long time.
+
+Refits > replacements.`,
+
+    density: 
+`Ultra-dense cabins increase stress, boarding chaos, and long-haul misery.
+
+We prefer humans to cattle.`,
+
+    nonstop: 
+`Nonstop isn’t always better.
+
+Crew fatigue rises, service drops, and recovery time suffers.
+Sometimes a stop improves the journey.`,
+
+    basic: 
+`Basic Economy creates tension, confusion, and fights over bags.
+
+One Economy product. Done properly.`,
+
+    trends: 
+`Trends come and go.
+
+We adopt things after they prove they won’t age badly in 3 years.`,
+
+    future: 
+`No.
+
+The 777-9 complements the A380.
+The A380 still rules the skies.`
+};
+
+function askChatGPT() {
+    const select = document.getElementById("questionSelect");
+    const answerBox = document.getElementById("answerBox");
+    const value = select.value;
+
+    if (!value) {
+        answerBox.textContent = "❌ Please select a question first.";
+        return;
+    }
+
+    answerBox.textContent = "🤖 ChatGPT is thinking…\n\nJust kidding — here’s your answer:\n\n" + answers[value];
+}
+</script>
+
+</body>
+</html>
