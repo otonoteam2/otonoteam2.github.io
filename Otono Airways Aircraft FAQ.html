@@ -15,17 +15,17 @@
     }
 
     .container {
-        max-width: 900px;
+        max-width: 950px;
         margin: 50px auto;
         background: rgba(0,0,0,0.35);
         border-radius: 16px;
-        padding: 30px;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+        padding: 32px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.45);
     }
 
     h1 {
         text-align: center;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
     }
 
     h2 {
@@ -64,10 +64,10 @@
 
     .answer-box {
         margin-top: 25px;
-        padding: 20px;
+        padding: 22px;
         background: rgba(255,255,255,0.1);
         border-radius: 12px;
-        min-height: 120px;
+        min-height: 140px;
         line-height: 1.6;
         font-size: 17px;
         white-space: pre-wrap;
@@ -85,27 +85,41 @@
 <body>
 <div class="container">
     <h1>✈️ Otono Airways</h1>
-    <h2>Aircraft & Fleet FAQ</h2>
+    <h2>Aircraft & Fleet FAQ — Ask ChatGPT</h2>
 
     <select id="questionSelect">
         <option value="">Select your question…</option>
 
+        <!-- Economy & comfort -->
         <option value="legroom">How much legroom do you get in Economy Class?</option>
+        <option value="economybetter">Why is Economy better than some airlines’ Premium?</option>
         <option value="777ten">Why is Otono Airways’ 777 still 10-abreast?</option>
-        <option value="expensive">Why is Otono Airways more expensive than other airlines?</option>
-        <option value="syd">Why does London–Sydney stop in Hong Kong?</option>
-        <option value="a380">Why is the A380 so important to Otono Airways?</option>
-        <option value="retire">Why does Otono still fly the A340 and 747?</option>
-        <option value="lounge">Why can everyone use the onboard lounge?</option>
-        <option value="showers">Why are showers First & Otono One only?</option>
-        <option value="737">Why doesn’t Otono Airways fly the Boeing 737?</option>
-        <option value="a350vs787">Why use both A350 and 787?</option>
-        <option value="moreA380">Will Otono Airways order more A380s?</option>
-        <option value="density">Why avoid ultra-dense Economy?</option>
-        <option value="nonstop">Why not fly everything nonstop?</option>
+        <option value="density">Why avoid ultra-high-density cabins?</option>
         <option value="basic">Why no Basic Economy fares?</option>
+
+        <!-- Pricing & routes -->
+        <option value="expensive">Why is Otono Airways more expensive?</option>
+        <option value="syd">Why does London–Sydney stop in Hong Kong?</option>
+        <option value="nonstop">Why not fly everything nonstop?</option>
+
+        <!-- A380 -->
+        <option value="a380">Why is the A380 so important?</option>
+        <option value="stillA380">Why still fly the A380?</option>
+        <option value="moreA380">Will Otono order more A380s?</option>
+        <option value="lounge">Why does every passenger get lounge access?</option>
+        <option value="showers">Why are showers First & Otono One only?</option>
+
+        <!-- Fleet decisions -->
+        <option value="737">Why no Boeing 737?</option>
+        <option value="a350vs787">Why use both A350 and 787?</option>
+        <option value="7779">Is the 777-9 replacing the A380?</option>
+        <option value="oldjets">Why keep the A340 and 747?</option>
+        <option value="registrations">Why are registrations grouped by aircraft type?</option>
+
+        <!-- Philosophy -->
         <option value="trends">Why doesn’t Otono follow airline trends?</option>
-        <option value="future">Is the 777-9 replacing the A380?</option>
+        <option value="luxury">Why avoid over-the-top luxury gimmicks?</option>
+        <option value="future">Will Economy ever get lie-flat seats?</option>
     </select>
 
     <button onclick="askChatGPT()">Ask ChatGPT</button>
@@ -121,97 +135,131 @@
 
 <script>
 const answers = {
-    legroom: 
-`Short answer: a lot.
+    legroom:
+`34–35 inches.
 
-Long answer: 34–35 inches of legroom on wide-body aircraft.
-That’s why people stop kicking your seat, and why we can still sleep after 14 hours.`,
+That’s why knees survive.
+That’s why backs survive.
+That’s why people arrive human.`,
 
-    "777ten": 
-`Yes, it’s 10-abreast.
-No, it’s not a crime.
+    economybetter:
+`Because space beats branding.
 
-We use wider seats, generous pitch, and proper padding.
-Capacity without suffering — shocking concept, we know.`,
+A calm, spacious Economy beats a cramped “Premium” seat every time.`,
 
-    expensive: 
-`Because your ticket includes space, calm, lounges, and dignity.
+    "777ten":
+`Yes, 10-abreast.
+No, not torture.
 
-We price the experience.
-Other airlines price the seat number.`,
+Wider seats + real pitch + proper padding.
+Capacity without cruelty.`,
 
-    syd: 
-`Hong Kong gives better premium demand, smoother connections, and optimal crew rotation.
+    density:
+`Ultra-dense cabins increase stress, noise, and chaos.
 
-Nonstop is cool.
-Arriving functional is cooler.`,
+We fly people, not spreadsheets.`,
 
-    a380: 
-`The A380 *is* Otono Airways.
+    basic:
+`Basic Economy causes confusion, gate drama, and silent rage.
 
-Two decks, lounges, showers, Otono One, and calm cabins.
-It’s not just an aircraft — it’s the brand.`,
+One Economy product.
+Done properly.`,
 
-    retire: 
-`They’re fully owned, well maintained, lounge-equipped, and iconic.
+    expensive:
+`You pay for space, calm, lounges, and dignity.
 
-We retire aircraft when something better replaces them — not just because Twitter says so.`,
+Cheap tickets are cheap for a reason.`,
 
-    lounge: 
-`Because movement matters on long flights.
+    syd:
+`Hong Kong offers better premium demand, smoother ops, and happier crews.
 
-The lounge reduces congestion, improves wellbeing, and stops everyone hovering near the toilets.`,
+Nonstop isn’t always smarter.`,
 
-    showers: 
-`Showers require water, time slots, and crew management.
+    nonstop:
+`Longer isn’t better if everyone is exhausted.
 
-Limiting access ensures they actually work — instead of becoming a 3-hour queue at 38,000 feet.`,
+Sometimes a stop improves the *whole* journey.`,
 
-    "737": 
-`We already have the A320 family.
+    a380:
+`Two decks.
+Lounges.
+Showers.
+Otono One.
 
-Adding the 737 would mean more training, more complexity, and zero benefit. Hard pass.`,
+The A380 *is* the airline.`,
 
-    a350vs787: 
-`Different jobs, different aircraft.
+    stillA380:
+`Because it still does the job better than anything else.
 
-A350: premium comfort.
-787: efficiency and flexibility.
+Simple.`,
 
-One size never fits all.`,
-
-    moreA380: 
-`No new builds — but the current fleet is staying a long time.
+    moreA380:
+`No new builds — but the current fleet isn’t going anywhere.
 
 Refits > replacements.`,
 
-    density: 
-`Ultra-dense cabins increase stress, boarding chaos, and long-haul misery.
+    lounge:
+`Movement matters on 12–18 hour flights.
 
-We prefer humans to cattle.`,
+The lounge reduces congestion and keeps people sane.`,
 
-    nonstop: 
-`Nonstop isn’t always better.
+    showers:
+`Water, time slots, crew logistics.
 
-Crew fatigue rises, service drops, and recovery time suffers.
-Sometimes a stop improves the journey.`,
+Limiting access keeps showers usable — not mythical.`,
 
-    basic: 
-`Basic Economy creates tension, confusion, and fights over bags.
+    "737":
+`The A320 family already exists.
 
-One Economy product. Done properly.`,
+Adding the 737 adds complexity and zero benefit.`,
 
-    trends: 
-`Trends come and go.
+    a350vs787:
+`Different aircraft for different missions.
 
-We adopt things after they prove they won’t age badly in 3 years.`,
+One fleet does not rule them all.`,
 
-    future: 
+    "7779":
+`No.
+It complements the A380.
+
+The king keeps the crown.`,
+
+    oldjets:
+`They’re owned, upgraded, lounge-equipped, and iconic.
+
+Age ≠ bad.
+Neglect ≠ allowed.`,
+
+    registrations:
+`Because engineers like order.
+
+And chaos is expensive.`,
+
+    trends:
+`Trends age badly.
+
+Comfort ages well.`,
+
+    luxury:
+`Real luxury is space, calm, and reliability.
+
+Not glitter.`,
+
+    future:
 `No.
 
-The 777-9 complements the A380.
-The A380 still rules the skies.`
+Economy comfort comes from space — not gimmicks.`
 };
+
+const thinkingMessages = [
+    "🤖 Consulting the aircraft engineers…",
+    "✈️ Checking cabin layouts…",
+    "📊 Ignoring bad airline trends…",
+    "🛫 Calculating legroom superiority…",
+    "☕ Crew is arguing about coffee first…"
+];
+
+let typingInterval;
 
 function askChatGPT() {
     const select = document.getElementById("questionSelect");
@@ -223,7 +271,23 @@ function askChatGPT() {
         return;
     }
 
-    answerBox.textContent = "🤖 ChatGPT is thinking…\n\nJust kidding — here’s your answer:\n\n" + answers[value];
+    clearInterval(typingInterval);
+    answerBox.textContent = thinkingMessages[Math.floor(Math.random() * thinkingMessages.length)];
+
+    setTimeout(() => {
+        typeText(answers[value], answerBox);
+    }, 900);
+}
+
+function typeText(text, element) {
+    element.textContent = "";
+    let index = 0;
+
+    typingInterval = setInterval(() => {
+        element.textContent += text.charAt(index);
+        index++;
+        if (index >= text.length) clearInterval(typingInterval);
+    }, 22);
 }
 </script>
 
