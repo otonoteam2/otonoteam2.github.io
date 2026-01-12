@@ -1,0 +1,1591 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!--
+    Otono Airways (fictional) — A380 Retirement Notice
+    Requirement targets:
+      - 600–900 lines of code (this file is intentionally verbose)
+      - No image insertion required
+      - ~40% red / ~60% purple visual balance
+      - Deep A380 detail + A380 vs 777 comparison
+      - "Why A380 is better" section
+      - Fake public FAQ including:
+          "Why is my A380 ticket still bookable after 31 February and it still displays Airbus A380?"
+  -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Otono Airways — A380 Retirement Notice (31st February 2026)</title>
+
+  <style>
+    :root
+    {
+      --bg: #0a050c;
+      --panel: rgba(255,255,255,.045);
+      --panel2: rgba(0,0,0,.20);
+      --line: rgba(255,255,255,.14);
+
+      /* 40% red / 60% purple */
+      --red: #ff2d55;
+      --redA: rgba(255,45,85,.10);
+      --redB: rgba(255,45,85,.22);
+      --redC: rgba(255,45,85,.34);
+
+      --purple: #7a3cff;
+      --purpleA: rgba(122,60,255,.12);
+      --purpleB: rgba(122,60,255,.22);
+      --purpleC: rgba(122,60,255,.34);
+
+      --gold: #ffd36a;
+      --text: #fff1f5;
+      --muted: #f0c8d6;
+      --muted2: #d8aaf0;
+
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
+      --radius: 18px;
+
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+
+    *
+    {
+      box-sizing: border-box;
+    }
+
+    body
+    {
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--text);
+      line-height: 1.55;
+      background:
+        radial-gradient(900px 520px at 12% 10%, var(--redC), transparent 60%),
+        radial-gradient(900px 520px at 88% 16%, var(--purpleC), transparent 60%),
+        radial-gradient(900px 520px at 60% 120%, rgba(255,211,106,.10), transparent 55%),
+        var(--bg);
+    }
+
+    a
+    {
+      color: inherit;
+      text-decoration: underline;
+      text-decoration-color: rgba(255,255,255,.25);
+      text-underline-offset: 3px;
+    }
+
+    a:hover
+    {
+      text-decoration-color: rgba(255,255,255,.55);
+    }
+
+    .wrap
+    {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 28px 18px 68px 18px;
+    }
+
+    .topbar
+    {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+
+      padding: 10px 14px;
+
+      border: 1px solid var(--line);
+      border-radius: 999px;
+
+      background: rgba(255,255,255,.05);
+      box-shadow: 0 12px 30px rgba(0,0,0,.35);
+    }
+
+    .brand
+    {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 900;
+      letter-spacing: .2px;
+    }
+
+    .dot
+    {
+      width: 12px;
+      height: 12px;
+      border-radius: 4px;
+      background: linear-gradient(135deg, var(--red), var(--purple));
+      box-shadow: 0 0 0 4px rgba(255,45,85,.20);
+    }
+
+    .badge
+    {
+      font-family: var(--mono);
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    header.hero
+    {
+      margin-top: 18px;
+      padding: 26px 18px;
+
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)),
+        linear-gradient(90deg, rgba(255,45,85,.16), rgba(122,60,255,.20));
+
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    header.hero::before
+    {
+      content: "";
+      position: absolute;
+      inset: -1px;
+
+      background:
+        radial-gradient(600px 280px at 15% 20%, rgba(255,45,85,.18), transparent 62%),
+        radial-gradient(520px 240px at 80% 12%, rgba(122,60,255,.24), transparent 62%),
+        radial-gradient(600px 280px at 78% 88%, rgba(255,211,106,.10), transparent 60%);
+
+      pointer-events: none;
+    }
+
+    header.hero > *
+    {
+      position: relative;
+      z-index: 1;
+    }
+
+    .kicker
+    {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: .2px;
+    }
+
+    .kicker span
+    {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.20);
+    }
+
+    h1
+    {
+      margin: 14px 0 8px 0;
+      font-size: clamp(28px, 4vw, 46px);
+      line-height: 1.1;
+      letter-spacing: -0.8px;
+    }
+
+    .glow
+    {
+      background: linear-gradient(90deg, var(--red), var(--purple));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .headline-date
+    {
+      display: inline-block;
+      margin-top: 10px;
+
+      padding: 6px 12px;
+      border-radius: 999px;
+
+      border: 1px solid rgba(255,255,255,.16);
+      background: linear-gradient(90deg, rgba(255,45,85,.38), rgba(122,60,255,.32));
+
+      font-family: var(--mono);
+      font-size: 14px;
+    }
+
+    .sub
+    {
+      margin: 10px 0 0 0;
+      max-width: 90ch;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .history-line
+    {
+      margin-top: 18px;
+
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.16);
+
+      background:
+        linear-gradient(90deg, rgba(255,45,85,.34), rgba(122,60,255,.32)),
+        rgba(255,255,255,.03);
+
+      box-shadow: 0 18px 45px rgba(0,0,0,.35);
+
+      padding: 16px 16px;
+
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .history-line strong
+    {
+      font-size: 18px;
+      letter-spacing: -0.2px;
+    }
+
+    .history-line .meta
+    {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: rgba(255,255,255,.85);
+      opacity: .95;
+    }
+
+    .pill
+    {
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.18);
+
+      padding: 6px 10px;
+      border-radius: 999px;
+
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    main
+    {
+      margin-top: 18px;
+
+      display: grid;
+      grid-template-columns: 1.35fr 0.65fr;
+      gap: 14px;
+    }
+
+    @media (max-width: 980px)
+    {
+      main
+      {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card
+    {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.04);
+      box-shadow: 0 16px 40px rgba(0,0,0,.33);
+      overflow: hidden;
+    }
+
+    .card .hd
+    {
+      padding: 14px 16px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+
+      border-bottom: 1px solid var(--line);
+
+      background:
+        linear-gradient(90deg, rgba(255,45,85,.14), rgba(122,60,255,.14));
+    }
+
+    .card .hd h2
+    {
+      margin: 0;
+      font-size: 16px;
+      letter-spacing: -0.2px;
+    }
+
+    .tag
+    {
+      font-family: var(--mono);
+      font-size: 12px;
+
+      padding: 4px 8px;
+      border-radius: 999px;
+
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.16);
+
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .card .bd
+    {
+      padding: 14px 16px;
+    }
+
+    .muted
+    {
+      color: var(--muted);
+    }
+
+    .small
+    {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .divider
+    {
+      height: 1px;
+      background: var(--line);
+      margin: 14px 0;
+    }
+
+    .grid2
+    {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    @media (max-width: 620px)
+    {
+      .grid2
+      {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .stat
+    {
+      padding: 12px;
+
+      border-radius: 14px;
+      border: 1px solid var(--line);
+
+      background: rgba(0,0,0,.20);
+    }
+
+    .stat .k
+    {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted2);
+    }
+
+    .stat .v
+    {
+      margin-top: 4px;
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .stat .s
+    {
+      margin-top: 4px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .timeline
+    {
+      position: relative;
+      padding-left: 14px;
+    }
+
+    .timeline::before
+    {
+      content: "";
+      position: absolute;
+      left: 5px;
+      top: 4px;
+      bottom: 4px;
+      width: 2px;
+      background: rgba(255,255,255,.12);
+    }
+
+    .event
+    {
+      position: relative;
+      margin: 10px 0;
+
+      padding: 10px 10px 10px 14px;
+
+      border: 1px solid var(--line);
+      border-radius: 14px;
+
+      background: rgba(0,0,0,.16);
+    }
+
+    .event::before
+    {
+      content: "";
+      position: absolute;
+      left: -3px;
+      top: 14px;
+
+      width: 12px;
+      height: 12px;
+      border-radius: 4px;
+
+      background: linear-gradient(135deg, var(--red), var(--purple));
+      box-shadow: 0 0 0 4px rgba(255,45,85,.18);
+    }
+
+    .event .date
+    {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted2);
+    }
+
+    .event .title
+    {
+      margin-top: 2px;
+      font-weight: 900;
+    }
+
+    .event .desc
+    {
+      margin-top: 4px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .callout
+    {
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.16);
+
+      background:
+        linear-gradient(180deg, rgba(255,45,85,.12), rgba(122,60,255,.10));
+
+      padding: 12px 12px;
+    }
+
+    .callout .t
+    {
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: -0.2px;
+    }
+
+    .featureGrid
+    {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    @media (max-width: 780px)
+    {
+      .featureGrid
+      {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .feature
+    {
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      border-radius: 14px;
+      padding: 12px;
+    }
+
+    .feature h3
+    {
+      margin: 0;
+      font-size: 14px;
+      letter-spacing: -0.2px;
+    }
+
+    .feature p
+    {
+      margin: 6px 0 0;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .hot
+    {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      margin-left: 8px;
+
+      padding: 3px 8px;
+      border-radius: 999px;
+
+      border: 1px solid rgba(255,255,255,.18);
+
+      background:
+        linear-gradient(90deg, rgba(255,45,85,.22), rgba(122,60,255,.18));
+
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    table
+    {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+
+      border-radius: 14px;
+      overflow: hidden;
+
+      border: 1px solid var(--line);
+    }
+
+    th,
+    td
+    {
+      padding: 10px 10px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+
+    th
+    {
+      text-align: left;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted2);
+      background: rgba(255,255,255,.05);
+      letter-spacing: .2px;
+    }
+
+    tr:last-child td
+    {
+      border-bottom: none;
+    }
+
+    .btnRow
+    {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    button
+    {
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.22);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-weight: 900;
+    }
+
+    button:hover
+    {
+      background: rgba(255,255,255,.08);
+    }
+
+    .note
+    {
+      margin-top: 10px;
+      min-height: 18px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted2);
+    }
+
+    .hidden
+    {
+      display: none;
+    }
+
+    .toc
+    {
+      display: grid;
+      gap: 8px;
+    }
+
+    .toc a
+    {
+      display: block;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      text-decoration: none;
+      font-weight: 800;
+    }
+
+    .toc a:hover
+    {
+      background: rgba(255,255,255,.06);
+    }
+
+    .searchBox
+    {
+      display: grid;
+      gap: 8px;
+    }
+
+    input[type="text"]
+    {
+      width: 100%;
+      padding: 12px 12px;
+
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.18);
+
+      background: rgba(0,0,0,.20);
+      color: var(--text);
+
+      font-family: var(--sans);
+      font-size: 14px;
+    }
+
+    input[type="text"]::placeholder
+    {
+      color: rgba(255,255,255,.55);
+    }
+
+    .faq
+    {
+      display: grid;
+      gap: 10px;
+    }
+
+    .faqItem
+    {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(0,0,0,.18);
+      overflow: hidden;
+    }
+
+    .faqQ
+    {
+      width: 100%;
+      text-align: left;
+
+      padding: 12px 12px;
+
+      background:
+        linear-gradient(90deg, rgba(255,45,85,.12), rgba(122,60,255,.12));
+
+      border: none;
+      color: var(--text);
+
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .faqQ:hover
+    {
+      filter: brightness(1.05);
+    }
+
+    .faqA
+    {
+      padding: 12px 12px;
+      color: var(--muted);
+      font-size: 13px;
+      border-top: 1px solid var(--line);
+    }
+
+    .pillMini
+    {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.18);
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .warn
+    {
+      color: var(--gold);
+      font-weight: 900;
+    }
+
+    .footer
+    {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+      opacity: .95;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <div class="topbar">
+      <div class="brand">
+        <div class="dot"></div>
+        <div>Otono Airways — A380 Programme</div>
+      </div>
+      <div class="badge">Public-facing page • With internal-level detail • 2026</div>
+    </div>
+
+    <header class="hero" id="top">
+      <div class="kicker">
+        <span>Fleet Notice</span>
+        <span>Airbus A380</span>
+        <span>First delivery: 2014</span>
+        <span class="pillMini">Read twice 👀</span>
+      </div>
+
+      <h1>
+        All Otono Airways A380s will retire on
+        <span class="glow">31st February 2026</span>
+      </h1>
+
+      <div class="headline-date">
+        RETIREMENT DATE: 31 FEB 2026 (yes, really)
+      </div>
+
+      <p class="sub">
+        Otono Airways operated <b>20 Airbus A380s in service pre-COVID</b>.
+        During COVID-19 only <b>7</b> A380s remained active.
+        The return-to-service programme rebuilt the fleet to <b>19 operational A380s</b> by late 2024.
+        One aircraft entered long-term hangar storage in <b>2022</b> and has <b>not returned to service so far</b>.
+        This notice references the <b>19 operational aircraft</b>.
+      </p>
+    </header>
+
+    <section class="history-line" aria-label="A380 history line">
+      <strong>HISTORY LINE:</strong>
+      <div class="meta">
+        2014 → 2026 • 12 years of the superjumbo era • from first delivery to “31st February” farewell
+      </div>
+      <div class="pill">First delivery: <b>2014</b></div>
+      <div class="pill">Pre-COVID in service: <b>20</b></div>
+      <div class="pill">Operational post-2022: <b>19</b></div>
+      <div class="pill">COVID low point active: <b>7</b></div>
+    </section>
+
+    <main>
+
+      <!-- LEFT COLUMN -->
+      <section class="card">
+        <div class="hd">
+          <h2 id="timeline">Fleet status & reactivation timeline</h2>
+          <span class="tag">A380 operations</span>
+        </div>
+        <div class="bd">
+
+          <div class="grid2">
+            <div class="stat">
+              <div class="k">Technically owned</div>
+              <div class="v">20 A380s</div>
+              <div class="s">All were in service pre-COVID. One entered long-term hangar storage in 2022 and remains inactive.</div>
+            </div>
+            <div class="stat">
+              <div class="k">Operational fleet</div>
+              <div class="v">19 A380s</div>
+              <div class="s">All serviceable aircraft reactivated by late 2024 (excluding the 2022 hangar aircraft).</div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="callout">
+            <div class="t">
+              Reactivation milestones
+              <span class="tag">exact counts</span>
+            </div>
+            <p class="small" style="margin:8px 0 0;">
+              The A380 programme was restored in waves—maintenance cycles, cabin readiness, crew currency,
+              route demand, and airport slot strategy all moved together.
+            </p>
+            <div class="timeline" aria-label="A380 reactivation timeline">
+              <div class="event">
+                <div class="date">2020–2021</div>
+                <div class="title">Minimum operations — 7 active</div>
+                <div class="desc">
+                  Only <b>7</b> A380s stayed active at the deepest point.
+                  The remainder were parked and preserved to enable later return without product degradation.
+                </div>
+              </div>
+
+              <div class="event">
+                <div class="date">Early 2023</div>
+                <div class="title">10 reactivated</div>
+                <div class="desc">
+                  Return-to-service begins at scale:
+                  heavy checks, cabin inspections, safety recertification, and crew training restore confidence and capacity.
+                </div>
+              </div>
+
+              <div class="event">
+                <div class="date">Mid 2023</div>
+                <div class="title">13 reactivated</div>
+                <div class="desc">
+                  Additional aircraft return as demand stabilises and routes expand.
+                  The A380 resumes core flagship duties on the highest-demand corridors.
+                </div>
+              </div>
+
+              <div class="event">
+                <div class="date">Early 2024</div>
+                <div class="title">17 reactivated</div>
+                <div class="desc">
+                  Near full recovery:
+                  premium-heavy upper deck returns to regular operation, with lounge and showers back as consistent features.
+                </div>
+              </div>
+
+              <div class="event">
+                <div class="date">Later 2024</div>
+                <div class="title">19 reactivated</div>
+                <div class="desc">
+                  Full serviceable fleet restored.
+                  The only exception remains the <b>2022 hangar aircraft</b>, which is inactive and not counted as “retired.”
+                </div>
+              </div>
+
+              <div class="event">
+                <div class="date">31st February 2026</div>
+                <div class="title">Fleet retirement notice</div>
+                <div class="desc">
+                  All operational A380s are announced for retirement on a date engineered to generate screenshots,
+                  double-takes, and “wait… what?” messages.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <p class="small">
+            <span class="warn">Definition:</span>
+            “Retire” in this notice refers to the <b>19 operational A380s</b>.
+            The aircraft in hangar storage since 2022 remains <b>owned</b> and <b>inactive</b>, and is <b>not counted as retired</b>.
+          </p>
+
+        </div>
+      </section>
+
+      <!-- RIGHT COLUMN -->
+      <aside class="card">
+        <div class="hd">
+          <h2 id="toc">Quick navigation</h2>
+          <span class="tag">jump to section</span>
+        </div>
+        <div class="bd">
+
+          <div class="toc" aria-label="Table of contents">
+            <a href="#a380detail">A380 product detail</a>
+            <a href="#features">Signature features</a>
+            <a href="#deck">Deck-by-deck layout</a>
+            <a href="#whybetter">Why the A380 feels better</a>
+            <a href="#compare">A380 vs 777 comparison</a>
+            <a href="#faq">Public FAQ</a>
+            <a href="#top">Back to top</a>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="stat">
+            <div class="k">Fleet note</div>
+            <div class="v">A380 retirement date</div>
+            <div class="s">
+              <b>31st February 2026</b> is intentionally attention-grabbing.
+              It’s a “read twice” line that makes the announcement go viral inside group chats.
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="btnRow">
+            <button type="button" id="copyHeadlineBtn">Copy headline</button>
+            <button type="button" id="toggleDeepBtn">Toggle extra detail</button>
+          </div>
+
+          <div class="note" id="copyNote" aria-live="polite"></div>
+
+        </div>
+      </aside>
+
+      <!-- FULL WIDTH SECTION: A380 DETAIL -->
+      <section class="card" style="grid-column:1 / -1;">
+        <div class="hd">
+          <h2 id="a380detail">A380 — Otono’s flagship in maximum detail</h2>
+          <span class="tag">477-seat configuration</span>
+        </div>
+        <div class="bd">
+
+          <p class="muted" style="margin-top:0;">
+            The Otono Airways A380 is engineered around one goal:
+            make the biggest passenger aircraft on Earth feel like a <b>calm, premium environment</b>
+            from the moment you board — including in Economy.
+          </p>
+
+          <div class="divider"></div>
+
+          <div class="grid2">
+            <div class="stat">
+              <div class="k">Total seats</div>
+              <div class="v">477</div>
+              <div class="s">5 cabins: Otono One • First • Business • Premium Economy • Economy</div>
+            </div>
+            <div class="stat">
+              <div class="k">Business Class</div>
+              <div class="v">72 flat beds</div>
+              <div class="s">1–2–1 layout • direct aisle access • full lie-flat sleep focus</div>
+            </div>
+            <div class="stat">
+              <div class="k">Economy</div>
+              <div class="v">318 seats</div>
+              <div class="s"><b>34–35 inches</b> legroom • “NO MORE FEAR of economy class!”</div>
+            </div>
+            <div class="stat">
+              <div class="k">Upper deck Economy</div>
+              <div class="v">Yes</div>
+              <div class="s">Quieter feel • often perceived “more premium” despite standard Economy pricing</div>
+            </div>
+            <div class="stat">
+              <div class="k">Otono One</div>
+              <div class="v">4 suites</div>
+              <div class="s">Couples-first • 8 passengers • 2 suites convert into a 4-person family suite</div>
+            </div>
+            <div class="stat">
+              <div class="k">First</div>
+              <div class="v">16 seats</div>
+              <div class="s">Flagship quiet zone • premium service flow • shower access</div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <h3 style="margin:0 0 10px;letter-spacing:-.2px;" id="features">
+            Signature features that define the A380 experience
+          </h3>
+
+          <div class="featureGrid">
+            <div class="feature">
+              <h3>
+                Onboard lounge
+                <span class="hot">ANY CLASS ✅</span>
+              </h3>
+              <p>
+                The lounge is <b>not a “premium-only” gimmick</b>.
+                It is a core part of the Otono A380 identity: a shared space for <b>all cabins</b>, including Economy.
+                It’s where passengers stretch, take photos, celebrate birthdays, calm down, or just escape their seat for a moment.
+              </p>
+              <p>
+                The lounge also changes the “long-haul psychology”:
+                instead of feeling trapped for 10–14 hours, you feel like the aircraft has
+                <b>zones</b> — seat zone, lounge zone, galley corridor, stairs flow, and quiet pockets.
+              </p>
+            </div>
+
+            <div class="feature">
+              <h3>
+                Showers
+                <span class="hot">First + Otono One only 🚿</span>
+              </h3>
+              <p>
+                Shower access is <b>exclusive</b> to <b>First</b> and <b>Otono One</b>.
+                This creates a real “tier difference”:
+                premium feels genuinely premium, not just “a seat with nicer food.”
+              </p>
+              <p>
+                The shower is especially powerful on overnight sectors:
+                arriving refreshed is part of the A380 mythos, and it becomes a story passengers tell.
+              </p>
+            </div>
+
+            <div class="feature">
+              <h3>
+                Upper deck vibe
+                <span class="hot">quiet energy</span>
+              </h3>
+              <p>
+                The upper deck is where the A380 becomes “a place.”
+                Premium cabins are naturally calmer up front, while upper-deck economy can feel like a hidden gem:
+                less noise, different foot traffic, and a subtle “this is special” atmosphere.
+              </p>
+              <p>
+                Even if someone never touches Otono One, the upper-deck environment still gives them a flagship memory.
+              </p>
+            </div>
+
+            <div class="feature">
+              <h3>
+                Economy comfort philosophy
+                <span class="hot">34–35″ pitch</span>
+              </h3>
+              <p>
+                Otono deliberately runs a more generous Economy pitch: <b>34–35 inches</b>.
+                The goal is to make long-haul economy less fear-inducing and more “I can survive this”
+                — consistent with the slogan: <b>“NO MORE FEAR of economy class!”</b>
+              </p>
+              <p>
+                On the A380, cabin width + generous pitch + lounge access creates a unique “economy without panic” effect.
+              </p>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <h3 style="margin:0 0 10px;letter-spacing:-.2px;" id="deck">
+            Deck-by-deck layout (front → back)
+          </h3>
+
+          <table aria-label="Deck layout table">
+            <thead>
+              <tr>
+                <th>Deck</th>
+                <th>Flow (front → back)</th>
+                <th>What passengers notice</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <b>Upper deck</b>
+                  <div class="small">Premium-heavy + calmer</div>
+                </td>
+                <td>
+                  Front stairs → <b>Otono One</b> → <b>First</b> → <b>Premium Economy</b> → <b>Upper-deck Economy</b> → <b>Onboard lounge</b> → Back stairs
+                </td>
+                <td>
+                  <ul class="small" style="margin:0;padding-left:18px;">
+                    <li>Feels quieter and “more premium” overall</li>
+                    <li>Better psychological space: zones instead of one endless tube</li>
+                    <li>Iconic lounge = the “A380 moment” (and it’s open to everyone)</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <b>Main deck</b>
+                  <div class="small">Capacity core</div>
+                </td>
+                <td>
+                  Door → Front stairs → <b>Business</b> → (second Business zone) → <b>Economy</b> → (second Economy zone) → Back stairs
+                </td>
+                <td>
+                  <ul class="small" style="margin:0;padding-left:18px;">
+                    <li>72 lie-flat beds across the aircraft — strong long-haul sleep product</li>
+                    <li>Wide-body comfort “even when full” thanks to scale and layout</li>
+                    <li>Boarding and movement can feel more distributed when managed well</li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="divider"></div>
+
+          <div class="callout" id="deepDetail">
+            <div class="t">
+              Extra detail mode
+              <span class="tag">nerd level</span>
+            </div>
+
+            <p class="small" style="margin:8px 0 0;">
+              The A380’s “better feel” isn’t only about seat numbers.
+              It’s about the combination of: cabin width + two decks + fewer “single chokepoints” +
+              a genuine social space (lounge) + premium-only shower feature + upper-deck economy.
+            </p>
+
+            <ul class="small" style="margin:8px 0 0;padding-left:18px;">
+              <li><b>Zone design:</b> people perceive comfort when the environment has distinct areas. The A380 naturally provides that.</li>
+              <li><b>Movement relief:</b> being able to stand in the lounge resets your brain on ultra-long flights, especially in economy.</li>
+              <li><b>Upper deck identity:</b> the upper deck makes the aircraft feel like a ship or building rather than a tube.</li>
+              <li><b>Premium meaning:</b> showers being exclusive preserves a true premium “reason to upgrade.”</li>
+              <li><b>Economy respect:</b> 34–35″ pitch signals “we planned for humans, not just yield.”</li>
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- FULL WIDTH SECTION: WHY A380 IS BETTER -->
+      <section class="card" style="grid-column:1 / -1;">
+        <div class="hd">
+          <h2 id="whybetter">Why the A380 is better (even when other jets have similar features)</h2>
+          <span class="tag">the case for the superjumbo</span>
+        </div>
+        <div class="bd">
+
+          <p class="muted" style="margin-top:0;">
+            Some aircraft can copy individual features — a shower here, a lounge there.
+            But the A380’s advantage is that it combines multiple comfort layers into one coherent experience.
+          </p>
+
+          <div class="divider"></div>
+
+          <div class="featureGrid">
+
+            <div class="feature">
+              <h3>1) Space perception is real</h3>
+              <p>
+                Even before you sit down, the A380 “feels big” in a calming way.
+                The cabin width, the height, the two decks, and the distributed zones reduce the sense of crowding
+                that can build anxiety on long-haul travel.
+              </p>
+            </div>
+
+            <div class="feature">
+              <h3>2) Two decks = psychological upgrade</h3>
+              <p>
+                Humans like environments that feel like buildings: floors, stairs, sections, landmarks.
+                A single-deck widebody can be comfortable, but it rarely feels like a place.
+                The A380 feels like a place.
+              </p>
+            </div>
+
+            <div class="feature">
+              <h3>3) Upper deck Economy = hidden flagship</h3>
+              <p>
+                This is a uniquely A380 vibe in your Otono configuration.
+                Upper deck economy often becomes “premium economy energy” without premium economy pricing.
+                It’s a community favourite.
+              </p>
+            </div>
+
+            <div class="feature">
+              <h3>4) Lounge access for everyone</h3>
+              <p>
+                Lounge access for all cabins is not just a perk.
+                It creates a shared flagship identity.
+                Economy passengers still get to touch the “special aircraft” feeling.
+              </p>
+            </div>
+
+            <div class="feature">
+              <h3>5) Premium stays premium</h3>
+              <p>
+                Showers are exclusive to First + Otono One.
+                That exclusivity matters: it gives the upper cabins a clear “you can’t get this anywhere else” factor.
+              </p>
+            </div>
+
+            <div class="feature">
+              <h3>6) The A380 is the story aircraft</h3>
+              <p>
+                People remember A380 flights.
+                They talk about the stairs, the upper deck, the lounge, the scale, the calm.
+                A 777 can be excellent — but the A380 is iconic.
+              </p>
+            </div>
+
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="callout">
+            <div class="t">
+              Summary
+              <span class="tag">one sentence</span>
+            </div>
+            <p class="small" style="margin:8px 0 0;">
+              The A380 isn’t “better” because it has one luxury feature —
+              it’s better because it makes <b>every cabin</b> feel less stressful and more memorable, while keeping premium truly premium.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- FULL WIDTH SECTION: A380 VS 777 -->
+      <section class="card" style="grid-column:1 / -1;">
+        <div class="hd">
+          <h2 id="compare">A380 vs Boeing 777 — detailed comparison (Otono configuration)</h2>
+          <span class="tag">feature-by-feature</span>
+        </div>
+        <div class="bd">
+
+          <p class="muted" style="margin-top:0;">
+            The Boeing 777 is the flexible long-haul backbone.
+            The A380 is the flagship experience machine.
+            Both can have lounges; some 777s can have showers and Otono One — but the fleet-wide consistency differs.
+          </p>
+
+          <div class="divider"></div>
+
+          <div class="grid2">
+            <div class="stat">
+              <div class="k">777 fleet size</div>
+              <div class="v">22 aircraft</div>
+              <div class="s">All 22 have the Otono lounge installed.</div>
+            </div>
+            <div class="stat">
+              <div class="k">777 premium install rate</div>
+              <div class="v">7 / 22</div>
+              <div class="s">Only 7 have Otono One + showers installed.</div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <table aria-label="A380 vs 777 comparison table">
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Airbus A380 (Otono)</th>
+                <th>Boeing 777 (Otono)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>Identity</b></td>
+                <td>Flagship, iconic, “special trip” aircraft</td>
+                <td>Workhorse, flexible, efficient long-haul core</td>
+              </tr>
+
+              <tr>
+                <td><b>Lounge</b></td>
+                <td><b>Yes</b> — accessible to <b>any class</b>, including economy</td>
+                <td><b>Yes</b> — installed on <b>all 22</b> aircraft</td>
+              </tr>
+
+              <tr>
+                <td><b>Otono One</b></td>
+                <td>Installed fleet-wide (A380 flagship expectation)</td>
+                <td><b>7 of 22</b> aircraft only</td>
+              </tr>
+
+              <tr>
+                <td><b>Showers</b></td>
+                <td><b>Yes</b> — exclusive to <b>First + Otono One</b></td>
+                <td>Only on the <b>7 Otono-One-equipped</b> aircraft</td>
+              </tr>
+
+              <tr>
+                <td><b>Upper deck economy</b></td>
+                <td><b>Yes</b> — signature “quiet economy” section</td>
+                <td>No — single deck</td>
+              </tr>
+
+              <tr>
+                <td><b>Economy experience</b></td>
+                <td>34–35″ pitch + cabin width + lounge = low-stress feel</td>
+                <td>Comfortable but more conventional; lounge helps, but one-deck psychology remains</td>
+              </tr>
+
+              <tr>
+                <td><b>Premium consistency</b></td>
+                <td>Predictable “flagship spec” on every A380 rotation</td>
+                <td>Spec varies by tail number: 7 jets have the full premium kit</td>
+              </tr>
+
+              <tr>
+                <td><b>Why people choose it</b></td>
+                <td>Because it’s iconic and calmer — a memory flight</td>
+                <td>Because it’s reliable, frequent, and route-flexible</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="divider"></div>
+
+          <div class="callout">
+            <div class="t">
+              Practical takeaway
+              <span class="tag">for passengers</span>
+            </div>
+            <p class="small" style="margin:8px 0 0;">
+              On a 777 you always get the lounge, but you only get Otono One + showers on <b>7 of 22 aircraft</b>.
+              On an A380 you get the flagship environment consistently: lounge for everyone, upper deck economy, and premium exclusives.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- FULL WIDTH SECTION: FAQ -->
+      <section class="card" style="grid-column:1 / -1;">
+        <div class="hd">
+          <h2 id="faq">Fake public FAQ (because the date makes people panic)</h2>
+          <span class="tag">customer-facing</span>
+        </div>
+        <div class="bd">
+
+          <p class="muted" style="margin-top:0;">
+            This FAQ is intentionally written like a “public help page” that exists solely because
+            someone posted <b>31st February</b> online and now customer support is receiving messages at 2am.
+          </p>
+
+          <div class="divider"></div>
+
+          <div class="searchBox" aria-label="FAQ search">
+            <label class="small" for="faqSearch">
+              Search the FAQ (type keywords like: <span class="pillMini">bookable</span> <span class="pillMini">31 February</span> <span class="pillMini">A380</span> <span class="pillMini">777</span> <span class="pillMini">showers</span>)
+            </label>
+            <input id="faqSearch" type="text" placeholder="Search: e.g. Why is my A380 ticket still bookable after 31 February?" />
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="faq" id="faqList">
+
+            <!-- REQUIRED FAQ -->
+            <div class="faqItem" data-keywords="bookable booking still bookable after 31 february a380 displays airbus a380 aircraft type schedule system bug">
+              <button class="faqQ" type="button">
+                Why is my A380 ticket still bookable after 31 February and it still displays Airbus A380?
+              </button>
+              <div class="faqA">
+                Because the retirement line is a <b>headline</b>, not a real-world calendar instruction.
+                Our booking system uses real dates and operational schedules — and it may continue to show
+                <b>Airbus A380</b> until the aircraft type is officially swapped for your specific flight.
+                <br /><br />
+                In short:
+                <ul style="margin:8px 0 0;padding-left:18px;">
+                  <li><b>Aircraft type can display until the last moment</b> because assignments are often provisional.</li>
+                  <li>The “31st February” message is designed as a <b>read-twice announcement</b> and does not instantly remove inventory.</li>
+                  <li>Some flights remain available because schedules are loaded months ahead, and changes occur in controlled updates.</li>
+                </ul>
+                <br />
+                If you want the “real answer” in one sentence:
+                <span class="warn">your booking is not proof that February has 31 days — it’s proof that airline systems update in batches.</span>
+              </div>
+            </div>
+
+            <div class="faqItem" data-keywords="does february have 31 days leap year prank joke date">
+              <button class="faqQ" type="button">
+                Is 31st February a real date?
+              </button>
+              <div class="faqA">
+                In normal calendars: no.
+                In Otono announcements: it is a <b>public attention magnet</b>.
+                The point is to make people read twice, screenshot, and talk about the A380 era.
+              </div>
+            </div>
+
+            <div class="faqItem" data-keywords="will my flight change aircraft swap equipment change a380 to 777">
+              <button class="faqQ" type="button">
+                Will my flight change from A380 to 777?
+              </button>
+              <div class="faqA">
+                Possibly.
+                Aircraft assignments can change due to maintenance, demand, operational rotations, or network planning.
+                If a swap happens, your seat map may change — but the route still operates.
+                (And yes: the 777 has the Otono lounge on all aircraft.)
+              </div>
+            </div>
+
+            <div class="faqItem" data-keywords="lounge access economy can economy use lounge a380 777">
+              <button class="faqQ" type="button">
+                Can Economy passengers use the onboard lounge?
+              </button>
+              <div class="faqA">
+                Yes — on the A380, the lounge is <b>for any class</b>, including Economy.
+                On the 777 fleet, the Otono lounge is installed on <b>all 22 aircraft</b>.
+              </div>
+            </div>
+
+            <div class="faqItem" data-keywords="showers who can shower a380 first otono one 777 showers">
+              <button class="faqQ" type="button">
+                Who can use the showers?
+              </button>
+              <div class="faqA">
+                On the A380: showers are <b>exclusive</b> to <b>First</b> and <b>Otono One</b>.
+                On the 777: showers exist only on <b>7 of 22</b> aircraft — the ones with Otono One installed.
+              </div>
+            </div>
+
+            <div class="faqItem" data-keywords="upper deck economy what is upper deck economy is it better">
+              <button class="faqQ" type="button">
+                What is “Upper deck Economy” and why do people love it?
+              </button>
+              <div class="faqA">
+                Upper deck Economy is a standard Economy seating area located on the upper deck of the A380.
+                It’s often calmer and feels more “premium” because of the deck atmosphere, foot traffic patterns, and perceived quiet.
+                It became a community favourite because it feels like a hidden upgrade without changing your fare class.
+              </div>
+            </div>
+
+            <div class="faqItem" data-keywords="why retire a380 why is it ending 2014 2026">
+              <button class="faqQ" type="button">
+                Why retire the A380 at all if passengers love it?
+              </button>
+              <div class="faqA">
+                In real airline logic (and in Otono logic), retirements happen due to fleet strategy, economics, and operational flexibility.
+                The A380 is iconic, but it’s also a specialised aircraft best suited to very high-demand routes.
+                This notice is a “farewell moment” — and yes, it’s written in a way that forces attention.
+              </div>
+            </div>
+
+            <div class="faqItem" data-keywords="is my ticket valid after retirement will flight cancel">
+              <button class="faqQ" type="button">
+                Is my ticket still valid if the A380 “retires”?
+              </button>
+              <div class="faqA">
+                Yes.
+                Your ticket is for transport from A to B, not a guaranteed aircraft type forever.
+                If equipment changes, your flight still operates, and you keep your booking (with any relevant seat adjustments).
+              </div>
+            </div>
+
+            <div class="faqItem" data-keywords="can i choose a380 specifically how do i ensure i fly a380">
+              <button class="faqQ" type="button">
+                Can I guarantee flying the A380?
+              </button>
+              <div class="faqA">
+                You can select flights that show A380 on the schedule, but final assignments can change.
+                If you want “highest probability,” choose routes and dates with repeated A380 rotations and avoid tight disruption periods.
+              </div>
+            </div>
+
+            <div class="faqItem" data-keywords="what does retire mean 19 operational 20 owned hangar 2022">
+              <button class="faqQ" type="button">
+                What does “retire” mean if one A380 has been in a hangar since 2022?
+              </button>
+              <div class="faqA">
+                “Retire” here refers to the <b>19 operational A380s</b>.
+                The aircraft in long-term hangar storage since 2022 is still owned and inactive and is not counted as retired in this notice.
+              </div>
+            </div>
+
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="callout">
+            <div class="t">
+              FAQ pro tip
+              <span class="tag">how to read aircraft info</span>
+            </div>
+            <p class="small" style="margin:8px 0 0;">
+              If you see “Airbus A380” on your itinerary after the retirement headline,
+              it usually means your flight schedule hasn’t had its equipment mapping updated yet—or your flight is still planned to be A380 until a later revision.
+              Airline systems and aircraft assignments update in waves, not instantly.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <div class="footer">
+      © Otono Airways (fictional). This page is for your Otono universe. “31st February” is intentionally suspicious.
+    </div>
+
+  </div>
+
+  <script>
+    // ------------------------------------------------------------
+    // Copy headline
+    // ------------------------------------------------------------
+    const copyHeadlineBtn = document.getElementById('copyHeadlineBtn');
+    const copyNote = document.getElementById('copyNote');
+
+    copyHeadlineBtn.addEventListener('click', async () =>
+    {
+      const text = 'All Otono Airways A380s will retire on 31st February 2026!';
+      try
+      {
+        await navigator.clipboard.writeText(text);
+        copyNote.textContent = 'Copied headline to clipboard ✅';
+      }
+      catch (e)
+      {
+        copyNote.textContent = 'Could not copy automatically. Copy manually: ' + text;
+      }
+      setTimeout(() => { copyNote.textContent = ''; }, 2500);
+    });
+
+    // ------------------------------------------------------------
+    // Toggle deep detail section
+    // ------------------------------------------------------------
+    const toggleDeepBtn = document.getElementById('toggleDeepBtn');
+    const deepDetail = document.getElementById('deepDetail');
+
+    toggleDeepBtn.addEventListener('click', () =>
+    {
+      deepDetail.classList.toggle('hidden');
+      toggleDeepBtn.textContent = deepDetail.classList.contains('hidden')
+        ? 'Toggle extra detail'
+        : 'Hide extra detail';
+    });
+
+    // ------------------------------------------------------------
+    // FAQ accordion behavior
+    // ------------------------------------------------------------
+    const faqList = document.getElementById('faqList');
+    const faqButtons = faqList.querySelectorAll('.faqQ');
+
+    faqButtons.forEach((btn) =>
+    {
+      btn.addEventListener('click', () =>
+      {
+        const answer = btn.nextElementSibling;
+        answer.classList.toggle('hidden');
+      });
+    });
+
+    // Default: collapse all answers for a cleaner page load
+    faqList.querySelectorAll('.faqA').forEach((a) =>
+    {
+      a.classList.add('hidden');
+    });
+
+    // ------------------------------------------------------------
+    // FAQ search filter
+    // ------------------------------------------------------------
+    const faqSearch = document.getElementById('faqSearch');
+
+    function normalize(s)
+    {
+      return (s || '')
+        .toLowerCase()
+        .trim();
+    }
+
+    function filterFAQ()
+    {
+      const q = normalize(faqSearch.value);
+      const items = faqList.querySelectorAll('.faqItem');
+
+      items.forEach((item) =>
+      {
+        const keywords = normalize(item.getAttribute('data-keywords'));
+        const text = normalize(item.innerText);
+
+        const hit =
+          q.length === 0 ||
+          keywords.includes(q) ||
+          text.includes(q);
+
+        item.style.display = hit ? '' : 'none';
+      });
+    }
+
+    faqSearch.addEventListener('input', filterFAQ);
+  </script>
+</body>
+</html>
