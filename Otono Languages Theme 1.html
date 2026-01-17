@@ -1,0 +1,898 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Otono Theme 1 Revision — Languages Department</title>
+  <style>
+    :root{
+      --bg1:#14081f;
+      --bg2:#2a0f3a;
+      --card:#1c0b28cc;
+      --stroke:#ffffff1a;
+      --text:#f5f2ff;
+      --muted:#cfc3ff;
+      --purple:#7c3aed;
+      --purple2:#a855f7;
+      --red:#ef4444;
+      --red2:#ff2d55;
+      --good:#22c55e;
+      --warn:#f59e0b;
+      --bad:#fb7185;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color:var(--text);
+      background:
+        radial-gradient(1000px 700px at 20% 10%, rgba(124,58,237,.35), transparent 60%),
+        radial-gradient(900px 650px at 80% 20%, rgba(239,68,68,.25), transparent 55%),
+        radial-gradient(900px 650px at 50% 90%, rgba(168,85,247,.18), transparent 60%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+    }
+    header{
+      padding:22px 18px 10px;
+      max-width:1100px;
+      margin:0 auto;
+    }
+    .brand{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--stroke);
+      background:linear-gradient(135deg, rgba(124,58,237,.22), rgba(239,68,68,.18));
+      box-shadow:0 18px 40px rgba(0,0,0,.25);
+    }
+    .dot{
+      width:10px;height:10px;border-radius:50%;
+      background:linear-gradient(135deg, var(--purple), var(--red));
+      box-shadow:0 0 18px rgba(168,85,247,.45);
+    }
+    h1{
+      margin:6px 0 0;
+      font-size:clamp(20px, 2.2vw, 28px);
+      letter-spacing:.2px;
+    }
+    .sub{
+      margin:6px 0 0;
+      color:var(--muted);
+      line-height:1.35;
+      font-size:14px;
+      max-width:75ch;
+    }
+
+    main{
+      max-width:1100px;
+      margin:0 auto;
+      padding:14px 18px 26px;
+      display:grid;
+      grid-template-columns: 360px 1fr;
+      gap:14px;
+    }
+    @media (max-width: 980px){
+      main{grid-template-columns:1fr}
+    }
+    .card{
+      border:1px solid var(--stroke);
+      background:linear-gradient(180deg, rgba(28,11,40,.92), rgba(16,6,24,.82));
+      border-radius:18px;
+      padding:14px;
+      box-shadow:0 24px 60px rgba(0,0,0,.35);
+      overflow:hidden;
+      position:relative;
+    }
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(700px 220px at 0% 0%, rgba(239,68,68,.14), transparent 55%),
+        radial-gradient(700px 220px at 100% 0%, rgba(124,58,237,.16), transparent 55%);
+      pointer-events:none;
+    }
+    .card > *{position:relative}
+    .row{
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+    }
+    label{font-size:13px; color:var(--muted)}
+    select, input[type="text"]{
+      width:100%;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid var(--stroke);
+      background:rgba(0,0,0,.25);
+      color:var(--text);
+      outline:none;
+    }
+    select:focus, input[type="text"]:focus{
+      border-color: rgba(168,85,247,.55);
+      box-shadow: 0 0 0 3px rgba(124,58,237,.18);
+    }
+    .pillbar{
+      display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;
+    }
+    .pill{
+      font-size:12px;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.05);
+      color:var(--muted);
+    }
+    .pill strong{color:var(--text)}
+    .accent{
+      background:linear-gradient(135deg, rgba(124,58,237,.25), rgba(239,68,68,.18));
+      color:var(--text);
+    }
+    .btnrow{display:flex; gap:10px; margin-top:12px; flex-wrap:wrap}
+    button{
+      cursor:pointer;
+      border:1px solid var(--stroke);
+      padding:10px 12px;
+      border-radius:12px;
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+      font-weight:600;
+      letter-spacing:.2px;
+    }
+    button:hover{border-color:rgba(255,255,255,.28)}
+    .primary{
+      background:linear-gradient(135deg, rgba(124,58,237,.55), rgba(239,68,68,.35));
+      border-color:rgba(255,255,255,.18);
+    }
+    .primary:hover{filter:brightness(1.03)}
+    .danger{
+      background:rgba(239,68,68,.14);
+      border-color:rgba(239,68,68,.25);
+    }
+
+    .statgrid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-top:12px;
+    }
+    .stat{
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.04);
+      border-radius:16px;
+      padding:10px 12px;
+      min-height:70px;
+    }
+    .stat .k{font-size:12px; color:var(--muted)}
+    .stat .v{font-size:20px; font-weight:800; margin-top:2px}
+    .stat .s{font-size:12px; color:var(--muted); margin-top:2px}
+
+    .listhead{
+      display:flex; gap:10px; align-items:center; justify-content:space-between;
+      margin-bottom:10px;
+    }
+    .listhead h2{
+      margin:0;
+      font-size:16px;
+      letter-spacing:.2px;
+    }
+    .hint{
+      color:var(--muted);
+      font-size:12px;
+    }
+    .searchwrap{margin-top:10px}
+    .meta{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top:10px;
+      color:var(--muted);
+      font-size:12px;
+    }
+    .meta span{
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.03);
+      padding:6px 10px;
+      border-radius:999px;
+    }
+    .phrases{
+      margin-top:12px;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+    }
+    @media (max-width: 720px){
+      .phrases{grid-template-columns:1fr}
+    }
+    .item{
+      border:1px solid var(--stroke);
+      background:rgba(0,0,0,.18);
+      border-radius:14px;
+      padding:10px 10px;
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+    }
+    .item input[type="checkbox"]{
+      margin-top:4px;
+      width:18px; height:18px;
+      accent-color: var(--purple2);
+    }
+    .txt{
+      line-height:1.25;
+    }
+    .txt .p{
+      font-size:13px;
+      margin:0;
+      color:var(--text);
+    }
+    .txt .t{
+      font-size:12px;
+      margin:4px 0 0;
+      color:var(--muted);
+    }
+    footer{
+      max-width:1100px;
+      margin:0 auto;
+      padding:0 18px 18px;
+      color:var(--muted);
+      font-size:12px;
+    }
+    .small{
+      opacity:.92;
+      line-height:1.35;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="badge"><span class="dot"></span><strong>Otono Languages Department</strong><span style="color:var(--muted)">Theme 1 — School</span></div>
+    </div>
+    <h1>Theme 1 Revision Checklist (Otono Test)</h1>
+    <p class="sub">
+      Select your language, tick the phrases you know, and get an estimated score out of 100,
+      an estimated grade (A–H and 9–1), and an overall outcome (FAIL / PASS / MERIT / DISTINCTION).
+      This is Otono-style (Red & Purple), not exam-board rules.
+    </p>
+  </header>
+
+  <main>
+    <!-- Left: Controls & Results -->
+    <section class="card">
+      <div class="row" style="gap:12px">
+        <div style="flex:1; min-width:260px">
+          <label for="lang">Language</label>
+          <select id="lang">
+            <option value="fr">🇫🇷 francais</option>
+            <option value="es">🇪🇸 espanol</option>
+            <option value="it">🇮🇹 italiano</option>
+            <option value="de">🇩🇪 deutsch</option>
+          </select>
+        </div>
+        <div style="flex:1; min-width:260px">
+          <label for="mode">Checklist mode</label>
+          <select id="mode">
+            <option value="all">All phrases</option>
+            <option value="core">Core phrases only</option>
+            <option value="exam">Exam rules + classroom focus</option>
+            <option value="subjects">School subjects focus</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="searchwrap">
+        <label for="search">Search phrases</label>
+        <input id="search" type="text" placeholder="Type to filter (e.g., encre, maths, rules, classroom)..." />
+      </div>
+
+      <div class="pillbar" id="pillbar">
+        <div class="pill accent"><strong>Theme:</strong> 1 (School)</div>
+        <div class="pill"><strong>Score:</strong> <span id="scoreTxt">0</span>/100</div>
+        <div class="pill"><strong>Known:</strong> <span id="knownTxt">0</span></div>
+        <div class="pill"><strong>Total:</strong> <span id="totalTxt">0</span></div>
+        <div class="pill"><strong>Perfect score needs:</strong> <span id="needTxt">0</span> phrases</div>
+      </div>
+
+      <div class="statgrid">
+        <div class="stat">
+          <div class="k">Estimated grade (A–H)</div>
+          <div class="v" id="gradeAH">U</div>
+          <div class="s">S exists at 101+, but score is capped at 100.</div>
+        </div>
+        <div class="stat">
+          <div class="k">Estimated grade (9–1)</div>
+          <div class="v" id="grade91">U</div>
+          <div class="s">Estimated mapping (not official).</div>
+        </div>
+        <div class="stat">
+          <div class="k">Outcome</div>
+          <div class="v" id="outcome">FAIL</div>
+          <div class="s">FAIL 0–65 | PASS 66–79 | MERIT 80–89 | DISTINCTION 90+</div>
+        </div>
+        <div class="stat">
+          <div class="k">Progress</div>
+          <div class="v" id="progressPct">0%</div>
+          <div class="s">Known phrases / Total phrases</div>
+        </div>
+      </div>
+
+      <div class="btnrow">
+        <button class="primary" id="checkAllBtn">Tick all (perfect)</button>
+        <button id="uncheckAllBtn">Untick all</button>
+        <button class="danger" id="resetBtn">Reset (language + ticks)</button>
+      </div>
+
+      <div class="meta" style="margin-top:12px">
+        <span><strong>Otono rule:</strong> ink + procedure matters</span>
+        <span><strong>Theme 1 units:</strong> teacher lore, ink, rules, options, classrooms</span>
+      </div>
+    </section>
+
+    <!-- Right: Phrase checklist -->
+    <section class="card">
+      <div class="listhead">
+        <h2 id="listTitle">Phrases</h2>
+        <div class="hint" id="listHint">Tick what you know.</div>
+      </div>
+
+      <div class="meta" id="metaLine">
+        <span id="supportLine"><strong>Support:</strong> ⭐⭐⭐⭐⭐</span>
+        <span id="filterLine"><strong>Filter:</strong> All phrases</span>
+        <span id="searchLine"><strong>Search:</strong> (none)</span>
+      </div>
+
+      <div class="phrases" id="phraseList"></div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="small">
+      Notes:
+      <br>- Score is based on how many phrases you tick in the selected language and mode.
+      <br>- A–H boundaries are exactly as you gave: A 95–100, B 80–94, C 70–79, D 66–69, E 55–65, F 45–54, G 30–44, H 15–29, U 0–14 (S 101+ is secret and unreachable here).
+      <br>- 9–1 grade is an estimate: 9 (90–100), 8 (80–89), 7 (70–79), 6 (60–69), 5 (50–59), 4 (40–49), 3 (30–39), 2 (20–29), 1 (10–19), U (0–9).
+    </div>
+  </footer>
+
+  <script>
+    // Theme 1 phrase bank (Otono Test) — more than previously provided.
+    // Each item: phrase + tag categories for modes.
+    const PHRASES = {
+      fr: {
+        support: "⭐⭐⭐⭐⭐",
+        title: "🇫🇷 francais — Theme 1 (School)",
+        items: [
+          // Core school statements
+          {p:"Dans mon collège, il y a beaucoup de matières.", t:"General", tags:["core"]},
+          {p:"Je vais au collège tous les jours.", t:"Routine", tags:["core"]},
+          {p:"Mon emploi du temps est chargé.", t:"Timetable", tags:["core"]},
+          {p:"Je travaille dur parce que je veux réussir.", t:"Work ethic", tags:["core"]},
+          {p:"Je suis en train de réviser pour mon test Otono.", t:"Revision", tags:["core"]},
+          {p:"À mon avis, l’école est essentielle pour l’avenir.", t:"Opinion", tags:["core"]},
+          {p:"Je pense que les règles sont nécessaires.", t:"Opinion", tags:["core"]},
+          {p:"Je trouve l’école stressante mais utile.", t:"Opinion", tags:["core"]},
+          {p:"Je préfère les matières scientifiques aux matières littéraires.", t:"Preference", tags:["core"]},
+          {p:"Je préfère les langues aux maths.", t:"Preference", tags:["core"]},
+
+          // Subjects (must cover everything)
+          {p:"Je fais les maths.", t:"Subject", tags:["subjects","core"]},
+          {p:"J’étudie l’anglais (langue).", t:"Subject", tags:["subjects"]},
+          {p:"J’étudie l’anglais (littérature).", t:"Subject", tags:["subjects"]},
+          {p:"Je fais les sciences.", t:"Subject", tags:["subjects","core"]},
+          {p:"Je fais les sciences combinées (trilogie).", t:"Subject", tags:["subjects","core"]},
+          {p:"Je fais les sciences combinées (synergie).", t:"Subject", tags:["subjects","core"]},
+          {p:"Je fais la physique.", t:"Subject", tags:["subjects"]},
+          {p:"Je fais la chimie.", t:"Subject", tags:["subjects"]},
+          {p:"Je fais la biologie.", t:"Subject", tags:["subjects"]},
+          {p:"Je fais l’informatique.", t:"Subject", tags:["subjects"]},
+          {p:"Je fais le design.", t:"Subject", tags:["subjects"]},
+          {p:"Je fais la technologie.", t:"Subject", tags:["subjects","core"]},
+          {p:"Je fais la cuisine (food tech).", t:"Subject", tags:["subjects","core"]},
+          {p:"Je fais le commerce (business).", t:"Subject", tags:["subjects","core"]},
+          {p:"Je fais l’histoire.", t:"Subject", tags:["subjects","core"]},
+          {p:"Je fais la géographie.", t:"Subject", tags:["subjects","core"]},
+          {p:"Je fais l’éducation religieuse (RE).", t:"Subject", tags:["subjects","core"]},
+          {p:"Je fais l’art.", t:"Subject", tags:["subjects"]},
+          {p:"Je fais l’éducation physique.", t:"Subject", tags:["subjects"]},
+          {p:"Je fais l’espagnol.", t:"Subject", tags:["subjects"]},
+          {p:"Je fais le français.", t:"Subject", tags:["subjects"]},
+          {p:"Je fais l’allemand.", t:"Subject", tags:["subjects"]},
+          {p:"Je fais l’italien.", t:"Subject", tags:["subjects"]},
+
+          // Classroom / building
+          {p:"Dans la salle de classe, il y a des tables et des chaises.", t:"Classroom", tags:["exam","core"]},
+          {p:"Il y a un tableau interactif.", t:"Classroom", tags:["exam"]},
+          {p:"Il y a un laboratoire de sciences.", t:"Building", tags:["exam"]},
+          {p:"Il y a un gymnase.", t:"Building", tags:["exam"]},
+          {p:"Il y a une cantine.", t:"Building", tags:["exam"]},
+          {p:"Il y a une bibliothèque.", t:"Building", tags:["exam"]},
+          {p:"Il y a un bloc de technologie.", t:"Building", tags:["exam"]},
+          {p:"Il y a une salle d’examen.", t:"Building", tags:["exam","core"]},
+          {p:"On s’assoit selon un plan de placement.", t:"Seating plan", tags:["exam","core"]},
+          {p:"Je suis au fond de la classe.", t:"Where I sit", tags:["exam"]},
+          {p:"Je suis près de la fenêtre.", t:"Where I sit", tags:["exam"]},
+
+          // Rules / invigilator
+          {p:"Il faut respecter les règles.", t:"Rules", tags:["exam","core"]},
+          {p:"Il est interdit de tricher.", t:"Rules", tags:["exam"]},
+          {p:"Il faut éteindre son téléphone.", t:"Rules", tags:["exam"]},
+          {p:"Il faut écrire clairement.", t:"Rules", tags:["exam","core"]},
+          {p:"Vous devez écrire vos réponses en encre noire.", t:"Invigilator speech", tags:["exam","core"]},
+          {p:"Vous ne devez pas utiliser de surligneurs.", t:"Invigilator speech", tags:["exam"]},
+          {p:"Vous ne devez pas utiliser de stylos gel.", t:"Invigilator speech", tags:["exam"]},
+          {p:"Vous ne devez pas utiliser de stylos effaçables.", t:"Invigilator speech", tags:["exam","core"]},
+          {p:"Vous ne devez pas utiliser de papier buvard.", t:"Invigilator speech", tags:["exam"]},
+          {p:"Répondez dans l’espace prévu.", t:"Exam technique", tags:["exam"]},
+          {p:"Montrez vos étapes de calcul.", t:"Exam technique", tags:["exam"]},
+
+          // Ink lore (Otono)
+          {p:"L’encre noire est obligatoire pour certains examens.", t:"Ink rules", tags:["core","exam"]},
+          {p:"Pour certains sujets, l’encre noire est interdite.", t:"Ink rules", tags:["core","exam"]},
+          {p:"Il est interdit d’utiliser l’encre noire pour les sciences.", t:"Ink rule (science)", tags:["core","exam"]},
+          {p:"L’encre jaune est controversée.", t:"Ink lore", tags:["core"]},
+          {p:"Luke utilise l’encre noire pour tout.", t:"Character lore", tags:["core"]},
+          {p:"Luke utilise même un stylo effaçable noir pour les graphiques.", t:"Character lore", tags:["core"]},
+          {p:"Speedball Super Black India Ink est légendaire.", t:"Ink lore", tags:["core"]},
+          {p:"Je n’utilise jamais de crayon sauf pour les schémas.", t:"Exam habit", tags:["exam"]},
+          {p:"Un schéma doit être au crayon sombre (HB ou B).", t:"Exam habit", tags:["exam"]},
+
+          // Teacher lore (Monsieur Barley)
+          {p:"Monsieur Barley est le professeur de sciences préféré de Red.", t:"Teacher lore", tags:["core"]},
+          {p:"Monsieur Barley est chef des sciences.", t:"Teacher lore", tags:["core"]},
+          {p:"Il enseigne aussi la technologie, la cuisine et le design.", t:"Teacher lore", tags:["core"]},
+          {p:"Il porte presque toujours une ceinture.", t:"Belt lore", tags:["core"]},
+          {p:"Parfois, très rarement, il ne porte pas de ceinture.", t:"Belt lore", tags:["core"]},
+          {p:"Certains élèves pensent que son pantalon est élastique.", t:"Belt lore", tags:["core"]},
+
+          // GCSE options / ambition
+          {p:"Je veux obtenir une note 9.", t:"Ambition", tags:["core"]},
+          {p:"Je vise la perfection en maths.", t:"Ambition", tags:["core"]},
+          {p:"Je révise tous les jours avant les mocks.", t:"Revision", tags:["core"]},
+          {p:"J’ai choisi mes options pour le GCSE.", t:"GCSE options", tags:["core"]},
+          {p:"Thomas a choisi le français, même au niveau Foundation.", t:"Storyline", tags:["core"]},
+          {p:"Benjamin Nelson est content parce que Thomas fait le français.", t:"Storyline", tags:["core"]},
+          {p:"Je trouve les langues plus faciles que les sciences.", t:"Opinion", tags:["core"]},
+          {p:"Je trouve les sciences plus difficiles que l’histoire.", t:"Opinion", tags:["core"]},
+
+          // Time frames (past/present/future)
+          {p:"Hier, j’ai révisé pendant deux heures.", t:"Past", tags:["core"]},
+          {p:"La semaine dernière, j’ai fait un contrôle.", t:"Past", tags:["core"]},
+          {p:"En ce moment, je prépare mes examens.", t:"Present", tags:["core"]},
+          {p:"À l’avenir, je vais choisir une carrière scientifique.", t:"Future", tags:["core"]},
+          {p:"Après les GCSE, je vais continuer les langues.", t:"Future", tags:["core"]},
+
+          // Useful connectors (exam-quality)
+          {p:"D’abord, ensuite, enfin.", t:"Connectors", tags:["core"]},
+          {p:"Cependant, en revanche.", t:"Connectors", tags:["core"]},
+          {p:"Parce que / car / puisque.", t:"Connectors", tags:["core"]},
+          {p:"Par exemple.", t:"Connectors", tags:["core"]},
+          {p:"De plus / en plus / en moins.", t:"Connectors", tags:["core"]},
+          {p:"Non seulement… mais aussi…", t:"High-level", tags:["core"]}
+        ]
+      },
+
+      es: {
+        support: "⭐⭐⭐⭐",
+        title: "🇪🇸 espanol — Theme 1 (School)",
+        items: [
+          {p:"En mi instituto hay muchas asignaturas.", t:"General", tags:["core"]},
+          {p:"Voy al instituto todos los días.", t:"Routine", tags:["core"]},
+          {p:"Mi horario es bastante lleno.", t:"Timetable", tags:["core"]},
+          {p:"Trabajo mucho porque quiero sacar buenas notas.", t:"Work ethic", tags:["core"]},
+          {p:"Estoy revisando para mi prueba de Otono.", t:"Revision", tags:["core"]},
+          {p:"En mi opinión, la escuela es esencial para el futuro.", t:"Opinion", tags:["core"]},
+          {p:"Creo que las normas son necesarias.", t:"Opinion", tags:["core"]},
+
+          // Subjects
+          {p:"Estudio matemáticas.", t:"Subject", tags:["subjects","core"]},
+          {p:"Estudio inglés (lengua).", t:"Subject", tags:["subjects"]},
+          {p:"Estudio inglés (literatura).", t:"Subject", tags:["subjects"]},
+          {p:"Estudio ciencias.", t:"Subject", tags:["subjects","core"]},
+          {p:"Hago ciencias combinadas (trilogía).", t:"Subject", tags:["subjects","core"]},
+          {p:"Hago ciencias combinadas (sinergía).", t:"Subject", tags:["subjects","core"]},
+          {p:"Estudio física.", t:"Subject", tags:["subjects"]},
+          {p:"Estudio química.", t:"Subject", tags:["subjects"]},
+          {p:"Estudio biología.", t:"Subject", tags:["subjects"]},
+          {p:"Estudio informática.", t:"Subject", tags:["subjects"]},
+          {p:"Estudio diseño.", t:"Subject", tags:["subjects"]},
+          {p:"Hago tecnología.", t:"Subject", tags:["subjects","core"]},
+          {p:"Hago cocina.", t:"Subject", tags:["subjects","core"]},
+          {p:"Estudio negocios.", t:"Subject", tags:["subjects","core"]},
+          {p:"Estudio historia.", t:"Subject", tags:["subjects","core"]},
+          {p:"Estudio geografía.", t:"Subject", tags:["subjects","core"]},
+          {p:"Estudio religión (RE).", t:"Subject", tags:["subjects","core"]},
+          {p:"Hago educación física.", t:"Subject", tags:["subjects"]},
+          {p:"Estudio arte.", t:"Subject", tags:["subjects"]},
+
+          // Classroom / building
+          {p:"En el aula hay mesas y sillas.", t:"Classroom", tags:["exam","core"]},
+          {p:"Hay una pizarra digital.", t:"Classroom", tags:["exam"]},
+          {p:"Hay un laboratorio de ciencias.", t:"Building", tags:["exam"]},
+          {p:"Hay una sala de exámenes.", t:"Building", tags:["exam","core"]},
+          {p:"Nos sentamos según un plano de asientos.", t:"Seating plan", tags:["exam","core"]},
+
+          // Rules
+          {p:"Hay que respetar las normas.", t:"Rules", tags:["exam","core"]},
+          {p:"Está prohibido copiar.", t:"Rules", tags:["exam"]},
+          {p:"Hay que apagar el móvil.", t:"Rules", tags:["exam"]},
+          {p:"Debes escribir con claridad.", t:"Rules", tags:["exam","core"]},
+          {p:"Debes escribir tus respuestas con tinta negra.", t:"Invigilator", tags:["exam","core"]},
+          {p:"No debes usar subrayadores.", t:"Invigilator", tags:["exam"]},
+          {p:"No debes usar bolígrafos de gel.", t:"Invigilator", tags:["exam"]},
+          {p:"No debes usar bolígrafos borrables.", t:"Invigilator", tags:["exam","core"]},
+
+          // Ink lore (Otono)
+          {p:"En algunas pruebas de ciencias, está prohibida la tinta negra.", t:"Ink rule", tags:["core","exam"]},
+          {p:"La tinta amarilla es polémica.", t:"Ink lore", tags:["core"]},
+          {p:"Luke usa tinta negra para todo.", t:"Character lore", tags:["core"]},
+
+          // GCSE options / ambition
+          {p:"Quiero sacar un 9.", t:"Ambition", tags:["core"]},
+          {p:"Estoy obsesionado con las notas altas.", t:"Ambition", tags:["core"]},
+          {p:"He elegido mis opciones para GCSE.", t:"GCSE options", tags:["core"]},
+          {p:"Thomas eligió francés, aunque hace Foundation.", t:"Storyline", tags:["core"]},
+
+          // Tenses
+          {p:"Ayer revisé durante dos horas.", t:"Past", tags:["core"]},
+          {p:"Ahora estoy preparando mis exámenes.", t:"Present", tags:["core"]},
+          {p:"En el futuro voy a estudiar lenguas.", t:"Future", tags:["core"]},
+
+          // Connectors
+          {p:"Primero, después, por último.", t:"Connectors", tags:["core"]},
+          {p:"Sin embargo / por otro lado.", t:"Connectors", tags:["core"]},
+          {p:"Porque / ya que / puesto que.", t:"Connectors", tags:["core"]},
+          {p:"Por ejemplo.", t:"Connectors", tags:["core"]},
+          {p:"Además.", t:"Connectors", tags:["core"]},
+          {p:"No solo… sino también…", t:"High-level", tags:["core"]}
+        ]
+      },
+
+      it: {
+        support: "⭐⭐⭐",
+        title: "🇮🇹 italiano — Theme 1 (School)",
+        items: [
+          {p:"Nella mia scuola ci sono molte materie.", t:"General", tags:["core"]},
+          {p:"Vado a scuola tutti i giorni.", t:"Routine", tags:["core"]},
+          {p:"Il mio orario è pieno.", t:"Timetable", tags:["core"]},
+          {p:"Studio molto perché voglio buoni voti.", t:"Work ethic", tags:["core"]},
+          {p:"Sto ripassando per il test di Otono.", t:"Revision", tags:["core"]},
+          {p:"Secondo me, la scuola è importante.", t:"Opinion", tags:["core"]},
+
+          // Subjects
+          {p:"Studio matematica.", t:"Subject", tags:["subjects","core"]},
+          {p:"Studio inglese (lingua).", t:"Subject", tags:["subjects"]},
+          {p:"Studio inglese (letteratura).", t:"Subject", tags:["subjects"]},
+          {p:"Studio scienze.", t:"Subject", tags:["subjects","core"]},
+          {p:"Studio scienze combinate (trilogia).", t:"Subject", tags:["subjects","core"]},
+          {p:"Studio scienze combinate (sinergia).", t:"Subject", tags:["subjects","core"]},
+          {p:"Studio fisica.", t:"Subject", tags:["subjects"]},
+          {p:"Studio chimica.", t:"Subject", tags:["subjects"]},
+          {p:"Studio biologia.", t:"Subject", tags:["subjects"]},
+          {p:"Studio informatica.", t:"Subject", tags:["subjects"]},
+          {p:"Studio design.", t:"Subject", tags:["subjects"]},
+          {p:"Studio tecnologia.", t:"Subject", tags:["subjects","core"]},
+          {p:"Studio cucina.", t:"Subject", tags:["subjects","core"]},
+          {p:"Studio economia (business).", t:"Subject", tags:["subjects","core"]},
+          {p:"Studio storia.", t:"Subject", tags:["subjects","core"]},
+          {p:"Studio geografia.", t:"Subject", tags:["subjects","core"]},
+          {p:"Studio religione (RE).", t:"Subject", tags:["subjects","core"]},
+
+          // Classroom / rules
+          {p:"In classe ci sono banchi e sedie.", t:"Classroom", tags:["exam","core"]},
+          {p:"C’è una lavagna interattiva.", t:"Classroom", tags:["exam"]},
+          {p:"C’è una sala d’esame.", t:"Building", tags:["exam","core"]},
+          {p:"Bisogna rispettare le regole.", t:"Rules", tags:["exam","core"]},
+          {p:"È vietato copiare.", t:"Rules", tags:["exam"]},
+          {p:"Bisogna scrivere chiaramente.", t:"Rules", tags:["exam","core"]},
+          {p:"Devi scrivere le risposte con inchiostro nero.", t:"Invigilator", tags:["exam","core"]},
+
+          // Ink lore
+          {p:"È vietato usare l’inchiostro giallo per gli esami.", t:"Ink rule", tags:["core","exam"]},
+          {p:"A volte l’inchiostro nero è vietato nelle scienze.", t:"Ink rule", tags:["core","exam"]},
+
+          // Ambition / tenses
+          {p:"Voglio prendere 9.", t:"Ambition", tags:["core"]},
+          {p:"Ieri ho ripassato per due ore.", t:"Past", tags:["core"]},
+          {p:"Adesso preparo gli esami.", t:"Present", tags:["core"]},
+          {p:"In futuro studierò lingue.", t:"Future", tags:["core"]},
+
+          // Connectors
+          {p:"Prima, poi, infine.", t:"Connectors", tags:["core"]},
+          {p:"Però / tuttavia.", t:"Connectors", tags:["core"]},
+          {p:"Perché / siccome.", t:"Connectors", tags:["core"]},
+          {p:"Per esempio.", t:"Connectors", tags:["core"]},
+          {p:"Inoltre.", t:"Connectors", tags:["core"]}
+        ]
+      },
+
+      de: {
+        support: "⭐",
+        title: "🇩🇪 deutsch — Theme 1 (School) (Luke-only)",
+        items: [
+          {p:"In meiner Schule gibt es viele Fächer.", t:"General", tags:["core"]},
+          {p:"Ich gehe jeden Tag zur Schule.", t:"Routine", tags:["core"]},
+          {p:"Mein Stundenplan ist voll.", t:"Timetable", tags:["core"]},
+          {p:"Ich lerne viel, weil ich gute Noten will.", t:"Work ethic", tags:["core"]},
+          {p:"Ich wiederhole für den Otono-Test.", t:"Revision", tags:["core"]},
+
+          // Subjects (limited)
+          {p:"Ich lerne Mathe.", t:"Subject", tags:["subjects","core"]},
+          {p:"Ich lerne Englisch.", t:"Subject", tags:["subjects"]},
+          {p:"Ich lerne Naturwissenschaften.", t:"Subject", tags:["subjects","core"]},
+          {p:"Ich mache kombinierte Naturwissenschaften (Trilogie).", t:"Subject", tags:["subjects","core"]},
+          {p:"Ich mache kombinierte Naturwissenschaften (Synergie).", t:"Subject", tags:["subjects","core"]},
+          {p:"Ich lerne Geschichte.", t:"Subject", tags:["subjects"]},
+          {p:"Ich lerne Geografie.", t:"Subject", tags:["subjects"]},
+
+          // Classroom / rules
+          {p:"Im Klassenzimmer gibt es Tische und Stühle.", t:"Classroom", tags:["exam","core"]},
+          {p:"Es gibt einen Prüfungsraum.", t:"Building", tags:["exam","core"]},
+          {p:"Man muss die Regeln respektieren.", t:"Rules", tags:["exam","core"]},
+          {p:"Man muss deutlich schreiben.", t:"Rules", tags:["exam","core"]},
+          {p:"Du musst mit schwarzer Tinte schreiben.", t:"Invigilator", tags:["exam","core"]},
+
+          // Ambition / tenses
+          {p:"Ich will eine 9 bekommen.", t:"Ambition", tags:["core"]},
+          {p:"Gestern habe ich zwei Stunden gelernt.", t:"Past", tags:["core"]},
+          {p:"Jetzt lerne ich für die Prüfungen.", t:"Present", tags:["core"]},
+          {p:"In der Zukunft werde ich mehr lernen.", t:"Future", tags:["core"]},
+
+          // Connectors
+          {p:"Zuerst, dann, schließlich.", t:"Connectors", tags:["core"]},
+          {p:"Aber / jedoch.", t:"Connectors", tags:["core"]},
+          {p:"Weil / denn.", t:"Connectors", tags:["core"]},
+          {p:"Zum Beispiel.", t:"Connectors", tags:["core"]}
+        ]
+      }
+    };
+
+    const els = {
+      lang: document.getElementById("lang"),
+      mode: document.getElementById("mode"),
+      search: document.getElementById("search"),
+      phraseList: document.getElementById("phraseList"),
+      scoreTxt: document.getElementById("scoreTxt"),
+      knownTxt: document.getElementById("knownTxt"),
+      totalTxt: document.getElementById("totalTxt"),
+      needTxt: document.getElementById("needTxt"),
+      gradeAH: document.getElementById("gradeAH"),
+      grade91: document.getElementById("grade91"),
+      outcome: document.getElementById("outcome"),
+      progressPct: document.getElementById("progressPct"),
+      listTitle: document.getElementById("listTitle"),
+      supportLine: document.getElementById("supportLine"),
+      filterLine: document.getElementById("filterLine"),
+      searchLine: document.getElementById("searchLine"),
+      checkAllBtn: document.getElementById("checkAllBtn"),
+      uncheckAllBtn: document.getElementById("uncheckAllBtn"),
+      resetBtn: document.getElementById("resetBtn"),
+    };
+
+    // State per language (remember ticks separately)
+    const state = {
+      fr: new Set(),
+      es: new Set(),
+      it: new Set(),
+      de: new Set(),
+    };
+
+    function clamp(n, a, b){ return Math.max(a, Math.min(b, n)); }
+
+    function gradeAHFromScore(score){
+      // score is 0-100
+      if (score >= 101) return "S"; // not expected
+      if (score >= 95) return "A";
+      if (score >= 80) return "B";
+      if (score >= 70) return "C";
+      if (score >= 66) return "D";
+      if (score >= 55) return "E";
+      if (score >= 45) return "F";
+      if (score >= 30) return "G";
+      if (score >= 15) return "H";
+      return "U";
+    }
+
+    function grade91FromScore(score){
+      // Estimated mapping (not official)
+      if (score >= 90) return "9";
+      if (score >= 80) return "8";
+      if (score >= 70) return "7";
+      if (score >= 60) return "6";
+      if (score >= 50) return "5";
+      if (score >= 40) return "4";
+      if (score >= 30) return "3";
+      if (score >= 20) return "2";
+      if (score >= 10) return "1";
+      return "U";
+    }
+
+    function outcomeFromScore(score){
+      if (score >= 90) return "DISTINCTION";
+      if (score >= 80) return "MERIT";
+      if (score >= 66) return "PASS";
+      return "FAIL";
+    }
+
+    function getFilteredItems(lang){
+      const bank = PHRASES[lang].items;
+      const mode = els.mode.value;
+      const q = (els.search.value || "").trim().toLowerCase();
+
+      let items = bank;
+
+      if (mode === "core") items = items.filter(x => x.tags.includes("core"));
+      if (mode === "exam") items = items.filter(x => x.tags.includes("exam"));
+      if (mode === "subjects") items = items.filter(x => x.tags.includes("subjects"));
+
+      if (q){
+        items = items.filter(x =>
+          x.p.toLowerCase().includes(q) ||
+          x.t.toLowerCase().includes(q)
+        );
+      }
+
+      return items;
+    }
+
+    function render(){
+      const lang = els.lang.value;
+      const pack = PHRASES[lang];
+      const items = getFilteredItems(lang);
+      const ticks = state[lang];
+
+      els.listTitle.textContent = pack.title;
+      els.supportLine.innerHTML = "<strong>Support:</strong> " + pack.support;
+      els.filterLine.innerHTML = "<strong>Filter:</strong> " + els.mode.options[els.mode.selectedIndex].text;
+      els.searchLine.innerHTML = "<strong>Search:</strong> " + (els.search.value.trim() ? els.search.value.trim() : "(none)");
+
+      // Build list
+      els.phraseList.innerHTML = "";
+      items.forEach((x, idx) => {
+        // Create a stable key from original index in full bank so state doesn't break
+        const key = pack.items.indexOf(x); // okay for this scale
+        const checked = ticks.has(key);
+
+        const div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = `
+          <input type="checkbox" ${checked ? "checked" : ""} data-key="${key}">
+          <div class="txt">
+            <p class="p">${escapeHtml(x.p)}</p>
+            <p class="t">${escapeHtml(x.t)}</p>
+          </div>
+        `;
+        els.phraseList.appendChild(div);
+      });
+
+      // Totals should be based on the current mode (not search)
+      const totalMode = getFilteredItems(lang).length; // includes search; we want without search for perfect score count
+      // Recompute without search for "perfect score needs"
+      const qSave = els.search.value;
+      els.search.value = ""; // temporarily clear for perfect count
+      const totalPerfect = getFilteredItems(lang).length;
+      els.search.value = qSave;
+
+      // Known should count only in current mode (and current search view affects visible only; but score should be mode-based, not search-based)
+      // Count known among items matching current mode (without search)
+      const q2 = els.search.value;
+      els.search.value = "";
+      const itemsModeOnly = getFilteredItems(lang);
+      els.search.value = q2;
+
+      const knownModeOnly = itemsModeOnly.reduce((acc, x) => {
+        const key = pack.items.indexOf(x);
+        return acc + (ticks.has(key) ? 1 : 0);
+      }, 0);
+
+      const score = itemsModeOnly.length === 0 ? 0 : Math.round((knownModeOnly / itemsModeOnly.length) * 100);
+
+      els.scoreTxt.textContent = String(score);
+      els.knownTxt.textContent = String(knownModeOnly);
+      els.totalTxt.textContent = String(itemsModeOnly.length);
+      els.needTxt.textContent = String(itemsModeOnly.length);
+
+      els.gradeAH.textContent = gradeAHFromScore(score);
+      els.grade91.textContent = grade91FromScore(score);
+      els.outcome.textContent = outcomeFromScore(score);
+      els.progressPct.textContent = (itemsModeOnly.length ? Math.round((knownModeOnly / itemsModeOnly.length) * 100) : 0) + "%";
+
+      // Attach checkbox listeners
+      els.phraseList.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+        cb.addEventListener("change", (e) => {
+          const k = Number(e.target.getAttribute("data-key"));
+          if (e.target.checked) ticks.add(k);
+          else ticks.delete(k);
+          renderStatsOnly();
+        });
+      });
+    }
+
+    function renderStatsOnly(){
+      const lang = els.lang.value;
+      const pack = PHRASES[lang];
+      const ticks = state[lang];
+
+      // mode-only (no search) for stats
+      const qSave = els.search.value;
+      els.search.value = "";
+      const itemsModeOnly = getFilteredItems(lang);
+      els.search.value = qSave;
+
+      const knownModeOnly = itemsModeOnly.reduce((acc, x) => {
+        const key = pack.items.indexOf(x);
+        return acc + (ticks.has(key) ? 1 : 0);
+      }, 0);
+
+      const score = itemsModeOnly.length === 0 ? 0 : Math.round((knownModeOnly / itemsModeOnly.length) * 100);
+
+      els.scoreTxt.textContent = String(score);
+      els.knownTxt.textContent = String(knownModeOnly);
+      els.totalTxt.textContent = String(itemsModeOnly.length);
+      els.needTxt.textContent = String(itemsModeOnly.length);
+
+      els.gradeAH.textContent = gradeAHFromScore(score);
+      els.grade91.textContent = grade91FromScore(score);
+      els.outcome.textContent = outcomeFromScore(score);
+      els.progressPct.textContent = (itemsModeOnly.length ? Math.round((knownModeOnly / itemsModeOnly.length) * 100) : 0) + "%";
+    }
+
+    function escapeHtml(s){
+      return String(s)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    // Buttons
+    els.checkAllBtn.addEventListener("click", () => {
+      const lang = els.lang.value;
+      const pack = PHRASES[lang];
+      // Apply to mode-only (no search)
+      const qSave = els.search.value;
+      els.search.value = "";
+      const itemsModeOnly = getFilteredItems(lang);
+      els.search.value = qSave;
+
+      itemsModeOnly.forEach(x => state[lang].add(pack.items.indexOf(x)));
+      render();
+    });
+
+    els.uncheckAllBtn.addEventListener("click", () => {
+      const lang = els.lang.value;
+      const pack = PHRASES[lang];
+      // Remove only mode-only (no search)
+      const qSave = els.search.value;
+      els.search.value = "";
+      const itemsModeOnly = getFilteredItems(lang);
+      els.search.value = qSave;
+
+      itemsModeOnly.forEach(x => state[lang].delete(pack.items.indexOf(x)));
+      render();
+    });
+
+    els.resetBtn.addEventListener("click", () => {
+      // reset everything
+      state.fr.clear(); state.es.clear(); state.it.clear(); state.de.clear();
+      els.lang.value = "fr";
+      els.mode.value = "all";
+      els.search.value = "";
+      render();
+    });
+
+    // Rerender on inputs
+    els.lang.addEventListener("change", () => { els.search.value=""; render(); });
+    els.mode.addEventListener("change", () => { render(); });
+    els.search.addEventListener("input", () => { render(); });
+
+    // Init
+    render();
+  </script>
+</body>
+</html>

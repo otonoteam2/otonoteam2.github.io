@@ -1,0 +1,1071 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Otono Theme 2 Revision — Languages</title>
+  <meta name="description" content="Otono Team Theme 2 revision checklist with estimated score and grades." />
+  <style>
+    :root{
+      --bg0:#0b0612;
+      --bg1:#12081f;
+      --card:#140a22cc;
+      --stroke:#3b1a66;
+      --purple:#7c3aed;
+      --purple2:#a855f7;
+      --red:#ef4444;
+      --red2:#fb7185;
+      --text:#efe9ff;
+      --muted:#cbb8ff;
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --radius: 20px;
+      --radius2: 28px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(1200px 900px at 20% 10%, rgba(124,58,237,.35), transparent 55%),
+        radial-gradient(1100px 800px at 80% 0%, rgba(239,68,68,.25), transparent 55%),
+        radial-gradient(900px 700px at 60% 90%, rgba(168,85,247,.20), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      min-height:100vh;
+    }
+    a{ color:inherit; text-decoration:none; }
+    .wrap{
+      max-width:1160px;
+      margin:0 auto;
+      padding:28px 18px 60px;
+    }
+    header{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:18px;
+    }
+    .brand{ display:flex; align-items:center; gap:12px; }
+    .logo{
+      width:44px; height:44px; border-radius:16px;
+      background: linear-gradient(135deg, rgba(239,68,68,.95), rgba(124,58,237,.95));
+      box-shadow: 0 10px 30px rgba(124,58,237,.22);
+      position:relative;
+      overflow:hidden;
+    }
+    .logo:before{
+      content:"";
+      position:absolute; inset:-40%;
+      background: repeating-linear-gradient(45deg, rgba(255,255,255,.20) 0 8px, rgba(255,255,255,0) 8px 16px);
+      transform:rotate(10deg);
+      opacity:.35;
+    }
+    .title h1{
+      margin:0;
+      font-size:18px;
+      letter-spacing:.2px;
+      line-height:1.1;
+    }
+    .title p{
+      margin:4px 0 0;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .top-actions{
+      display:flex; gap:10px; flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 12px;
+      border-radius:14px;
+      background: linear-gradient(135deg, rgba(124,58,237,.25), rgba(239,68,68,.18));
+      border:1px solid rgba(124,58,237,.35);
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      font-weight:800;
+      font-size:13px;
+      cursor:pointer;
+      user-select:none;
+      transition:transform .12s ease, filter .12s ease, border-color .12s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); filter:brightness(1.03); border-color: rgba(168,85,247,.55); }
+    .btn:active{ transform: translateY(0px); filter:brightness(.98); }
+    .btn.secondary{
+      background: rgba(20,10,34,.55);
+      border:1px solid rgba(239,68,68,.28);
+    }
+    .btn.small{ padding:8px 10px; border-radius:12px; font-size:12px; }
+    .pill{
+      font-family:var(--mono);
+      font-size:12px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(239,68,68,.25);
+      background: rgba(20,10,34,.45);
+      color: var(--muted);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap:14px;
+    }
+    @media (max-width: 940px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    .card{
+      background: linear-gradient(180deg, rgba(20,10,34,.72), rgba(14,7,24,.72));
+      border:1px solid rgba(124,58,237,.28);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .card .hd{
+      padding:16px 16px 12px;
+      border-bottom: 1px solid rgba(124,58,237,.18);
+      background:
+        radial-gradient(700px 180px at 10% 0%, rgba(124,58,237,.25), transparent 60%),
+        radial-gradient(700px 200px at 90% 0%, rgba(239,68,68,.18), transparent 60%),
+        rgba(0,0,0,.08);
+    }
+    .card .hd h2{
+      margin:0;
+      font-size:15px;
+      letter-spacing:.2px;
+    }
+    .card .hd p{
+      margin:6px 0 0;
+      font-size:12.5px;
+      color: var(--muted);
+      line-height:1.4;
+    }
+    .card .bd{ padding:14px 16px 16px; }
+
+    label{
+      font-size:12px;
+      color: var(--muted);
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+    select, input[type="text"]{
+      width:100%;
+      padding:11px 12px;
+      border-radius:14px;
+      border:1px solid rgba(124,58,237,.32);
+      background: rgba(6,3,10,.55);
+      color: var(--text);
+      outline:none;
+      font-weight:800;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,.05);
+    }
+    select:focus, input[type="text"]:focus{
+      border-color: rgba(239,68,68,.45);
+      box-shadow: 0 0 0 3px rgba(239,68,68,.10);
+    }
+
+    .controls{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    @media (max-width: 540px){
+      .controls{ grid-template-columns: 1fr; }
+    }
+
+    .row{
+      display:flex; gap:12px; flex-wrap:wrap;
+      align-items:center; justify-content:space-between;
+      margin:10px 0 14px;
+    }
+    .searchWrap{ display:flex; gap:10px; align-items:center; }
+    .searchWrap input{ flex:1; }
+    .hint{
+      margin-top:10px;
+      font-size:12.2px;
+      color: var(--muted);
+      line-height:1.45;
+    }
+
+    .list{
+      margin-top:12px;
+      display:grid;
+      gap:10px;
+    }
+    .item{
+      border-radius:18px;
+      border:1px solid rgba(124,58,237,.24);
+      background: linear-gradient(180deg, rgba(22,12,38,.62), rgba(10,5,18,.62));
+      padding:12px 12px;
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      justify-content:space-between;
+    }
+    .left{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      min-width:0;
+      flex:1;
+    }
+    .cb{
+      margin-top:2px;
+      width:18px; height:18px;
+      accent-color: var(--purple);
+      cursor:pointer;
+    }
+    .txt{ min-width:0; flex:1; }
+    .phrase{
+      font-weight:950;
+      letter-spacing:.2px;
+      font-size:13.5px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .meta{
+      margin-top:4px;
+      font-size:12px;
+      color: var(--muted);
+      line-height:1.35;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .tags{
+      display:flex;
+      gap:6px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+      margin-left:8px;
+      max-width:320px;
+    }
+    .tag{
+      font-family:var(--mono);
+      font-size:11px;
+      padding:5px 8px;
+      border-radius:999px;
+      border:1px solid rgba(239,68,68,.22);
+      background: rgba(0,0,0,.20);
+      color: var(--muted);
+      white-space:nowrap;
+    }
+    .tag.p{ border-color: rgba(124,58,237,.26); }
+    .tag.r{ border-color: rgba(239,68,68,.26); }
+
+    .statGrid{ display:grid; grid-template-columns:1fr; gap:12px; }
+    .stat{
+      border-radius:18px;
+      border:1px solid rgba(124,58,237,.22);
+      background: linear-gradient(180deg, rgba(22,12,38,.62), rgba(10,5,18,.62));
+      padding:12px 12px;
+    }
+    .stat h3{
+      margin:0 0 8px;
+      font-size:13px;
+      letter-spacing:.2px;
+    }
+    .big{
+      font-size:28px;
+      font-weight:1000;
+      line-height:1;
+      letter-spacing:.3px;
+    }
+    .sub{
+      margin-top:6px;
+      font-size:12px;
+      color: var(--muted);
+      line-height:1.4;
+    }
+    .bar{
+      height:10px;
+      border-radius:999px;
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(124,58,237,.18);
+      overflow:hidden;
+      margin-top:10px;
+    }
+    .fill{
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg, rgba(239,68,68,.95), rgba(124,58,237,.95));
+      border-radius:999px;
+      transition:width .18s ease;
+    }
+    .bounds{
+      font-family:var(--mono);
+      font-size:12px;
+      line-height:1.55;
+      color: var(--muted);
+      border-radius:18px;
+      border:1px solid rgba(239,68,68,.18);
+      background: rgba(0,0,0,.20);
+      padding:12px 12px;
+    }
+    .bounds strong{ color: var(--text); }
+
+    .note{
+      font-size:12px;
+      color: var(--muted);
+      line-height:1.5;
+      margin-top:10px;
+    }
+    .footer{
+      margin-top:14px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      color: var(--muted);
+      font-size:12px;
+    }
+    .mono{ font-family:var(--mono); }
+
+    .toggleRow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      margin:12px 0 6px;
+    }
+    .toggleRow .btn{ flex:0 0 auto; }
+
+    .tiny{
+      font-size:11.5px;
+      color:var(--muted);
+      line-height:1.35;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div class="title">
+          <h1>OTONO THEME 2 REVISION — Gaming • Music • Region</h1>
+          <p>Checklist your phrases • estimate score (0–100) • grades (A–H and 9–1) • FAIL/PASS/MERIT/DISTINCTION</p>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <a class="btn secondary" href="https://otonoteam2.github.io">
+          ⬅ Back to Main Menu (otonoteam2.github.io)
+        </a>
+        <button class="btn secondary" id="toggleAllBtn" type="button">☑ Tick / Untick ALL</button>
+        <button class="btn" id="resetBtn" type="button">♻ Reset ticks</button>
+        <span class="pill" id="wordNeed">Words needed for 100: —</span>
+      </div>
+    </header>
+
+    <div class="grid">
+      <section class="card" aria-label="Phrase checklist">
+        <div class="hd">
+          <h2>Phrase Bank (Theme 2)</h2>
+          <p>Select your language, tick what you know, and your score updates instantly. Use search to focus on Minecraft, Roblox, music, racing, buses, or your region.</p>
+        </div>
+        <div class="bd">
+          <div class="controls">
+            <div>
+              <label for="langSel">Language</label>
+              <select id="langSel" aria-label="Select language">
+                <option value="fr">🇫🇷 francais</option>
+                <option value="es">🇪🇸 espanol</option>
+                <option value="it">🇮🇹 italiano</option>
+                <option value="de">🇩🇪 deutsch</option>
+              </select>
+            </div>
+            <div>
+              <label for="modeSel">Display mode</label>
+              <select id="modeSel" aria-label="Select display mode">
+                <option value="phrases">Phrases (sentence builder)</option>
+                <option value="vocab">Vocab list (words only)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div style="flex:1; min-width:260px;">
+              <label for="searchBox">Search</label>
+              <div class="searchWrap">
+                <input id="searchBox" type="text" placeholder="Search: minecraft, tardis, subway, roblox, bus, piano, trumpet, racing, penthouse, future..." />
+                <button class="btn small" id="clearSearch" type="button">Clear</button>
+              </div>
+              <div class="hint">
+                Higher tier = variety. Tick across: gaming + music + region + opinions + different time frames.
+              </div>
+            </div>
+          </div>
+
+          <div class="toggleRow">
+            <div class="tiny">
+              Tick/Untick ALL affects the current language + current mode only (phrases or vocab).
+            </div>
+          </div>
+
+          <div class="list" id="phraseList" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <aside class="card" aria-label="Score and grades">
+        <div class="hd">
+          <h2>Your Estimated Result</h2>
+          <p>Based on what you tick. Score is proportional to coverage. Grades use your adjusted A–H boundaries plus a 9–1 estimate.</p>
+        </div>
+        <div class="bd">
+          <div class="statGrid">
+            <div class="stat">
+              <h3>Estimated score (0–100)</h3>
+              <div class="big"><span id="scoreOut">0</span><span class="mono">/100</span></div>
+              <div class="bar" aria-hidden="true"><div class="fill" id="barFill"></div></div>
+              <div class="sub" id="coverageOut">Coverage: 0 / 0 items</div>
+            </div>
+
+            <div class="stat">
+              <h3>Estimated grades</h3>
+              <div class="sub">
+                A–H grade: <strong id="gradeAH">U</strong><br/>
+                9–1 grade: <strong id="grade91">1</strong><br/>
+                Outcome: <strong id="outcome">FAIL</strong>
+              </div>
+              <div class="note">
+                Outcome rules: FAIL (0–65), PASS (66–79), MERIT (80–89), DISTINCTION (90+)
+              </div>
+            </div>
+
+            <div class="stat">
+              <h3>Words needed for a perfect score</h3>
+              <div class="sub">
+                Total items in this language: <strong id="totalItems">0</strong><br/>
+                Remaining to tick for 100: <strong id="remainItems">0</strong>
+              </div>
+              <div class="note">
+                “Words needed for 100” = items remaining in your current list.
+              </div>
+            </div>
+
+            <div class="bounds" aria-label="Grade boundaries A to H">
+              <strong>Adjusted A–H grade boundaries (Otono)</strong><br/>
+              S: 101+ (secret grade)<br/>
+              A: 95–100<br/>
+              B: 80–94<br/>
+              C: 70–79<br/>
+              D: 66–69<br/>
+              E: 55–65<br/>
+              F: 45–54<br/>
+              G: 30–44<br/>
+              H: 15–29<br/>
+              U: 0–14
+            </div>
+
+            <div class="note">
+              9–1 estimate mapping (internal):<br/>
+              9: 90–100 • 8: 80–89 • 7: 70–79 • 6: 66–69 • 5: 55–65 • 4: 45–54 • 3: 30–44 • 2: 15–29 • 1: 0–14
+            </div>
+          </div>
+
+          <div class="footer">
+            <span>Otono Theme 2 • Red & Purple</span>
+            <span class="mono">Auto-saves locally</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    // ==========================================================
+    // Theme 2 packs (with LOTS of phrases)
+    // Targets: FR ~80 phrases, ES ~50 phrases, IT/DE smaller
+    // ==========================================================
+
+    const DATA = {
+      fr: {
+        name: "🇫🇷 francais",
+        phrases: [
+          // ---- Free time (opinions / frequency / reasons)
+          { t:"Pendant mon temps libre, je joue aux jeux vidéo.", k:["free time"] },
+          { t:"Quand j’ai du temps, je joue en ligne avec mes amis.", k:["free time","online"] },
+          { t:"En général, je joue le soir après les devoirs.", k:["routine","present"] },
+          { t:"Le week-end, je joue plus longtemps.", k:["routine"] },
+          { t:"Je préfère jouer en équipe plutôt que seul.", k:["opinions","teamwork"] },
+          { t:"Je trouve les jeux amusants et relaxants.", k:["opinions"] },
+          { t:"J’aime la compétition parce que je veux m’améliorer.", k:["competition","reasons"] },
+          { t:"Je passe parfois trop de temps devant l’écran.", k:["balance"] },
+          { t:"Je fais aussi du sport, mais moins souvent.", k:["balance"] },
+          { t:"Je limite mon temps d’écran quand j’ai beaucoup de devoirs.", k:["balance","rules"] },
+
+          // ---- Minecraft community server (builds / teamwork)
+          { t:"Je joue sur un serveur Minecraft communautaire.", k:["minecraft","community"] },
+          { t:"Sur le serveur, chacun a un rôle dans la construction.", k:["minecraft","teamwork"] },
+          { t:"Nous avons construit un aéroport international très réaliste.", k:["minecraft","airport"] },
+          { t:"Il y a des terminaux, des portes d’embarquement et des pistes.", k:["minecraft","airport"] },
+          { t:"Nous avons aussi construit un réseau de métro souterrain.", k:["minecraft","subway"] },
+          { t:"Le métro relie plusieurs quartiers et stations.", k:["minecraft","subway","region"] },
+          { t:"Benjamin Nelson est responsable de l’organisation du métro.", k:["minecraft","subway"] },
+          { t:"Red, OWing et Lit sont les principaux constructeurs.", k:["minecraft","teamwork"] },
+          { t:"Nous avons créé des panneaux et des plans pour les lignes.", k:["minecraft","subway"] },
+          { t:"J’adore voir les gens utiliser nos stations.", k:["minecraft","opinions"] },
+
+          // ---- Ice boat racing
+          { t:"Nous avons construit des circuits de course en bateau sur glace.", k:["minecraft","ice boat","racing"] },
+          { t:"Ces circuits ont été créés spécialement pour OWing.", k:["minecraft","ice boat"] },
+          { t:"La course sur glace est rapide et technique.", k:["racing","skills"] },
+          { t:"Je gagne quand je reste concentré(e) et précis(e).", k:["racing","skills"] },
+          { t:"Je perds si je fais un virage trop large.", k:["racing","mistakes"] },
+
+          // ---- Sky Building
+          { t:"Nous avons construit le Sky Building: 1015 mètres de hauteur.", k:["minecraft","sky building"] },
+          { t:"Le Sky Building a 192 étages.", k:["minecraft","sky building"] },
+          { t:"C’est un gratte-ciel gigantesque et impressionnant.", k:["minecraft","opinions"] },
+          { t:"Nous avons terminé le projet en seulement trois semaines.", k:["minecraft","teamwork"] },
+          { t:"C’était difficile, mais le travail d’équipe a tout changé.", k:["teamwork","reasons"] },
+          { t:"Je suis fier/fière de notre organisation.", k:["opinions","teamwork"] },
+
+          // ---- Thomas TARDIS (consent / access)
+          { t:"Thomas a construit un TARDIS sur le serveur.", k:["tardis","minecraft"] },
+          { t:"Il laisse entrer les gens seulement avec son consentement.", k:["tardis","rules"] },
+          { t:"En général, il accepte presque tout le monde.", k:["tardis"] },
+          { t:"Cependant, il n’autorise pas Red et Joshua à entrer.", k:["tardis","drama"] },
+          { t:"Je trouve cette règle injuste, mais je la respecte.", k:["opinions","rules"] },
+
+          // ---- Roblox (Jailbreak / Bedwars)
+          { t:"Je joue aussi à Roblox quand je m’ennuie.", k:["roblox"] },
+          { t:"Je joue surtout à Jailbreak et à Bedwars.", k:["roblox","jailbreak","bedwars"] },
+          { t:"Dans Jailbreak, je peux être policier ou criminel.", k:["roblox","roles"] },
+          { t:"Parfois, je choisis d’être criminel pour faire un braquage.", k:["roblox","crime"] },
+          { t:"Je vole une banque puis je m’échappe en voiture.", k:["roblox","crime"] },
+          { t:"Je me fais arrêter si je fais une erreur.", k:["roblox","arrested"] },
+          { t:"Quand je suis policier, je poursuis les criminels.", k:["roblox","police"] },
+          { t:"Dans Bedwars, je protège mon lit et j’attaque les autres équipes.", k:["roblox","bedwars","teamwork"] },
+          { t:"Je préfère Bedwars parce que la stratégie est essentielle.", k:["roblox","opinions"] },
+          { t:"Je gagne plus souvent quand je communique bien.", k:["teamwork","skills"] },
+
+          // ---- Bus simulator (complaints / speeding)
+          { t:"Je joue à Sunshine Island Bus Simulator.", k:["bus","simulator"] },
+          { t:"C’est un mélange de conduite à Hong Kong et au Royaume-Uni.", k:["bus","region"] },
+          { t:"Les passagers se plaignent quand le conducteur a un accident.", k:["bus","complaints"] },
+          { t:"Un passager dit que le virage est trop rapide.", k:["bus","complaints"] },
+          { t:"Un passager dit que le frein est trop fort.", k:["bus","complaints"] },
+          { t:"Un passager se plaint si la porte s’ouvre pendant que le bus roule.", k:["bus","rules"] },
+          { t:"Je roule parfois à 90 miles à l’heure quand c’est possible.", k:["bus","speed"] },
+          { t:"OWing freine parfois trop fort, alors les passagers crient.", k:["bus","complaints"] },
+          { t:"Red a parfois un accident, donc les passagers se fâchent.", k:["bus","complaints"] },
+          { t:"Lors d’un événement spécial, j’ai roulé à plus de 300 miles à l’heure.", k:["bus","events","speed"] },
+          { t:"Je sais que c’est dangereux, mais c’est un jeu.", k:["safety"] },
+
+          // ---- Racing games (Need for Speed)
+          { t:"Je joue à Need for Speed Heat.", k:["nfs","racing"] },
+          { t:"Je joue aussi à Need for Speed Unbound.", k:["nfs","racing"] },
+          { t:"J’adore la vitesse, mais seulement dans les jeux.", k:["nfs","safety","opinions"] },
+          { t:"Je fais des courses sur l’autoroute virtuelle.", k:["nfs","racing"] },
+          { t:"Je gagne grâce à de bons réflexes.", k:["skills"] },
+          { t:"Je perds si je prends des risques inutiles.", k:["mistakes"] },
+
+          // ---- Music (instruments / anthem)
+          { t:"La musique est très importante pour moi.", k:["music","opinions"] },
+          { t:"Je joue du piano pour me détendre.", k:["music","piano"] },
+          { t:"Je joue aussi du violon quand j’ai le temps.", k:["music","violin"] },
+          { t:"Luke joue de la trompette.", k:["music","trumpet"] },
+          { t:"Jessica joue aussi du piano.", k:["music","piano"] },
+          { t:"OWing connaît quelques bases au piano.", k:["music"] },
+          { t:"Red est un soprano et Luke est un ténor.", k:["music"] },
+          { t:"Je connais La Marseillaise: les deux premières lignes et le refrain.", k:["music","marseillaise"] },
+          { t:"Je pratique mon instrument plusieurs fois par semaine.", k:["music","routine"] },
+          { t:"La musique m’aide à exprimer mes émotions.", k:["music","identity"] },
+
+          // ---- Region / home / rooms / penthouses
+          { t:"J’habite dans une région moderne avec de grands bâtiments.", k:["region","home"] },
+          { t:"Je préfère les penthouses, car la vue est incroyable.", k:["region","penthouses"] },
+          { t:"Chez moi, il y a plusieurs pièces.", k:["home","rooms"] },
+          { t:"Dans ma chambre, il y a un bureau, un lit et un ordinateur.", k:["home","room"] },
+          { t:"Mon endroit préféré est ma chambre parce qu’elle est calme.", k:["home","opinions"] },
+          { t:"Je me détends chez moi après avoir joué en ligne.", k:["home","routine"] },
+
+          // ---- Tense boosters (past/future)
+          { t:"Hier, j’ai joué pendant une heure avec mes amis.", k:["past"] },
+          { t:"La semaine dernière, j’ai participé à une course et j’ai gagné.", k:["past","racing"] },
+          { t:"Demain, je vais pratiquer le piano.", k:["future","music"] },
+          { t:"Ce week-end, je vais construire quelque chose de nouveau.", k:["future","minecraft"] },
+          { t:"Plus tard, j’aimerais participer à une compétition plus difficile.", k:["future","competition"] }
+        ],
+        vocab: [
+          { t:"le temps libre", k:["free time"] },
+          { t:"un loisir", k:["free time"] },
+          { t:"un serveur", k:["online"] },
+          { t:"communautaire", k:["community"] },
+          { t:"construire", k:["building"] },
+          { t:"un aéroport", k:["airport"] },
+          { t:"un terminal", k:["airport"] },
+          { t:"une porte d’embarquement", k:["airport"] },
+          { t:"une piste", k:["airport"] },
+          { t:"un métro", k:["subway"] },
+          { t:"une station", k:["subway"] },
+          { t:"un quartier", k:["region"] },
+          { t:"un gratte-ciel", k:["sky building"] },
+          { t:"un étage", k:["sky building"] },
+          { t:"la hauteur", k:["sky building"] },
+          { t:"une course", k:["racing"] },
+          { t:"la vitesse", k:["speed"] },
+          { t:"un virage", k:["racing"] },
+          { t:"gagner", k:["racing"] },
+          { t:"perdre", k:["racing"] },
+          { t:"un TARDIS", k:["tardis"] },
+          { t:"le consentement", k:["rules"] },
+          { t:"Roblox", k:["roblox"] },
+          { t:"la police", k:["police"] },
+          { t:"être arrêté(e)", k:["arrested"] },
+          { t:"un braquage", k:["crime"] },
+          { t:"un passager", k:["bus"] },
+          { t:"se plaindre", k:["complaints"] },
+          { t:"le frein", k:["bus"] },
+          { t:"une porte", k:["bus"] },
+          { t:"dangereux", k:["safety"] },
+          { t:"la musique", k:["music"] },
+          { t:"le piano", k:["piano"] },
+          { t:"le violon", k:["violin"] },
+          { t:"la trompette", k:["trumpet"] },
+          { t:"une région", k:["region"] },
+          { t:"un penthouse", k:["penthouses"] },
+          { t:"une pièce", k:["rooms"] },
+          { t:"une chambre", k:["home"] },
+          { t:"un bureau", k:["home"] }
+        ]
+      },
+
+      es: {
+        name: "🇪🇸 espanol",
+        phrases: [
+          // ---- Free time
+          { t:"En mi tiempo libre, juego a videojuegos.", k:["free time"] },
+          { t:"Cuando tengo tiempo, juego en línea con mis amigos.", k:["online"] },
+          { t:"Normalmente juego por la noche después de los deberes.", k:["routine"] },
+          { t:"Los fines de semana juego más tiempo.", k:["routine"] },
+          { t:"Prefiero jugar en equipo porque es más divertido.", k:["teamwork","opinions"] },
+          { t:"Me encantan los juegos porque son emocionantes.", k:["opinions"] },
+          { t:"Me gusta competir porque quiero mejorar.", k:["competition","reasons"] },
+          { t:"A veces paso demasiado tiempo frente a la pantalla.", k:["balance"] },
+
+          // ---- Minecraft
+          { t:"Juego en un servidor comunitario de Minecraft.", k:["minecraft","community"] },
+          { t:"En el servidor construimos proyectos enormes.", k:["minecraft","building"] },
+          { t:"Hemos construido un aeropuerto internacional muy realista.", k:["minecraft","airport"] },
+          { t:"También hay un sistema de metro (Otono Subways).", k:["minecraft","subway"] },
+          { t:"El metro conecta varias zonas y estaciones.", k:["subway","region"] },
+          { t:"Benjamin Nelson organiza el metro.", k:["subway"] },
+          { t:"Red, OWing y Lit son los constructores principales.", k:["teamwork"] },
+          { t:"Construimos circuitos de carreras sobre hielo para OWing.", k:["ice boat","racing"] },
+          { t:"El Sky Building mide 1015 metros y tiene 192 plantas.", k:["sky building"] },
+          { t:"Terminamos el proyecto en solo tres semanas gracias al trabajo en equipo.", k:["teamwork"] },
+
+          // ---- TARDIS
+          { t:"Thomas construyó un TARDIS en el servidor.", k:["tardis"] },
+          { t:"Deja entrar a la gente solo con su consentimiento.", k:["rules"] },
+          { t:"Sin embargo, no deja entrar a Red ni a Joshua.", k:["drama"] },
+
+          // ---- Roblox
+          { t:"Si juego a Roblox, prefiero Jailbreak y Bedwars.", k:["roblox","jailbreak","bedwars"] },
+          { t:"En Jailbreak puedo ser policía o criminal.", k:["roles"] },
+          { t:"A veces robo un banco y luego intento escapar.", k:["crime"] },
+          { t:"A veces la policía me arresta.", k:["arrested"] },
+          { t:"En Bedwars protejo mi cama y ataco a otros equipos.", k:["teamwork"] },
+          { t:"Prefiero Bedwars porque la estrategia es importante.", k:["opinions"] },
+
+          // ---- Bus simulator
+          { t:"Juego a Sunshine Island Bus Simulator.", k:["bus","simulator"] },
+          { t:"Es una mezcla de Hong Kong y el Reino Unido.", k:["region"] },
+          { t:"Los pasajeros se quejan si el conductor choca.", k:["complaints"] },
+          { t:"Un pasajero dice que el giro es demasiado rápido.", k:["complaints"] },
+          { t:"Un pasajero dice que el freno es demasiado fuerte.", k:["complaints"] },
+          { t:"Un pasajero se queja si la puerta se abre mientras el autobús se mueve.", k:["rules"] },
+          { t:"A veces conduzco a 90 millas por hora cuando es posible.", k:["speed"] },
+          { t:"En eventos especiales he llegado a más de 300 millas por hora.", k:["speed","events"] },
+          { t:"Sé que sería peligroso en la vida real.", k:["safety"] },
+
+          // ---- Racing / NFS
+          { t:"Me gustan los juegos de carreras porque me encanta la velocidad.", k:["racing"] },
+          { t:"Juego a Need for Speed y hago carreras en la autopista virtual.", k:["nfs","racing"] },
+          { t:"Gano cuando tomo buenas decisiones rápidamente.", k:["skills"] },
+
+          // ---- Music
+          { t:"La música es muy importante para mí.", k:["music"] },
+          { t:"Toco el piano para relajarme.", k:["piano"] },
+          { t:"A veces toco el violín.", k:["violin"] },
+          { t:"Un amigo toca la trompeta.", k:["trumpet"] },
+          { t:"Practico mi instrumento varias veces a la semana.", k:["routine"] },
+
+          // ---- Region / home
+          { t:"Vivo en una región moderna con edificios altos.", k:["region"] },
+          { t:"Prefiero los áticos porque la vista es impresionante.", k:["penthouses"] },
+          { t:"En mi casa hay varias habitaciones.", k:["home"] },
+          { t:"En mi habitación hay un escritorio y un ordenador.", k:["home"] },
+          { t:"Mi lugar favorito es mi habitación porque es tranquila.", k:["opinions"] },
+
+          // ---- Past / future
+          { t:"Ayer jugué en línea con mis amigos.", k:["past"] },
+          { t:"La semana pasada gané una carrera.", k:["past","racing"] },
+          { t:"Este fin de semana voy a construir algo nuevo.", k:["future","minecraft"] },
+          { t:"En el futuro quiero mejorar en los juegos.", k:["future","competition"] }
+        ],
+        vocab: [
+          { t:"el tiempo libre", k:["free time"] },
+          { t:"un pasatiempo", k:["free time"] },
+          { t:"un servidor", k:["online"] },
+          { t:"comunitario", k:["community"] },
+          { t:"construir", k:["building"] },
+          { t:"un aeropuerto", k:["airport"] },
+          { t:"una estación", k:["subway"] },
+          { t:"el metro", k:["subway"] },
+          { t:"un rascacielos", k:["sky building"] },
+          { t:"una planta", k:["sky building"] },
+          { t:"una carrera", k:["racing"] },
+          { t:"la velocidad", k:["speed"] },
+          { t:"ganar", k:["racing"] },
+          { t:"perder", k:["racing"] },
+          { t:"el consentimiento", k:["rules"] },
+          { t:"la policía", k:["police"] },
+          { t:"ser arrestado", k:["arrested"] },
+          { t:"un robo", k:["crime"] },
+          { t:"un pasajero", k:["bus"] },
+          { t:"quejarse", k:["complaints"] },
+          { t:"el freno", k:["bus"] },
+          { t:"una puerta", k:["bus"] },
+          { t:"peligroso", k:["safety"] },
+          { t:"la música", k:["music"] },
+          { t:"el piano", k:["piano"] },
+          { t:"el violín", k:["violin"] },
+          { t:"la trompeta", k:["trumpet"] },
+          { t:"una región", k:["region"] },
+          { t:"un ático", k:["penthouses"] },
+          { t:"una habitación", k:["home"] },
+          { t:"un escritorio", k:["home"] }
+        ]
+      },
+
+      it: {
+        name: "🇮🇹 italiano",
+        phrases: [
+          { t:"Nel tempo libero gioco ai videogiochi.", k:["free time"] },
+          { t:"Quando ho tempo, gioco online con i miei amici.", k:["online"] },
+          { t:"Preferisco giocare in squadra perché è più divertente.", k:["teamwork","opinions"] },
+          { t:"Gioco su un server Minecraft comunitario.", k:["minecraft"] },
+          { t:"Abbiamo costruito un aeroporto internazionale e una metropolitana.", k:["airport","subway"] },
+          { t:"Abbiamo costruito il Sky Building: 1015 metri e 192 piani.", k:["sky building"] },
+          { t:"Faccio gare sul ghiaccio e cerco di vincere.", k:["racing"] },
+          { t:"Gioco a un simulatore di autobus e vado troppo veloce.", k:["bus","speed"] },
+          { t:"I passeggeri si lamentano se freno troppo forte.", k:["complaints"] },
+          { t:"La musica è importante per me.", k:["music"] },
+          { t:"Suono il pianoforte per rilassarmi.", k:["piano"] },
+          { t:"Abito in una zona moderna con edifici alti.", k:["region"] },
+          { t:"Preferisco gli attici perché la vista è fantastica.", k:["penthouses"] }
+        ],
+        vocab: [
+          { t:"il tempo libero", k:["free time"] },
+          { t:"un server", k:["online"] },
+          { t:"comunitario", k:["community"] },
+          { t:"costruire", k:["building"] },
+          { t:"un aeroporto", k:["airport"] },
+          { t:"la metropolitana", k:["subway"] },
+          { t:"un grattacielo", k:["sky building"] },
+          { t:"un piano", k:["sky building"] },
+          { t:"una gara", k:["racing"] },
+          { t:"la velocità", k:["speed"] },
+          { t:"un passeggero", k:["bus"] },
+          { t:"lamentarsi", k:["complaints"] },
+          { t:"la musica", k:["music"] },
+          { t:"il pianoforte", k:["piano"] },
+          { t:"una zona", k:["region"] },
+          { t:"un attico", k:["penthouses"] }
+        ]
+      },
+
+      de: {
+        name: "🇩🇪 deutsch",
+        phrases: [
+          { t:"In meiner Freizeit spiele ich Videospiele.", k:["free time"] },
+          { t:"Wenn ich Zeit habe, spiele ich online mit meinen Freunden.", k:["online"] },
+          { t:"Ich spiele Minecraft auf einem Community-Server.", k:["minecraft"] },
+          { t:"Wir bauen große Projekte, zum Beispiel einen Flughafen und eine U-Bahn.", k:["airport","subway"] },
+          { t:"Wir haben ein sehr hohes Gebäude gebaut: 1015 Meter und 192 Stockwerke.", k:["sky building"] },
+          { t:"Ich mag Rennen, weil Geschwindigkeit spannend ist.", k:["racing","opinions"] },
+          { t:"Ich spiele Trompete, und Musik hilft mir beim Entspannen.", k:["music","trumpet"] },
+          { t:"Ich wohne in einer modernen Gegend mit hohen Gebäuden.", k:["region"] },
+          { t:"Ich mag Penthäuser, weil die Aussicht toll ist.", k:["penthouses"] }
+        ],
+        vocab: [
+          { t:"die Freizeit", k:["free time"] },
+          { t:"online", k:["online"] },
+          { t:"ein Server", k:["online"] },
+          { t:"die Gemeinschaft", k:["community"] },
+          { t:"bauen", k:["building"] },
+          { t:"der Flughafen", k:["airport"] },
+          { t:"die U-Bahn", k:["subway"] },
+          { t:"das Hochhaus", k:["sky building"] },
+          { t:"das Stockwerk", k:["sky building"] },
+          { t:"das Rennen", k:["racing"] },
+          { t:"die Geschwindigkeit", k:["speed"] },
+          { t:"die Musik", k:["music"] },
+          { t:"die Trompete", k:["trumpet"] },
+          { t:"die Gegend", k:["region"] },
+          { t:"das Penthouse", k:["penthouses"] }
+        ]
+      }
+    };
+
+    // -----------------------------------
+    // Persistence
+    // -----------------------------------
+    const STORAGE_KEY = "otono_theme2_checklist_v2";
+
+    function loadState(){
+      try{
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : {};
+      }catch(e){ return {}; }
+    }
+    function saveState(state){
+      try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
+    }
+
+    let state = loadState();
+
+    const langSel = document.getElementById("langSel");
+    const modeSel = document.getElementById("modeSel");
+    const phraseList = document.getElementById("phraseList");
+    const searchBox = document.getElementById("searchBox");
+    const clearSearch = document.getElementById("clearSearch");
+    const resetBtn = document.getElementById("resetBtn");
+    const toggleAllBtn = document.getElementById("toggleAllBtn");
+
+    const scoreOut = document.getElementById("scoreOut");
+    const barFill = document.getElementById("barFill");
+    const coverageOut = document.getElementById("coverageOut");
+    const gradeAH = document.getElementById("gradeAH");
+    const grade91 = document.getElementById("grade91");
+    const outcome = document.getElementById("outcome");
+    const totalItems = document.getElementById("totalItems");
+    const remainItems = document.getElementById("remainItems");
+    const wordNeed = document.getElementById("wordNeed");
+
+    // -----------------------------------
+    // Grade functions
+    // -----------------------------------
+    function gradeAHFromScore(s){
+      if (s >= 101) return "S";
+      if (s >= 95) return "A";
+      if (s >= 80) return "B";
+      if (s >= 70) return "C";
+      if (s >= 66) return "D";
+      if (s >= 55) return "E";
+      if (s >= 45) return "F";
+      if (s >= 30) return "G";
+      if (s >= 15) return "H";
+      return "U";
+    }
+    function grade91FromScore(s){
+      if (s >= 90) return "9";
+      if (s >= 80) return "8";
+      if (s >= 70) return "7";
+      if (s >= 66) return "6";
+      if (s >= 55) return "5";
+      if (s >= 45) return "4";
+      if (s >= 30) return "3";
+      if (s >= 15) return "2";
+      return "1";
+    }
+    function outcomeFromScore(s){
+      if (s >= 90) return "DISTINCTION";
+      if (s >= 80) return "MERIT";
+      if (s >= 66) return "PASS";
+      return "FAIL";
+    }
+
+    // -----------------------------------
+    // Helpers for state
+    // -----------------------------------
+    function getKey(lang, mode){ return `${lang}_${mode}`; }
+    function isChecked(lang, mode, idx){
+      const key = getKey(lang, mode);
+      return !!(state[key] && state[key][idx]);
+    }
+    function setChecked(lang, mode, idx, value){
+      const key = getKey(lang, mode);
+      if (!state[key]) state[key] = {};
+      state[key][idx] = value ? 1 : 0;
+      saveState(state);
+    }
+
+    function matchesSearch(item, q){
+      if (!q) return true;
+      q = q.toLowerCase().trim();
+      const text = item.t.toLowerCase();
+      const tags = (item.k || []).join(" ").toLowerCase();
+      return text.includes(q) || tags.includes(q);
+    }
+
+    // -----------------------------------
+    // Render list
+    // -----------------------------------
+    function render(){
+      const lang = langSel.value;
+      const mode = modeSel.value;
+      const q = searchBox.value;
+
+      const pack = DATA[lang];
+      const items = (mode === "vocab") ? pack.vocab : pack.phrases;
+
+      phraseList.innerHTML = "";
+      let shown = 0;
+
+      items.forEach((it, idx) => {
+        if (!matchesSearch(it, q)) return;
+        shown++;
+
+        const checked = isChecked(lang, mode, idx);
+
+        const el = document.createElement("div");
+        el.className = "item";
+
+        const left = document.createElement("div");
+        left.className = "left";
+
+        const cb = document.createElement("input");
+        cb.type = "checkbox";
+        cb.className = "cb";
+        cb.checked = checked;
+        cb.addEventListener("change", () => {
+          setChecked(lang, mode, idx, cb.checked);
+          updateStats();
+        });
+
+        const txt = document.createElement("div");
+        txt.className = "txt";
+
+        const phrase = document.createElement("div");
+        phrase.className = "phrase";
+        phrase.textContent = it.t;
+
+        const meta = document.createElement("div");
+        meta.className = "meta";
+        meta.textContent = (mode === "vocab") ? "Word item" : "Sentence pattern";
+
+        txt.appendChild(phrase);
+        txt.appendChild(meta);
+
+        left.appendChild(cb);
+        left.appendChild(txt);
+
+        const tags = document.createElement("div");
+        tags.className = "tags";
+        (it.k || []).slice(0, 4).forEach((tagText, i) => {
+          const tag = document.createElement("span");
+          tag.className = "tag " + (i % 2 === 0 ? "p" : "r");
+          tag.textContent = tagText;
+          tags.appendChild(tag);
+        });
+
+        el.appendChild(left);
+        el.appendChild(tags);
+
+        phraseList.appendChild(el);
+      });
+
+      if (shown === 0){
+        const empty = document.createElement("div");
+        empty.className = "bounds";
+        empty.innerHTML = "<strong>No results.</strong><br/>Try a different search term (e.g., minecraft, bus, music, racing, penthouse).";
+        phraseList.appendChild(empty);
+      }
+
+      updateStats();
+    }
+
+    // -----------------------------------
+    // Stats
+    // -----------------------------------
+    function updateStats(){
+      const lang = langSel.value;
+      const mode = modeSel.value;
+      const pack = DATA[lang];
+      const items = (mode === "vocab") ? pack.vocab : pack.phrases;
+
+      const total = items.length;
+      let known = 0;
+
+      for (let i=0;i<total;i++){
+        if (isChecked(lang, mode, i)) known++;
+      }
+
+      const score = total === 0 ? 0 : Math.round((known / total) * 100);
+
+      scoreOut.textContent = String(score);
+      barFill.style.width = score + "%";
+      coverageOut.textContent = `Coverage: ${known} / ${total} items`;
+
+      gradeAH.textContent = gradeAHFromScore(score);
+      grade91.textContent = grade91FromScore(score);
+      outcome.textContent = outcomeFromScore(score);
+
+      totalItems.textContent = String(total);
+      const remaining = Math.max(0, total - known);
+      remainItems.textContent = String(remaining);
+      wordNeed.textContent = `Words needed for 100: ${remaining}`;
+    }
+
+    // -----------------------------------
+    // Tick / Untick all (current lang + mode)
+    // -----------------------------------
+    function toggleAll(){
+      const lang = langSel.value;
+      const mode = modeSel.value;
+      const pack = DATA[lang];
+      const items = (mode === "vocab") ? pack.vocab : pack.phrases;
+
+      const total = items.length;
+      let known = 0;
+      for (let i=0;i<total;i++){
+        if (isChecked(lang, mode, i)) known++;
+      }
+
+      const shouldTickAll = known < total; // if not complete, tick all; else untick all
+      for (let i=0;i<total;i++){
+        setChecked(lang, mode, i, shouldTickAll);
+      }
+      render();
+    }
+
+    // -----------------------------------
+    // Events
+    // -----------------------------------
+    langSel.addEventListener("change", () => { searchBox.value=""; render(); });
+    modeSel.addEventListener("change", () => { searchBox.value=""; render(); });
+    searchBox.addEventListener("input", render);
+    clearSearch.addEventListener("click", () => { searchBox.value=""; render(); });
+
+    resetBtn.addEventListener("click", () => {
+      const lang = langSel.value;
+      const mode = modeSel.value;
+      const key = getKey(lang, mode);
+      if (state[key]) delete state[key];
+      saveState(state);
+      render();
+    });
+
+    toggleAllBtn.addEventListener("click", toggleAll);
+
+    // Initial
+    render();
+  </script>
+</body>
+</html>
