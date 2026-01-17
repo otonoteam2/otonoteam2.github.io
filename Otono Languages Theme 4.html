@@ -1,0 +1,933 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Otono Secret Theme 4 — Clayton GCSE Maths</title>
+  <meta name="description" content="Otono Secret Theme 4 revision checklist — Clayton's GCSE Maths result (160/160). Equal content across French, Spanish, Italian, German." />
+  <style>
+    :root{
+      --bg0:#0b0612;
+      --bg1:#12081f;
+      --stroke:#3b1a66;
+      --purple:#7c3aed;
+      --purple2:#a855f7;
+      --red:#ef4444;
+      --red2:#fb7185;
+      --text:#efe9ff;
+      --muted:#cbb8ff;
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --radius2: 28px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(1200px 900px at 20% 10%, rgba(124,58,237,.35), transparent 55%),
+        radial-gradient(1100px 800px at 80% 0%, rgba(239,68,68,.25), transparent 55%),
+        radial-gradient(900px 700px at 60% 90%, rgba(168,85,247,.20), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      min-height:100vh;
+    }
+    a{ color:inherit; text-decoration:none; }
+    .wrap{ max-width:1100px; margin:0 auto; padding:28px 18px 60px; }
+
+    header{
+      display:flex; flex-wrap:wrap; gap:12px;
+      align-items:center; justify-content:space-between;
+      margin-bottom:18px;
+    }
+    .brand{ display:flex; align-items:center; gap:12px; }
+    .logo{
+      width:46px; height:46px; border-radius:18px;
+      background: linear-gradient(135deg, rgba(239,68,68,.95), rgba(124,58,237,.95));
+      box-shadow: 0 10px 30px rgba(124,58,237,.22);
+      position:relative; overflow:hidden;
+    }
+    .logo:before{
+      content:"";
+      position:absolute; inset:-40%;
+      background: repeating-linear-gradient(45deg, rgba(255,255,255,.18) 0 8px, rgba(255,255,255,0) 8px 16px);
+      transform:rotate(12deg);
+      opacity:.35;
+    }
+    .title h1{ margin:0; font-size:18px; letter-spacing:.2px; line-height:1.1; }
+    .title p{ margin:4px 0 0; color:var(--muted); font-size:13px; }
+
+    .top-actions{
+      display:flex; gap:10px; flex-wrap:wrap;
+      align-items:center; justify-content:flex-end;
+    }
+    .btn{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 12px;
+      border-radius:14px;
+      background: linear-gradient(135deg, rgba(124,58,237,.25), rgba(239,68,68,.18));
+      border:1px solid rgba(124,58,237,.35);
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      font-weight:900;
+      font-size:13px;
+      cursor:pointer;
+      user-select:none;
+      transition:transform .12s ease, filter .12s ease, border-color .12s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); filter:brightness(1.03); border-color: rgba(168,85,247,.55); }
+    .btn:active{ transform: translateY(0px); filter:brightness(.98); }
+    .btn.secondary{
+      background: rgba(20,10,34,.55);
+      border:1px solid rgba(239,68,68,.28);
+    }
+    .btn.small{ padding:8px 10px; border-radius:12px; font-size:12px; }
+    .pill{
+      font-family:var(--mono);
+      font-size:12px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(239,68,68,.25);
+      background: rgba(20,10,34,.45);
+      color: var(--muted);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:14px;
+    }
+    @media (max-width: 940px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    .card{
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      border:1px solid rgba(124,58,237,.22);
+      background:
+        radial-gradient(800px 260px at 12% 0%, rgba(239,68,68,.16), transparent 60%),
+        radial-gradient(820px 260px at 88% 0%, rgba(124,58,237,.18), transparent 60%),
+        linear-gradient(180deg, rgba(10,5,18,.72), rgba(18,9,30,.72));
+    }
+    .card .hd{
+      padding:16px 16px 12px;
+      border-bottom: 1px solid rgba(124,58,237,.16);
+      background: linear-gradient(135deg, rgba(239,68,68,.10), rgba(124,58,237,.12)), rgba(0,0,0,.06);
+    }
+    .card .hd h2{ margin:0; font-size:15px; letter-spacing:.2px; }
+    .card .hd p{
+      margin:6px 0 0;
+      font-size:12.5px;
+      color: var(--muted);
+      line-height:1.4;
+    }
+    .card .bd{ padding:14px 16px 16px; }
+
+    label{
+      font-size:12px;
+      color: var(--muted);
+      font-weight:900;
+      letter-spacing:.2px;
+    }
+    select, input[type="text"]{
+      width:100%;
+      padding:11px 12px;
+      border-radius:14px;
+      border:1px solid rgba(239,68,68,.22);
+      background: rgba(6,3,10,.52);
+      color: var(--text);
+      outline:none;
+      font-weight:900;
+    }
+    select:focus, input[type="text"]:focus{
+      border-color: rgba(124,58,237,.55);
+      box-shadow: 0 0 0 3px rgba(124,58,237,.12);
+    }
+
+    .controls{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    @media (max-width: 540px){
+      .controls{ grid-template-columns: 1fr; }
+    }
+
+    .row{
+      display:flex; gap:12px; flex-wrap:wrap;
+      align-items:center; justify-content:space-between;
+      margin:10px 0 14px;
+    }
+    .searchWrap{ display:flex; gap:10px; align-items:center; }
+    .searchWrap input{ flex:1; }
+
+    .hint{
+      margin-top:10px;
+      font-size:12.2px;
+      color: var(--muted);
+      line-height:1.45;
+    }
+
+    .list{ margin-top:12px; display:grid; gap:10px; }
+    .item{
+      border-radius:18px;
+      border:1px solid rgba(239,68,68,.16);
+      background:
+        radial-gradient(600px 140px at 10% 0%, rgba(124,58,237,.14), transparent 60%),
+        linear-gradient(180deg, rgba(14,7,24,.62), rgba(10,5,18,.62));
+      padding:12px 12px;
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      justify-content:space-between;
+    }
+    .left{ display:flex; gap:10px; align-items:flex-start; min-width:0; flex:1; }
+    .cb{
+      margin-top:2px;
+      width:18px; height:18px;
+      accent-color: var(--purple2);
+      cursor:pointer;
+    }
+    .txt{ min-width:0; flex:1; }
+    .phrase{
+      font-weight:1100;
+      letter-spacing:.2px;
+      font-size:13.5px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .meta{
+      margin-top:4px;
+      font-size:12px;
+      color: var(--muted);
+      line-height:1.35;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .tags{
+      display:flex;
+      gap:6px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+      margin-left:8px;
+      max-width:340px;
+    }
+    .tag{
+      font-family:var(--mono);
+      font-size:11px;
+      padding:5px 8px;
+      border-radius:999px;
+      border:1px solid rgba(124,58,237,.22);
+      background: rgba(0,0,0,.18);
+      color: var(--muted);
+      white-space:nowrap;
+    }
+    .tag.r{ border-color: rgba(239,68,68,.22); }
+
+    /* BIG outcome */
+    .mega{
+      border-radius:22px;
+      border:1px solid rgba(124,58,237,.22);
+      background:
+        radial-gradient(900px 260px at 20% 0%, rgba(239,68,68,.18), transparent 60%),
+        radial-gradient(900px 260px at 80% 0%, rgba(124,58,237,.20), transparent 60%),
+        linear-gradient(180deg, rgba(14,7,24,.70), rgba(10,5,18,.70));
+      padding:16px 14px;
+      text-align:center;
+    }
+    .mega .label{
+      font-family:var(--mono);
+      font-size:12px;
+      color:var(--muted);
+      letter-spacing:.25px;
+      margin-bottom:8px;
+    }
+    .mega .outcomeBig{
+      font-size:34px;
+      font-weight:1150;
+      line-height:1.05;
+      letter-spacing:.6px;
+      margin:0;
+      padding:2px 0 6px;
+    }
+    .mega .gradesRow{
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+    .chipBig{
+      border-radius:999px;
+      padding:10px 12px;
+      border:1px solid rgba(239,68,68,.20);
+      background: rgba(0,0,0,.18);
+      min-width: 130px;
+    }
+    .chipBig .k{
+      font-family:var(--mono);
+      font-size:11px;
+      color:var(--muted);
+      margin-bottom:4px;
+    }
+    .chipBig .v{
+      font-size:20px;
+      font-weight:1150;
+      line-height:1;
+    }
+    .chipBig.p{ border-color: rgba(124,58,237,.22); }
+    .chipBig.r{ border-color: rgba(239,68,68,.22); }
+
+    .bar{
+      height:10px;
+      border-radius:999px;
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(239,68,68,.12);
+      overflow:hidden;
+      margin-top:10px;
+    }
+    .fill{
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg, rgba(124,58,237,.95), rgba(239,68,68,.95));
+      border-radius:999px;
+      transition:width .18s ease;
+    }
+
+    .stat{
+      margin-top:12px;
+      border-radius:18px;
+      border:1px solid rgba(239,68,68,.14);
+      background: linear-gradient(180deg, rgba(14,7,24,.62), rgba(10,5,18,.62));
+      padding:12px 12px;
+    }
+    .stat h3{ margin:0 0 8px; font-size:13px; letter-spacing:.2px; }
+    .sub{
+      margin-top:6px;
+      font-size:12px;
+      color: var(--muted);
+      line-height:1.4;
+    }
+    .bounds{
+      margin-top:12px;
+      font-family:var(--mono);
+      font-size:12px;
+      line-height:1.55;
+      color: var(--muted);
+      border-radius:18px;
+      border:1px solid rgba(124,58,237,.18);
+      background: rgba(0,0,0,.16);
+      padding:12px 12px;
+    }
+    .bounds strong{ color: var(--text); }
+
+    .footer{
+      margin-top:14px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      color: var(--muted);
+      font-size:12px;
+    }
+    .mono{ font-family:var(--mono); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div class="title">
+          <h1>OTONO SECRET THEME 4 — Clayton’s GCSE Maths Result</h1>
+          <p>Same topic across all languages: 160/160 • sat 19 months early • November (Year 10). Equal content for each language.</p>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <a class="btn secondary" href="https://otonoteam2.github.io">⬅ Back to Main Menu (otonoteam2.github.io)</a>
+        <button class="btn secondary" id="toggleAllBtn" type="button">☑ Tick / Untick ALL</button>
+        <button class="btn" id="resetBtn" type="button">♻ Reset ticks</button>
+        <span class="pill" id="wordNeed">Words needed for 100: —</span>
+      </div>
+    </header>
+
+    <div class="grid">
+      <!-- LEFT -->
+      <section class="card" aria-label="Phrase checklist">
+        <div class="hd">
+          <h2>Phrase Bank (Secret Theme 4)</h2>
+          <p>This theme is intentionally tiny and focused: Clayton’s GCSE Maths result (160/160), timing, reactions, and what it means. Every language has the same number of items.</p>
+        </div>
+        <div class="bd">
+          <div class="controls">
+            <div>
+              <label for="langSel">Language</label>
+              <select id="langSel" aria-label="Select language">
+                <option value="fr">🇫🇷 francais</option>
+                <option value="es">🇪🇸 espanol</option>
+                <option value="it">🇮🇹 italiano</option>
+                <option value="de">🇩🇪 deutsch</option>
+              </select>
+            </div>
+            <div>
+              <label for="modeSel">Display mode</label>
+              <select id="modeSel" aria-label="Select display mode">
+                <option value="phrases">Phrases (sentence builder)</option>
+                <option value="vocab">Vocab list (words only)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div style="flex:1; min-width:260px;">
+              <label for="searchBox">Search</label>
+              <div class="searchWrap">
+                <input id="searchBox" type="text" placeholder="Search: 160/160, 19 months, November, Year 10, results, reaction..." />
+                <button class="btn small" id="clearSearch" type="button">Clear</button>
+              </div>
+              <div class="hint">
+                Everything here is about one fact pattern, so the goal is accuracy + variety of sentence shapes (opinion, past, future, consequence).
+              </div>
+            </div>
+          </div>
+
+          <div class="list" id="phraseList" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <!-- RIGHT -->
+      <aside class="card" aria-label="Score and grades">
+        <div class="hd">
+          <h2>BIG Outcome & Grades</h2>
+          <p>Checklist score (0–100). Outcome uses your rules: FAIL (0–65) • PASS (66–79) • MERIT (80–89) • DISTINCTION (90+).</p>
+        </div>
+        <div class="bd">
+          <div class="mega" id="megaBox">
+            <div class="label">YOUR OUTCOME</div>
+            <div class="outcomeBig" id="outcomeBig">FAIL</div>
+            <div class="gradesRow">
+              <div class="chipBig r">
+                <div class="k">A–H grade</div>
+                <div class="v" id="gradeAH">U</div>
+              </div>
+              <div class="chipBig p">
+                <div class="k">9–1 grade</div>
+                <div class="v" id="grade91">1</div>
+              </div>
+              <div class="chipBig r">
+                <div class="k">Score</div>
+                <div class="v"><span id="scoreOut">0</span>/100</div>
+              </div>
+            </div>
+            <div class="bar" aria-hidden="true"><div class="fill" id="barFill"></div></div>
+            <div class="sub" id="coverageOut" style="margin-top:10px;">Coverage: 0 / 0 items</div>
+          </div>
+
+          <div class="stat">
+            <h3>Words needed for a perfect score</h3>
+            <div class="sub">
+              Total items in this language: <strong id="totalItems">0</strong><br/>
+              Remaining to tick for 100: <strong id="remainItems">0</strong>
+            </div>
+          </div>
+
+          <div class="bounds" aria-label="Grade boundaries A to H">
+            <strong>Adjusted A–H grade boundaries (Otono)</strong><br/>
+            S: 101+ (secret grade)<br/>
+            A: 95–100<br/>
+            B: 80–94<br/>
+            C: 70–79<br/>
+            D: 66–69<br/>
+            E: 55–65<br/>
+            F: 45–54<br/>
+            G: 30–44<br/>
+            H: 15–29<br/>
+            U: 0–14
+          </div>
+
+          <div class="footer">
+            <span>Secret Theme 4 • Equal language content</span>
+            <span class="mono">Auto-saves locally</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    // ==========================================================
+    // SECRET THEME 4 DATA
+    // EQUAL AMOUNT OF TEXT FOR EACH LANGUAGE
+    // - Phrases: 20 per language
+    // - Vocab: 20 per language
+    // Topic: Clayton's GCSE Maths result (160/160), 19 months early, November Year 10
+    // ==========================================================
+
+    const DATA = {
+      fr: {
+        name: "🇫🇷 francais",
+        phrases: [
+          { t:"Clayton a obtenu 160/160 en maths.", k:["score","facts"] },
+          { t:"Il a eu la note maximale, sans perdre un seul point.", k:["perfect","facts"] },
+          { t:"Il a passé l’examen 19 mois en avance.", k:["timing","facts"] },
+          { t:"Il l’a passé en novembre, en année 10.", k:["timing","facts"] },
+          { t:"C’était un résultat incroyable et rare.", k:["opinions"] },
+          { t:"Il était très fier de son résultat.", k:["feelings"] },
+          { t:"Ses parents étaient choqués mais contents.", k:["reactions"] },
+          { t:"À l’école, tout le monde en parlait.", k:["school","reactions"] },
+          { t:"Certains élèves étaient jaloux de lui.", k:["reactions","drama"] },
+          { t:"D’autres élèves le respectaient beaucoup.", k:["reactions"] },
+          { t:"Il a travaillé dur pour atteindre ce niveau.", k:["effort"] },
+          { t:"Il a fait beaucoup de révisions à l’avance.", k:["revision"] },
+          { t:"À mon avis, c’est impressionnant.", k:["opinions"] },
+          { t:"Je pense que c’est presque impossible.", k:["opinions"] },
+          { t:"Si j’étais lui, je célébrerais immédiatement.", k:["conditional"] },
+          { t:"Après cet examen, il a gagné une grande réputation.", k:["consequence"] },
+          { t:"Grâce à ce résultat, il se sentait invincible.", k:["consequence","feelings"] },
+          { t:"Dans le futur, il voudra sûrement faire plus de maths.", k:["future"] },
+          { t:"Un jour, je voudrais avoir un score aussi haut.", k:["future","opinions"] },
+          { t:"Ce résultat montre qu’il est extrêmement fort en maths.", k:["conclusion"] }
+        ],
+        vocab: [
+          { t:"un résultat", k:["results"] },
+          { t:"la note maximale", k:["score"] },
+          { t:"160 sur 160", k:["score"] },
+          { t:"un point", k:["marks"] },
+          { t:"en avance", k:["timing"] },
+          { t:"19 mois", k:["timing"] },
+          { t:"novembre", k:["timing"] },
+          { t:"l’année 10", k:["timing"] },
+          { t:"réviser", k:["revision"] },
+          { t:"un examen", k:["exam"] },
+          { t:"incroyable", k:["opinions"] },
+          { t:"rare", k:["opinions"] },
+          { t:"fier", k:["feelings"] },
+          { t:"jaloux", k:["reactions"] },
+          { t:"respecter", k:["reactions"] },
+          { t:"travailler dur", k:["effort"] },
+          { t:"célébrer", k:["reactions"] },
+          { t:"une réputation", k:["consequence"] },
+          { t:"invincible", k:["feelings"] },
+          { t:"extrêmement fort", k:["conclusion"] }
+        ]
+      },
+
+      es: {
+        name: "🇪🇸 espanol",
+        phrases: [
+          { t:"Clayton sacó 160/160 en matemáticas.", k:["score","facts"] },
+          { t:"Obtuvo la nota máxima, sin perder ni un punto.", k:["perfect","facts"] },
+          { t:"Hizo el examen 19 meses antes.", k:["timing","facts"] },
+          { t:"Lo hizo en noviembre, en Year 10.", k:["timing","facts"] },
+          { t:"Fue un resultado increíble y muy raro.", k:["opinions"] },
+          { t:"Estaba muy orgulloso de su resultado.", k:["feelings"] },
+          { t:"Sus padres estaban sorprendidos y felices.", k:["reactions"] },
+          { t:"En el colegio, todo el mundo hablaba de eso.", k:["school","reactions"] },
+          { t:"Algunos alumnos tenían envidia.", k:["reactions","drama"] },
+          { t:"Otros alumnos lo respetaban mucho.", k:["reactions"] },
+          { t:"Trabajó muy duro para conseguirlo.", k:["effort"] },
+          { t:"Hizo muchas revisiones con antelación.", k:["revision"] },
+          { t:"En mi opinión, es impresionante.", k:["opinions"] },
+          { t:"Creo que es casi imposible.", k:["opinions"] },
+          { t:"Si yo fuera él, lo celebraría enseguida.", k:["conditional"] },
+          { t:"Después del examen, ganó una gran reputación.", k:["consequence"] },
+          { t:"Gracias al resultado, se sentía invencible.", k:["consequence","feelings"] },
+          { t:"En el futuro, seguramente querrá hacer más matemáticas.", k:["future"] },
+          { t:"Algún día quiero una nota tan alta.", k:["future","opinions"] },
+          { t:"Este resultado demuestra que es muy fuerte en matemáticas.", k:["conclusion"] }
+        ],
+        vocab: [
+          { t:"un resultado", k:["results"] },
+          { t:"la nota máxima", k:["score"] },
+          { t:"160 de 160", k:["score"] },
+          { t:"un punto", k:["marks"] },
+          { t:"antes", k:["timing"] },
+          { t:"19 meses", k:["timing"] },
+          { t:"noviembre", k:["timing"] },
+          { t:"Year 10", k:["timing"] },
+          { t:"repasar", k:["revision"] },
+          { t:"un examen", k:["exam"] },
+          { t:"increíble", k:["opinions"] },
+          { t:"raro", k:["opinions"] },
+          { t:"orgulloso", k:["feelings"] },
+          { t:"envidia", k:["reactions"] },
+          { t:"respetar", k:["reactions"] },
+          { t:"trabajar duro", k:["effort"] },
+          { t:"celebrar", k:["reactions"] },
+          { t:"una reputación", k:["consequence"] },
+          { t:"invencible", k:["feelings"] },
+          { t:"muy fuerte", k:["conclusion"] }
+        ]
+      },
+
+      it: {
+        name: "🇮🇹 italiano",
+        phrases: [
+          { t:"Clayton ha preso 160/160 in matematica.", k:["score","facts"] },
+          { t:"Ha ottenuto il punteggio massimo, senza perdere nemmeno un punto.", k:["perfect","facts"] },
+          { t:"Ha sostenuto l’esame 19 mesi in anticipo.", k:["timing","facts"] },
+          { t:"Lo ha sostenuto a novembre, in Year 10.", k:["timing","facts"] },
+          { t:"È stato un risultato incredibile e raro.", k:["opinions"] },
+          { t:"Era molto orgoglioso del suo risultato.", k:["feelings"] },
+          { t:"I suoi genitori erano sorpresi ma felici.", k:["reactions"] },
+          { t:"A scuola, tutti ne parlavano.", k:["school","reactions"] },
+          { t:"Alcuni studenti erano gelosi.", k:["reactions","drama"] },
+          { t:"Altri studenti lo rispettavano molto.", k:["reactions"] },
+          { t:"Ha lavorato duramente per arrivare a questo livello.", k:["effort"] },
+          { t:"Ha fatto molte revisioni in anticipo.", k:["revision"] },
+          { t:"Secondo me, è impressionante.", k:["opinions"] },
+          { t:"Penso che sia quasi impossibile.", k:["opinions"] },
+          { t:"Se fossi lui, festeggerei subito.", k:["conditional"] },
+          { t:"Dopo l’esame, ha guadagnato una grande reputazione.", k:["consequence"] },
+          { t:"Grazie al risultato, si sentiva invincibile.", k:["consequence","feelings"] },
+          { t:"In futuro, vorrà sicuramente fare più matematica.", k:["future"] },
+          { t:"Un giorno vorrei un punteggio così alto.", k:["future","opinions"] },
+          { t:"Questo risultato dimostra che è fortissimo in matematica.", k:["conclusion"] }
+        ],
+        vocab: [
+          { t:"un risultato", k:["results"] },
+          { t:"il punteggio massimo", k:["score"] },
+          { t:"160 su 160", k:["score"] },
+          { t:"un punto", k:["marks"] },
+          { t:"in anticipo", k:["timing"] },
+          { t:"19 mesi", k:["timing"] },
+          { t:"novembre", k:["timing"] },
+          { t:"Year 10", k:["timing"] },
+          { t:"ripassare", k:["revision"] },
+          { t:"un esame", k:["exam"] },
+          { t:"incredibile", k:["opinions"] },
+          { t:"raro", k:["opinions"] },
+          { t:"orgoglioso", k:["feelings"] },
+          { t:"geloso", k:["reactions"] },
+          { t:"rispettare", k:["reactions"] },
+          { t:"lavorare duramente", k:["effort"] },
+          { t:"festeggiare", k:["reactions"] },
+          { t:"una reputazione", k:["consequence"] },
+          { t:"invincibile", k:["feelings"] },
+          { t:"fortissimo", k:["conclusion"] }
+        ]
+      },
+
+      de: {
+        name: "🇩🇪 deutsch",
+        phrases: [
+          { t:"Clayton hat 160/160 in Mathe erreicht.", k:["score","facts"] },
+          { t:"Er hat die volle Punktzahl bekommen, ohne einen Punkt zu verlieren.", k:["perfect","facts"] },
+          { t:"Er hat die Prüfung 19 Monate früher geschrieben.", k:["timing","facts"] },
+          { t:"Er hat sie im November in Year 10 geschrieben.", k:["timing","facts"] },
+          { t:"Das war ein unglaubliches und seltenes Ergebnis.", k:["opinions"] },
+          { t:"Er war sehr stolz auf sein Ergebnis.", k:["feelings"] },
+          { t:"Seine Eltern waren überrascht und glücklich.", k:["reactions"] },
+          { t:"In der Schule hat jeder darüber gesprochen.", k:["school","reactions"] },
+          { t:"Einige Schüler waren neidisch.", k:["reactions","drama"] },
+          { t:"Andere Schüler hatten großen Respekt.", k:["reactions"] },
+          { t:"Er hat hart gearbeitet, um dieses Niveau zu erreichen.", k:["effort"] },
+          { t:"Er hat früh und viel gelernt.", k:["revision"] },
+          { t:"Meiner Meinung nach ist das beeindruckend.", k:["opinions"] },
+          { t:"Ich finde, das ist fast unmöglich.", k:["opinions"] },
+          { t:"Wenn ich er wäre, würde ich sofort feiern.", k:["conditional"] },
+          { t:"Nach der Prüfung hat er einen großen Ruf bekommen.", k:["consequence"] },
+          { t:"Durch das Ergebnis fühlte er sich unbesiegbar.", k:["consequence","feelings"] },
+          { t:"In Zukunft will er sicher noch mehr Mathe machen.", k:["future"] },
+          { t:"Eines Tages möchte ich auch so eine hohe Punktzahl.", k:["future","opinions"] },
+          { t:"Dieses Ergebnis zeigt, dass er extrem stark in Mathe ist.", k:["conclusion"] }
+        ],
+        vocab: [
+          { t:"das Ergebnis", k:["results"] },
+          { t:"die volle Punktzahl", k:["score"] },
+          { t:"160 von 160", k:["score"] },
+          { t:"ein Punkt", k:["marks"] },
+          { t:"früher", k:["timing"] },
+          { t:"19 Monate", k:["timing"] },
+          { t:"November", k:["timing"] },
+          { t:"Year 10", k:["timing"] },
+          { t:"lernen", k:["revision"] },
+          { t:"die Prüfung", k:["exam"] },
+          { t:"unglaublich", k:["opinions"] },
+          { t:"selten", k:["opinions"] },
+          { t:"stolz", k:["feelings"] },
+          { t:"neidisch", k:["reactions"] },
+          { t:"Respekt", k:["reactions"] },
+          { t:"hart arbeiten", k:["effort"] },
+          { t:"feiern", k:["reactions"] },
+          { t:"der Ruf", k:["consequence"] },
+          { t:"unbesiegbar", k:["feelings"] },
+          { t:"extrem stark", k:["conclusion"] }
+        ]
+      }
+    };
+
+    // ---------------------------------------------------------
+    // Persistence
+    // ---------------------------------------------------------
+    const STORAGE_KEY = "otono_theme4_checklist_v1";
+
+    function loadState(){
+      try{
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : {};
+      }catch(e){ return {}; }
+    }
+    function saveState(state){
+      try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
+    }
+    let state = loadState();
+
+    const langSel = document.getElementById("langSel");
+    const modeSel = document.getElementById("modeSel");
+    const phraseList = document.getElementById("phraseList");
+    const searchBox = document.getElementById("searchBox");
+    const clearSearch = document.getElementById("clearSearch");
+    const resetBtn = document.getElementById("resetBtn");
+    const toggleAllBtn = document.getElementById("toggleAllBtn");
+
+    const scoreOut = document.getElementById("scoreOut");
+    const barFill = document.getElementById("barFill");
+    const coverageOut = document.getElementById("coverageOut");
+    const gradeAH = document.getElementById("gradeAH");
+    const grade91 = document.getElementById("grade91");
+    const outcomeBig = document.getElementById("outcomeBig");
+
+    const totalItems = document.getElementById("totalItems");
+    const remainItems = document.getElementById("remainItems");
+    const wordNeed = document.getElementById("wordNeed");
+    const megaBox = document.getElementById("megaBox");
+
+    // ---------------------------------------------------------
+    // Grade functions (same as your system)
+    // ---------------------------------------------------------
+    function gradeAHFromScore(s){
+      if (s >= 101) return "S";
+      if (s >= 95) return "A";
+      if (s >= 80) return "B";
+      if (s >= 70) return "C";
+      if (s >= 66) return "D";
+      if (s >= 55) return "E";
+      if (s >= 45) return "F";
+      if (s >= 30) return "G";
+      if (s >= 15) return "H";
+      return "U";
+    }
+    function grade91FromScore(s){
+      if (s >= 90) return "9";
+      if (s >= 80) return "8";
+      if (s >= 70) return "7";
+      if (s >= 66) return "6";
+      if (s >= 55) return "5";
+      if (s >= 45) return "4";
+      if (s >= 30) return "3";
+      if (s >= 15) return "2";
+      return "1";
+    }
+    function outcomeFromScore(s){
+      if (s >= 90) return "DISTINCTION";
+      if (s >= 80) return "MERIT";
+      if (s >= 66) return "PASS";
+      return "FAIL";
+    }
+    function applyOutcomeStyle(outcome){
+      let border = "rgba(239,68,68,.22)";
+      let glow = "0 0 0 0 rgba(0,0,0,0)";
+      if (outcome === "DISTINCTION"){
+        border = "rgba(34,197,94,.35)";
+        glow = "0 0 0 4px rgba(34,197,94,.10)";
+      } else if (outcome === "MERIT"){
+        border = "rgba(245,158,11,.35)";
+        glow = "0 0 0 4px rgba(245,158,11,.10)";
+      } else if (outcome === "PASS"){
+        border = "rgba(124,58,237,.35)";
+        glow = "0 0 0 4px rgba(124,58,237,.10)";
+      } else {
+        border = "rgba(239,68,68,.28)";
+        glow = "0 0 0 4px rgba(239,68,68,.08)";
+      }
+      megaBox.style.borderColor = border;
+      megaBox.style.boxShadow = glow;
+    }
+
+    // ---------------------------------------------------------
+    // State helpers
+    // ---------------------------------------------------------
+    function getKey(lang, mode){ return `${lang}_${mode}`; }
+    function isChecked(lang, mode, idx){
+      const key = getKey(lang, mode);
+      return !!(state[key] && state[key][idx]);
+    }
+    function setChecked(lang, mode, idx, value){
+      const key = getKey(lang, mode);
+      if (!state[key]) state[key] = {};
+      state[key][idx] = value ? 1 : 0;
+      saveState(state);
+    }
+
+    function matchesSearch(item, q){
+      if (!q) return true;
+      q = q.toLowerCase().trim();
+      const text = item.t.toLowerCase();
+      const tags = (item.k || []).join(" ").toLowerCase();
+      return text.includes(q) || tags.includes(q);
+    }
+
+    // ---------------------------------------------------------
+    // Render list
+    // ---------------------------------------------------------
+    function render(){
+      const lang = langSel.value;
+      const mode = modeSel.value;
+      const q = searchBox.value;
+
+      const pack = DATA[lang];
+      const items = (mode === "vocab") ? pack.vocab : pack.phrases;
+
+      phraseList.innerHTML = "";
+      let shown = 0;
+
+      items.forEach((it, idx) => {
+        if (!matchesSearch(it, q)) return;
+        shown++;
+
+        const checked = isChecked(lang, mode, idx);
+
+        const el = document.createElement("div");
+        el.className = "item";
+
+        const left = document.createElement("div");
+        left.className = "left";
+
+        const cb = document.createElement("input");
+        cb.type = "checkbox";
+        cb.className = "cb";
+        cb.checked = checked;
+        cb.addEventListener("change", () => {
+          setChecked(lang, mode, idx, cb.checked);
+          updateStats();
+        });
+
+        const txt = document.createElement("div");
+        txt.className = "txt";
+
+        const phrase = document.createElement("div");
+        phrase.className = "phrase";
+        phrase.textContent = it.t;
+
+        const meta = document.createElement("div");
+        meta.className = "meta";
+        meta.textContent = (mode === "vocab") ? "Word item" : "Sentence pattern";
+
+        txt.appendChild(phrase);
+        txt.appendChild(meta);
+
+        left.appendChild(cb);
+        left.appendChild(txt);
+
+        const tags = document.createElement("div");
+        tags.className = "tags";
+        (it.k || []).slice(0, 4).forEach((tagText, i) => {
+          const tag = document.createElement("span");
+          tag.className = "tag " + (i % 2 === 0 ? "" : "r");
+          tag.textContent = tagText;
+          tags.appendChild(tag);
+        });
+
+        el.appendChild(left);
+        el.appendChild(tags);
+
+        phraseList.appendChild(el);
+      });
+
+      if (shown === 0){
+        const empty = document.createElement("div");
+        empty.className = "bounds";
+        empty.innerHTML = "<strong>No results.</strong><br/>Try: 160/160, November, 19 months, proud, jealous, reputation.";
+        phraseList.appendChild(empty);
+      }
+
+      updateStats();
+    }
+
+    // ---------------------------------------------------------
+    // Stats
+    // ---------------------------------------------------------
+    function updateStats(){
+      const lang = langSel.value;
+      const mode = modeSel.value;
+      const pack = DATA[lang];
+      const items = (mode === "vocab") ? pack.vocab : pack.phrases;
+
+      const total = items.length;
+      let known = 0;
+      for (let i=0;i<total;i++){
+        if (isChecked(lang, mode, i)) known++;
+      }
+
+      const score = total === 0 ? 0 : Math.round((known / total) * 100);
+
+      scoreOut.textContent = String(score);
+      barFill.style.width = score + "%";
+      coverageOut.textContent = `Coverage: ${known} / ${total} items`;
+
+      const out = outcomeFromScore(score);
+      outcomeBig.textContent = out;
+      gradeAH.textContent = gradeAHFromScore(score);
+      grade91.textContent = grade91FromScore(score);
+
+      totalItems.textContent = String(total);
+      const remaining = Math.max(0, total - known);
+      remainItems.textContent = String(remaining);
+      wordNeed.textContent = `Words needed for 100: ${remaining}`;
+
+      applyOutcomeStyle(out);
+    }
+
+    // ---------------------------------------------------------
+    // Tick / Untick all (current language + mode)
+    // ---------------------------------------------------------
+    function toggleAll(){
+      const lang = langSel.value;
+      const mode = modeSel.value;
+      const pack = DATA[lang];
+      const items = (mode === "vocab") ? pack.vocab : pack.phrases;
+
+      const total = items.length;
+      let known = 0;
+      for (let i=0;i<total;i++){
+        if (isChecked(lang, mode, i)) known++;
+      }
+      const shouldTickAll = known < total;
+      for (let i=0;i<total;i++){
+        setChecked(lang, mode, i, shouldTickAll);
+      }
+      render();
+    }
+
+    // ---------------------------------------------------------
+    // Events
+    // ---------------------------------------------------------
+    langSel.addEventListener("change", () => { searchBox.value=""; render(); });
+    modeSel.addEventListener("change", () => { searchBox.value=""; render(); });
+    searchBox.addEventListener("input", render);
+    clearSearch.addEventListener("click", () => { searchBox.value=""; render(); });
+
+    resetBtn.addEventListener("click", () => {
+      const lang = langSel.value;
+      const mode = modeSel.value;
+      const key = getKey(lang, mode);
+      if (state[key]) delete state[key];
+      saveState(state);
+      render();
+    });
+
+    toggleAllBtn.addEventListener("click", toggleAll);
+
+    // Initial
+    render();
+  </script>
+</body>
+</html>
