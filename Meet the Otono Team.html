@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Otono Team — Member Profiles</title>
+  <style>
+    :root{
+      --bg1:#2b0a57;
+      --bg2:#7a0b7a;
+      --bg3:#b80a3a;
+
+      --ink:#f7f4ff;
+      --muted: rgba(255,255,255,.78);
+
+      --card: rgba(255,255,255,.08);
+      --border: rgba(255,255,255,.14);
+
+      --lead:#8b5cf6;     /* purple */
+      --senior:#facc15;   /* yellow */
+      --kid:#ef4444;      /* red */
+
+      --shadow: 0 18px 40px rgba(0,0,0,.35);
+      --r: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: var(--sans);
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 700px at 10% 10%, rgba(250,204,21,.22), transparent 60%),
+        radial-gradient(900px 600px at 90% 20%, rgba(239,68,68,.20), transparent 58%),
+        radial-gradient(900px 700px at 40% 100%, rgba(139,92,246,.22), transparent 60%),
+        linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3));
+      min-height:100vh;
+    }
+
+    header{
+      padding: 28px 18px 16px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .titleRow{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 14px;
+      flex-wrap:wrap;
+    }
+
+    h1{
+      margin:0;
+      font-size: clamp(26px, 3.2vw, 38px);
+      letter-spacing: .3px;
+      line-height: 1.05;
+    }
+    .sub{
+      margin-top: 8px;
+      color: var(--muted);
+      max-width: 70ch;
+      line-height: 1.4;
+    }
+
+    .toolbar{
+      margin-top: 18px;
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      align-items:center;
+      padding: 12px;
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,.14);
+      border-radius: var(--r);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+    }
+
+    .pill{
+      display:flex;
+      align-items:center;
+      gap: 8px;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+    }
+
+    label{ font-size: 13px; color: var(--muted); }
+    select, button{
+      font: inherit;
+      color: var(--ink);
+      background: rgba(0,0,0,.25);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 10px;
+      outline: none;
+    }
+    select:focus, button:focus{ box-shadow: 0 0 0 3px rgba(139,92,246,.35); }
+
+    button{
+      cursor:pointer;
+      transition: transform .06s ease, background .2s ease;
+      background: linear-gradient(90deg, rgba(139,92,246,.30), rgba(239,68,68,.25));
+    }
+    button:active{ transform: translateY(1px); }
+
+    main{
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 18px 42px;
+    }
+
+    .section{
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: var(--r);
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,.12);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+    }
+
+    .secHead{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap: 10px;
+      flex-wrap:wrap;
+      margin-bottom: 10px;
+    }
+
+    .secTitle{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: .2px;
+    }
+
+    .badge{
+      font-family: var(--mono);
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      color: var(--muted);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 12px;
+    }
+
+    .card{
+      grid-column: span 6;
+      padding: 14px;
+      border-radius: var(--r);
+      border: 1px solid var(--border);
+      background: var(--card);
+      box-shadow: 0 10px 26px rgba(0,0,0,.25);
+      position:relative;
+      overflow:hidden;
+    }
+
+    @media (max-width: 900px){
+      .card{ grid-column: span 12; }
+    }
+
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:-2px -2px auto -2px;
+      height: 4px;
+      background: rgba(255,255,255,.18);
+    }
+
+    .card.lead::before{ background: linear-gradient(90deg, rgba(139,92,246,.9), rgba(139,92,246,.2)); }
+    .card.senior::before{ background: linear-gradient(90deg, rgba(250,204,21,.95), rgba(250,204,21,.2)); }
+    .card.kid::before{ background: linear-gradient(90deg, rgba(239,68,68,.95), rgba(239,68,68,.2)); }
+
+    .topRow{
+      display:flex;
+      justify-content:space-between;
+      gap: 10px;
+      align-items:flex-start;
+    }
+
+    .name{
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: .2px;
+      margin: 0;
+    }
+
+    .meta{
+      margin-top: 6px;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    .kv{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .chip{
+      font-family: var(--mono);
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.88);
+    }
+    .chip strong{ color: rgba(255,255,255,.95); }
+
+    .desc{
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed rgba(255,255,255,.18);
+      color: rgba(255,255,255,.92);
+      line-height: 1.55;
+      font-size: 14px;
+      white-space: pre-wrap;
+    }
+
+    .miniControls{
+      display:flex;
+      gap: 8px;
+      align-items:center;
+    }
+
+    .legend{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      align-items:center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:999px; display:inline-block; margin-right:6px;
+    }
+    .dot.lead{ background: var(--lead); }
+    .dot.senior{ background: var(--senior); }
+    .dot.kid{ background: var(--kid); }
+
+    footer{
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 18px 24px;
+      color: rgba(255,255,255,.70);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+    a{ color: rgba(255,255,255,.85); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="titleRow">
+      <div>
+        <h1>Otono Team — Member Profiles</h1>
+        <div class="sub">
+          Purple = Leadership 🟣 · Yellow = Senior Members 🟡 · Red = Tier 3 Members 🔴<br/>
+          Ages are calculated as-of <span id="asOfText" style="font-family:var(--mono);"></span>.
+        </div>
+      </div>
+      <div class="legend">
+        <span><span class="dot lead"></span>Leadership</span>
+        <span><span class="dot senior"></span>Senior</span>
+        <span><span class="dot kid"></span>Tier 3</span>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <div class="pill">
+        <label for="globalLang">Language</label>
+        <select id="globalLang">
+          <option value="en">English</option>
+          <option value="fr">Français</option>
+          <option value="es">Español</option>
+          <option value="it">Italiano</option>
+          <option value="de">Deutsch</option>
+        </select>
+      </div>
+
+      <div class="pill">
+        <label for="applyAll">Apply to all</label>
+        <select id="applyAll">
+          <option value="yes">Yes (one language for everyone)</option>
+          <option value="no">No (each card selectable)</option>
+        </select>
+      </div>
+
+      <button id="applyBtn" type="button">Apply</button>
+
+      <div class="pill">
+        <label>Quick info</label>
+        <span class="badge" id="counts">—</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" id="leadershipSection">
+      <div class="secHead">
+        <div class="secTitle">🟣 Leadership Tier</div>
+        <div class="badge">Purple cards</div>
+      </div>
+      <div class="grid" id="leadershipGrid"></div>
+    </section>
+
+    <section class="section" id="seniorSection">
+      <div class="secHead">
+        <div class="secTitle">🟡 Senior Members</div>
+        <div class="badge">Yellow cards</div>
+      </div>
+      <div class="grid" id="seniorGrid"></div>
+    </section>
+
+    <section class="section" id="kidsSection">
+      <div class="secHead">
+        <div class="secTitle">🔴 Tier 3 Members</div>
+        <div class="badge">Red cards</div>
+      </div>
+      <div class="grid" id="kidsGrid"></div>
+    </section>
+  </main>
+
+  <footer>
+    Tip: switch “Apply to all” off if you want Red’s card in Français while Luke’s is in English, etc.
+  </footer>
+
+<script>
+  // Fixed "as-of" date (UK time zone friendly enough for birthday comparisons)
+  const AS_OF = new Date("2026-01-18T12:00:00Z");
+
+  const langNames = {
+    en: "English",
+    fr: "Français",
+    es: "Español",
+    it: "Italiano",
+    de: "Deutsch",
+  };
+
+  function formatAsOf(d){
+    // show 18 Jan 2026 style
+    return d.toLocaleDateString("en-GB", { year:"numeric", month:"long", day:"numeric" });
+  }
+
+  function calcAge(dobISO){
+    if(!dobISO) return null;
+    const dob = new Date(dobISO + "T00:00:00Z");
+    let age = AS_OF.getUTCFullYear() - dob.getUTCFullYear();
+    const m = AS_OF.getUTCMonth() - dob.getUTCMonth();
+    if (m < 0 || (m === 0 && AS_OF.getUTCDate() < dob.getUTCDate())) age--;
+    return age;
+  }
+
+  // Data: descriptions available in 5 languages (short + clean, Otono-style).
+  const members = [
+    // 🟣 Leadership
+    {
+      id:"gary", tier:"lead", tierName:"Leadership", name:"Gary", role:"Leader (decisive, strategic)",
+      dob:"1973-07-04",
+      tags:["Leader","Strategic","Responsible","Luke’s dad"],
+      desc:{
+        en:"Gary runs Otono Team like a real operation: calm under pressure, quick decisions, and a strong sense of responsibility. He keeps the mansion organised, watches risks, and sets the standard when chaos starts spreading.",
+        fr:"Gary dirige l’équipe Otono comme une vraie organisation : calme sous pression, décisions rapides et sens aigu des responsabilités. Il maintient l’ordre au manoir et fixe le niveau quand le chaos arrive.",
+        es:"Gary dirige al Equipo Otono como una operación real: calma bajo presión, decisiones rápidas y mucha responsabilidad. Mantiene el orden en la mansión y marca el estándar cuando empieza el caos.",
+        it:"Gary guida il Team Otono come una vera organizzazione: calmo sotto pressione, decisioni rapide e grande responsabilità. Tiene in ordine la villa e alza lo standard quando arriva il caos.",
+        de:"Gary führt das Otono Team wie eine echte Organisation: ruhig unter Druck, schnelle Entscheidungen und starkes Verantwortungsgefühl. Er hält die Villa geordnet und setzt den Standard, sobald Chaos entsteht."
+      }
+    },
+    {
+      id:"ivy", tier:"lead", tierName:"Leadership", name:"Ivy", role:"Co-leader (supportive, organised)",
+      dob:null, // unknown
+      tags:["Co-leader","Organised","Pragmatic","iPhone user"],
+      desc:{
+        en:"Ivy is the stabiliser: practical, supportive, and quietly in control. She turns messy ideas into plans, keeps everyone communicating, and makes sure leadership decisions actually work day-to-day.",
+        fr:"Ivy est le pilier : pragmatique, soutenante et discrètement en contrôle. Elle transforme le désordre en plan, garde tout le monde aligné, et rend les décisions applicables au quotidien.",
+        es:"Ivy es el equilibrio: práctica, solidaria y discretamente al mando. Convierte el caos en un plan, mantiene la comunicación y hace que las decisiones funcionen en la vida diaria.",
+        it:"Ivy è la stabilità: pratica, di supporto e silenziosamente al comando. Trasforma il caos in un piano, mantiene la comunicazione e rende le decisioni efficaci ogni giorno.",
+        de:"Ivy ist der Stabilisator: pragmatisch, unterstützend und leise kontrollierend. Sie macht aus Chaos einen Plan, hält alle in Kontakt und sorgt dafür, dass Entscheidungen im Alltag funktionieren."
+      }
+    },
+    {
+      id:"ribbon", tier:"lead", tierName:"Leadership", name:"Mr Ribbon Cutter", role:"Assistant leader (efficient, calm)",
+      dob:"1971-10-08",
+      tags:["Efficient","Calm","Otono Airways (HK)","Red’s dad"],
+      desc:{
+        en:"Mr Ribbon Cutter is efficient and calm: he keeps systems running, fixes logistics, and steps in when precision is needed. He’s often away with Otono Airways, but when he’s in the UK, the team instantly feels more structured.",
+        fr:"Mr Ribbon Cutter est efficace et calme : il fait tourner les systèmes, gère la logistique et intervient quand il faut être précis. Souvent absent avec Otono Airways, mais quand il est au Royaume-Uni, tout devient plus structuré.",
+        es:"Mr Ribbon Cutter es eficiente y tranquilo: mantiene los sistemas, arregla la logística y actúa cuando hace falta precisión. A menudo está fuera con Otono Airways, pero cuando está en el Reino Unido, todo se siente más organizado.",
+        it:"Mr Ribbon Cutter è efficiente e calmo: fa funzionare i sistemi, cura la logistica e interviene quando serve precisione. Spesso è via con Otono Airways, ma quando è nel Regno Unito, tutto diventa più strutturato.",
+        de:"Mr Ribbon Cutter ist effizient und ruhig: Er hält Systeme am Laufen, regelt Logistik und greift ein, wenn Präzision nötig ist. Oft unterwegs mit Otono Airways – aber wenn er im UK ist, wirkt alles sofort strukturierter."
+      }
+    },
+
+    // 🟡 Senior
+    {
+      id:"bigguy", tier:"senior", tierName:"Senior", name:"Big Guy", role:"Senior member (strong, protective)",
+      dob:"1962-05-10",
+      tags:["Protective","Reliable","Lit & OWing’s dad","Not in drama much"],
+      desc:{
+        en:"Big Guy is the shield of the team: strong, reliable, and protective. He doesn’t chase drama — he quietly makes sure everyone is safe, fed, and ready to handle whatever the day throws at them.",
+        fr:"Big Guy est le bouclier : fort, fiable et protecteur. Il ne cherche pas le drame — il veille calmement à la sécurité et au bien-être de tout le monde.",
+        es:"Big Guy es el escudo del equipo: fuerte, fiable y protector. No busca drama; se asegura en silencio de que todos estén bien y preparados para el día.",
+        it:"Big Guy è lo scudo del team: forte, affidabile e protettivo. Non cerca drammi: si assicura con calma che tutti stiano bene e siano pronti.",
+        de:"Big Guy ist der Schutzschild des Teams: stark, zuverlässig und beschützend. Er sucht keinen Ärger – er sorgt still dafür, dass alle sicher sind und klarkommen."
+      }
+    },
+    {
+      id:"middleguy", tier:"senior", tierName:"Senior", name:"Middle Guy", role:"Senior member (balanced, intellectual)",
+      dob:"1970-10-27",
+      tags:["Pragmatic","Intellectual","Lit & OWing’s mum","Calm logic"],
+      desc:{
+        en:"Middle Guy is the brain-with-balance: thoughtful, pragmatic, and good at seeing the ‘real’ problem behind the noise. When people argue, she finds the rule, the reason, and the best way forward.",
+        fr:"Middle Guy, c’est l’équilibre et la logique : réfléchie, pragmatique, et capable de voir le vrai problème derrière le bruit. Quand ça s’embrouille, elle trouve la règle, la raison, et la solution.",
+        es:"Middle Guy es equilibrio con lógica: reflexiva, pragmática y capaz de ver el verdadero problema detrás del ruido. Cuando hay discusiones, encuentra la regla, la razón y la salida.",
+        it:"Middle Guy è equilibrio e logica: riflessiva, pragmatica e capace di vedere il vero problema dietro al rumore. Quando litigano, trova regola, motivo e soluzione.",
+        de:"Middle Guy steht für Balance und Logik: nachdenklich, pragmatisch und gut darin, das echte Problem hinter dem Lärm zu sehen. Bei Streit findet sie Regel, Grund und Ausweg."
+      }
+    },
+    {
+      id:"grandpabelt", tier:"senior", tierName:"Senior", name:"Grandpa Belt", role:"Senior member (mischievous, funny)",
+      dob:"1944-05-18",
+      tags:["Laughs a lot","Junk food","Gambling vibe","Secret restaurants"],
+      desc:{
+        en:"Grandpa Belt is pure chaotic fun: laughs a lot, loves salty junk food, and is always hunting for secret restaurants. He can turn a serious moment into comedy — but he still has a sharp sense of what people need emotionally.",
+        fr:"Grandpa Belt, c’est le chaos drôle : il rit beaucoup, adore la malbouffe salée et cherche toujours des restaurants secrets. Il détend l’ambiance, mais comprend très bien ce dont les gens ont besoin.",
+        es:"Grandpa Belt es caos divertido: se ríe muchísimo, ama la comida basura salada y busca restaurantes secretos. Convierte lo serio en comedia, pero entiende lo que la gente necesita.",
+        it:"Grandpa Belt è caos divertente: ride tantissimo, ama il junk food salato e cerca ristoranti segreti. Rende leggeri i momenti seri, ma capisce bene le emozioni degli altri.",
+        de:"Grandpa Belt ist pures Chaos mit Humor: lacht viel, liebt salziges Junkfood und sucht ständig geheime Restaurants. Er macht Ernstes lustig – versteht aber auch, was andere emotional brauchen."
+      }
+    },
+    {
+      id:"grandmasleep", tier:"senior", tierName:"Senior", name:"Grandma Sleep", role:"Senior member (calm, nurturing)",
+      dob:"1947-03-08",
+      tags:["Nurturing","Calm","Supportive","Android user"],
+      desc:{
+        en:"Grandma Sleep is the calm centre: gentle, supportive, and steady. When everyone’s stressed, she’s the one who makes the room feel safe and helps people reset without judgement.",
+        fr:"Grandma Sleep est le centre calme : douce, soutenante et stable. Quand tout le monde est stressé, elle rend l’ambiance plus sûre et aide chacun à souffler sans jugement.",
+        es:"Grandma Sleep es el centro tranquilo: amable, solidaria y constante. Cuando todos están estresados, ella hace que el ambiente sea seguro y ayuda sin juzgar.",
+        it:"Grandma Sleep è il centro calmo: dolce, di supporto e stabile. Quando tutti sono stressati, rende l’atmosfera sicura e aiuta senza giudicare.",
+        de:"Grandma Sleep ist das ruhige Zentrum: freundlich, unterstützend und konstant. Wenn alle gestresst sind, sorgt sie für Sicherheit und hilft ohne zu urteilen."
+      }
+    },
+
+    // 🔴 Tier 3
+    {
+      id:"owing", tier:"kid", tierName:"Tier 3", name:"OWing King", role:"Tier 3 (energetic, competitive)",
+      dob:"2010-01-13",
+      tags:["Gaming","Maths/Science","Design","Hates arrogance"],
+      desc:{
+        en:"OWing is energetic and competitive: he wants to win, improve, and prove things the hard way. He loves maths/science/design, games hard with Luke and Red, and absolutely can’t stand arrogance.",
+        fr:"OWing est énergique et compétitif : il veut gagner, progresser et prouver les choses. Il adore les maths/sciences/design, joue avec Luke et Red, et déteste l’arrogance.",
+        es:"OWing es enérgico y competitivo: quiere ganar, mejorar y demostrarlo. Le encantan mates/ciencias/diseño, juega con Luke y Red, y odia la arrogancia.",
+        it:"OWing è energico e competitivo: vuole vincere, migliorare e dimostrarlo. Ama matematica/scienze/design, gioca con Luke e Red, e odia l’arroganza.",
+        de:"OWing ist energiegeladen und ehrgeizig: Er will gewinnen, besser werden und es beweisen. Er liebt Mathe/Naturwissenschaften/Design, zockt mit Luke und Red und hasst Arroganz."
+      }
+    },
+    {
+      id:"red", tier:"kid", tierName:"Tier 3", name:"Red Bird", role:"Tier 3 (languages obsessed)",
+      dob:"2010-01-15",
+      tags:["French obsession","Male soprano","Piano/violin","Hates being mis-voiced"],
+      desc:{
+        en:"Red lives for languages — especially French. Intense, passionate, and sometimes ruthless about standards, he wants people to succeed properly. He’s also musical (piano/violin) and hates being called baritone/tenor/countertenor.",
+        fr:"Red vit pour les langues — surtout le français. Intense, passionné et parfois très strict, il veut que les gens réussissent correctement. Il est aussi musicien (piano/violon) et déteste qu’on le qualifie de baryton/ténor/contre-ténor.",
+        es:"Red vive para los idiomas — sobre todo el francés. Intenso, apasionado y a veces muy estricto, quiere que la gente lo haga bien. También es músico (piano/violín) y odia que le llamen barítono/tenor/contratenor.",
+        it:"Red vive per le lingue — soprattutto il francese. Intenso, appassionato e a volte severo, vuole che gli altri riescano ‘bene’. È anche musicista (piano/violino) e odia essere chiamato baritono/tenore/controtenore.",
+        de:"Red lebt für Sprachen — besonders Französisch. Intensiv, leidenschaftlich und manchmal gnadenlos bei Standards: Er will, dass Leute richtig Erfolg haben. Außerdem musikalisch (Klavier/Violine) und er hasst falsche Stimmbezeichnungen (Bariton/Tenor/Countertenor)."
+      }
+    },
+    {
+      id:"luke", tier:"kid", tierName:"Tier 3", name:"Luke Green", role:"Tier 3 (detail-focused)",
+      dob:"2012-04-30",
+      tags:["Black ink","Detail-oriented","Trumpet","Gary’s son"],
+      desc:{
+        en:"Luke is detail-focused and intense about rules — especially black ink. He loves ‘true’ black ink, treats instructions like law, and notices tiny differences (even pencil lengths). Under the hype, he’s genuinely enthusiastic and loyal.",
+        fr:"Luke est ultra minutieux et intense sur les règles — surtout l’encre noire. Il adore l’encre ‘vraiment noire’, traite les consignes comme une loi, et remarque les détails minuscules. Et malgré tout, il est enthousiaste et loyal.",
+        es:"Luke es súper detallista y estricto con las reglas — sobre todo con la tinta negra. Le encanta la ‘tinta negra de verdad’, sigue las instrucciones como ley y nota detalles pequeñísimos. Y aun así, es muy entusiasta y leal.",
+        it:"Luke è estremamente preciso e rigido con le regole — soprattutto con l’inchiostro nero. Ama il ‘vero nero’, prende le istruzioni come legge e nota dettagli minuscoli. Sotto tutto ciò, è entusiasta e leale.",
+        de:"Luke ist extrem detailverliebt und streng bei Regeln — besonders bei schwarzer Tinte. Er liebt ‘echtes Schwarz’, behandelt Anweisungen wie Gesetz und sieht winzige Details. Trotzdem ist er begeistert und loyal."
+      }
+    },
+    {
+      id:"jessica", tier:"kid", tierName:"Tier 3", name:"Jessica", role:"Tier 3 (artistic, observant)",
+      dob:"2007-10-22",
+      tags:["Art","Academic balance","Piano grade 8","Mezzo-soprano"],
+      desc:{
+        en:"Jessica is artistic and observant, with a quietly strong academic streak. She notices patterns, thinks visually, and can be better at maths than she wants to admit. Musically: mezzo-soprano and grade 8 piano.",
+        fr:"Jessica est artistique et observatrice, avec un côté scolaire solide mais discret. Elle repère des schémas, pense visuellement, et est souvent meilleure en maths qu’elle ne veut l’admettre. Musicalement : mezzo-soprano, piano niveau 8.",
+        es:"Jessica es artística y observadora, con una base académica fuerte pero discreta. Ve patrones, piensa en lo visual y es mejor en mates de lo que le gustaría admitir. Musicalmente: mezzosoprano y piano grado 8.",
+        it:"Jessica è artistica e osservatrice, con un lato accademico forte ma discreto. Vede schemi, pensa in modo visivo ed è più brava in matematica di quanto voglia ammettere. Musicalmente: mezzosoprano e piano grado 8.",
+        de:"Jessica ist künstlerisch und aufmerksam, mit einer stillen akademischen Stärke. Sie erkennt Muster, denkt visuell und ist oft besser in Mathe, als sie zugeben will. Musikalisch: Mezzosopran, Klavier Grade 8."
+      }
+    },
+    {
+      id:"lit", tier:"kid", tierName:"Tier 3", name:"Lit M Ealing", role:"Tier 3 (stylish, creative)",
+      dob:"2005-05-10",
+      tags:["Creative","Stylish","English lit vibe","Mental health awareness"],
+      desc:{
+        en:"Lit is stylish, energetic, and creative — with strong opinions and a clear sense of taste. She cares about mental health awareness and English literature, and she doesn’t pretend to like things just because everyone else does.",
+        fr:"Lit est stylée, énergique et créative — avec des opinions fortes et un vrai sens du goût. Elle s’intéresse à la santé mentale et à la littérature anglaise, et elle ne fait pas semblant d’aimer quelque chose ‘pour suivre’.",
+        es:"Lit es moderna, enérgica y creativa — con opiniones fuertes y un gusto muy claro. Le importa la salud mental y la literatura inglesa, y no finge que le gusta algo solo porque a los demás sí.",
+        it:"Lit è stilosa, energica e creativa — con opinioni forti e un gusto preciso. Le stanno a cuore la salute mentale e la letteratura inglese, e non finge di amare qualcosa solo perché lo fanno gli altri.",
+        de:"Lit ist stylisch, energiegeladen und kreativ — mit starken Meinungen und klarem Geschmack. Sie interessiert sich für Mental-Health-Themen und englische Literatur und tut nicht so, als würde sie etwas mögen, nur weil alle anderen es mögen."
+      }
+    },
+  ];
+
+  function tierLabel(tier){
+    if(tier === "lead") return "🟣 Leadership";
+    if(tier === "senior") return "🟡 Senior";
+    return "🔴 Tier 3";
+  }
+
+  function mkCard(member){
+    const card = document.createElement("div");
+    card.className = `card ${member.tier}`;
+    card.dataset.memberId = member.id;
+
+    const age = calcAge(member.dob);
+    const dobText = member.dob ? member.dob : "—";
+    const ageText = (age === null) ? "Unknown" : String(age);
+
+    card.innerHTML = `
+      <div class="topRow">
+        <div>
+          <p class="name">${member.name}</p>
+          <div class="meta">
+            <div><strong>${tierLabel(member.tier)}</strong> · ${member.role}</div>
+            <div>DOB: <span style="font-family:var(--mono)">${dobText}</span> · Age now: <span style="font-family:var(--mono)">${ageText}</span></div>
+          </div>
+        </div>
+        <div class="miniControls">
+          <select class="cardLang" aria-label="Select language for this card">
+            <option value="en">EN</option>
+            <option value="fr">FR</option>
+            <option value="es">ES</option>
+            <option value="it">IT</option>
+            <option value="de">DE</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="kv">
+        ${member.tags.map(t => `<span class="chip">${t}</span>`).join("")}
+      </div>
+
+      <div class="desc" data-desc="1"></div>
+    `;
+    return card;
+  }
+
+  function render(){
+    document.getElementById("asOfText").textContent = formatAsOf(AS_OF);
+
+    const leadershipGrid = document.getElementById("leadershipGrid");
+    const seniorGrid = document.getElementById("seniorGrid");
+    const kidsGrid = document.getElementById("kidsGrid");
+    leadershipGrid.innerHTML = "";
+    seniorGrid.innerHTML = "";
+    kidsGrid.innerHTML = "";
+
+    members.forEach(m=>{
+      const c = mkCard(m);
+      if(m.tier==="lead") leadershipGrid.appendChild(c);
+      else if(m.tier==="senior") seniorGrid.appendChild(c);
+      else kidsGrid.appendChild(c);
+    });
+
+    // counts
+    const leadCount = members.filter(m=>m.tier==="lead").length;
+    const seniorCount = members.filter(m=>m.tier==="senior").length;
+    const kidCount = members.filter(m=>m.tier==="kid").length;
+    document.getElementById("counts").textContent = `Leadership ${leadCount} · Senior ${seniorCount} · Tier 3 ${kidCount}`;
+
+    // Initial language apply
+    applyLanguageToCards(document.getElementById("globalLang").value, true);
+
+    // Hook per-card language changes
+    document.querySelectorAll(".card").forEach(card=>{
+      const memberId = card.dataset.memberId;
+      const member = members.find(x=>x.id===memberId);
+      const sel = card.querySelector(".cardLang");
+      sel.addEventListener("change", ()=>{
+        // only effective when per-card mode
+        if(document.getElementById("applyAll").value === "no"){
+          setCardLanguage(card, member, sel.value);
+        }else{
+          // snap back to global if apply-all mode
+          sel.value = document.getElementById("globalLang").value;
+        }
+      });
+    });
+  }
+
+  function setCardLanguage(card, member, lang){
+    const descEl = card.querySelector("[data-desc]");
+    const text = (member.desc && member.desc[lang]) ? member.desc[lang] : member.desc.en;
+    descEl.textContent = text;
+  }
+
+  function applyLanguageToCards(lang, forceAll){
+    document.querySelectorAll(".card").forEach(card=>{
+      const memberId = card.dataset.memberId;
+      const member = members.find(x=>x.id===memberId);
+      const sel = card.querySelector(".cardLang");
+      if(forceAll || document.getElementById("applyAll").value === "yes"){
+        sel.value = lang;
+        setCardLanguage(card, member, lang);
+        sel.disabled = false; // still visible; behaviour controlled by Apply-to-all
+      }else{
+        // per-card mode: keep their current selection but ensure text matches it
+        setCardLanguage(card, member, sel.value);
+      }
+    });
+  }
+
+  // Toolbar actions
+  document.getElementById("applyBtn").addEventListener("click", ()=>{
+    const globalLang = document.getElementById("globalLang").value;
+    const applyAll = document.getElementById("applyAll").value;
+
+    if(applyAll === "yes"){
+      applyLanguageToCards(globalLang, true);
+    }else{
+      // Just refresh each card to its own selected language
+      applyLanguageToCards(globalLang, false);
+    }
+  });
+
+  document.getElementById("applyAll").addEventListener("change", ()=>{
+    const globalLang = document.getElementById("globalLang").value;
+    if(document.getElementById("applyAll").value === "yes"){
+      applyLanguageToCards(globalLang, true);
+    }else{
+      applyLanguageToCards(globalLang, false);
+    }
+  });
+
+  document.getElementById("globalLang").addEventListener("change", ()=>{
+    const globalLang = document.getElementById("globalLang").value;
+    if(document.getElementById("applyAll").value === "yes"){
+      applyLanguageToCards(globalLang, true);
+    }
+  });
+
+  render();
+</script>
+</body>
+</html>

@@ -1056,28 +1056,23 @@ function renderFoundationTranslation(items){
     lines
   );
 }
+function renderHigherTranslation(item){
+  const html = `
+    <div class="note">
+      <strong>Translate into French</strong> (Higher Tier)<br/>
+      Write a single paragraph translation.
+      <div class="divider"></div>
+      <div class="small">${escapeHtml(item.en)}</div>
+    </div>
 
-function markHigherTranslation(user, keyIdeas){
-  const t = norm(user);
-  if(!t) return {score:0, max:20, detail:"Blank."};
-
-  let hit = 0;
-
-  // Each key idea can be:
-  // - an array of alternatives (recommended)
-  // - a single string (still supported)
-  keyIdeas.forEach(idea => {
-    if(Array.isArray(idea)){
-      if(idea.some(alt => t.includes(norm(alt)))) hit++;
-    }else{
-      if(t.includes(norm(idea))) hit++;
-    }
-  });
-
-  const score = clamp(hit * 2, 0, 20);
-  return {score, max:20, detail:`Matched ${hit}/10 key ideas (2 marks each).`};
+    <label>Your French translation</label>
+    <textarea id="ht_par" placeholder="Write your full French paragraph here..."></textarea>
+    <div class="small" id="ht_wc"></div>
+  `;
+  const card = makeTaskCard("Q1 Translation into French", "20 marks • Key ideas marking", html);
+  setTimeout(()=>wireWordCount("ht_par","ht_wc"), 0);
+  return card;
 }
-
 
 function renderFoundationGrammar(items){
   const lines = items.map((it,i)=>`
