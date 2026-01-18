@@ -1226,10 +1226,12 @@ function markHigherTranslation(user, keyIdeas){
   const t = norm(user);
   if(!t) return {score:0, max:20, detail:"Blank."};
   let hit = 0;
-  keyIdeas.forEach(k=>{
-    if(t.includes(norm(k))) hit++;
+  keyIdeas.forEach(group => {
+    // group can be ["alt1","alt2"] OR a single string
+    const alts = Array.isArray(group) ? group : [group];
+    if(alts.some(k => t.includes(norm(k)))) hit++;
   });
-  const score = clamp(hit*2, 0, 20);
+  const score = clamp(hit * 2, 0, 20);
   return {score, max:20, detail:`Matched ${hit}/10 key ideas (2 marks each).`};
 }
 
