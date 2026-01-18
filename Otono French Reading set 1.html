@@ -1690,7 +1690,7 @@ function markTranslation(tObj, userText){
     if(ok) hits++;
   });
   // 10 ideas ×2 marks
-  const score = Math.min(20, hits * 2);
+  const score = Math.min(20, hits * 4);
   const detail = `Key ideas matched: ${hits}/${ideas.length}. (2 marks each)`;
   return {score, max:20, detail};
 }
