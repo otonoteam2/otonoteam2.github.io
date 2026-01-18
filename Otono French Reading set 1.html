@@ -1,0 +1,1987 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>🟣 Otono French — Randomised Paper 1 (Auto Marking)</title>
+  <style>
+    :root{
+      --bg1:#2b0a3d; --bg2:#7a0036;
+      --card:#0f0b18cc; --card2:#120c22e6;
+      --text:#f4efff; --muted:#c9b9ff;
+      --accent:#b000ff; --accent2:#ff1b6a;
+      --good:#19ff9a; --warn:#ffd166; --bad:#ff4d6d;
+      --line:rgba(255,255,255,.12);
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:var(--sans); color:var(--text);
+      background:
+        radial-gradient(1000px 700px at 15% 10%, rgba(176,0,255,.22), transparent 60%),
+        radial-gradient(900px 650px at 80% 20%, rgba(255,27,106,.18), transparent 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+    }
+    .wrap{max-width:1100px; margin:0 auto; padding:22px;}
+    .topbar{
+      display:flex; gap:14px; align-items:center; justify-content:space-between;
+      padding:14px 16px; border:1px solid var(--line); border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      box-shadow:var(--shadow);
+      position:sticky; top:14px; z-index:20; backdrop-filter: blur(10px);
+    }
+    .brand{display:flex; flex-direction:column; gap:2px}
+    .brand h1{margin:0; font-size:16px; letter-spacing:.3px}
+    .brand .sub{font-size:12px; color:var(--muted)}
+    .pill{
+      padding:8px 10px; border-radius:999px; border:1px solid var(--line);
+      background:rgba(0,0,0,.25); font-family:var(--mono); font-size:12px;
+      display:flex; gap:10px; align-items:center;
+    }
+    .pill strong{color:#fff}
+    .btn{
+      border:1px solid var(--line); background:rgba(0,0,0,.25);
+      color:var(--text); padding:10px 12px; border-radius:14px; cursor:pointer;
+      transition:.15s transform, .15s background, .15s border;
+      font-weight:600;
+    }
+    .btn:hover{transform:translateY(-1px); background:rgba(0,0,0,.33); border-color:rgba(255,255,255,.22)}
+    .btn.primary{
+      background:linear-gradient(135deg, rgba(176,0,255,.55), rgba(255,27,106,.45));
+      border-color:rgba(255,255,255,.22);
+    }
+    .btn.danger{background:rgba(255,77,109,.18); border-color:rgba(255,77,109,.35)}
+    .grid{display:grid; grid-template-columns: 1.1fr .9fr; gap:16px; margin-top:16px;}
+    @media (max-width: 980px){ .grid{grid-template-columns:1fr} .topbar{position:static} }
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .card .hd{
+      padding:14px 16px; border-bottom:1px solid var(--line);
+      display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
+      background:linear-gradient(180deg, rgba(255,255,255,.06), transparent);
+    }
+    .card .hd h2{margin:0; font-size:14px}
+    .card .hd .meta{font-size:12px; color:var(--muted); line-height:1.25}
+    .card .bd{padding:16px}
+    label{display:block; font-size:12px; color:var(--muted); margin:10px 0 6px}
+    input[type="text"], input[type="number"], textarea, select{
+      width:100%; border:1px solid var(--line); background:rgba(0,0,0,.25);
+      color:var(--text); padding:10px 12px; border-radius:14px; outline:none;
+      font-family:var(--sans);
+    }
+    textarea{min-height:90px; resize:vertical}
+    .row{display:flex; gap:10px; flex-wrap:wrap}
+    .row > div{flex:1 1 180px}
+    .note{
+      font-size:12px; color:var(--muted); line-height:1.4;
+      padding:10px 12px; border-radius:14px; border:1px dashed rgba(255,255,255,.18);
+      background:rgba(0,0,0,.18);
+    }
+    .badge{
+      font-family:var(--mono); font-size:12px; padding:6px 10px; border-radius:999px;
+      border:1px solid var(--line); background:rgba(0,0,0,.20);
+      display:inline-flex; align-items:center; gap:6px;
+    }
+    .badge.good{border-color:rgba(25,255,154,.35); background:rgba(25,255,154,.12)}
+    .badge.warn{border-color:rgba(255,209,102,.35); background:rgba(255,209,102,.12)}
+    .badge.bad{border-color:rgba(255,77,109,.35); background:rgba(255,77,109,.12)}
+    .divider{height:1px; background:var(--line); margin:14px 0}
+    .passage{
+      padding:12px 14px; border:1px solid var(--line); border-radius:16px;
+      background:rgba(0,0,0,.22); line-height:1.5;
+    }
+    .q{
+      margin-top:14px; padding:12px 14px; border:1px solid var(--line);
+      border-radius:16px; background:rgba(0,0,0,.20);
+    }
+    .q h3{margin:0 0 8px; font-size:13px}
+    .opts{display:grid; gap:8px; margin-top:8px}
+    .opt{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:10px 10px; border-radius:14px; border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+      cursor:pointer;
+    }
+    .opt input{margin-top:3px}
+    .kpi{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
+    @media (max-width: 980px){ .kpi{grid-template-columns:repeat(2,1fr)} }
+    .kpi .box{
+      border:1px solid var(--line); border-radius:16px; padding:10px 12px;
+      background:rgba(0,0,0,.22);
+    }
+    .kpi .box .t{font-size:12px; color:var(--muted)}
+    .kpi .box .v{font-size:18px; font-weight:800; margin-top:4px}
+    .small{font-size:12px; color:var(--muted)}
+    .tabs{display:flex; gap:8px; flex-wrap:wrap}
+    .tab{padding:10px 12px; border-radius:14px; border:1px solid var(--line); background:rgba(0,0,0,.22); cursor:pointer; font-weight:700}
+    .tab.active{background:linear-gradient(135deg, rgba(176,0,255,.35), rgba(255,27,106,.22)); border-color:rgba(255,255,255,.22)}
+    .resultsList{display:grid; gap:10px}
+    .attempt{
+      border:1px solid var(--line); border-radius:16px; padding:12px 14px;
+      background:rgba(0,0,0,.20);
+    }
+    .attempt .top{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap}
+    .attempt .top strong{font-family:var(--mono)}
+    .attempt .meta{font-size:12px; color:var(--muted); margin-top:6px; line-height:1.4}
+    .copy{font-family:var(--mono); font-size:12px; white-space:pre-wrap; word-break:break-word}
+    .hide{display:none !important}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <h1>🟣 Otono French — Paper 1 (Randomised)</h1>
+        <div class="sub">Auto marking • 4 random passages × 20 + 1 translation × 20 = 100 • Centre: <strong>50749</strong></div>
+      </div>
+      <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end">
+        <div class="pill">
+          <span>⏱️ Timer:</span>
+          <strong id="timerText">--:--</strong>
+        </div>
+        <button class="btn" id="btnResults">Results</button>
+        <button class="btn primary" id="btnHome">Test</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- Left: main -->
+      <div class="card" id="panelHome">
+        <div class="hd">
+          <div>
+            <h2>Candidate setup</h2>
+            <div class="meta">No dictionary • No translator • Answer from the text • Auto marking for written answers uses keywords (not perfect).</div>
+          </div>
+          <span class="badge" id="statusBadge">Ready</span>
+        </div>
+        <div class="bd" id="homeBody">
+          <div class="row">
+            <div>
+              <label>Centre number (fixed)</label>
+              <input type="text" value="50749" disabled />
+            </div>
+            <div>
+              <label>Candidate number (required)</label>
+              <input type="number" id="candidateNo" placeholder="e.g. 1105" min="1" />
+            </div>
+            <div>
+              <label>Candidate name (optional)</label>
+              <input type="text" id="candidateName" placeholder="Name" />
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>How the random paper works:</strong><br/>
+            • The bot selects <strong>4 random passages</strong> (each worth <strong>20</strong>) and <strong>1 random translation</strong> (worth <strong>20</strong>).<br/>
+            • You’ll get a mix of <strong>multiple-choice</strong> and <strong>written answers</strong>.<br/>
+            • Written + translation answers are marked by <strong>keyword coverage</strong> (so write clear, direct answers).<br/>
+            • Your attempt is saved to this browser using <strong>localStorage</strong>, so you can check results later.
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="row">
+            <div>
+              <label>Time allowed</label>
+              <select id="timeAllowed">
+                <option value="75" selected>75 minutes (recommended)</option>
+                <option value="60">60 minutes</option>
+                <option value="45">45 minutes</option>
+              </select>
+            </div>
+            <div>
+              <label>Question order</label>
+              <select id="shuffleMode">
+                <option value="shuffleAll" selected>Shuffle questions (harder)</option>
+                <option value="keepOrder">Keep original order</option>
+              </select>
+            </div>
+            <div>
+              <label>On timer end</label>
+              <select id="autoSubmit">
+                <option value="yes" selected>Auto-submit</option>
+                <option value="no">Do not auto-submit</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap">
+            <button class="btn primary" id="btnStart">Start Random Paper</button>
+            <button class="btn" id="btnPreview">Preview Random Selection</button>
+          </div>
+
+          <div id="previewBox" class="note hide" style="margin-top:12px"></div>
+        </div>
+
+        <!-- Test body -->
+        <div class="bd hide" id="testBody">
+          <div class="kpi">
+            <div class="box"><div class="t">Candidate</div><div class="v" id="kpiCandidate">—</div></div>
+            <div class="box"><div class="t">Selected passages</div><div class="v" id="kpiPassages">—</div></div>
+            <div class="box"><div class="t">Translation</div><div class="v" id="kpiTranslation">—</div></div>
+            <div class="box"><div class="t">Max score</div><div class="v">100</div></div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>Instructions reminder:</strong>
+            No dictionary. Do not copy from outside. Base answers on the passage. For written answers, include the key idea(s) clearly.
+          </div>
+
+          <div id="paper"></div>
+
+          <div class="divider"></div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap">
+            <button class="btn primary" id="btnSubmit">Submit & Auto-Mark</button>
+            <button class="btn" id="btnReset">Reset (new random paper)</button>
+          </div>
+
+          <div id="markingBox" class="hide" style="margin-top:14px"></div>
+        </div>
+      </div>
+
+      <!-- Right: results / help -->
+      <div class="card" id="panelSide">
+        <div class="hd">
+          <div>
+            <h2 id="sideTitle">Otono grading</h2>
+            <div class="meta" id="sideMeta">Score → Otono grade + GCSE estimate + Pass/Merit/Distinction.</div>
+          </div>
+        </div>
+        <div class="bd" id="sideBody">
+          <div class="note">
+            <strong>Pass/Merit/Distinction</strong><br/>
+            PASS: 66+<br/>
+            MERIT: 80+<br/>
+            DISTINCTION: 90+<br/>
+          </div>
+          <div class="divider"></div>
+          <div class="note">
+            <strong>Otono grades (A–H + secret S)</strong><br/>
+            S: 101+ (secret)<br/>
+            A: 95–100<br/>
+            B: 80–94<br/>
+            C: 70–79<br/>
+            D: 66–69<br/>
+            E: 55–65<br/>
+            F: 45–54<br/>
+            G: 30–44<br/>
+            H: 15–29<br/>
+            U: 0–14
+          </div>
+          <div class="divider"></div>
+          <div class="note">
+            <strong>GCSE 9–1 estimate (simple mapping)</strong><br/>
+            9: 90–100 • 8: 80–89 • 7: 70–79 • 6: 60–69 • 5: 50–59<br/>
+            4: 40–49 • 3: 30–39 • 2: 20–29 • 1: 10–19 • U: 0–9
+          </div>
+          <div class="divider"></div>
+          <div class="small">
+            Tip: results are stored locally on this device/browser only. If you clear site data, they disappear.
+          </div>
+        </div>
+
+        <!-- Results panel -->
+        <div class="bd hide" id="resultsBody">
+          <div class="tabs">
+            <div class="tab active" id="tabAll">All attempts</div>
+            <div class="tab" id="tabCandidate">By candidate</div>
+          </div>
+
+          <div class="row" style="margin-top:10px">
+            <div>
+              <label>Filter candidate number</label>
+              <input type="number" id="filterCandidate" placeholder="e.g. 1105" min="1" />
+            </div>
+            <div>
+              <label>Actions</label>
+              <div style="display:flex; gap:10px; flex-wrap:wrap">
+                <button class="btn" id="btnExport">Export JSON</button>
+                <button class="btn danger" id="btnClear">Clear stored results</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+          <div class="resultsList" id="resultsList"></div>
+
+          <div id="exportBox" class="note hide" style="margin-top:12px">
+            <div><strong>Exported JSON</strong> (copy/save it):</div>
+            <div class="divider"></div>
+            <div class="copy" id="exportText"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* -----------------------------
+   OTONO BANK (LONGER TEXT, MIXED DIFFICULTY)
+   Each passage total = 20 marks
+--------------------------------*/
+
+const PASSAGES = [
+  {
+    id: 1,
+    title: "Passage 1 — Monsieur Barley et les consignes",
+    theme: "Theme 1 — School",
+    unit: "Unit 1 (Monsieur Barley)",
+    text: `Monsieur Barley est professeur de sciences à l’école Otono. Il est connu pour son calme, sa voix posée et son sens de l’ordre. Dans sa salle, tout est rangé : les cahiers sont dans la bonne pile, les crayons ne traînent pas, et les expériences sont préparées à l’avance. Les élèves disent parfois qu’il est « strict », mais lui répond qu’il préfère le mot « précis ».
+
+Avant chaque contrôle, il répète la même phrase : « Lisez bien les consignes. » Il explique que, dans un examen, la connaissance ne suffit pas toujours. Selon lui, un élève peut connaître la réponse mais perdre des points s’il ne suit pas la méthode demandée. Par exemple, si la question demande une justification, écrire seulement un mot n’est pas suffisant. Ou si on doit donner deux raisons, n’en donner qu’une peut faire perdre des points.
+
+Red écoute attentivement ces explications. Il n’aime pas perdre des points “bêtement”, surtout quand il a révisé. Depuis quelques semaines, il essaye donc de prendre une habitude : avant d’écrire, il relit la question, il souligne les mots importants, et il vérifie le nombre de détails demandés. Même si cela prend quelques secondes, il pense que c’est plus sûr.`,
+    questions: [
+      // EASY
+      { id:"p1q1", type:"mcq", marks:2,
+        prompt:"(E) What subject does Monsieur Barley teach?",
+        options:["Science","French","PE","Music"],
+        answerIndex:0
+      },
+      // EASY
+      { id:"p1q2", type:"mcq", marks:2,
+        prompt:"(E) What does he repeat before each test?",
+        options:["‘Write fast!’","‘Read the instructions!’","‘No homework!’","‘Guess the answers!’"],
+        answerIndex:1
+      },
+      // EASY (short but forgiving)
+      { id:"p1q3", type:"short", marks:4,
+        prompt:"(E) Give TWO things that show his classroom is organised.",
+        rubric:"Any two: everything is tidy/put away; notebooks in correct pile; pencils not left out; experiments prepared in advance.",
+        keywords:[
+          ["tidy","range","rangé","ranger","order","ordre"],
+          ["notebooks","cahiers","pile"],
+          ["pencils","crayons","traine","traîner"],
+          ["prepared","prepare","préparé","avance","à l'avance"]
+        ]
+      },
+      // MEDIUM
+      { id:"p1q4", type:"short", marks:4,
+        prompt:"(M) Why can someone lose marks even if they know the answer?",
+        rubric:"Because they might not follow the method/instructions or give what the question asks (e.g. justification/two reasons).",
+        keywords:[
+          ["lose","perdre"],
+          ["marks","points"],
+          ["instructions","consignes","method","methode","méthode"],
+          ["question asks","demande","asked","two reasons","deux raisons","justify","justification"]
+        ]
+      },
+      // HARD (still GCSE)
+      { id:"p1q5", type:"short", marks:6,
+        prompt:"(H) Explain ONE example from the text of how a student could lose marks, and say what they should do instead.",
+        rubric:"Example: if justification required, one word not enough → give explanation; if two reasons needed, give two reasons.",
+        keywords:[
+          ["example","par exemple"],
+          ["justify","justification","explain","expliquer","because","car","parce que"],
+          ["two","deux","reasons","raisons"],
+          ["instead","au lieu","should","doit","should do","il faut"]
+        ]
+      },
+      // EASY
+      { id:"p1q6", type:"short", marks:2,
+        prompt:"(E) What new habit does Red try to use before writing?",
+        rubric:"He rereads the question / underlines key words / checks how many details are needed.",
+        keywords:[
+          ["reread","relit","re lire","relire"],
+          ["underline","souligne","souligner"],
+          ["key words","mots importants"],
+          ["checks","verifie","vérifie","number","nombre","details","détails"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id: 2,
+    title: "Passage 2 — L’encre noire et les matières",
+    theme: "Theme 1 — School",
+    unit: "Unit 2 (Ink system)",
+    text: `À l’école Otono, l’encre noire est un sujet qui revient souvent avant les examens. Certains élèves n’y pensent même pas : ils prennent leur stylo et ils écrivent. D’autres, au contraire, stressent, car ils ont peur de choisir le mauvais matériel et de perdre des points pour une raison “technique”.
+
+Luke adore l’encre noire. Pour lui, c’est sérieux, propre et clair. Il dit même que c’est la seule option vraiment “correcte”. Cependant, les règles ne sont pas les mêmes dans chaque matière. En maths, on demande souvent d’écrire en noir pour que les copies soient faciles à scanner. Mais en sciences, les élèves ont déjà entendu des messages différents : parfois on dit que le noir est interdit pour certains documents, ou qu’il faut éviter certaines encres.
+
+Cette différence crée de la confusion. La veille d’un examen, un élève peut se demander : “Est-ce que je vais perdre des points si j’utilise ce stylo ?” Certains préparent deux stylos, d’autres demandent au professeur, et quelques élèves changent de couleur au dernier moment. Red, lui, essaie surtout de rester calme et de vérifier les consignes écrites sur la feuille d’examen.`,
+    questions: [
+      // EASY
+      { id:"p2q1", type:"mcq", marks:2,
+        prompt:"(E) What do some students feel about black ink before exams?",
+        options:["Stress","Hunger","Pride","Sleepiness"],
+        answerIndex:0
+      },
+      // EASY
+      { id:"p2q2", type:"short", marks:2,
+        prompt:"(E) Give ONE reason Luke likes black ink.",
+        rubric:"Any one: serious / neat / clear / correct.",
+        keywords:[
+          ["serious","sérieux","serieux"],
+          ["neat","propre"],
+          ["clear","clair"],
+          ["correct","correcte","correct"]
+        ]
+      },
+      // EASY retrieval
+      { id:"p2q3", type:"short", marks:4,
+        prompt:"(E) What is the reason given for black ink in maths?",
+        rubric:"So copies are easy to scan / scanning.",
+        keywords:[
+          ["math","maths","mathematiques","mathématiques"],
+          ["scan","scanner","scanned","numériser","numeriser"],
+          ["easy","facile"]
+        ]
+      },
+      // MEDIUM
+      { id:"p2q4", type:"short", marks:4,
+        prompt:"(M) Why is there confusion about the rules? Give TWO simple points.",
+        rubric:"Rules change by subject; maths asks for black but science messages differ/forbidden sometimes.",
+        keywords:[
+          ["different","différent","different"],
+          ["subject","matiere","matière"],
+          ["math","maths"],
+          ["science","sciences"],
+          ["forbid","interdit","avoid","eviter","éviter"]
+        ]
+      },
+      // EASY
+      { id:"p2q5", type:"mcq", marks:2,
+        prompt:"(E) What do some students do the day before an exam?",
+        options:["Prepare two pens","Stop revising","Throw away their pencil case","Skip school"],
+        answerIndex:0
+      },
+      // HARD but fair
+      { id:"p2q6", type:"short", marks:6,
+        prompt:"(H) What is Red’s best strategy in the passage, and why is it sensible?",
+        rubric:"He stays calm and checks the written instructions on the exam paper; sensible because instructions are the official rule.",
+        keywords:[
+          ["red"],
+          ["calm","calme"],
+          ["check","verifier","vérifier","verify"],
+          ["written","ecrites","écrites","on the paper","feuille"],
+          ["official","officiel","rule","regle","règle","instructions","consignes"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id: 3,
+    title: "Passage 3 — Les options GCSE",
+    theme: "Theme 1 — School",
+    unit: "Unit 3 (GCSE options)",
+    text: `Pour beaucoup d’élèves, choisir ses options GCSE est un moment important. Certains savent déjà ce qu’ils veulent faire : ils choisissent rapidement et ils ne changent plus d’avis. D’autres hésitent, parce qu’ils aiment plusieurs matières, ou parce qu’ils ont peur de faire un mauvais choix.
+
+À Otono, les règles de l’école peuvent influencer les décisions. Par exemple, il peut y avoir un nombre limité de places dans une classe, ou des matières qui se passent au même moment dans l’emploi du temps. Thomas hésite longtemps sur le français. Il aime bien la matière, mais il se demande s’il sera assez bon. Il parle alors avec d’autres élèves, et il réalise qu’ils ont les mêmes inquiétudes.
+
+Finalement, Thomas change d’avis et il choisit le français. L’école accepte son choix, même si c’est un peu tard. Pour lui, c’est rassurant : il comprend que le système peut être flexible si on explique sa situation correctement.`,
+    questions: [
+      // EASY
+      { id:"p3q1", type:"mcq", marks:2,
+        prompt:"(E) Choosing GCSE options is described as…",
+        options:["Important","Pointless","Only for Year 7","Illegal"],
+        answerIndex:0
+      },
+      // EASY retrieval
+      { id:"p3q2", type:"short", marks:4,
+        prompt:"(E) Give TWO reasons why some students hesitate.",
+        rubric:"Any two: like several subjects; fear bad choice; worry about being good enough; timetable/limited places.",
+        keywords:[
+          ["like","aime","aiment","several","plusieurs"],
+          ["fear","peur"],
+          ["bad choice","mauvais choix"],
+          ["good enough","assez bon","suffisant"],
+          ["timetable","emploi du temps"],
+          ["limited","limite","limité","places","places"]
+        ]
+      },
+      // EASY
+      { id:"p3q3", type:"short", marks:2,
+        prompt:"(E) Which subject does Thomas choose in the end?",
+        rubric:"French.",
+        keywords:[["french","francais","français"]]
+      },
+      // MEDIUM
+      { id:"p3q4", type:"short", marks:4,
+        prompt:"(M) What helps Thomas decide?",
+        rubric:"He talks to other students and realises they share the same worries.",
+        keywords:[
+          ["talk","parle","parler"],
+          ["other","autres"],
+          ["students","eleves","élèves"],
+          ["same","mêmes","same worries","mêmes inquiétudes","inquietudes","inquiétudes"]
+        ]
+      },
+      // EASY
+      { id:"p3q5", type:"mcq", marks:2,
+        prompt:"(E) The school accepts his choice even though it is…",
+        options:["A bit late","Impossible","Cancelled","Secret"],
+        answerIndex:0
+      },
+      // HARD but GCSE
+      { id:"p3q6", type:"short", marks:6,
+        prompt:"(H) What does Thomas learn about the school system, and what should a student do if they need a late change?",
+        rubric:"System can be flexible; explain situation properly / ask / communicate.",
+        keywords:[
+          ["flexible","not rigid","pas rigide"],
+          ["accept","accepte","accepté","accepted"],
+          ["explain","expliquer"],
+          ["situation","reason","raison"],
+          ["ask","demander","request"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id: 4,
+    title: "Passage 4 — Dans la salle d’examen",
+    theme: "Theme 1 — School",
+    unit: "Unit 4 (Exam rules)",
+    text: `Le jour de l’examen, l’ambiance est différente dans le couloir. Les élèves parlent moins, certains relisent une dernière fois leurs notes, et d’autres regardent simplement le sol. Quand la porte s’ouvre, tout le monde entre en silence.
+
+Dans la salle, les tables sont espacées. Les sacs sont placés devant la salle, loin des chaises. L’invigilateur attend que tout le monde soit assis, puis il lit les consignes. Il rappelle qu’il faut écrire clairement, qu’il ne faut pas de téléphone, et qu’il existe une liste d’objets interdits.
+
+Quand il parle de cette liste, certains élèves paniquent : ils se demandent soudain s’ils ont oublié quelque chose dans leur poche. Red, lui, écoute calmement. Il sait qu’une petite erreur peut coûter des points, mais il se répète que le plus important est de rester concentré et de suivre les consignes jusqu’à la fin.`,
+    questions: [
+      // EASY
+      { id:"p4q1", type:"mcq", marks:2,
+        prompt:"(E) How do students enter the exam room?",
+        options:["In silence","Singing","Running","Laughing loudly"],
+        answerIndex:0
+      },
+      // EASY retrieval
+      { id:"p4q2", type:"short", marks:4,
+        prompt:"(E) Give TWO details that show the room is prepared for an exam.",
+        rubric:"Any two: spaced tables; bags in front; invigilator reads instructions; list of forbidden items.",
+        keywords:[
+          ["spaced","espacées","espacees"],
+          ["tables","tables"],
+          ["bags","sacs","front","devant"],
+          ["invigilator","invigilateur","reads","lit"],
+          ["forbidden","interdits","objets interdits","list","liste"]
+        ]
+      },
+      // EASY
+      { id:"p4q3", type:"mcq", marks:2,
+        prompt:"(E) What makes some students panic?",
+        options:["The list of forbidden items","A song","The timetable","A football match"],
+        answerIndex:0
+      },
+      // MEDIUM
+      { id:"p4q4", type:"short", marks:4,
+        prompt:"(M) Why do students panic when the invigilator mentions forbidden items?",
+        rubric:"They worry they forgot something (e.g., in pocket/bag).",
+        keywords:[
+          ["panic","panique"],
+          ["worry","peur","s'inquietent","s’inquiètent","inquiet"],
+          ["forgot","oublie","oublié","oublier"],
+          ["pocket","poche"]
+        ]
+      },
+      // EASY
+      { id:"p4q5", type:"mcq", marks:2,
+        prompt:"(E) Red is described as…",
+        options:["Calm","Very loud","Asleep","Angry"],
+        answerIndex:0
+      },
+      // HARD but GCSE
+      { id:"p4q6", type:"short", marks:6,
+        prompt:"(H) What is Red’s mindset in the last sentence, and how could it help in an exam?",
+        rubric:"Stay concentrated and follow instructions; helps avoid silly mistakes and keeps you focused.",
+        keywords:[
+          ["concentrated","concentre","concentré","focus","focused"],
+          ["follow","suivre","respect"],
+          ["instructions","consignes"],
+          ["avoid","eviter","éviter","prevent"],
+          ["mistakes","erreurs","erreur","error"]
+        ]
+      }
+    ]
+  },   // ✅ IMPORTANT COMMA (ends Passage 4 properly)
+
+  {    // ✅ Passage 5 now starts correctly
+    id: 5,
+    title: "Passage 5 — Le serveur Minecraft Otono",
+    theme: "Theme 2 — Free time",
+    unit: "Unit 5 (Minecraft server)",
+    text: `Le serveur Minecraft Otono est un espace où les joueurs doivent travailler ensemble. Contrairement à un jeu en solo, chacun a un rôle précis et les décisions sont souvent prises en groupe. Avant de commencer une grande construction, les joueurs discutent du plan et des étapes à suivre.
+
+OWing aime aller vite. Il préfère commencer immédiatement et voir des résultats rapides. Red, au contraire, prend plus de temps. Il vérifie les détails, relit le plan et corrige les petites erreurs. Cette différence provoque parfois des désaccords, surtout quand OWing trouve que Red est trop lent.
+
+Mais quand ils travaillent ensemble, le projet avance mieux. OWing apporte l’énergie et la vitesse, tandis que Red apporte la précision. Finalement, le serveur progresse grâce à cet équilibre.`,
+    questions: [
+      { id:"p5q1", type:"mcq", marks:2,
+        prompt:"(E) On the server, players must…",
+        options:["Work together","Play alone","Ignore rules","Build randomly"],
+        answerIndex:0
+      },
+      { id:"p5q2", type:"short", marks:4,
+        prompt:"(E) Give TWO things players do before a big build.",
+        rubric:"They discuss the plan; decide steps; talk together.",
+        keywords:[
+          ["discuss","discutent","parlent"],
+          ["plan","plan"],
+          ["steps","etapes","étapes"],
+          ["together","ensemble"]
+        ]
+      },
+      { id:"p5q3", type:"short", marks:4,
+        prompt:"(M) How are OWing and Red different?",
+        rubric:"OWing is fast; Red checks details.",
+        keywords:[
+          ["owing","fast","vite"],
+          ["red","details","verifie","vérifie"]
+        ]
+      },
+      { id:"p5q4", type:"mcq", marks:2,
+        prompt:"(E) What can their difference cause?",
+        options:["Disagreements","Server crashes","Homework","Punishments"],
+        answerIndex:0
+      },
+      { id:"p5q5", type:"short", marks:2,
+        prompt:"(E) What improves when they work together?",
+        rubric:"The project / progress.",
+        keywords:[
+          ["project","projet"],
+          ["progress","avance","avance mieux","progresse"]
+        ]
+      },
+      { id:"p5q6", type:"short", marks:6,
+        prompt:"(H) Why does their teamwork help the server succeed?",
+        rubric:"Speed + precision balance; different strengths work together.",
+        keywords:[
+          ["balance","equilibre","équilibre"],
+          ["speed","vite","vitesse"],
+          ["precision","details","précision"],
+          ["together","ensemble"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id: 6,
+    title: "Passage 6 — Les jeux et la concentration",
+    theme: "Theme 2 — Free time",
+    unit: "Unit 5 (Gaming)",
+    text: `Pour certains membres d’Otono, jouer n’est pas seulement un loisir. Ils regardent attentivement leur score, le temps utilisé et le nombre d’erreurs. Une petite faute peut transformer une bonne partie en échec.
+
+Red explique que cette pression ressemble à celle des examens. Il faut rester concentré du début à la fin. Quand un joueur se déconcentre, il peut perdre rapidement. C’est pour cette raison que Red prend les jeux au sérieux.`,
+    questions: [
+      { id:"p6q1", type:"mcq", marks:2,
+        prompt:"(E) For some members, games are…",
+        options:["Serious","Boring","Useless","Easy"],
+        answerIndex:0
+      },
+      { id:"p6q2", type:"short", marks:4,
+        prompt:"(E) Name TWO things players watch carefully.",
+        rubric:"Score; time; errors.",
+        keywords:[
+          ["score","scores"],
+          ["time","temps"],
+          ["errors","erreurs","erreur"]
+        ]
+      },
+      { id:"p6q3", type:"mcq", marks:2,
+        prompt:"(E) What can a small mistake do?",
+        options:["Ruin a good game","Win instantly","Pause the game","Change rules"],
+        answerIndex:0
+      },
+      { id:"p6q4", type:"short", marks:4,
+        prompt:"(M) What does Red compare gaming to?",
+        rubric:"An exam.",
+        keywords:[
+          ["exam","examen"]
+        ]
+      },
+      { id:"p6q5", type:"mcq", marks:2,
+        prompt:"(E) What is needed from start to finish?",
+        options:["Concentration","Luck","Noise","Speed only"],
+        answerIndex:0
+      },
+      { id:"p6q6", type:"short", marks:6,
+        prompt:"(H) Explain why gaming feels like an exam in this text.",
+        rubric:"Pressure; need concentration; mistakes cost you results.",
+        keywords:[
+          ["pressure","stress"],
+          ["concentration","concentre","concentré"],
+          ["mistakes","erreurs"],
+          ["results","score","resultat","résultat"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id: 7,
+    title: "Passage 7 — La musique à Otono",
+    theme: "Theme 2 — Music",
+    unit: "Unit 6 (Music)",
+    text: `À Otono, la musique fait partie de la vie quotidienne. Certains élèves jouent pour le plaisir, d’autres prennent la pratique très au sérieux. Luke joue de la trompette et aime le son puissant de son instrument.
+
+Red, lui, joue du piano et du violon. Il explique que la musique demande beaucoup de discipline. Il faut répéter souvent, corriger ses erreurs et rester patient. Pour lui, cette rigueur est très proche de celle du travail scolaire.`,
+    questions: [
+      { id:"p7q1", type:"mcq", marks:2,
+        prompt:"(E) Music at Otono is part of…",
+        options:["Daily life","Only exams","Sport","Silence"],
+        answerIndex:0
+      },
+      { id:"p7q2", type:"short", marks:4,
+        prompt:"(E) Which instruments does Red play?",
+        rubric:"Piano and violin.",
+        keywords:[
+          ["piano"],
+          ["violin","violon"]
+        ]
+      },
+      { id:"p7q3", type:"mcq", marks:2,
+        prompt:"(E) Luke plays the…",
+        options:["Trumpet","Piano","Violin","Drums"],
+        answerIndex:0
+      },
+      { id:"p7q4", type:"short", marks:4,
+        prompt:"(M) What does music require, according to Red?",
+        rubric:"Discipline; repetition; patience.",
+        keywords:[
+          ["discipline","rigueur"],
+          ["repeat","repeter","répéter"],
+          ["patient","patience"]
+        ]
+      },
+      { id:"p7q5", type:"mcq", marks:2,
+        prompt:"(E) Red compares music discipline to…",
+        options:["Schoolwork","Sport","Gaming","Cooking"],
+        answerIndex:0
+      },
+      { id:"p7q6", type:"short", marks:6,
+        prompt:"(H) Explain ONE similarity between music and school mentioned in the text.",
+        rubric:"Both need discipline, repetition, effort.",
+        keywords:[
+          ["music","musique"],
+          ["school","schoolwork","scolaire"],
+          ["discipline","rigueur"],
+          ["effort","travail"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id: 8,
+    title: "Passage 8 — Décrire son environnement",
+    theme: "Theme 2 — Your region",
+    unit: "Unit 7 (Your region)",
+    text: `Décrire son environnement est un exercice fréquent en classe de langues. Certains élèves parlent de leur maison réelle, tandis que d’autres préfèrent décrire un monde virtuel qu’ils ont créé dans un jeu.
+
+Ils expliquent souvent la taille des pièces, le style de la maison et l’ambiance générale. OWing adore les penthouses, surtout pour la vue. Pour lui, un bel environnement donne envie de travailler et de se détendre.`,
+    questions: [
+      { id:"p8q1", type:"mcq", marks:2,
+        prompt:"(E) Describing your environment is…",
+        options:["Frequent","Rare","Forbidden","Only for A level"],
+        answerIndex:0
+      },
+      { id:"p8q2", type:"short", marks:4,
+        prompt:"(E) Name TWO things students describe.",
+        rubric:"Rooms; style; size; atmosphere.",
+        keywords:[
+          ["rooms","pieces","pièces"],
+          ["style"],
+          ["size","taille"],
+          ["atmosphere","ambiance"]
+        ]
+      },
+      { id:"p8q3", type:"mcq", marks:2,
+        prompt:"(E) OWing likes penthouses for the…",
+        options:["View","Basement","Noise","Rules"],
+        answerIndex:0
+      },
+      { id:"p8q4", type:"short", marks:4,
+        prompt:"(M) Why can students describe virtual worlds?",
+        rubric:"They create them themselves; they have rooms and style.",
+        keywords:[
+          ["virtual","virtuel"],
+          ["create","creer","créer"],
+          ["rooms","pieces"],
+          ["style"]
+        ]
+      },
+      { id:"p8q5", type:"mcq", marks:2,
+        prompt:"(E) A nice environment can make you want to…",
+        options:["Work and relax","Sleep in class","Skip school","Be noisy"],
+        answerIndex:0
+      },
+      { id:"p8q6", type:"short", marks:6,
+        prompt:"(H) Explain why environment is important for OWing.",
+        rubric:"View; motivation; comfort; balance.",
+        keywords:[
+          ["view","vue"],
+          ["motivation","motiver"],
+          ["comfortable","confort"],
+          ["work","travail"],
+          ["relax","detendre","détendre"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id: 9,
+    title: "Passage 9 — Voyager avec Otono Airways",
+    theme: "Theme 3 — Otono Team",
+    unit: "Unit 8 (Otono Airways)",
+    text: `Voyager avec Otono Airways est plus qu’un simple déplacement. Les passagers remarquent rapidement l’organisation des cabines et le confort des sièges. Même en classe économique, l’espace est jugé correct.
+
+Red observe attentivement l’intérieur des avions. Il regarde la disposition des sièges, la cabine et les détails techniques. Pour lui, chaque vol est une occasion d’analyser et de comparer.`,
+    questions: [
+      { id:"p9q1", type:"mcq", marks:2,
+        prompt:"(E) Passengers notice…",
+        options:["Organisation and comfort","Only food","Only pilots","Only exams"],
+        answerIndex:0
+      },
+      { id:"p9q2", type:"short", marks:4,
+        prompt:"(E) Give TWO things Red observes.",
+        rubric:"Seats; cabin; layout; details.",
+        keywords:[
+          ["seats","sieges","sièges"],
+          ["cabin","cabine"],
+          ["layout","disposition"],
+          ["details","détails"]
+        ]
+      },
+      { id:"p9q3", type:"mcq", marks:2,
+        prompt:"(E) Even economy class has…",
+        options:["Enough space","No seats","No comfort","No rules"],
+        answerIndex:0
+      },
+      { id:"p9q4", type:"short", marks:4,
+        prompt:"(M) Why does Red like analysing flights?",
+        rubric:"He likes details and comparing systems.",
+        keywords:[
+          ["analyse","analyser"],
+          ["details","détails"],
+          ["compare","comparer"]
+        ]
+      },
+      { id:"p9q5", type:"mcq", marks:2,
+        prompt:"(E) For Red, each flight is an opportunity to…",
+        options:["Observe","Sleep","Ignore","Complain"],
+        answerIndex:0
+      },
+      { id:"p9q6", type:"short", marks:6,
+        prompt:"(H) Explain how flying reflects Red’s personality.",
+        rubric:"Detail-focused; analytical; organised.",
+        keywords:[
+          ["details","detail"],
+          ["analyse","analytical"],
+          ["organised","organisé"],
+          ["observe","observer"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id: 10,
+    title: "Passage 10 — Le salon de l’A380",
+    theme: "Theme 3 — Otono Team",
+    unit: "Unit 8 (A380 features)",
+    text: `Dans l’A380 d’Otono Airways, il existe un salon calme. Cet espace est conçu pour permettre aux passagers de se détendre. Il n’est pas bruyant et des règles sont en place pour garder une bonne ambiance.
+
+Red apprécie ce salon. Il aime le fait que tout soit bien organisé et que les passagers respectent les règles. Pour lui, le calme est une forme de confort.`,
+    questions: [
+      { id:"p10q1", type:"mcq", marks:2,
+        prompt:"(E) The lounge is…",
+        options:["Calm","Noisy","Crowded","Chaotic"],
+        answerIndex:0
+      },
+      { id:"p10q2", type:"short", marks:4,
+        prompt:"(E) Give TWO reasons the lounge is comfortable.",
+        rubric:"Calm; organised; rules; relaxing.",
+        keywords:[
+          ["calm","calme"],
+          ["organised","organisé"],
+          ["rules","règles"],
+          ["relax","detendre","détendre"]
+        ]
+      },
+      { id:"p10q3", type:"mcq", marks:2,
+        prompt:"(E) Passengers must…",
+        options:["Respect rules","Be loud","Run","Use phones"],
+        answerIndex:0
+      },
+      { id:"p10q4", type:"short", marks:4,
+        prompt:"(M) Why does Red like the lounge?",
+        rubric:"Because it is organised and calm.",
+        keywords:[
+          ["red"],
+          ["calm","calme"],
+          ["organised","organisé"]
+        ]
+      },
+      { id:"p10q5", type:"mcq", marks:2,
+        prompt:"(E) Calm is described as a form of…",
+        options:["Comfort","Punishment","Boredom","Silence only"],
+        answerIndex:0
+      },
+      { id:"p10q6", type:"short", marks:6,
+        prompt:"(H) Explain why rules help create a good atmosphere in the lounge.",
+        rubric:"They reduce noise; keep order; allow relaxation.",
+        keywords:[
+          ["rules","regles","règles"],
+          ["order","ordre"],
+          ["reduce","réduire"],
+          ["noise","bruit"],
+          ["relax","detendre","détendre"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id: 11,
+    title: "Passage 11 — La classe économique",
+    theme: "Theme 3 — Otono Team",
+    unit: "Unit 8 (Cabin experience)",
+    text: `La classe économique est souvent critiquée dans les compagnies aériennes. Certains passagers pensent que le confort doit être réservé aux classes supérieures.
+
+D’autres ne sont pas d’accord. Ils pensent que chaque voyageur mérite un minimum de confort, peu importe le prix du billet. Red soutient cette idée et pense que le confort en classe économique montre la qualité de la compagnie.`,
+    questions: [
+      { id:"p11q1", type:"mcq", marks:2,
+        prompt:"(E) Economy class is often…",
+        options:["Criticised","Perfect","Ignored","Empty"],
+        answerIndex:0
+      },
+      { id:"p11q2", type:"short", marks:4,
+        prompt:"(E) What do some passengers think about comfort?",
+        rubric:"It should be for upper classes only.",
+        keywords:[
+          ["upper","supérieures"],
+          ["comfort","confort"],
+          ["only","seulement"]
+        ]
+      },
+      { id:"p11q3", type:"mcq", marks:2,
+        prompt:"(E) Red supports which idea?",
+        options:["Everyone deserves comfort","Only first class matters","Comfort is useless","Rules don’t matter"],
+        answerIndex:0
+      },
+      { id:"p11q4", type:"short", marks:4,
+        prompt:"(M) Why does Red support this idea?",
+        rubric:"It shows airline quality.",
+        keywords:[
+          ["quality","qualité"],
+          ["airline","compagnie"]
+        ]
+      },
+      { id:"p11q5", type:"mcq", marks:2,
+        prompt:"(E) Comfort should depend on…",
+        options:["Not the ticket price","Only the class","Luck","Seat colour"],
+        answerIndex:0
+      },
+      { id:"p11q6", type:"short", marks:6,
+        prompt:"(H) Explain how economy class reflects the airline’s values.",
+        rubric:"Respect for passengers; fairness; quality.",
+        keywords:[
+          ["respect","respecter"],
+          ["passengers","passagers"],
+          ["fair","equitable","fairness"],
+          ["quality","qualité"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id: 12,
+    title: "Passage 12 — Otono Mansion",
+    theme: "Theme 3 — Otono Team",
+    unit: "Unit 9 (Otono Mansion)",
+    text: `Otono Mansion est un bâtiment très grand avec plus de quatre-vingt-dix pièces. Chaque pièce a une fonction précise. Certaines sont pour travailler, d’autres pour se reposer ou se retrouver.
+
+Certaines zones sont réservées et ne sont pas accessibles à tout le monde. Grâce à cette organisation, la vie dans le manoir est plus calme et il y a moins de chaos.`,
+    questions: [
+      { id:"p12q1", type:"mcq", marks:2,
+        prompt:"(E) Otono Mansion has…",
+        options:["More than 90 rooms","Less than 10 rooms","One floor","No rules"],
+        answerIndex:0
+      },
+      { id:"p12q2", type:"short", marks:4,
+        prompt:"(E) What does each room have?",
+        rubric:"A specific function.",
+        keywords:[
+          ["function","fonction"],
+          ["specific","precise","précise"]
+        ]
+      },
+      { id:"p12q3", type:"mcq", marks:2,
+        prompt:"(E) Some zones are…",
+        options:["Reserved","Broken","Public","Random"],
+        answerIndex:0
+      },
+      { id:"p12q4", type:"short", marks:4,
+        prompt:"(M) Why is life calmer in the mansion?",
+        rubric:"Organisation; reserved zones; structure.",
+        keywords:[
+          ["organisation","organised","organisé"],
+          ["reserved","réservées"],
+          ["calm","calme"]
+        ]
+      },
+      { id:"p12q5", type:"mcq", marks:2,
+        prompt:"(E) Organisation reduces…",
+        options:["Chaos","Fun","Rooms","Rules"],
+        answerIndex:0
+      },
+      { id:"p12q6", type:"short", marks:6,
+        prompt:"(H) Explain how structure helps people live together.",
+        rubric:"Clear spaces; fewer conflicts; order.",
+        keywords:[
+          ["structure","organisation"],
+          ["spaces","espaces"],
+          ["conflict","conflits"],
+          ["order","ordre"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id: 13,
+    title: "Passage 13 — Les règles dans une grande maison",
+    theme: "Theme 3 — Otono Team",
+    unit: "Unit 9 (Living spaces)",
+    text: `Dans une grande résidence comme Otono Mansion, les règles sont importantes. Les habitants doivent respecter les espaces partagés pour que tout le monde se sente bien.
+
+Le silence et la propreté jouent un rôle essentiel. Red pense que ces règles simplifient la vie quotidienne et évitent les conflits inutiles.`,
+    questions: [
+      { id:"p13q1", type:"mcq", marks:2,
+        prompt:"(E) In a big residence, rules are…",
+        options:["Important","Useless","Optional","Temporary"],
+        answerIndex:0
+      },
+      { id:"p13q2", type:"short", marks:4,
+        prompt:"(E) Name TWO important rules mentioned.",
+        rubric:"Silence; cleanliness; respect shared spaces.",
+        keywords:[
+          ["silence"],
+          ["clean","proprete","propreté"],
+          ["shared","partagés","partages"]
+        ]
+      },
+      { id:"p13q3", type:"mcq", marks:2,
+        prompt:"(E) Who must respect shared spaces?",
+        options:["Residents","Visitors only","Teachers","Nobody"],
+        answerIndex:0
+      },
+      { id:"p13q4", type:"short", marks:4,
+        prompt:"(M) Why does Red like these rules?",
+        rubric:"They make life simpler; avoid conflict.",
+        keywords:[
+          ["simple","simpler","facile"],
+          ["avoid","eviter","éviter"],
+          ["conflict","conflit"]
+        ]
+      },
+      { id:"p13q5", type:"mcq", marks:2,
+        prompt:"(E) Cleanliness is described as…",
+        options:["Essential","Optional","Annoying","Rare"],
+        answerIndex:0
+      },
+      { id:"p13q6", type:"short", marks:6,
+        prompt:"(H) Explain how rules improve daily life.",
+        rubric:"Less conflict; more comfort; order.",
+        keywords:[
+          ["less","moins"],
+          ["conflict","conflit"],
+          ["comfort","confort"],
+          ["order","ordre"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id: 14,
+    title: "Passage 14 — Le score de Clayton",
+    theme: "Bonus Theme 4 — Results",
+    unit: "Facts theme",
+    text: `Clayton a obtenu 160 sur 160 en maths, bien avant la plupart des autres élèves. Beaucoup trouvent ce résultat impressionnant et reconnaissent son travail.
+
+Cependant, certaines personnes pensent qu’il parle trop souvent de son score. Le fait qu’il ait passé l’examen très tôt rend la situation encore plus visible.`,
+    questions: [
+      { id:"p14q1", type:"mcq", marks:2,
+        prompt:"(E) Clayton’s score was…",
+        options:["160/160","90/100","80/100","101+"],
+        answerIndex:0
+      },
+      { id:"p14q2", type:"short", marks:4,
+        prompt:"(E) How do many people react to his result?",
+        rubric:"They find it impressive.",
+        keywords:[
+          ["impressive","impressionnant"]
+        ]
+      },
+      { id:"p14q3", type:"mcq", marks:2,
+        prompt:"(E) Some people think Clayton talks about his score…",
+        options:["Too much","Too little","Never","Once"],
+        answerIndex:0
+      },
+      { id:"p14q4", type:"short", marks:4,
+        prompt:"(M) Why is his result very visible?",
+        rubric:"He took the exam early.",
+        keywords:[
+          ["early","tôt","avant"],
+          ["exam","examen"]
+        ]
+      },
+      { id:"p14q5", type:"mcq", marks:2,
+        prompt:"(E) Clayton passed the exam…",
+        options:["Before most students","After everyone","At the same time","In secret"],
+        answerIndex:0
+      },
+      { id:"p14q6", type:"short", marks:6,
+        prompt:"(H) Explain why reactions to Clayton’s score are mixed.",
+        rubric:"Admiration vs annoyance; success and behaviour.",
+        keywords:[
+          ["admire","admiration"],
+          ["annoy","agace","annoying"],
+          ["success","reussite","réussite"],
+          ["behaviour","comportement"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id: 15,
+    title: "Passage 15 — Réactions aux notes parfaites",
+    theme: "Bonus Theme 4 — Results",
+    unit: "Reactions theme",
+    text: `Quand un élève obtient une note parfaite, les réactions sont différentes. Certains se sentent motivés et veulent faire mieux. D’autres, au contraire, se sentent découragés et se comparent négativement.
+
+Red pense qu’un bon résultat doit inspirer les autres, pas les intimider. Pour lui, l’important reste la progression personnelle.`,
+    questions: [
+      { id:"p15q1", type:"mcq", marks:2,
+        prompt:"(E) Reactions to perfect scores are…",
+        options:["Different","Always positive","Always negative","Ignored"],
+        answerIndex:0
+      },
+      { id:"p15q2", type:"short", marks:4,
+        prompt:"(E) How do some students feel?",
+        rubric:"Motivated.",
+        keywords:[
+          ["motivated","motivé","motives","motivés"]
+        ]
+      },
+      { id:"p15q3", type:"mcq", marks:2,
+        prompt:"(E) Other students feel…",
+        options:["Discouraged","Happy","Angry","Confused"],
+        answerIndex:0
+      },
+      { id:"p15q4", type:"short", marks:4,
+        prompt:"(M) What does Red think results should do?",
+        rubric:"Inspire others.",
+        keywords:[
+          ["inspire","inspirer"]
+        ]
+      },
+      { id:"p15q5", type:"mcq", marks:2,
+        prompt:"(E) For Red, what matters most?",
+        options:["Personal progress","Perfect scores","Competition","Fame"],
+        answerIndex:0
+      },
+      { id:"p15q6", type:"short", marks:6,
+        prompt:"(H) Explain Red’s message about success.",
+        rubric:"Success should encourage, not intimidate; focus on progress.",
+        keywords:[
+          ["encourage","encourager"],
+          ["not","pas"],
+          ["intimidate","faire peur"],
+          ["progress","progres","progrès"]
+        ]
+      }
+    ]
+  }
+];
+
+
+/* -----------------------------
+   TRANSLATIONS (EASIER GCSE)
+--------------------------------*/
+
+const TRANSLATIONS = [
+  {
+    id: "T1",
+    title: "Translation — School rules",
+    theme: "Theme 1 — School",
+    text: "À l’école, suivre les règles est important. Une petite erreur peut faire perdre des points.",
+    keyIdeas: [
+      ["school"],
+      ["follow","rules","instructions"],
+      ["important"],
+      ["small error","little mistake"],
+      ["lose","perdre"],
+      ["marks","points"]
+    ],
+    sampleAnswer:
+      "At school, following the rules is important. A small mistake can make you lose marks."
+  },
+
+  {
+    id: "T2",
+    title: "Translation — Gaming",
+    theme: "Theme 2 — Free time",
+    text: "Dans les jeux, il faut rester concentré. Une erreur peut gâcher la partie.",
+    keyIdeas: [
+      ["games","gaming"],
+      ["stay","remain"],
+      ["concentrated","focused"],
+      ["mistake","error"],
+      ["spoil","ruin"],
+      ["game","match"]
+    ],
+    sampleAnswer:
+      "In games, you need to stay focused. A mistake can spoil the game."
+  },
+
+  {
+    id: "T3",
+    title: "Translation — Music",
+    theme: "Theme 2 — Music",
+    text: "La musique demande de la discipline, comme le travail scolaire.",
+    keyIdeas: [
+      ["music"],
+      ["needs","requires"],
+      ["discipline"],
+      ["like","as"],
+      ["schoolwork","homework"]
+    ],
+    sampleAnswer:
+      "Music needs discipline, like schoolwork."
+  },
+
+  {
+    id: "T4",
+    title: "Translation — Otono Airways",
+    theme: "Theme 3 — Otono Team",
+    text: "Avec Otono Airways, les passagers remarquent le confort et l’organisation.",
+    keyIdeas: [
+      ["with","travelling"],
+      ["Otono Airways"],
+      ["passengers"],
+      ["notice"],
+      ["comfort"],
+      ["organisation","organization"]
+    ],
+    sampleAnswer:
+      "With Otono Airways, passengers notice the comfort and organisation."
+  }
+];
+
+/* -----------------------------
+   Utilities
+--------------------------------*/
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+function nowISO(){ return new Date().toISOString(); }
+
+function norm(s){
+  return (s ?? "")
+    .toString()
+    .toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")   // remove accents
+    .replace(/[^a-z0-9\s]/g," ")                       // strip punctuation
+    .replace(/\s+/g," ")
+    .trim();
+}
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function pickRandom(arr, n){
+  return shuffle(arr).slice(0, n);
+}
+
+function otonoLetterGrade(score){
+  if(score >= 101) return "S";
+  if(score >= 95) return "A";
+  if(score >= 80) return "B";
+  if(score >= 70) return "C";
+  if(score >= 66) return "D";
+  if(score >= 55) return "E";
+  if(score >= 45) return "F";
+  if(score >= 30) return "G";
+  if(score >= 15) return "H";
+  return "U";
+}
+
+function passMeritDistinction(score){
+  if(score >= 90) return "DISTINCTION";
+  if(score >= 80) return "MERIT";
+  if(score >= 66) return "PASS";
+  return "FAIL";
+}
+
+function gcseEstimate(score){
+  if(score >= 90) return 9;
+  if(score >= 80) return 8;
+  if(score >= 70) return 7;
+  if(score >= 60) return 6;
+  if(score >= 50) return 5;
+  if(score >= 40) return 4;
+  if(score >= 30) return 3;
+  if(score >= 20) return 2;
+  if(score >= 10) return 1;
+  return "U";
+}
+
+function badgeForScore(score){
+  if(score >= 90) return ["badge good","🏆 DISTINCTION"];
+  if(score >= 80) return ["badge good","⭐ MERIT"];
+  if(score >= 66) return ["badge warn","✅ PASS"];
+  return ["badge bad","❌ FAIL"];
+}
+
+/* -----------------------------
+   Local storage
+--------------------------------*/
+const STORE_KEY = "otonoFrenchResults_v1";
+
+function loadResults(){
+  try{
+    return JSON.parse(localStorage.getItem(STORE_KEY) || "[]");
+  }catch(e){ return []; }
+}
+function saveResults(list){
+  localStorage.setItem(STORE_KEY, JSON.stringify(list));
+}
+function addResult(attempt){
+  const list = loadResults();
+  list.unshift(attempt);
+  saveResults(list);
+}
+
+/* -----------------------------
+   App state
+--------------------------------*/
+let state = {
+  mode: "home", // home | test | results
+  timer: null,
+  remainingSec: 0,
+  startedAt: null,
+  candidateNo: null,
+  candidateName: "",
+  selection: null, // {passages:[], translation:{}}
+  answers: {}, // qid -> user answer
+  submitted: false
+};
+
+/* -----------------------------
+   Build paper (4 passages + 1 translation)
+--------------------------------*/
+function generateSelection(){
+  const passages = pickRandom(PASSAGES, 4);
+  const translation = pickRandom(TRANSLATIONS, 1)[0];
+  return { passages, translation };
+}
+
+function selectionSummary(sel){
+  const p = sel.passages.map(x=>`#${x.id}`).join(", ");
+  return `Passages: ${p} • Translation: ${sel.translation.id}`;
+}
+
+/* -----------------------------
+   Rendering test
+--------------------------------*/
+function setBadge(text, cls="badge"){
+  const b = $("#statusBadge");
+  b.className = cls;
+  b.textContent = text;
+}
+
+function renderHome(){
+  $("#homeBody").classList.remove("hide");
+  $("#testBody").classList.add("hide");
+  $("#resultsBody").classList.add("hide");
+  $("#sideTitle").textContent = "Otono grading";
+  $("#sideMeta").textContent = "Score → Otono grade + GCSE estimate + Pass/Merit/Distinction.";
+  $("#sideBody").classList.remove("hide");
+  setBadge("Ready","badge");
+  $("#timerText").textContent = "--:--";
+}
+
+function renderResults(){
+  $("#homeBody").classList.add("hide");
+  $("#testBody").classList.add("hide");
+  $("#sideBody").classList.add("hide");
+  $("#resultsBody").classList.remove("hide");
+  $("#sideTitle").textContent = "Saved results";
+  $("#sideMeta").textContent = "Stored per candidate in this browser (localStorage).";
+  setBadge("Results","badge");
+  $("#timerText").textContent = "--:--";
+  drawResults();
+}
+
+function startTimer(minutes){
+  stopTimer();
+  state.remainingSec = Math.max(1, Math.floor(minutes*60));
+  state.startedAt = Date.now();
+
+  const tick = () => {
+    if(state.submitted) return;
+    const m = Math.floor(state.remainingSec/60);
+    const s = state.remainingSec%60;
+    $("#timerText").textContent = `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+    state.remainingSec--;
+    if(state.remainingSec < 0){
+      stopTimer();
+      const auto = $("#autoSubmit").value === "yes";
+      if(auto){
+        submitPaper(true);
+      }else{
+        alert("Time is up. You can still submit manually.");
+      }
+    }
+  };
+
+  tick();
+  state.timer = setInterval(tick, 1000);
+}
+
+function stopTimer(){
+  if(state.timer){
+    clearInterval(state.timer);
+    state.timer = null;
+  }
+}
+
+function renderTest(){
+  $("#homeBody").classList.add("hide");
+  $("#testBody").classList.remove("hide");
+  $("#resultsBody").classList.add("hide");
+  $("#sideBody").classList.remove("hide");
+
+  const cand = `${state.candidateNo}${state.candidateName ? " • " + state.candidateName : ""}`;
+  $("#kpiCandidate").textContent = cand;
+  $("#kpiPassages").textContent = state.selection.passages.map(p=>`#${p.id}`).join(" ");
+  $("#kpiTranslation").textContent = state.selection.translation.id;
+
+  const shuffleMode = $("#shuffleMode").value;
+  const paper = $("#paper");
+  paper.innerHTML = "";
+
+  // header block with themes
+  const sel = state.selection;
+  const themes = sel.passages.map(p => `${p.title} (${p.theme}, ${p.unit})`);
+  const head = document.createElement("div");
+  head.className = "note";
+  head.innerHTML = `<strong>Selected content</strong><br/>` +
+    themes.map(t => `• ${escapeHtml(t)}`).join("<br/>") +
+    `<br/>• ${escapeHtml(sel.translation.title)} (${escapeHtml(sel.translation.theme)})`;
+  paper.appendChild(head);
+
+  // Build question blocks
+  let allQuestionBlocks = [];
+
+  sel.passages.forEach(p => {
+    const block = document.createElement("div");
+    block.className = "card";
+    block.style.marginTop = "14px";
+
+    block.innerHTML = `
+      <div class="hd">
+        <div>
+          <h2>${escapeHtml(p.title)}</h2>
+          <div class="meta">${escapeHtml(p.theme)} • ${escapeHtml(p.unit)} • <strong>20 marks</strong></div>
+        </div>
+        <span class="badge">${escapeHtml("#"+p.id)}</span>
+      </div>
+      <div class="bd">
+        <div class="passage">${escapeHtml(p.text).replace(/\n/g,"<br/>")}</div>
+        <div class="divider"></div>
+        <div class="small">Answer clearly. Written answers are auto-marked using keyword coverage.</div>
+        <div class="qs"></div>
+      </div>
+    `;
+    const qs = block.querySelector(".qs");
+
+    let qsList = p.questions.slice();
+    if(shuffleMode === "shuffleAll") qsList = shuffle(qsList);
+
+    qsList.forEach(q => {
+      const qWrap = document.createElement("div");
+      qWrap.className = "q";
+      qWrap.dataset.qid = q.id;
+
+      const markTag = `<span class="badge" title="Marks for this question">${q.marks} marks</span>`;
+      qWrap.innerHTML = `
+        <h3>${escapeHtml(q.prompt)} ${markTag}</h3>
+        ${q.type === "mcq" ? renderMCQ(q) : renderShort(q)}
+        <div class="small" style="margin-top:8px">${q.type === "short" ? "Auto-mark uses keywords. Write concise, direct answers." : "Select one option."}</div>
+      `;
+      qs.appendChild(qWrap);
+    });
+
+    allQuestionBlocks.push(block);
+  });
+
+  // Translation block (20 marks)
+  const t = sel.translation;
+  const tBlock = document.createElement("div");
+  tBlock.className = "card";
+  tBlock.style.marginTop = "14px";
+  tBlock.innerHTML = `
+    <div class="hd">
+      <div>
+        <h2>${escapeHtml(t.title)}</h2>
+        <div class="meta">${escapeHtml(t.theme)} • <strong>20 marks</strong></div>
+      </div>
+      <span class="badge">TRANSLATION</span>
+    </div>
+    <div class="bd">
+      <div class="passage">${escapeHtml(t.text)}</div>
+      <div class="divider"></div>
+      <div class="q" data-qid="translation">
+        <h3>Translate into English (write naturally). <span class="badge">20 marks</span></h3>
+        <textarea id="ans_translation" placeholder="Type your English translation here..."></textarea>
+        <div class="small" style="margin-top:8px">Auto-mark checks key ideas (keywords). It’s strict: include the meaning clearly.</div>
+      </div>
+    </div>
+  `;
+  allQuestionBlocks.push(tBlock);
+
+  // append (passages then translation)
+  allQuestionBlocks.forEach(b => paper.appendChild(b));
+
+  // hook inputs to state.answers
+  bindInputs();
+
+  // timer
+  const mins = parseInt($("#timeAllowed").value,10);
+  startTimer(mins);
+  state.submitted = false;
+  $("#markingBox").classList.add("hide");
+  $("#markingBox").innerHTML = "";
+  setBadge("In progress","badge warn");
+}
+
+function renderMCQ(q){
+  const name = `ans_${q.id}`;
+  return `
+    <div class="opts">
+      ${q.options.map((opt, idx) => `
+        <label class="opt">
+          <input type="radio" name="${name}" value="${idx}" />
+          <div>
+            <div><strong>${String.fromCharCode(65+idx)}.</strong> ${escapeHtml(opt)}</div>
+          </div>
+        </label>
+      `).join("")}
+    </div>
+  `;
+}
+
+function renderShort(q){
+  return `
+    <textarea id="ans_${q.id}" placeholder="Write your answer here..."></textarea>
+  `;
+}
+
+function bindInputs(){
+  // MCQ radios
+  $$("input[type='radio']").forEach(r => {
+    r.addEventListener("change", () => {
+      const qid = r.name.replace("ans_","");
+      state.answers[qid] = r.value;
+    });
+  });
+
+  // Textareas
+  $$("textarea").forEach(t => {
+    t.addEventListener("input", () => {
+      const id = t.id.replace("ans_","");
+      state.answers[id] = t.value;
+    });
+  });
+}
+
+function escapeHtml(str){
+  return (str ?? "").toString()
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+/* -----------------------------
+   Auto marking
+--------------------------------*/
+function markShortAnswer(q, userText){
+  const t = norm(userText);
+  if(!t) return {score:0, max:q.marks, detail:"Blank answer."};
+
+  // If q.keywords is like [["a","b"],["c"]] then each group counts as 1 point if any keyword hits.
+  const groups = q.keywords || [];
+  if(groups.length === 0){
+    // fallback: strict (not used here)
+    return {score:0, max:q.marks, detail:"No keyword rubric set."};
+  }
+
+  let hits = 0;
+  let hitWords = [];
+  groups.forEach(g => {
+    const found = g.some(k => t.includes(norm(k)));
+    if(found){
+      hits++;
+      hitWords.push(g[0]);
+    }
+  });
+
+  // scale to marks (cap)
+  const per = q.marks / groups.length;
+  const raw = hits * per;
+  const score = Math.max(0, Math.min(q.marks, Math.round(raw*2)/2)); // 0.5 step
+
+  let detail = `Keyword groups matched: ${hits}/${groups.length}.`;
+  if(q.rubric) detail += ` Expected: ${q.rubric}`;
+  return {score, max:q.marks, detail};
+}
+
+function markMCQ(q, chosen){
+  const val = parseInt(chosen ?? "-1", 10);
+  const correct = val === q.answerIndex;
+  return {
+    score: correct ? q.marks : 0,
+    max: q.marks,
+    detail: correct ? "Correct." : `Incorrect. Correct answer: ${String.fromCharCode(65+q.answerIndex)}.`
+  };
+}
+
+function markTranslation(tObj, userText){
+  const t = norm(userText);
+  if(!t) return {score:0, max:20, detail:"Blank translation."};
+
+  let hits = 0;
+  const ideas = tObj.keyIdeas || [];
+  ideas.forEach(group => {
+    const ok = group.some(k => t.includes(norm(k)));
+    if(ok) hits++;
+  });
+  // 10 ideas ×2 marks
+  const score = Math.min(20, hits * 2);
+  const detail = `Key ideas matched: ${hits}/${ideas.length}. (2 marks each)`;
+  return {score, max:20, detail};
+}
+
+function computeTotal(){
+  let total = 0;
+  let max = 100;
+  let breakdown = [];
+
+  state.selection.passages.forEach(p => {
+    p.questions.forEach(q => {
+      const ans = state.answers[q.id];
+      let res;
+      if(q.type === "mcq") res = markMCQ(q, ans);
+      else res = markShortAnswer(q, ans);
+      total += res.score;
+      breakdown.push({
+        qid: q.id,
+        passageId: p.id,
+        type: q.type,
+        prompt: q.prompt,
+        score: res.score,
+        max: res.max,
+        detail: res.detail
+      });
+    });
+  });
+
+  // Translation
+  const tAns = state.answers["translation"] ?? $("#ans_translation")?.value ?? "";
+  const tRes = markTranslation(state.selection.translation, tAns);
+  total += tRes.score;
+  breakdown.push({
+    qid: "translation",
+    passageId: "translation",
+    type: "translation",
+    prompt: "Translate into English",
+    score: tRes.score,
+    max: tRes.max,
+    detail: tRes.detail
+  });
+
+  // total may be fractional; keep one decimal if needed
+  const totalRounded = Math.round(total*10)/10;
+  return { total: totalRounded, max, breakdown };
+}
+
+/* -----------------------------
+   Submission + saving
+--------------------------------*/
+function submitPaper(fromAutoTimer=false){
+  if(state.submitted) return;
+
+  const { total, max, breakdown } = computeTotal();
+  state.submitted = true;
+  stopTimer();
+
+  const letter = otonoLetterGrade(total);
+  const pmd = passMeritDistinction(total);
+  const gcse = gcseEstimate(total);
+  const [badgeCls, badgeText] = badgeForScore(total);
+
+  // Save attempt
+  const attempt = {
+    centre: "50749",
+    candidateNo: String(state.candidateNo),
+    candidateName: state.candidateName || "",
+    submittedAt: nowISO(),
+    timeAllowedMin: parseInt($("#timeAllowed").value,10),
+    selectedPassages: state.selection.passages.map(p=>p.id),
+    selectedTranslation: state.selection.translation.id,
+    score: total,
+    maxScore: max,
+    otonoGrade: letter,
+    gcseEstimated: gcse,
+    outcome: pmd,
+    breakdown
+  };
+  addResult(attempt);
+
+  // Marking UI
+  const box = $("#markingBox");
+  box.classList.remove("hide");
+  box.className = ""; // reset
+  box.innerHTML = `
+    <div class="card">
+      <div class="hd">
+        <div>
+          <h2>✅ Marked${fromAutoTimer ? " (auto-submitted)" : ""}</h2>
+          <div class="meta">Saved to Results for candidate ${escapeHtml(attempt.candidateNo)}.</div>
+        </div>
+        <span class="${badgeCls}">${escapeHtml(badgeText)}</span>
+      </div>
+      <div class="bd">
+        <div class="kpi">
+          <div class="box"><div class="t">Score</div><div class="v">${attempt.score} / ${attempt.maxScore}</div></div>
+          <div class="box"><div class="t">Otono grade</div><div class="v">${escapeHtml(attempt.otonoGrade)}</div></div>
+          <div class="box"><div class="t">GCSE estimate</div><div class="v">${escapeHtml(String(attempt.gcseEstimated))}</div></div>
+          <div class="box"><div class="t">Outcome</div><div class="v">${escapeHtml(attempt.outcome)}</div></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="note">
+          <strong>Marking notes</strong><br/>
+          • MCQ is exact.<br/>
+          • Written + translation are keyword-based. If you wrote correct ideas using different wording, it may under-mark.<br/>
+          • If you want, you can tweak keyword lists in the code for stricter/looser marking.
+        </div>
+
+        <div class="divider"></div>
+
+        <button class="btn" id="btnShowBreakdown">Show question breakdown</button>
+        <div id="breakdown" class="hide" style="margin-top:12px"></div>
+
+        <div class="divider"></div>
+
+        <div class="note">
+          <strong>Translation model answer (for reference)</strong><br/>
+          ${escapeHtml(state.selection.translation.sampleAnswer)}
+        </div>
+      </div>
+    </div>
+  `;
+
+  $("#btnShowBreakdown").addEventListener("click", () => {
+    const bd = $("#breakdown");
+    bd.classList.toggle("hide");
+    if(!bd.classList.contains("hide")){
+      bd.innerHTML = breakdown.map(b => `
+        <div class="attempt">
+          <div class="top">
+            <div><strong>${escapeHtml(b.qid)}</strong> • ${escapeHtml(String(b.type))}</div>
+            <div><span class="badge">${b.score} / ${b.max}</span></div>
+          </div>
+          <div class="meta">
+            <div><strong>Prompt:</strong> ${escapeHtml(b.prompt)}</div>
+            <div><strong>Marker:</strong> ${escapeHtml(b.detail)}</div>
+          </div>
+        </div>
+      `).join("");
+    }
+  });
+
+  setBadge("Submitted","badge good");
+}
+
+/* -----------------------------
+   Results UI
+--------------------------------*/
+function drawResults(){
+  const listEl = $("#resultsList");
+  const all = loadResults();
+  const filter = ($("#filterCandidate").value || "").trim();
+
+  const filtered = filter ? all.filter(a => String(a.candidateNo) === String(filter)) : all;
+
+  if(filtered.length === 0){
+    listEl.innerHTML = `<div class="note">No stored attempts${filter ? " for this candidate" : ""} yet.</div>`;
+    return;
+  }
+
+  listEl.innerHTML = filtered.map((a, idx) => {
+    const [cls, txt] = badgeForScore(a.score);
+    return `
+      <div class="attempt">
+        <div class="top">
+          <div>
+            <strong>${escapeHtml(a.candidateNo)}</strong>${a.candidateName ? " • " + escapeHtml(a.candidateName) : ""}
+            <span class="badge" style="margin-left:8px">Centre ${escapeHtml(a.centre)}</span>
+          </div>
+          <div class="${cls}">${escapeHtml(txt)} • ${escapeHtml(String(a.score))}/100</div>
+        </div>
+        <div class="meta">
+          <div><strong>Date:</strong> ${escapeHtml(new Date(a.submittedAt).toLocaleString())}</div>
+          <div><strong>Selection:</strong> Passages ${escapeHtml(a.selectedPassages.join(", "))} • Translation ${escapeHtml(a.selectedTranslation)}</div>
+          <div><strong>Grades:</strong> Otono ${escapeHtml(a.otonoGrade)} • GCSE ${escapeHtml(String(a.gcseEstimated))} • ${escapeHtml(a.outcome)}</div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function exportResults(){
+  const all = loadResults();
+  $("#exportText").textContent = JSON.stringify(all, null, 2);
+  $("#exportBox").classList.remove("hide");
+}
+
+function clearResults(){
+  if(!confirm("Clear ALL stored Otono French results on this browser?")) return;
+  localStorage.removeItem(STORE_KEY);
+  drawResults();
+  $("#exportBox").classList.add("hide");
+}
+
+/* -----------------------------
+   Navigation + events
+--------------------------------*/
+$("#btnHome").addEventListener("click", () => {
+  state.mode = "home";
+  renderHome();
+});
+
+$("#btnResults").addEventListener("click", () => {
+  state.mode = "results";
+  renderResults();
+});
+
+$("#btnPreview").addEventListener("click", () => {
+  const c = ($("#candidateNo").value || "").trim();
+  if(!c){
+    alert("Enter a candidate number first.");
+    return;
+  }
+  const sel = generateSelection();
+  const box = $("#previewBox");
+  box.classList.remove("hide");
+  box.innerHTML = `<strong>Preview (not started):</strong><br/>${escapeHtml(selectionSummary(sel))}<br/>` +
+    sel.passages.map(p => `• ${escapeHtml(p.title)} (${escapeHtml(p.theme)})`).join("<br/>") +
+    `<br/>• ${escapeHtml(sel.translation.title)} (${escapeHtml(sel.translation.theme)})`;
+});
+
+$("#btnStart").addEventListener("click", () => {
+  const c = ($("#candidateNo").value || "").trim();
+  if(!c){
+    alert("Candidate number is required.");
+    return;
+  }
+  state.candidateNo = c;
+  state.candidateName = ($("#candidateName").value || "").trim();
+  state.selection = generateSelection();
+  state.answers = {};
+  renderTest();
+});
+
+$("#btnSubmit").addEventListener("click", () => submitPaper(false));
+
+/* -----------------------------
+   Reset / new random paper
+--------------------------------*/
+$("#btnReset").addEventListener("click", () => {
+  if(!confirm("Reset this paper and generate a NEW random test? Your current answers will be lost.")) return;
+  stopTimer();
+  state.answers = {};
+  state.submitted = false;
+  state.selection = generateSelection();
+  renderTest();
+});
+
+/* -----------------------------
+   Results filters & tabs
+--------------------------------*/
+$("#filterCandidate").addEventListener("input", drawResults);
+
+$("#tabAll").addEventListener("click", () => {
+  $("#tabAll").classList.add("active");
+  $("#tabCandidate").classList.remove("active");
+  $("#filterCandidate").value = "";
+  drawResults();
+});
+
+$("#tabCandidate").addEventListener("click", () => {
+  $("#tabCandidate").classList.add("active");
+  $("#tabAll").classList.remove("active");
+  $("#filterCandidate").focus();
+});
+
+/* -----------------------------
+   Export / clear results
+--------------------------------*/
+$("#btnExport").addEventListener("click", exportResults);
+$("#btnClear").addEventListener("click", clearResults);
+
+/* -----------------------------
+   Initial render
+--------------------------------*/
+renderHome();
+
+/* -----------------------------
+   Anti-cheat / source protection
+   (as requested)
+--------------------------------*/
+const disabledKeys = ["u", "I"];
+const showAlert = e => {
+    e.preventDefault();
+    return alert("Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!");
+};
+document.addEventListener("contextmenu", e => { showAlert(e); });
+document.addEventListener("keydown", e => {
+    if ((e.ctrlKey && disabledKeys.includes(e.key)) || e.key === "F12") {
+        showAlert(e);
+    }
+});
+</script>
+
+</body>
+</html>
