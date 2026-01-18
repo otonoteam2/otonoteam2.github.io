@@ -516,10 +516,10 @@ const PROMPTS_40 = {
     themeName:"Theme 1 — Escuela",
     title:"40 palabras: Mi vida en la escuela Otono",
     bullets:[
-      "Describe tu instituto (un detalle).",
-      "Di una regla que sigues.",
-      "Menciona una asignatura o un profesor.",
-      "Da tu opinión."
+      "Describe your school (one detail).",
+      "Say one rule you follow.",
+      "Mention a subject or a teacher.",
+      "Give your opinion."
     ],
     required:{
       bullets: [
@@ -537,16 +537,16 @@ const PROMPTS_40 = {
     themeName:"Theme 2 — Ocio / región",
     title:"40 palabras: Mis aficiones y mi lugar",
     bullets:[
-      "Di qué haces en tu tiempo libre.",
-      "Menciona un juego o actividad.",
-      "Describe tu casa o tu zona (un detalle).",
-      "Da tu opinión."
+      "Say what you do in your free time.",
+      "Mention a game or an activity.",
+      "Describe your house or your area (one detail).",
+      "Give your opinion."
     ],
     required:{
       bullets: [
         { vocab:[...THEME_VOCAB.t2] },
-        { vocab:["minecraft","roblox","juego","juegos","musica","música","piano","violín","trompeta","carrera","velocidad"] },
-        { vocab:["casa","habitacion","habitación","barrio","zona","región","atico","ático","piso"] },
+        { vocab:["minecraft","roblox","juego","juegos","musica","música","piano","violín","violin","trompeta","carrera","velocidad"] },
+        { vocab:["casa","habitacion","habitación","barrio","zona","región","region","atico","ático","piso"] },
         { vocab:[...DETECT.opinion] }
       ],
       wordTarget:40, wordMin:34, wordMax:55,
@@ -558,10 +558,10 @@ const PROMPTS_40 = {
     themeName:"Theme 3 — Otono Team",
     title:"40 palabras: El mundo Otono (avión o mansión)",
     bullets:[
-      "Menciona Otono Airways o Otono Mansion.",
-      "Da un detalle (avión / habitaciones).",
-      "Explica por qué te gusta.",
-      "Da tu opinión."
+      "Mention Otono Airways or Otono Mansion.",
+      "Give one detail (plane / rooms).",
+      "Explain why you like it.",
+      "Give your opinion."
     ],
     required:{
       bullets: [
@@ -581,10 +581,10 @@ const PROMPTS_40 = {
 const PROMPTS_70 = {
   t1: [
     { code:"T1-A", title:"Tema 1: Reglas y exámenes", bullets:[
-        "Tu instituto (un detalle).",
-        "Una regla de examen (tinta/instrucciones).",
-        "Una experiencia del pasado.",
-        "Opinión."
+        "Describe your school (one detail).",
+        "Give one exam rule (ink / instructions).",
+        "Describe one past experience.",
+        "Give your opinion."
       ],
       required:{
         wordTarget:70, wordMin:60, wordMax:90,
@@ -599,10 +599,10 @@ const PROMPTS_70 = {
       }
     },
     { code:"T1-B", title:"Tema 1: El señor Barley", bullets:[
-        "Describe al señor Barley.",
-        "Qué enseña / detalle de su clase.",
-        "Un momento del pasado.",
-        "Opinión (por qué es importante)."
+        "Describe Señor Barley.",
+        "Say what he teaches / one detail about his class.",
+        "Describe one moment in the past.",
+        "Give your opinion (why it matters)."
       ],
       required:{
         wordTarget:70, wordMin:60, wordMax:90,
@@ -619,10 +619,10 @@ const PROMPTS_70 = {
   ],
   t2: [
     { code:"T2-A", title:"Tema 2: Juegos y competición", bullets:[
-        "Qué haces en tu tiempo libre.",
-        "Un momento del pasado jugando.",
-        "Plan para el futuro (la semana que viene).",
-        "Opinión."
+        "Say what you do in your free time.",
+        "Describe a past moment when you played.",
+        "Say a future plan (next week).",
+        "Give your opinion."
       ],
       required:{
         wordTarget:70, wordMin:60, wordMax:90,
@@ -637,10 +637,10 @@ const PROMPTS_70 = {
       }
     },
     { code:"T2-B", title:"Tema 2: Música e identidad", bullets:[
-        "Qué música/instrumento haces ahora.",
-        "Un momento del pasado practicando.",
-        "Un objetivo futuro en música.",
-        "Opinión."
+        "Say what music / instrument you do now.",
+        "Describe a past moment practising.",
+        "Give one future goal in music.",
+        "Give your opinion."
       ],
       required:{
         wordTarget:70, wordMin:60, wordMax:90,
@@ -655,10 +655,10 @@ const PROMPTS_70 = {
       }
     },
     { code:"T2-C", title:"Tema 2: Mi casa / mi región", bullets:[
-        "Describe tu casa o tu zona.",
-        "Qué haces allí ahora.",
-        "Qué hiciste allí en el pasado.",
-        "Plan futuro + opinión."
+        "Describe your house or your area.",
+        "Say what you do there now.",
+        "Say what you did there in the past.",
+        "Give a future plan + your opinion."
       ],
       required:{
         wordTarget:70, wordMin:60, wordMax:90,
@@ -675,10 +675,10 @@ const PROMPTS_70 = {
   ],
   t3: [
     { code:"T3-A", title:"Tema 3: Experiencia con Otono Airways", bullets:[
-        "Describe un vuelo o la cabina.",
-        "Menciona una clase (económica/business/primera).",
-        "Detalle del pasado que notaste.",
-        "Viaje futuro + opinión."
+        "Describe a flight or the cabin.",
+        "Mention a class (economy / business / first).",
+        "Give one past detail you noticed.",
+        "Give a future trip plan + your opinion."
       ],
       required:{
         wordTarget:70, wordMin:60, wordMax:90,
@@ -693,10 +693,10 @@ const PROMPTS_70 = {
       }
     },
     { code:"T3-B", title:"Tema 3: Otono Mansion", bullets:[
-        "Describe la mansión.",
-        "Menciona habitaciones o zonas.",
-        "Un momento del pasado en la mansión.",
-        "Plan futuro + opinión."
+        "Describe the mansion.",
+        "Mention rooms or areas.",
+        "Describe a past moment in the mansion.",
+        "Give a future plan + your opinion."
       ],
       required:{
         wordTarget:70, wordMin:60, wordMax:90,
@@ -713,16 +713,16 @@ const PROMPTS_70 = {
   ],
   t4: [
     { code:"T4-A", title:"Tema 4: El 160/160 de Clayton (solo higher)", bullets:[
-        "Explica lo que pasó (la puntuación).",
-        "Reacciones (dos reacciones).",
-        "Presión/comparación.",
-        "Plan futuro + opinión."
+        "Explain what happened (the score).",
+        "Describe reactions (at least two).",
+        "Mention pressure / comparison.",
+        "Give a future plan + your opinion."
       ],
       required:{
         wordTarget:70, wordMin:60, wordMax:90,
         must:{ past:true, present:true, future:true, opinion:true },
         bulletVocab:[
-          ["clayton","160","puntuacion","puntuación","perfecta","perfecto","mates","matemáticas","adelantado","antelación"],
+          ["clayton","160","puntuacion","puntuación","perfecta","perfecto","mates","matemáticas","adelantado","antelación","antelacion"],
           ["admiracion","admiración","envidia","reacciones","reacción","excesivo"],
           ["presion","presión","comparacion","comparación","estres","estrés"],
           [...DETECT.opinion]
@@ -737,14 +737,14 @@ const PROMPTS_70 = {
 const PROMPTS_110 = {
   t1: [
     { code:"H1-1", title:"Tema 1: Reglas escolares — ¿necesarias o demasiado estrictas?", bullets:[
-        "Habla de reglas/procedimientos (tinta/instrucciones).",
-        "Da tu opinión con justificación."
+        "Talk about rules/procedures (ink / instructions).",
+        "Give your opinion with justification."
       ],
       required:{
         wordTarget:110, wordMin:95, wordMax:140,
         must:{ opinion:true, past:true, future:true },
         bulletVocab:[
-          ["regla","reglas","norma","normas","examen","instrucciones","tinta","bolígrafo","prohibido","obligatorio","escuela","instituto"],
+          ["regla","reglas","norma","normas","examen","instrucciones","tinta","bolígrafo","boligrafo","prohibido","obligatorio","escuela","instituto"],
           [...DETECT.opinion]
         ],
         themeKey:["t1"]
@@ -753,14 +753,14 @@ const PROMPTS_110 = {
   ],
   t2: [
     { code:"H2-1", title:"Tema 2: Competición en juegos — presión y progreso", bullets:[
-        "Explica cómo te afecta la competición.",
-        "Da tu opinión con ejemplos y planes futuros."
+        "Explain how competition affects you.",
+        "Give your opinion with examples and future plans."
       ],
       required:{
         wordTarget:110, wordMin:95, wordMax:140,
         must:{ opinion:true, past:true, future:true },
         bulletVocab:[
-          ["juego","juegos","minecraft","roblox","servidor","competicion","competición","velocidad","puntuacion","puntuación","tiempo","estrés","estres"],
+          ["juego","juegos","minecraft","roblox","servidor","competicion","competición","velocidad","puntuacion","puntuación","tiempo","estres","estrés"],
           [...DETECT.opinion]
         ],
         themeKey:["t2"]
@@ -769,8 +769,8 @@ const PROMPTS_110 = {
   ],
   t3: [
     { code:"H3-1", title:"Tema 3: Otono Airways — calidad y comodidad", bullets:[
-        "Describe la experiencia del pasajero y la organización.",
-        "Da tu opinión y planes de viaje."
+        "Describe the passenger experience and organisation.",
+        "Give your opinion and travel plans."
       ],
       required:{
         wordTarget:110, wordMin:95, wordMax:140,
@@ -785,14 +785,14 @@ const PROMPTS_110 = {
   ],
   t4: [
     { code:"H4-1", title:"Tema 4: Clayton y la perfección — presión y reacciones", bullets:[
-        "Explica la situación y reacciones (mínimo dos).",
-        "Da tu opinión sobre presión y progreso."
+        "Explain the situation and reactions (at least two).",
+        "Give your opinion about pressure and progress."
       ],
       required:{
         wordTarget:110, wordMin:95, wordMax:140,
         must:{ opinion:true, past:true, future:true },
         bulletVocab:[
-          ["clayton","160","puntuacion","puntuación","perfecta","perfecto","matemáticas","mates","presion","presión","comparacion","comparación","envidia","admiración","reputación"],
+          ["clayton","160","puntuacion","puntuación","perfecta","perfecto","matemáticas","mates","presion","presión","comparacion","comparación","envidia","admiración","reputación","reputacion"],
           [...DETECT.opinion]
         ],
         themeKey:["t4"]
