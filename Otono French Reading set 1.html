@@ -1476,6 +1476,24 @@ function stopTimer(){
     state.timer = null;
   }
 }
+function shuffleMCQ(q){
+  const indexed = q.options.map((text, idx) => ({
+    text,
+    isCorrect: idx === q.answerIndex
+  }));
+
+  // Fisher–Yates shuffle
+  for(let i = indexed.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [indexed[i], indexed[j]] = [indexed[j], indexed[i]];
+  }
+
+  return {
+    ...q,
+    options: indexed.map(o => o.text),
+    answerIndex: indexed.findIndex(o => o.isCorrect)
+  };
+}
 
 function renderTest(){
   $("#homeBody").classList.add("hide");
@@ -1530,23 +1548,29 @@ function renderTest(){
     let qsList = p.questions.slice();
     if(shuffleMode === "shuffleAll") qsList = shuffle(qsList);
 
-    qsList.forEach(q => {
-      const qWrap = document.createElement("div");
-      qWrap.className = "q";
-      qWrap.dataset.qid = q.id;
+    qsList.forEach(qOriginal => {
+  const q = (qOriginal.type === "mcq") ? shuffleMCQ(qOriginal) : qOriginal;
 
-      const markTag = `<span class="badge" title="Marks for this question">${q.marks} marks</span>`;
-      qWrap.innerHTML = `
-        <h3>${escapeHtml(q.prompt)} ${markTag}</h3>
-        ${q.type === "mcq" ? renderMCQ(q) : renderShort(q)}
-        <div class="small" style="margin-top:8px">${q.type === "short" ? "Auto-mark uses keywords. Write concise, direct answers." : "Select one option."}</div>
-      `;
-      qs.appendChild(qWrap);
-    });
+  const qWrap = document.createElement("div");
+  qWrap.className = "q";
+  qWrap.dataset.qid = q.id;
+
+  const markTag = `<span class="badge" title="Marks for this question">${q.marks} marks</span>`;
+  qWrap.innerHTML = `
+    <h3>${escapeHtml(q.prompt)} ${markTag}</h3>
+    ${q.type === "mcq" ? renderMCQ(q) : renderShort(q)}
+    <div class="small" style="margin-top:8px">
+      ${q.type === "short"
+        ? "Auto-mark uses keywords. Write concise, direct answers."
+        : "Select one option."}
+    </div>
+  `;
+  qs.appendChild(qWrap);
+});
+
 
     allQuestionBlocks.push(block);
   });
-
   // Translation block (20 marks)
   const t = sel.translation;
   const tBlock = document.createElement("div");
