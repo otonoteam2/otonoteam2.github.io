@@ -882,30 +882,42 @@ const PROMPTS_110 = {
 function populateTimeOptions(){
   const tier = $("#tier").value;
   const sel = $("#timeAllowed");
+
+  // ✅ preserve whatever was selected before we rebuild the <select>
+  const prev = sel.value;
+
   sel.innerHTML = "";
   let options;
+
   if(tier === "foundation"){
     // 75 minutes NOT allowed
     options = [
-      {v:60, label:"60 minutes"},
-      {v:45, label:"45 minutes"}
+      { v:60, label:"60 minutes" },
+      { v:45, label:"45 minutes" }
     ];
     $("#timeNote").innerHTML = "Foundation tier: <strong>75 minutes is not allowed</strong>.";
-  }else{
+  } else {
     options = [
-      {v:75, label:"75 minutes (recommended)"},
-      {v:60, label:"60 minutes"},
-      {v:45, label:"45 minutes"}
+      { v:75, label:"75 minutes (recommended)" },
+      { v:60, label:"60 minutes" },
+      { v:45, label:"45 minutes" }
     ];
     $("#timeNote").innerHTML = "Higher tier: 75 minutes allowed.";
   }
+
+  // ✅ if previous selection isn't valid for this tier, fall back to first option
+  const validValues = new Set(options.map(o => String(o.v)));
+  const useValue = validValues.has(String(prev)) ? String(prev) : String(options[0].v);
+
   options.forEach(o=>{
     const opt = document.createElement("option");
     opt.value = String(o.v);
     opt.textContent = o.label;
+    if(opt.value === useValue) opt.selected = true; // ✅ restore selection
     sel.appendChild(opt);
   });
 }
+
 $("#tier").addEventListener("change", populateTimeOptions);
 
 /* =========================================================
