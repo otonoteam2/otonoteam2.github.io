@@ -1,0 +1,1410 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>🟣 Otono Français — A Level (Auto-correction)</title>
+  <style>
+    :root{
+      --bg1:#2b0a3d; --bg2:#7a0036;
+      --card:#0f0b18cc; --card2:#120c22e6;
+      --text:#f4efff; --muted:#c9b9ff;
+      --accent:#b000ff; --accent2:#ff1b6a;
+      --good:#19ff9a; --warn:#ffd166; --bad:#ff4d6d;
+      --line:rgba(255,255,255,.12);
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:var(--sans); color:var(--text);
+      background:
+        radial-gradient(1000px 700px at 15% 10%, rgba(176,0,255,.22), transparent 60%),
+        radial-gradient(900px 650px at 80% 20%, rgba(255,27,106,.18), transparent 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+    }
+    .wrap{max-width:1150px; margin:0 auto; padding:22px;}
+    .topbar{
+      display:flex; gap:14px; align-items:center; justify-content:space-between;
+      padding:14px 16px; border:1px solid var(--line); border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      box-shadow:var(--shadow);
+      position:sticky; top:14px; z-index:20; backdrop-filter: blur(10px);
+    }
+    .brand{display:flex; flex-direction:column; gap:2px}
+    .brand h1{margin:0; font-size:16px; letter-spacing:.3px}
+    .brand .sub{font-size:12px; color:var(--muted)}
+    .pill{
+      padding:8px 10px; border-radius:999px; border:1px solid var(--line);
+      background:rgba(0,0,0,.25); font-family:var(--mono); font-size:12px;
+      display:flex; gap:10px; align-items:center;
+    }
+    .pill strong{color:#fff}
+    .btn{
+      border:1px solid var(--line); background:rgba(0,0,0,.25);
+      color:var(--text); padding:10px 12px; border-radius:14px; cursor:pointer;
+      transition:.15s transform, .15s background, .15s border;
+      font-weight:600;
+    }
+    .btn:hover{transform:translateY(-1px); background:rgba(0,0,0,.33); border-color:rgba(255,255,255,.22)}
+    .btn.primary{
+      background:linear-gradient(135deg, rgba(176,0,255,.55), rgba(255,27,106,.45));
+      border-color:rgba(255,255,255,.22);
+    }
+    .btn.danger{background:rgba(255,77,109,.18); border-color:rgba(255,77,109,.35)}
+    .grid{display:grid; grid-template-columns: 1.1fr .9fr; gap:16px; margin-top:16px;}
+    @media (max-width: 980px){ .grid{grid-template-columns:1fr} .topbar{position:static} }
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .card .hd{
+      padding:14px 16px; border-bottom:1px solid var(--line);
+      display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
+      background:linear-gradient(180deg, rgba(255,255,255,.06), transparent);
+    }
+    .card .hd h2{margin:0; font-size:14px}
+    .card .hd .meta{font-size:12px; color:var(--muted); line-height:1.25}
+    .card .bd{padding:16px}
+    label{display:block; font-size:12px; color:var(--muted); margin:10px 0 6px}
+    input[type="text"], input[type="number"], textarea, select{
+      width:100%; border:1px solid var(--line); background:rgba(0,0,0,.25);
+      color:var(--text); padding:10px 12px; border-radius:14px; outline:none;
+      font-family:var(--sans);
+    }
+    textarea{min-height:110px; resize:vertical}
+    .row{display:flex; gap:10px; flex-wrap:wrap}
+    .row > div{flex:1 1 180px}
+    .note{
+      font-size:12px; color:var(--muted); line-height:1.4;
+      padding:10px 12px; border-radius:14px; border:1px dashed rgba(255,255,255,.18);
+      background:rgba(0,0,0,.18);
+    }
+    .badge{
+      font-family:var(--mono); font-size:12px; padding:6px 10px; border-radius:999px;
+      border:1px solid var(--line); background:rgba(0,0,0,.20);
+      display:inline-flex; align-items:center; gap:6px;
+    }
+    .badge.good{border-color:rgba(25,255,154,.35); background:rgba(25,255,154,.12)}
+    .badge.warn{border-color:rgba(255,209,102,.35); background:rgba(255,209,102,.12)}
+    .badge.bad{border-color:rgba(255,77,109,.35); background:rgba(255,77,109,.12)}
+    .divider{height:1px; background:var(--line); margin:14px 0}
+    .passage{
+      padding:12px 14px; border:1px solid var(--line); border-radius:16px;
+      background:rgba(0,0,0,.22); line-height:1.6;
+    }
+    .q{
+      margin-top:14px; padding:12px 14px; border:1px solid var(--line);
+      border-radius:16px; background:rgba(0,0,0,.20);
+    }
+    .q h3{margin:0 0 8px; font-size:13px}
+    .opts{display:grid; gap:8px; margin-top:8px}
+    .opt{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:10px 10px; border-radius:14px; border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+      cursor:pointer;
+    }
+    .opt input{margin-top:3px}
+    .kpi{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
+    @media (max-width: 980px){ .kpi{grid-template-columns:repeat(2,1fr)} }
+    .kpi .box{
+      border:1px solid var(--line); border-radius:16px; padding:10px 12px;
+      background:rgba(0,0,0,.22);
+    }
+    .kpi .box .t{font-size:12px; color:var(--muted)}
+    .kpi .box .v{font-size:18px; font-weight:800; margin-top:4px}
+    .small{font-size:12px; color:var(--muted)}
+    .tabs{display:flex; gap:8px; flex-wrap:wrap}
+    .tab{padding:10px 12px; border-radius:14px; border:1px solid var(--line); background:rgba(0,0,0,.22); cursor:pointer; font-weight:700}
+    .tab.active{background:linear-gradient(135deg, rgba(176,0,255,.35), rgba(255,27,106,.22)); border-color:rgba(255,255,255,.22)}
+    .resultsList{display:grid; gap:10px}
+    .attempt{
+      border:1px solid var(--line); border-radius:16px; padding:12px 14px;
+      background:rgba(0,0,0,.20);
+    }
+    .attempt .top{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap}
+    .attempt .top strong{font-family:var(--mono)}
+    .attempt .meta{font-size:12px; color:var(--muted); margin-top:6px; line-height:1.4}
+    .copy{font-family:var(--mono); font-size:12px; white-space:pre-wrap; word-break:break-word}
+    .hide{display:none !important}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <h1>🟣 Otono Français — A Level (Lecture + Réponses + Traductions)</h1>
+        <div class="sub">Auto-correction • 3 textes × 20 + 1 texte-essai × 20 + 2 traductions × 10 = 100 • Centre: <strong>50749</strong></div>
+      </div>
+      <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end">
+        <div class="pill">
+          <span>⏱️ Chrono :</span>
+          <strong id="timerText">--:--</strong>
+        </div>
+        <button class="btn" id="btnResults">Résultats</button>
+        <button class="btn primary" id="btnHome">Épreuve</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- Left -->
+      <div class="card" id="panelHome">
+        <div class="hd">
+          <div>
+            <h2>Configuration du candidat</h2>
+            <div class="meta">Sans dictionnaire • Sans traducteur • Répondre uniquement en français • Auto-correction par mots-clés (donc sois clair et direct).</div>
+          </div>
+          <span class="badge" id="statusBadge">Prêt</span>
+        </div>
+
+        <div class="bd" id="homeBody">
+          <div class="row">
+            <div>
+              <label>Numéro de centre (fixe)</label>
+              <input type="text" value="50749" disabled />
+            </div>
+            <div>
+              <label>Numéro de candidat (obligatoire)</label>
+              <input type="number" id="candidateNo" placeholder="ex : 1105" min="1" />
+            </div>
+            <div>
+              <label>Nom du candidat (facultatif)</label>
+              <input type="text" id="candidateName" placeholder="Nom" />
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>Structure A Level (100 points)</strong><br/>
+            • <strong>3 textes longs</strong> sélectionnés au hasard (<strong>20 pts chacun</strong>)<br/>
+            • <strong>1 texte-essai</strong> (réponse ~50 mots, <strong>20 pts</strong>)<br/>
+            • <strong>2 traductions</strong> : <em>anglais → français</em> (<strong>10 pts</strong>) et <em>français → anglais</em> (<strong>10 pts</strong>)<br/>
+            • QCM maintenu, mais <strong>toutes</strong> les consignes/questions sont en <strong>français</strong> et tes réponses aussi.
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="row">
+            <div>
+              <label>Temps autorisé</label>
+              <select id="timeAllowed">
+                <option value="105" selected>105 minutes (recommandé)</option>
+                <option value="120">120 minutes</option>
+                <option value="90">90 minutes</option>
+                <option value="75">75 minutes</option>
+              </select>
+            </div>
+            <div>
+              <label>Ordre des questions</label>
+              <select id="shuffleMode">
+                <option value="shuffleAll" selected>Mélanger les questions (plus dur)</option>
+                <option value="keepOrder">Garder l’ordre original</option>
+              </select>
+            </div>
+            <div>
+              <label>Fin du chrono</label>
+              <select id="autoSubmit">
+                <option value="yes" selected>Soumission automatique</option>
+                <option value="no">Ne pas soumettre automatiquement</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap">
+            <button class="btn primary" id="btnStart">Démarrer l’épreuve aléatoire</button>
+            <button class="btn" id="btnPreview">Aperçu de la sélection</button>
+          </div>
+
+          <div id="previewBox" class="note hide" style="margin-top:12px"></div>
+        </div>
+
+        <!-- Test body -->
+        <div class="bd hide" id="testBody">
+          <div class="kpi">
+            <div class="box"><div class="t">Candidat</div><div class="v" id="kpiCandidate">—</div></div>
+            <div class="box"><div class="t">Textes longs</div><div class="v" id="kpiPassages">—</div></div>
+            <div class="box"><div class="t">Texte-essai</div><div class="v" id="kpiEssay">—</div></div>
+            <div class="box"><div class="t">Note max</div><div class="v">100</div></div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>Rappel :</strong>
+            Répondre en français (même si tu paraphrases). Ne copie pas des sources externes. Pour les questions longues, utilise des connecteurs (cependant, en revanche, par conséquent) et justifie.
+          </div>
+
+          <div id="paper"></div>
+
+          <div class="divider"></div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap">
+            <button class="btn primary" id="btnSubmit">Soumettre & Auto-corriger</button>
+            <button class="btn" id="btnReset">Réinitialiser (nouvelle sélection)</button>
+          </div>
+
+          <div id="markingBox" class="hide" style="margin-top:14px"></div>
+        </div>
+      </div>
+
+      <!-- Right -->
+      <div class="card" id="panelSide">
+        <div class="hd">
+          <div>
+            <h2 id="sideTitle">Barème (A Level Otono)</h2>
+            <div class="meta" id="sideMeta">Note /100 → grade A*–U + Pass/Merit/Distinction.</div>
+          </div>
+        </div>
+
+        <div class="bd" id="sideBody">
+          <div class="note">
+            <strong>Pass / Merit / Distinction</strong><br/>
+            PASS : 66+<br/>
+            MERIT : 80+<br/>
+            DISTINCTION : 90+<br/>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>NOUVEAU grade (A Level)</strong><br/>
+            A* : 95–100<br/>
+            A : 90–94 (nouvelle limite)<br/>
+            B : 80–89<br/>
+            C : 70–79<br/>
+            D : 66–69<br/>
+            E : 55–65<br/>
+            F : 45–54<br/>
+            G : 30–44<br/>
+            H : 15–29<br/>
+            U : 0–14
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="small">
+            Astuce : les résultats sont sauvegardés seulement dans ce navigateur (localStorage).
+          </div>
+        </div>
+
+        <!-- Results panel -->
+        <div class="bd hide" id="resultsBody">
+          <div class="tabs">
+            <div class="tab active" id="tabAll">Toutes les tentatives</div>
+            <div class="tab" id="tabCandidate">Par candidat</div>
+          </div>
+
+          <div class="row" style="margin-top:10px">
+            <div>
+              <label>Filtrer par numéro de candidat</label>
+              <input type="number" id="filterCandidate" placeholder="ex : 1105" min="1" />
+            </div>
+            <div>
+              <label>Actions</label>
+              <div style="display:flex; gap:10px; flex-wrap:wrap">
+                <button class="btn" id="btnExport">Exporter JSON</button>
+                <button class="btn danger" id="btnClear">Effacer les résultats</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+          <div class="resultsList" id="resultsList"></div>
+
+          <div id="exportBox" class="note hide" style="margin-top:12px">
+            <div><strong>JSON exporté</strong> (copie/colle et sauvegarde) :</div>
+            <div class="divider"></div>
+            <div class="copy" id="exportText"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* =========================================================
+   BANQUE A LEVEL — Textes plus longs + questions plus complexes
+   - 3 textes longs (20 pts chacun)
+   - 1 texte-essai (réponse ~50 mots, 20 pts)
+   - 2 traductions (10 + 10)
+   Toutes les questions/consignes sont en français.
+========================================================= */
+
+const PASSAGES_LONG = [
+  {
+    id: 101,
+    title: "Texte 1 — Consignes, justice et « points perdus »",
+    theme: "Thème : Éducation et évaluation",
+    unit: "Analyse d’un système",
+    text: `À l’école Otono, la semaine qui précède les examens transforme les couloirs en laboratoire social. On y observe des élèves très sûrs d’eux, d’autres silencieux, et certains qui parlent beaucoup pour masquer une inquiétude. Monsieur Barley, professeur de sciences, insiste sur un point qui semble banal : « la consigne est une partie de la question ». Il ne s’agit pas, selon lui, d’une obsession bureaucratique, mais d’un principe de justice. Un candidat doit être évalué sur une même base que les autres ; or, si chacun répond à sa façon, la comparaison devient instable.
+
+Pourtant, ce discours se heurte à une réalité que les élèves connaissent trop bien : l’impression de perdre des points sans lien avec le savoir. Parfois, un élève comprend parfaitement l’idée scientifique, mais l’exprime dans une forme que le correcteur ne valorise pas. D’autres fois, il répond au bon contenu, mais oublie de justifier, de comparer, ou de conclure. L’élève se sent alors puni non pas pour son ignorance, mais pour sa « forme ».
+
+Red, qui déteste les erreurs « bêtes », observe ce paradoxe avec lucidité. Il reconnaît que la règle est nécessaire ; cependant, il se demande si la règle est toujours claire. Il note aussi un danger : quand on a peur de la consigne, on peut écrire trop peu, avec une prudence excessive. À l’inverse, certains écrivent beaucoup, mais sans structure. Dans les deux cas, l’idée se perd. Pour Red, la meilleure stratégie n’est ni la vitesse ni la peur : c’est une lecture active, une structure simple, et une justification qui répond exactement à ce qu’on demande.`,
+    questions: [
+      { id:"t101q1", type:"mcq", marks:2,
+        prompt:"(QCM) Selon Monsieur Barley, pourquoi la consigne est-elle « une partie de la question » ?",
+        options:[
+          "Parce que la consigne remplace le cours",
+          "Parce qu’elle garantit une base commune pour comparer les copies",
+          "Parce qu’elle rend l’examen plus long",
+          "Parce qu’elle empêche les élèves d’écrire"
+        ],
+        answerIndex:1
+      },
+      { id:"t101q2", type:"short", marks:4,
+        prompt:"(Réponse courte) Relevez DEUX comportements observés dans les couloirs avant les examens.",
+        rubric:"Deux éléments parmi : élèves sûrs d’eux, silencieux, qui parlent beaucoup pour masquer l’inquiétude.",
+        keywords:[
+          ["surs","sûrs","confiants","tres sur"],
+          ["silencieux","silence"],
+          ["parlent beaucoup","beaucoup parler","masquer","inquietude","inquiétude"]
+        ]
+      },
+      { id:"t101q3", type:"short", marks:6,
+        prompt:"(Analyse) Expliquez le « paradoxe » que les élèves ressentent entre justice et « points perdus ». (2–4 phrases)",
+        rubric:"Justice : base commune ; points perdus : forme/attendus du correcteur ; sentiment de punition sans ignorance.",
+        keywords:[
+          ["justice","equite","équité","base commune","comparer"],
+          ["points perdus","perdre des points","sans lien","pas lie","forme"],
+          ["correcteur","valorise","attendus","consigne"],
+          ["punis","puni","ignorance","pas ignorance"]
+        ]
+      },
+      { id:"t101q4", type:"short", marks:4,
+        prompt:"(Interprétation) Quelle inquiétude Red exprime-t-il à propos de la peur de la consigne ? Donnez DEUX effets possibles.",
+        rubric:"Écrire trop peu par prudence excessive ; ou écrire beaucoup sans structure ; l’idée se perd.",
+        keywords:[
+          ["peur","crainte","consigne"],
+          ["trop peu","peu","prudence","excessive"],
+          ["trop","beaucoup","sans structure","pas de structure"],
+          ["idee se perd","l idee se perd","perdre l idee","confus"]
+        ]
+      },
+      { id:"t101q5", type:"short", marks:4,
+        prompt:"(Synthèse) Résumez la stratégie finale de Red en UNE phrase claire.",
+        rubric:"Lecture active + structure simple + justification qui répond exactement à la demande.",
+        keywords:[
+          ["lecture active","lire activement","relire","lire"],
+          ["structure","plan","simple"],
+          ["justification","justifier","repond exactement","répond exactement","ce qu on demande","demande"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id: 102,
+    title: "Texte 2 — Encre, normes et contradiction institutionnelle",
+    theme: "Thème : Règles, technologie, perception",
+    unit: "Normes et cohérence",
+    text: `Dans la culture scolaire, l’encre est un détail ; pourtant, dans l’expérience des élèves, ce détail devient symbole. Luke, par exemple, défend l’encre noire comme on défend un principe : elle est lisible, stable, et « sérieuse ». Il la relie à l’idée de légitimité : si l’on veut être pris au sérieux, on doit écrire « correctement ». Cette logique paraît simple, presque morale.
+
+Mais la réalité institutionnelle contredit cette simplicité. En mathématiques, l’encre noire est souvent recommandée, parce que la numérisation des copies exige un contraste net. En sciences, cependant, certains documents internes et certaines pratiques ont laissé entendre que certaines encres (ou certains types de noir) peuvent poser problème, voire être évitées. L’école, en croyant rassurer, finit parfois par produire l’inverse : un élève ne sait plus s’il doit obéir à la tradition (« on écrit en noir ») ou au message ponctuel (« attention à telle encre »).
+
+Red choisit une position plus pragmatique. Plutôt que de transformer l’encre en débat identitaire, il cherche la hiérarchie des règles. Pour lui, la seule règle qui compte réellement est celle qui apparaît sur la feuille le jour de l’épreuve. Cependant, cette approche a aussi un coût : elle suppose que la consigne soit parfaitement explicite et qu’elle ne contredise pas les consignes données oralement. Là où Luke voit une évidence, Red voit un système : et dans un système, la cohérence est une compétence.`,
+    questions: [
+      { id:"t102q1", type:"mcq", marks:2,
+        prompt:"(QCM) Quelle idée Luke associe-t-il à l’encre noire ?",
+        options:[
+          "La vitesse",
+          "La légitimité et le sérieux",
+          "Le hasard",
+          "La distraction"
+        ],
+        answerIndex:1
+      },
+      { id:"t102q2", type:"short", marks:4,
+        prompt:"(Compréhension) Donnez DEUX raisons expliquant pourquoi l’encre noire est recommandée en mathématiques.",
+        rubric:"Contraste net + numérisation/scanner des copies ; lisibilité.",
+        keywords:[
+          ["numerisation","numérisation","scanner","scan","numeriser","numériser"],
+          ["contraste","net","lisibilite","lisibilité","lisible"]
+        ]
+      },
+      { id:"t102q3", type:"short", marks:6,
+        prompt:"(Analyse) En quoi l’institution « produit l’inverse » en voulant rassurer ? Expliquez l’idée. (2–4 phrases)",
+        rubric:"Messages contradictoires → confusion/anxiété ; tradition vs message ponctuel ; incertitude sur l’obéissance.",
+        keywords:[
+          ["rassurer","produit l inverse","inverse"],
+          ["messages","contradictoires","contradiction","confusion"],
+          ["tradition","on ecrit en noir","on écrit en noir"],
+          ["incertitude","ne sait plus","obéir","obeir","hiérarchie"]
+        ]
+      },
+      { id:"t102q4", type:"short", marks:4,
+        prompt:"(Interprétation) Expliquez la différence entre l’approche de Luke et celle de Red en UNE ou DEUX phrases.",
+        rubric:"Luke = principe/morale/évidence ; Red = pragmatique, hiérarchie des règles, système.",
+        keywords:[
+          ["luke","principe","morale","evidence","évidence"],
+          ["red","pragmatique","hierarchie","hiérarchie","systeme","système"],
+          ["regle","règle","feuille","jour de l epreuve","jour de l’épreuve"]
+        ]
+      },
+      { id:"t102q5", type:"short", marks:4,
+        prompt:"(Langue/Style) Pourquoi la phrase finale (« la cohérence est une compétence ») est-elle importante dans le sens du texte ?",
+        rubric:"Elle conclut : cohérence = capacité à naviguer les règles/contradictions ; compétence scolaire et sociale.",
+        keywords:[
+          ["coherence","cohérence","competence","compétence"],
+          ["naviguer","gerer","gérer","regles","règles","contradictions"],
+          ["conclut","conclusion","sens du texte"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id: 103,
+    title: "Texte 3 — Otono Airways : service, valeurs et récit",
+    theme: "Thème : Société et consommation",
+    unit: "Valeurs d’une marque",
+    text: `Voyager avec Otono Airways, pour certains passagers, n’est pas seulement « aller d’un point A à un point B ». C’est une expérience que la compagnie cherche à raconter : un récit de calme, d’organisation, et d’attention. Dans l’A380, on remarque le salon, non pas comme un luxe ostentatoire, mais comme une promesse de respiration. Même l’économie est présentée comme un espace où l’on ne devrait pas avoir honte. Cette idée, au fond, est politique : elle affirme qu’un minimum de confort n’est pas un privilège, mais une norme.
+
+Red, passionné par les systèmes, observe cette mise en scène avec curiosité. Il note la cohérence entre les espaces, les règles et les comportements attendus. Quand une compagnie affiche des valeurs, elle doit aussi gérer le risque de contradiction : si l’on promet du calme, un seul moment de chaos peut ruiner la promesse. Ainsi, la « qualité » n’est pas seulement une question de siège ; elle dépend d’une discipline collective, où le passager devient aussi acteur.
+
+Cependant, tout le monde ne lit pas le voyage comme Red. Certains veulent simplement arriver vite ; d’autres jugent surtout le prix. La compagnie se trouve alors face à un dilemme : maintenir des standards élevés sans devenir inaccessible. Ce dilemme n’est pas résolu par un slogan, mais par des choix concrets — et par la manière dont on traite la classe économique quand personne ne regarde.`,
+    questions: [
+      { id:"t103q1", type:"mcq", marks:2,
+        prompt:"(QCM) Dans ce texte, le salon de l’A380 est décrit surtout comme…",
+        options:[
+          "Un luxe ostentatoire",
+          "Une promesse de respiration et de calme",
+          "Une publicité inutile",
+          "Un espace réservé aux pilotes"
+        ],
+        answerIndex:1
+      },
+      { id:"t103q2", type:"short", marks:4,
+        prompt:"(Compréhension) Relevez DEUX éléments du « récit » que la compagnie veut raconter.",
+        rubric:"Calme ; organisation ; attention ; respiration ; économie sans honte ; confort comme norme.",
+        keywords:[
+          ["calme","calm"],
+          ["organisation","organise","organisé","organisée"],
+          ["attention","attentif","attentive"],
+          ["respiration","respirer"],
+          ["economie","économie","sans honte","honte"],
+          ["confort","norme"]
+        ]
+      },
+      { id:"t103q3", type:"short", marks:4,
+        prompt:"(Analyse) Pourquoi l’auteur dit-il que l’idée du confort minimum est « politique » ?",
+        rubric:"Parce qu’elle affirme une norme/valeur sociale (confort non réservé aux classes supérieures).",
+        keywords:[
+          ["politique"],
+          ["norme","valeur","social"],
+          ["pas un privilege","pas un privilège","non reserve","non réservé","classes supérieures","superieures"]
+        ]
+      },
+      { id:"t103q4", type:"short", marks:4,
+        prompt:"(Interprétation) Expliquez le rôle du passager dans la « qualité », selon le texte. (1–3 phrases)",
+        rubric:"Le passager devient acteur : discipline collective ; calme dépend des comportements, pas seulement du siège.",
+        keywords:[
+          ["passager","acteur"],
+          ["discipline","collective"],
+          ["calme","comportements","comportement"],
+          ["pas seulement","siege","siège"]
+        ]
+      },
+      { id:"t103q5", type:"short", marks:6,
+        prompt:"(Évaluation) Résumez le dilemme final et proposez UNE solution réaliste en restant fidèle au texte. (3–5 phrases)",
+        rubric:"Dilemme standards élevés vs accessibilité/prix ; solution : choix concrets, cohérence, traiter économie correctement même sans visibilité.",
+        keywords:[
+          ["dilemme","standard","standards","eleves","élevés","accessibles","inaccessible","prix"],
+          ["choix concrets","concrets"],
+          ["coherence","cohérence"],
+          ["classe economique","classe économique","traiter","respect"],
+          ["meme quand","même quand","personne ne regarde","sans visibilité","regarde"]
+        ]
+      }
+    ]
+  }
+];
+
+const PASSAGES_ESSAY = [
+  {
+    id: 201,
+    title: "Texte-essai — La règle : protection ou piège ?",
+    theme: "Réponse argumentée (~50 mots)",
+    unit: "Essai court",
+    text: `Dans une école, on répète souvent que « les règles protègent tout le monde ». Pourtant, quand les règles deviennent trop nombreuses ou trop floues, elles peuvent produire l’effet inverse : stress, injustice perçue, et perte de confiance. Un élève peut alors se concentrer davantage sur la procédure que sur l’apprentissage.`,
+    prompt50: "Environ 50 mots : Êtes-vous d’accord avec cette idée ? Justifiez avec un exemple concret (école, examens, ou autre).",
+    keywords: [
+      ["je suis d accord","je suis d’accord","d accord","d’accord","pas d accord","pas d’accord"],
+      ["regles","règles","procedure","procédure"],
+      ["stress","pression","anxiete","anxiété"],
+      ["injustice","injuste","equite","équité"],
+      ["confiance","perte de confiance","securite","sécurité"],
+      ["exemple","par exemple","dans mon ecole","dans mon école","examen","examens"],
+      ["apprentissage","apprendre","apprendre mieux","se concentrer"]
+    ],
+    marks: 20
+  },
+  {
+    id: 202,
+    title: "Texte-essai — Le confort : une norme ou un luxe ?",
+    theme: "Réponse argumentée (~50 mots)",
+    unit: "Essai court",
+    text: `Dans les transports, on débat souvent du confort. Certains pensent qu’il suffit « d’arriver », tandis que d’autres estiment qu’un minimum de confort devrait être garanti à tous. Ce débat touche à la dignité, au prix, et à la responsabilité des entreprises.`,
+    prompt50: "Environ 50 mots : Selon vous, un minimum de confort doit-il être une norme ? Donnez une raison + une nuance (oui, mais…).",
+    keywords: [
+      ["norme","standard"],
+      ["confort","minimum"],
+      ["dignite","dignité","respect"],
+      ["prix","accessible","inaccessible"],
+      ["responsabilite","responsabilité","entreprise","compagnie"],
+      ["nuance","cependant","mais","en revanche","pourtant"]
+    ],
+    marks: 20
+  }
+];
+
+/* =========================================================
+   TRADUCTIONS A LEVEL — plus longues
+   - T_ENFR : anglais -> français (10)
+   - T_FREN : français -> anglais (10)
+========================================================= */
+
+const TRANSLATIONS_A = [
+  {
+    id: "T_ENFR_1",
+    direction: "EN->FR",
+    title: "Traduction (anglais → français)",
+    text: `In the days before exams, some students become obsessed with small details. They worry about pens, timing, and the exact wording of each question. However, the most effective candidates stay calm: they read actively, plan briefly, and justify their ideas clearly.`,
+    keyIdeas: [
+      ["avant","dans les jours","les jours avant","avant les examens"],
+      ["certains eleves","certains étudiants","certains élèves"],
+      ["obsedes","obsédés","obsession","petits details","petits détails"],
+      ["stylos","encre","temps","gestion du temps","chronometre","chrono","timing"],
+      ["formulation","mots exacts","consigne","libelle","libellé"],
+      ["cependant","pourtant"],
+      ["les plus efficaces","les candidats efficaces","les meilleurs candidats"],
+      ["rester calme","calmes","garder son calme"],
+      ["lire activement","lecture active","relire"],
+      ["planifier","faire un plan","plan bref","organiser"],
+      ["justifier","justification","expliquer clairement","clarte","clarté"]
+    ],
+    sampleAnswerFR:
+`Dans les jours qui précèdent les examens, certains élèves deviennent obsédés par de petits détails. Ils s’inquiètent des stylos, du temps et de la formulation exacte de chaque question. Cependant, les candidats les plus efficaces restent calmes : ils lisent activement, font un plan bref et justifient leurs idées clairement.`
+  },
+  {
+    id: "T_FREN_1",
+    direction: "FR->EN",
+    title: "Traduction (français → anglais)",
+    text: `Quand une institution donne des messages contradictoires, elle crée souvent de l’anxiété. L’élève ne sait plus quelle règle suivre : la tradition, l’avertissement ponctuel ou la consigne écrite. Dans ce contexte, la cohérence devient une compétence, et non un simple détail.`,
+    keyIdeas: [
+      ["when","when an institution","institution"],
+      ["contradictory messages","mixed messages","contradictory"],
+      ["creates","often creates","anxiety"],
+      ["student","pupil","learner"],
+      ["no longer knows","doesn't know","which rule"],
+      ["follow","to follow"],
+      ["tradition"],
+      ["a one-off warning","a specific warning","a punctual warning"],
+      ["written instruction","the written instruction","the written guidance"],
+      ["in this context","in this situation"],
+      ["coherence","consistency"],
+      ["becomes a skill","becomes a competence","not just a detail"]
+    ],
+    sampleAnswerEN:
+`When an institution gives contradictory messages, it often creates anxiety. The student no longer knows which rule to follow: tradition, a one-off warning or the written instruction. In this context, consistency becomes a skill, not just a minor detail.`
+  }
+];
+
+/* =========================================================
+   Utilitaires
+========================================================= */
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+function nowISO(){ return new Date().toISOString(); }
+
+function norm(s){
+  return (s ?? "")
+    .toString()
+    .toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")  // remove accents
+    .replace(/[^a-z0-9\s]/g," ")
+    .replace(/\s+/g," ")
+    .trim();
+}
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function pickRandom(arr, n){
+  return shuffle(arr).slice(0, n);
+}
+
+function escapeHtml(str){
+  return (str ?? "").toString()
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+/* =========================================================
+   NOUVEAU GRADE (A* dès 95, A dès 90, le reste inchangé)
+========================================================= */
+function otonoAlevelGrade(score){
+  if(score >= 95) return "A*";
+  if(score >= 90) return "A";
+  if(score >= 80) return "B";
+  if(score >= 70) return "C";
+  if(score >= 66) return "D";
+  if(score >= 55) return "E";
+  if(score >= 45) return "F";
+  if(score >= 30) return "G";
+  if(score >= 15) return "H";
+  return "U";
+}
+
+function passMeritDistinction(score){
+  if(score >= 90) return "DISTINCTION";
+  if(score >= 80) return "MERIT";
+  if(score >= 66) return "PASS";
+  return "FAIL";
+}
+
+function badgeForScore(score){
+  if(score >= 95) return ["badge good","🏆 A*"];
+  if(score >= 90) return ["badge good","⭐ A"];
+  if(score >= 80) return ["badge good","✨ B"];
+  if(score >= 66) return ["badge warn","✅ PASS"];
+  return ["badge bad","❌ À améliorer"];
+}
+
+/* =========================================================
+   Stockage local
+========================================================= */
+const STORE_KEY = "otonoFrenchAlevelResults_v1";
+
+function loadResults(){
+  try{ return JSON.parse(localStorage.getItem(STORE_KEY) || "[]"); }
+  catch(e){ return []; }
+}
+function saveResults(list){
+  localStorage.setItem(STORE_KEY, JSON.stringify(list));
+}
+function addResult(attempt){
+  const list = loadResults();
+  list.unshift(attempt);
+  saveResults(list);
+}
+
+/* =========================================================
+   État de l’app
+========================================================= */
+let state = {
+  mode: "home",
+  timer: null,
+  remainingSec: 0,
+  startedAt: null,
+  candidateNo: null,
+  candidateName: "",
+  selection: null,
+  answers: {},
+  submitted: false
+};
+
+/* =========================================================
+   Génération de sélection
+   - 3 textes longs
+   - 1 texte-essai
+   - 2 traductions (une de chaque sens)
+========================================================= */
+function generateSelection(){
+  const passages = pickRandom(PASSAGES_LONG, 3);
+  const essay = pickRandom(PASSAGES_ESSAY, 1)[0];
+
+  // pick one EN->FR and one FR->EN (if bank grows, keep robust)
+  const enfr = pickRandom(TRANSLATIONS_A.filter(t=>t.direction==="EN->FR"), 1)[0];
+  const fren = pickRandom(TRANSLATIONS_A.filter(t=>t.direction==="FR->EN"), 1)[0];
+
+  return { passages, essay, translations: [enfr, fren] };
+}
+
+function selectionSummary(sel){
+  const p = sel.passages.map(x=>`#${x.id}`).join(", ");
+  return `Textes : ${p} • Essai : #${sel.essay.id} • Traductions : ${sel.translations.map(t=>t.id).join(" + ")}`;
+}
+
+/* =========================================================
+   Rendu UI
+========================================================= */
+function setBadge(text, cls="badge"){
+  const b = $("#statusBadge");
+  b.className = cls;
+  b.textContent = text;
+}
+
+function renderHome(){
+  $("#homeBody").classList.remove("hide");
+  $("#testBody").classList.add("hide");
+  $("#resultsBody").classList.add("hide");
+  $("#sideTitle").textContent = "Barème (A Level Otono)";
+  $("#sideMeta").textContent = "Note /100 → grade A*–U + Pass/Merit/Distinction.";
+  $("#sideBody").classList.remove("hide");
+  setBadge("Prêt","badge");
+  $("#timerText").textContent = "--:--";
+}
+
+function renderResults(){
+  $("#homeBody").classList.add("hide");
+  $("#testBody").classList.add("hide");
+  $("#sideBody").classList.add("hide");
+  $("#resultsBody").classList.remove("hide");
+  $("#sideTitle").textContent = "Résultats sauvegardés";
+  $("#sideMeta").textContent = "Stockés dans ce navigateur (localStorage) par candidat.";
+  setBadge("Résultats","badge");
+  $("#timerText").textContent = "--:--";
+  drawResults();
+}
+
+function startTimer(minutes){
+  stopTimer();
+  state.remainingSec = Math.max(1, Math.floor(minutes*60));
+  state.startedAt = Date.now();
+
+  const tick = () => {
+    if(state.submitted) return;
+    const m = Math.floor(state.remainingSec/60);
+    const s = state.remainingSec%60;
+    $("#timerText").textContent = `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+    state.remainingSec--;
+    if(state.remainingSec < 0){
+      stopTimer();
+      const auto = $("#autoSubmit").value === "yes";
+      if(auto){
+        submitPaper(true);
+      }else{
+        alert("Temps écoulé. Vous pouvez encore soumettre manuellement.");
+      }
+    }
+  };
+
+  tick();
+  state.timer = setInterval(tick, 1000);
+}
+
+function stopTimer(){
+  if(state.timer){
+    clearInterval(state.timer);
+    state.timer = null;
+  }
+}
+
+/* =========================================================
+   Construction de l’épreuve (3 textes + 1 essai + 2 trad)
+========================================================= */
+function renderTest(){
+  $("#homeBody").classList.add("hide");
+  $("#testBody").classList.remove("hide");
+  $("#resultsBody").classList.add("hide");
+  $("#sideBody").classList.remove("hide");
+
+  const cand = `${state.candidateNo}${state.candidateName ? " • " + state.candidateName : ""}`;
+  $("#kpiCandidate").textContent = cand;
+  $("#kpiPassages").textContent = state.selection.passages.map(p=>`#${p.id}`).join(" ");
+  $("#kpiEssay").textContent = `#${state.selection.essay.id}`;
+
+  const shuffleMode = $("#shuffleMode").value;
+  const paper = $("#paper");
+  paper.innerHTML = "";
+
+  // Bloc résumé
+  const sel = state.selection;
+  const themes = sel.passages.map(p => `${p.title} (${p.theme}, ${p.unit})`);
+  const head = document.createElement("div");
+  head.className = "note";
+  head.innerHTML =
+    `<strong>Contenu sélectionné</strong><br/>` +
+    themes.map(t => `• ${escapeHtml(t)}`).join("<br/>") +
+    `<br/>• ${escapeHtml(sel.essay.title)} (${escapeHtml(sel.essay.theme)})` +
+    `<br/>• ${escapeHtml(sel.translations[0].title)} — ${escapeHtml(sel.translations[0].id)} (anglais → français)` +
+    `<br/>• ${escapeHtml(sel.translations[1].title)} — ${escapeHtml(sel.translations[1].id)} (français → anglais)`;
+  paper.appendChild(head);
+
+  // 3 textes longs (20 chacun)
+  sel.passages.forEach(p => {
+    const block = document.createElement("div");
+    block.className = "card";
+    block.style.marginTop = "14px";
+    block.innerHTML = `
+      <div class="hd">
+        <div>
+          <h2>${escapeHtml(p.title)}</h2>
+          <div class="meta">${escapeHtml(p.theme)} • ${escapeHtml(p.unit)} • <strong>20 points</strong></div>
+        </div>
+        <span class="badge">${escapeHtml("#"+p.id)}</span>
+      </div>
+      <div class="bd">
+        <div class="passage">${escapeHtml(p.text).replace(/\n/g,"<br/>")}</div>
+        <div class="divider"></div>
+        <div class="small">Réponds en français. Réponses longues : structure + justification. Auto-correction par mots-clés.</div>
+        <div class="qs"></div>
+      </div>
+    `;
+
+    const qs = block.querySelector(".qs");
+    let qsList = p.questions.slice();
+    if(shuffleMode === "shuffleAll") qsList = shuffle(qsList);
+
+    qsList.forEach(q => {
+      const qWrap = document.createElement("div");
+      qWrap.className = "q";
+      qWrap.dataset.qid = q.id;
+      const markTag = `<span class="badge" title="Points">${q.marks} pts</span>`;
+      qWrap.innerHTML = `
+        <h3>${escapeHtml(q.prompt)} ${markTag}</h3>
+        ${q.type === "mcq" ? renderMCQ(q) : renderShort(q)}
+        <div class="small" style="margin-top:8px">${q.type === "short"
+          ? "Auto-correction par mots-clés : écris des idées claires (connecteurs utiles)."
+          : "Choisis une seule réponse."}</div>
+      `;
+      qs.appendChild(qWrap);
+    });
+
+    paper.appendChild(block);
+  });
+
+  // Texte-essai (20)
+  const e = sel.essay;
+  const eBlock = document.createElement("div");
+  eBlock.className = "card";
+  eBlock.style.marginTop = "14px";
+  eBlock.innerHTML = `
+    <div class="hd">
+      <div>
+        <h2>${escapeHtml(e.title)}</h2>
+        <div class="meta">${escapeHtml(e.theme)} • ${escapeHtml(e.unit)} • <strong>20 points</strong></div>
+      </div>
+      <span class="badge">ESSAI</span>
+    </div>
+    <div class="bd">
+      <div class="passage">${escapeHtml(e.text)}</div>
+      <div class="divider"></div>
+      <div class="q" data-qid="essay50">
+        <h3>${escapeHtml(e.prompt50)} <span class="badge">20 pts</span></h3>
+        <textarea id="ans_essay50" placeholder="~50 mots : opinion + justification + exemple + nuance (si possible)..."></textarea>
+        <div class="small" style="margin-top:8px">Auto-correction : présence d’opinion, justification, exemple, nuance + vocabulaire.</div>
+      </div>
+    </div>
+  `;
+  paper.appendChild(eBlock);
+
+  // Traduction 1 : EN->FR (10)
+  const t1 = sel.translations[0];
+  const t1Block = document.createElement("div");
+  t1Block.className = "card";
+  t1Block.style.marginTop = "14px";
+  t1Block.innerHTML = `
+    <div class="hd">
+      <div>
+        <h2>${escapeHtml(t1.title)}</h2>
+        <div class="meta"><strong>Anglais → Français</strong> • <strong>10 points</strong></div>
+      </div>
+      <span class="badge">TRAD 1</span>
+    </div>
+    <div class="bd">
+      <div class="passage">${escapeHtml(t1.text)}</div>
+      <div class="divider"></div>
+      <div class="q" data-qid="tr_enfr">
+        <h3>Traduisez en français (registre naturel). <span class="badge">10 pts</span></h3>
+        <textarea id="ans_tr_enfr" placeholder="Écris la traduction en français ici..."></textarea>
+        <div class="small" style="margin-top:8px">Auto-correction : idées clés + vocabulaire attendu.</div>
+      </div>
+    </div>
+  `;
+  paper.appendChild(t1Block);
+
+  // Traduction 2 : FR->EN (10)
+  const t2 = sel.translations[1];
+  const t2Block = document.createElement("div");
+  t2Block.className = "card";
+  t2Block.style.marginTop = "14px";
+  t2Block.innerHTML = `
+    <div class="hd">
+      <div>
+        <h2>${escapeHtml(t2.title)}</h2>
+        <div class="meta"><strong>Français → Anglais</strong> • <strong>10 points</strong></div>
+      </div>
+      <span class="badge">TRAD 2</span>
+    </div>
+    <div class="bd">
+      <div class="passage">${escapeHtml(t2.text)}</div>
+      <div class="divider"></div>
+      <div class="q" data-qid="tr_fren">
+        <h3>Translate into English (natural). <span class="badge">10 pts</span></h3>
+        <textarea id="ans_tr_fren" placeholder="Type the English translation here..."></textarea>
+        <div class="small" style="margin-top:8px">Auto-mark checks key ideas (keywords). Include meaning clearly.</div>
+      </div>
+    </div>
+  `;
+  paper.appendChild(t2Block);
+
+  // Bind inputs + timer
+  bindInputs();
+  const mins = parseInt($("#timeAllowed").value,10);
+  startTimer(mins);
+
+  state.submitted = false;
+  $("#markingBox").classList.add("hide");
+  $("#markingBox").innerHTML = "";
+  setBadge("En cours","badge warn");
+}
+
+function renderMCQ(q){
+  const name = `ans_${q.id}`;
+  return `
+    <div class="opts">
+      ${q.options.map((opt, idx) => `
+        <label class="opt">
+          <input type="radio" name="${name}" value="${idx}" />
+          <div><strong>${String.fromCharCode(65+idx)}.</strong> ${escapeHtml(opt)}</div>
+        </label>
+      `).join("")}
+    </div>
+  `;
+}
+
+function renderShort(q){
+  return `<textarea id="ans_${q.id}" placeholder="Réponse en français..."></textarea>`;
+}
+
+function bindInputs(){
+  $$("input[type='radio']").forEach(r => {
+    r.addEventListener("change", () => {
+      const qid = r.name.replace("ans_","");
+      state.answers[qid] = r.value;
+    });
+  });
+  $$("textarea").forEach(t => {
+    t.addEventListener("input", () => {
+      const id = t.id.replace("ans_","");
+      state.answers[id] = t.value;
+    });
+  });
+}
+
+/* =========================================================
+   Auto-correction (mots-clés)
+========================================================= */
+function markMCQ(q, chosen){
+  const val = parseInt(chosen ?? "-1", 10);
+  const correct = val === q.answerIndex;
+  return {
+    score: correct ? q.marks : 0,
+    max: q.marks,
+    detail: correct ? "Correct." : `Faux. Réponse : ${String.fromCharCode(65+q.answerIndex)}.`
+  };
+}
+
+function markShortAnswer(q, userText){
+  const t = norm(userText);
+  if(!t) return {score:0, max:q.marks, detail:"Réponse vide."};
+
+  const groups = q.keywords || [];
+  if(groups.length === 0){
+    return {score:0, max:q.marks, detail:"Aucun rubric de mots-clés."};
+  }
+
+  let hits = 0;
+  groups.forEach(g => {
+    const found = g.some(k => t.includes(norm(k)));
+    if(found) hits++;
+  });
+
+  const per = q.marks / groups.length;
+  const raw = hits * per;
+  const score = Math.max(0, Math.min(q.marks, Math.round(raw*2)/2)); // demi-point
+
+  let detail = `Groupes trouvés : ${hits}/${groups.length}.`;
+  if(q.rubric) detail += ` Attendu : ${q.rubric}`;
+  return {score, max:q.marks, detail};
+}
+
+// Essai ~50 mots (20) — mots-clés + longueur
+function markEssay(essayObj, userText){
+  const t = norm(userText);
+  const words = t ? t.split(" ").filter(Boolean).length : 0;
+  if(!t) return {score:0, max:essayObj.marks, detail:"Essai vide."};
+
+  // points longueur (0–4) : cible 40–70 mots environ
+  let lenPts = 0;
+  if(words >= 35 && words <= 80) lenPts = 4;
+  else if(words >= 25 && words < 35) lenPts = 3;
+  else if(words >= 15 && words < 25) lenPts = 2;
+  else if(words > 80 && words <= 110) lenPts = 3;
+  else if(words > 110) lenPts = 2;
+  else lenPts = 1;
+
+  // mots-clés (0–16)
+  const groups = essayObj.keywords || [];
+  let hits = 0;
+  groups.forEach(g => {
+    const ok = g.some(k => t.includes(norm(k)));
+    if(ok) hits++;
+  });
+
+  const kwPts = Math.min(16, Math.round((hits / Math.max(1, groups.length)) * 16));
+  const score = Math.min(essayObj.marks, kwPts + lenPts);
+
+  const detail = `Mots ≈ ${words}. Idées/indices : ${hits}/${groups.length}. Longueur : ${lenPts}/4, contenu : ${kwPts}/16.`;
+  return {score, max:essayObj.marks, detail};
+}
+
+// Traductions (10) — idées clés
+function markTranslation10(tObj, userText){
+  const t = norm(userText);
+  if(!t) return {score:0, max:10, detail:"Traduction vide."};
+
+  const ideas = tObj.keyIdeas || [];
+  let hits = 0;
+  ideas.forEach(group => {
+    const ok = group.some(k => t.includes(norm(k)));
+    if(ok) hits++;
+  });
+
+  // total = 10, scale by coverage
+  const score = Math.min(10, Math.round((hits / Math.max(1, ideas.length)) * 10));
+  const detail = `Idées clés : ${hits}/${ideas.length}.`;
+  return {score, max:10, detail};
+}
+
+function computeTotal(){
+  let total = 0;
+  let breakdown = [];
+
+  // 3 textes (20 chacun)
+  state.selection.passages.forEach(p => {
+    p.questions.forEach(q => {
+      const ans = state.answers[q.id];
+      let res = (q.type === "mcq") ? markMCQ(q, ans) : markShortAnswer(q, ans);
+      total += res.score;
+      breakdown.push({
+        qid: q.id,
+        section: `Texte #${p.id}`,
+        type: q.type,
+        prompt: q.prompt,
+        score: res.score,
+        max: res.max,
+        detail: res.detail
+      });
+    });
+  });
+
+  // Essai (20)
+  const essayAns = state.answers["essay50"] ?? $("#ans_essay50")?.value ?? "";
+  const essayRes = markEssay(state.selection.essay, essayAns);
+  total += essayRes.score;
+  breakdown.push({
+    qid: "essay50",
+    section: `Essai #${state.selection.essay.id}`,
+    type: "essay",
+    prompt: state.selection.essay.prompt50,
+    score: essayRes.score,
+    max: essayRes.max,
+    detail: essayRes.detail
+  });
+
+  // Trad EN->FR (10)
+  const tr1Ans = state.answers["tr_enfr"] ?? $("#ans_tr_enfr")?.value ?? "";
+  const tr1Res = markTranslation10(state.selection.translations[0], tr1Ans);
+  total += tr1Res.score;
+  breakdown.push({
+    qid: "tr_enfr",
+    section: `Traduction ${state.selection.translations[0].id}`,
+    type: "translation",
+    prompt: "Anglais → Français",
+    score: tr1Res.score,
+    max: tr1Res.max,
+    detail: tr1Res.detail
+  });
+
+  // Trad FR->EN (10)
+  const tr2Ans = state.answers["tr_fren"] ?? $("#ans_tr_fren")?.value ?? "";
+  const tr2Res = markTranslation10(state.selection.translations[1], tr2Ans);
+  total += tr2Res.score;
+  breakdown.push({
+    qid: "tr_fren",
+    section: `Traduction ${state.selection.translations[1].id}`,
+    type: "translation",
+    prompt: "Français → Anglais",
+    score: tr2Res.score,
+    max: tr2Res.max,
+    detail: tr2Res.detail
+  });
+
+  const totalRounded = Math.round(total*10)/10;
+  return { total: totalRounded, max: 100, breakdown };
+}
+
+/* =========================================================
+   Soumission + sauvegarde + affichage
+========================================================= */
+function submitPaper(fromAutoTimer=false){
+  if(state.submitted) return;
+
+  const { total, max, breakdown } = computeTotal();
+  state.submitted = true;
+  stopTimer();
+
+  const grade = otonoAlevelGrade(total);
+  const pmd = passMeritDistinction(total);
+  const [badgeCls, badgeText] = badgeForScore(total);
+
+  const attempt = {
+    centre: "50749",
+    candidateNo: String(state.candidateNo),
+    candidateName: state.candidateName || "",
+    submittedAt: nowISO(),
+    timeAllowedMin: parseInt($("#timeAllowed").value,10),
+    selectedPassages: state.selection.passages.map(p=>p.id),
+    selectedEssay: state.selection.essay.id,
+    selectedTranslations: state.selection.translations.map(t=>t.id),
+    score: total,
+    maxScore: max,
+    alevelGrade: grade,
+    outcome: pmd,
+    breakdown
+  };
+  addResult(attempt);
+
+  const box = $("#markingBox");
+  box.classList.remove("hide");
+  box.innerHTML = `
+    <div class="card">
+      <div class="hd">
+        <div>
+          <h2>✅ Corrigé${fromAutoTimer ? " (soumission auto)" : ""}</h2>
+          <div class="meta">Sauvegardé dans Résultats • Candidat ${escapeHtml(attempt.candidateNo)}.</div>
+        </div>
+        <span class="${badgeCls}">${escapeHtml(badgeText)} • ${escapeHtml(grade)}</span>
+      </div>
+      <div class="bd">
+        <div class="kpi">
+          <div class="box"><div class="t">Note</div><div class="v">${attempt.score} / ${attempt.maxScore}</div></div>
+          <div class="box"><div class="t">Grade A Level</div><div class="v">${escapeHtml(attempt.alevelGrade)}</div></div>
+          <div class="box"><div class="t">Outcome</div><div class="v">${escapeHtml(attempt.outcome)}</div></div>
+          <div class="box"><div class="t">Stockage</div><div class="v">Local</div></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="note">
+          <strong>Notes de correction</strong><br/>
+          • QCM : exact.<br/>
+          • Réponses/essai/traductions : mots-clés + couverture d’idées. Reformulations très différentes peuvent être sous-notées.<br/>
+          • Pour une correction plus fine, on peut enrichir les listes de mots-clés.
+        </div>
+
+        <div class="divider"></div>
+
+        <button class="btn" id="btnShowBreakdown">Afficher le détail question par question</button>
+        <div id="breakdown" class="hide" style="margin-top:12px"></div>
+
+        <div class="divider"></div>
+
+        <div class="note">
+          <strong>Traductions — exemples (référence)</strong><br/>
+          <div class="divider"></div>
+          <strong>EN→FR (modèle)</strong><br/>
+          ${escapeHtml(state.selection.translations[0].sampleAnswerFR || "(à ajouter)")}<br/>
+          <div class="divider"></div>
+          <strong>FR→EN (modèle)</strong><br/>
+          ${escapeHtml(state.selection.translations[1].sampleAnswerEN || "(à ajouter)")}
+        </div>
+      </div>
+    </div>
+  `;
+
+  $("#btnShowBreakdown").addEventListener("click", () => {
+    const bd = $("#breakdown");
+    bd.classList.toggle("hide");
+    if(!bd.classList.contains("hide")){
+      bd.innerHTML = breakdown.map(b => `
+        <div class="attempt">
+          <div class="top">
+            <div><strong>${escapeHtml(b.section)}</strong> • <span class="badge">${escapeHtml(b.qid)}</span></div>
+            <div><span class="badge">${b.score} / ${b.max}</span></div>
+          </div>
+          <div class="meta">
+            <div><strong>Consigne :</strong> ${escapeHtml(b.prompt)}</div>
+            <div><strong>Auto-correcteur :</strong> ${escapeHtml(b.detail)}</div>
+          </div>
+        </div>
+      `).join("");
+    }
+  });
+
+  setBadge("Soumis","badge good");
+}
+
+/* =========================================================
+   Résultats UI
+========================================================= */
+function drawResults(){
+  const listEl = $("#resultsList");
+  const all = loadResults();
+  const filter = ($("#filterCandidate").value || "").trim();
+  const filtered = filter ? all.filter(a => String(a.candidateNo) === String(filter)) : all;
+
+  if(filtered.length === 0){
+    listEl.innerHTML = `<div class="note">Aucune tentative sauvegardée${filter ? " pour ce candidat" : ""}.</div>`;
+    return;
+  }
+
+  listEl.innerHTML = filtered.map(a => {
+    const [cls, txt] = badgeForScore(a.score);
+    return `
+      <div class="attempt">
+        <div class="top">
+          <div>
+            <strong>${escapeHtml(a.candidateNo)}</strong>${a.candidateName ? " • " + escapeHtml(a.candidateName) : ""}
+            <span class="badge" style="margin-left:8px">Centre ${escapeHtml(a.centre)}</span>
+          </div>
+          <div class="${cls}">${escapeHtml(txt)} • ${escapeHtml(String(a.score))}/100 • ${escapeHtml(a.alevelGrade)}</div>
+        </div>
+        <div class="meta">
+          <div><strong>Date :</strong> ${escapeHtml(new Date(a.submittedAt).toLocaleString())}</div>
+          <div><strong>Sélection :</strong> Textes ${escapeHtml(a.selectedPassages.join(", "))} • Essai ${escapeHtml(String(a.selectedEssay))} • Trad ${escapeHtml(a.selectedTranslations.join(" + "))}</div>
+          <div><strong>Outcome :</strong> ${escapeHtml(a.outcome)}</div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function exportResults(){
+  const all = loadResults();
+  $("#exportText").textContent = JSON.stringify(all, null, 2);
+  $("#exportBox").classList.remove("hide");
+}
+
+function clearResults(){
+  if(!confirm("Effacer TOUTES les tentatives sauvegardées sur ce navigateur ?")) return;
+  localStorage.removeItem(STORE_KEY);
+  drawResults();
+  $("#exportBox").classList.add("hide");
+}
+
+/* =========================================================
+   Navigation + événements
+========================================================= */
+$("#btnHome").addEventListener("click", () => {
+  state.mode = "home";
+  renderHome();
+});
+
+$("#btnResults").addEventListener("click", () => {
+  state.mode = "results";
+  renderResults();
+});
+
+$("#btnPreview").addEventListener("click", () => {
+  const c = ($("#candidateNo").value || "").trim();
+  if(!c){
+    alert("Le numéro de candidat est obligatoire.");
+    return;
+  }
+  const sel = generateSelection();
+  const box = $("#previewBox");
+  box.classList.remove("hide");
+  box.innerHTML =
+    `<strong>Aperçu (sans démarrer)</strong><br/>${escapeHtml(selectionSummary(sel))}<br/>` +
+    sel.passages.map(p => `• ${escapeHtml(p.title)} (${escapeHtml(p.theme)})`).join("<br/>") +
+    `<br/>• ${escapeHtml(sel.essay.title)} (${escapeHtml(sel.essay.theme)})` +
+    `<br/>• ${escapeHtml(sel.translations[0].id)} (EN→FR) + ${escapeHtml(sel.translations[1].id)} (FR→EN)`;
+});
+
+$("#btnStart").addEventListener("click", () => {
+  const c = ($("#candidateNo").value || "").trim();
+  if(!c){
+    alert("Le numéro de candidat est obligatoire.");
+    return;
+  }
+  state.candidateNo = c;
+  state.candidateName = ($("#candidateName").value || "").trim();
+  state.selection = generateSelection();
+  state.answers = {};
+  renderTest();
+});
+
+$("#btnSubmit").addEventListener("click", () => submitPaper(false));
+
+$("#btnReset").addEventListener("click", () => {
+  if(!confirm("Réinitialiser et générer une NOUVELLE épreuve aléatoire ? Tes réponses actuelles seront perdues.")) return;
+  stopTimer();
+  state.answers = {};
+  state.submitted = false;
+  state.selection = generateSelection();
+  renderTest();
+});
+
+/* =========================================================
+   Onglets + filtres résultats
+========================================================= */
+$("#filterCandidate").addEventListener("input", drawResults);
+
+$("#tabAll").addEventListener("click", () => {
+  $("#tabAll").classList.add("active");
+  $("#tabCandidate").classList.remove("active");
+  $("#filterCandidate").value = "";
+  drawResults();
+});
+
+$("#tabCandidate").addEventListener("click", () => {
+  $("#tabCandidate").classList.add("active");
+  $("#tabAll").classList.remove("active");
+  $("#filterCandidate").focus();
+});
+
+/* =========================================================
+   Export / Clear
+========================================================= */
+$("#btnExport").addEventListener("click", exportResults);
+$("#btnClear").addEventListener("click", clearResults);
+
+/* =========================================================
+   Initialisation
+========================================================= */
+renderHome();
+
+/* =========================================================
+   Anti-cheat (comme ton modèle)
+========================================================= */
+const disabledKeys = ["u", "I"];
+const showAlert = e => {
+  e.preventDefault();
+  return alert("Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!");
+};
+document.addEventListener("contextmenu", e => { showAlert(e); });
+document.addEventListener("keydown", e => {
+  if ((e.ctrlKey && disabledKeys.includes(e.key)) || e.key === "F12") {
+    showAlert(e);
+  }
+});
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
