@@ -134,7 +134,7 @@
     <div class="topbar">
       <div class="brand">
         <h1>🟣 Otono Spanish — Paper 3 (Writing, Randomised)</h1>
-        <div class="sub">Auto marking (structure + relevance) • Centre: <strong>50749</strong> • Pass/Merit/Distinction is independent of 9–1</div>
+        <div class="sub">Auto marking (meaning + quality + structure) • Centre: <strong>50749</strong> • Pass/Merit/Distinction is independent of 9–1</div>
       </div>
       <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end">
         <div class="pill">
@@ -152,7 +152,10 @@
         <div class="hd">
           <div>
             <h2>Candidate setup</h2>
-            <div class="meta">Writing is marked for: task completion, bullet coverage, tense/opinion signals, and theme relevance. Irrelevant text scores near 0.</div>
+            <div class="meta">
+              Sensible integer marking:
+              Translation = ideas + Spanish quality; Writing = content + timeframes + opinion + range + word count + soft relevance multiplier.
+            </div>
           </div>
           <span class="badge" id="statusBadge">Ready</span>
         </div>
@@ -350,6 +353,7 @@ function wordCount(text){
   return t.split(/\s+/).filter(Boolean).length;
 }
 function setBadge(text, cls="badge"){ const b=$("#statusBadge"); b.className=cls; b.textContent=text; }
+function clamp(x,a,b){ return Math.max(a, Math.min(b, x)); }
 
 /* =========================================================
    TIMER
@@ -357,9 +361,7 @@ function setBadge(text, cls="badge"){ const b=$("#statusBadge"); b.className=cls
 let timer = null;
 let remainingSec = 0;
 
-function stopTimer(){
-  if(timer){ clearInterval(timer); timer=null; }
-}
+function stopTimer(){ if(timer){ clearInterval(timer); timer=null; } }
 function startTimer(minutes, onEnd){
   stopTimer();
   remainingSec = Math.max(1, Math.floor(minutes*60));
@@ -380,7 +382,7 @@ function startTimer(minutes, onEnd){
 /* =========================================================
    STORAGE
 ========================================================= */
-const STORE_KEY = "otonoSpanishWritingResults_v1";
+const STORE_KEY = "otonoSpanishWritingResults_v2_sensible";
 function loadResults(){
   try{ return JSON.parse(localStorage.getItem(STORE_KEY) || "[]"); }
   catch(e){ return []; }
@@ -393,7 +395,7 @@ function addResult(attempt){
 }
 
 /* =========================================================
-   GRADING (same as French version)
+   GRADING
 ========================================================= */
 function passMeritDistinction(score){
   if(score >= 90) return "DISTINCTION";
@@ -418,7 +420,7 @@ function grade9to1(score, tier){
     if(score >= 60) return 6;
     if(score >= 50) return 5;
     if(score >= 40) return 4;
-    if(score >= 0) return 3;
+    return 3;
   }
 }
 function gradeAH(score, tier){
@@ -447,61 +449,77 @@ function badgeForScore(score){
 }
 
 /* =========================================================
-   QUESTION BANKS (SPANISH)
+   QUESTION BANKS (SPANISH, slightly different & more “Spanish”)
 ========================================================= */
 
 /* Theme vocabulary buckets for relevance checks (Spanish) */
 const THEME_VOCAB = {
-  t1: ["escuela","instituto","clase","clases","profesor","profe","examen","examenes","regla","reglas","norma","normas","instrucciones","boligrafo","bolígrafo","tinta","negra","amarilla","vigilante","opcion","opción","gcse","mates","matematicas","matemáticas","ciencias","senor","señor","barley"],
-  t2: ["tiempo","libre","ocio","juego","juegos","gaming","minecraft","roblox","servidor","carrera","carreras","velocidad","musica","música","piano","violin","violín","trompeta","region","región","casa","habitacion","habitación","piso","atico","ático","penthouse","barrio","zona"],
-  t3: ["otono","airways","avion","avión","a380","cabina","asiento","clase","economica","económica","business","primera","premium","lounge","salon","salón","mansion","mansión","manor","habitaciones","residencia","hong","kong","vuelo","vuelos"],
-  t4: ["clayton","puntuacion","puntuación","perfecta","perfecto","160","mates","matematicas","matemáticas","adelantado","con","antelacion","antelación","presion","presión","comparacion","comparación","envidia","admiracion","admiración","reputacion","reputación"]
+  t1: ["escuela","instituto","clase","clases","profesor","profe","examen","examenes","exámenes","regla","reglas","norma","normas","instrucciones","boligrafo","bolígrafo","tinta","negra","amarilla","vigilante","opcion","opción","gcse","mates","matematicas","matemáticas","ciencias","señor","senor","barley","director","uniforme"],
+  t2: ["tiempo","libre","ocio","juego","juegos","gaming","minecraft","roblox","servidor","carrera","carreras","velocidad","musica","música","piano","violin","violín","trompeta","region","región","casa","habitacion","habitación","piso","atico","ático","barrio","zona","parque"],
+  t3: ["otono","airways","vuelo","vuelos","avion","avión","a380","cabina","asiento","clase","economica","económica","business","primera","premium","lounge","salon","salón","mansion","mansión","habitaciones","residencia","pasillo","normas"],
+  t4: ["clayton","puntuacion","puntuación","perfecta","perfecto","160","mates","matematicas","matemáticas","adelantado","adelantada","antelacion","antelación","presion","presión","comparacion","comparación","envidia","admiracion","admiración","reputacion","reputación","progreso","perfeccion","perfección"]
 };
 
 /* Detection phrases in Spanish */
 const DETECT = {
-  opinion: ["creo que","pienso que","en mi opinion","en mi opinión","para mi","para mí","me parece","me gusta","me encanta","odio","prefiero","es importante","es mejor","es peor"],
-  past: ["ayer","la semana pasada","el ano pasado","el año pasado","fui","estuve","hice","tuve","vi","jugué","jogue","practique","practiqué","estaba","era"],
-  present: ["hoy","ahora","normalmente","a menudo","siempre","generalmente","actualmente","estoy","tengo","hago","juego","vivo","voy a clase","voy al instituto"],
-  future: ["manana","mañana","la semana que viene","el proximo ano","el próximo año","el ano que viene","voy a","en el futuro","mas tarde","más tarde","quiero","me gustaria","me gustaría","hare","haré","sera","será","podre","podré"]
+  opinion: ["creo que","pienso que","en mi opinion","en mi opinión","para mi","para mí","me parece","me gusta","me encanta","no me gusta","odio","prefiero","es importante","es mejor","es peor"],
+  past: ["ayer","anteayer","la semana pasada","el ano pasado","el año pasado","fui","estuve","hice","tuve","vi","jugué","jogue","practique","practiqué","estaba","era","me sentí","me senti","aprendí","aprendi"],
+  present: ["hoy","ahora","normalmente","a menudo","siempre","generalmente","actualmente","estoy","tengo","hago","juego","vivo","voy a clase","voy al instituto","me siento"],
+  future: ["manana","mañana","la semana que viene","el proximo ano","el próximo año","el ano que viene","voy a","en el futuro","mas tarde","más tarde","quiero","me gustaria","me gustaría","haré","hare","será","sera","podré","podre","voy a intentar"]
 };
 
-/* Foundation translation: 5 sentences, 25 marks (each 5) */
+/* Foundation translation: 5 sentences, 25 marks */
 const FOUNDATION_TRANSLATION_POOL = [
   { en:"I like my school because the rules are clear.", esKeys:[["me gusta"],["mi escuela","mi instituto"],["porque"],["las reglas","las normas"],["claras","clara"]] },
-  { en:"Yesterday, I revised for an exam in black ink.", esKeys:[["ayer"],["repase","repasé","estudie","estudié"],["para"],["un examen"],["tinta negra","en negro"]] },
-  { en:"My favourite teacher explains things calmly.", esKeys:[["mi profesor favorito","mi profe favorito"],["explica"],["tranquilamente","con calma"]] },
-  { en:"Next year, I will choose Spanish as an option.", esKeys:[["el año que viene","el ano que viene","el próximo año","el proximo ano"],["voy a elegir","elegire","elegiré"],["espanol","español"],["como opcion","como opción","de opcion","de opción"]] },
-  { en:"In my opinion, exams are stressful but important.", esKeys:[["en mi opinion","en mi opinión","creo que","pienso que"],["los examenes","los exámenes"],["estresantes","estresante"],["pero"],["importantes","importante"]] },
-  { en:"At home, I play games after finishing my homework.", esKeys:[["en casa"],["juego"],["a juegos","a los juegos","videojuegos"],["despues","después"],["los deberes","mis deberes"]] },
-  { en:"My house has several rooms and a quiet space.", esKeys:[["mi casa"],["tiene"],["varias"],["habitaciones"],["un lugar tranquilo","un espacio tranquilo","tranquilo"]] },
+  { en:"Yesterday, I revised for an exam in black ink.", esKeys:[["ayer"],["repasé","repase","estudié","estudie"],["para"],["un examen"],["tinta negra","en negro"]] },
+  { en:"My favourite teacher explains things calmly.", esKeys:[["mi profesor favorito","mi profe favorito"],["explica"],["con calma","tranquilamente"]] },
+  { en:"Next year, I will choose Spanish as an option.", esKeys:[["el año que viene","el ano que viene","el próximo año","el proximo ano"],["voy a elegir","elegiré","elegire"],["español","espanol"],["como opción","como opcion","de opción","de opcion"]] },
+  { en:"In my opinion, exams are stressful but important.", esKeys:[["en mi opinión","en mi opinion","creo que","pienso que"],["los exámenes","los examenes"],["estresantes","estresante"],["pero"],["importantes","importante"]] },
+  { en:"At home, I play games after finishing my homework.", esKeys:[["en casa"],["juego"],["a videojuegos","a juegos","juegos"],["después","despues"],["los deberes","mis deberes"]] },
   { en:"The invigilator repeats the instructions before the exam.", esKeys:[["el vigilante","el supervisor"],["repite"],["las instrucciones"],["antes"],["del examen"]] },
-  { en:"Luke uses black ink because he thinks it is serious.", esKeys:[["luke"],["usa"],["tinta negra","negro"],["porque"],["serio","seria","sería","es serio"]] }
+  { en:"Luke uses black ink because he thinks it is serious.", esKeys:[["luke"],["usa"],["tinta negra","negro"],["porque"],["serio","es serio"]] }
 ];
 
-/* Higher translation: 1 paragraph, 20 marks (10 key ideas x2) */
+/* Higher translation: 1 paragraph, 20 marks (ideas + quality) */
 const HIGHER_TRANSLATION_POOL = [
   {
     id:"HT-A",
     en:`At Otono, students quickly learn that respecting rules is as important as knowledge. A small mistake, like using the wrong pen, can affect results. Good organisation reduces stress.`,
     keyIdeas: [
-      "en otono","los alumnos","aprenden","respetar las reglas","tan importante como","conocimientos",
-      "un pequeno error","un pequeño error","boligrafo incorrecto","bolígrafo incorrecto","puede","organizacion","organización","reduce el estres","reduce el estrés"
+      ["en otono","en el otono","otono"],
+      ["los alumnos","los estudiantes"],
+      ["aprenden","aprendemos"],
+      ["respetar las reglas","respetar las normas","el respeto de las reglas"],
+      ["tan importante como","igual de importante que"],
+      ["los conocimientos","el conocimiento"],
+      ["un pequeño error","un pequeno error"],
+      ["bolígrafo incorrecto","boligrafo incorrecto","el bolígrafo equivocado","el boligrafo equivocado"],
+      ["puede afectar","puede cambiar","puede influir"],
+      ["la organización","la organizacion","reduce el estrés","reduce el estres","menos estrés","menos estres"]
     ]
   },
   {
     id:"HT-B",
     en:`Travelling with Otono Airways feels like a perfectly controlled system. Every detail is planned to guarantee comfort and efficiency, even in economy class.`,
     keyIdeas: [
-      "viajar","otono airways","parece","un sistema","perfectamente controlado","cada detalle","esta planeado","está planeado",
-      "para garantizar","comodidad","eficiencia","incluso en clase economica","incluso en clase económica"
+      ["viajar","cuando viajas"],
+      ["otono airways"],
+      ["se siente como","parece","da la impresión","da la impresion"],
+      ["un sistema"],
+      ["perfectamente controlado","muy controlado","bien controlado"],
+      ["cada detalle"],
+      ["está planeado","esta planeado","se planifica","está planificado","esta planificado"],
+      ["para garantizar","para asegurar"],
+      ["comodidad"],
+      ["eficiencia","y eficiencia"],
+      ["incluso en clase económica","incluso en clase economica","hasta en clase económica","clase económica","clase economica"]
     ]
   }
 ];
 
-/* Grammar gap-fill (Foundation): 5 gaps x3 = 15 */
+/* Grammar gap-fill (Foundation): 5 gaps from pool (15 total) */
 const GRAMMAR_POOL = [
-  { prompt:"Ayer, ______ (repasar) para mi examen.", answer:"repasé", alt:["repase"] },
+  { prompt:"Ayer, yo ______ (repasar) para mi examen.", answer:"repasé", alt:["repase"] },
   { prompt:"En el instituto, ______ muchas reglas.", answer:"hay", alt:[] },
   { prompt:"El año que viene, ______ (ir) a elegir español.", answer:"voy", alt:[] },
   { prompt:"Nosotros ______ (escribir) siempre con tinta negra.", answer:"escribimos", alt:[] },
@@ -513,8 +531,8 @@ const GRAMMAR_POOL = [
 /* 40-word prompts (Foundation Q3) — themes 1–3 only */
 const PROMPTS_40 = {
   t1: {
-    themeName:"Theme 1 — Escuela",
-    title:"40 palabras: Mi vida en la escuela Otono",
+    themeName:"Tema 1 — Instituto",
+    title:"40 palabras: Mi vida en el instituto Otono",
     bullets:[
       "Describe your school (one detail).",
       "Say one rule you follow.",
@@ -522,62 +540,65 @@ const PROMPTS_40 = {
       "Give your opinion."
     ],
     required:{
-      bullets: [
-        { vocab:[...THEME_VOCAB.t1] },
-        { vocab:["regla","norma","prohibido","obligatorio","instrucciones","tinta","boligrafo","bolígrafo"] },
-        { vocab:["mates","matematicas","matemáticas","ciencias","espanol","español","profesor","barley"] },
-        { vocab:[...DETECT.opinion] }
+      bulletVocab: [
+        [...THEME_VOCAB.t1],
+        ["regla","norma","prohibido","obligatorio","instrucciones","tinta","bolígrafo","boligrafo","uniforme"],
+        ["mates","matemáticas","matematicas","ciencias","español","espanol","profesor","barley"],
+        [...DETECT.opinion]
       ],
-      wordTarget:40, wordMin:34, wordMax:55,
+      wordMin:34, wordMax:55,
       mustHaveOpinion:true,
+      must:{},
       themeKey:["t1"]
     }
   },
   t2: {
-    themeName:"Theme 2 — Ocio / región",
-    title:"40 palabras: Mis aficiones y mi lugar",
+    themeName:"Tema 2 — Ocio / región",
+    title:"40 palabras: Mis aficiones y mi zona",
     bullets:[
       "Say what you do in your free time.",
-      "Mention a game or an activity.",
-      "Describe your house or your area (one detail).",
+      "Mention a game or activity.",
+      "Describe your house or area (one detail).",
       "Give your opinion."
     ],
     required:{
-      bullets: [
-        { vocab:[...THEME_VOCAB.t2] },
-        { vocab:["minecraft","roblox","juego","juegos","musica","música","piano","violín","violin","trompeta","carrera","velocidad"] },
-        { vocab:["casa","habitacion","habitación","barrio","zona","región","region","atico","ático","piso"] },
-        { vocab:[...DETECT.opinion] }
+      bulletVocab: [
+        [...THEME_VOCAB.t2],
+        ["minecraft","roblox","juego","juegos","videojuegos","música","musica","piano","violín","violin","trompeta","carrera","velocidad"],
+        ["casa","habitación","habitacion","barrio","zona","región","region","ático","atico","piso","parque"],
+        [...DETECT.opinion]
       ],
-      wordTarget:40, wordMin:34, wordMax:55,
+      wordMin:34, wordMax:55,
       mustHaveOpinion:true,
+      must:{},
       themeKey:["t2"]
     }
   },
   t3: {
-    themeName:"Theme 3 — Otono Team",
+    themeName:"Tema 3 — Otono Team",
     title:"40 palabras: El mundo Otono (avión o mansión)",
     bullets:[
       "Mention Otono Airways or Otono Mansion.",
-      "Give one detail (plane / rooms).",
+      "Give one detail (plane/rooms).",
       "Explain why you like it.",
       "Give your opinion."
     ],
     required:{
-      bullets: [
-        { vocab:["otono","airways","mansion","mansión","manor"] },
-        { vocab:["a380","avion","avión","cabina","asiento","salon","salón","habitaciones","residencia"] },
-        { vocab:["porque","ya que","me gusta","me encanta"] },
-        { vocab:[...DETECT.opinion] }
+      bulletVocab: [
+        ["otono","airways","mansión","mansion","residencia"],
+        ["a380","avión","avion","cabina","asiento","salón","salon","habitaciones","pasillo","lounge"],
+        ["porque","ya que","me gusta","me encanta"],
+        [...DETECT.opinion]
       ],
-      wordTarget:40, wordMin:34, wordMax:55,
+      wordMin:34, wordMax:55,
       mustHaveOpinion:true,
+      must:{},
       themeKey:["t3"]
     }
   }
 };
 
-/* 70-word prompt bank (Foundation Q4 / Higher Q2). Theme 4 only in higher. */
+/* 70-word prompt bank: themes 1–4 (theme 4 only in higher) */
 const PROMPTS_70 = {
   t1: [
     { code:"T1-A", title:"Tema 1: Reglas y exámenes", bullets:[
@@ -587,29 +608,29 @@ const PROMPTS_70 = {
         "Give your opinion."
       ],
       required:{
-        wordTarget:70, wordMin:60, wordMax:90,
+        wordMin:60, wordMax:90,
         must:{ past:true, present:true, future:true, opinion:true },
         bulletVocab:[
           [...THEME_VOCAB.t1],
-          ["tinta","instrucciones","prohibido","obligatorio","vigilante","bolígrafo","boligrafo"],
+          ["tinta","instrucciones","prohibido","obligatorio","vigilante","bolígrafo","boligrafo","examen"],
           [...DETECT.past],
           [...DETECT.opinion]
         ],
         themeKey:["t1"]
       }
     },
-    { code:"T1-B", title:"Tema 1: El señor Barley", bullets:[
-        "Describe Señor Barley.",
-        "Say what he teaches / one detail about his class.",
-        "Describe one moment in the past.",
-        "Give your opinion (why it matters)."
+    { code:"T1-C", title:"Tema 1: Mi clase ideal", bullets:[
+        "Say what your ideal class is like.",
+        "Say what the teacher does.",
+        "Mention one past problem you had.",
+        "Say what you will change next time + opinion."
       ],
       required:{
-        wordTarget:70, wordMin:60, wordMax:90,
+        wordMin:60, wordMax:90,
         must:{ past:true, present:true, future:true, opinion:true },
         bulletVocab:[
-          ["barley","señor","senor","profesor"],
-          ["ciencias","tecnologia","tecnología","diseño","cocina","clase"],
+          ["clase","profesor","instrucciones","reglas","normas","ambiente"],
+          ["explica","ayuda","corrige","organiza","organiza"],
           [...DETECT.past],
           [...DETECT.opinion]
         ],
@@ -620,12 +641,12 @@ const PROMPTS_70 = {
   t2: [
     { code:"T2-A", title:"Tema 2: Juegos y competición", bullets:[
         "Say what you do in your free time.",
-        "Describe a past moment when you played.",
+        "Describe a past gaming moment.",
         "Say a future plan (next week).",
         "Give your opinion."
       ],
       required:{
-        wordTarget:70, wordMin:60, wordMax:90,
+        wordMin:60, wordMax:90,
         must:{ past:true, present:true, future:true, opinion:true },
         bulletVocab:[
           [...THEME_VOCAB.t2],
@@ -636,37 +657,19 @@ const PROMPTS_70 = {
         themeKey:["t2"]
       }
     },
-    { code:"T2-B", title:"Tema 2: Música e identidad", bullets:[
-        "Say what music / instrument you do now.",
-        "Describe a past moment practising.",
-        "Give one future goal in music.",
+    { code:"T2-B", title:"Tema 2: Música y disciplina", bullets:[
+        "Say what instrument/music you do now.",
+        "Describe a past practice moment.",
+        "Give a future goal.",
         "Give your opinion."
       ],
       required:{
-        wordTarget:70, wordMin:60, wordMax:90,
+        wordMin:60, wordMax:90,
         must:{ past:true, present:true, future:true, opinion:true },
         bulletVocab:[
-          ["musica","música","piano","violín","violin","trompeta","instrumento"],
+          ["música","musica","piano","violín","violin","trompeta","instrumento","practicar","ensayar"],
           [...DETECT.past],
           [...DETECT.future],
-          [...DETECT.opinion]
-        ],
-        themeKey:["t2"]
-      }
-    },
-    { code:"T2-C", title:"Tema 2: Mi casa / mi región", bullets:[
-        "Describe your house or your area.",
-        "Say what you do there now.",
-        "Say what you did there in the past.",
-        "Give a future plan + your opinion."
-      ],
-      required:{
-        wordTarget:70, wordMin:60, wordMax:90,
-        must:{ past:true, present:true, future:true, opinion:true },
-        bulletVocab:[
-          ["casa","zona","barrio","region","región","habitacion","habitación","atico","ático","piso"],
-          [...DETECT.present],
-          [...DETECT.past],
           [...DETECT.opinion]
         ],
         themeKey:["t2"]
@@ -674,36 +677,36 @@ const PROMPTS_70 = {
     }
   ],
   t3: [
-    { code:"T3-A", title:"Tema 3: Experiencia con Otono Airways", bullets:[
-        "Describe a flight or the cabin.",
-        "Mention a class (economy / business / first).",
-        "Give one past detail you noticed.",
-        "Give a future trip plan + your opinion."
+    { code:"T3-A", title:"Tema 3: Un vuelo con Otono Airways", bullets:[
+        "Describe the cabin/experience.",
+        "Mention a class (economy/business/first).",
+        "Give a past detail.",
+        "Give a future trip plan + opinion."
       ],
       required:{
-        wordTarget:70, wordMin:60, wordMax:90,
+        wordMin:60, wordMax:90,
         must:{ past:true, present:true, future:true, opinion:true },
         bulletVocab:[
-          ["otono","airways","vuelo","avion","avión","a380","cabina","asiento","comodidad","organizacion","organización"],
-          ["economica","económica","business","primera","premium","salon","salón","lounge"],
+          ["otono","airways","vuelo","avión","avion","a380","cabina","asiento","comodidad","organización","organizacion"],
+          ["clase económica","clase economica","business","primera","premium","salón","salon","lounge"],
           [...DETECT.past],
           [...DETECT.opinion]
         ],
         themeKey:["t3"]
       }
     },
-    { code:"T3-B", title:"Tema 3: Otono Mansion", bullets:[
+    { code:"T3-B", title:"Tema 3: Vivir en Otono Mansion", bullets:[
         "Describe the mansion.",
-        "Mention rooms or areas.",
-        "Describe a past moment in the mansion.",
-        "Give a future plan + your opinion."
+        "Mention shared spaces/rules.",
+        "Describe a past moment.",
+        "Give a future plan + opinion."
       ],
       required:{
-        wordTarget:70, wordMin:60, wordMax:90,
+        wordMin:60, wordMax:90,
         must:{ past:true, present:true, future:true, opinion:true },
         bulletVocab:[
-          ["otono","mansion","mansión","residencia","habitaciones","casa","mega"],
-          ["habitacion","habitación","salon","salón","zona","pasillo","espacio"],
+          ["otono","mansión","mansion","residencia","habitaciones","pasillo","salón","salon","normas","reglas"],
+          ["espacios","compartidos","silencio","limpieza","organización","organizacion"],
           [...DETECT.past],
           [...DETECT.opinion]
         ],
@@ -712,19 +715,19 @@ const PROMPTS_70 = {
     }
   ],
   t4: [
-    { code:"T4-A", title:"Tema 4: El 160/160 de Clayton (solo higher)", bullets:[
+    { code:"T4-A", title:"Tema 4: Clayton y el 160/160 (solo higher)", bullets:[
         "Explain what happened (the score).",
-        "Describe reactions (at least two).",
-        "Mention pressure / comparison.",
-        "Give a future plan + your opinion."
+        "Describe at least two reactions.",
+        "Mention pressure/comparison.",
+        "Give a future plan + opinion."
       ],
       required:{
-        wordTarget:70, wordMin:60, wordMax:90,
+        wordMin:60, wordMax:90,
         must:{ past:true, present:true, future:true, opinion:true },
         bulletVocab:[
-          ["clayton","160","puntuacion","puntuación","perfecta","perfecto","mates","matemáticas","adelantado","antelación","antelacion"],
-          ["admiracion","admiración","envidia","reacciones","reacción","excesivo"],
-          ["presion","presión","comparacion","comparación","estres","estrés"],
+          ["clayton","160","puntuación","puntuacion","perfecto","perfecta","mates","matemáticas","adelantado","antelación","antelacion"],
+          ["admiración","admiracion","envidia","reacción","reaccion","reacciones","comentarios"],
+          ["presión","presion","comparación","comparacion","estrés","estres"],
           [...DETECT.opinion]
         ],
         themeKey:["t4"]
@@ -737,14 +740,14 @@ const PROMPTS_70 = {
 const PROMPTS_110 = {
   t1: [
     { code:"H1-1", title:"Tema 1: Reglas escolares — ¿necesarias o demasiado estrictas?", bullets:[
-        "Talk about rules/procedures (ink / instructions).",
-        "Give your opinion with justification."
+        "Discuss rules/procedures (ink / instructions) with examples.",
+        "Give your opinion with justification + future plan."
       ],
       required:{
-        wordTarget:110, wordMin:95, wordMax:140,
+        wordMin:95, wordMax:140,
         must:{ opinion:true, past:true, future:true },
         bulletVocab:[
-          ["regla","reglas","norma","normas","examen","instrucciones","tinta","bolígrafo","boligrafo","prohibido","obligatorio","escuela","instituto"],
+          ["reglas","normas","instrucciones","examen","tinta","bolígrafo","boligrafo","prohibido","obligatorio","instituto","escuela"],
           [...DETECT.opinion]
         ],
         themeKey:["t1"]
@@ -752,15 +755,15 @@ const PROMPTS_110 = {
     }
   ],
   t2: [
-    { code:"H2-1", title:"Tema 2: Competición en juegos — presión y progreso", bullets:[
-        "Explain how competition affects you.",
-        "Give your opinion with examples and future plans."
+    { code:"H2-1", title:"Tema 2: Competición — presión y progreso", bullets:[
+        "Explain how competition affects you (games/music/sport).",
+        "Give your opinion with past example + future goals."
       ],
       required:{
-        wordTarget:110, wordMin:95, wordMax:140,
+        wordMin:95, wordMax:140,
         must:{ opinion:true, past:true, future:true },
         bulletVocab:[
-          ["juego","juegos","minecraft","roblox","servidor","competicion","competición","velocidad","puntuacion","puntuación","tiempo","estres","estrés"],
+          ["competición","competicion","presión","presion","progreso","puntuación","puntuacion","estrés","estres","mejorar","entrenar"],
           [...DETECT.opinion]
         ],
         themeKey:["t2"]
@@ -773,10 +776,24 @@ const PROMPTS_110 = {
         "Give your opinion and travel plans."
       ],
       required:{
-        wordTarget:110, wordMin:95, wordMax:140,
+        wordMin:95, wordMax:140,
         must:{ opinion:true, past:true, future:true },
         bulletVocab:[
-          ["otono","airways","avion","avión","a380","cabina","asiento","comodidad","organizacion","organización","clase","economica","económica","salon","salón"],
+          ["otono","airways","vuelo","avión","avion","a380","cabina","asiento","comodidad","organización","organizacion","clase económica","clase economica","salón","salon"],
+          [...DETECT.opinion]
+        ],
+        themeKey:["t3"]
+      }
+    },
+    { code:"H3-2", title:"Tema 3: Otono Mansion — ventajas y desafíos", bullets:[
+        "Describe life in a mega-residence (rules/shared spaces).",
+        "Give your opinion + a future idea to improve it."
+      ],
+      required:{
+        wordMin:95, wordMax:140,
+        must:{ opinion:true, past:true, future:true },
+        bulletVocab:[
+          ["otono","mansión","mansion","residencia","habitaciones","pasillo","salón","salon","reglas","normas","espacios compartidos","limpieza","silencio"],
           [...DETECT.opinion]
         ],
         themeKey:["t3"]
@@ -784,15 +801,15 @@ const PROMPTS_110 = {
     }
   ],
   t4: [
-    { code:"H4-1", title:"Tema 4: Clayton y la perfección — presión y reacciones", bullets:[
+    { code:"H4-1", title:"Tema 4: Perfección vs progreso (Clayton)", bullets:[
         "Explain the situation and reactions (at least two).",
-        "Give your opinion about pressure and progress."
+        "Give your opinion about pressure and progress + future plan."
       ],
       required:{
-        wordTarget:110, wordMin:95, wordMax:140,
+        wordMin:95, wordMax:140,
         must:{ opinion:true, past:true, future:true },
         bulletVocab:[
-          ["clayton","160","puntuacion","puntuación","perfecta","perfecto","matemáticas","mates","presion","presión","comparacion","comparación","envidia","admiración","reputación","reputacion"],
+          ["clayton","160","puntuación","puntuacion","perfección","perfeccion","progreso","presión","presion","comparación","comparacion","admiración","admiracion","envidia","reputación","reputacion"],
           [...DETECT.opinion]
         ],
         themeKey:["t4"]
@@ -807,30 +824,19 @@ const PROMPTS_110 = {
 function populateTimeOptions(){
   const tier = $("#tier").value;
   const sel = $("#timeAllowed");
-
-  // ✅ preserve whatever was selected before we rebuild the <select>
   const prev = sel.value;
 
   sel.innerHTML = "";
   let options;
 
   if(tier === "foundation"){
-    // 75 minutes NOT allowed
-    options = [
-      { v:60, label:"60 minutes" },
-      { v:45, label:"45 minutes" }
-    ];
+    options = [{ v:60, label:"60 minutes" },{ v:45, label:"45 minutes" }];
     $("#timeNote").innerHTML = "Foundation tier: <strong>75 minutes is not allowed</strong>.";
   } else {
-    options = [
-      { v:75, label:"75 minutes (recommended)" },
-      { v:60, label:"60 minutes" },
-      { v:45, label:"45 minutes" }
-    ];
+    options = [{ v:75, label:"75 minutes (recommended)" },{ v:60, label:"60 minutes" },{ v:45, label:"45 minutes" }];
     $("#timeNote").innerHTML = "Higher tier: 75 minutes allowed.";
   }
 
-  // ✅ if previous selection isn't valid for this tier, fall back to first option
   const validValues = new Set(options.map(o => String(o.v)));
   const useValue = validValues.has(String(prev)) ? String(prev) : String(options[0].v);
 
@@ -838,15 +844,14 @@ function populateTimeOptions(){
     const opt = document.createElement("option");
     opt.value = String(o.v);
     opt.textContent = o.label;
-    if(opt.value === useValue) opt.selected = true; // ✅ restore selection
+    if(opt.value === useValue) opt.selected = true;
     sel.appendChild(opt);
   });
 }
-
 $("#tier").addEventListener("change", populateTimeOptions);
 
 /* =========================================================
-   PAPER GENERATION (Random)
+   PAPER GENERATION
 ========================================================= */
 let state = {
   mode:"home",
@@ -861,12 +866,11 @@ function generatePaper(tier){
   const includeTheme4 = (tier==="higher") && (Math.random() < 0.45);
   const themesAllowed70 = tier==="foundation" ? ["t1","t2","t3"] : (includeTheme4 ? ["t1","t2","t3","t4"] : ["t1","t2","t3"]);
   const themesAllowed110 = ["t1","t2","t3","t4"];
-  const q = {};
 
+  const q = {};
   if(tier==="foundation"){
     q.translation = pickRandom(FOUNDATION_TRANSLATION_POOL, 5);
     q.grammar = pickRandom(GRAMMAR_POOL, 5);
-
     const t40 = pickRandom(["t1","t2","t3"],1)[0];
     q.w40 = PROMPTS_40[t40];
 
@@ -884,7 +888,6 @@ function generatePaper(tier){
     themesAllowed110.forEach(k => pool110 = pool110.concat(PROMPTS_110[k]));
     q.w110 = pickRandom(pool110, 4);
   }
-
   return { tier, includeTheme4, questions:q };
 }
 
@@ -942,11 +945,8 @@ function renderTest(){
   }
 
   startTimer(mins, () => {
-    if($("#autoSubmit").value==="yes"){
-      submitPaper(true);
-    }else{
-      alert("Time is up. You can still submit manually.");
-    }
+    if($("#autoSubmit").value==="yes") submitPaper(true);
+    else alert("Time is up. You can still submit manually.");
   });
 
   setBadge("In progress","badge warn");
@@ -973,23 +973,25 @@ function renderFoundationTranslation(items){
       <textarea id="ft_s${i+1}" placeholder="Write the Spanish translation here..."></textarea>
     </div>
   `).join("");
-  return makeTaskCard(
-    "Q1 Translation into Spanish",
-    "25 marks • 5 sentences • Accuracy + meaning",
-    lines
-  );
+  return makeTaskCard("Q1 Translation into Spanish", "25 marks • 5 sentences • Meaning + accuracy", lines);
 }
 
 function renderHigherTranslation(item){
   const html = `
-    <div class="mcChoice">
-      <strong>Translate into Spanish</strong> (20 marks)<br/>
-      <div class="small" style="margin-top:6px">${escapeHtml(item.en)}</div>
-      <label>Your Spanish</label>
-      <textarea id="ht_par" placeholder="Write the Spanish translation here..."></textarea>
+    <div class="note">
+      <strong>Translate into Spanish</strong> (Higher Tier)<br/>
+      Marking: <strong>ideas</strong> + <strong>Spanish quality</strong> (Spanish-ness, connectors, length).<br/>
+      <div class="divider"></div>
+      <div class="small">${escapeHtml(item.en)}</div>
     </div>
+
+    <label>Your Spanish translation</label>
+    <textarea id="ht_par" placeholder="Write your full Spanish paragraph here..."></textarea>
+    <div class="small" id="ht_wc"></div>
   `;
-  return makeTaskCard("Q1 Translation into Spanish","20 marks • Paragraph", html);
+  const card = makeTaskCard("Q1 Translation into Spanish", "20 marks • ideas (10) + quality (10)", html);
+  setTimeout(()=>wireWordCount("ht_par","ht_wc"), 0);
+  return card;
 }
 
 function renderFoundationGrammar(items){
@@ -1018,7 +1020,7 @@ function render40(p){
     <textarea id="w40" placeholder="≈ 40 words..."></textarea>
     <div class="small" id="w40_wc"></div>
   `;
-  const card = makeTaskCard("Q3 40-word writing","20 marks • 4 bullet points • Theme randomly chosen (1–3)", html);
+  const card = makeTaskCard("Q3 40-word writing","20 marks • bullets + opinion + relevance", html);
   setTimeout(()=>wireWordCount("w40","w40_wc"), 0);
   return card;
 }
@@ -1037,9 +1039,7 @@ function render70Choice(items, tier){
             <input type="radio" name="w70_pick" value="${i}" style="margin-top:3px" ${i===0?"checked":""}/>
             <div>
               <strong>Option ${String.fromCharCode(65+i)} — ${escapeHtml(q.title)}</strong>
-              <ul class="bullets">
-                ${q.bullets.map(b=>`<li>${escapeHtml(b)}</li>`).join("")}
-              </ul>
+              <ul class="bullets">${q.bullets.map(b=>`<li>${escapeHtml(b)}</li>`).join("")}</ul>
               <div class="small">Code: ${escapeHtml(q.code)}</div>
             </div>
           </label>
@@ -1052,7 +1052,7 @@ function render70Choice(items, tier){
     <div class="small" id="w70_wc"></div>
   `;
   const title = tier==="foundation" ? "Q4 70-word writing (choose 1 of 3)" : "Q2 70-word writing (choose 1 of 3)";
-  const meta = `30 marks • 4 bullet points (past/present/future/opinion) • Themes: ${tier==="foundation" ? "1–3" : "1–4 possible"}`;
+  const meta = `30 marks • content + timeframes + opinion + range + relevance`;
   const card = makeTaskCard(title, meta, html);
   setTimeout(()=>wireWordCount("w70","w70_wc"), 0);
   return card;
@@ -1062,7 +1062,7 @@ function render110Choice(items){
   const html = `
     <div class="note">
       Write about <strong>110 words</strong>. Choose <strong>ONE</strong> question.
-      2 bullet points only — develop your ideas clearly.
+      Develop your ideas clearly.
     </div>
 
     <div id="w110_choices">
@@ -1072,9 +1072,7 @@ function render110Choice(items){
             <input type="radio" name="w110_pick" value="${i}" style="margin-top:3px" ${i===0?"checked":""}/>
             <div>
               <strong>Option ${i+1} — ${escapeHtml(q.title)}</strong>
-              <ul class="bullets">
-                ${q.bullets.map(b=>`<li>${escapeHtml(b)}</li>`).join("")}
-              </ul>
+              <ul class="bullets">${q.bullets.map(b=>`<li>${escapeHtml(b)}</li>`).join("")}</ul>
               <div class="small">Code: ${escapeHtml(q.code)}</div>
             </div>
           </label>
@@ -1086,7 +1084,7 @@ function render110Choice(items){
     <textarea id="w110" placeholder="≈ 110 words..."></textarea>
     <div class="small" id="w110_wc"></div>
   `;
-  const card = makeTaskCard("Q3 110-word writing (choose 1 of 4)","50 marks • 2 bullet points • Themes 1–4", html);
+  const card = makeTaskCard("Q3 110-word writing (choose 1 of 4)","50 marks • content + timeframes + opinion + range + relevance", html);
   setTimeout(()=>wireWordCount("w110","w110_wc"), 0);
   return card;
 }
@@ -1101,7 +1099,7 @@ function wireWordCount(textareaId, outId){
 }
 
 /* =========================================================
-   MARKING (structure + relevance)
+   NEW “SENSIBLE” MARKING (same logic as French sensible version)
 ========================================================= */
 function containsAny(textNorm, phrases){
   return phrases.some(p => textNorm.includes(norm(p)));
@@ -1114,115 +1112,153 @@ function countHits(textNorm, vocab){
   });
   return hits;
 }
-function clamp(x,a,b){ return Math.max(a, Math.min(b, x)); }
 
-/* Foundation translation: each sentence 5 marks based on key chunk hits */
+/* Spanish markers */
+const SPANISH_MARKERS = [
+  "yo","tu","tú","el","él","ella","nosotros","vosotros","ustedes",
+  "porque","pero","aunque","sin embargo","por eso","ademas","además",
+  "hoy","ayer","manana","mañana","ahora","en el futuro","la semana",
+  "mi","mis","un","una","unos","unas","de","del","al","con","sin"
+];
+const CONNECTORS = ["porque","aunque","sin embargo","por eso","además","ademas","por ejemplo","también","en cambio","mientras","cuando"];
+const RANGE_MARKERS = ["que","si","cuando","mientras","para que","antes de","después de","despues de","a pesar de","ya que","por ejemplo","lo que"];
+
+/* Higher translation marking:
+   - Ideas: 10 (1 per idea group hit)
+   - Quality: 10 (Spanish-ness markers + connectors + sensible length)
+*/
+function markHigherTranslation(user, keyIdeas){
+  const t = norm(user);
+  const wc = wordCount(user);
+  if(!t) return {score:0, max:20, detail:"Blank.", parts:{ideas:0, quality:0}};
+
+  let ideaHits = 0;
+  keyIdeas.forEach(group=>{
+    const alts = Array.isArray(group) ? group : [group];
+    if(alts.some(k => t.includes(norm(k)))) ideaHits++;
+  });
+  const ideas = clamp(ideaHits, 0, 10);
+
+  let markerHits = 0;
+  SPANISH_MARKERS.forEach(m => { if(t.includes(norm(m))) markerHits++; });
+  const markerScore = clamp(Math.round((markerHits/12)*6), 0, 6); // up to 6
+
+  const connScore = clamp(countHits(t, CONNECTORS) >= 1 ? 2 : 0, 0, 2); // up to 2
+
+  let lenScore = 0;
+  if(wc >= 18 && wc <= 70) lenScore = 2;
+  else if(wc >= 12 && wc <= 90) lenScore = 1;
+
+  const quality = clamp(markerScore + connScore + lenScore, 0, 10);
+
+  const score = ideas + quality;
+  const detail = `Ideas: ${ideas}/10 (hits ${ideaHits}). Quality: ${quality}/10 (markers ${markerScore}/6, connectors ${connScore}/2, length ${lenScore}/2, WC ${wc}).`;
+  return {score, max:20, detail, parts:{ideas, quality}};
+}
+
+/* Foundation translation marking (integer) */
 function markFoundationTranslationSentence(user, keys){
   const t = norm(user);
   if(!t) return {score:0, max:5, detail:"Blank."};
   let groups = keys.length;
   let hit = 0;
-  keys.forEach(g=>{
-    if(g.some(k => t.includes(norm(k)))) hit++;
-  });
+  keys.forEach(g => { if(g.some(k => t.includes(norm(k)))) hit++; });
   const raw = (hit / groups) * 5;
-  const score = clamp(Math.round(raw*2)/2, 0, 5);
+  const score = clamp(Math.round(raw), 0, 5);
   return {score, max:5, detail:`Matched ${hit}/${groups} key chunks.`};
 }
 
-/* Higher translation: 10-ish key ideas x2 (cap 20) */
-function markHigherTranslation(user, keyIdeas){
-  const t = norm(user);
-  if(!t) return {score:0, max:20, detail:"Blank."};
-  let hit = 0;
-  keyIdeas.forEach(k=>{
-    if(t.includes(norm(k))) hit++;
-  });
-  const score = clamp(hit*2, 0, 20);
-  return {score, max:20, detail:`Matched ${hit} key ideas (2 marks each).`};
-}
-
-/* Grammar marking: exact match with alt forms -> 3 each */
+/* Grammar marking: 3 correct, 2 close, 1 partial, 0 wrong */
 function markGap(user, answer, alt){
   const u = norm(user);
   const a = norm(answer);
   const alts = (alt||[]).map(norm);
   if(!u) return {score:0, max:3, detail:"Blank."};
   if(u === a || alts.includes(u)) return {score:3, max:3, detail:"Correct."};
-  const core = a.split(" ").pop();
+
+  const aTokens = a.split(" ").filter(Boolean);
+  const hitAll = aTokens.every(tok => u.includes(tok));
+  if(hitAll) return {score:2, max:3, detail:"Close: right idea but not exact form."};
+
+  const core = aTokens[aTokens.length-1];
   if(core && u.includes(core)) return {score:1, max:3, detail:"Partially correct form."};
   return {score:0, max:3, detail:"Incorrect."};
 }
 
-/* Writing marking: word band + bullets + required signals + relevance gate */
-function markWriting(text, spec, maxMarks, themeKeyGuess){
+/* Writing marking:
+   - Content/bullets (40%)
+   - Time frames (20%)
+   - Opinion (10%)
+   - Range (20%)
+   - Word count (10%)
+   - Relevance multiplier (0.25..1.0) not a hard cap
+*/
+function markWriting(text, spec, maxMarks, themeKey){
   const t = norm(text);
   const wc = wordCount(text);
-  if(!t) return {score:0, max:maxMarks, detail:"Blank."};
+  if(!t) return {score:0, max:maxMarks, detail:"Blank.", parts:{}};
 
+  const wcMax = Math.round(maxMarks * 0.10);
   const min = spec.wordMin ?? 0;
   const max = spec.wordMax ?? 9999;
+  let wcScore = 0;
+  if(wc >= min && wc <= max) wcScore = wcMax;
+  else if(wc >= Math.round(min*0.8) && wc <= Math.round(max*1.25)) wcScore = Math.round(wcMax*0.6);
+  else if(wc >= Math.round(min*0.6)) wcScore = Math.round(wcMax*0.3);
 
-  const bandMax = Math.round(maxMarks*0.2);
-  let wordScore = 0;
-  if(wc >= min && wc <= max) wordScore = bandMax;
-  else if(wc >= Math.round(min*0.75) && wc <= Math.round(max*1.35)) wordScore = Math.round(bandMax*0.5);
-
-  const bulletMax = Math.round(maxMarks*0.5);
+  const contentMax = Math.round(maxMarks * 0.40);
   const bulletGroups = spec.bulletVocab || [];
   let bulletHits = 0;
-  bulletGroups.forEach(group=>{
-    if(containsAny(t, group)) bulletHits++;
-  });
-  const bulletScore = Math.round((bulletHits / Math.max(1, bulletGroups.length)) * bulletMax);
+  bulletGroups.forEach(group => { if(containsAny(t, group)) bulletHits++; });
+  const contentScore = bulletGroups.length
+    ? Math.round((bulletHits / bulletGroups.length) * contentMax)
+    : contentMax;
 
-  const reqMax = maxMarks - wordScore - bulletScore;
-  let reqHits = 0, reqTotal = 0;
+  const tfMax = Math.round(maxMarks * 0.20);
+  let tfHits = 0, tfNeed = 0;
+  if(spec.must?.past){ tfNeed++; if(containsAny(t, DETECT.past)) tfHits++; }
+  if(spec.must?.present){ tfNeed++; if(containsAny(t, DETECT.present)) tfHits++; }
+  if(spec.must?.future){ tfNeed++; if(containsAny(t, DETECT.future)) tfHits++; }
+  const tfScore = tfNeed ? Math.round((tfHits / tfNeed) * tfMax) : tfMax;
 
-  if(spec.must?.past){ reqTotal++; if(containsAny(t, DETECT.past)) reqHits++; }
-  if(spec.must?.present){ reqTotal++; if(containsAny(t, DETECT.present)) reqHits++; }
-  if(spec.must?.future){ reqTotal++; if(containsAny(t, DETECT.future)) reqHits++; }
-  if(spec.must?.opinion){ reqTotal++; if(containsAny(t, DETECT.opinion)) reqHits++; }
+  const opMax = Math.round(maxMarks * 0.10);
+  const opScore = containsAny(t, DETECT.opinion) ? opMax : (spec.mustHaveOpinion ? Math.round(opMax*0.5) : 0);
 
-  if(spec.mustHaveOpinion && !spec.must?.opinion){
-    reqTotal++;
-    if(containsAny(t, DETECT.opinion)) reqHits++;
-  }
+  const rangeMax = Math.round(maxMarks * 0.20);
+  const connHits = countHits(t, CONNECTORS);
+  const rangeHits = countHits(t, RANGE_MARKERS);
+  const neg = (t.includes(" no ") || t.startsWith("no ")) ? 1 : 0;
+  const rawRange = connHits + rangeHits + neg;
+  const rangeScore = clamp(Math.round((rawRange/6) * rangeMax), 0, rangeMax);
 
-  const reqScore = reqTotal ? Math.round((reqHits/reqTotal)*reqMax) : reqMax;
-
-  // Theme relevance gate
+  // relevance multiplier
   let vocabPool = [];
-  const key = themeKeyGuess || (spec.themeKey?.[0] ?? null);
-  if(key==="t1") vocabPool = THEME_VOCAB.t1;
-  else if(key==="t2") vocabPool = THEME_VOCAB.t2;
-  else if(key==="t3") vocabPool = THEME_VOCAB.t3;
-  else if(key==="t4") vocabPool = THEME_VOCAB.t4;
-  else vocabPool = [].concat(THEME_VOCAB.t1, THEME_VOCAB.t2, THEME_VOCAB.t3, THEME_VOCAB.t4);
+  if(themeKey==="t1") vocabPool = THEME_VOCAB.t1;
+  if(themeKey==="t2") vocabPool = THEME_VOCAB.t2;
+  if(themeKey==="t3") vocabPool = THEME_VOCAB.t3;
+  if(themeKey==="t4") vocabPool = THEME_VOCAB.t4;
+  if(!vocabPool.length) vocabPool = [].concat(THEME_VOCAB.t1, THEME_VOCAB.t2, THEME_VOCAB.t3, THEME_VOCAB.t4);
 
-  const hits = countHits(t, vocabPool);
-  const need = (maxMarks <= 20) ? 2 : (maxMarks <= 30 ? 3 : 4);
+  const themeHits = countHits(t, vocabPool);
+  const expected = maxMarks <= 20 ? 2 : (maxMarks <= 30 ? 3 : 4);
+  let mult = 1.0;
+  if(themeHits < 1) mult = 0.25;
+  else if(themeHits < expected) mult = 0.65;
+  else if(themeHits < expected + 2) mult = 0.85;
 
-  let score = wordScore + bulletScore + reqScore;
-  let cap = maxMarks;
+  const raw = wcScore + contentScore + tfScore + opScore + rangeScore;
+  const score = clamp(Math.round(raw * mult), 0, maxMarks);
 
-  if(hits < need){
-    cap = Math.round(maxMarks*0.2);
-  }else if(hits < need + 2){
-    cap = Math.round(maxMarks*0.6);
-  }
-  score = Math.min(score, cap);
+  const detail =
+    `WC ${wc} => ${wcScore}/${wcMax}; content ${bulletHits}/${bulletGroups.length} => ${contentScore}/${contentMax}; `+
+    `timeframes ${tfHits}/${tfNeed} => ${tfScore}/${tfMax}; opinion => ${opScore}/${opMax}; range(raw ${rawRange}) => ${rangeScore}/${rangeMax}; `+
+    `themeHits ${themeHits} => multiplier ${mult.toFixed(2)}; final ${score}/${maxMarks}.`;
 
-const detail =
-  "WC " + wc + " (wordScore " + wordScore + "/" + bandMax + "), " +
-  "bullets " + bulletHits + "/" + bulletGroups.length + " (bulletScore " + bulletScore + "/" + bulletMax + "), " +
-  "required " + reqHits + "/" + reqTotal + " (reqScore " + reqScore + "/" + reqMax + "), " +
-  "themeHits " + hits + " (cap " + cap + ").";
-  return {score, max:maxMarks, detail};
+  return {score, max:maxMarks, detail, parts:{wcScore, contentScore, tfScore, opScore, rangeScore, themeHits, mult}};
 }
 
 /* =========================================================
-   SUBMIT + RESULTS
+   SUBMIT + TOTAL
 ========================================================= */
 function guessThemeKeyFrom70(code){
   if(code.startsWith("T1")) return "t1";
@@ -1239,9 +1275,10 @@ function guessThemeKeyFrom110(code){
   return null;
 }
 function guessThemeKeyFrom40(themeName){
-  if((themeName||"").includes("Theme 1") || (themeName||"").includes("Tema 1")) return "t1";
-  if((themeName||"").includes("Theme 2") || (themeName||"").includes("Tema 2")) return "t2";
-  if((themeName||"").includes("Theme 3") || (themeName||"").includes("Tema 3")) return "t3";
+  const tn = themeName || "";
+  if(tn.includes("Tema 1") || tn.includes("Theme 1")) return "t1";
+  if(tn.includes("Tema 2") || tn.includes("Theme 2")) return "t2";
+  if(tn.includes("Tema 3") || tn.includes("Theme 3")) return "t3";
   return null;
 }
 
@@ -1252,7 +1289,6 @@ function computeTotal(){
   let breakdown = [];
 
   if(tier==="foundation"){
-    // Q1 Translation 25
     let tScore = 0;
     q.translation.forEach((it,i)=>{
       const ans = $("#ft_s"+(i+1)).value;
@@ -1262,7 +1298,6 @@ function computeTotal(){
     });
     total += tScore;
 
-    // Q2 Grammar 15
     let gScore = 0;
     q.grammar.forEach((it,i)=>{
       const ans = $("#gg_"+(i+1)).value;
@@ -1272,14 +1307,12 @@ function computeTotal(){
     });
     total += gScore;
 
-    // Q3 40-word 20
     const w40Text = $("#w40").value;
     const tKey = guessThemeKeyFrom40(q.w40.themeName);
     const w40 = markWriting(w40Text, q.w40.required, 20, tKey);
     total += w40.score;
     breakdown.push({part:"Q3 40-word", score:w40.score, max:w40.max, detail:w40.detail});
 
-    // Q4 70-word 30
     const pick = parseInt(($("input[name='w70_pick']:checked")?.value ?? "0"),10);
     const chosen = q.w70[pick];
     const w70Text = $("#w70").value;
@@ -1288,17 +1321,14 @@ function computeTotal(){
     total += w70.score;
     breakdown.push({part:`Q4 70-word (${chosen.code})`, score:w70.score, max:w70.max, detail:w70.detail});
 
-    return { total: Math.round(total*10)/10, max: 90, breakdown, chosenCodes:{w70:chosen.code, w40:q.w40.title} };
+    return { total: clamp(Math.round(total),0,90), max: 90, breakdown, chosenCodes:{w70:chosen.code, w40:q.w40.title} };
   }
 
-  // Higher tier:
-  // Q1 Translation 20
   const tAns = $("#ht_par").value;
   const tRes = markHigherTranslation(tAns, q.translation.keyIdeas);
   total += tRes.score;
   breakdown.push({part:`Q1 Translation (${q.translation.id})`, score:tRes.score, max:20, detail:tRes.detail});
 
-  // Q2 70-word 30
   const pick70 = parseInt(($("input[name='w70_pick']:checked")?.value ?? "0"),10);
   const chosen70 = q.w70[pick70];
   const w70TextH = $("#w70").value;
@@ -1307,7 +1337,6 @@ function computeTotal(){
   total += w70H.score;
   breakdown.push({part:`Q2 70-word (${chosen70.code})`, score:w70H.score, max:30, detail:w70H.detail});
 
-  // Q3 110-word 50
   const pick110 = parseInt(($("input[name='w110_pick']:checked")?.value ?? "0"),10);
   const chosen110 = q.w110[pick110];
   const w110Text = $("#w110").value;
@@ -1316,7 +1345,7 @@ function computeTotal(){
   total += w110.score;
   breakdown.push({part:`Q3 110-word (${chosen110.code})`, score:w110.score, max:50, detail:w110.detail});
 
-  return { total: Math.round(total*10)/10, max: 100, breakdown, chosenCodes:{w70:chosen70.code, w110:chosen110.code} };
+  return { total: clamp(Math.round(total),0,100), max: 100, breakdown, chosenCodes:{w70:chosen70.code, w110:chosen110.code} };
 }
 
 function submitPaper(fromAuto=false){
@@ -1373,8 +1402,7 @@ function submitPaper(fromAuto=false){
         <div class="divider"></div>
 
         <div class="note">
-          <strong>Important:</strong> Pass/Merit/Distinction is <strong>independent</strong> of the 9–1 grade.<br/>
-          Writing is auto-marked by structure + relevance; creative synonyms may under-score.
+          <strong>Spanish marking:</strong> Translation = ideas + quality. Writing = content + timeframes + opinion + range + word range + relevance multiplier.
         </div>
 
         <div class="divider"></div>
@@ -1439,7 +1467,6 @@ function drawResults(){
     `;
   }).join("");
 }
-
 function exportResults(){
   const all = loadResults();
   $("#exportText").textContent = JSON.stringify(all, null, 2);
@@ -1457,11 +1484,8 @@ function clearResults(){
 ========================================================= */
 $("#btnHome").addEventListener("click", ()=>{
   state.mode="home";
-  $("#resultsBody").classList.add("hide");
-  $("#sideBody").classList.remove("hide");
   renderHome();
 });
-
 $("#btnResults").addEventListener("click", ()=>{
   state.mode="results";
   $("#sideBody").classList.add("hide");
@@ -1489,6 +1513,7 @@ $("#filterCandidate").addEventListener("input", drawResults);
 $("#btnExport").addEventListener("click", exportResults);
 $("#btnClear").addEventListener("click", clearResults);
 
+/* Preview */
 $("#btnPreview").addEventListener("click", ()=>{
   const c = ($("#candidateNo").value || "").trim();
   if(!c){ alert("Enter a candidate number first."); return; }
@@ -1519,6 +1544,7 @@ $("#btnPreview").addEventListener("click", ()=>{
   }
 });
 
+/* Start */
 $("#btnStart").addEventListener("click", ()=>{
   const c = ($("#candidateNo").value || "").trim();
   if(!c){ alert("Candidate number is required."); return; }
@@ -1528,12 +1554,11 @@ $("#btnStart").addEventListener("click", ()=>{
   state.tier = $("#tier").value;
   state.paper = generatePaper(state.tier);
 
-  // ensure timeAllowed is valid (foundation cannot have 75)
   populateTimeOptions();
-
   renderTest();
 });
 
+/* Reset */
 $("#btnReset").addEventListener("click", ()=>{
   if(!confirm("Reset and generate a NEW random Spanish writing paper?")) return;
   stopTimer();
@@ -1541,16 +1566,21 @@ $("#btnReset").addEventListener("click", ()=>{
   renderTest();
 });
 
+/* Submit */
 $("#btnSubmit").addEventListener("click", ()=>submitPaper(false));
 
 /* =========================================================
    INITIALISE
 ========================================================= */
+function renderHomeSide(){
+  $("#resultsBody").classList.add("hide");
+  $("#sideBody").classList.remove("hide");
+}
 populateTimeOptions();
 renderHome();
 
 /* =========================================================
-   Anti-cheat (as requested)
+   Anti-cheat (same)
 ========================================================= */
 const disabledKeys = ["u", "I"];
 const showAlert = e => {
@@ -1559,9 +1589,7 @@ const showAlert = e => {
 };
 document.addEventListener("contextmenu", e => { showAlert(e); });
 document.addEventListener("keydown", e => {
-  if ((e.ctrlKey && disabledKeys.includes(e.key)) || e.key === "F12") {
-    showAlert(e);
-  }
+  if ((e.ctrlKey && disabledKeys.includes(e.key)) || e.key === "F12") showAlert(e);
 });
 </script>
 
