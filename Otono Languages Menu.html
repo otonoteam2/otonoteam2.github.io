@@ -1,0 +1,778 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>🟣 Otono Languages Department — Resource Selector</title>
+  <meta name="description" content="Otono Languages Department resource selector (Spanish/French + future Italian/German/A level Spanish)."/>
+  <style>
+    :root{
+      --bg1:#2b0a3d; --bg2:#7a0036;
+      --card:#0f0b18cc; --card2:#120c22e6;
+      --text:#f4efff; --muted:#c9b9ff;
+      --accent:#b000ff; --accent2:#ff1b6a;
+      --good:#19ff9a; --warn:#ffd166; --bad:#ff5c7a;
+      --line:#ffffff1a;
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --r:18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 20% 10%, rgba(176,0,255,.20), transparent 60%),
+        radial-gradient(900px 600px at 80% 30%, rgba(255,27,106,.18), transparent 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:1150px; margin:0 auto; padding:26px 18px 60px;}
+    .top{
+      display:flex; flex-wrap:wrap; gap:12px;
+      align-items:center; justify-content:space-between;
+      margin-bottom:18px;
+    }
+    .title{display:flex; flex-direction:column; gap:4px;}
+    h1{margin:0; font-size:22px; letter-spacing:.2px}
+    .sub{color:var(--muted); font-size:13px; line-height:1.35}
+    .pillrow{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+    .pill{
+      padding:8px 10px; border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+      border-radius:999px; box-shadow: var(--shadow);
+      font-size:12px; color:var(--muted);
+      display:flex; gap:8px; align-items:center;
+    }
+    .btn{
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(176,0,255,.25), rgba(255,27,106,.12));
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:800;
+      box-shadow: var(--shadow);
+      transition: transform .08s ease, filter .08s ease;
+      user-select:none;
+    }
+    .btn:active{transform: translateY(1px); filter:brightness(.98)}
+    .btn.secondary{
+      background:linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.03));
+      font-weight:750;
+    }
+    .card{
+      background:linear-gradient(180deg, rgba(18,12,34,.92), rgba(15,11,24,.82));
+      border:1px solid var(--line);
+      border-radius:var(--r);
+      padding:16px;
+      box-shadow: var(--shadow);
+      margin-top:14px;
+    }
+    .card h2{margin:0 0 10px 0; font-size:16px}
+    .controls{
+      display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between;
+      margin: 10px 0 8px;
+    }
+    .filters{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+      width:100%;
+    }
+    .filters input, .filters select{
+      background:rgba(0,0,0,.25);
+      border:1px solid var(--line);
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:12px;
+      outline:none;
+      min-width: 160px;
+    }
+    .filters input::placeholder{color:#e8dcff80}
+    table{
+      width:100%;
+      border-collapse:collapse;
+      overflow:hidden;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.18);
+    }
+    th, td{
+      padding:12px 10px;
+      border-bottom:1px solid var(--line);
+      text-align:left;
+      font-size:13px;
+      vertical-align:middle;
+    }
+    th{color:var(--muted); font-weight:900; letter-spacing:.2px}
+    tr:last-child td{border-bottom:none}
+    .tag{
+      display:inline-flex; align-items:center; gap:7px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.06);
+      color:var(--muted);
+      font-size:12px;
+      white-space:nowrap;
+    }
+    .go{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:9px 10px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.03));
+      cursor:pointer;
+      font-weight:900;
+      user-select:none;
+    }
+    .go.primary{
+      background:linear-gradient(180deg, rgba(176,0,255,.30), rgba(255,27,106,.14));
+    }
+    .go.disabled{
+      opacity:.45;
+      cursor:not-allowed;
+      filter:saturate(.8);
+    }
+    .footer{
+      margin-top:18px;
+      font-size:12px;
+      color:var(--muted);
+      opacity:.95;
+    }
+    .hidden{display:none !important}
+
+    /* Modal */
+    .modalBack{
+      position:fixed; inset:0; background:rgba(0,0,0,.55);
+      display:flex; align-items:center; justify-content:center;
+      padding:18px; z-index:50;
+    }
+    .modal{
+      width:min(720px, 98vw);
+      border-radius:20px;
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(18,12,34,.96), rgba(15,11,24,.90));
+      box-shadow: var(--shadow);
+      padding:16px;
+    }
+    .modalTop{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      margin-bottom:10px;
+    }
+    .modal h3{margin:0; font-size:15px}
+    .x{
+      width:38px; height:38px;
+      display:grid; place-items:center;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.06);
+      cursor:pointer;
+      user-select:none;
+      font-weight:900;
+    }
+    .row{display:flex; gap:10px; flex-wrap:wrap; margin:10px 0;}
+    .field{flex:1; min-width: 220px;}
+    .label{font-size:12px; color:var(--muted); margin: 0 0 6px 2px; font-weight:800; letter-spacing:.2px;}
+    .boxRow{
+      display:flex; gap:8px; flex-wrap:wrap;
+      align-items:center;
+      background:rgba(0,0,0,.20);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:10px;
+    }
+    .digit{
+      width:44px;
+      height:46px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.05);
+      color:var(--text);
+      text-align:center;
+      font-size:18px;
+      font-weight:900;
+      outline:none;
+    }
+    .textIn{
+      width:100%;
+      background:rgba(0,0,0,.20);
+      border:1px solid var(--line);
+      color:var(--text);
+      padding:12px;
+      border-radius:14px;
+      outline:none;
+    }
+    .msg{margin-top:10px; font-size:12px; color:var(--muted); line-height:1.4;}
+    .ok{color:var(--good); font-weight:900}
+    .bad{color:var(--bad); font-weight:900}
+
+    /* Toast notifications */
+    .toastWrap{
+      position:fixed;
+      left:14px;
+      bottom:14px;
+      z-index:9999;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      pointer-events:none;
+    }
+    .toast{
+      pointer-events:none;
+      width:min(520px, calc(100vw - 28px));
+      border-radius:16px;
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(18,12,34,.96), rgba(15,11,24,.90));
+      box-shadow: var(--shadow);
+      padding:12px 14px;
+      animation: popIn .12s ease-out;
+    }
+    .toast .tTop{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px; margin-bottom:6px;
+      font-weight:900;
+    }
+    .toast .tTop .badge{
+      font-size:11px;
+      padding:4px 8px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.06);
+      color:var(--muted);
+      white-space:nowrap;
+    }
+    .toast .tMsg{font-size:12px; color:var(--muted); line-height:1.35;}
+    @keyframes popIn{ from{transform:translateY(6px); opacity:0} to{transform:translateY(0); opacity:1} }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="title">
+        <h1>🟣 Otono Languages Department — Resource Selector</h1>
+        <div class="sub">Filter like AQA: set / paper / language / level.</div>
+      </div>
+      <div class="pillrow">
+        <div class="pill">GCSE + A level</div>
+        <div class="pill">Spanish 🇪🇸 • French 🇫🇷 • (Italian 🇮🇹 / German 🇩🇪 soon)</div>
+        <button class="btn secondary" id="btnMain">Return to main page</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Resources</h2>
+
+      <div class="controls">
+        <div class="filters">
+          <input id="q" type="text" placeholder="Search..." autocomplete="off" />
+
+          <select id="setSel" aria-label="Set">
+            <option value="all">All sets</option>
+            <option value="Set 1">Set 1</option>
+            <option value="Set 2">Set 2</option>
+          </select>
+
+          <select id="paperSel" aria-label="Paper">
+            <option value="all">All papers</option>
+            <option value="Reading">Reading</option>
+            <option value="Writing">Writing</option>
+          </select>
+
+          <select id="langSel" aria-label="Language">
+            <option value="all">All languages</option>
+            <option value="French">French</option>
+            <option value="Spanish">Spanish</option>
+            <option value="Italian">Italian</option>
+            <option value="German">German</option>
+          </select>
+
+          <select id="levelSel" aria-label="Level">
+            <option value="all">All levels</option>
+            <option value="GCSE">GCSE</option>
+            <option value="A level">A level</option>
+          </select>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th style="width:36%">Resource</th>
+            <th style="width:14%">Language</th>
+            <th style="width:14%">Level</th>
+            <th style="width:14%">Set</th>
+            <th style="width:10%">Paper</th>
+            <th style="width:12%">Open</th>
+            <th style="width:10%">Main</th>
+          </tr>
+        </thead>
+        <tbody id="body"></tbody>
+      </table>
+
+      <div class="footer">
+        Access shortcut: <b>Alt</b> + <b>Shift</b> + <b>U</b>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden modal -->
+  <div id="modalBack" class="modalBack hidden" role="dialog" aria-modal="true">
+    <div class="modal">
+      <div class="modalTop">
+        <h3>Access</h3>
+        <div class="x" id="closeModal" aria-label="Close">✕</div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <div class="label">Centre number (5 digits)</div>
+          <div class="boxRow" id="centreRow"></div>
+        </div>
+        <div class="field">
+          <div class="label">Candidate number (4 digits)</div>
+          <div class="boxRow" id="candRow"></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <div class="label">Surname</div>
+          <input id="surname" class="textIn" autocomplete="off" />
+        </div>
+        <div class="field">
+          <div class="label">Forename(s)</div>
+          <input id="forenames" class="textIn" autocomplete="off" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <div class="label">Password</div>
+          <input id="pw" class="textIn" type="password" />
+        </div>
+        <div class="field">
+          <div class="label">Alternative password</div>
+          <input id="altpw" class="textIn" type="password" />
+        </div>
+      </div>
+
+      <div class="row" style="justify-content:flex-start;">
+        <button class="btn" id="btnUnlock">Unlock</button>
+        <button class="btn secondary" id="btnLock">Lock</button>
+      </div>
+
+      <div class="msg" id="statusMsg">Status: Locked</div>
+    </div>
+  </div>
+
+  <!-- Toast container -->
+  <div id="toastWrap" class="toastWrap" aria-live="polite"></div>
+
+  <script>
+    /**************************************************************
+     * Toast notifications
+     **************************************************************/
+    const toastWrap = document.getElementById("toastWrap");
+    const TAUNT = "Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!";
+
+    function toast(title, msg, badge="Access blocked"){
+      const el = document.createElement("div");
+      el.className = "toast";
+      el.innerHTML = `
+        <div class="tTop">
+          <div>${title}</div>
+          <div class="badge">${badge}</div>
+        </div>
+        <div class="tMsg">${msg}</div>
+      `;
+      toastWrap.appendChild(el);
+      // auto-remove
+      setTimeout(() => {
+        el.style.opacity = "0";
+        el.style.transform = "translateY(6px)";
+        el.style.transition = "opacity .18s ease, transform .18s ease";
+        setTimeout(() => el.remove(), 200);
+      }, 2400);
+    }
+
+    /**************************************************************
+     * “Disable” basic snooping (NOT real security).
+     * Add notifications for right click / devtools shortcuts.
+     **************************************************************/
+    document.addEventListener("contextmenu", (e) => {
+      e.preventDefault();
+      toast("No right click 🙂", TAUNT);
+    });
+
+    document.addEventListener("keydown", (e) => {
+      const k = (e.key || "").toLowerCase();
+      const ctrl = e.ctrlKey || e.metaKey;
+
+      // F12
+      if (k === "f12") {
+        e.preventDefault();
+        toast("Nice try 😄", TAUNT, "F12 blocked");
+        return;
+      }
+
+      // Ctrl+U / Ctrl+S / Ctrl+P
+      if (ctrl && (k === "u" || k === "s" || k === "p")) {
+        e.preventDefault();
+        const label = k === "u" ? "Ctrl+U blocked" : (k === "s" ? "Ctrl+S blocked" : "Ctrl+P blocked");
+        toast("Nope 😌", TAUNT, label);
+        return;
+      }
+
+      // Ctrl+Shift+I / J / C
+      if (ctrl && e.shiftKey && (k === "i" || k === "j" || k === "c")) {
+        e.preventDefault();
+        toast("Dev tools? 👀", TAUNT, "Shortcut blocked");
+        return;
+      }
+    });
+
+    /***********************
+     * URLs
+     ***********************/
+    const MAIN_PAGE_URL = "https://otonoteam2.github.io/";
+    const page = (name) => MAIN_PAGE_URL + name.split(" ").join("%20") + ".html";
+
+    /***********************
+     * Public resources only
+     ***********************/
+    const resourcesPublic = [
+      // Spanish GCSE
+      { title:"Spanish Reading", lang:"Spanish", level:"GCSE", set:"Set 1", paper:"Reading", url: page("Otono Spanish Reading set 1"), locked:false },
+      { title:"Spanish Writing", lang:"Spanish", level:"GCSE", set:"Set 1", paper:"Writing", url: page("Otono Spanish Writing set 1"), locked:false },
+      { title:"Spanish Reading", lang:"Spanish", level:"GCSE", set:"Set 2", paper:"Reading", url: page("Otono Spanish Reading set 2"), locked:false },
+      { title:"Spanish Writing", lang:"Spanish", level:"GCSE", set:"Set 2", paper:"Writing", url: page("Otono Spanish Writing set 2"), locked:false },
+
+      // French GCSE
+      { title:"French Reading", lang:"French", level:"GCSE", set:"Set 1", paper:"Reading", url: page("Otono French Reading set 1"), locked:false },
+      { title:"French Writing", lang:"French", level:"GCSE", set:"Set 1", paper:"Writing", url: page("Otono French Writing set 1"), locked:false },
+      { title:"French Reading", lang:"French", level:"GCSE", set:"Set 2", paper:"Reading", url: page("Otono French Reading set 2"), locked:false },
+      { title:"French Writing", lang:"French", level:"GCSE", set:"Set 2", paper:"Writing", url: page("Otono French Writing set 2"), locked:false },
+
+      // French A level
+      { title:"French A level Reading", lang:"French", level:"A level", set:"—", paper:"Reading", url: page("Otono French Reading A Level"), locked:false },
+      { title:"French A level Writing", lang:"French", level:"A level", set:"—", paper:"Writing", url: page("Otono French Writing A Level"), locked:false },
+
+      // Italian (locked)
+      { title:"Italian Reading", lang:"Italian", level:"GCSE", set:"Set 1", paper:"Reading", url: page("Otono Italian Reading set 1"), locked:true },
+      { title:"Italian Writing", lang:"Italian", level:"GCSE", set:"Set 1", paper:"Writing", url: page("Otono Italian Writing set 1"), locked:true },
+
+      // German (locked)
+      { title:"German Reading", lang:"German", level:"GCSE", set:"Set 1", paper:"Reading", url: page("Otono German Reading set 1"), locked:true },
+      { title:"German Writing", lang:"German", level:"GCSE", set:"Set 1", paper:"Writing", url: page("Otono German Writing set 1"), locked:true },
+
+      // Spanish A level (locked)
+      { title:"Spanish A level Reading", lang:"Spanish", level:"A level", set:"—", paper:"Reading", url: page("Otono Spanish Reading A Level"), locked:true },
+      { title:"Spanish A level Writing", lang:"Spanish", level:"A level", set:"—", paper:"Writing", url: page("Otono Spanish Writing A Level"), locked:true },
+    ];
+
+    /**************************************************************
+     * PRIVATE sets are NOT declared in plain text.
+     * They are decoded ONLY after unlock (still not “true security”).
+     **************************************************************/
+    const decode = (b64) => decodeURIComponent(escape(atob(b64)));
+    const encSetName = (b64) => decode(b64);
+
+    // These base64 strings decode to the set names.
+    // (You can regenerate if you ever want to change “Set 3/4” naming.)
+    const S3 = "U2V0IDM="; // "Set 3"
+    const S4 = "U2V0IDQ="; // "Set 4"
+
+    function buildPrivateResources(){
+      const set3 = encSetName(S3);
+      const set4 = encSetName(S4);
+
+      const r3 = [
+        { title:"Spanish Reading", lang:"Spanish", level:"GCSE", set:set3, paper:"Reading", url: page("Otono Spanish Reading set 3"), locked:false },
+        { title:"Spanish Writing", lang:"Spanish", level:"GCSE", set:set3, paper:"Writing", url: page("Otono Spanish Writing set 3"), locked:false },
+        { title:"French Reading",  lang:"French",  level:"GCSE", set:set3, paper:"Reading", url: page("Otono French Reading set 3"), locked:false },
+        { title:"French Writing",  lang:"French",  level:"GCSE", set:set3, paper:"Writing", url: page("Otono French Writing set 3"), locked:false },
+      ];
+
+      // Set 4 exists but “Published soon”
+      const r4 = [
+        { title:"Spanish Reading", lang:"Spanish", level:"GCSE", set:set4, paper:"Reading", url: "#", locked:true, soon:true },
+        { title:"Spanish Writing", lang:"Spanish", level:"GCSE", set:set4, paper:"Writing", url: "#", locked:true, soon:true },
+        { title:"French Reading",  lang:"French",  level:"GCSE", set:set4, paper:"Reading", url: "#", locked:true, soon:true },
+        { title:"French Writing",  lang:"French",  level:"GCSE", set:set4, paper:"Writing", url: "#", locked:true, soon:true },
+      ];
+
+      return { r3, r4, set3, set4 };
+    }
+
+    const allowedCandidates = [
+      { centre:"50749", cand:"9932", surname:"DRUMMOND", forenames:"ANGUS" },
+      { centre:"50749", cand:"1152", surname:"NELSON",  forenames:"BENJAMIN" },
+      { centre:"50749", cand:"3399", surname:"FENTON",  forenames:"LEWIS" },
+      { centre:"50753", cand:"4755", surname:"",        forenames:"CLAYTON" },
+      { centre:"50749", cand:"2048", surname:"", forenames:"THOMAS" },
+      { centre:"50749", cand:"1132", surname:"WEEKS", forenames:"WYATT" },
+      { centre:"50749", cand:"4601", surname:"", forenames:"JOSHUA" },
+      { centre:"50749", cand:"6642", surname:"", forenames:"SHIREEN" },
+      { centre:"50749", cand:"6184", surname:"", forenames:"RAPHAEL" },
+      { centre:"50749", cand:"1149", surname:"", forenames:"TORRAN" },
+      { centre:"50753", cand:"9017", surname:"", forenames:"EMMANUEL" },
+      { centre:"50749", cand:"1479", surname:"", forenames:"IZZY" },
+      { centre:"50749", cand:"7265", surname:"", forenames:"KARLITO" },
+    ];
+
+    // Change these (must match what you share privately)
+    const REQUIRED_PASSWORD = "OtonoA380@Heathrow_35inchLegroom!";
+    const ALT_PASSWORD      = "Linchiostrogiallo2026!!!";
+
+    /***********************
+     * Filtering UI
+     ***********************/
+    const body = document.getElementById("body");
+    const q = document.getElementById("q");
+    const setSel = document.getElementById("setSel");
+    const paperSel = document.getElementById("paperSel");
+    const langSel = document.getElementById("langSel");
+    const levelSel = document.getElementById("levelSel");
+
+    let unlocked = false;
+    let resources = [...resourcesPublic];
+
+    function openUrl(url){
+      if(!url || url === "#"){
+        toast("Not yet 👷", "This resource is marked as published soon.", "Coming soon");
+        return;
+      }
+      window.location.href = url;
+    }
+
+    function rowHTML(item){
+      const key = (item.title + " " + item.lang + " " + item.level + " " + item.set + " " + item.paper).toLowerCase();
+
+      let openBtn;
+      if(item.locked){
+        openBtn = item.soon
+          ? `<span class="go disabled" role="button" tabindex="-1" aria-disabled="true">Soon</span>`
+          : `<span class="go disabled" role="button" tabindex="-1" aria-disabled="true">Locked</span>`;
+      }else{
+        openBtn = `<span class="go primary" role="button" tabindex="0" data-url="${item.url}">Open</span>`;
+      }
+
+      return `
+        <tr data-key="${key}"
+            data-set="${item.set}"
+            data-paper="${item.paper}"
+            data-lang="${item.lang}"
+            data-level="${item.level}">
+          <td><span class="tag">${item.title}</span></td>
+          <td>${item.lang}</td>
+          <td>${item.level}</td>
+          <td>${item.set}</td>
+          <td>${item.paper}</td>
+          <td>${openBtn}</td>
+          <td><span class="go" role="button" tabindex="0" data-url="${MAIN_PAGE_URL}">Main</span></td>
+        </tr>
+      `;
+    }
+
+    function hookButtons(){
+      body.querySelectorAll(".go").forEach(btn => {
+        if(btn.classList.contains("disabled")) return;
+        btn.addEventListener("click", () => openUrl(btn.dataset.url));
+        btn.addEventListener("keydown", (e) => {
+          if(e.key === "Enter" || e.key === " ") { e.preventDefault(); openUrl(btn.dataset.url); }
+        });
+      });
+    }
+
+    function render(){
+      body.innerHTML = resources.map(rowHTML).join("");
+      hookButtons();
+      filter();
+    }
+
+    function filter(){
+      const text = (q.value || "").trim().toLowerCase();
+      const setV = setSel.value;
+      const paperV = paperSel.value;
+      const langV = langSel.value;
+      const levelV = levelSel.value;
+
+      [...body.querySelectorAll("tr")].forEach(tr => {
+        const okText = !text || tr.dataset.key.includes(text) || tr.innerText.toLowerCase().includes(text);
+        const okSet  = (setV === "all")   || (tr.dataset.set === setV);
+        const okPap  = (paperV === "all") || (tr.dataset.paper === paperV);
+        const okLan  = (langV === "all")  || (tr.dataset.lang === langV);
+        const okLvl  = (levelV === "all") || (tr.dataset.level === levelV);
+        tr.style.display = (okText && okSet && okPap && okLan && okLvl) ? "" : "none";
+      });
+    }
+
+    q.addEventListener("input", filter);
+    setSel.addEventListener("change", filter);
+    paperSel.addEventListener("change", filter);
+    langSel.addEventListener("change", filter);
+    levelSel.addEventListener("change", filter);
+
+    document.getElementById("btnMain").addEventListener("click", () => openUrl(MAIN_PAGE_URL));
+
+    /***********************
+     * Hidden modal + digit blocks
+     ***********************/
+    const modalBack = document.getElementById("modalBack");
+    const closeModal = document.getElementById("closeModal");
+    const centreRow = document.getElementById("centreRow");
+    const candRow = document.getElementById("candRow");
+    const statusMsg = document.getElementById("statusMsg");
+
+    const surnameIn = document.getElementById("surname");
+    const forenamesIn = document.getElementById("forenames");
+    const pwIn = document.getElementById("pw");
+    const altpwIn = document.getElementById("altpw");
+
+    const btnUnlock = document.getElementById("btnUnlock");
+    const btnLock = document.getElementById("btnLock");
+
+    const centreBoxes = [];
+    const candBoxes = [];
+
+    function makeBoxes(parent, count, arr){
+      parent.innerHTML = "";
+      arr.length = 0;
+      for(let i=0;i<count;i++){
+        const inp = document.createElement("input");
+        inp.className = "digit";
+        inp.inputMode = "numeric";
+        inp.maxLength = 1;
+        inp.autocomplete = "off";
+        inp.addEventListener("input", () => {
+          inp.value = inp.value.replace(/\D/g,"").slice(0,1);
+          if(inp.value && i < count-1) arr[i+1].focus();
+        });
+        inp.addEventListener("keydown", (e) => {
+          if(e.key === "Backspace" && !inp.value && i>0) arr[i-1].focus();
+          if(e.key === "ArrowLeft" && i>0) arr[i-1].focus();
+          if(e.key === "ArrowRight" && i<count-1) arr[i+1].focus();
+        });
+        arr.push(inp);
+        parent.appendChild(inp);
+      }
+    }
+    makeBoxes(centreRow, 5, centreBoxes);
+    makeBoxes(candRow, 4, candBoxes);
+
+    function getDigits(arr){ return arr.map(x => x.value || "").join(""); }
+    function clearDigits(arr){ arr.forEach(x => x.value = ""); }
+
+    function showModal(){
+      modalBack.classList.remove("hidden");
+      setTimeout(() => centreBoxes[0].focus(), 0);
+    }
+    function hideModal(){ modalBack.classList.add("hidden"); }
+    closeModal.addEventListener("click", hideModal);
+    modalBack.addEventListener("click", (e) => { if(e.target === modalBack) hideModal(); });
+
+    // Hidden shortcut: Alt+Shift+U (kept neutral)
+    document.addEventListener("keydown", (e) => {
+      if(e.altKey && e.shiftKey && (e.key || "").toLowerCase() === "u"){
+        e.preventDefault();
+        showModal();
+      }
+    });
+
+    function norm(s){ return (s || "").trim(); }
+    function up(s){ return norm(s).toUpperCase(); }
+
+    function candidateAllowed(){
+      const centre = getDigits(centreBoxes);
+      const cand = getDigits(candBoxes);
+      if(centre.length !== 5 || cand.length !== 4) return false;
+
+      const surname = up(surnameIn.value);
+      const forenames = up(forenamesIn.value);
+
+      const c = allowedCandidates.find(x => x.centre === centre && x.cand === cand);
+      if(!c) return false;
+
+      if(c.forenames && forenames !== c.forenames) return false;
+
+      if(c.surname){
+        if(!surname) return false;
+        if(surname !== c.surname) return false;
+      }
+      return true;
+    }
+
+    function addSetOption(label){
+      if([...setSel.options].some(o => o.value === label)) return;
+      const opt = document.createElement("option");
+      opt.value = label;
+      opt.textContent = label;
+      setSel.appendChild(opt);
+    }
+    function removeSetOption(label){
+      [...setSel.options].forEach(o => { if(o.value === label) o.remove(); });
+      if(setSel.value === label) setSel.value = "all";
+    }
+
+    // Remember which private labels were injected (so we can remove cleanly on lock)
+    let injected = { set3:null, set4:null };
+
+    function unlock(){
+      const pw = norm(pwIn.value);
+      const altpw = norm(altpwIn.value);
+
+      const byCandidate = candidateAllowed() && pw === REQUIRED_PASSWORD;
+      const byAlt = (altpw && altpw === ALT_PASSWORD);
+
+      if(byCandidate || byAlt){
+        unlocked = true;
+
+        const priv = buildPrivateResources();
+        injected.set3 = priv.set3;
+        injected.set4 = priv.set4;
+
+        resources = [...resourcesPublic, ...priv.r3, ...priv.r4];
+
+        addSetOption(priv.set3);
+        addSetOption(priv.set4);
+
+        render();
+        statusMsg.innerHTML = `<span class="ok">Status:</span> Unlocked`;
+        toast("Access granted ✅", "Private resources are now available on this device.", "Unlocked");
+        hideModal();
+      } else {
+        statusMsg.innerHTML = `<span class="bad">Status:</span> Locked`;
+        toast("Access denied ❌", "Details/password didn’t match.", "Locked");
+      }
+    }
+
+    function lockAgain(){
+      unlocked = false;
+      resources = [...resourcesPublic];
+
+      if(injected.set3) removeSetOption(injected.set3);
+      if(injected.set4) removeSetOption(injected.set4);
+      injected = { set3:null, set4:null };
+
+      render();
+
+      clearDigits(centreBoxes);
+      clearDigits(candBoxes);
+      surnameIn.value = "";
+      forenamesIn.value = "";
+      pwIn.value = "";
+      altpwIn.value = "";
+
+      statusMsg.textContent = "Status: Locked";
+      toast("Locked 🔒", "Private resources have been removed from view.", "Locked");
+    }
+
+    btnUnlock.addEventListener("click", unlock);
+    btnLock.addEventListener("click", lockAgain);
+
+    // initial
+    render();
+  </script>
+</body>
+</html>
