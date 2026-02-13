@@ -244,9 +244,45 @@
     }
     .toast .tMsg{font-size:12px; color:var(--muted); line-height:1.35;}
     @keyframes popIn{ from{transform:translateY(6px); opacity:0} to{transform:translateY(0); opacity:1} }
+
+    /* Super-faint password watermark (corner) */
+.ghostPw{
+  position:fixed;
+  left:14px;
+  bottom:14px;
+  right:auto;
+  top:auto;
+  pointer-events:none;
+  z-index:99999;              /* above background */
+  padding:0;
+}
+.ghostPw .txt{
+  max-width: min(520px, calc(100vw - 28px));
+  text-align:left;
+  font-weight:900;
+  letter-spacing:.2px;
+  line-height:1.25;
+  font-size:13px;
+  color: rgba(255,255,255,0.45);  /* more visible but still subtle */
+  user-select:none;
+  white-space: pre-wrap;
+  opacity: 0;
+  transition: opacity .12s ease;
+  background: rgba(0,0,0,0.10);   /* tiny contrast boost */
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 12px;
+  padding: 8px 10px;
+  backdrop-filter: blur(4px);
+}
+.ghostPw.show .txt{ opacity: 1; }
   </style>
 </head>
 <body>
+  <!-- faint password reminder on background -->
+  <div class="ghostPw" id="ghostPw" aria-hidden="true">
+    <div class="txt" id="ghostPwTxt"></div>
+  </div>
+
   <div class="wrap">
     <div class="top">
       <div class="title">
@@ -357,6 +393,15 @@
         </div>
       </div>
 
+      <!-- show password option -->
+      <div class="row" style="align-items:center; gap:12px;">
+        <label class="tag" style="cursor:pointer; user-select:none;">
+          <input id="showPw" type="checkbox" style="accent-color:#b000ff; margin-right:8px;">
+          Show password
+        </label>
+        <span class="tag" style="opacity:.8;">Tip: press any letter to show the faint reminder</span>
+      </div>
+
       <div class="row" style="justify-content:flex-start;">
         <button class="btn" id="btnUnlock">Unlock</button>
         <button class="btn secondary" id="btnLock">Lock</button>
@@ -387,7 +432,6 @@
         <div class="tMsg">${msg}</div>
       `;
       toastWrap.appendChild(el);
-      // auto-remove
       setTimeout(() => {
         el.style.opacity = "0";
         el.style.transform = "translateY(6px)";
@@ -398,7 +442,6 @@
 
     /**************************************************************
      * “Disable” basic snooping (NOT real security).
-     * Add notifications for right click / devtools shortcuts.
      **************************************************************/
     document.addEventListener("contextmenu", (e) => {
       e.preventDefault();
@@ -409,14 +452,12 @@
       const k = (e.key || "").toLowerCase();
       const ctrl = e.ctrlKey || e.metaKey;
 
-      // F12
       if (k === "f12") {
         e.preventDefault();
         toast("Nice try 😄", TAUNT, "F12 blocked");
         return;
       }
 
-      // Ctrl+U / Ctrl+S / Ctrl+P
       if (ctrl && (k === "u" || k === "s" || k === "p")) {
         e.preventDefault();
         const label = k === "u" ? "Ctrl+U blocked" : (k === "s" ? "Ctrl+S blocked" : "Ctrl+P blocked");
@@ -424,7 +465,6 @@
         return;
       }
 
-      // Ctrl+Shift+I / J / C
       if (ctrl && e.shiftKey && (k === "i" || k === "j" || k === "c")) {
         e.preventDefault();
         toast("Dev tools? 👀", TAUNT, "Shortcut blocked");
@@ -442,44 +482,35 @@
      * Public resources only
      ***********************/
     const resourcesPublic = [
-      // Spanish GCSE
       { title:"Spanish Reading", lang:"Spanish", level:"GCSE", set:"Set 1", paper:"Reading", url: page("Otono Spanish Reading set 1"), locked:false },
       { title:"Spanish Writing", lang:"Spanish", level:"GCSE", set:"Set 1", paper:"Writing", url: page("Otono Spanish Writing set 1"), locked:false },
       { title:"Spanish Reading", lang:"Spanish", level:"GCSE", set:"Set 2", paper:"Reading", url: page("Otono Spanish Reading set 2"), locked:false },
       { title:"Spanish Writing", lang:"Spanish", level:"GCSE", set:"Set 2", paper:"Writing", url: page("Otono Spanish Writing set 2"), locked:false },
 
-      // French GCSE
       { title:"French Reading", lang:"French", level:"GCSE", set:"Set 1", paper:"Reading", url: page("Otono French Reading set 1"), locked:false },
       { title:"French Writing", lang:"French", level:"GCSE", set:"Set 1", paper:"Writing", url: page("Otono French Writing set 1"), locked:false },
       { title:"French Reading", lang:"French", level:"GCSE", set:"Set 2", paper:"Reading", url: page("Otono French Reading set 2"), locked:false },
       { title:"French Writing", lang:"French", level:"GCSE", set:"Set 2", paper:"Writing", url: page("Otono French Writing set 2"), locked:false },
 
-      // French A level
       { title:"French A level Reading", lang:"French", level:"A level", set:"—", paper:"Reading", url: page("Otono French Reading A Level"), locked:false },
       { title:"French A level Writing", lang:"French", level:"A level", set:"—", paper:"Writing", url: page("Otono French Writing A Level"), locked:false },
 
-      // Italian (locked)
       { title:"Italian Reading", lang:"Italian", level:"GCSE", set:"Set 1", paper:"Reading", url: page("Otono Italian Reading set 1"), locked:true },
       { title:"Italian Writing", lang:"Italian", level:"GCSE", set:"Set 1", paper:"Writing", url: page("Otono Italian Writing set 1"), locked:true },
 
-      // German (locked)
       { title:"German Reading", lang:"German", level:"GCSE", set:"Set 1", paper:"Reading", url: page("Otono German Reading set 1"), locked:true },
       { title:"German Writing", lang:"German", level:"GCSE", set:"Set 1", paper:"Writing", url: page("Otono German Writing set 1"), locked:true },
 
-      // Spanish A level (locked)
       { title:"Spanish A level Reading", lang:"Spanish", level:"A level", set:"—", paper:"Reading", url: page("Otono Spanish Reading A Level"), locked:true },
       { title:"Spanish A level Writing", lang:"Spanish", level:"A level", set:"—", paper:"Writing", url: page("Otono Spanish Writing A Level"), locked:true },
     ];
 
     /**************************************************************
-     * PRIVATE sets are NOT declared in plain text.
-     * They are decoded ONLY after unlock (still not “true security”).
+     * PRIVATE sets are decoded ONLY after unlock (still not “true security”).
      **************************************************************/
     const decode = (b64) => decodeURIComponent(escape(atob(b64)));
     const encSetName = (b64) => decode(b64);
 
-    // These base64 strings decode to the set names.
-    // (You can regenerate if you ever want to change “Set 3/4” naming.)
     const S3 = "U2V0IDM="; // "Set 3"
     const S4 = "U2V0IDQ="; // "Set 4"
 
@@ -494,7 +525,6 @@
         { title:"French Writing",  lang:"French",  level:"GCSE", set:set3, paper:"Writing", url: page("Otono French Writing set 3"), locked:false },
       ];
 
-      // Set 4 exists but “Published soon”
       const r4 = [
         { title:"Spanish Reading", lang:"Spanish", level:"GCSE", set:set4, paper:"Reading", url: "#", locked:true, soon:true },
         { title:"Spanish Writing", lang:"Spanish", level:"GCSE", set:set4, paper:"Writing", url: "#", locked:true, soon:true },
@@ -521,7 +551,6 @@
       { centre:"50749", cand:"7265", surname:"", forenames:"KARLITO" },
     ];
 
-    // Change these (must match what you share privately)
     const REQUIRED_PASSWORD = "OtonoA380@Heathrow_35inchLegroom!";
     const ALT_PASSWORD      = "Linchiostrogiallo2026!!!";
 
@@ -549,11 +578,15 @@
     function rowHTML(item){
       const key = (item.title + " " + item.lang + " " + item.level + " " + item.set + " " + item.paper).toLowerCase();
 
+      // RULE:
+      // - url "#" => always "Soon"
+      // - if locked => "Locked"
+      // - else => Open
       let openBtn;
-      if(item.locked){
-        openBtn = item.soon
-          ? `<span class="go disabled" role="button" tabindex="-1" aria-disabled="true">Soon</span>`
-          : `<span class="go disabled" role="button" tabindex="-1" aria-disabled="true">Locked</span>`;
+      if(item.url === "#"){
+        openBtn = `<span class="go disabled" role="button" tabindex="-1" aria-disabled="true">Soon</span>`;
+      }else if(item.locked){
+        openBtn = `<span class="go disabled" role="button" tabindex="-1" aria-disabled="true">Locked</span>`;
       }else{
         openBtn = `<span class="go primary" role="button" tabindex="0" data-url="${item.url}">Open</span>`;
       }
@@ -629,6 +662,7 @@
     const forenamesIn = document.getElementById("forenames");
     const pwIn = document.getElementById("pw");
     const altpwIn = document.getElementById("altpw");
+    const showPw = document.getElementById("showPw");
 
     const btnUnlock = document.getElementById("btnUnlock");
     const btnLock = document.getElementById("btnLock");
@@ -672,7 +706,7 @@
     closeModal.addEventListener("click", hideModal);
     modalBack.addEventListener("click", (e) => { if(e.target === modalBack) hideModal(); });
 
-    // Hidden shortcut: Alt+Shift+U (kept neutral)
+    // Hidden shortcut: Alt+Shift+U
     document.addEventListener("keydown", (e) => {
       if(e.altKey && e.shiftKey && (e.key || "").toLowerCase() === "u"){
         e.preventDefault();
@@ -715,8 +749,20 @@
       if(setSel.value === label) setSel.value = "all";
     }
 
-    // Remember which private labels were injected (so we can remove cleanly on lock)
+    // Remember which private labels were injected
     let injected = { set3:null, set4:null };
+
+    /**************************************************************
+     * Unlock rule you asked for:
+     * Once unlocked, EVERYTHING previously "Locked" becomes Open,
+     * except "Soon" (url "#") stays "Soon".
+     **************************************************************/
+    function unlockAll(list){
+      return list.map(it => {
+        if(it.url === "#") return it;               // keep Soon disabled
+        return { ...it, locked:false, soon:false }; // force unlock
+      });
+    }
 
     function unlock(){
       const pw = norm(pwIn.value);
@@ -732,14 +778,19 @@
         injected.set3 = priv.set3;
         injected.set4 = priv.set4;
 
-        resources = [...resourcesPublic, ...priv.r3, ...priv.r4];
+        // Unlock everything (except url "#")
+        resources = [
+          ...unlockAll(resourcesPublic),
+          ...unlockAll(priv.r3),
+          ...unlockAll(priv.r4),
+        ];
 
         addSetOption(priv.set3);
         addSetOption(priv.set4);
 
         render();
         statusMsg.innerHTML = `<span class="ok">Status:</span> Unlocked`;
-        toast("Access granted ✅", "Private resources are now available on this device.", "Unlocked");
+        toast("Access granted ✅", "Everything that was locked is now open (except 'Soon').", "Unlocked");
         hideModal();
       } else {
         statusMsg.innerHTML = `<span class="bad">Status:</span> Locked`;
@@ -749,7 +800,7 @@
 
     function lockAgain(){
       unlocked = false;
-      resources = [...resourcesPublic];
+      resources = [...resourcesPublic]; // restore original locked state
 
       if(injected.set3) removeSetOption(injected.set3);
       if(injected.set4) removeSetOption(injected.set4);
@@ -766,10 +817,62 @@
 
       statusMsg.textContent = "Status: Locked";
       toast("Locked 🔒", "Private resources have been removed from view.", "Locked");
+
+      // also hide watermark
+      updateGhost(true);
     }
 
     btnUnlock.addEventListener("click", unlock);
     btnLock.addEventListener("click", lockAgain);
+
+    /***********************
+     * Show password option (both fields)
+     ***********************/
+    function applyShowPw(){
+      const t = showPw.checked ? "text" : "password";
+      pwIn.type = t;
+      altpwIn.type = t;
+    }
+    showPw.addEventListener("change", applyShowPw);
+
+    /***********************
+     * Faint password reminder on background
+     * - updates on letter keypress
+     * - also updates while typing in the fields
+     ***********************/
+    const ghost = document.getElementById("ghostPw");
+    const ghostTxt = document.getElementById("ghostPwTxt");
+
+    function ghostString(){
+      const p = pwIn.value || "";
+      const a = altpwIn.value || "";
+      if(!p && !a) return "";
+      // show both if present (still VERY faint)
+      if(p && a) return `pw: ${p}\nalt: ${a}`;
+      return p ? `pw: ${p}` : `alt: ${a}`;
+    }
+
+    function updateGhost(forceHide=false){
+      const s = ghostString();
+      ghostTxt.textContent = s;
+      if(forceHide || !s){
+        ghost.classList.remove("show");
+        return;
+      }
+      ghost.classList.add("show");
+    }
+
+    // Update while typing in password fields
+    pwIn.addEventListener("input", () => updateGhost(false));
+    altpwIn.addEventListener("input", () => updateGhost(false));
+
+    // If you press ONE letter anywhere, refresh and show it (so you don't forget)
+    document.addEventListener("keydown", (e) => {
+      const k = e.key || "";
+      if(/^[a-zA-Z]$/.test(k)){
+        updateGhost(false);
+      }
+    });
 
     // initial
     render();
