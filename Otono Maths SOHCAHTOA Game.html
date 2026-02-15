@@ -1,0 +1,1497 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>🟣 Otono Team — SOHCAHTOA Game (Difficulty + Otono Grades)</title>
+  <style>
+    :root{
+      --bg1:#2b0a3d; --bg2:#7a0036;
+      --card:#0f0b18cc; --card2:#120c22e6;
+      --text:#f4efff; --muted:#c9b9ff;
+      --accent:#b000ff; --accent2:#ff1b6a;
+      --good:#19ff9a; --warn:#ffd166; --bad:#ff4d6d;
+      --line:rgba(255,255,255,.14);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; min-height:100vh; padding:18px;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background: radial-gradient(1200px 700px at 20% 15%, #8a1bd4aa 0%, transparent 55%),
+                  radial-gradient(900px 600px at 85% 30%, #ff1b6a55 0%, transparent 60%),
+                  linear-gradient(135deg, var(--bg1), var(--bg2));
+      display:flex; justify-content:center; align-items:stretch;
+    }
+    .app{
+      width:min(1100px, 100%);
+      display:grid; grid-template-columns: 360px 1fr;
+      gap:14px;
+    }
+    @media (max-width: 980px){ .app{grid-template-columns:1fr} }
+
+    .panel{
+      background: linear-gradient(180deg, var(--card), var(--card2));
+      border:1px solid var(--line);
+      border-radius:18px;
+      box-shadow: 0 18px 50px rgba(0,0,0,.35);
+      overflow:hidden;
+    }
+    .head{
+      padding:14px 16px;
+      border-bottom:1px solid var(--line);
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px;
+    }
+    .title{display:flex; flex-direction:column; gap:4px}
+    .title h1{margin:0; font-size:16px}
+    .title p{margin:0; font-size:12px; color:var(--muted)}
+    .chip{
+      font-size:12px; color:var(--text);
+      border:1px solid var(--line);
+      padding:6px 10px; border-radius:999px;
+      background: rgba(255,255,255,.06);
+      white-space:nowrap;
+    }
+    .body{padding:14px 16px}
+    .row{display:flex; gap:10px; align-items:center}
+    .col{display:flex; flex-direction:column; gap:8px}
+    label{font-size:12px; color:var(--muted)}
+    input[type="text"], select{
+      width:100%;
+      background: rgba(255,255,255,.06);
+      border:1px solid var(--line);
+      color: var(--text);
+      padding:10px 10px;
+      border-radius:12px;
+      outline:none;
+    }
+    input::placeholder{color:#d7c8ff99}
+    .btns{display:flex; gap:10px; flex-wrap:wrap}
+    button{
+      cursor:pointer; border:none;
+      color: #120c22; font-weight:800;
+      padding:10px 12px; border-radius:12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 10px 26px rgba(176,0,255,.22);
+    }
+    button.secondary{
+      color:var(--text);
+      background: rgba(255,255,255,.08);
+      border:1px solid var(--line);
+      box-shadow:none;
+      font-weight:700;
+    }
+    button:disabled{opacity:.45; cursor:not-allowed; filter:saturate(.6)}
+    .hr{height:1px; background:var(--line); margin:12px 0}
+    .small{font-size:12px; color:var(--muted); line-height:1.35}
+
+    .kpi{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+    .box{
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:10px;
+      background: rgba(255,255,255,.05);
+    }
+    .box .big{font-size:20px; font-weight:900}
+    .box .cap{font-size:11px; color:var(--muted)}
+    .equip{display:grid; grid-template-columns:1fr 1fr; gap:8px}
+    .check{
+      display:flex; gap:8px; align-items:center;
+      padding:8px 10px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      border-radius:12px;
+      user-select:none;
+    }
+    .check input{accent-color: var(--accent)}
+
+    .main{display:grid; grid-template-rows:auto 1fr; min-height:520px}
+    .questionWrap{
+      padding:16px;
+      display:grid; grid-template-columns: 1.1fr .9fr;
+      gap:14px;
+    }
+    @media (max-width: 980px){ .questionWrap{grid-template-columns:1fr} }
+    .qCard{
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:14px;
+      background: rgba(255,255,255,.05);
+    }
+    .qTop{display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:10px}
+    .qTop h2{margin:0; font-size:16px}
+    .badge{
+      font-size:12px;
+      padding:6px 10px; border-radius:999px;
+      background: rgba(255,255,255,.08);
+      border:1px solid var(--line);
+      color: var(--muted);
+      white-space:nowrap;
+    }
+    .qText{font-size:14px; line-height:1.45}
+    .hint{
+      margin-top:10px;
+      font-size:12px; color:var(--muted);
+      border-left:3px solid rgba(255,255,255,.2);
+      padding-left:10px;
+    }
+    .answerArea{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:10px;
+      margin-top:12px;
+      align-items:center;
+    }
+    .feedback{
+      margin-top:10px;
+      font-size:13px;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      min-height:44px;
+      display:flex; align-items:center;
+    }
+    .feedback.good{border-color: rgba(25,255,154,.35)}
+    .feedback.warn{border-color: rgba(255,209,102,.35)}
+    .feedback.bad{border-color: rgba(255,77,109,.35)}
+    .svgBox{display:flex; justify-content:center; align-items:center; min-height:320px}
+    .footerBar{
+      padding:12px 16px;
+      border-top:1px solid var(--line);
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px; flex-wrap:wrap;
+    }
+    .prog{
+      flex:1; min-width:240px; height:10px;
+      background: rgba(255,255,255,.08);
+      border:1px solid var(--line);
+      border-radius:999px; overflow:hidden;
+    }
+    .prog > div{height:100%; width:0%; background: linear-gradient(90deg, var(--accent), var(--accent2))}
+    .pill{
+      font-size:12px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+    }
+    .mono{font-variant-numeric: tabular-nums}
+    .final{padding:16px; display:none}
+    .final h2{margin:0 0 8px 0}
+    .final .scoreBig{font-size:44px; font-weight:950; margin:8px 0}
+    .final .grade{
+      display:inline-block;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      margin-bottom:10px;
+    }
+    .final .grid{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px}
+    .note{font-size:12px; color:var(--muted); margin-top:10px; line-height:1.35}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- LEFT -->
+    <section class="panel">
+      <div class="head">
+        <div class="title">
+          <h1>🟣 Otono Team — SOHCAHTOA Game</h1>
+          <p class="mono" id="modeLine">Choose difficulty. Calculator required.</p>
+        </div>
+        <div class="chip mono" id="timerChip">⏱️ --:--</div>
+      </div>
+
+      <div class="body">
+        <div class="kpi">
+          <div class="box">
+            <div class="cap">Score</div>
+            <div class="big mono" id="scoreBox">0</div>
+          </div>
+          <div class="box">
+            <div class="cap">Progress</div>
+            <div class="big mono" id="qBox">0 / 0</div>
+          </div>
+        </div>
+
+        <div class="hr"></div>
+
+        <div class="col">
+          <div>
+            <label>Candidate number (REQUIRED)</label>
+            <input id="candidate" type="text" placeholder="e.g. 1155" inputmode="numeric" />
+          </div>
+
+          <div>
+            <label>Difficulty</label>
+            <select id="difficulty">
+              <option value="foundation">Foundation (capped at C/5) — /100 only</option>
+              <option value="higher" selected>Higher (grades 4–9; 3 allowed; A*–E + F) — /100 → /160 bonus</option>
+              <option value="clayton">Clayton attempt (8 questions × 20 = /160) — Clayton or FAIL</option>
+            </select>
+          </div>
+
+          <div class="row">
+            <div style="flex:1">
+              <label>Time limit</label>
+              <select id="timeSelect">
+                <option value="0">No timer</option>
+                <option value="10">10 minutes</option>
+                <option value="20">20 minutes</option>
+                <option value="30">30 minutes</option>
+                <option value="45">45 minutes</option>
+                <option value="60">60 minutes</option>
+                <option value="90">90 minutes</option>
+                <option value="120">120 minutes</option>
+              </select>
+            </div>
+            <div style="width:140px">
+              <label>Calculator</label>
+              <div class="chip">Required ✅</div>
+            </div>
+          </div>
+
+          <div class="small" id="rulesBox">
+            • Each main question: <b>4 marks</b> (auto-marked with tolerance).<br>
+            • If you get <b>100/100</b> on Higher, you unlock a <b>60-mark</b> bonus (final 160 only).<br>
+            • Foundation: <b>bonus/160 NOT allowed</b>.
+          </div>
+
+          <div class="hr"></div>
+
+          <label>Equipment (choose what you’re using)</label>
+          <div class="equip" id="equipGrid"></div>
+
+          <div class="hr"></div>
+
+          <div class="btns">
+            <button id="startBtn">Start</button>
+            <button class="secondary" id="resetBtn">Reset</button>
+          </div>
+
+          <div class="small">
+            Otono PMD thresholds: <b>PASS 66</b> • <b>MERIT 80</b> • <b>DISTINCTION 90</b><br>
+            Clayton score is <b>160</b> (Clayton mode OR Higher + bonus).
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT -->
+    <section class="panel main">
+      <div class="head">
+        <div class="title">
+          <h1 id="rightTitle">Exam room</h1>
+          <p id="rightSub" class="mono">Degrees only. Round sensibly (1 d.p. for angles).</p>
+        </div>
+        <div class="chip mono" id="statusChip">Waiting…</div>
+      </div>
+
+      <div id="workArea">
+        <div class="questionWrap">
+          <div class="qCard">
+            <div class="qTop">
+              <h2 id="qTitle">Not started</h2>
+              <div class="badge" id="markBadge">—</div>
+            </div>
+            <div class="qText" id="qText">
+              Enter candidate number, pick difficulty + equipment, then press <b>Start</b>.
+            </div>
+            <div class="hint" id="qHint">
+              Tip: Use degrees (°). Don’t type units. Just the number.
+            </div>
+
+            <div class="answerArea">
+              <input id="answer" type="text" placeholder="Answer…" disabled />
+              <button id="submitBtn" disabled>Submit</button>
+            </div>
+
+            <div class="feedback" id="feedback">—</div>
+
+            <div class="btns" style="margin-top:12px">
+              <button class="secondary" id="skipBtn" disabled>Skip (0 marks)</button>
+              <button class="secondary" id="showWorkBtn" disabled>Show formula</button>
+            </div>
+
+            <div class="note" id="formulaBox" style="display:none"></div>
+          </div>
+
+          <div class="qCard">
+            <div class="qTop">
+              <h2>Triangle diagram</h2>
+              <div class="badge" id="diagBadge">—</div>
+            </div>
+            <div class="svgBox" id="svgBox"></div>
+            <div class="note">Every question has its own diagram with labels.</div>
+          </div>
+        </div>
+
+        <div class="footerBar">
+          <div class="prog" aria-label="progress"><div id="progFill"></div></div>
+          <div class="pill mono" id="gradePill">Grades: —</div>
+          <div class="pill mono" id="candPill">Candidate: —</div>
+        </div>
+      </div>
+
+      <div class="final" id="finalArea">
+        <h2>Finished</h2>
+        <div class="grade mono" id="finalGrade">—</div>
+        <div class="scoreBig mono" id="finalScore">0</div>
+        <div class="small" id="finalLine">—</div>
+
+        <div class="hr"></div>
+        <div class="btns">
+          <button id="playAgainBtn">Play again</button>
+          <button class="secondary" id="reviewBtn">Show result breakdown</button>
+        </div>
+
+        <div class="note" id="breakdown" style="display:none"></div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // =========================
+    // Otono Team — SOHCAHTOA
+    // Difficulty + Otono Grades
+    // =========================
+
+    // Equipment list
+    const EQUIPMENT = [
+      "black ink",
+      "erasable black ink",
+      "speedball super black india ink",
+      "HB pencil","2B pencil","4B pencil","6B pencil","8B pencil",
+      "blue ink",
+      "ruler","protractor","compass",
+      "highlighter (NOT for answers)"
+    ];
+
+    // Otono PMD
+    const PASS = 66, MERIT = 80, DIST = 90;
+
+    // Tolerances
+    const TIGHT_REL = 0.010;   // 1% => full marks
+    const LOOSE_REL = 0.030;   // 3% => half marks
+    const ANG_TIGHT = 0.35;    // degrees full marks
+    const ANG_LOOSE = 0.90;    // degrees half marks
+
+    // State
+    let started=false, isBonus=false;
+    let idx=-1, score=0;
+    let timer=null, timeLeftSec=0, chosenTimeMin=0;
+
+    let difficulty="higher";
+    let paperMax=100;
+    let qCount=25;
+    let qMarks=4;
+    let allowBonus=false;
+    let bonusValue=60;
+
+    // Clayton attempt specifics
+    let claytonAllCorrect=true; // if ANY wrong/skip => fail
+
+    // Question storage
+    let questions=[];
+    let currentQ=null;
+    let bonusQ=null;
+
+    // Report
+    let report={ main:[], bonus:null };
+
+    // Elements
+    const equipGrid=document.getElementById("equipGrid");
+    const candidateEl=document.getElementById("candidate");
+    const difficultyEl=document.getElementById("difficulty");
+    const timeSelect=document.getElementById("timeSelect");
+    const startBtn=document.getElementById("startBtn");
+    const resetBtn=document.getElementById("resetBtn");
+
+    const timerChip=document.getElementById("timerChip");
+    const statusChip=document.getElementById("statusChip");
+    const scoreBox=document.getElementById("scoreBox");
+    const qBox=document.getElementById("qBox");
+    const modeLine=document.getElementById("modeLine");
+    const rulesBox=document.getElementById("rulesBox");
+
+    const qTitle=document.getElementById("qTitle");
+    const qText=document.getElementById("qText");
+    const qHint=document.getElementById("qHint");
+    const markBadge=document.getElementById("markBadge");
+    const diagBadge=document.getElementById("diagBadge");
+
+    const answerEl=document.getElementById("answer");
+    const submitBtn=document.getElementById("submitBtn");
+    const skipBtn=document.getElementById("skipBtn");
+    const showWorkBtn=document.getElementById("showWorkBtn");
+    const formulaBox=document.getElementById("formulaBox");
+    const feedback=document.getElementById("feedback");
+    const svgBox=document.getElementById("svgBox");
+    const progFill=document.getElementById("progFill");
+
+    const gradePill=document.getElementById("gradePill");
+    const candPill=document.getElementById("candPill");
+
+    const workArea=document.getElementById("workArea");
+    const finalArea=document.getElementById("finalArea");
+    const finalGrade=document.getElementById("finalGrade");
+    const finalScore=document.getElementById("finalScore");
+    const finalLine=document.getElementById("finalLine");
+    const playAgainBtn=document.getElementById("playAgainBtn");
+    const reviewBtn=document.getElementById("reviewBtn");
+    const breakdown=document.getElementById("breakdown");
+
+    // Utils
+    function clamp(x,a,b){ return Math.max(a, Math.min(b,x)); }
+    function randInt(a,b){ return Math.floor(Math.random()*(b-a+1))+a; }
+    function randChoice(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+    function toRad(d){ return d*Math.PI/180; }
+    function toDeg(r){ return r*180/Math.PI; }
+    function round1(x){ return Math.round(x*10)/10; }
+    function round2(x){ return Math.round(x*100)/100; }
+    function fmt(x,dp=2){
+      if(!isFinite(x)) return "—";
+      const p=Math.pow(10,dp);
+      return (Math.round(x*p)/p).toFixed(dp);
+    }
+    function escapeHtml(s){
+      return String(s).replace(/[&<>"']/g, c => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+      }[c]));
+    }
+    function parseNumber(txt){
+      if(!txt) return NaN;
+      const cleaned=String(txt).trim().replace(/°/g,"").replace(/,/g,"");
+      const m=cleaned.match(/-?\d+(\.\d+)?/);
+      return m ? Number(m[0]) : NaN;
+    }
+    function setFeedback(type,text){
+      feedback.className="feedback " + (type||"");
+      feedback.textContent=text;
+    }
+    function setStatus(text){ statusChip.textContent=text; }
+
+    // Equipment UI
+    function buildEquipment(){
+      equipGrid.innerHTML="";
+      EQUIPMENT.forEach((name,i)=>{
+        const id="eq_"+i;
+        const wrap=document.createElement("label");
+        wrap.className="check";
+        wrap.innerHTML=`<input type="checkbox" id="${id}"><span>${escapeHtml(name)}</span>`;
+        equipGrid.appendChild(wrap);
+      });
+    }
+    function getChosenEquipment(){
+      const chosen=[];
+      EQUIPMENT.forEach((name,i)=>{
+        const cb=document.getElementById("eq_"+i);
+        if(cb && cb.checked) chosen.push(name);
+      });
+      return chosen;
+    }
+
+    // Timer
+    function stopTimer(){ if(timer){ clearInterval(timer); timer=null; } }
+    function fmtTime(sec){
+      const m=Math.floor(sec/60), s=sec%60;
+      return `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+    }
+    function startTimer(){
+      stopTimer();
+      if(chosenTimeMin<=0){ timerChip.textContent="⏱️ --:--"; return; }
+      timeLeftSec=chosenTimeMin*60;
+      timerChip.textContent="⏱️ "+fmtTime(timeLeftSec);
+      timer=setInterval(()=>{
+        timeLeftSec--;
+        timerChip.textContent="⏱️ "+fmtTime(Math.max(timeLeftSec,0));
+        if(timeLeftSec<=0){
+          stopTimer();
+          finishGame("Time is up.");
+        }
+      },1000);
+    }
+
+    // =========================
+    // Diagrams
+    // =========================
+    function makeRightTriangleDiagram(labels){
+      // Right angle at A
+      return {
+        type:"right",
+        points:{ A:[70,240], B:[310,240], C:[70,70] },
+        labels
+      };
+    }
+    function makeObliqueTriangleDiagram(labels){
+      return {
+        type:"oblique",
+        points:{ A:[80,250], B:[330,235], C:[165,70] },
+        labels
+      };
+    }
+    function renderDiagram(diagram){
+      const {type,points,labels}=diagram;
+      const [Ax,Ay]=points.A, [Bx,By]=points.B, [Cx,Cy]=points.C;
+      const svgW=420, svgH=320;
+      const stroke="rgba(255,255,255,.85)";
+      const dim="rgba(255,255,255,.55)";
+
+      const mid=(p,q)=>[(p[0]+q[0])/2,(p[1]+q[1])/2];
+      const ABm=mid(points.A,points.B);
+      const ACm=mid(points.A,points.C);
+      const BCm=mid(points.B,points.C);
+
+      const ra = (type==="right")
+        ? `<path d="M ${Ax} ${Ay} L ${Ax+22} ${Ay} L ${Ax+22} ${Ay-22} L ${Ax} ${Ay-22} Z"
+                 fill="none" stroke="${dim}" stroke-width="3"/>`
+        : "";
+
+      const angleA = labels.angleA ? `<text x="${Ax+10}" y="${Ay-10}" fill="${dim}" font-size="14" font-weight="700">${escapeHtml(labels.angleA)}</text>` : "";
+      const angleB = labels.angleB ? `<text x="${Bx-28}" y="${By-10}" fill="${dim}" font-size="14" font-weight="700">${escapeHtml(labels.angleB)}</text>` : "";
+      const angleC = labels.angleC ? `<text x="${Cx+10}" y="${Cy+18}" fill="${dim}" font-size="14" font-weight="700">${escapeHtml(labels.angleC)}</text>` : "";
+
+      const sideAB = labels.AB ? `<text x="${ABm[0]-20}" y="${ABm[1]+18}" fill="${dim}" font-size="14" font-weight="700">${escapeHtml(labels.AB)}</text>` : "";
+      const sideAC = labels.AC ? `<text x="${ACm[0]-48}" y="${ACm[1]+5}" fill="${dim}" font-size="14" font-weight="700">${escapeHtml(labels.AC)}</text>` : "";
+      const sideBC = labels.BC ? `<text x="${BCm[0]+10}" y="${BCm[1]-8}" fill="${dim}" font-size="14" font-weight="700">${escapeHtml(labels.BC)}</text>` : "";
+
+      const extraA = labels.a ? `<text x="${BCm[0]+10}" y="${BCm[1]-8}" fill="${dim}" font-size="14" font-weight="700">${escapeHtml(labels.a)}</text>` : "";
+      const extraB = labels.b ? `<text x="${ACm[0]-40}" y="${ACm[1]+5}" fill="${dim}" font-size="14" font-weight="700">${escapeHtml(labels.b)}</text>` : "";
+      const extraC = labels.c ? `<text x="${ABm[0]-20}" y="${ABm[1]+18}" fill="${dim}" font-size="14" font-weight="700">${escapeHtml(labels.c)}</text>` : "";
+
+      svgBox.innerHTML = `
+        <svg width="${svgW}" height="${svgH}" viewBox="0 0 ${svgW} ${svgH}" role="img" aria-label="triangle diagram">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1">
+              <stop offset="0" stop-color="rgba(176,0,255,.75)"/>
+              <stop offset="1" stop-color="rgba(255,27,106,.75)"/>
+            </linearGradient>
+          </defs>
+          <rect x="10" y="10" width="${svgW-20}" height="${svgH-20}" rx="18"
+                fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.10)"/>
+          <path d="M ${Ax} ${Ay} L ${Bx} ${By} L ${Cx} ${Cy} Z"
+                fill="rgba(255,255,255,.02)" stroke="url(#g1)" stroke-width="4"/>
+          <circle cx="${Ax}" cy="${Ay}" r="5" fill="${stroke}"/>
+          <circle cx="${Bx}" cy="${By}" r="5" fill="${stroke}"/>
+          <circle cx="${Cx}" cy="${Cy}" r="5" fill="${stroke}"/>
+
+          <text x="${Ax-16}" y="${Ay+18}" fill="${stroke}" font-size="14" font-weight="800">A</text>
+          <text x="${Bx+10}" y="${By+18}" fill="${stroke}" font-size="14" font-weight="800">B</text>
+          <text x="${Cx-16}" y="${Cy-10}" fill="${stroke}" font-size="14" font-weight="800">C</text>
+
+          ${ra}
+          ${angleA}${angleB}${angleC}
+          ${sideAB}${sideAC}${sideBC}
+          ${extraA}${extraB}${extraC}
+        </svg>
+      `;
+    }
+
+    // =========================
+    // Difficulty settings
+    // =========================
+    function applyDifficultySettings(){
+      difficulty = difficultyEl.value;
+
+      if(difficulty==="foundation"){
+        paperMax=100; qCount=25; qMarks=4;
+        allowBonus=false;
+        modeLine.textContent="Foundation: SOHCAHTOA basics. Final is /100 only (capped at C/5).";
+        rulesBox.innerHTML = `
+          • Each question: <b>4 marks</b> (auto-marked).<br>
+          • Foundation is <b>/100 only</b>. <b>160 NOT allowed</b>.<br>
+          • Grades shown: <b>GCSE (capped at 5)</b> + <b>Letter (capped at C)</b> + <b>Otono PMD</b>.
+        `;
+      }
+
+      if(difficulty==="higher"){
+        paperMax=100; qCount=25; qMarks=4;
+        allowBonus=true; bonusValue=60;
+        modeLine.textContent="Higher: mixed trig + some sine/cosine rule. /100 then /160 bonus only if 100/100.";
+        rulesBox.innerHTML = `
+          • Each main question: <b>4 marks</b> (auto-marked with tolerance).<br>
+          • If you finish on <b>100/100</b>, you unlock a <b>60-mark</b> bonus (final becomes <b>160</b> only).<br>
+          • Grades shown: <b>GCSE 9–4 (3 allowed)</b> + <b>A*–E (F allowed)</b> + <b>Otono PMD</b>.
+        `;
+      }
+
+      if(difficulty==="clayton"){
+        paperMax=160; qCount=8; qMarks=20;
+        allowBonus=false;
+        modeLine.textContent="Clayton attempt: 8 questions × 20. You must get EVERYTHING correct: Clayton (160) or FAIL (0).";
+        rulesBox.innerHTML = `
+          • Clayton attempt: <b>8 questions</b>, each worth <b>20</b>.<br>
+          • Marking is <b>all-or-nothing</b>: if you miss or skip any question, final becomes <b>0</b> (FAIL).<br>
+          • If all are correct, final is <b>160</b> (Clayton).
+        `;
+      }
+
+      // Update progress display immediately
+      qBox.textContent = `0 / ${qCount}`;
+      markBadge.textContent = (difficulty==="clayton") ? "20 marks" : "4 marks";
+      diagBadge.textContent = "—";
+      progFill.style.width = "0%";
+      updateGradesUI();
+    }
+
+    function lockSetup(lock){
+      candidateEl.disabled = lock;
+      difficultyEl.disabled = lock;
+      timeSelect.disabled = lock;
+      startBtn.disabled = lock;
+      EQUIPMENT.forEach((_,i)=>{
+        const cb=document.getElementById("eq_"+i);
+        if(cb) cb.disabled = lock;
+      });
+    }
+
+    // =========================
+    // Question generation
+    // =========================
+
+    function baseFormulaText(){
+      return "SOHCAHTOA:\n" +
+        "sin(θ) = opposite / hypotenuse\n" +
+        "cos(θ) = adjacent / hypotenuse\n" +
+        "tan(θ) = opposite / adjacent\n\n" +
+        "For right triangles, keep track of which side is opposite/adjacent to θ.";
+    }
+
+    // Right triangle convention for our diagram:
+    // Angle at C = θ
+    // opposite to angle C is AB (base)
+    // adjacent to angle C is AC (vertical)
+    // hypotenuse is BC
+    function genFoundationQ(n){
+      const theta = randInt(25, 65);
+      const t = theta;
+
+      const hyp = randInt(12, 30);
+      const opp = hyp * Math.sin(toRad(t));
+      const adj = hyp * Math.cos(toRad(t));
+
+      const mode = randChoice([
+        "GIVEN_THETA_HYP_FIND_OPP",
+        "GIVEN_THETA_HYP_FIND_ADJ",
+        "GIVEN_THETA_OPP_FIND_HYP",
+        "GIVEN_THETA_ADJ_FIND_HYP",
+        "GIVEN_OPP_ADJ_FIND_THETA"
+      ]);
+
+      let prompt="", expected=0, unit="length", hint="";
+      let diagram = makeRightTriangleDiagram({
+        AB:"AB", AC:"AC", BC:"BC",
+        angleA:"90°", angleC:`θ = ${t}°`
+      });
+
+      if(mode==="GIVEN_THETA_HYP_FIND_OPP"){
+        expected = opp;
+        prompt = `Right triangle. θ at C is ${t}°. BC (hypotenuse) = ${hyp}. Find AB (opposite).`;
+        hint = "Use sin(θ) = opposite / hypotenuse.";
+      }
+      if(mode==="GIVEN_THETA_HYP_FIND_ADJ"){
+        expected = adj;
+        prompt = `Right triangle. θ at C is ${t}°. BC (hypotenuse) = ${hyp}. Find AC (adjacent).`;
+        hint = "Use cos(θ) = adjacent / hypotenuse.";
+      }
+      if(mode==="GIVEN_THETA_OPP_FIND_HYP"){
+        const AB = round2(opp);
+        expected = AB / Math.sin(toRad(t));
+        prompt = `Right triangle. θ at C is ${t}°. AB (opposite) = ${AB}. Find BC (hypotenuse).`;
+        hint = "Rearrange sin(θ) = AB / BC.";
+      }
+      if(mode==="GIVEN_THETA_ADJ_FIND_HYP"){
+        const AC = round2(adj);
+        expected = AC / Math.cos(toRad(t));
+        prompt = `Right triangle. θ at C is ${t}°. AC (adjacent) = ${AC}. Find BC (hypotenuse).`;
+        hint = "Rearrange cos(θ) = AC / BC.";
+      }
+      if(mode==="GIVEN_OPP_ADJ_FIND_THETA"){
+        const AB = randInt(7, 24);
+        const AC = randInt(7, 24);
+        expected = toDeg(Math.atan2(AB, AC));
+        unit = "angle";
+        diagram = makeRightTriangleDiagram({
+          AB:`AB = ${AB}`, AC:`AC = ${AC}`, BC:"BC",
+          angleA:"90°", angleC:"θ"
+        });
+        prompt = `Right triangle. AB (opposite) = ${AB}, AC (adjacent) = ${AC}. Find θ at C (degrees).`;
+        hint = "Use tan(θ) = opposite / adjacent.";
+      }
+
+      return {
+        kind:"main",
+        id:`F${n+1}`,
+        prompt, hint, expected, unit,
+        diagram,
+        formula: baseFormulaText() + "\n\nHere: opposite = AB, adjacent = AC, hypotenuse = BC.",
+        marks: 4
+      };
+    }
+
+    function genHigherQ(n){
+      // Mix of right-triangle trig + sine rule + cosine rule
+      const pick = randChoice(["RIGHT_TRIG", "RIGHT_ANGLE_FROM_SIDES", "SINE_RULE", "COSINE_RULE"]);
+      let prompt="", expected=0, unit="length", hint="", diagram=null, formula="";
+
+      if(pick==="RIGHT_TRIG"){
+        const t = randInt(20, 70);
+        const hyp = randInt(10, 32);
+        const mode = randChoice(["FIND_OPP","FIND_ADJ","FIND_THETA_FROM_OPP_HYP","FIND_THETA_FROM_ADJ_HYP","FIND_THETA_FROM_OPP_ADJ"]);
+        const opp = hyp * Math.sin(toRad(t));
+        const adj = hyp * Math.cos(toRad(t));
+
+        diagram = makeRightTriangleDiagram({
+          AB:"AB", AC:"AC", BC:"BC",
+          angleA:"90°", angleC:`θ = ${t}°`
+        });
+        formula = baseFormulaText() + "\n\nHere: opposite = AB, adjacent = AC, hypotenuse = BC.";
+
+        if(mode==="FIND_OPP"){
+          expected = opp;
+          prompt = `Right triangle. θ at C is ${t}°. BC = ${hyp}. Find AB.`;
+          hint = "sin(θ) = AB / BC.";
+        }
+        if(mode==="FIND_ADJ"){
+          expected = adj;
+          prompt = `Right triangle. θ at C is ${t}°. BC = ${hyp}. Find AC.`;
+          hint = "cos(θ) = AC / BC.";
+        }
+        if(mode==="FIND_THETA_FROM_OPP_HYP"){
+          const AB = round2(opp);
+          expected = toDeg(Math.asin(AB / hyp));
+          unit = "angle";
+          diagram = makeRightTriangleDiagram({
+            AB:`AB = ${AB}`, AC:"AC", BC:`BC = ${hyp}`,
+            angleA:"90°", angleC:"θ"
+          });
+          prompt = `Right triangle. AB = ${AB}, BC = ${hyp}. Find θ at C (degrees).`;
+          hint = "Use sin(θ) = AB / BC.";
+        }
+        if(mode==="FIND_THETA_FROM_ADJ_HYP"){
+          const AC = round2(adj);
+          expected = toDeg(Math.acos(AC / hyp));
+          unit = "angle";
+          diagram = makeRightTriangleDiagram({
+            AB:"AB", AC:`AC = ${AC}`, BC:`BC = ${hyp}`,
+            angleA:"90°", angleC:"θ"
+          });
+          prompt = `Right triangle. AC = ${AC}, BC = ${hyp}. Find θ at C (degrees).`;
+          hint = "Use cos(θ) = AC / BC.";
+        }
+        if(mode==="FIND_THETA_FROM_OPP_ADJ"){
+          const AB = randInt(7, 24);
+          const AC = randInt(7, 24);
+          expected = toDeg(Math.atan2(AB, AC));
+          unit = "angle";
+          diagram = makeRightTriangleDiagram({
+            AB:`AB = ${AB}`, AC:`AC = ${AC}`, BC:"BC",
+            angleA:"90°", angleC:"θ"
+          });
+          prompt = `Right triangle. AB = ${AB}, AC = ${AC}. Find θ at C (degrees).`;
+          hint = "Use tan(θ) = AB / AC.";
+        }
+      }
+
+      if(pick==="RIGHT_ANGLE_FROM_SIDES"){
+        // Slightly harder: find missing side then angle
+        const AB = randInt(8, 25);
+        const AC = randInt(8, 25);
+        const BC = Math.sqrt(AB*AB + AC*AC);
+        const mode = randChoice(["FIND_HYP","FIND_ANGLE"]);
+        diagram = makeRightTriangleDiagram({
+          AB:`AB = ${AB}`, AC:`AC = ${AC}`, BC:"BC",
+          angleA:"90°", angleC:"θ"
+        });
+        formula = baseFormulaText() + "\n\nPythagoras may help too: BC² = AB² + AC².";
+
+        if(mode==="FIND_HYP"){
+          expected = BC;
+          prompt = `Right triangle. AB = ${AB}, AC = ${AC}. Find BC (hypotenuse).`;
+          hint = "Use Pythagoras: BC² = AB² + AC².";
+          unit = "length";
+        }else{
+          expected = toDeg(Math.atan2(AB, AC));
+          prompt = `Right triangle. AB = ${AB}, AC = ${AC}. Find θ at C (degrees).`;
+          hint = "tan(θ) = AB / AC.";
+          unit = "angle";
+        }
+      }
+
+      if(pick==="SINE_RULE"){
+        // Oblique triangle: given A, B, and side a -> find side b
+        // a/sin(A) = b/sin(B)
+        const A = randInt(35, 95);
+        let B = randInt(25, 75);
+        if(A + B >= 170) B = 170 - A - 10;
+        const a = randInt(9, 22);
+        const b = a * Math.sin(toRad(B)) / Math.sin(toRad(A));
+
+        expected = b;
+        unit = "length";
+        diagram = makeObliqueTriangleDiagram({
+          a:`a = ${a}`,
+          b:"b",
+          c:"c",
+          angleA:`A = ${A}°`,
+          angleB:`B = ${B}°`,
+          angleC:"C"
+        });
+        prompt = `Oblique triangle. Angle A = ${A}°, angle B = ${B}°, side a = ${a}. Find side b (sine rule).`;
+        hint = "Use a/sin(A) = b/sin(B).";
+        formula = "Sine rule:\n" +
+          "a/sin(A) = b/sin(B) = c/sin(C)\n\n" +
+          "So b = a · sin(B) / sin(A).";
+      }
+
+      if(pick==="COSINE_RULE"){
+        // Oblique triangle: given b, c, and included angle A -> find side a
+        const b = randInt(9, 22);
+        const c = randInt(9, 22);
+        const A = randInt(35, 125);
+        const a = Math.sqrt(b*b + c*c - 2*b*c*Math.cos(toRad(A)));
+
+        expected = a;
+        unit = "length";
+        diagram = makeObliqueTriangleDiagram({
+          a:"a",
+          b:`b = ${b}`,
+          c:`c = ${c}`,
+          angleA:`A = ${A}°`,
+          angleB:"B",
+          angleC:"C"
+        });
+        prompt = `Oblique triangle. b = ${b}, c = ${c}, angle A = ${A}°. Find side a (cosine rule).`;
+        hint = "Use a² = b² + c² − 2bc cos(A).";
+        formula = "Cosine rule:\n" +
+          "a² = b² + c² − 2bc cos(A)\n" +
+          "a = √(b² + c² − 2bc cos(A)).";
+      }
+
+      return {
+        kind:"main",
+        id:`H${n+1}`,
+        prompt, hint, expected, unit,
+        diagram,
+        formula,
+        marks: 4
+      };
+    }
+
+    function genHigherBonus(){
+      // 60 marks all-or-nothing (cosine rule)
+      const b = randInt(10, 24);
+      const c = randInt(10, 24);
+      const A = randInt(40, 130);
+      const a = Math.sqrt(b*b + c*c - 2*b*c*Math.cos(toRad(A)));
+      return {
+        kind:"bonus",
+        id:"BONUS",
+        prompt:`BONUS (60 marks, all-or-nothing). b = ${b}, c = ${c}, angle A = ${A}°. Find side a.`,
+        hint:"Cosine rule: a² = b² + c² − 2bc cos(A).",
+        expected:a,
+        unit:"length",
+        diagram: makeObliqueTriangleDiagram({
+          a:"a",
+          b:`b = ${b}`,
+          c:`c = ${c}`,
+          angleA:`A = ${A}°`,
+          angleB:"B",
+          angleC:"C"
+        }),
+        formula:"Cosine rule:\n" +
+          "a² = b² + c² − 2bc cos(A)\n" +
+          "a = √(b² + c² − 2bc cos(A)).",
+        marks: 60
+      };
+    }
+
+    function genClaytonQ(n){
+      // Harder mix: sine rule / cosine rule / right trig multi-step
+      const pick = randChoice(["COSINE_RULE", "SINE_RULE", "RIGHT_TRIG_ANGLE", "RIGHT_TRIG_SIDE"]);
+      let prompt="", expected=0, unit="length", hint="", diagram=null, formula="";
+
+      if(pick==="COSINE_RULE"){
+        const b = randInt(12, 30);
+        const c = randInt(12, 30);
+        const A = randInt(35, 145);
+        expected = Math.sqrt(b*b + c*c - 2*b*c*Math.cos(toRad(A)));
+        diagram = makeObliqueTriangleDiagram({
+          a:"a",
+          b:`b = ${b}`,
+          c:`c = ${c}`,
+          angleA:`A = ${A}°`,
+          angleB:"B",
+          angleC:"C"
+        });
+        prompt = `Clayton Q${n+1}. b = ${b}, c = ${c}, A = ${A}°. Find side a.`;
+        hint = "Cosine rule.";
+        formula = "Cosine rule:\n" +
+          "a² = b² + c² − 2bc cos(A)\n" +
+          "a = √(…).";
+      }
+
+      if(pick==="SINE_RULE"){
+        const A = randInt(30, 100);
+        let B = randInt(25, 80);
+        if(A+B>=170) B = 170 - A - 10;
+        const a = randInt(10, 28);
+        expected = a * Math.sin(toRad(B)) / Math.sin(toRad(A));
+        unit = "length";
+        diagram = makeObliqueTriangleDiagram({
+          a:`a = ${a}`,
+          b:"b",
+          c:"c",
+          angleA:`A = ${A}°`,
+          angleB:`B = ${B}°`,
+          angleC:"C"
+        });
+        prompt = `Clayton Q${n+1}. A = ${A}°, B = ${B}°, a = ${a}. Find side b.`;
+        hint = "Sine rule: a/sin(A) = b/sin(B).";
+        formula = "Sine rule:\n" +
+          "a/sin(A) = b/sin(B)\n" +
+          "b = a · sin(B) / sin(A).";
+      }
+
+      if(pick==="RIGHT_TRIG_ANGLE"){
+        // Two sides -> angle
+        const AB = randInt(9, 26);
+        const AC = randInt(9, 26);
+        expected = toDeg(Math.atan2(AB, AC));
+        unit = "angle";
+        diagram = makeRightTriangleDiagram({
+          AB:`AB = ${AB}`,
+          AC:`AC = ${AC}`,
+          BC:"BC",
+          angleA:"90°",
+          angleC:"θ"
+        });
+        prompt = `Clayton Q${n+1}. Right triangle. AB = ${AB}, AC = ${AC}. Find θ at C (degrees).`;
+        hint = "tan(θ) = AB / AC.";
+        formula = baseFormulaText() + "\n\nUse θ = arctan(AB/AC).";
+      }
+
+      if(pick==="RIGHT_TRIG_SIDE"){
+        // Given θ + one side -> another side (no freebies)
+        const t = randInt(18, 72);
+        const hyp = randInt(14, 40);
+        const mode = randChoice(["FIND_OPP","FIND_ADJ"]);
+        diagram = makeRightTriangleDiagram({
+          AB:"AB",
+          AC:"AC",
+          BC:`BC = ${hyp}`,
+          angleA:"90°",
+          angleC:`θ = ${t}°`
+        });
+        if(mode==="FIND_OPP"){
+          expected = hyp * Math.sin(toRad(t));
+          prompt = `Clayton Q${n+1}. Right triangle. θ = ${t}°, BC = ${hyp}. Find AB.`;
+          hint = "sin(θ) = AB / BC.";
+        }else{
+          expected = hyp * Math.cos(toRad(t));
+          prompt = `Clayton Q${n+1}. Right triangle. θ = ${t}°, BC = ${hyp}. Find AC.`;
+          hint = "cos(θ) = AC / BC.";
+        }
+        formula = baseFormulaText() + "\n\nHere: opposite = AB, adjacent = AC, hypotenuse = BC.";
+      }
+
+      return {
+        kind:"main",
+        id:`C${n+1}`,
+        prompt, hint, expected, unit,
+        diagram,
+        formula,
+        marks: 20
+      };
+    }
+
+    function buildPaper(){
+      questions=[];
+      report={ main:[], bonus:null };
+      isBonus=false; bonusQ=null;
+      claytonAllCorrect=true;
+
+      if(difficulty==="foundation"){
+        for(let i=0;i<qCount;i++) questions.push(genFoundationQ(i));
+      }
+      if(difficulty==="higher"){
+        for(let i=0;i<qCount;i++) questions.push(genHigherQ(i));
+      }
+      if(difficulty==="clayton"){
+        for(let i=0;i<qCount;i++) questions.push(genClaytonQ(i));
+      }
+    }
+
+    // =========================
+    // Marking
+    // =========================
+    function scoreMain(q, userVal){
+      if(!isFinite(userVal)) return 0;
+
+      if(q.unit==="angle"){
+        const diff=Math.abs(userVal - q.expected);
+        if(diff<=ANG_TIGHT) return q.marks;                 // full
+        if(diff<=ANG_LOOSE) return Math.floor(q.marks/2);   // half (10 for Clayton, 2 for normal)
+        return 0;
+      }else{
+        const exp=q.expected;
+        const diff=Math.abs(userVal-exp);
+        const rel=diff/Math.max(1e-9, Math.abs(exp));
+        if(rel<=TIGHT_REL) return q.marks;
+        if(rel<=LOOSE_REL) return Math.floor(q.marks/2);
+        return 0;
+      }
+    }
+    function scoreBonus(q, userVal){
+      if(!isFinite(userVal)) return 0;
+      const exp=q.expected;
+      const diff=Math.abs(userVal-exp);
+      const rel=diff/Math.max(1e-9, Math.abs(exp));
+      return (rel<=0.012) ? 60 : 0; // strict-ish
+    }
+
+    // =========================
+    // Grades (Otono + GCSE + Letter)
+    // =========================
+    function pmdFromScore(s, max){
+      const pct = (max>0) ? (s/max)*100 : 0;
+      if(pct>=DIST) return "DISTINCTION";
+      if(pct>=MERIT) return "MERIT";
+      if(pct>=PASS) return "PASS";
+      return "UNCLASSIFIED";
+    }
+
+    // Simple, consistent mapping (you can tweak thresholds any time)
+    // Foundation: cap at 5/C
+    function foundationNumeric(pct){
+      // 1–5 only
+      if(pct>=90) return 5;
+      if(pct>=80) return 4;
+      if(pct>=66) return 3;
+      if(pct>=50) return 2;
+      if(pct>=35) return 1;
+      return 0;
+    }
+    function foundationLetterFromNum(n){
+      // cap at C
+      if(n>=5) return "C";
+      if(n===4) return "D";
+      if(n===3) return "E";
+      if(n===2) return "F";
+      if(n===1) return "G";
+      return "U";
+    }
+
+    // Higher: 9–4; 3 allowed
+    function higherNumeric(pct){
+      if(pct>=90) return 9;
+      if(pct>=85) return 8;
+      if(pct>=80) return 7;
+      if(pct>=75) return 6;
+      if(pct>=70) return 5;
+      if(pct>=66) return 4;
+      if(pct>=60) return 3;
+      if(pct>=50) return 2;
+      if(pct>=40) return 1;
+      return 0;
+    }
+    function higherLetterFromPct(pct){
+      // A*–E, F allowed
+      if(pct>=90) return "A*";
+      if(pct>=80) return "A";
+      if(pct>=70) return "B";
+      if(pct>=60) return "C";
+      if(pct>=50) return "D";
+      if(pct>=40) return "E";
+      if(pct>=30) return "F";
+      return "U";
+    }
+
+    function gradesString(currentScore){
+      // Clayton special
+      if(difficulty==="clayton"){
+        if(currentScore===160) return "Clayton: CLAYTON (160) • PMD: DISTINCTION";
+        return "Clayton: FAIL (0) • PMD: UNCLASSIFIED";
+      }
+
+      const max = paperMax; // 100 normally
+      const pct = (max>0) ? (currentScore/max)*100 : 0;
+      const pmd = pmdFromScore(currentScore, max);
+
+      if(difficulty==="foundation"){
+        const num = foundationNumeric(pct);
+        const letter = foundationLetterFromNum(num);
+        return `PMD: ${pmd} • GCSE: ${num} (cap 5) • Letter: ${letter} (cap C)`;
+      }
+
+      // higher
+      if(currentScore===160) return "PMD: DISTINCTION • GCSE: 9 • Letter: A* • CLAYTON (160)";
+      const num = higherNumeric(pct);
+      const letter = higherLetterFromPct(pct);
+      return `PMD: ${pmd} • GCSE: ${num} • Letter: ${letter}`;
+    }
+
+    function updateGradesUI(){
+      gradePill.textContent = "Grades: " + gradesString(score);
+    }
+
+    function updateLeftUI(){
+      scoreBox.textContent = String(score);
+      if(isBonus){
+        qBox.textContent = "BONUS / 1";
+        progFill.style.width="100%";
+      }else{
+        qBox.textContent = `${Math.max(idx,0)} / ${qCount}`;
+        progFill.style.width = `${clamp((Math.max(idx,0)/qCount)*100,0,100)}%`;
+      }
+      candPill.textContent = "Candidate: " + (candidateEl.value.trim() || "—");
+      updateGradesUI();
+    }
+
+    // =========================
+    // Flow
+    // =========================
+    function requireCandidate(){
+      const v=candidateEl.value.trim();
+      return !!v && /\d/.test(v);
+    }
+
+    function showQuestion(q){
+      currentQ=q;
+
+      // badges
+      markBadge.textContent = `${q.marks} marks`;
+      diagBadge.textContent = (q.diagram.type==="right") ? "Right triangle" : "Oblique triangle";
+
+      // title
+      if(q.kind==="bonus"){
+        qTitle.textContent = "Bonus question";
+      }else{
+        qTitle.textContent = `Question ${idx} / ${qCount}`;
+      }
+
+      qText.textContent = q.prompt;
+      qHint.textContent = q.hint;
+
+      formulaBox.style.display="none";
+      formulaBox.textContent="";
+
+      answerEl.value="";
+      answerEl.disabled=false;
+      submitBtn.disabled=false;
+      skipBtn.disabled=false;
+      showWorkBtn.disabled=false;
+
+      renderDiagram(q.diagram);
+
+      setFeedback("", "—");
+      setStatus(q.kind==="bonus" ? "BONUS unlocked" : "In progress");
+      updateLeftUI();
+      answerEl.focus();
+    }
+
+    function disableInputsBriefly(){
+      answerEl.disabled=true;
+      submitBtn.disabled=true;
+      skipBtn.disabled=true;
+      showWorkBtn.disabled=true;
+    }
+
+    function next(){
+      if(!started) return;
+
+      if(isBonus){
+        finishGame("Bonus complete.");
+        return;
+      }
+
+      idx++;
+      if(idx>qCount){
+        // finished main
+        if(difficulty==="higher" && score===100){
+          // unlock bonus
+          bonusQ = genHigherBonus();
+          report.bonus = { id:"BONUS", prompt:bonusQ.prompt, expected:bonusQ.expected, unit:bonusQ.unit, earned:0, user:null };
+          isBonus=true;
+          showQuestion(bonusQ);
+        }else{
+          finishGame("Paper complete.");
+        }
+        return;
+      }
+
+      showQuestion(questions[idx-1]);
+    }
+
+    function submit(){
+      if(!currentQ) return;
+      const userVal=parseNumber(answerEl.value);
+
+      // Bonus marking
+      if(currentQ.kind==="bonus"){
+        const earned = scoreBonus(currentQ, userVal);
+        if(earned===60){
+          score = 160; // force exactly 160
+          report.bonus.earned = 60;
+          report.bonus.user = isFinite(userVal)?userVal:null;
+          setFeedback("good", "✅ BONUS correct (+60). Final becomes 160 (Clayton).");
+        }else{
+          score = 100; // force exactly 100 if bonus wrong
+          report.bonus.earned = 0;
+          report.bonus.user = isFinite(userVal)?userVal:null;
+          setFeedback("bad", "❌ BONUS not correct (+0). Final stays 100.");
+        }
+        updateLeftUI();
+        disableInputsBriefly();
+        setTimeout(()=>next(), 1100);
+        return;
+      }
+
+      // Main marking
+      const earned = scoreMain(currentQ, userVal);
+
+      // Clayton attempt rule: ANY wrong => fail at end
+      if(difficulty==="clayton" && earned !== currentQ.marks){
+        claytonAllCorrect=false;
+      }
+
+      // Add score (but handle Clayton at the end)
+      if(difficulty!=="clayton"){
+        score += earned;
+        score = clamp(score, 0, 100);
+      }else{
+        // still track running score visually, but final will be forced
+        score += earned;
+        score = clamp(score, 0, 160);
+      }
+
+      report.main.push({
+        id: currentQ.id,
+        prompt: currentQ.prompt,
+        expected: currentQ.expected,
+        unit: currentQ.unit,
+        user: isFinite(userVal)?userVal:null,
+        earned
+      });
+
+      const expTxt = (currentQ.unit==="angle") ? (fmt(currentQ.expected,1)+"°") : fmt(currentQ.expected,2);
+
+      if(earned===currentQ.marks){
+        setFeedback("good", `✅ Correct (+${earned}). Expected ≈ ${expTxt}.`);
+      }else if(earned===Math.floor(currentQ.marks/2)){
+        setFeedback("warn", `🟡 Nearly (+${earned}). Expected ≈ ${expTxt}.`);
+      }else{
+        setFeedback("bad", `❌ Not quite (+0). Expected ≈ ${expTxt}.`);
+      }
+
+      updateLeftUI();
+      disableInputsBriefly();
+      setTimeout(()=>next(), 900);
+    }
+
+    function skip(){
+      if(!currentQ) return;
+
+      if(currentQ.kind==="bonus"){
+        // skipping bonus means final stays 100
+        score = 100;
+        report.bonus.earned = 0;
+        report.bonus.user = null;
+        setFeedback("bad", "Skipped bonus (+0). Final stays 100.");
+        updateLeftUI();
+        disableInputsBriefly();
+        setTimeout(()=>next(), 800);
+        return;
+      }
+
+      // Clayton attempt: skip => fail
+      if(difficulty==="clayton") claytonAllCorrect=false;
+
+      report.main.push({
+        id: currentQ.id,
+        prompt: currentQ.prompt,
+        expected: currentQ.expected,
+        unit: currentQ.unit,
+        user: null,
+        earned: 0
+      });
+
+      setFeedback("bad", "Skipped (0).");
+      updateLeftUI();
+      disableInputsBriefly();
+      setTimeout(()=>next(), 650);
+    }
+
+    function showFormula(){
+      if(!currentQ) return;
+      formulaBox.style.display = (formulaBox.style.display==="none") ? "block" : "none";
+      formulaBox.textContent = currentQ.formula;
+    }
+
+    function finishGame(reason){
+      stopTimer();
+      started=false;
+
+      // Enforce score rules:
+      if(difficulty==="foundation"){
+        // Foundation: /100 only, no 160
+        score = clamp(score, 0, 100);
+      }
+      if(difficulty==="higher"){
+        // Higher: only 0–100 or 160 (bonus already forces)
+        if(score!==160) score = clamp(score, 0, 100);
+      }
+      if(difficulty==="clayton"){
+        // Clayton attempt: Clayton (160) or FAIL (0)
+        score = claytonAllCorrect ? 160 : 0;
+      }
+
+      // Show final screen
+      workArea.style.display="none";
+      finalArea.style.display="block";
+
+      finalScore.textContent=String(score);
+      finalGrade.textContent=gradesString(score);
+
+      const cand=candidateEl.value.trim();
+      if(difficulty==="clayton"){
+        finalLine.textContent = claytonAllCorrect
+          ? `${reason} Candidate ${cand}. You got EVERYTHING correct: CLAYTON (160).`
+          : `${reason} Candidate ${cand}. One or more mistakes: FAIL (0).`;
+      }else if(difficulty==="higher"){
+        if(score===160){
+          finalLine.textContent = `${reason} Candidate ${cand}. You hit 100/100 and got the 60-mark bonus: 160 (Clayton).`;
+        }else{
+          finalLine.textContent = `${reason} Candidate ${cand}. Final = ${score}. (Bonus only if exactly 100/100.)`;
+        }
+      }else{
+        finalLine.textContent = `${reason} Candidate ${cand}. Final = ${score} (/100). (160 not allowed in Foundation.)`;
+      }
+
+      setStatus("Finished");
+      timerChip.textContent="⏱️ --:--";
+      updateLeftUI();
+    }
+
+    function startGame(){
+      if(!requireCandidate()){
+        alert("Candidate number is REQUIRED (must include at least one digit).");
+        return;
+      }
+
+      applyDifficultySettings();
+      buildPaper();
+
+      chosenTimeMin = Number(timeSelect.value || "0");
+      score=0;
+      idx=0;
+      isBonus=false;
+      bonusQ=null;
+
+      report={ main:[], bonus:null };
+
+      started=true;
+      workArea.style.display="block";
+      finalArea.style.display="none";
+      breakdown.style.display="none";
+      breakdown.textContent="";
+
+      lockSetup(true);
+      setStatus("In progress");
+      updateLeftUI();
+      startTimer();
+
+      // First question
+      next();
+    }
+
+    function resetAll(){
+      stopTimer();
+      started=false; isBonus=false;
+      idx=-1; score=0;
+      questions=[]; currentQ=null; bonusQ=null;
+      report={ main:[], bonus:null };
+      claytonAllCorrect=true;
+
+      lockSetup(false);
+
+      qTitle.textContent="Not started";
+      qText.textContent="Enter candidate number, pick difficulty + equipment, then press Start.";
+      qHint.textContent="Tip: Use degrees (°). Don’t type units. Just the number.";
+      markBadge.textContent="—";
+      diagBadge.textContent="—";
+      answerEl.value="";
+      answerEl.disabled=true;
+      submitBtn.disabled=true;
+      skipBtn.disabled=true;
+      showWorkBtn.disabled=true;
+      formulaBox.style.display="none";
+      formulaBox.textContent="";
+      setFeedback("", "—");
+
+      workArea.style.display="block";
+      finalArea.style.display="none";
+
+      setStatus("Waiting…");
+      timerChip.textContent="⏱️ --:--";
+
+      renderDiagram(makeRightTriangleDiagram({
+        AB:"AB", AC:"AC", BC:"BC", angleA:"90°", angleC:"θ"
+      }));
+
+      applyDifficultySettings();
+      updateLeftUI();
+    }
+
+    function showBreakdown(){
+      const lines=[];
+      lines.push(`<b>Breakdown</b><br>`);
+      report.main.forEach((r,i)=>{
+        const exp = (r.unit==="angle") ? (fmt(r.expected,1)+"°") : fmt(r.expected,2);
+        const usr = (r.user==null) ? "—" : (r.unit==="angle" ? (fmt(r.user,1)+"°") : fmt(r.user,2));
+        lines.push(`${i+1}. <b>${escapeHtml(r.id)}</b> — earned <b>${r.earned}</b> • yours: <b>${escapeHtml(usr)}</b> • expected ≈ <b>${escapeHtml(exp)}</b>`);
+      });
+
+      if(report.bonus){
+        lines.push(`<br><b>Bonus</b> (60 all-or-nothing)<br>`);
+        const exp = fmt(report.bonus.expected,2);
+        const usr = (report.bonus.user==null) ? "—" : fmt(report.bonus.user,2);
+        lines.push(`BONUS — earned <b>${report.bonus.earned}</b> • yours: <b>${escapeHtml(usr)}</b> • expected ≈ <b>${escapeHtml(exp)}</b>`);
+      }
+
+      breakdown.innerHTML = lines.join("<br>");
+      breakdown.style.display = (breakdown.style.display==="none") ? "block" : "none";
+    }
+
+    // Events
+    startBtn.addEventListener("click", startGame);
+    resetBtn.addEventListener("click", resetAll);
+    submitBtn.addEventListener("click", submit);
+    skipBtn.addEventListener("click", skip);
+    showWorkBtn.addEventListener("click", showFormula);
+    playAgainBtn.addEventListener("click", ()=>{
+      lockSetup(false);
+      resetAll();
+    });
+    reviewBtn.addEventListener("click", showBreakdown);
+
+    answerEl.addEventListener("keydown", (e)=>{
+      if(e.key==="Enter" && !submitBtn.disabled) submit();
+    });
+
+    difficultyEl.addEventListener("change", ()=>{
+      // only update UI if not started
+      if(!started) applyDifficultySettings();
+    });
+
+    // Init
+    buildEquipment();
+    renderDiagram(makeRightTriangleDiagram({AB:"AB",AC:"AC",BC:"BC",angleA:"90°",angleC:"θ"}));
+    applyDifficultySettings();
+    updateLeftUI();
+  </script>
+</body>
+</html>

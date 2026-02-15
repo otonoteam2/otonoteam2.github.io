@@ -1294,12 +1294,22 @@ const TRANSLATIONS = [
     title: "Traducción — Rutina de examen",
     theme: "Tema 1 — Escuela",
     text: "Before an exam, I stay calm and I read the instructions carefully. I underline the important words, and I check how many details the question needs. This method helps me avoid simple mistakes and lose fewer marks.",
-    keyIdeas: [
-      ["before an exam","before the exam"],
-      ["stay calm","calm"],
-      ["read the instructions","read instructions","instructions carefully"],
-      ["underline","important words"],
-      ["avoid simple mistakes","lose fewer marks","lose fewer points"]
+    ideas: [
+      { name:"Contexto examen", sub:[ ["antes de un examen","antes del examen","antes del examen"] ] },
+      { name:"Calma", sub:[ ["me mantengo tranquilo","me quedo tranquilo","con calma","tranquilamente"] ] },
+      { name:"Leer consignas", sub:[ ["leo las consignas","leo las instrucciones","leo la consigna","con atención","cuidadosamente"] ] },
+      { name:"Subrayar + comprobar detalles", sub:[
+          ["subrayo","subrayar","subrayando"],
+          ["palabras importantes","palabras clave","lo importante"],
+          ["compruebo","verifico","reviso"],
+          ["cuántos detalles","cuantos detalles","qué detalles","lo que pide la pregunta"]
+        ]
+      },
+      { name:"Evitar errores + perder menos puntos", sub:[
+          ["evitar errores","evito errores","errores simples","errores sencillos"],
+          ["perder menos puntos","pierdo menos puntos","menos puntos","menos notas","menos marcas"]
+        ]
+      }
     ],
     sampleAnswer:
       "Antes de un examen, me mantengo tranquilo y leo las consignas con atención. Subrayo las palabras importantes y compruebo cuántos detalles pide la pregunta. Este método me ayuda a evitar errores simples y a perder menos puntos."
@@ -1310,15 +1320,39 @@ const TRANSLATIONS = [
     title: "Traducción — Trabajo en equipo en un juego",
     theme: "Tema 2 — Tiempo libre",
     text: "On our game server, teamwork is essential. If someone rushes, they can make mistakes, but if someone checks everything, the project is cleaner. When we combine speed and precision, the build progresses faster and the result is better.",
-    keyIdeas: [
-      ["teamwork","work together"],
-      ["rush","go too fast","rushed"],
-      ["make mistakes","errors"],
-      ["checks everything","check details","precision"],
-      ["combine speed and precision","better result","progresses faster"]
+    ideas: [
+      { name:"Servidor + trabajo en equipo esencial", sub:[
+          ["en nuestro servidor","en el servidor","servidor de juego","servidor"],
+          ["trabajo en equipo","equipo","cooperación","colaboración"],
+          ["es esencial","es imprescindible","es muy importante"]
+        ]
+      },
+      { name:"Ir demasiado rápido", sub:[
+          ["si alguien se apresura","si alguien va demasiado rápido","si alguien corre","apresurarse"],
+          ["puede","pueden"]
+        ]
+      },
+      { name:"Errores", sub:[
+          ["cometer errores","hace errores","hacen errores","errores","equivocaciones"]
+        ]
+      },
+      { name:"Comprobar todo → más limpio", sub:[
+          ["si alguien lo comprueba todo","si alguien comprueba todo","si alguien revisa todo","verifica todo"],
+          ["el proyecto","la construcción","el trabajo"],
+          ["queda más limpio","más limpio","más ordenado","más claro"]
+        ]
+      },
+      { name:"Combinar velocidad + precisión → mejor resultado", sub:[
+          ["cuando combinamos","al combinar","si combinamos"],
+          ["velocidad","rápido"],
+          ["precisión","detalles"],
+          ["avanza más rápido","progresa más rápido","más deprisa"],
+          ["el resultado es mejor","mejor resultado","sale mejor"]
+        ]
+      }
     ],
     sampleAnswer:
-      "En nuestro servidor, el trabajo en equipo es esencial. Si alguien se apresura, puede cometer errores, pero si alguien lo comprueba todo, el proyecto queda más limpio. Cuando combinamos velocidad y precisión, la construcción avanza más rápido y el resultado es mejor."
+      "En nuestro servidor de juego, el trabajo en equipo es esencial. Si alguien se apresura, puede cometer errores, pero si alguien lo comprueba todo, el proyecto queda más limpio. Cuando combinamos velocidad y precisión, la construcción avanza más rápido y el resultado es mejor."
   },
 
   {
@@ -1326,12 +1360,35 @@ const TRANSLATIONS = [
     title: "Traducción — Otono Airways",
     theme: "Tema 3 — Otono Team",
     text: "With Otono Airways, passengers notice the organisation in the cabin and the comfort of the seats. Even in economy class, there is enough space to sit comfortably. For some people, these details show the quality of the airline.",
-    keyIdeas: [
-      ["with Otono Airways","Otono Airways"],
-      ["passengers notice","passengers"],
-      ["organisation in the cabin","organisation","cabin"],
-      ["comfort of the seats","comfort","seats"],
-      ["economy class","enough space","quality of the airline","quality"]
+    ideas: [
+      { name:"Otono Airways + pasajeros", sub:[
+          ["con otono airways","en otono airways","otono airways"],
+          ["los pasajeros","pasajeros"]
+        ]
+      },
+      { name:"Organización en la cabina", sub:[
+          ["organización","organizacion"],
+          ["en la cabina","cabina"]
+        ]
+      },
+      { name:"Comodidad de los asientos", sub:[
+          ["comodidad","cómodo","cómoda","confort"],
+          ["asientos","los asientos"]
+        ]
+      },
+      { name:"Clase turista + suficiente espacio", sub:[
+          ["incluso en clase turista","incluso en turista","clase turista","economy","económica"],
+          ["hay suficiente espacio","suficiente espacio","bastante espacio"],
+          ["para sentarse","sentarse cómodamente","cómodamente"]
+        ]
+      },
+      { name:"Detalles → calidad de la aerolínea", sub:[
+          ["para algunas personas","para algunos","para cierta gente"],
+          ["estos detalles","esos detalles","detalles"],
+          ["muestran la calidad","demuestran la calidad","la calidad"],
+          ["de la aerolínea","de la compañía","aerolínea","compañía"]
+        ]
+      }
     ],
     sampleAnswer:
       "Con Otono Airways, los pasajeros notan la organización en la cabina y la comodidad de los asientos. Incluso en clase turista, hay suficiente espacio para sentarse cómodamente. Para algunas personas, estos detalles muestran la calidad de la aerolínea."
@@ -1342,12 +1399,35 @@ const TRANSLATIONS = [
     title: "Traducción — Reglas y éxito",
     theme: "Tema 1 — Escuela",
     text: "Knowing the topic is not always enough in an exam. If you do not follow the instructions, you can lose marks even with the correct idea. That is why it is important to answer fully and to include the details the question asks for.",
-    keyIdeas: [
-      ["not always enough","not enough"],
-      ["follow the instructions","follow instructions"],
-      ["lose marks","lose points"],
-      ["correct idea","correct answer"],
-      ["answer fully","include details","the question asks for"]
+    ideas: [
+      { name:"No siempre basta con saber", sub:[
+          ["conocer el tema","saber el tema","saber la materia","conocer la lección"],
+          ["no siempre es suficiente","no siempre basta","no basta siempre"],
+          ["en un examen","durante un examen"]
+        ]
+      },
+      { name:"Seguir consignas", sub:[
+          ["si no sigues","si no se siguen","si no sigues las consignas","si no sigues las instrucciones"],
+          ["consignas","instrucciones","la consigna"]
+        ]
+      },
+      { name:"Perder puntos aunque la idea sea correcta", sub:[
+          ["puedes perder puntos","se pueden perder puntos","perder puntos","perder notas"],
+          ["incluso","aunque"],
+          ["idea correcta","respuesta correcta","lo correcto"]
+        ]
+      },
+      { name:"Por eso es importante", sub:[
+          ["por eso","por ello","así que","de ahí que"],
+          ["es importante","es esencial","es necesario"]
+        ]
+      },
+      { name:"Responder completamente + incluir detalles", sub:[
+          ["responder completamente","responder del todo","responder de forma completa"],
+          ["incluir los detalles","poner detalles","añadir detalles"],
+          ["que pide la pregunta","que la pregunta pide","según la pregunta","lo que se pide"]
+        ]
+      }
     ],
     sampleAnswer:
       "Conocer el tema no siempre es suficiente en un examen. Si no sigues las consignas, puedes perder puntos incluso con la idea correcta. Por eso es importante responder completamente e incluir los detalles que pide la pregunta."
@@ -1847,22 +1927,45 @@ function markChoice(qid, chosenValue, marks){
 }
 
 function markTranslation(tObj, userText){
-  const t = norm(userText);
+  const raw = userText || "";
+  const t = norm(raw);
   if(!t) return {score:0, max:20, detail:"Blank translation."};
 
-  let hits = 0;
-  const ideas = tObj.keyIdeas || [];
-  ideas.forEach(group => {
-    const ok = group.some(k => t.includes(norm(k)));
-    if(ok) hits++;
+  const ideaObjs = tObj.ideas || []; // <-- uses your real structure
+  if(ideaObjs.length === 0){
+    return {score:0, max:20, detail:"No translation rubric set (tObj.ideas missing)."};
+  }
+
+  // score each idea group 0..4 depending on how many sub-points are hit
+  function scoreGroup(group){
+    const subs = group.sub || [];
+    if(subs.length === 0) return 0;
+
+    let hit = 0;
+    subs.forEach(arr => {
+      const ok = (arr || []).some(k => t.includes(norm(k)));
+      if(ok) hit++;
+    });
+
+    const ratio = hit / subs.length;      // 0..1
+    return Math.max(0, Math.min(4, Math.round(ratio * 4))); // 0..4
+  }
+
+  let total = 0;
+  let detailParts = [];
+
+  ideaObjs.forEach(g => {
+    const gs = scoreGroup(g);
+    total += gs;
+    detailParts.push(`${g.name}: ${gs}/4`);
   });
 
-  // 5 ideas × 4 marks
-  const score = Math.min(20, hits * 4);
-  const detail = `Key ideas matched: ${hits}/${ideas.length}. (4 marks each)`;
-  return {score, max:20, detail};
+  return {
+    score: Math.max(0, Math.min(20, total)),
+    max: 20,
+    detail: `Idea-group marks → ${detailParts.join(" • ")}`
+  };
 }
-
 function computeTotal(){
   let total = 0;
   let breakdown = [];

@@ -1,0 +1,1501 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>🟣 Otono French — AS/A level Writing (Paper 4) — L’Encroyable Drummond</title>
+  <style>
+    :root{
+      --bg1:#2b0a3d; --bg2:#7a0036;
+      --text:#f4efff; --muted:#c9b9ff;
+      --line:rgba(255,255,255,.12);
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --good:#19ff9a; --warn:#ffd166; --bad:#ff4d6d;
+      --accent:#b000ff; --accent2:#ff1b6a;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:var(--sans); color:var(--text);
+      background:
+        radial-gradient(1000px 700px at 15% 10%, rgba(176,0,255,.22), transparent 60%),
+        radial-gradient(900px 650px at 80% 20%, rgba(255,27,106,.18), transparent 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+    }
+    .wrap{max-width:1100px; margin:0 auto; padding:22px;}
+    .topbar{
+      display:flex; gap:14px; align-items:center; justify-content:space-between;
+      padding:14px 16px; border:1px solid var(--line); border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      box-shadow:var(--shadow);
+      position:sticky; top:14px; z-index:20; backdrop-filter: blur(10px);
+    }
+    .brand{display:flex; flex-direction:column; gap:2px}
+    .brand h1{margin:0; font-size:16px; letter-spacing:.3px}
+    .brand .sub{font-size:12px; color:var(--muted)}
+    .pill{
+      padding:8px 10px; border-radius:999px; border:1px solid var(--line);
+      background:rgba(0,0,0,.25); font-family:var(--mono); font-size:12px;
+      display:flex; gap:10px; align-items:center;
+    }
+    .pill strong{color:#fff}
+    .btn{
+      border:1px solid var(--line); background:rgba(0,0,0,.25);
+      color:var(--text); padding:10px 12px; border-radius:14px; cursor:pointer;
+      transition:.15s transform, .15s background, .15s border;
+      font-weight:600;
+    }
+    .btn:hover{transform:translateY(-1px); background:rgba(0,0,0,.33); border-color:rgba(255,255,255,.22)}
+    .btn.primary{
+      background:linear-gradient(135deg, rgba(176,0,255,.55), rgba(255,27,106,.45));
+      border-color:rgba(255,255,255,.22);
+    }
+    .btn.danger{background:rgba(255,77,109,.18); border-color:rgba(255,77,109,.35)}
+    .grid{display:grid; grid-template-columns: 1.15fr .85fr; gap:16px; margin-top:16px;}
+    @media (max-width: 980px){ .grid{grid-template-columns:1fr} .topbar{position:static} }
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .card .hd{
+      padding:14px 16px; border-bottom:1px solid var(--line);
+      display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
+      background:linear-gradient(180deg, rgba(255,255,255,.06), transparent);
+    }
+    .card .hd h2{margin:0; font-size:14px}
+    .card .hd .meta{font-size:12px; color:var(--muted); line-height:1.25}
+    .card .bd{padding:16px}
+    label{display:block; font-size:12px; color:var(--muted); margin:10px 0 6px}
+    input[type="text"], input[type="number"], textarea, select{
+      width:100%; border:1px solid var(--line); background:rgba(0,0,0,.25);
+      color:var(--text); padding:10px 12px; border-radius:14px; outline:none;
+      font-family:var(--sans);
+    }
+    textarea{min-height:150px; resize:vertical; line-height:1.55}
+    .row{display:flex; gap:10px; flex-wrap:wrap}
+    .row > div{flex:1 1 180px}
+    .note{
+      font-size:12px; color:var(--muted); line-height:1.4;
+      padding:10px 12px; border-radius:14px; border:1px dashed rgba(255,255,255,.18);
+      background:rgba(0,0,0,.18);
+    }
+    .badge{
+      font-family:var(--mono); font-size:12px; padding:6px 10px; border-radius:999px;
+      border:1px solid var(--line); background:rgba(0,0,0,.20);
+      display:inline-flex; align-items:center; gap:6px;
+    }
+    .badge.good{border-color:rgba(25,255,154,.35); background:rgba(25,255,154,.12)}
+    .badge.warn{border-color:rgba(255,209,102,.35); background:rgba(255,209,102,.12)}
+    .badge.bad{border-color:rgba(255,77,109,.35); background:rgba(255,77,109,.12)}
+    .divider{height:1px; background:var(--line); margin:14px 0}
+    .task{
+      padding:12px 14px; border:1px solid var(--line); border-radius:16px;
+      background:rgba(0,0,0,.22);
+    }
+    .task h3{margin:0 0 8px; font-size:13px}
+    .kpi{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
+    @media (max-width: 980px){ .kpi{grid-template-columns:repeat(2,1fr)} }
+    .kpi .box{
+      border:1px solid var(--line); border-radius:16px; padding:10px 12px;
+      background:rgba(0,0,0,.22);
+    }
+    .kpi .box .t{font-size:12px; color:var(--muted)}
+    .kpi .box .v{font-size:18px; font-weight:800; margin-top:4px}
+    .small{font-size:12px; color:var(--muted)}
+    .tabs{display:flex; gap:8px; flex-wrap:wrap}
+    .tab{padding:10px 12px; border-radius:14px; border:1px solid var(--line); background:rgba(0,0,0,.22); cursor:pointer; font-weight:700}
+    .tab.active{background:linear-gradient(135deg, rgba(176,0,255,.35), rgba(255,27,106,.22)); border-color:rgba(255,255,255,.22)}
+    .resultsList{display:grid; gap:10px}
+    .attempt{
+      border:1px solid var(--line); border-radius:16px; padding:12px 14px;
+      background:rgba(0,0,0,.20);
+    }
+    .attempt .top{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap}
+    .attempt .top strong{font-family:var(--mono)}
+    .attempt .meta{font-size:12px; color:var(--muted); margin-top:6px; line-height:1.4}
+    .copy{font-family:var(--mono); font-size:12px; white-space:pre-wrap; word-break:break-word}
+    .hide{display:none !important}
+    .choice{
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.03);
+      padding:10px 12px; border-radius:14px; margin-top:8px;
+    }
+    .rubricRow{
+      display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;
+    }
+    .rubPill{
+      padding:6px 10px; border-radius:999px; border:1px solid var(--line);
+      background:rgba(0,0,0,.18); font-size:12px; color:var(--muted);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <h1>🟣 Otono French — Paper 4 • Écriture • L’Encroyable Drummond</h1>
+        <div class="sub">AS ou A level • 2 dissertations (40 + 40) + 1 traduction (20) • Centre: <strong>50749</strong></div>
+      </div>
+      <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end">
+        <div class="pill"><span>⏱️ Timer:</span><strong id="timerText">--:--</strong></div>
+        <button class="btn" id="btnResults">Results</button>
+        <button class="btn primary" id="btnHome">Test</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- LEFT -->
+      <div class="card" id="panelHome">
+        <div class="hd">
+          <div>
+            <h2>Candidate setup</h2>
+            <div class="meta">
+              Random paper: <strong>2 choices</strong> for Section A + <strong>2 choices</strong> for Section B.
+              Auto-marking checks: structure + language signals + <strong>UNDERSTANDING</strong> (anchor hits).
+            </div>
+          </div>
+          <span class="badge" id="statusBadge">Ready</span>
+        </div>
+
+        <div class="bd" id="homeBody">
+          <div class="row">
+            <div>
+              <label>Centre number (fixed)</label>
+              <input type="text" value="50749" disabled />
+            </div>
+            <div>
+              <label>Candidate number (required)</label>
+              <input type="number" id="candidateNo" placeholder="e.g. 1105" min="1" />
+            </div>
+            <div>
+              <label>Candidate name (optional)</label>
+              <input type="text" id="candidateName" placeholder="Name" />
+            </div>
+          </div>
+
+          <div class="row" style="margin-top:6px">
+            <div>
+              <label>Level</label>
+              <select id="level">
+                <option value="AS">AS level (≈ 250 words per essay)</option>
+                <option value="AL" selected>A level (≈ 300 words per essay)</option>
+              </select>
+            </div>
+
+            <div>
+              <label>Time allowed</label>
+              <select id="timeAllowed"></select>
+              <div class="small" id="timeNote" style="margin-top:6px"></div>
+            </div>
+
+            <div>
+              <label>On timer end</label>
+              <select id="autoSubmit">
+                <option value="yes" selected>Auto-submit</option>
+                <option value="no">Do not auto-submit</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>What “understanding” means here:</strong><br/>
+            • Section B: your answer must clearly reference real <strong>events + characters</strong> from <em>L’Encroyable Drummond</em> (anchors).<br/>
+            • Section A: your answer must reference real <strong>Otono Team details</strong> (anchors).<br/>
+            • Vague essays = low AO2. Clear, specific references = high AO2.
+          </div>
+
+          <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap">
+            <button class="btn" id="btnPreview">Preview random selection</button>
+            <button class="btn primary" id="btnStart">Start random paper</button>
+          </div>
+
+          <div id="previewBox" class="note hide" style="margin-top:12px"></div>
+        </div>
+
+        <!-- TEST BODY -->
+        <div class="bd hide" id="testBody">
+          <div class="kpi">
+            <div class="box"><div class="t">Candidate</div><div class="v" id="kpiCandidate">—</div></div>
+            <div class="box"><div class="t">Level</div><div class="v" id="kpiLevel">—</div></div>
+            <div class="box"><div class="t">Max score</div><div class="v" id="kpiMax">100</div></div>
+            <div class="box"><div class="t">Word targets</div><div class="v" id="kpiWords">—</div></div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note" id="paperInfo"></div>
+          <div id="paper"></div>
+
+          <div class="divider"></div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap">
+            <button class="btn primary" id="btnSubmit">Submit & Auto-Mark</button>
+            <button class="btn" id="btnReset">Reset (new random paper)</button>
+          </div>
+
+          <div id="markingBox" class="hide" style="margin-top:14px"></div>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="card" id="panelSide">
+        <div class="hd">
+          <div>
+            <h2 id="sideTitle">Grading rules</h2>
+            <div class="meta" id="sideMeta">Pass/Merit/Distinction + Grades are returned for every attempt.</div>
+          </div>
+        </div>
+
+        <div class="bd" id="sideBody">
+          <div class="note">
+            <strong>Pass / Merit / Distinction</strong><br/>
+            PASS: 66+<br/>
+            MERIT: 80+<br/>
+            DISTINCTION: 90+<br/>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>9–1 system (out of 100)</strong><br/>
+            9: 90+ • 8: 80+ • 7: 70+ • 6: 60+ • 5: 50+ • 4: 40+ • 3: 35+ • below 35 = U
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>A–H system (out of 100)</strong><br/>
+            A*: 95+ • A: 90+ • B: 80+ • C: 66+ • D: 55+ • E: 45+ • F: 40+ • below 40 = U
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>UNDERSTANDING check</strong><br/>
+            Section A (Otono Team): counts Otono anchors (mansion/airline/rules/roles).<br/>
+            Section B (Book): counts book <strong>events + characters</strong> anchors.<br/>
+            More anchor hits = stronger AO2.
+          </div>
+
+          <div class="divider"></div>
+          <div class="small">Results are saved locally on this browser (localStorage).</div>
+        </div>
+
+        <!-- RESULTS PANEL -->
+        <div class="bd hide" id="resultsBody">
+          <div class="tabs">
+            <div class="tab active" id="tabAll">All attempts</div>
+            <div class="tab" id="tabCandidate">By candidate</div>
+          </div>
+
+          <div class="row" style="margin-top:10px">
+            <div>
+              <label>Filter candidate number</label>
+              <input type="number" id="filterCandidate" placeholder="e.g. 1105" min="1" />
+            </div>
+            <div>
+              <label>Actions</label>
+              <div style="display:flex; gap:10px; flex-wrap:wrap">
+                <button class="btn" id="btnExport">Export JSON</button>
+                <button class="btn danger" id="btnClear">Clear stored results</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+          <div class="resultsList" id="resultsList"></div>
+
+          <div id="exportBox" class="note hide" style="margin-top:12px">
+            <div><strong>Exported JSON</strong> (copy/save it):</div>
+            <div class="divider"></div>
+            <div class="copy" id="exportText"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* =========================================================
+   HELPERS
+========================================================= */
+const $ = (sel) => document.querySelector(sel);
+
+function escapeHtml(str){
+  return (str ?? "").toString()
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+}
+function nowISO(){ return new Date().toISOString(); }
+function norm(s){
+  return (s ?? "")
+    .toString().toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .replace(/[^a-z0-9\s]/g," ")
+    .replace(/\s+/g," ").trim();
+}
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+function pickRandom(arr, n){ return shuffle(arr).slice(0,n); }
+function wordCount(text){
+  const t = (text ?? "").trim();
+  if(!t) return 0;
+  return t.split(/\s+/).filter(Boolean).length;
+}
+function setBadge(text, cls="badge"){ const b=$("#statusBadge"); b.className=cls; b.textContent=text; }
+function clamp(x,a,b){ return Math.max(a, Math.min(b, x)); }
+
+/* =========================================================
+   TIMER
+========================================================= */
+let timer = null;
+let remainingSec = 0;
+function stopTimer(){ if(timer){ clearInterval(timer); timer=null; } }
+function startTimer(minutes, onEnd){
+  stopTimer();
+  remainingSec = Math.max(1, Math.floor(minutes*60));
+  const tick = () => {
+    const m = Math.floor(remainingSec/60);
+    const s = remainingSec%60;
+    $("#timerText").textContent = `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+    remainingSec--;
+    if(remainingSec < 0){
+      stopTimer();
+      onEnd?.();
+    }
+  };
+  tick();
+  timer = setInterval(tick, 1000);
+}
+
+/* =========================================================
+   STORAGE
+========================================================= */
+const STORE_KEY = "otonoFrench_AlevelWriting_v2_understanding";
+function loadResults(){
+  try{ return JSON.parse(localStorage.getItem(STORE_KEY) || "[]"); }
+  catch(e){ return []; }
+}
+function saveResults(list){ localStorage.setItem(STORE_KEY, JSON.stringify(list)); }
+function addResult(attempt){
+  const list = loadResults();
+  list.unshift(attempt);
+  saveResults(list);
+}
+
+/* =========================================================
+   REQUIRED: REAL EVENTS — L’Encroyable Drummond
+========================================================= */
+const BOOK_EVENTS = {
+  events: [
+    {
+      id:"E_RESULTS_ENVELOPES",
+      label:"Les enveloppes violettes des résultats",
+      anchors:[
+        "enveloppe violette",
+        "enveloppes violettes",
+        "feuille de résultats",
+        "résultat détaillé",
+        "copie originale",
+        "ne peuvent pas modifier",
+        "argent dans l'enveloppe",
+        "payer red",
+        "carte de pénalité",
+        "raw mark",
+        "scaled mark"
+      ]
+    },
+    {
+      id:"E_BLACK_INK_RULE",
+      label:"La règle stricte de l’encre noire",
+      anchors:[
+        "encre noire obligatoire",
+        "stylo noir obligatoire",
+        "interdit d'utiliser l'encre jaune",
+        "pénalité d'encre",
+        "zéro pour présentation",
+        "présentation incorrecte",
+        "perdu des points à cause de l'encre",
+        "black ink trap"
+      ]
+    },
+    {
+      id:"E_PENCIL_REBELLION",
+      label:"La rébellion du papier en crayon",
+      anchors:[
+        "tout le monde a écrit au crayon",
+        "paper 2 en crayon",
+        "pencil not marked",
+        "copie non corrigée",
+        "invigilateurs",
+        "refus de corriger",
+        "diagrams seulement marqués"
+      ]
+    },
+    {
+      id:"E_CLAYTON_160",
+      label:"Clayton et le 160 sur 160",
+      anchors:[
+        "160 sur 160",
+        "160 out of 160",
+        "maths parfait",
+        "igcse en avance",
+        "arrogance académique",
+        "détruire gary",
+        "score maximal"
+      ]
+    },
+    {
+      id:"E_MARKING_PROCESS",
+      label:"Le processus de correction stricte",
+      anchors:[
+        "processus de correction",
+        "marquage strict",
+        "pénalité de présentation",
+        "note pénalisée",
+        "marque originale",
+        "marque ajustée",
+        "perte de dix points",
+        "présentation plus importante que contenu"
+      ]
+    },
+    {
+      id:"E_BLACK_INK_CONFLICT",
+      label:"Le conflit autour de l’identité et de l’encre",
+      anchors:[
+        "identité liée à l'encre",
+        "contrôle académique",
+        "obsession de la perfection",
+        "discipline extrême",
+        "culture de performance",
+        "pression collective",
+        "comparaison entre élèves"
+      ]
+    },
+    {
+      id:"E_ROOM_47_IMPORTANT",
+      label:"La pile importante de la salle 47",
+      anchors:[
+        "salle 47",
+        "pile importante",
+        "grade 9 seulement",
+        "script conservé",
+        "copie exceptionnelle",
+        "script envoyé en salle 47"
+      ]
+    },
+    {
+      id:"E_MONEY_REWARD_SYSTEM",
+      label:"Le système de récompense et remboursement",
+      anchors:[
+        "récompense financière",
+        "rembourser red",
+        "contrat académique",
+        "argent si réussite",
+        "payer en cas d'échec",
+        "accord avant l'examen"
+      ]
+    },
+    {
+      id:"E_YELLOW_INK_ZERO",
+      label:"Le zéro pour encre jaune",
+      anchors:[
+        "zéro pour encre jaune",
+        "yellow ink interdit",
+        "réponse non marquée",
+        "science en français zéro",
+        "perte de quatorze points",
+        "pénalité automatique"
+      ]
+    },
+    {
+      id:"E_PERFECTION_CRISIS",
+      label:"La crise de la perfection académique",
+      anchors:[
+        "crise d'identité académique",
+        "obsession du score",
+        "perfection impossible",
+        "anxiété des résultats",
+        "peur de perdre un point",
+        "pression interne"
+      ]
+    }
+  ]
+};
+
+/* =========================================================
+   BOOK CHARACTERS — L’Encroyable Drummond (UNDERSTANDING)
+========================================================= */
+const BOOK_CHARACTERS = {
+  chars: [
+    {
+      id:"C_RED",
+      label:"Red",
+      anchors:[
+        "red",
+        "marqueur",
+        "le correcteur",
+        "je suis le marker",
+        "enveloppes violettes",
+        "système de récompense",
+        "rembourser red",
+        "règles d'encre",
+        "encre jaune interdit",
+        "pénalité d'encre",
+        "français",
+        "la marseillaise",
+      ]
+    },
+    {
+      id:"C_LUKE",
+      label:"Luke",
+      anchors:[
+        "luke",
+        "encre noire",
+        "stylo noir",
+        "diagrammes",
+        "graphiques",
+        "sohcahtoa",
+        "obsession du noir",
+        "précision",
+        "détails"
+      ]
+    },
+    {
+      id:"C_OWING",
+      label:"OWing",
+      anchors:[
+        "owing",
+        "organisation",
+        "stratégie",
+        "révision",
+        "discipline",
+        "leader",
+        "co-leader",
+        "routines",
+        "porsche",
+        "maths",
+        "mathematiques",
+        "arrogance",
+      ]
+    },
+    {
+      id:"C_JESSICA",
+      label:"Jessica",
+      anchors:[
+        "jessica",
+        "piano",
+        "méthode",
+        "perfectionnisme",
+        "analyse",
+        "meilleure en maths",
+        "rigueur"
+      ]
+    },
+    {
+      id:"C_BENJAMIN_NELSON",
+      label:"Benjamin Nelson",
+      anchors:[
+        "benjamin nelson",
+        "black ink trap",
+        "piège d'encre noire",
+        "ne comparez pas",
+        "comparer les autres",
+        "encre noire",
+        "écriture",
+        "meilleur en rédaction",
+        "96",
+        "96 marks"
+      ]
+    },
+    {
+      id:"C_WYATT",
+      label:"Wyatt",
+      anchors:[
+        "wyatt",
+        "doritos",
+        "encre noire",
+        "déteste l'encre jaune",
+        "hate yellow ink",
+        "déteste la science"
+      ]
+    },
+    {
+      id:"C_THOMAS",
+      label:"Thomas",
+      anchors:[
+        "thomas",
+        "tardis",
+        "lenfer",
+        "l enfer",
+        "dyspraxie",
+        "ordinateur",
+        "nuit",
+        "darkness"
+      ]
+    },
+    {
+      id:"C_JOSHUA",
+      label:"Joshua",
+      anchors:[
+        "joshua",
+        "dinosaures",
+        "blagues",
+        "haine des absences",
+        "missing education",
+        "inacceptable d être en retard",
+        "jamais de retenue",
+        "detention"
+      ]
+    },
+    {
+      id:"C_SHIREEN",
+      label:"Shireen",
+      anchors:[
+        "shireen",
+        "espagnol",
+        "français",
+        "langues",
+        "mfl"
+      ]
+    },
+    {
+      id:"C_TORRAN",
+      label:"Torran",
+      anchors:[
+        "torran",
+        "juste passé",
+        "just passed",
+        "un point de plus et il échoue",
+        "limite",
+        "passage"
+      ]
+    },
+    {
+      id:"C_RAPHAEL",
+      label:"Raphael",
+      anchors:[
+        "raphael",
+        "peu actif",
+        "snapchat",
+        "à peine actif"
+      ]
+    },
+    {
+      id:"C_CLAYTON",
+      label:"Clayton",
+      anchors:[
+        "clayton",
+        "160 sur 160",
+        "160 out of 160",
+        "maths parfait",
+        "arrogance académique",
+        "détruire gary",
+        "score maximal"
+      ]
+    },
+    {
+      id:"C_ANGUS",
+      label:"Angus",
+      anchors:[
+        "angus",
+        "inkredible",
+        "encre noire",
+        "toujours noir",
+        "déteste le crayon",
+        "resit",
+        "doit repasser"
+      ]
+    }
+  ]
+};
+
+/* =========================================================
+   OTONO TEAM ANCHORS (UNDERSTANDING CHECK FOR SECTION A)
+========================================================= */
+const OTONO_ANCHORS = [
+  { id:"OT_MANSION_90", label:"Le manoir Otono (90 pièces)", anchors:["manoir otono","mansion otono","90 pieces","90 pièces","quatre vingts dix","border of bristol","bath"] },
+  { id:"OT_ROOMS", label:"Les numéros de salle (47/64–71/84)", anchors:["salle 47","room 47","salle 84","room 84","64","65","66","67","68","69","70","71"] },
+  { id:"OT_AIRWAYS", label:"Otono Airways / A380 / classes", anchors:["otono airways","a380","classe économique","economique","business","first","lounge","salon","heathrow"] },
+  { id:"OT_BLACK_INK_CULTURE", label:"Culture de l’encre noire (équipe)", anchors:["encre noire","stylo noir","black ink","encre jaune","yellow ink","pénalité"] },
+  { id:"OT_TEAM_STRUCTURE", label:"Structure de l’équipe", anchors:["otono team","leaders","co leader","co-leader","assistant leader","résidence","mansion assistants"] },
+];
+
+/* =========================================================
+   QUESTION BANKS (>= 12 per section)
+========================================================= */
+const BANK_A = [
+  { id:"A1", level:"AL", title:"Dans quelle mesure l’Otono Team représente-t-elle un modèle de discipline et d’ambition académique ?", keywords:["discipline","ambition","examens","règles","résultats","pression","organisation"] },
+  { id:"A2", level:"AL", title:"Analysez l’importance des règles (encre, consignes, présentation) dans la dynamique du groupe.", keywords:["règles","consignes","encre","présentation","cohésion","conflits","justice"] },
+  { id:"A3", level:"AL", title:"Comment les différences de personnalité influencent-elles les conflits et les réussites dans l’équipe ?", keywords:["personnalité","conflit","réussite","coopération","communication","jalousie"] },
+  { id:"A4", level:"AL", title:"La compétition académique est-elle bénéfique ou dangereuse pour l’Otono Team ?", keywords:["compétition","comparaison","motivation","stress","perfection","progrès"] },
+  { id:"A5", level:"AL", title:"Étudiez le rôle du leadership dans l’Otono Team : qui influence le plus et pourquoi ?", keywords:["leadership","influence","décisions","responsabilité","équilibre","autorité"] },
+  { id:"A6", level:"AL", title:"Dans quelle mesure la pression des résultats affecte-t-elle les relations entre les membres ?", keywords:["pression","résultats","relations","jalousie","admiration","confiance"] },
+  { id:"A7", level:"AL", title:"Discutez l’importance de la précision (détails, organisation, méthode) pour réussir dans l’Otono Team.", keywords:["précision","méthode","organisation","détails","efficacité","révision"] },
+  { id:"A8", level:"AL", title:"L’Otono Team valorise-t-elle davantage la performance ou le bien-être ? Justifiez.", keywords:["performance","bien-être","stress","soutien","priorités","équilibre"] },
+  { id:"A9", level:"AL", title:"Analysez le rôle des “rituels” (habitudes, systèmes, routines) dans la réussite du groupe.", keywords:["rituels","routines","habitudes","système","discipline","résultats"] },
+  { id:"A10", level:"AL", title:"Dans quelle mesure l’identité du groupe dépend-elle de ses règles et de ses symboles ?", keywords:["identité","symboles","règles","cohésion","culture","valeurs"] },
+  { id:"A11", level:"AL", title:"Discutez l’effet des comparaisons entre élèves sur la motivation et la confiance en soi.", keywords:["comparaison","motivation","confiance","jalousie","admiration","pression"] },
+  { id:"A12", level:"AL", title:"Expliquez comment l’équipe gère les règles et les exceptions. Est-ce cohérent ?", keywords:["exceptions","cohérence","justice","conséquences","règles","autorité"] },
+
+  { id:"A13", level:"AS", title:"Expliquez pourquoi les règles sont importantes pour l’Otono Team.", keywords:["règles","organisation","discipline","examens","consignes"] },
+  { id:"A14", level:"AS", title:"Comment la pression des examens influence-t-elle les membres ?", keywords:["pression","examens","stress","révision","résultats"] },
+  { id:"A15", level:"AS", title:"Décrivez ce qui rend l’Otono Team unique.", keywords:["unique","groupe","valeurs","règles","ambition"] },
+  { id:"A16", level:"AS", title:"À votre avis, l’Otono Team est-elle un groupe uni ? Pourquoi ?", keywords:["uni","cohésion","conflits","soutien","amitié"] },
+];
+
+const BANK_B = [
+  { id:"B1", level:"AL", title:"Comment le roman présente-t-il le thème de la perfection académique dans L’Encroyable Drummond ?", keywords:["perfection","académique","pression","scores","conséquences","critique"] },
+  { id:"B2", level:"AL", title:"Analysez l’évolution psychologique d’un personnage clé au cours du roman.", keywords:["évolution","psychologique","personnage","motivation","changement","crise"] },
+  { id:"B3", level:"AL", title:"Dans quelle mesure le roman critique-t-il le système éducatif moderne ?", keywords:["critique","système","éducatif","règles","notation","injustice"] },
+  { id:"B4", level:"AL", title:"Discutez le symbolisme de l’encre noire dans le roman.", keywords:["symbolisme","encre","noire","identité","pouvoir","contrôle"] },
+  { id:"B5", level:"AL", title:"Le roman est-il une tragédie académique ou une satire ? Justifiez.", keywords:["tragédie","satire","ton","message","ironie","tension"] },
+  { id:"B6", level:"AL", title:"Comment les rivalités scolaires contribuent-elles à la tension narrative ?", keywords:["rivalités","tension","narrative","conflits","enjeux","rythme"] },
+  { id:"B7", level:"AL", title:"Analysez le rôle des règles et des punitions dans la progression de l’intrigue.", keywords:["règles","punitions","intrigue","conséquences","justice","escalade"] },
+  { id:"B8", level:"AL", title:"Dans quelle mesure l’auteur montre-t-il que le détail peut tout changer ?", keywords:["détail","précision","consignes","résultats","erreurs","contraste"] },
+  { id:"B9", level:"AL", title:"Discutez comment le roman traite la comparaison entre élèves et ses effets.", keywords:["comparaison","élèves","jalousie","admiration","pression","estime"] },
+  { id:"B10", level:"AL", title:"Analysez la relation entre discipline et liberté dans le roman.", keywords:["discipline","liberté","contrôle","choix","résistance","équilibre"] },
+  { id:"B11", level:"AL", title:"Dans quelle mesure le roman met-il en scène une “culture de la performance” ?", keywords:["culture","performance","résultats","réputation","pression","valeurs"] },
+  { id:"B12", level:"AL", title:"Le style du roman renforce-t-il le message ? Discutez.", keywords:["style","message","narration","ton","ironie","effet"] },
+
+  { id:"B13", level:"AS", title:"Décrivez un personnage important du roman et expliquez son rôle.", keywords:["personnage","rôle","histoire","relations","choix"] },
+  { id:"B14", level:"AS", title:"Expliquez l’importance des examens dans le roman.", keywords:["examens","pression","résultats","conséquences","intrigue"] },
+  { id:"B15", level:"AS", title:"Comment la rivalité est-elle présentée dans le récit ?", keywords:["rivalité","conflit","tension","comparaison","motivation"] },
+  { id:"B16", level:"AS", title:"Quelle est l’importance de l’encre noire dans l’histoire ?", keywords:["encre","noire","règles","symbolisme","identité"] },
+];
+
+const TRANSLATION_POOL = [
+  {
+    id:"T1",
+    en:`During the mock exams, the students believed that small details did not matter. However, the marking process proved the opposite. One candidate lost marks because of presentation, while another succeeded thanks to precision and discipline. In the future, they will understand that perfection is not only about knowledge, but also about attitude.`,
+    keyIdeas: [
+      ["mock exams","mocks"],
+      ["small details","details"],
+      ["did not matter"],
+      ["however","but"],
+      ["marking process","marking"],
+      ["proved the opposite"],
+      ["lost marks"],
+      ["presentation"],
+      ["another succeeded","succeeded"],
+      ["thanks to"],
+      ["precision"],
+      ["discipline"],
+      ["in the future","future"],
+      ["not only about knowledge"],
+      ["but also about attitude","attitude"]
+    ]
+  },
+  {
+    id:"T2",
+    en:`In school, rules can protect students, but they can also create anxiety. If someone follows the instructions carefully, they feel safer. On the other hand, one mistake can become a big problem. Next year, the class wants a fairer system.`,
+    keyIdeas: [
+      ["rules","instructions"],
+      ["protect"],
+      ["but","however"],
+      ["anxiety","stress"],
+      ["follows","follow"],
+      ["carefully"],
+      ["safer"],
+      ["on the other hand"],
+      ["mistake","error"],
+      ["big problem"],
+      ["next year"],
+      ["fairer system","fair system"]
+    ]
+  }
+];
+
+/* =========================================================
+   LANGUAGE SIGNALS
+========================================================= */
+const FRENCH_MARKERS = [
+  "je","j ai","j'ai","nous","vous","il","elle","on","dans","avec","sans","parce que",
+  "mais","cependant","pourtant","donc","alors","ensuite","d abord","d'abord",
+  "aujourd hui","aujourd'hui","hier","demain","plus tard","la semaine prochaine",
+  "mon","ma","mes","un","une","des","du","de la","au","aux"
+];
+const CONNECTORS = ["parce que","cependant","pourtant","donc","alors","ensuite","d abord","d'abord","en plus","de plus","en revanche","par contre","tandis que","comme"];
+const RANGE_MARKERS = ["qui","que","dont","si","quand","pendant que","afin de","pour que","bien que","quoique","meme si","même si","ce qui","ce que","au lieu de","plutot que","plutôt que"];
+const NEGATION = ["ne","pas","jamais","rien","personne","plus"];
+
+function countHits(textNorm, vocab){
+  let hits = 0;
+  vocab.forEach(w=>{
+    const k = norm(w);
+    if(k && textNorm.includes(k)) hits++;
+  });
+  return hits;
+}
+function langSignalScore(textNorm){
+  let markerHits=0;
+  FRENCH_MARKERS.forEach(m=>{ if(textNorm.includes(norm(m))) markerHits++; });
+  const markerScore = clamp(Math.round((markerHits/12)*6), 0, 6);
+  const conn = countHits(textNorm, CONNECTORS);
+  const connScore = clamp(conn >= 3 ? 2 : (conn >= 1 ? 1 : 0), 0, 2);
+  const range = countHits(textNorm, RANGE_MARKERS);
+  const rangeScore = clamp(range >= 3 ? 2 : (range >= 1 ? 1 : 0), 0, 2);
+  const neg = countHits(textNorm, NEGATION);
+  const negScore = clamp(neg >= 2 ? 1 : (neg >= 1 ? 0.5 : 0), 0, 1);
+  return clamp(markerScore + connScore + rangeScore + negScore, 0, 10);
+}
+
+/* =========================================================
+   UNDERSTANDING ENGINE (ANCHOR HITS)
+========================================================= */
+function anchorReport(textNorm, packs){
+  let packHits = 0;
+  let totalAnchorHits = 0;
+  const hitPacks = [];
+
+  packs.forEach(p=>{
+    let thisPackHit = 0;
+    (p.anchors || []).forEach(a=>{
+      const k = norm(a);
+      if(k && textNorm.includes(k)){
+        thisPackHit++;
+        totalAnchorHits++;
+      }
+    });
+    if(thisPackHit > 0){
+      packHits++;
+      hitPacks.push({ id:p.id, label:p.label, anchorsHit:thisPackHit });
+    }
+  });
+
+  return { packHits, totalAnchorHits, hitPacks };
+}
+
+function understandingScoreSectionB(textNorm){
+  // ✅ Book understanding = events + characters
+  const combined = BOOK_EVENTS.events.concat(BOOK_CHARACTERS.chars);
+  const rep = anchorReport(textNorm, combined);
+
+  const packScore = clamp(Math.round((rep.packHits / 3) * 8), 0, 8);
+  const densityBonus = clamp(Math.min(2, Math.floor(rep.totalAnchorHits / 4)), 0, 2);
+  const score10 = clamp(packScore + densityBonus, 0, 10);
+
+  return { score10, rep };
+}
+
+function understandingScoreSectionA(textNorm){
+  const rep = anchorReport(textNorm, OTONO_ANCHORS);
+
+  const packScore = clamp(Math.round((rep.packHits / 3) * 8), 0, 8);
+  const densityBonus = clamp(Math.min(2, Math.floor(rep.totalAnchorHits / 4)), 0, 2);
+  const score10 = clamp(packScore + densityBonus, 0, 10);
+
+  return { score10, rep };
+}
+
+/* =========================================================
+   GRADES
+========================================================= */
+function passMeritDistinction(score){
+  if(score >= 90) return "DISTINCTION";
+  if(score >= 80) return "MERIT";
+  if(score >= 66) return "PASS";
+  return "FAIL";
+}
+function grade9to1_100(score){
+  if(score >= 90) return 9;
+  if(score >= 80) return 8;
+  if(score >= 70) return 7;
+  if(score >= 60) return 6;
+  if(score >= 50) return 5;
+  if(score >= 40) return 4;
+  if(score >= 35) return 3;
+  return "U";
+}
+function gradeAH_100(score){
+  if(score >= 95) return "A*";
+  if(score >= 90) return "A";
+  if(score >= 80) return "B";
+  if(score >= 70) return "C";
+  if(score >= 66) return "D";
+  if(score >= 55) return "E";
+  if(score >= 45) return "F";
+  if(score >= 40) return "G";
+  return "U";
+}
+function badgeForScore(score){
+  if(score >= 90) return ["badge good","🏆 Excellent"];
+  if(score >= 80) return ["badge good","⭐ Très bien"];
+  if(score >= 66) return ["badge warn","✅ Ok"];
+  return ["badge bad","❌ Mal"];
+}
+
+/* =========================================================
+   PAPER GENERATION
+========================================================= */
+function bankForLevel(bank, level){
+  if(level==="AS"){
+    const as = bank.filter(q=>q.level==="AS");
+    const al = bank.filter(q=>q.level==="AL");
+    return shuffle([].concat(as, as, as, al));
+  }else{
+    const al = bank.filter(q=>q.level==="AL");
+    const as = bank.filter(q=>q.level==="AS");
+    return shuffle([].concat(al, al, al, as));
+  }
+}
+function generatePaper(level){
+  const A = bankForLevel(BANK_A, level);
+  const B = bankForLevel(BANK_B, level);
+  const pickA = pickRandom(A, 2);
+  const pickB = pickRandom(B, 2);
+  const trans = pickRandom(TRANSLATION_POOL, 1)[0];
+
+  const wordTargets = (level==="AS")
+    ? { essayTarget:250, essayMin:220, essayMax:320, transMin:80 }
+    : { essayTarget:300, essayMin:260, essayMax:380, transMin:80 };
+
+  return { level, wordTargets, sectionA:pickA, sectionB:pickB, translation:trans };
+}
+
+/* =========================================================
+   TIME OPTIONS
+========================================================= */
+function populateTimeOptions(){
+  const level = $("#level").value;
+  const sel = $("#timeAllowed");
+  const prev = sel.value;
+  sel.innerHTML = "";
+
+  const options = (level==="AS")
+    ? [{ v:105, label:"105 minutes (recommended)" }, { v:90, label:"90 minutes" }, { v:75, label:"75 minutes" }]
+    : [{ v:120, label:"120 minutes (recommended)" }, { v:105, label:"105 minutes" }, { v:90, label:"90 minutes" }];
+
+  $("#timeNote").innerHTML = (level==="AS")
+    ? "AS: recommandé <strong>105 minutes</strong>."
+    : "A level: recommandé <strong>120 minutes</strong>.";
+
+  const valid = new Set(options.map(o=>String(o.v)));
+  const useValue = valid.has(String(prev)) ? String(prev) : String(options[0].v);
+
+  options.forEach(o=>{
+    const opt = document.createElement("option");
+    opt.value = String(o.v);
+    opt.textContent = o.label;
+    if(opt.value === useValue) opt.selected = true;
+    sel.appendChild(opt);
+  });
+}
+$("#level").addEventListener("change", populateTimeOptions);
+
+/* =========================================================
+   RENDERING
+========================================================= */
+let state = {
+  submitted:false,
+  candidateNo:null,
+  candidateName:"",
+  paper:null
+};
+
+function renderHome(){
+  $("#homeBody").classList.remove("hide");
+  $("#testBody").classList.add("hide");
+  $("#resultsBody").classList.add("hide");
+  $("#sideBody").classList.remove("hide");
+  $("#sideTitle").textContent = "Grading rules";
+  $("#sideMeta").textContent = "Pass/Merit/Distinction + Grades + Understanding anchors.";
+  $("#timerText").textContent = "--:--";
+  setBadge("Ready","badge");
+}
+
+function makeTaskCard(title, meta, innerHtml){
+  const wrap = document.createElement("div");
+  wrap.className = "task";
+  wrap.innerHTML = `
+    <h3>${escapeHtml(title)}</h3>
+    <div class="small">${escapeHtml(meta)}</div>
+    <div class="divider"></div>
+    ${innerHtml}
+  `;
+  return wrap;
+}
+function wireWordCount(textareaId, outId){
+  const ta = $("#"+textareaId);
+  const out = $("#"+outId);
+  if(!ta || !out) return;
+  const draw = () => out.textContent = `Word count: ${wordCount(ta.value)}`;
+  ta.addEventListener("input", draw);
+  draw();
+}
+
+function renderTest(){
+  $("#homeBody").classList.add("hide");
+  $("#testBody").classList.remove("hide");
+  $("#resultsBody").classList.add("hide");
+  $("#sideBody").classList.remove("hide");
+
+  const p = state.paper;
+  const cand = `${state.candidateNo}${state.candidateName ? " • "+state.candidateName : ""}`;
+  $("#kpiCandidate").textContent = cand;
+  $("#kpiLevel").textContent = p.level === "AS" ? "AS" : "A LEVEL";
+  $("#kpiWords").textContent = `Essays ${p.wordTargets.essayTarget} • Trans ≥ ${p.wordTargets.transMin}`;
+  $("#kpiMax").textContent = "100";
+
+  const mins = parseInt($("#timeAllowed").value,10);
+  const auto = $("#autoSubmit").value === "yes";
+  $("#paperInfo").innerHTML = `
+    <strong>Instructions:</strong> no dictionary/translator. Choose 1 option in each section. French only.
+    <br/><strong>Level:</strong> ${escapeHtml(p.level)} • <strong>Time:</strong> ${mins} min • <strong>Auto-submit:</strong> ${auto ? "ON" : "OFF"}
+  `;
+
+  const paperDiv = $("#paper");
+  paperDiv.innerHTML = "";
+  $("#markingBox").classList.add("hide");
+  $("#markingBox").innerHTML = "";
+  state.submitted = false;
+
+  paperDiv.appendChild(renderSectionA(p.sectionA, p.wordTargets));
+  paperDiv.appendChild(renderSectionB(p.sectionB, p.wordTargets));
+  paperDiv.appendChild(renderTranslation(p.translation, p.wordTargets));
+
+  startTimer(mins, () => {
+    if($("#autoSubmit").value==="yes") submitPaper(true);
+    else alert("Time is up. You can still submit manually.");
+  });
+
+  setBadge("In progress","badge warn");
+}
+
+function renderSectionA(choices, targets){
+  const html = `
+    <div class="note">
+      <strong>SECTION A — Otono Team</strong> (40 marks)<br/>
+      Choisissez <strong>UNE</strong> question. Rédigez environ <strong>${targets.essayTarget} mots</strong>.
+      <div class="rubricRow">
+        <span class="rubPill">argument</span><span class="rubPill">analyse</span>
+        <span class="rubPill">détails Otono</span><span class="rubPill">conclusion</span>
+      </div>
+    </div>
+
+    <div id="A_choices">
+      ${choices.map((q,i)=>`
+        <div class="choice">
+          <label style="display:flex; gap:10px; align-items:flex-start; cursor:pointer">
+            <input type="radio" name="A_pick" value="${i}" style="margin-top:3px" ${i===0?"checked":""}/>
+            <div>
+              <strong>Option ${i+1} — ${escapeHtml(q.title)}</strong>
+              <div class="small">Code: ${escapeHtml(q.id)} • Mots-clés: ${escapeHtml(q.keywords.join(", "))}</div>
+            </div>
+          </label>
+        </div>
+      `).join("")}
+    </div>
+
+    <label>Votre dissertation (Section A)</label>
+    <textarea id="essayA" placeholder="≈ ${targets.essayTarget} mots..."></textarea>
+    <div class="small" id="essayA_wc"></div>
+  `;
+  const card = makeTaskCard("Q1 Dissertation — Section A", "40 marks • includes Otono understanding anchors (AO2)", html);
+  setTimeout(()=>wireWordCount("essayA","essayA_wc"), 0);
+  return card;
+}
+
+function renderSectionB(choices, targets){
+  const html = `
+    <div class="note">
+      <strong>SECTION B — L’Encroyable Drummond</strong> (40 marks)<br/>
+      Choisissez <strong>UNE</strong> question. Rédigez environ <strong>${targets.essayTarget} mots</strong>.
+      <div class="rubricRow">
+        <span class="rubPill">thèmes</span><span class="rubPill">événements</span>
+        <span class="rubPill">personnages</span><span class="rubPill">analyse</span>
+      </div>
+    </div>
+
+    <div id="B_choices">
+      ${choices.map((q,i)=>`
+        <div class="choice">
+          <label style="display:flex; gap:10px; align-items:flex-start; cursor:pointer">
+            <input type="radio" name="B_pick" value="${i}" style="margin-top:3px" ${i===0?"checked":""}/>
+            <div>
+              <strong>Option ${i+1} — ${escapeHtml(q.title)}</strong>
+              <div class="small">Code: ${escapeHtml(q.id)} • Mots-clés: ${escapeHtml(q.keywords.join(", "))}</div>
+            </div>
+          </label>
+        </div>
+      `).join("")}
+    </div>
+
+    <label>Votre dissertation (Section B)</label>
+    <textarea id="essayB" placeholder="≈ ${targets.essayTarget} mots..."></textarea>
+    <div class="small" id="essayB_wc"></div>
+  `;
+  const card = makeTaskCard("Q2 Dissertation — Section B", "40 marks • includes book understanding anchors (AO2)", html);
+  setTimeout(()=>wireWordCount("essayB","essayB_wc"), 0);
+  return card;
+}
+
+function renderTranslation(item, targets){
+  const html = `
+    <div class="note">
+      <strong>SECTION C — Traduction EN → FR</strong> (20 marks)<br/>
+      Minimum <strong>${targets.transMin} mots</strong>.
+      <div class="divider"></div>
+      <div class="small">${escapeHtml(item.en)}</div>
+      <div class="small" style="margin-top:10px">Code: ${escapeHtml(item.id)}</div>
+    </div>
+
+    <label>Votre traduction</label>
+    <textarea id="trans" placeholder="≥ ${targets.transMin} mots..."></textarea>
+    <div class="small" id="trans_wc"></div>
+  `;
+  const card = makeTaskCard("Q3 Traduction", "20 marks • fidélité (10) + qualité (10) + min words", html);
+  setTimeout(()=>wireWordCount("trans","trans_wc"), 0);
+  return card;
+}
+
+/* =========================================================
+   MARKING
+========================================================= */
+function essayWordBand(wc, targets){
+  if(wc >= targets.essayMin && wc <= targets.essayMax) return 6;
+  if(wc >= Math.round(targets.essayMin*0.85)) return 4;
+  if(wc >= Math.round(targets.essayMin*0.70)) return 2;
+  return 1;
+}
+function essayStructure(textNorm){
+  const hasIntro = (textNorm.includes("dans cette dissertation") || textNorm.includes("je vais montrer") || textNorm.includes("je montrerai") || textNorm.includes("je vais analyser")) ? 1 : 0;
+  const hasConclusion = (textNorm.includes("en conclusion") || textNorm.includes("pour conclure") || textNorm.includes("en somme") || textNorm.includes("finalement")) ? 1 : 0;
+  const conn = countHits(textNorm, CONNECTORS);
+  const connPts = clamp(Math.round((conn/6)*6), 0, 6);
+  return clamp(hasIntro + hasConclusion + connPts, 0, 8);
+}
+function essayRelevance(textNorm, keywords){
+  const hits = countHits(textNorm, keywords || []);
+  const score = clamp(Math.round((hits/6)*8), 0, 8);
+  return { score, hits };
+}
+
+function markEssay40(text, chosenQ, section, targets){
+  const t = norm(text);
+  const wc = wordCount(text);
+  if(!t) return {score:0, max:40, detail:"Blank.", parts:{}};
+
+  const w = essayWordBand(wc, targets);                      // /6
+  const s = essayStructure(t);                               // /8
+  const rel = essayRelevance(t, chosenQ.keywords);           // /8
+  const lang = clamp(Math.round((langSignalScore(t)/10)*8), 0, 8);  // /8
+
+  const u = (section==="A") ? understandingScoreSectionA(t) : understandingScoreSectionB(t); // /10
+
+  const score = clamp(w + s + rel.score + lang + u.score10, 0, 40);
+  const detail = `WC ${wc} => ${w}/6; structure ${s}/8; relevance ${rel.score}/8 (kw hits ${rel.hits}); language ${lang}/8; understanding ${u.score10}/10 (packs ${u.rep.packHits}, anchors ${u.rep.totalAnchorHits}).`;
+  return {score, max:40, detail, parts:{wc,w,s,rel:rel.score,lang,u}};
+}
+
+function markTranslation20(text, keyIdeas, targets){
+  const t = norm(text);
+  const wc = wordCount(text);
+  if(!t) return {score:0, max:20, detail:"Blank.", parts:{ideas:0,quality:0,minWords:0}};
+  const minWords = (wc >= targets.transMin) ? 1 : 0;
+
+  let ideaHits = 0;
+  (keyIdeas || []).forEach(group=>{
+    const alts = Array.isArray(group) ? group : [group];
+    if(alts.some(k => t.includes(norm(k)))) ideaHits++;
+  });
+  const ideas = clamp(Math.round((ideaHits / Math.min(10, (keyIdeas||[]).length)) * 10), 0, 10);
+
+  let quality = clamp(Math.round(langSignalScore(t)), 0, 10);
+  if(!minWords) quality = Math.max(0, quality - 3);
+
+  const score = clamp(ideas + quality, 0, 20);
+  const detail = `WC ${wc} (min ${targets.transMin}); ideas ${ideas}/10 (hits ${ideaHits}); quality ${quality}/10.`;
+  return {score, max:20, detail, parts:{ideas,quality,minWords,wc}};
+}
+
+/* =========================================================
+   TOTAL + SUBMIT
+========================================================= */
+function computeTotal(){
+  const p = state.paper;
+  const targets = p.wordTargets;
+
+  const pickA = parseInt(($("input[name='A_pick']:checked")?.value ?? "0"),10);
+  const pickB = parseInt(($("input[name='B_pick']:checked")?.value ?? "0"),10);
+
+  const chosenA = p.sectionA[pickA];
+  const chosenB = p.sectionB[pickB];
+
+  const aText = $("#essayA").value;
+  const bText = $("#essayB").value;
+  const tText = $("#trans").value;
+
+  const aMark = markEssay40(aText, chosenA, "A", targets);
+  const bMark = markEssay40(bText, chosenB, "B", targets);
+  const tMark = markTranslation20(tText, p.translation.keyIdeas, targets);
+
+  const total = clamp(Math.round(aMark.score + bMark.score + tMark.score), 0, 100);
+
+  const breakdown = [
+    {part:`Q1 Essay A (${chosenA.id})`, score:aMark.score, max:aMark.max, detail:aMark.detail, understanding:aMark.parts.u},
+    {part:`Q2 Essay B (${chosenB.id})`, score:bMark.score, max:bMark.max, detail:bMark.detail, understanding:bMark.parts.u},
+    {part:`Q3 Translation (${p.translation.id})`, score:tMark.score, max:tMark.max, detail:tMark.detail},
+  ];
+
+  return { total, max:100, breakdown, chosen:{A:chosenA.id, B:chosenB.id, T:p.translation.id} };
+}
+
+function submitPaper(fromAuto=false){
+  if(state.submitted) return;
+  state.submitted = true;
+  stopTimer();
+
+  const res = computeTotal();
+  const total = res.total;
+
+  const pmd = passMeritDistinction(total);
+  const g9 = grade9to1_100(total);
+  const gah = gradeAH_100(total);
+  const [cls, txt] = badgeForScore(total);
+
+  const attempt = {
+    centre:"50749",
+    candidateNo:String(state.candidateNo),
+    candidateName:state.candidateName || "",
+    level: state.paper.level,
+    submittedAt: nowISO(),
+    timeAllowedMin: parseInt($("#timeAllowed").value,10),
+    maxScore: res.max,
+    score: total,
+    passMeritDistinction: pmd,
+    grade9to1: g9,
+    gradeAH: gah,
+    chosen: res.chosen,
+    breakdown: res.breakdown
+  };
+  addResult(attempt);
+
+  const uA = res.breakdown[0].understanding;
+  const uB = res.breakdown[1].understanding;
+
+  const understandsOtono = (uA?.rep?.packHits ?? 0) >= 2;
+  const understandsBook  = (uB?.rep?.packHits ?? 0) >= 2;
+
+  const box = $("#markingBox");
+  box.classList.remove("hide");
+  box.innerHTML = `
+    <div class="card">
+      <div class="hd">
+        <div>
+          <h2 style="margin:0;font-size:14px">✅ Marked${fromAuto ? " (auto-submitted)" : ""}</h2>
+          <div class="meta">Saved to Results • Candidate ${escapeHtml(attempt.candidateNo)} • Level ${escapeHtml(attempt.level)}</div>
+        </div>
+        <span class="${cls}">${escapeHtml(txt)}</span>
+      </div>
+      <div class="bd">
+        <div class="kpi">
+          <div class="box"><div class="t">Score</div><div class="v">${attempt.score} / ${attempt.maxScore}</div></div>
+          <div class="box"><div class="t">PMD</div><div class="v">${escapeHtml(attempt.passMeritDistinction)}</div></div>
+          <div class="box"><div class="t">9–1</div><div class="v">${escapeHtml(String(attempt.grade9to1))}</div></div>
+          <div class="box"><div class="t">A–H</div><div class="v">${escapeHtml(String(attempt.gradeAH))}</div></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="note">
+          <strong>UNDERSTANDING verdict</strong><br/>
+          Section A (Otono Team): <strong>${understandsOtono ? "YES" : "NO / WEAK"}</strong> — packs referenced: ${uA?.rep?.packHits ?? 0}<br/>
+          Section B (Book): <strong>${understandsBook ? "YES" : "NO / WEAK"}</strong> — packs referenced (events+characters): ${uB?.rep?.packHits ?? 0}
+        </div>
+
+        <div class="divider"></div>
+
+        <button class="btn" id="btnShowBreakdown">Show breakdown</button>
+        <div id="bdList" class="hide" style="margin-top:12px"></div>
+      </div>
+    </div>
+  `;
+
+  $("#btnShowBreakdown").addEventListener("click", ()=>{
+    const d = $("#bdList");
+    d.classList.toggle("hide");
+    if(!d.classList.contains("hide")){
+      d.innerHTML = res.breakdown.map(b=>{
+        const extra = b.understanding
+          ? `<div class="small" style="margin-top:6px">Understanding packs hit: ${b.understanding.rep.packHits} • anchors: ${b.understanding.rep.totalAnchorHits}</div>`
+          : "";
+        const packList = b.understanding
+          ? (b.understanding.rep.hitPacks || []).map(p=>`<div class="small">• ${escapeHtml(p.label)} (anchors hit: ${p.anchorsHit})</div>`).join("")
+          : "";
+        return `
+          <div class="attempt">
+            <div class="top">
+              <div><strong>${escapeHtml(b.part)}</strong></div>
+              <div><span class="badge">${b.score} / ${b.max}</span></div>
+            </div>
+            <div class="meta">${escapeHtml(b.detail)}</div>
+            ${extra}
+            ${packList ? `<div class="divider"></div>${packList}` : ""}
+          </div>
+        `;
+      }).join("");
+    }
+  });
+
+  setBadge("Submitted","badge good");
+}
+
+/* =========================================================
+   RESULTS PANEL
+========================================================= */
+function drawResults(){
+  const listEl = $("#resultsList");
+  const all = loadResults();
+  const filter = ($("#filterCandidate").value || "").trim();
+  const filtered = filter ? all.filter(a => String(a.candidateNo) === String(filter)) : all;
+
+  if(filtered.length === 0){
+    listEl.innerHTML = `<div class="note">No stored attempts${filter ? " for this candidate" : ""}.</div>`;
+    return;
+  }
+
+  listEl.innerHTML = filtered.map(a=>{
+    const [cls, txt] = badgeForScore(a.score);
+    return `
+      <div class="attempt">
+        <div class="top">
+          <div>
+            <strong>${escapeHtml(a.candidateNo)}</strong>${a.candidateName ? " • " + escapeHtml(a.candidateName) : ""}
+            <span class="badge" style="margin-left:8px">Centre ${escapeHtml(a.centre)}</span>
+            <span class="badge" style="margin-left:8px">${escapeHtml(a.level)}</span>
+          </div>
+          <div class="${cls}">${escapeHtml(txt)} • ${escapeHtml(String(a.score))}/${escapeHtml(String(a.maxScore))}</div>
+        </div>
+        <div class="meta">
+          <div><strong>Date:</strong> ${escapeHtml(new Date(a.submittedAt).toLocaleString())}</div>
+          <div><strong>PMD:</strong> ${escapeHtml(a.passMeritDistinction)} • <strong>9–1:</strong> ${escapeHtml(String(a.grade9to1))} • <strong>A–H:</strong> ${escapeHtml(String(a.gradeAH))}</div>
+          <div><strong>Chosen:</strong> ${escapeHtml(a.chosen.A)} • ${escapeHtml(a.chosen.B)} • Translation ${escapeHtml(a.chosen.T)} • <strong>Time:</strong> ${escapeHtml(String(a.timeAllowedMin))} min</div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+function exportResults(){
+  const all = loadResults();
+  $("#exportText").textContent = JSON.stringify(all, null, 2);
+  $("#exportBox").classList.remove("hide");
+}
+function clearResults(){
+  if(!confirm("Clear ALL stored results on this browser?")) return;
+  localStorage.removeItem(STORE_KEY);
+  $("#exportBox").classList.add("hide");
+  drawResults();
+}
+
+/* =========================================================
+   NAVIGATION / EVENTS
+========================================================= */
+$("#btnHome").addEventListener("click", ()=>{
+  renderHome();
+});
+$("#btnResults").addEventListener("click", ()=>{
+  $("#sideBody").classList.add("hide");
+  $("#resultsBody").classList.remove("hide");
+  $("#sideTitle").textContent = "Saved results";
+  $("#sideMeta").textContent = "Stored in this browser (localStorage).";
+  setBadge("Results","badge");
+  stopTimer();
+  $("#timerText").textContent="--:--";
+  drawResults();
+});
+
+$("#tabAll").addEventListener("click", ()=>{
+  $("#tabAll").classList.add("active");
+  $("#tabCandidate").classList.remove("active");
+  $("#filterCandidate").value="";
+  drawResults();
+});
+$("#tabCandidate").addEventListener("click", ()=>{
+  $("#tabCandidate").classList.add("active");
+  $("#tabAll").classList.remove("active");
+  $("#filterCandidate").focus();
+});
+$("#filterCandidate").addEventListener("input", drawResults);
+$("#btnExport").addEventListener("click", exportResults);
+$("#btnClear").addEventListener("click", clearResults);
+
+$("#btnPreview").addEventListener("click", ()=>{
+  const c = ($("#candidateNo").value || "").trim();
+  if(!c){ alert("Saisissez d'abord un numéro candidat."); return; }
+
+  const level = $("#level").value;
+  const paper = generatePaper(level);
+
+  const box = $("#previewBox");
+  box.classList.remove("hide");
+
+  box.innerHTML = `
+    <strong>Preview (not started)</strong><br/>
+    Level: <strong>${escapeHtml(level)}</strong><br/>
+    Section A options: <strong>${escapeHtml(paper.sectionA.map(q=>q.id).join(", "))}</strong><br/>
+    Section B options: <strong>${escapeHtml(paper.sectionB.map(q=>q.id).join(", "))}</strong><br/>
+    Translation: <strong>${escapeHtml(paper.translation.id)}</strong><br/>
+    Word target: essays ≈ <strong>${paper.wordTargets.essayTarget}</strong> • translation ≥ <strong>${paper.wordTargets.transMin}</strong>
+  `;
+});
+
+$("#btnStart").addEventListener("click", ()=>{
+  const c = ($("#candidateNo").value || "").trim();
+  if(!c){ alert("Numéro candidat est obligatoire."); return; }
+
+  state.candidateNo = c;
+  state.candidateName = ($("#candidateName").value || "").trim();
+
+  const level = $("#level").value;
+  state.paper = generatePaper(level);
+
+  populateTimeOptions();
+  renderTest();
+});
+
+$("#btnReset").addEventListener("click", ()=>{
+  if(!confirm("Reset and generate a NEW random A/AS paper?")) return;
+  stopTimer();
+  const level = $("#level").value;
+  state.paper = generatePaper(level);
+  renderTest();
+});
+
+$("#btnSubmit").addEventListener("click", ()=>submitPaper(false));
+
+/* =========================================================
+   INITIALISE
+========================================================= */
+populateTimeOptions();
+renderHome();
+
+/* =========================================================
+   Anti-cheat (same vibe)
+========================================================= */
+const disabledKeys = ["u", "I"];
+const showAlert = e => {
+  e.preventDefault();
+  return alert("Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!");
+};
+document.addEventListener("contextmenu", e => { showAlert(e); });
+document.addEventListener("keydown", e => {
+  if ((e.ctrlKey && disabledKeys.includes(e.key)) || e.key === "F12") showAlert(e);
+});
+</script>
+
+</body>
+</html>
