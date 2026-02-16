@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>🟣 Otono French — AS/A level Writing (Paper 4) — L’Encroyable Drummond</title>
+  <title>🟣 Otono Spanish — AS/A level Writing (Paper 4) — El Drummond Tinta-Creíble</title>
   <style>
     :root{
       --bg1:#2b0a3d; --bg2:#7a0036;
@@ -138,8 +138,8 @@
   <div class="wrap">
     <div class="topbar">
       <div class="brand">
-        <h1>🟣 Otono French — Paper 4 • Écriture • L’Encroyable Drummond</h1>
-        <div class="sub">AS ou A level • 2 dissertations (40 + 40) + 1 traduction (20) • Centre: <strong>50749</strong></div>
+        <h1>🟣 Otono Spanish — Paper 4 • Writing • El Drummond Tinta-Creíble</h1>
+        <div class="sub">AS or A level • 2 essays (40 + 40) + 1 translation (20) • Centre: <strong>50749</strong></div>
       </div>
       <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end">
         <div class="pill"><span>⏱️ Timer:</span><strong id="timerText">--:--</strong></div>
@@ -165,15 +165,15 @@
         <div class="bd" id="homeBody">
           <div class="row">
             <div>
-              <label>Numéro du centre (fixé)</label>
+              <label>Centre number (fixed)</label>
               <input type="text" value="50749" disabled />
             </div>
             <div>
-              <label>Numéro candidat (obligatoire)</label>
-              <input type="number" id="candidateNo" placeholder="e.g. 1152" min="1" />
+              <label>Candidate number (required)</label>
+              <input type="number" id="candidateNo" placeholder="e.g. 9932" min="1" />
             </div>
             <div>
-              <label>Nom du candidat (facultatif)</label>
+              <label>Candidate name (optional)</label>
               <input type="text" id="candidateName" placeholder="Name" />
             </div>
           </div>
@@ -206,7 +206,7 @@
 
           <div class="note">
             <strong>What “understanding” means here:</strong><br/>
-            • Section B: your answer must clearly reference real <strong>events + characters</strong> from <em>L’Encroyable Drummond</em> (anchors).<br/>
+            • Section B: your answer must clearly reference real <strong>events + characters</strong> from <em>El Drummond Tinta-Creíble</em> (anchors).<br/>
             • Section A: your answer must reference real <strong>Otono Team details</strong> (anchors).<br/>
             • Vague essays = low AO2. Clear, specific references = high AO2.
           </div>
@@ -272,7 +272,7 @@
 
           <div class="note">
             <strong>A–H system (out of 100)</strong><br/>
-            A*: 95+ • A: 90+ • B: 80+ • C: 66+ • D: 55+ • E: 45+ • F: 40+ • below 40 = U
+            A*: 95+ • A: 90+ • B: 80+ • C: 70+ • D: 66+ • E: 55+ • F: 45+ • G: 40+ • below 40 = U
           </div>
 
           <div class="divider"></div>
@@ -384,7 +384,7 @@ function startTimer(minutes, onEnd){
 /* =========================================================
    STORAGE
 ========================================================= */
-const STORE_KEY = "otonoFrench_AlevelWriting_v2_understanding";
+const STORE_KEY = "otonoSpanish_AlevelWriting_v2_understanding";
 function loadResults(){
   try{ return JSON.parse(localStorage.getItem(STORE_KEY) || "[]"); }
   catch(e){ return []; }
@@ -397,147 +397,149 @@ function addResult(attempt){
 }
 
 /* =========================================================
-   REQUIRED: REAL EVENTS — L’Encroyable Drummond
+   REQUIRED: REAL EVENTS — El Drummond Tinta-Creíble
+   (French -> Spanish only)
 ========================================================= */
 const BOOK_EVENTS = {
   events: [
     {
       id:"E_RESULTS_ENVELOPES",
-      label:"Les enveloppes violettes des résultats",
+      label:"Los sobres morados de resultados",
       anchors:[
-        "enveloppe violette",
-        "enveloppes violettes",
-        "feuille de résultats",
-        "résultat détaillé",
-        "copie originale",
-        "ne peuvent pas modifier",
-        "argent dans l'enveloppe",
-        "payer red",
-        "carte de pénalité",
+        "sobre morado",
+        "sobres morados",
+        "hoja de resultados",
+        "resultado detallado",
+        "copia original",
+        "no pueden modificar",
+        "dinero en el sobre",
+        "pagar a red",
+        "tarjeta de penalizacion",
         "raw mark",
         "scaled mark"
       ]
     },
     {
       id:"E_BLACK_INK_RULE",
-      label:"La règle stricte de l’encre noire",
+      label:"La regla estricta de la tinta negra",
       anchors:[
-        "encre noire obligatoire",
-        "stylo noir obligatoire",
-        "interdit d'utiliser l'encre jaune",
-        "pénalité d'encre",
-        "zéro pour présentation",
-        "présentation incorrecte",
-        "perdu des points à cause de l'encre",
+        "tinta negra obligatoria",
+        "boligrafo negro obligatorio",
+        "prohibido usar tinta amarilla",
+        "penalizacion de tinta",
+        "cero por presentacion",
+        "presentacion incorrecta",
+        "perdio puntos por la tinta",
         "black ink trap"
       ]
     },
     {
       id:"E_PENCIL_REBELLION",
-      label:"La rébellion du papier en crayon",
+      label:"La rebelión del examen en lápiz",
       anchors:[
-        "tout le monde a écrit au crayon",
-        "paper 2 en crayon",
+        "todo el mundo escribio a lapiz",
+        "paper 2 en lapiz",
         "pencil not marked",
-        "copie non corrigée",
-        "invigilateurs",
-        "refus de corriger",
-        "diagrams seulement marqués"
+        "copia no corregida",
+        "invigiladores",
+        "se negaron a corregir",
+        "solo se corrigieron los diagramas"
       ]
     },
     {
       id:"E_CLAYTON_160",
-      label:"Clayton et le 160 sur 160",
+      label:"Clayton y el 160 sobre 160",
       anchors:[
-        "160 sur 160",
+        "160 sobre 160",
         "160 out of 160",
-        "maths parfait",
-        "igcse en avance",
-        "arrogance académique",
-        "détruire gary",
-        "score maximal"
+        "mates perfecto",
+        "igcse adelantado",
+        "arrogancia academica",
+        "destruir gary",
+        "nota maxima"
       ]
     },
     {
       id:"E_MARKING_PROCESS",
-      label:"Le processus de correction stricte",
+      label:"El proceso de corrección estricta",
       anchors:[
-        "processus de correction",
-        "marquage strict",
-        "pénalité de présentation",
-        "note pénalisée",
-        "marque originale",
-        "marque ajustée",
-        "perte de dix points",
-        "présentation plus importante que contenu"
+        "proceso de correccion",
+        "correccion estricta",
+        "penalizacion de presentacion",
+        "nota penalizada",
+        "nota original",
+        "nota ajustada",
+        "perdida de diez puntos",
+        "la presentacion mas importante que el contenido"
       ]
     },
     {
       id:"E_BLACK_INK_CONFLICT",
-      label:"Le conflit autour de l’identité et de l’encre",
+      label:"El conflicto alrededor de la identidad y la tinta",
       anchors:[
-        "identité liée à l'encre",
-        "contrôle académique",
-        "obsession de la perfection",
-        "discipline extrême",
-        "culture de performance",
-        "pression collective",
-        "comparaison entre élèves"
+        "identidad ligada a la tinta",
+        "control academico",
+        "obsesion de la perfeccion",
+        "disciplina extrema",
+        "cultura de rendimiento",
+        "presion colectiva",
+        "comparacion entre alumnos"
       ]
     },
     {
       id:"E_ROOM_47_IMPORTANT",
-      label:"La pile importante de la salle 47",
+      label:"La pila importante de la sala 47",
       anchors:[
-        "salle 47",
-        "pile importante",
-        "grade 9 seulement",
-        "script conservé",
-        "copie exceptionnelle",
-        "script envoyé en salle 47"
+        "sala 47",
+        "pila importante",
+        "solo grade 9",
+        "guion guardado",
+        "copia excepcional",
+        "enviado a la sala 47"
       ]
     },
     {
       id:"E_MONEY_REWARD_SYSTEM",
-      label:"Le système de récompense et remboursement",
+      label:"El sistema de recompensa y reembolso",
       anchors:[
-        "récompense financière",
-        "rembourser red",
-        "contrat académique",
-        "argent si réussite",
-        "payer en cas d'échec",
-        "accord avant l'examen"
+        "recompensa financiera",
+        "reembolsar red",
+        "contrato academico",
+        "dinero si aprueba",
+        "pagar si suspende",
+        "acuerdo antes del examen"
       ]
     },
     {
       id:"E_YELLOW_INK_ZERO",
-      label:"Le zéro pour encre jaune",
+      label:"El cero por tinta amarilla",
       anchors:[
-        "zéro pour encre jaune",
-        "yellow ink interdit",
-        "réponse non marquée",
-        "science en français zéro",
-        "perte de quatorze points",
-        "pénalité automatique"
+        "cero por tinta amarilla",
+        "tinta amarilla prohibida",
+        "respuesta no corregida",
+        "ciencia en frances cero",
+        "perdida de catorce puntos",
+        "penalizacion automatica"
       ]
     },
     {
       id:"E_PERFECTION_CRISIS",
-      label:"La crise de la perfection académique",
+      label:"La crisis de la perfección académica",
       anchors:[
-        "crise d'identité académique",
-        "obsession du score",
-        "perfection impossible",
-        "anxiété des résultats",
-        "peur de perdre un point",
-        "pression interne"
+        "crisis de identidad academica",
+        "obsesion por la nota",
+        "perfeccion imposible",
+        "ansiedad por los resultados",
+        "miedo de perder un punto",
+        "presion interna"
       ]
     }
   ]
 };
 
 /* =========================================================
-   BOOK CHARACTERS — L’Encroyable Drummond (UNDERSTANDING)
+   BOOK CHARACTERS — El Drummond Tinta-Creíble (UNDERSTANDING)
+   (French -> Spanish only)
 ========================================================= */
 const BOOK_CHARACTERS = {
   chars: [
@@ -546,16 +548,16 @@ const BOOK_CHARACTERS = {
       label:"Red",
       anchors:[
         "red",
-        "marqueur",
-        "le correcteur",
-        "je suis le marker",
-        "enveloppes violettes",
-        "système de récompense",
-        "rembourser red",
-        "règles d'encre",
-        "encre jaune interdit",
-        "pénalité d'encre",
-        "français",
+        "corrector",
+        "el corrector",
+        "yo soy el marker",
+        "sobres morados",
+        "sistema de recompensa",
+        "reembolsar red",
+        "reglas de tinta",
+        "tinta amarilla prohibida",
+        "penalizacion de tinta",
+        "frances",
         "la marseillaise",
       ]
     },
@@ -564,14 +566,14 @@ const BOOK_CHARACTERS = {
       label:"Luke",
       anchors:[
         "luke",
-        "encre noire",
-        "stylo noir",
-        "diagrammes",
-        "graphiques",
+        "tinta negra",
+        "boligrafo negro",
+        "diagramas",
+        "graficos",
         "sohcahtoa",
-        "obsession du noir",
-        "précision",
-        "détails"
+        "obsesion del negro",
+        "precision",
+        "detalles"
       ]
     },
     {
@@ -579,17 +581,17 @@ const BOOK_CHARACTERS = {
       label:"OWing",
       anchors:[
         "owing",
-        "organisation",
-        "stratégie",
-        "révision",
-        "discipline",
-        "leader",
-        "co-leader",
-        "routines",
+        "organizacion",
+        "estrategia",
+        "revision",
+        "disciplina",
+        "lider",
+        "co lider",
+        "rutinas",
         "porsche",
-        "maths",
-        "mathematiques",
-        "arrogance",
+        "mates",
+        "matematicas",
+        "arrogancia",
       ]
     },
     {
@@ -598,11 +600,11 @@ const BOOK_CHARACTERS = {
       anchors:[
         "jessica",
         "piano",
-        "méthode",
-        "perfectionnisme",
-        "analyse",
-        "meilleure en maths",
-        "rigueur"
+        "metodo",
+        "perfeccionismo",
+        "analisis",
+        "muy buena en mates",
+        "rigor"
       ]
     },
     {
@@ -611,12 +613,12 @@ const BOOK_CHARACTERS = {
       anchors:[
         "benjamin nelson",
         "black ink trap",
-        "piège d'encre noire",
-        "ne comparez pas",
-        "comparer les autres",
-        "encre noire",
-        "écriture",
-        "meilleur en rédaction",
+        "trampa de tinta negra",
+        "no te compares",
+        "compararse con otros",
+        "tinta negra",
+        "escritura",
+        "mejor en redaccion",
         "96",
         "96 marks"
       ]
@@ -627,10 +629,10 @@ const BOOK_CHARACTERS = {
       anchors:[
         "wyatt",
         "doritos",
-        "encre noire",
-        "déteste l'encre jaune",
+        "tinta negra",
+        "odia la tinta amarilla",
         "hate yellow ink",
-        "déteste la science"
+        "odia la ciencia"
       ]
     },
     {
@@ -641,9 +643,9 @@ const BOOK_CHARACTERS = {
         "tardis",
         "lenfer",
         "l enfer",
-        "dyspraxie",
-        "ordinateur",
-        "nuit",
+        "dispraxia",
+        "ordenador",
+        "noche",
         "darkness"
       ]
     },
@@ -652,12 +654,12 @@ const BOOK_CHARACTERS = {
       label:"Joshua",
       anchors:[
         "joshua",
-        "dinosaures",
-        "blagues",
-        "haine des absences",
+        "dinosaurios",
+        "bromas",
+        "odia perder educacion",
         "missing education",
-        "inacceptable d être en retard",
-        "jamais de retenue",
+        "inaceptable llegar tarde",
+        "nunca castigo",
         "detention"
       ]
     },
@@ -666,9 +668,9 @@ const BOOK_CHARACTERS = {
       label:"Shireen",
       anchors:[
         "shireen",
-        "espagnol",
-        "français",
-        "langues",
+        "espanol",
+        "frances",
+        "idiomas",
         "mfl"
       ]
     },
@@ -677,11 +679,11 @@ const BOOK_CHARACTERS = {
       label:"Torran",
       anchors:[
         "torran",
-        "juste passé",
+        "apenas aprobo",
         "just passed",
-        "un point de plus et il échoue",
+        "un punto mas y suspende",
         "limite",
-        "passage"
+        "aprobado"
       ]
     },
     {
@@ -689,9 +691,9 @@ const BOOK_CHARACTERS = {
       label:"Raphael",
       anchors:[
         "raphael",
-        "peu actif",
+        "poco activo",
         "snapchat",
-        "à peine actif"
+        "casi no activo"
       ]
     },
     {
@@ -699,12 +701,12 @@ const BOOK_CHARACTERS = {
       label:"Clayton",
       anchors:[
         "clayton",
-        "160 sur 160",
+        "160 sobre 160",
         "160 out of 160",
-        "maths parfait",
-        "arrogance académique",
-        "détruire gary",
-        "score maximal"
+        "mates perfecto",
+        "arrogancia academica",
+        "destruir gary",
+        "nota maxima"
       ]
     },
     {
@@ -713,11 +715,11 @@ const BOOK_CHARACTERS = {
       anchors:[
         "angus",
         "inkredible",
-        "encre noire",
-        "toujours noir",
-        "déteste le crayon",
+        "tinta negra",
+        "siempre negro",
+        "odia el lapiz",
         "resit",
-        "doit repasser"
+        "tiene que repetir"
       ]
     }
   ]
@@ -725,58 +727,61 @@ const BOOK_CHARACTERS = {
 
 /* =========================================================
    OTONO TEAM ANCHORS (UNDERSTANDING CHECK FOR SECTION A)
+   (French -> Spanish only)
 ========================================================= */
 const OTONO_ANCHORS = [
-  { id:"OT_MANSION_90", label:"Le manoir Otono (90 pièces)", anchors:["manoir otono","mansion otono","90 pieces","90 pièces","quatre vingts dix","border of bristol","bath"] },
-  { id:"OT_ROOMS", label:"Les numéros de salle (47/64–71/84)", anchors:["salle 47","room 47","salle 84","room 84","64","65","66","67","68","69","70","71"] },
-  { id:"OT_AIRWAYS", label:"Otono Airways / A380 / classes", anchors:["otono airways","a380","classe économique","economique","business","first","lounge","salon","heathrow"] },
-  { id:"OT_BLACK_INK_CULTURE", label:"Culture de l’encre noire (équipe)", anchors:["encre noire","stylo noir","black ink","encre jaune","yellow ink","pénalité"] },
-  { id:"OT_TEAM_STRUCTURE", label:"Structure de l’équipe", anchors:["otono team","leaders","co leader","co-leader","assistant leader","résidence","mansion assistants"] },
+  { id:"OT_MANSION_90", label:"La mansión Otono (90 habitaciones)", anchors:["mansion otono","mansión otono","90 habitaciones","90 pieces","90 pièces","border of bristol","bristol","bath"] },
+  { id:"OT_ROOMS", label:"Números de salas (47/64–71/84)", anchors:["sala 47","room 47","sala 84","room 84","64","65","66","67","68","69","70","71"] },
+  { id:"OT_AIRWAYS", label:"Otono Airways / A380 / clases", anchors:["otono airways","a380","clase turista","economy","business","first","lounge","salon","heathrow"] },
+  { id:"OT_BLACK_INK_CULTURE", label:"Cultura de tinta negra (equipo)", anchors:["tinta negra","boligrafo negro","black ink","tinta amarilla","yellow ink","penalizacion"] },
+  { id:"OT_TEAM_STRUCTURE", label:"Estructura del equipo", anchors:["otono team","leaders","lideres","co leader","co lider","assistant leader","residencia","mansion assistants"] },
 ];
 
 /* =========================================================
    QUESTION BANKS (>= 12 per section)
+   (French -> Spanish only)
 ========================================================= */
 const BANK_A = [
-  { id:"A1", level:"AL", title:"Dans quelle mesure l’Otono Team représente-t-elle un modèle de discipline et d’ambition académique ?", keywords:["discipline","ambition","examens","règles","résultats","pression","organisation"] },
-  { id:"A2", level:"AL", title:"Analysez l’importance des règles (encre, consignes, présentation) dans la dynamique du groupe.", keywords:["règles","consignes","encre","présentation","cohésion","conflits","justice"] },
-  { id:"A3", level:"AL", title:"Comment les différences de personnalité influencent-elles les conflits et les réussites dans l’équipe ?", keywords:["personnalité","conflit","réussite","coopération","communication","jalousie"] },
-  { id:"A4", level:"AL", title:"La compétition académique est-elle bénéfique ou dangereuse pour l’Otono Team ?", keywords:["compétition","comparaison","motivation","stress","perfection","progrès"] },
-  { id:"A5", level:"AL", title:"Étudiez le rôle du leadership dans l’Otono Team : qui influence le plus et pourquoi ?", keywords:["leadership","influence","décisions","responsabilité","équilibre","autorité"] },
-  { id:"A6", level:"AL", title:"Dans quelle mesure la pression des résultats affecte-t-elle les relations entre les membres ?", keywords:["pression","résultats","relations","jalousie","admiration","confiance"] },
-  { id:"A7", level:"AL", title:"Discutez l’importance de la précision (détails, organisation, méthode) pour réussir dans l’Otono Team.", keywords:["précision","méthode","organisation","détails","efficacité","révision"] },
-  { id:"A8", level:"AL", title:"L’Otono Team valorise-t-elle davantage la performance ou le bien-être ? Justifiez.", keywords:["performance","bien-être","stress","soutien","priorités","équilibre"] },
-  { id:"A9", level:"AL", title:"Analysez le rôle des “rituels” (habitudes, systèmes, routines) dans la réussite du groupe.", keywords:["rituels","routines","habitudes","système","discipline","résultats"] },
-  { id:"A10", level:"AL", title:"Dans quelle mesure l’identité du groupe dépend-elle de ses règles et de ses symboles ?", keywords:["identité","symboles","règles","cohésion","culture","valeurs"] },
-  { id:"A11", level:"AL", title:"Discutez l’effet des comparaisons entre élèves sur la motivation et la confiance en soi.", keywords:["comparaison","motivation","confiance","jalousie","admiration","pression"] },
-  { id:"A12", level:"AL", title:"Expliquez comment l’équipe gère les règles et les exceptions. Est-ce cohérent ?", keywords:["exceptions","cohérence","justice","conséquences","règles","autorité"] },
+  { id:"A1", level:"AL", title:"¿Hasta qué punto el Otono Team representa un modelo de disciplina y ambición académica?", keywords:["disciplina","ambicion","examenes","reglas","resultados","presion","organizacion"] },
+  { id:"A2", level:"AL", title:"Analiza la importancia de las reglas (tinta, instrucciones, presentación) en la dinámica del grupo.", keywords:["reglas","instrucciones","tinta","presentacion","cohesion","conflictos","justicia"] },
+  { id:"A3", level:"AL", title:"¿Cómo influyen las diferencias de personalidad en los conflictos y los éxitos del equipo?", keywords:["personalidad","conflicto","exito","cooperacion","comunicacion","celos"] },
+  { id:"A4", level:"AL", title:"¿La competencia académica es beneficiosa o peligrosa para el Otono Team?", keywords:["competencia","comparacion","motivacion","estres","perfeccion","progreso"] },
+  { id:"A5", level:"AL", title:"Estudia el papel del liderazgo en el Otono Team: ¿quién influye más y por qué?", keywords:["liderazgo","influencia","decisiones","responsabilidad","equilibrio","autoridad"] },
+  { id:"A6", level:"AL", title:"¿Hasta qué punto la presión de los resultados afecta las relaciones entre los miembros?", keywords:["presion","resultados","relaciones","celos","admiracion","confianza"] },
+  { id:"A7", level:"AL", title:"Comenta la importancia de la precisión (detalles, organización, método) para triunfar en el Otono Team.", keywords:["precision","metodo","organizacion","detalles","eficacia","revision"] },
+  { id:"A8", level:"AL", title:"¿El Otono Team valora más el rendimiento o el bienestar? Justifica.", keywords:["rendimiento","bienestar","estres","apoyo","prioridades","equilibrio"] },
+  { id:"A9", level:"AL", title:"Analiza el papel de los “rituales” (hábitos, sistemas, rutinas) en el éxito del grupo.", keywords:["rituales","rutinas","habitos","sistema","disciplina","resultados"] },
+  { id:"A10", level:"AL", title:"¿Hasta qué punto la identidad del grupo depende de sus reglas y de sus símbolos?", keywords:["identidad","simbolos","reglas","cohesion","cultura","valores"] },
+  { id:"A11", level:"AL", title:"Comenta el efecto de las comparaciones entre alumnos en la motivación y la confianza.", keywords:["comparaciones","motivacion","confianza","celos","admiracion","presion"] },
+  { id:"A12", level:"AL", title:"Explica cómo el equipo gestiona las reglas y las excepciones. ¿Es coherente?", keywords:["excepciones","coherencia","justicia","consecuencias","reglas","autoridad"] },
 
-  { id:"A13", level:"AS", title:"Expliquez pourquoi les règles sont importantes pour l’Otono Team.", keywords:["règles","organisation","discipline","examens","consignes"] },
-  { id:"A14", level:"AS", title:"Comment la pression des examens influence-t-elle les membres ?", keywords:["pression","examens","stress","révision","résultats"] },
-  { id:"A15", level:"AS", title:"Décrivez ce qui rend l’Otono Team unique.", keywords:["unique","groupe","valeurs","règles","ambition"] },
-  { id:"A16", level:"AS", title:"À votre avis, l’Otono Team est-elle un groupe uni ? Pourquoi ?", keywords:["uni","cohésion","conflits","soutien","amitié"] },
+  { id:"A13", level:"AS", title:"Explica por qué las reglas son importantes para el Otono Team.", keywords:["reglas","organizacion","disciplina","examenes","instrucciones"] },
+  { id:"A14", level:"AS", title:"¿Cómo influye la presión de los exámenes en los miembros?", keywords:["presion","examenes","estres","revision","resultados"] },
+  { id:"A15", level:"AS", title:"Describe lo que hace único al Otono Team.", keywords:["unico","grupo","valores","reglas","ambicion"] },
+  { id:"A16", level:"AS", title:"En tu opinión, ¿el Otono Team es un grupo unido? ¿Por qué?", keywords:["unido","cohesion","conflictos","apoyo","amistad"] },
 ];
 
 const BANK_B = [
-  { id:"B1", level:"AL", title:"Comment le roman présente-t-il le thème de la perfection académique dans L’Encroyable Drummond ?", keywords:["perfection","académique","pression","scores","conséquences","critique"] },
-  { id:"B2", level:"AL", title:"Analysez l’évolution psychologique d’un personnage clé au cours du roman.", keywords:["évolution","psychologique","personnage","motivation","changement","crise"] },
-  { id:"B3", level:"AL", title:"Dans quelle mesure le roman critique-t-il le système éducatif moderne ?", keywords:["critique","système","éducatif","règles","notation","injustice"] },
-  { id:"B4", level:"AL", title:"Discutez le symbolisme de l’encre noire dans le roman.", keywords:["symbolisme","encre","noire","identité","pouvoir","contrôle"] },
-  { id:"B5", level:"AL", title:"Le roman est-il une tragédie académique ou une satire ? Justifiez.", keywords:["tragédie","satire","ton","message","ironie","tension"] },
-  { id:"B6", level:"AL", title:"Comment les rivalités scolaires contribuent-elles à la tension narrative ?", keywords:["rivalités","tension","narrative","conflits","enjeux","rythme"] },
-  { id:"B7", level:"AL", title:"Analysez le rôle des règles et des punitions dans la progression de l’intrigue.", keywords:["règles","punitions","intrigue","conséquences","justice","escalade"] },
-  { id:"B8", level:"AL", title:"Dans quelle mesure l’auteur montre-t-il que le détail peut tout changer ?", keywords:["détail","précision","consignes","résultats","erreurs","contraste"] },
-  { id:"B9", level:"AL", title:"Discutez comment le roman traite la comparaison entre élèves et ses effets.", keywords:["comparaison","élèves","jalousie","admiration","pression","estime"] },
-  { id:"B10", level:"AL", title:"Analysez la relation entre discipline et liberté dans le roman.", keywords:["discipline","liberté","contrôle","choix","résistance","équilibre"] },
-  { id:"B11", level:"AL", title:"Dans quelle mesure le roman met-il en scène une “culture de la performance” ?", keywords:["culture","performance","résultats","réputation","pression","valeurs"] },
-  { id:"B12", level:"AL", title:"Le style du roman renforce-t-il le message ? Discutez.", keywords:["style","message","narration","ton","ironie","effet"] },
+  { id:"B1", level:"AL", title:"¿Cómo presenta la novela el tema de la perfección académica en El Drummond Tinta-Creíble?", keywords:["perfeccion","academica","presion","notas","consecuencias","critica"] },
+  { id:"B2", level:"AL", title:"Analiza la evolución psicológica de un personaje clave a lo largo de la novela.", keywords:["evolucion","psicologica","personaje","motivacion","cambio","crisis"] },
+  { id:"B3", level:"AL", title:"¿Hasta qué punto la novela critica el sistema educativo moderno?", keywords:["critica","sistema","educativo","reglas","calificacion","injusticia"] },
+  { id:"B4", level:"AL", title:"Comenta el simbolismo de la tinta negra en la novela.", keywords:["simbolismo","tinta","negra","identidad","poder","control"] },
+  { id:"B5", level:"AL", title:"¿La novela es una tragedia académica o una sátira? Justifica.", keywords:["tragedia","satira","tono","mensaje","ironia","tension"] },
+  { id:"B6", level:"AL", title:"¿Cómo contribuyen las rivalidades escolares a la tensión narrativa?", keywords:["rivalidades","tension","narrativa","conflictos","riesgos","ritmo"] },
+  { id:"B7", level:"AL", title:"Analiza el papel de las reglas y los castigos en el desarrollo de la trama.", keywords:["reglas","castigos","trama","consecuencias","justicia","escalada"] },
+  { id:"B8", level:"AL", title:"¿Hasta qué punto el autor muestra que un detalle puede cambiarlo todo?", keywords:["detalle","precision","instrucciones","resultados","errores","contraste"] },
+  { id:"B9", level:"AL", title:"Comenta cómo la novela trata la comparación entre alumnos y sus efectos.", keywords:["comparacion","alumnos","celos","admiracion","presion","autoestima"] },
+  { id:"B10", level:"AL", title:"Analiza la relación entre disciplina y libertad en la novela.", keywords:["disciplina","libertad","control","eleccion","resistencia","equilibrio"] },
+  { id:"B11", level:"AL", title:"¿Hasta qué punto la novela presenta una “cultura del rendimiento”?", keywords:["cultura","rendimiento","resultados","reputacion","presion","valores"] },
+  { id:"B12", level:"AL", title:"¿El estilo de la novela refuerza el mensaje? Comenta.", keywords:["estilo","mensaje","narracion","tono","ironia","efecto"] },
 
-  { id:"B13", level:"AS", title:"Décrivez un personnage important du roman et expliquez son rôle.", keywords:["personnage","rôle","histoire","relations","choix"] },
-  { id:"B14", level:"AS", title:"Expliquez l’importance des examens dans le roman.", keywords:["examens","pression","résultats","conséquences","intrigue"] },
-  { id:"B15", level:"AS", title:"Comment la rivalité est-elle présentée dans le récit ?", keywords:["rivalité","conflit","tension","comparaison","motivation"] },
-  { id:"B16", level:"AS", title:"Quelle est l’importance de l’encre noire dans l’histoire ?", keywords:["encre","noire","règles","symbolisme","identité"] },
+  { id:"B13", level:"AS", title:"Describe un personaje importante de la novela y explica su papel.", keywords:["personaje","papel","historia","relaciones","decisiones"] },
+  { id:"B14", level:"AS", title:"Explica la importancia de los exámenes en la novela.", keywords:["examenes","presion","resultados","consecuencias","trama"] },
+  { id:"B15", level:"AS", title:"¿Cómo se presenta la rivalidad en el relato?", keywords:["rivalidad","conflicto","tension","comparacion","motivacion"] },
+  { id:"B16", level:"AS", title:"¿Qué importancia tiene la tinta negra en la historia?", keywords:["tinta","negra","reglas","simbolismo","identidad"] },
 ];
 
+/* (These are English source texts; keep them English) */
 const TRANSLATION_POOL = [
   {
     id:"T1",
@@ -821,16 +826,17 @@ const TRANSLATION_POOL = [
 
 /* =========================================================
    LANGUAGE SIGNALS
+   (French -> Spanish only)
 ========================================================= */
-const FRENCH_MARKERS = [
-  "je","j ai","j'ai","nous","vous","il","elle","on","dans","avec","sans","parce que",
-  "mais","cependant","pourtant","donc","alors","ensuite","d abord","d'abord",
-  "aujourd hui","aujourd'hui","hier","demain","plus tard","la semaine prochaine",
-  "mon","ma","mes","un","une","des","du","de la","au","aux"
+const SPANISH_MARKERS = [
+  "yo","tu","tú","nosotros","vosotros","usted","ustedes","el","él","ella","en","con","sin","porque",
+  "pero","sin embargo","no obstante","por lo tanto","entonces","despues","después","primero",
+  "hoy","ayer","mañana","mas tarde","más tarde","la semana que viene",
+  "mi","mis","un","una","unos","unas","del","de la","al","a los","a las"
 ];
-const CONNECTORS = ["parce que","cependant","pourtant","donc","alors","ensuite","d abord","d'abord","en plus","de plus","en revanche","par contre","tandis que","comme"];
-const RANGE_MARKERS = ["qui","que","dont","si","quand","pendant que","afin de","pour que","bien que","quoique","meme si","même si","ce qui","ce que","au lieu de","plutot que","plutôt que"];
-const NEGATION = ["ne","pas","jamais","rien","personne","plus"];
+const CONNECTORS = ["porque","sin embargo","no obstante","por lo tanto","por eso","ademas","además","de hecho","en cambio","por un lado","por otro lado","mientras que","aunque"];
+const RANGE_MARKERS = ["que","quien","quién","cual","cuál","cuyo","si","sí","cuando","mientras","para que","a fin de","aunque","lo que","lo cual","en vez de"];
+const NEGATION = ["no","nunca","nadie","nada","ni"];
 
 function countHits(textNorm, vocab){
   let hits = 0;
@@ -842,7 +848,7 @@ function countHits(textNorm, vocab){
 }
 function langSignalScore(textNorm){
   let markerHits=0;
-  FRENCH_MARKERS.forEach(m=>{ if(textNorm.includes(norm(m))) markerHits++; });
+  SPANISH_MARKERS.forEach(m=>{ if(textNorm.includes(norm(m))) markerHits++; });
   const markerScore = clamp(Math.round((markerHits/12)*6), 0, 6);
   const conn = countHits(textNorm, CONNECTORS);
   const connScore = clamp(conn >= 3 ? 2 : (conn >= 1 ? 1 : 0), 0, 2);
@@ -880,7 +886,6 @@ function anchorReport(textNorm, packs){
 }
 
 function understandingScoreSectionB(textNorm){
-  // ✅ Book understanding = events + characters
   const combined = BOOK_EVENTS.events.concat(BOOK_CHARACTERS.chars);
   const rep = anchorReport(textNorm, combined);
 
@@ -902,7 +907,7 @@ function understandingScoreSectionA(textNorm){
 }
 
 /* =========================================================
-   GRADES
+   GRADES (English stays English)
 ========================================================= */
 function passMeritDistinction(score){
   if(score >= 90) return "DISTINCTION";
@@ -933,9 +938,9 @@ function gradeAH_100(score){
 }
 function badgeForScore(score){
   if(score >= 90) return ["badge good","🏆 Excellent"];
-  if(score >= 80) return ["badge good","⭐ Très bien"];
+  if(score >= 80) return ["badge good","⭐ Very good"];
   if(score >= 66) return ["badge warn","✅ Ok"];
-  return ["badge bad","❌ Mal"];
+  return ["badge bad","❌ Weak"];
 }
 
 /* =========================================================
@@ -967,7 +972,7 @@ function generatePaper(level){
 }
 
 /* =========================================================
-   TIME OPTIONS
+   TIME OPTIONS (English stays English)
 ========================================================= */
 function populateTimeOptions(){
   const level = $("#level").value;
@@ -980,8 +985,8 @@ function populateTimeOptions(){
     : [{ v:120, label:"120 minutes (recommended)" }, { v:105, label:"105 minutes" }, { v:90, label:"90 minutes" }];
 
   $("#timeNote").innerHTML = (level==="AS")
-    ? "AS: recommandé <strong>105 minutes</strong>."
-    : "A level: recommandé <strong>120 minutes</strong>.";
+    ? "AS: recommended <strong>105 minutes</strong>."
+    : "A level: recommended <strong>120 minutes</strong>.";
 
   const valid = new Set(options.map(o=>String(o.v)));
   const useValue = valid.has(String(prev)) ? String(prev) : String(options[0].v);
@@ -1053,7 +1058,7 @@ function renderTest(){
   const mins = parseInt($("#timeAllowed").value,10);
   const auto = $("#autoSubmit").value === "yes";
   $("#paperInfo").innerHTML = `
-    <strong>Instructions:</strong> no dictionary/translator. Choose 1 option in each section. French only.
+    <strong>Instructions:</strong> no dictionary/translator. Choose 1 option in each section. Spanish only.
     <br/><strong>Level:</strong> ${escapeHtml(p.level)} • <strong>Time:</strong> ${mins} min • <strong>Auto-submit:</strong> ${auto ? "ON" : "OFF"}
   `;
 
@@ -1075,14 +1080,15 @@ function renderTest(){
   setBadge("In progress","badge warn");
 }
 
+/* Section bodies: English scaffolding stays English, only French -> Spanish parts changed */
 function renderSectionA(choices, targets){
   const html = `
     <div class="note">
       <strong>SECTION A — Otono Team</strong> (40 marks)<br/>
-      Choisissez <strong>UNE</strong> question. Rédigez environ <strong>${targets.essayTarget} mots</strong>.
+      Choose <strong>ONE</strong> question. Write about <strong>${targets.essayTarget} words</strong>.
       <div class="rubricRow">
-        <span class="rubPill">argument</span><span class="rubPill">analyse</span>
-        <span class="rubPill">détails Otono</span><span class="rubPill">conclusion</span>
+        <span class="rubPill">argumento</span><span class="rubPill">análisis</span>
+        <span class="rubPill">detalles Otono</span><span class="rubPill">conclusión</span>
       </div>
     </div>
 
@@ -1093,18 +1099,18 @@ function renderSectionA(choices, targets){
             <input type="radio" name="A_pick" value="${i}" style="margin-top:3px" ${i===0?"checked":""}/>
             <div>
               <strong>Option ${i+1} — ${escapeHtml(q.title)}</strong>
-              <div class="small">Code: ${escapeHtml(q.id)} • Mots-clés: ${escapeHtml(q.keywords.join(", "))}</div>
+              <div class="small">Code: ${escapeHtml(q.id)} • Palabras clave: ${escapeHtml(q.keywords.join(", "))}</div>
             </div>
           </label>
         </div>
       `).join("")}
     </div>
 
-    <label>Votre dissertation (Section A)</label>
-    <textarea id="essayA" placeholder="≈ ${targets.essayTarget} mots..."></textarea>
+    <label>Your essay (Section A)</label>
+    <textarea id="essayA" placeholder="≈ ${targets.essayTarget} words... (Spanish)"></textarea>
     <div class="small" id="essayA_wc"></div>
   `;
-  const card = makeTaskCard("Q1 Dissertation — Section A", "40 marks • includes Otono understanding anchors (AO2)", html);
+  const card = makeTaskCard("Q1 Essay — Section A", "40 marks • includes Otono understanding anchors (AO2)", html);
   setTimeout(()=>wireWordCount("essayA","essayA_wc"), 0);
   return card;
 }
@@ -1112,11 +1118,11 @@ function renderSectionA(choices, targets){
 function renderSectionB(choices, targets){
   const html = `
     <div class="note">
-      <strong>SECTION B — L’Encroyable Drummond</strong> (40 marks)<br/>
-      Choisissez <strong>UNE</strong> question. Rédigez environ <strong>${targets.essayTarget} mots</strong>.
+      <strong>SECTION B — El Drummond Tinta-Creíble</strong> (40 marks)<br/>
+      Choose <strong>ONE</strong> question. Write about <strong>${targets.essayTarget} words</strong>.
       <div class="rubricRow">
-        <span class="rubPill">thèmes</span><span class="rubPill">événements</span>
-        <span class="rubPill">personnages</span><span class="rubPill">analyse</span>
+        <span class="rubPill">temas</span><span class="rubPill">eventos</span>
+        <span class="rubPill">personajes</span><span class="rubPill">análisis</span>
       </div>
     </div>
 
@@ -1127,18 +1133,18 @@ function renderSectionB(choices, targets){
             <input type="radio" name="B_pick" value="${i}" style="margin-top:3px" ${i===0?"checked":""}/>
             <div>
               <strong>Option ${i+1} — ${escapeHtml(q.title)}</strong>
-              <div class="small">Code: ${escapeHtml(q.id)} • Mots-clés: ${escapeHtml(q.keywords.join(", "))}</div>
+              <div class="small">Code: ${escapeHtml(q.id)} • Palabras clave: ${escapeHtml(q.keywords.join(", "))}</div>
             </div>
           </label>
         </div>
       `).join("")}
     </div>
 
-    <label>Votre dissertation (Section B)</label>
-    <textarea id="essayB" placeholder="≈ ${targets.essayTarget} mots..."></textarea>
+    <label>Your essay (Section B)</label>
+    <textarea id="essayB" placeholder="≈ ${targets.essayTarget} words... (Spanish)"></textarea>
     <div class="small" id="essayB_wc"></div>
   `;
-  const card = makeTaskCard("Q2 Dissertation — Section B", "40 marks • includes book understanding anchors (AO2)", html);
+  const card = makeTaskCard("Q2 Essay — Section B", "40 marks • includes book understanding anchors (AO2)", html);
   setTimeout(()=>wireWordCount("essayB","essayB_wc"), 0);
   return card;
 }
@@ -1146,18 +1152,18 @@ function renderSectionB(choices, targets){
 function renderTranslation(item, targets){
   const html = `
     <div class="note">
-      <strong>SECTION C — Traduction EN → FR</strong> (20 marks)<br/>
-      Minimum <strong>${targets.transMin} mots</strong>.
+      <strong>SECTION C — Translation EN → ES</strong> (20 marks)<br/>
+      Minimum <strong>${targets.transMin} words</strong>.
       <div class="divider"></div>
       <div class="small">${escapeHtml(item.en)}</div>
       <div class="small" style="margin-top:10px">Code: ${escapeHtml(item.id)}</div>
     </div>
 
-    <label>Votre traduction</label>
-    <textarea id="trans" placeholder="≥ ${targets.transMin} mots..."></textarea>
+    <label>Your translation (Spanish)</label>
+    <textarea id="trans" placeholder="≥ ${targets.transMin} words... (Spanish)"></textarea>
     <div class="small" id="trans_wc"></div>
   `;
-  const card = makeTaskCard("Q3 Traduction", "20 marks • fidélité (10) + qualité (10) + min words", html);
+  const card = makeTaskCard("Q3 Translation", "20 marks • accuracy (10) + quality (10) + min words", html);
   setTimeout(()=>wireWordCount("trans","trans_wc"), 0);
   return card;
 }
@@ -1172,8 +1178,22 @@ function essayWordBand(wc, targets){
   return 1;
 }
 function essayStructure(textNorm){
-  const hasIntro = (textNorm.includes("dans cette dissertation") || textNorm.includes("je vais montrer") || textNorm.includes("je montrerai") || textNorm.includes("je vais analyser")) ? 1 : 0;
-  const hasConclusion = (textNorm.includes("en conclusion") || textNorm.includes("pour conclure") || textNorm.includes("en somme") || textNorm.includes("finalement")) ? 1 : 0;
+  const hasIntro = (
+    textNorm.includes("en esta redaccion") ||
+    textNorm.includes("en esta redacción") ||
+    textNorm.includes("voy a demostrar") ||
+    textNorm.includes("voy a analizar") ||
+    textNorm.includes("en este ensayo")
+  ) ? 1 : 0;
+
+  const hasConclusion = (
+    textNorm.includes("en conclusion") ||
+    textNorm.includes("en conclusión") ||
+    textNorm.includes("para concluir") ||
+    textNorm.includes("en resumen") ||
+    textNorm.includes("finalmente")
+  ) ? 1 : 0;
+
   const conn = countHits(textNorm, CONNECTORS);
   const connPts = clamp(Math.round((conn/6)*6), 0, 6);
   return clamp(hasIntro + hasConclusion + connPts, 0, 8);
@@ -1193,7 +1213,6 @@ function markEssay40(text, chosenQ, section, targets){
   const s = essayStructure(t);                               // /8
   const rel = essayRelevance(t, chosenQ.keywords);           // /8
   const lang = clamp(Math.round((langSignalScore(t)/10)*8), 0, 8);  // /8
-
   const u = (section==="A") ? understandingScoreSectionA(t) : understandingScoreSectionB(t); // /10
 
   const score = clamp(w + s + rel.score + lang + u.score10, 0, 40);
@@ -1435,7 +1454,7 @@ $("#btnClear").addEventListener("click", clearResults);
 
 $("#btnPreview").addEventListener("click", ()=>{
   const c = ($("#candidateNo").value || "").trim();
-  if(!c){ alert("Saisissez d'abord un numéro candidat."); return; }
+  if(!c){ alert("Enter a candidate number first."); return; }
 
   const level = $("#level").value;
   const paper = generatePaper(level);
@@ -1455,7 +1474,7 @@ $("#btnPreview").addEventListener("click", ()=>{
 
 $("#btnStart").addEventListener("click", ()=>{
   const c = ($("#candidateNo").value || "").trim();
-  if(!c){ alert("Numéro candidat est obligatoire."); return; }
+  if(!c){ alert("Candidate number is required."); return; }
 
   state.candidateNo = c;
   state.candidateName = ($("#candidateName").value || "").trim();
@@ -1484,7 +1503,7 @@ populateTimeOptions();
 renderHome();
 
 /* =========================================================
-   Anti-cheat (same vibe)
+   Anti-cheat (English stays English)
 ========================================================= */
 const disabledKeys = ["u", "I"];
 const showAlert = e => {
