@@ -1,0 +1,1578 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>🟣 Otono Spanish — Paper 4 (Writing, Randomised, Auto Marking) — Sample Set 2</title>
+  <style>
+    :root{
+      --bg1:#2b0a3d; --bg2:#7a0036;
+      --card:#0f0b18cc; --card2:#120c22e6;
+      --text:#f4efff; --muted:#c9b9ff;
+      --accent:#b000ff; --accent2:#ff1b6a;
+      --good:#19ff9a; --warn:#ffd166; --bad:#ff4d6d;
+      --line:rgba(255,255,255,.12);
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:var(--sans); color:var(--text);
+      background:
+        radial-gradient(1000px 700px at 15% 10%, rgba(176,0,255,.22), transparent 60%),
+        radial-gradient(900px 650px at 80% 20%, rgba(255,27,106,.18), transparent 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+    }
+    .wrap{max-width:1100px; margin:0 auto; padding:22px;}
+    .topbar{
+      display:flex; gap:14px; align-items:center; justify-content:space-between;
+      padding:14px 16px; border:1px solid var(--line); border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      box-shadow:var(--shadow);
+      position:sticky; top:14px; z-index:20; backdrop-filter: blur(10px);
+    }
+    .brand{display:flex; flex-direction:column; gap:2px}
+    .brand h1{margin:0; font-size:16px; letter-spacing:.3px}
+    .brand .sub{font-size:12px; color:var(--muted)}
+    .pill{
+      padding:8px 10px; border-radius:999px; border:1px solid var(--line);
+      background:rgba(0,0,0,.25); font-family:var(--mono); font-size:12px;
+      display:flex; gap:10px; align-items:center;
+    }
+    .pill strong{color:#fff}
+    .btn{
+      border:1px solid var(--line); background:rgba(0,0,0,.25);
+      color:var(--text); padding:10px 12px; border-radius:14px; cursor:pointer;
+      transition:.15s transform, .15s background, .15s border;
+      font-weight:600;
+    }
+    .btn:hover{transform:translateY(-1px); background:rgba(0,0,0,.33); border-color:rgba(255,255,255,.22)}
+    .btn.primary{
+      background:linear-gradient(135deg, rgba(176,0,255,.55), rgba(255,27,106,.45));
+      border-color:rgba(255,255,255,.22);
+    }
+    .btn.danger{background:rgba(255,77,109,.18); border-color:rgba(255,77,109,.35)}
+    .grid{display:grid; grid-template-columns: 1.1fr .9fr; gap:16px; margin-top:16px;}
+    @media (max-width: 980px){ .grid{grid-template-columns:1fr} .topbar{position:static} }
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .card .hd{
+      padding:14px 16px; border-bottom:1px solid var(--line);
+      display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
+      background:linear-gradient(180deg, rgba(255,255,255,.06), transparent);
+    }
+    .card .hd h2{margin:0; font-size:14px}
+    .card .hd .meta{font-size:12px; color:var(--muted); line-height:1.25}
+    .card .bd{padding:16px}
+    label{display:block; font-size:12px; color:var(--muted); margin:10px 0 6px}
+    input[type="text"], input[type="number"], textarea, select{
+      width:100%; border:1px solid var(--line); background:rgba(0,0,0,.25);
+      color:var(--text); padding:10px 12px; border-radius:14px; outline:none;
+      font-family:var(--sans);
+    }
+    textarea{min-height:110px; resize:vertical; line-height:1.5}
+    .row{display:flex; gap:10px; flex-wrap:wrap}
+    .row > div{flex:1 1 180px}
+    .note{
+      font-size:12px; color:var(--muted); line-height:1.4;
+      padding:10px 12px; border-radius:14px; border:1px dashed rgba(255,255,255,.18);
+      background:rgba(0,0,0,.18);
+    }
+    .badge{
+      font-family:var(--mono); font-size:12px; padding:6px 10px; border-radius:999px;
+      border:1px solid var(--line); background:rgba(0,0,0,.20);
+      display:inline-flex; align-items:center; gap:6px;
+    }
+    .badge.good{border-color:rgba(25,255,154,.35); background:rgba(25,255,154,.12)}
+    .badge.warn{border-color:rgba(255,209,102,.35); background:rgba(255,209,102,.12)}
+    .badge.bad{border-color:rgba(255,77,109,.35); background:rgba(255,77,109,.12)}
+    .divider{height:1px; background:var(--line); margin:14px 0}
+    .task{
+      padding:12px 14px; border:1px solid var(--line); border-radius:16px;
+      background:rgba(0,0,0,.22);
+    }
+    .task h3{margin:0 0 8px; font-size:13px}
+    .bullets{margin:10px 0 0; padding-left:18px; color:var(--muted); font-size:12px}
+    .kpi{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
+    @media (max-width: 980px){ .kpi{grid-template-columns:repeat(2,1fr)} }
+    .kpi .box{
+      border:1px solid var(--line); border-radius:16px; padding:10px 12px;
+      background:rgba(0,0,0,.22);
+    }
+    .kpi .box .t{font-size:12px; color:var(--muted)}
+    .kpi .box .v{font-size:18px; font-weight:800; margin-top:4px}
+    .small{font-size:12px; color:var(--muted)}
+    .tabs{display:flex; gap:8px; flex-wrap:wrap}
+    .tab{padding:10px 12px; border-radius:14px; border:1px solid var(--line); background:rgba(0,0,0,.22); cursor:pointer; font-weight:700}
+    .tab.active{background:linear-gradient(135deg, rgba(176,0,255,.35), rgba(255,27,106,.22)); border-color:rgba(255,255,255,.22)}
+    .resultsList{display:grid; gap:10px}
+    .attempt{
+      border:1px solid var(--line); border-radius:16px; padding:12px 14px;
+      background:rgba(0,0,0,.20);
+    }
+    .attempt .top{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap}
+    .attempt .top strong{font-family:var(--mono)}
+    .attempt .meta{font-size:12px; color:var(--muted); margin-top:6px; line-height:1.4}
+    .copy{font-family:var(--mono); font-size:12px; white-space:pre-wrap; word-break:break-word}
+    .hide{display:none !important}
+    .mcChoice{
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.03);
+      padding:10px 12px; border-radius:14px; margin-top:8px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <h1>🟣 Otono Spanish — Paper 4 • Writing • Sample set 2 </h1>
+        <div class="sub">Auto marking (structure + relevance) • Centre: <strong>50749</strong> • Pass/Merit/Distinction is independent of 9–1</div>
+      </div>
+      <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end">
+        <div class="pill">
+          <span>⏱️ Timer:</span>
+          <strong id="timerText">--:--</strong>
+        </div>
+        <button class="btn" id="btnResults">Results</button>
+        <button class="btn primary" id="btnHome">Test</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- Left -->
+      <div class="card" id="panelHome">
+        <div class="hd">
+          <div>
+            <h2>Candidate setup</h2>
+            <div class="meta">
+              Sample Set 2: same layout + same marks distribution, but a different question bank.
+              Theme 4 is now allowed in Foundation tier too.
+            </div>
+          </div>
+          <span class="badge" id="statusBadge">Ready</span>
+        </div>
+
+        <div class="bd" id="homeBody">
+          <div class="row">
+            <div>
+              <label>Centre number (fixed)</label>
+              <input type="text" value="50749" disabled />
+            </div>
+            <div>
+              <label>Candidate number (required)</label>
+              <input type="number" id="candidateNo" placeholder="e.g. 1105" min="1" />
+            </div>
+            <div>
+              <label>Candidate name (optional)</label>
+              <input type="text" id="candidateName" placeholder="Name" />
+            </div>
+          </div>
+
+          <div class="row" style="margin-top:6px">
+            <div>
+              <label>Tier</label>
+              <select id="tier">
+                <option value="foundation">Foundation Tier (grade 1–5, capped)</option>
+                <option value="higher">Higher Tier (grade 4–9, allow 3)</option>
+              </select>
+            </div>
+
+            <div>
+              <label>Time allowed</label>
+              <select id="timeAllowed"></select>
+              <div class="small" id="timeNote" style="margin-top:6px"></div>
+            </div>
+
+            <div>
+              <label>On timer end</label>
+              <select id="autoSubmit">
+                <option value="yes" selected>Auto-submit</option>
+                <option value="no">Do not auto-submit</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>How marking works (so cheating doesn’t work):</strong><br/>
+            • Marks come from <strong>covering the bullet points</strong> + showing <strong>past/present/future</strong> + giving an <strong>opinion</strong> + using <strong>theme vocabulary</strong>.<br/>
+            • Writing something random is <strong>irrelevant</strong> and will score ~0 unless the task is actually about that topic and you cover the required points.<br/>
+            • Auto marking cannot truly judge “beauty” of Spanish, but it enforces structure and relevance.
+          </div>
+
+          <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap">
+            <button class="btn" id="btnPreview">Preview random selection</button>
+            <button class="btn primary" id="btnStart">Start random paper</button>
+          </div>
+
+          <div id="previewBox" class="note hide" style="margin-top:12px"></div>
+        </div>
+
+        <!-- Test -->
+        <div class="bd hide" id="testBody">
+          <div class="kpi">
+            <div class="box"><div class="t">Candidate</div><div class="v" id="kpiCandidate">—</div></div>
+            <div class="box"><div class="t">Tier</div><div class="v" id="kpiTier">—</div></div>
+            <div class="box"><div class="t">Max score</div><div class="v" id="kpiMax">—</div></div>
+            <div class="box"><div class="t">Theme 4?</div><div class="v" id="kpiTheme4">—</div></div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note" id="paperInfo"></div>
+
+          <div id="paper"></div>
+
+          <div class="divider"></div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap">
+            <button class="btn primary" id="btnSubmit">Submit & Auto-Mark</button>
+            <button class="btn" id="btnReset">Reset (new random paper)</button>
+          </div>
+
+          <div id="markingBox" class="hide" style="margin-top:14px"></div>
+        </div>
+      </div>
+
+      <!-- Right: grading + results -->
+      <div class="card" id="panelSide">
+        <div class="hd">
+          <div>
+            <h2 id="sideTitle">Grading rules</h2>
+            <div class="meta" id="sideMeta">Pass/Merit/Distinction stays the same regardless of 9–1 grade.</div>
+          </div>
+        </div>
+
+        <div class="bd" id="sideBody">
+          <div class="note">
+            <strong>Pass/Merit/Distinction (always)</strong><br/>
+            PASS: 66+<br/>
+            MERIT: 80+<br/>
+            DISTINCTION: 90+<br/>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>9–1 system</strong><br/>
+            Higher tier: grade 4–9 (allowed grade 3)<br/>
+            Foundation tier: grade 1–5 (capped)<br/>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>A–H system (CHANGED boundaries)</strong><br/>
+            <u>Higher tier</u> (A*–E + allowed F; no G/H):<br/>
+            A*: 95+ • A: 90+ B: 80+ • C: 66+ • D: 55+ • E: 45+ • F: 40+ • below 40 = U<br/><br/>
+            <u>Foundation tier</u> (capped at C; G/H appear):<br/>
+            C: 75+ • D: 66+ • E: 50+ • F: 40+ • G: 30+ • H: 20+ • below 20 = U
+          </div>
+
+          <div class="divider"></div>
+          <div class="small">
+            Results are saved locally on this browser (localStorage).
+          </div>
+        </div>
+
+        <!-- Results panel -->
+        <div class="bd hide" id="resultsBody">
+          <div class="tabs">
+            <div class="tab active" id="tabAll">All attempts</div>
+            <div class="tab" id="tabCandidate">By candidate</div>
+          </div>
+
+          <div class="row" style="margin-top:10px">
+            <div>
+              <label>Filter candidate number</label>
+              <input type="number" id="filterCandidate" placeholder="e.g. 1152" min="1" />
+            </div>
+            <div>
+              <label>Actions</label>
+              <div style="display:flex; gap:10px; flex-wrap:wrap">
+                <button class="btn" id="btnExport">Export JSON</button>
+                <button class="btn danger" id="btnClear">Clear stored results</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+          <div class="resultsList" id="resultsList"></div>
+
+          <div id="exportBox" class="note hide" style="margin-top:12px">
+            <div><strong>Exported JSON</strong> (copy/save it):</div>
+            <div class="divider"></div>
+            <div class="copy" id="exportText"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* =========================================================
+   HELPERS
+========================================================= */
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+function escapeHtml(str){
+  return (str ?? "").toString()
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+}
+function nowISO(){ return new Date().toISOString(); }
+function norm(s){
+  return (s ?? "")
+    .toString().toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .replace(/[^a-z0-9\s]/g," ")
+    .replace(/\s+/g," ").trim();
+}
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+function pickRandom(arr, n){ return shuffle(arr).slice(0,n); }
+function wordCount(text){
+  const t = (text ?? "").trim();
+  if(!t) return 0;
+  return t.split(/\s+/).filter(Boolean).length;
+}
+function setBadge(text, cls="badge"){ const b=$("#statusBadge"); b.className=cls; b.textContent=text; }
+function clamp(x,a,b){ return Math.max(a, Math.min(b, x)); }
+
+/* =========================================================
+   TIMER
+========================================================= */
+let timer = null;
+let remainingSec = 0;
+
+function stopTimer(){ if(timer){ clearInterval(timer); timer=null; } }
+function startTimer(minutes, onEnd){
+  stopTimer();
+  remainingSec = Math.max(1, Math.floor(minutes*60));
+  const tick = () => {
+    const m = Math.floor(remainingSec/60);
+    const s = remainingSec%60;
+    $("#timerText").textContent = `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+    remainingSec--;
+    if(remainingSec < 0){
+      stopTimer();
+      onEnd?.();
+    }
+  };
+  tick();
+  timer = setInterval(tick, 1000);
+}
+
+/* =========================================================
+   STORAGE
+========================================================= */
+const STORE_KEY = "otonoSpanishWritingResults_v2_sensible_set2_oldlayout";
+function loadResults(){
+  try{ return JSON.parse(localStorage.getItem(STORE_KEY) || "[]"); }
+  catch(e){ return []; }
+}
+function saveResults(list){ localStorage.setItem(STORE_KEY, JSON.stringify(list)); }
+function addResult(attempt){
+  const list = loadResults();
+  list.unshift(attempt);
+  saveResults(list);
+}
+
+/* =========================================================
+   GRADING (UNCHANGED from Set 1)
+========================================================= */
+function passMeritDistinction(score){
+  if(score >= 90) return "DISTINCTION";
+  if(score >= 80) return "MERIT";
+  if(score >= 66) return "PASS";
+  return "FAIL";
+}
+function grade9to1(score, tier){
+  if(tier==="foundation"){
+    if(score >= 90) return 5;
+    if(score >= 80) return 5;
+    if(score >= 70) return 4;
+    if(score >= 60) return 4;
+    if(score >= 50) return 3;
+    if(score >= 40) return 2;
+    if(score >= 20) return 1;
+    return "U";
+  }else{
+    if(score >= 90) return 9;
+    if(score >= 80) return 8;
+    if(score >= 70) return 7;
+    if(score >= 60) return 6;
+    if(score >= 50) return 5;
+    if(score >= 40) return 4;
+    if(score >= 35) return 3;
+    return "U";
+  }
+}
+function gradeAH(score, tier){
+  if(tier==="higher"){
+    if(score >= 95) return "A*";
+    if(score >= 90) return "A";
+    if(score >= 80) return "B";
+    if(score >= 66) return "C";
+    if(score >= 55) return "D";
+    if(score >= 40) return "E";
+    if(score >= 35) return "F";
+    return "U";
+  }else{
+    if(score >= 75) return "C";
+    if(score >= 66) return "D";
+    if(score >= 50) return "E";
+    if(score >= 40) return "F";
+    if(score >= 30) return "G";
+    if(score >= 20) return "H";
+    return "U";
+  }
+}
+function badgeForScore(score){
+  if(score >= 90) return ["badge good","🏆 DISTINCTION"];
+  if(score >= 80) return ["badge good","⭐ MERIT"];
+  if(score >= 66) return ["badge warn","✅ PASS"];
+  return ["badge bad","❌ FAIL"];
+}
+
+/* =========================================================
+   QUESTION BANKS (SET 2 — DIFFERENT QUESTIONS)
+   SAME STRUCTURE, SAME MARKS
+========================================================= */
+const THEME_VOCAB = {
+  t1: ["escuela","instituto","colegio","clase","clases","profesor","profesora","examen","examenes","exámenes","regla","norma","instruccion","instrucción","consigna","boligrafo","bolígrafo","tinta","vigilante","opcion","opción","gcse","mates","matematicas","matemáticas","ciencias","uniforme","comedor","biblioteca"],
+  t2: ["ocio","tiempo","libre","fin","de","semana","juego","juegos","gaming","minecraft","roblox","musica","música","piano","violin","violín","trompeta","deporte","natacion","natación","region","región","ciudad","casa","apartamento","parque","habitacion","habitación"],
+  t3: ["otono","airways","avion","avión","a380","cabina","asiento","clase","economica","económica","business","primera","lounge","salon","salón","aeropuerto","equipaje","embarque","mansion","mansión","manor","habitaciones","residencia"],
+  t4: ["clayton","puntuacion","puntuación","nota","perfecto","perfecta","160","mates","matematicas","matemáticas","antes","presion","presión","comparacion","comparación","celos","admiracion","admiración","reputacion","reputación","objetivo","progreso","estrés","estres"]
+};
+
+const DETECT = {
+  opinion: ["pienso", "creo que", "en mi opinion", "en mi opinión", "para mi", "para mí", "me parece", "me gusta", "me encanta", "odio", "no me gusta", "prefiero", "diria que", "diría que"],
+  past: ["ayer", "la semana pasada", "el ano pasado", "el año pasado", "hice", "fui", "estuve", "tenia", "tenía", "vi", "jugue", "jugué", "estudié", "estudie", "me senti", "me sentí"],
+  present: ["hoy", "normalmente", "a menudo", "siempre", "ahora", "en general", "suelo", "estoy", "hago", "tengo", "voy", "estudio"],
+  future: ["manana", "mañana", "la semana que viene", "el ano que viene", "el año que viene", "voy a", "en el futuro", "mas tarde", "más tarde", "me gustaria", "me gustaría", "quisiera", "hare", "haré", "seré", "sera", "será"]
+};
+
+/* Foundation translation (5 sentences, 5 marks each) — NEW */
+const FOUNDATION_TRANSLATION_POOL = [
+  { en:"I am tired because I revised late last night.", esKeys:[["estoy cansado","estoy cansada"],["porque"],["repase","repasé","estudie","estudié"],["tarde"],["anoche"]] },
+  { en:"At school, we must wear a uniform.", esKeys:[["en la escuela","en el instituto","en el colegio"],["tenemos que","hay que","debemos"],["llevar"],["un uniforme"]] },
+  { en:"I don’t like the canteen, but I like the library.", esKeys:[["no me gusta"],["el comedor","la cantina"],["pero"],["me gusta","me encanta"],["la biblioteca"]] },
+  { en:"Tomorrow, I am going to play Minecraft with my friends.", esKeys:[["mañana","manana"],["voy a"],["jugar"],["minecraft"],["con mis amigos","con amigos"]] },
+  { en:"In my opinion, travelling by plane is exciting.", esKeys:[["en mi opinion","en mi opinión","creo que","pienso que"],["viajar"],["en avion","en avión"],["es"],["emocionante","genial","increible","increíble"]] },
+  { en:"Last week, I forgot my pen and I was stressed.", esKeys:[["la semana pasada"],["olvide","olvidé"],["mi boligrafo","mi bolígrafo","un boligrafo","un bolígrafo"],["y"],["estaba estresado","estaba estresada","estaba estresado","estaba estresada","estaba estresado","estaba estresada"]] },
+  { en:"My house has a quiet room to study.", esKeys:[["mi casa"],["tiene","hay"],["una habitacion tranquila","una habitación tranquila","un lugar tranquilo"],["para estudiar","estudiar"]] },
+  { en:"The invigilator repeats the instructions before the exam.", esKeys:[["el vigilante","el supervisor","el profesor"],["repite"],["las instrucciones","las consignas"],["antes de"],["el examen","del examen"]] },
+  { en:"I prefer winter because I love Christmas.", esKeys:[["prefiero"],["el invierno"],["porque"],["me encanta","me gusta","adoro"],["navidad"]] },
+  { en:"Clayton got a perfect score and everyone talked about it.", esKeys:[["clayton"],["saco","sacó","obtuvo","consiguio","consiguió"],["una puntuacion perfecta","una puntuación perfecta","160","una nota perfecta"],["y"],["todo el mundo","todos","la gente","hablo","habló","hablaron"]] }
+];
+
+/* Higher translation (1 paragraph, 20 marks) — NEW */
+const HIGHER_TRANSLATION_POOL = [
+  {
+    id:"HT-C",
+    en:`During exams, organisation matters as much as intelligence. If you panic, you waste time, but if you stay calm and follow the instructions, you can improve your result. In the future, I want to be more confident.`,
+    keyIdeas: [
+      ["durante los examenes","durante los exámenes","en los exámenes"],
+      ["la organizacion","la organización","organizacion","organización"],
+      ["tan importante como","igual de importante que"],
+      ["la inteligencia","inteligencia"],
+      ["si entras en panico","si entras en pánico","si me pongo nervioso","si me pongo nerviosa","si panico","si pánico","si te pones nervioso","si te pones nerviosa"],
+      ["pierdes tiempo","perder tiempo","pierdo tiempo","se pierde tiempo"],
+      ["pero","sin embargo"],
+      ["si te mantienes tranquilo","si te mantienes tranquila","si me mantengo tranquilo","si me mantengo tranquila","mantener la calma"],
+      ["seguir las instrucciones","seguir las consignas"],
+      ["mejorar","puedes mejorar","puedo mejorar"],
+      ["tu resultado","mi resultado","el resultado","la nota","mi nota"],
+      ["en el futuro","más tarde","mas tarde"],
+      ["quiero tener mas confianza","quiero tener más confianza","quiero ser mas seguro","quiero ser más seguro","quiero ser mas segura","quiero ser más segura","quiero estar mas seguro","quiero estar más seguro","quiero estar mas segura","quiero estar más segura"]
+    ]
+  },
+  {
+    id:"HT-D",
+    en:`In my area, there are not many activities, so I often stay at home. However, I practise music to relax, and I also play online with friends. Next weekend, I’m going to try something new.`,
+    keyIdeas: [
+      ["en mi region","en mi región","en mi zona","en mi barrio","en mi ciudad"],
+      ["no hay muchas actividades","no hay muchas cosas que hacer","no hay muchas actividades para hacer"],
+      ["asi que","así que","por eso"],
+      ["a menudo me quedo en casa","me quedo en casa","suelo quedarme en casa"],
+      ["sin embargo","no obstante","pero"],
+      ["practico musica","practico música","hago musica","hago música"],
+      ["para relajarme","para relajar"],
+      ["tambien juego en linea","también juego en línea","juego en linea","juego en línea","juego por internet"],
+      ["con amigos","con mis amigos"],
+      ["el proximo fin de semana","el próximo fin de semana","el fin de semana que viene"],
+      ["voy a probar","voy a intentar","voy a hacer"],
+      ["algo nuevo","una actividad nueva","una cosa nueva"]
+    ]
+  }
+];
+
+/* Foundation grammar (5 gaps, 3 marks each) — NEW */
+const GRAMMAR_POOL = [
+  { prompt:"Ayer, ______ (ir) a la biblioteca.", answer:"fui", alt:["yo fui"] },
+  { prompt:"En mi opinión, la escuela ______ (ser) estresante a veces.", answer:"es", alt:[] },
+  { prompt:"Nosotros siempre ______ (escribir) las instrucciones claramente.", answer:"escribimos", alt:[] },
+  { prompt:"Mañana, ______ (repasar) las matemáticas.", answer:"voy a repasar", alt:["voy a estudiar"] },
+  { prompt:"En el instituto ______ muchas reglas.", answer:"hay", alt:["hay muchas reglas"] },
+  { prompt:"Yo ______ (hacer) mis deberes después de cenar.", answer:"hago", alt:[] },
+  { prompt:"La semana pasada, nosotros ______ (tener) un examen.", answer:"tuvimos", alt:["nosotros tuvimos"] }
+];
+
+/* 40-word prompts — NEW, now includes Theme 4 too */
+const PROMPTS_40 = {
+  t1: {
+    themeName:"Theme 1 — School",
+    title:"40 words: Un día en el instituto",
+    bullets:[
+      "Say what you study (one subject).",
+      "Mention one school place (canteen/library/classroom).",
+      "Say one rule you follow.",
+      "Give your opinion."
+    ],
+    required:{
+      bullets:[
+        {id:"b1", vocab:[...THEME_VOCAB.t1, "mates","matemáticas","ciencias","espanol","español","ingles","inglés"]},
+        {id:"b2", vocab:["comedor","biblioteca","clase","aula","pasillo"]},
+        {id:"b3", vocab:["regla","norma","prohibido","obligatorio","hay que","tenemos que","debemos"]},
+        {id:"b4", vocab:[...DETECT.opinion]}
+      ],
+      wordTarget:40, wordMin:34, wordMax:55,
+      mustHaveOpinion:true
+    }
+  },
+  t2: {
+    themeName:"Theme 2 — Free time / region",
+    title:"40 words: Mi tiempo libre",
+    bullets:[
+      "Say what you do in your free time.",
+      "Mention one activity (music/sport/gaming).",
+      "Say where you do it.",
+      "Give your opinion."
+    ],
+    required:{
+      bullets:[
+        {id:"b1", vocab:[...THEME_VOCAB.t2]},
+        {id:"b2", vocab:["música","musica","piano","violín","violin","trompeta","deporte","natación","natacion","minecraft","roblox","juegos","juego"]},
+        {id:"b3", vocab:["en casa","en el parque","en la ciudad","en mi habitación","en mi habitacion","en mi cuarto"]},
+        {id:"b4", vocab:[...DETECT.opinion]}
+      ],
+      wordTarget:40, wordMin:34, wordMax:55,
+      mustHaveOpinion:true
+    }
+  },
+  t3: {
+    themeName:"Theme 3 — Otono Team",
+    title:"40 words: Viaje o residencia",
+    bullets:[
+      "Mention a flight or a big residence.",
+      "Give one detail (seat/room/lounge).",
+      "Say why you like it.",
+      "Give your opinion."
+    ],
+    required:{
+      bullets:[
+        {id:"b1", vocab:["otono","airways","vuelo","avión","avion","mansión","mansion","residencia"]},
+        {id:"b2", vocab:["a380","cabina","asiento","salón","salon","lounge","habitaciones","habitación","habitacion","cuarto"]},
+        {id:"b3", vocab:["porque","ya que","me gusta","me encanta","adoro"]},
+        {id:"b4", vocab:[...DETECT.opinion]}
+      ],
+      wordTarget:40, wordMin:34, wordMax:55,
+      mustHaveOpinion:true
+    }
+  },
+  t4: {
+    themeName:"Theme 4 — Clayton / perfection",
+    title:"40 words: La presión de las notas",
+    bullets:[
+      "Say what happened (a score/result).",
+      "Mention one reaction (admiration/jealousy/stress).",
+      "Say how you feel.",
+      "Give your opinion."
+    ],
+    required:{
+      bullets:[
+        {id:"b1", vocab:["clayton","160","puntuación","puntuacion","nota","perfecta","perfecto","resultado"]},
+        {id:"b2", vocab:["admiración","admiracion","celos","presión","presion","estrés","estres"]},
+        {id:"b3", vocab:["me siento","feliz","contento","contenta","preocupado","preocupada","nervioso","nerviosa","estresado","estresada"]},
+        {id:"b4", vocab:[...DETECT.opinion]}
+      ],
+      wordTarget:40, wordMin:34, wordMax:55,
+      mustHaveOpinion:true
+    }
+  }
+};
+
+/* 70-word prompts — NEW, includes Theme 4 for BOTH tiers now */
+const PROMPTS_70 = {
+  t1: [
+    { code:"T1-C", title:"Theme 1: A rule you would change", bullets:[
+        "Describe one rule at your school.",
+        "Explain why it exists.",
+        "Past example (a moment it helped or annoyed you).",
+        "Future change + opinion."
+      ],
+      required:{
+        wordTarget:70, wordMin:60, wordMax:90,
+        must:{ past:true, present:true, future:true, opinion:true },
+        bulletVocab:[
+          [...THEME_VOCAB.t1],
+          ["porque","para","con el fin de"],
+          ["ayer","la semana pasada","el año pasado","el ano pasado","fui","hice","estuve"],
+          [...DETECT.opinion]
+        ]
+      }
+    },
+    { code:"T1-D", title:"Theme 1: Exam day routine", bullets:[
+        "What you do before an exam.",
+        "Mention instructions/ink/pen.",
+        "Past exam feeling.",
+        "Future plan + opinion."
+      ],
+      required:{
+        wordTarget:70, wordMin:60, wordMax:90,
+        must:{ past:true, present:true, future:true, opinion:true },
+        bulletVocab:[
+          ["examen","exámenes","examenes","instrucciones","consignas","tinta","bolígrafo","boligrafo","negra","azul","vigilante"],
+          ["antes","primero","después","luego"],
+          ["ayer","la última vez","la ultima vez","la semana pasada","fui","hice","me sentí","me senti"],
+          [...DETECT.opinion]
+        ]
+      }
+    }
+  ],
+  t2: [
+    { code:"T2-D", title:"Theme 2: A hobby that relaxes you", bullets:[
+        "Describe your hobby (what it is).",
+        "How often you do it now.",
+        "Past moment you remember.",
+        "Future goal + opinion."
+      ],
+      required:{
+        wordTarget:70, wordMin:60, wordMax:90,
+        must:{ past:true, present:true, future:true, opinion:true },
+        bulletVocab:[
+          ["música","musica","piano","violín","violin","trompeta","deporte","natación","natacion","minecraft","roblox","juego","juegos"],
+          ["a menudo","normalmente","ahora","hoy","suelo"],
+          ["ayer","la semana pasada","el año pasado","el ano pasado","fui","hice","estuve"],
+          [...DETECT.opinion]
+        ]
+      }
+    },
+    { code:"T2-E", title:"Theme 2: Your area — boring or peaceful?", bullets:[
+        "Describe your area.",
+        "Say what you do there now.",
+        "Past experience (something you did).",
+        "Future plan + opinion."
+      ],
+      required:{
+        wordTarget:70, wordMin:60, wordMax:90,
+        must:{ past:true, present:true, future:true, opinion:true },
+        bulletVocab:[
+          ["región","region","barrio","zona","ciudad","parque","casa","apartamento"],
+          ["hago","voy","me quedo","suelo","a menudo","ahora"],
+          ["ayer","antes","la semana pasada","fui","hice","estuve"],
+          [...DETECT.opinion]
+        ]
+      }
+    }
+  ],
+  t3: [
+    { code:"T3-C", title:"Theme 3: Airport experience", bullets:[
+        "Describe what you see at the airport.",
+        "Mention a past problem or delay.",
+        "Say what you do while waiting now.",
+        "Future flight + opinion."
+      ],
+      required:{
+        wordTarget:70, wordMin:60, wordMax:90,
+        must:{ past:true, present:true, future:true, opinion:true },
+        bulletVocab:[
+          ["aeropuerto","embarque","equipaje","vuelo","avión","avion","a380","cabina"],
+          ["retraso","problema","la última vez","la ultima vez","ayer","la semana pasada"],
+          ["ahora","a menudo","leo","juego","escucho","música","musica"],
+          [...DETECT.opinion]
+        ]
+      }
+    },
+    { code:"T3-D", title:"Theme 3: Big residence — advantages and rules", bullets:[
+        "Describe the residence (one detail).",
+        "Mention one shared-space rule.",
+        "Past moment there.",
+        "Future plan + opinion."
+      ],
+      required:{
+        wordTarget:70, wordMin:60, wordMax:90,
+        must:{ past:true, present:true, future:true, opinion:true },
+        bulletVocab:[
+          ["mansión","mansion","residencia","habitaciones","habitación","habitacion","salón","salon","cuarto"],
+          ["regla","norma","compartir","silencio","limpieza","ordenar","recoger"],
+          ["ayer","antes","la semana pasada","fui","hice","estuve"],
+          [...DETECT.opinion]
+        ]
+      }
+    }
+  ],
+  t4: [
+    { code:"T4-C", title:"Theme 4: Perfect scores — helpful or harmful?", bullets:[
+        "Describe what people say about perfect scores.",
+        "Past example of pressure/comparison.",
+        "How you feel now.",
+        "Future mindset + opinion."
+      ],
+      required:{
+        wordTarget:70, wordMin:60, wordMax:90,
+        must:{ past:true, present:true, future:true, opinion:true },
+        bulletVocab:[
+          [...THEME_VOCAB.t4],
+          ["presión","presion","comparación","comparacion","celos","admiración","admiracion","estrés","estres"],
+          ["ayer","antes","la semana pasada","fui","hice","me sentí","me senti"],
+          [...DETECT.opinion]
+        ]
+      }
+    }
+  ]
+};
+
+/* 110-word prompts — NEW */
+const PROMPTS_110 = {
+  t1: [
+    { code:"H1-3", title:"Theme 1: Discipline — fair or too strict?", bullets:[
+        "Explain how discipline works at school (rules, consequences).",
+        "Give a developed opinion with examples and future improvements."
+      ],
+      required:{
+        wordTarget:110, wordMin:95, wordMax:140,
+        must:{ opinion:true, past:true, future:true },
+        bulletVocab:[
+          ["regla","norma","disciplina","castigo","detención","detencion","instrucciones","examen","uniforme","comedor","biblioteca"],
+          [...DETECT.opinion]
+        ],
+        themeKey:["t1"]
+      }
+    }
+  ],
+  t2: [
+    { code:"H2-3", title:"Theme 2: Online vs offline time", bullets:[
+        "Describe how you use free time online and offline.",
+        "Give a developed opinion about balance, with a past example and a future plan."
+      ],
+      required:{
+        wordTarget:110, wordMin:95, wordMax:140,
+        must:{ opinion:true, past:true, future:true },
+        bulletVocab:[
+          ["tiempo libre","ocio","en línea","en linea","internet","móvil","movil","teléfono","telefono","ordenador","amigos","música","musica","deporte","juegos","gaming"],
+          [...DETECT.opinion]
+        ],
+        themeKey:["t2"]
+      }
+    }
+  ],
+  t3: [
+    { code:"H3-3", title:"Theme 3: Travel — comfort vs price", bullets:[
+        "Discuss what matters most when travelling (comfort, price, organisation).",
+        "Give your opinion with a comparison and future travel plans."
+      ],
+      required:{
+        wordTarget:110, wordMin:95, wordMax:140,
+        must:{ opinion:true, past:true, future:true },
+        bulletVocab:[
+          ["viajar","viaje","precio","caro","barato","comodidad","confort","organización","organizacion","retraso","aeropuerto","vuelo","cabina","clase","equipaje"],
+          [...DETECT.opinion]
+        ],
+        themeKey:["t3"]
+      }
+    }
+  ],
+  t4: [
+    { code:"H4-2", title:"Theme 4: Progress over perfection", bullets:[
+        "Explain why progress matters more than perfection.",
+        "Use a past example and a future plan; give a developed opinion."
+      ],
+      required:{
+        wordTarget:110, wordMin:95, wordMax:140,
+        must:{ opinion:true, past:true, future:true },
+        bulletVocab:[
+          ["objetivo","objetivos","progreso","presión","presion","estrés","estres","comparación","comparacion","puntuación","puntuacion","perfecto","perfecta","error","reputación","reputacion"],
+          [...DETECT.opinion]
+        ],
+        themeKey:["t4"]
+      }
+    }
+  ]
+};
+
+/* =========================================================
+   TIME OPTIONS
+========================================================= */
+function populateTimeOptions(){
+  const tier = $("#tier").value;
+  const sel = $("#timeAllowed");
+  const prev = sel.value;
+  sel.innerHTML = "";
+
+  let options;
+  if(tier === "foundation"){
+    options = [{ v:60, label:"60 minutes" },{ v:45, label:"45 minutes" }];
+    $("#timeNote").innerHTML = "Foundation tier: <strong>75 minutes is not allowed</strong>.";
+  } else {
+    options = [{ v:75, label:"75 minutes (recommended)" },{ v:60, label:"60 minutes" },{ v:45, label:"45 minutes" }];
+    $("#timeNote").innerHTML = "Higher tier: 75 minutes allowed.";
+  }
+
+  const validValues = new Set(options.map(o => String(o.v)));
+  const useValue = validValues.has(String(prev)) ? String(prev) : String(options[0].v);
+
+  options.forEach(o=>{
+    const opt = document.createElement("option");
+    opt.value = String(o.v);
+    opt.textContent = o.label;
+    if(opt.value === useValue) opt.selected = true;
+    sel.appendChild(opt);
+  });
+}
+$("#tier").addEventListener("change", populateTimeOptions);
+
+/* =========================================================
+   PAPER GENERATION (OLD LAYOUT, SAME MARKS)
+   CHANGE: Theme 4 allowed in FOUNDATION too
+========================================================= */
+let state = {
+  mode:"home",
+  submitted:false,
+  candidateNo:null,
+  candidateName:"",
+  tier:"foundation",
+  paper:null
+};
+
+function generatePaper(tier){
+  const includeTheme4 = (tier==="higher")
+    ? (Math.random() < 0.45)
+    : (Math.random() < 0.25);
+
+  const themesAllowed70 =
+    (tier==="foundation")
+      ? (includeTheme4 ? ["t1","t2","t3","t4"] : ["t1","t2","t3"])
+      : (includeTheme4 ? ["t1","t2","t3","t4"] : ["t1","t2","t3"]);
+
+  const themesAllowed110 = ["t1","t2","t3","t4"];
+
+  const q = {};
+  if(tier==="foundation"){
+    q.translation = pickRandom(FOUNDATION_TRANSLATION_POOL, 5);
+    q.grammar = pickRandom(GRAMMAR_POOL, 5);
+
+    const t40 = pickRandom(includeTheme4 ? ["t1","t2","t3","t4"] : ["t1","t2","t3"],1)[0];
+    q.w40 = PROMPTS_40[t40];
+
+    let pool70 = [];
+    themesAllowed70.forEach(k => pool70 = pool70.concat(PROMPTS_70[k]));
+    q.w70 = pickRandom(pool70, 3);
+  }else{
+    q.translation = pickRandom(HIGHER_TRANSLATION_POOL, 1)[0];
+
+    let pool70 = [];
+    themesAllowed70.forEach(k => pool70 = pool70.concat(PROMPTS_70[k]));
+    q.w70 = pickRandom(pool70, 3);
+
+    let pool110 = [];
+    themesAllowed110.forEach(k => pool110 = pool110.concat(PROMPTS_110[k]));
+    q.w110 = pickRandom(pool110, 4);
+  }
+  return { tier, includeTheme4, questions:q };
+}
+
+/* =========================================================
+   RENDERING (UNCHANGED)
+========================================================= */
+function renderHome(){
+  $("#homeBody").classList.remove("hide");
+  $("#testBody").classList.add("hide");
+  $("#resultsBody").classList.add("hide");
+  $("#sideBody").classList.remove("hide");
+  $("#sideTitle").textContent = "Grading rules";
+  $("#sideMeta").textContent = "Pass/Merit/Distinction stays the same regardless of 9–1 grade.";
+  $("#timerText").textContent = "--:--";
+  setBadge("Ready","badge");
+}
+
+function renderTest(){
+  $("#homeBody").classList.add("hide");
+  $("#testBody").classList.remove("hide");
+  $("#resultsBody").classList.add("hide");
+  $("#sideBody").classList.remove("hide");
+
+  const tier = state.tier;
+  const cand = `${state.candidateNo}${state.candidateName ? " • "+state.candidateName : ""}`;
+  $("#kpiCandidate").textContent = cand;
+  $("#kpiTier").textContent = tier.toUpperCase();
+  $("#kpiMax").textContent = tier==="foundation" ? "90" : "100";
+  $("#kpiTheme4").textContent = state.paper.includeTheme4 ? "YES" : "NO";
+
+  const mins = parseInt($("#timeAllowed").value,10);
+  const auto = $("#autoSubmit").value === "yes";
+  $("#paperInfo").innerHTML = `
+    <strong>Instructions:</strong> No dictionary/translator. Answer the bullet points. Show time frames when required.
+    <br/><strong>Tier:</strong> ${escapeHtml(tier.toUpperCase())} • <strong>Time:</strong> ${mins} min • <strong>Auto-submit:</strong> ${auto ? "ON" : "OFF"}
+  `;
+
+  const paperDiv = $("#paper");
+  paperDiv.innerHTML = "";
+  $("#markingBox").classList.add("hide");
+  $("#markingBox").innerHTML = "";
+  state.submitted = false;
+
+  const q = state.paper.questions;
+
+  if(tier==="foundation"){
+    paperDiv.appendChild(renderFoundationTranslation(q.translation));
+    paperDiv.appendChild(renderFoundationGrammar(q.grammar));
+    paperDiv.appendChild(render40(q.w40));
+    paperDiv.appendChild(render70Choice(q.w70, "foundation"));
+  }else{
+    paperDiv.appendChild(renderHigherTranslation(q.translation));
+    paperDiv.appendChild(render70Choice(q.w70, "higher"));
+    paperDiv.appendChild(render110Choice(q.w110));
+  }
+
+  startTimer(mins, () => {
+    if($("#autoSubmit").value==="yes") submitPaper(true);
+    else alert("Time is up. You can still submit manually.");
+  });
+
+  setBadge("In progress","badge warn");
+}
+
+function makeTaskCard(title, meta, innerHtml){
+  const wrap = document.createElement("div");
+  wrap.className = "task";
+  wrap.innerHTML = `
+    <h3>${escapeHtml(title)}</h3>
+    <div class="small">${escapeHtml(meta)}</div>
+    <div class="divider"></div>
+    ${innerHtml}
+  `;
+  return wrap;
+}
+
+function renderFoundationTranslation(items){
+  const lines = items.map((it,i)=>`
+    <div class="mcChoice">
+      <strong>Sentence ${i+1}</strong> (5 marks)<br/>
+      <div class="small" style="margin-top:6px">${escapeHtml(it.en)}</div>
+      <label>Your Spanish</label>
+      <textarea id="ft_s${i+1}" placeholder="Write the Spanish translation here..."></textarea>
+    </div>
+  `).join("");
+  return makeTaskCard("Q1 Translation into Spanish", "25 marks • 5 sentences • Meaning + accuracy", lines);
+}
+function renderHigherTranslation(item){
+  const html = `
+    <div class="note">
+      <strong>Translate into Spanish</strong> (Higher Tier)<br/>
+      Marking: <strong>ideas</strong> + <strong>language quality</strong> (Spanish-ness, connectors, length).<br/>
+      <div class="divider"></div>
+      <div class="small">${escapeHtml(item.en)}</div>
+    </div>
+
+    <label>Your Spanish translation</label>
+    <textarea id="ht_par" placeholder="Write your full Spanish paragraph here..."></textarea>
+    <div class="small" id="ht_wc"></div>
+  `;
+  const card = makeTaskCard("Q1 Translation into Spanish", "20 marks • ideas (10) + quality (10)", html);
+  setTimeout(()=>wireWordCount("ht_par","ht_wc"), 0);
+  return card;
+}
+function renderFoundationGrammar(items){
+  const lines = items.map((it,i)=>`
+    <div class="mcChoice">
+      <strong>Gap ${i+1}</strong> (3 marks)<br/>
+      <div class="small" style="margin-top:6px">${escapeHtml(it.prompt)}</div>
+      <label>Your answer (one word/short phrase)</label>
+      <input type="text" id="gg_${i+1}" placeholder="e.g. fui" />
+    </div>
+  `).join("");
+  return makeTaskCard("Q2 Grammar gap-fill","15 marks • 5 gaps • 3 marks each", lines);
+}
+function render40(p){
+  const html = `
+    <div class="note">
+      <strong>${escapeHtml(p.themeName)}</strong><br/>
+      Write about <strong>40 words</strong>. Answer all 4 bullet points. (No choice)
+      <ul class="bullets">
+        ${p.bullets.map(b=>`<li>${escapeHtml(b)}</li>`).join("")}
+      </ul>
+    </div>
+
+    <label>Your 40-word answer (Spanish)</label>
+    <textarea id="w40" placeholder="≈ 40 words..."></textarea>
+    <div class="small" id="w40_wc"></div>
+  `;
+  const card = makeTaskCard("Q3 40-word writing","20 marks • bullets + opinion + relevance", html);
+  setTimeout(()=>wireWordCount("w40","w40_wc"), 0);
+  return card;
+}
+function render70Choice(items, tier){
+  const html = `
+    <div class="note">
+      Write about <strong>70 words</strong>. Choose <strong>ONE</strong> question.
+      You must include: <strong>past + present + future + opinion</strong>.
+    </div>
+
+    <div id="w70_choices">
+      ${items.map((q,i)=>`
+        <div class="mcChoice">
+          <label style="display:flex; gap:10px; align-items:flex-start; cursor:pointer">
+            <input type="radio" name="w70_pick" value="${i}" style="margin-top:3px" ${i===0?"checked":""}/>
+            <div>
+              <strong>Option ${String.fromCharCode(65+i)} — ${escapeHtml(q.title)}</strong>
+              <ul class="bullets">${q.bullets.map(b=>`<li>${escapeHtml(b)}</li>`).join("")}</ul>
+              <div class="small">Code: ${escapeHtml(q.code)}</div>
+            </div>
+          </label>
+        </div>
+      `).join("")}
+    </div>
+
+    <label>Your 70-word answer (Spanish)</label>
+    <textarea id="w70" placeholder="≈ 70 words..."></textarea>
+    <div class="small" id="w70_wc"></div>
+  `;
+  const title = tier==="foundation" ? "Q4 70-word writing (choose 1 of 3)" : "Q2 70-word writing (choose 1 of 3)";
+  const meta = `30 marks • content + timeframes + opinion + range + relevance`;
+  const card = makeTaskCard(title, meta, html);
+  setTimeout(()=>wireWordCount("w70","w70_wc"), 0);
+  return card;
+}
+function render110Choice(items){
+  const html = `
+    <div class="note">
+      Write about <strong>110 words</strong>. Choose <strong>ONE</strong> question.
+      Develop your ideas clearly.
+    </div>
+
+    <div id="w110_choices">
+      ${items.map((q,i)=>`
+        <div class="mcChoice">
+          <label style="display:flex; gap:10px; align-items:flex-start; cursor:pointer">
+            <input type="radio" name="w110_pick" value="${i}" style="margin-top:3px" ${i===0?"checked":""}/>
+            <div>
+              <strong>Option ${i+1} — ${escapeHtml(q.title)}</strong>
+              <ul class="bullets">${q.bullets.map(b=>`<li>${escapeHtml(b)}</li>`).join("")}</ul>
+              <div class="small">Code: ${escapeHtml(q.code)}</div>
+            </div>
+          </label>
+        </div>
+      `).join("")}
+    </div>
+
+    <label>Your 110-word answer (Spanish)</label>
+    <textarea id="w110" placeholder="≈ 110 words..."></textarea>
+    <div class="small" id="w110_wc"></div>
+  `;
+  const card = makeTaskCard("Q3 110-word writing (choose 1 of 4)","50 marks • content + timeframes + opinion + range + relevance", html);
+  setTimeout(()=>wireWordCount("w110","w110_wc"), 0);
+  return card;
+}
+
+function wireWordCount(textareaId, outId){
+  const ta = $("#"+textareaId);
+  const out = $("#"+outId);
+  if(!ta || !out) return;
+  const draw = () => out.textContent = `Word count: ${wordCount(ta.value)}`;
+  ta.addEventListener("input", draw);
+  draw();
+}
+
+/* =========================================================
+   MARKING (UNCHANGED engine from Set 1, BUT SPANISH RULESETS)
+========================================================= */
+function containsAny(textNorm, phrases){
+  return phrases.some(p => textNorm.includes(norm(p)));
+}
+function countHits(textNorm, vocab){
+  let hits = 0;
+  vocab.forEach(w=>{
+    const k = norm(w);
+    if(k && textNorm.includes(k)) hits++;
+  });
+  return hits;
+}
+
+const SPANISH_MARKERS = [
+  "yo","me","mi","mis","tengo","estoy","soy","hago","voy","suelo",
+  "porque","pero","sin embargo","ademas","además","por eso","entonces",
+  "hoy","ayer","mañana","manana","más tarde","mas tarde","en el futuro",
+  "un","una","unos","unas","el","la","los","las","de","del","al","con","sin","para","por"
+];
+const CONNECTORS = ["porque","pero","sin embargo","no obstante","ademas","además","por eso","entonces","después","despues","primero","luego","en cambio","por ejemplo","aunque"];
+const RANGE_MARKERS = ["que","cuando","mientras","si","porque","para que","aunque","como","por ejemplo","sin embargo","ademas","además"];
+
+function markHigherTranslation(user, keyIdeas){
+  const t = norm(user);
+  const wc = wordCount(user);
+  if(!t) return {score:0, max:20, detail:"Blank.", parts:{ideas:0, quality:0}};
+
+  let ideaHits = 0;
+  keyIdeas.forEach(group => {
+    const alts = Array.isArray(group) ? group : [group];
+    if(alts.some(k => t.includes(norm(k)))) ideaHits++;
+  });
+  const ideas = clamp(ideaHits, 0, 10);
+
+  let markerHits = 0;
+  SPANISH_MARKERS.forEach(m => { if(t.includes(norm(m))) markerHits++; });
+  const markerScore = clamp(Math.round((markerHits/12)*6), 0, 6);
+
+  const connScore = clamp(countHits(t, CONNECTORS) >= 1 ? 2 : 0, 0, 2);
+
+  let lenScore = 0;
+  if(wc >= 18 && wc <= 55) lenScore = 2;
+  else if(wc >= 12 && wc <= 75) lenScore = 1;
+
+  const quality = clamp(markerScore + connScore + lenScore, 0, 10);
+
+  const score = ideas + quality;
+  const detail = `Ideas: ${ideas}/10 (hits ${ideaHits}/10). Quality: ${quality}/10 (markers ${markerScore}/6, connectors ${connScore}/2, length ${lenScore}/2, WC ${wc}).`;
+  return {score, max:20, detail, parts:{ideas, quality}};
+}
+
+function markFoundationTranslationSentence(user, keys){
+  const t = norm(user);
+  if(!t) return {score:0, max:5, detail:"Blank."};
+  let groups = keys.length;
+  let hit = 0;
+  keys.forEach(g => { if(g.some(k => t.includes(norm(k)))) hit++; });
+  const raw = (hit / groups) * 5;
+  const score = clamp(Math.round(raw), 0, 5);
+  return {score, max:5, detail:`Matched ${hit}/${groups} key chunks.`};
+}
+
+function markGap(user, answer, alt){
+  const u = norm(user);
+  const a = norm(answer);
+  const alts = (alt||[]).map(norm);
+  if(!u) return {score:0, max:3, detail:"Blank."};
+  if(u === a || alts.includes(u)) return {score:3, max:3, detail:"Correct."};
+
+  const aTokens = a.split(" ").filter(Boolean);
+  const hitAll = aTokens.every(tok => u.includes(tok));
+  if(hitAll) return {score:2, max:3, detail:"Close: right idea but not exact form."};
+
+  const core = aTokens[aTokens.length-1];
+  if(core && u.includes(core)) return {score:1, max:3, detail:"Partially correct form."};
+  return {score:0, max:3, detail:"Incorrect."};
+}
+
+function markWriting(text, spec, maxMarks, themeKey){
+  const t = norm(text);
+  const wc = wordCount(text);
+  if(!t) return {score:0, max:maxMarks, detail:"Blank.", parts:{}};
+
+  const wcMax = Math.round(maxMarks * 0.10);
+  const min = spec.wordMin ?? 0;
+  const max = spec.wordMax ?? 9999;
+  let wcScore = 0;
+  if(wc >= min && wc <= max) wcScore = wcMax;
+  else if(wc >= Math.round(min*0.8) && wc <= Math.round(max*1.25)) wcScore = Math.round(wcMax*0.6);
+  else if(wc >= Math.round(min*0.6)) wcScore = Math.round(wcMax*0.3);
+
+  const contentMax = Math.round(maxMarks * 0.40);
+  const bulletGroups = spec.bulletVocab || [];
+  let bulletHits = 0;
+  bulletGroups.forEach(group => { if(containsAny(t, group)) bulletHits++; });
+  const contentScore = bulletGroups.length
+    ? Math.round((bulletHits / bulletGroups.length) * contentMax)
+    : contentMax;
+
+  const tfMax = Math.round(maxMarks * 0.20);
+  let tfHits = 0, tfNeed = 0;
+  if(spec.must?.past){ tfNeed++; if(containsAny(t, DETECT.past)) tfHits++; }
+  if(spec.must?.present){ tfNeed++; if(containsAny(t, DETECT.present)) tfHits++; }
+  if(spec.must?.future){ tfNeed++; if(containsAny(t, DETECT.future)) tfHits++; }
+  const tfScore = tfNeed ? Math.round((tfHits / tfNeed) * tfMax) : tfMax;
+
+  const opMax = Math.round(maxMarks * 0.10);
+  const hasOpinion = containsAny(t, DETECT.opinion) || spec.mustHaveOpinion;
+  const opScore = hasOpinion ? opMax : 0;
+
+  const rangeMax = Math.round(maxMarks * 0.20);
+  const connHits = countHits(t, CONNECTORS);
+  const rangeHits = countHits(t, RANGE_MARKERS);
+  const neg = (t.includes("no ") || t.includes("nunca") || t.includes("nadie")) ? 1 : 0;
+  const rawRange = connHits + rangeHits + neg;
+  const rangeScore = clamp(Math.round((rawRange/5) * rangeMax), 0, rangeMax);
+
+  let vocabPool = [];
+  if(themeKey==="t1") vocabPool = THEME_VOCAB.t1;
+  if(themeKey==="t2") vocabPool = THEME_VOCAB.t2;
+  if(themeKey==="t3") vocabPool = THEME_VOCAB.t3;
+  if(themeKey==="t4") vocabPool = THEME_VOCAB.t4;
+  if(!vocabPool.length) vocabPool = [].concat(THEME_VOCAB.t1, THEME_VOCAB.t2, THEME_VOCAB.t3, THEME_VOCAB.t4);
+
+  const themeHits = countHits(t, vocabPool);
+  const expected = maxMarks <= 20 ? 2 : (maxMarks <= 30 ? 3 : 4);
+  let mult = 1.0;
+  if(themeHits < 1) mult = 0.25;
+  else if(themeHits < expected) mult = 0.65;
+  else if(themeHits < expected + 2) mult = 0.85;
+
+  const raw = wcScore + contentScore + tfScore + opScore + rangeScore;
+  const score = clamp(Math.round(raw * mult), 0, maxMarks);
+
+  const detail =
+    `WC ${wc} => ${wcScore}/${wcMax}; content ${bulletHits}/${bulletGroups.length} => ${contentScore}/${contentMax}; `+
+    `timeframes ${tfHits}/${tfNeed} => ${tfScore}/${tfMax}; opinion => ${opScore}/${opMax}; range(raw ${rawRange}) => ${rangeScore}/${rangeMax}; `+
+    `themeHits ${themeHits} => multiplier ${mult.toFixed(2)}; final ${score}/${maxMarks}.`;
+
+  return {score, max:maxMarks, detail, parts:{wcScore, contentScore, tfScore, opScore, rangeScore, themeHits, mult}};
+}
+
+/* =========================================================
+   SUBMIT + TOTAL (UNCHANGED totals)
+========================================================= */
+function guessThemeKeyFrom70(code){
+  if(code.startsWith("T1")) return "t1";
+  if(code.startsWith("T2")) return "t2";
+  if(code.startsWith("T3")) return "t3";
+  if(code.startsWith("T4")) return "t4";
+  return null;
+}
+function guessThemeKeyFrom110(code){
+  if(code.startsWith("H1")) return "t1";
+  if(code.startsWith("H2")) return "t2";
+  if(code.startsWith("H3")) return "t3";
+  if(code.startsWith("H4")) return "t4";
+  return null;
+}
+function guessThemeKeyFrom40(themeName){
+  if(themeName.includes("Theme 1")) return "t1";
+  if(themeName.includes("Theme 2")) return "t2";
+  if(themeName.includes("Theme 3")) return "t3";
+  if(themeName.includes("Theme 4")) return "t4";
+  return null;
+}
+
+function computeTotal(){
+  const tier = state.tier;
+  const q = state.paper.questions;
+  let total = 0;
+  let breakdown = [];
+
+  if(tier==="foundation"){
+    let tScore = 0;
+    q.translation.forEach((it,i)=>{
+      const ans = $("#ft_s"+(i+1)).value;
+      const res = markFoundationTranslationSentence(ans, it.esKeys);
+      tScore += res.score;
+      breakdown.push({part:`Q1 Sentence ${i+1}`, score:res.score, max:res.max, detail:res.detail});
+    });
+    total += tScore;
+
+    let gScore = 0;
+    q.grammar.forEach((it,i)=>{
+      const ans = $("#gg_"+(i+1)).value;
+      const res = markGap(ans, it.answer, it.alt);
+      gScore += res.score;
+      breakdown.push({part:`Q2 Gap ${i+1}`, score:res.score, max:res.max, detail:`${res.detail} (expected: ${it.answer})`});
+    });
+    total += gScore;
+
+    const w40Text = $("#w40").value;
+    const tKey = guessThemeKeyFrom40(q.w40.themeName);
+    const w40 = markWriting(w40Text, { ...q.w40.required, bulletVocab: q.w40.required.bullets.map(b=>b.vocab) }, 20, tKey);
+    total += w40.score;
+    breakdown.push({part:"Q3 40-word", score:w40.score, max:w40.max, detail:w40.detail});
+
+    const pick = parseInt(($("input[name='w70_pick']:checked")?.value ?? "0"),10);
+    const chosen = q.w70[pick];
+    const w70Text = $("#w70").value;
+    const themeKey = guessThemeKeyFrom70(chosen.code);
+    const w70 = markWriting(w70Text, chosen.required, 30, themeKey);
+    total += w70.score;
+    breakdown.push({part:`Q4 70-word (${chosen.code})`, score:w70.score, max:w70.max, detail:w70.detail});
+
+    return { total: clamp(Math.round(total),0,90), max: 90, breakdown, chosenCodes:{w70:chosen.code, w40:q.w40.title} };
+  }
+
+  const tAns = $("#ht_par").value;
+  const tRes = markHigherTranslation(tAns, q.translation.keyIdeas);
+  total += tRes.score;
+  breakdown.push({part:`Q1 Translation (${q.translation.id})`, score:tRes.score, max:20, detail:tRes.detail});
+
+  const pick70 = parseInt(($("input[name='w70_pick']:checked")?.value ?? "0"),10);
+  const chosen70 = q.w70[pick70];
+  const w70TextH = $("#w70").value;
+  const theme70 = guessThemeKeyFrom70(chosen70.code);
+  const w70H = markWriting(w70TextH, chosen70.required, 30, theme70);
+  total += w70H.score;
+  breakdown.push({part:`Q2 70-word (${chosen70.code})`, score:w70H.score, max:30, detail:w70H.detail});
+
+  const pick110 = parseInt(($("input[name='w110_pick']:checked")?.value ?? "0"),10);
+  const chosen110 = q.w110[pick110];
+  const w110Text = $("#w110").value;
+  const theme110 = guessThemeKeyFrom110(chosen110.code);
+  const w110 = markWriting(w110Text, chosen110.required, 50, theme110);
+  total += w110.score;
+  breakdown.push({part:`Q3 110-word (${chosen110.code})`, score:w110.score, max:50, detail:w110.detail});
+
+  return { total: clamp(Math.round(total),0,100), max: 100, breakdown, chosenCodes:{w70:chosen70.code, w110:chosen110.code} };
+}
+
+function submitPaper(fromAuto=false){
+  if(state.submitted) return;
+  state.submitted = true;
+  stopTimer();
+
+  const res = computeTotal();
+  const total = res.total;
+  const tier = state.tier;
+
+  const pmd = passMeritDistinction(total);
+  const g9 = grade9to1(total, tier);
+  const gah = gradeAH(total, tier);
+  const [cls, txt] = badgeForScore(total);
+
+  const attempt = {
+    centre:"50749",
+    candidateNo:String(state.candidateNo),
+    candidateName:state.candidateName || "",
+    tier,
+    submittedAt: nowISO(),
+    timeAllowedMin: parseInt($("#timeAllowed").value,10),
+    includeTheme4: state.paper.includeTheme4,
+    maxScore: res.max,
+    score: total,
+    passMeritDistinction: pmd,
+    grade9to1: g9,
+    gradeAH: gah,
+    chosenCodes: res.chosenCodes,
+    breakdown: res.breakdown
+  };
+  addResult(attempt);
+
+  const box = $("#markingBox");
+  box.classList.remove("hide");
+  box.innerHTML = `
+    <div class="card">
+      <div class="hd">
+        <div>
+          <h2 style="margin:0;font-size:14px">✅ Marked${fromAuto ? " (auto-submitted)" : ""}</h2>
+          <div class="meta">Saved to Results • Candidate ${escapeHtml(attempt.candidateNo)} • Tier ${escapeHtml(tier.toUpperCase())}</div>
+        </div>
+        <span class="${cls}">${escapeHtml(txt)}</span>
+      </div>
+      <div class="bd">
+        <div class="kpi">
+          <div class="box"><div class="t">Score</div><div class="v">${attempt.score} / ${attempt.maxScore}</div></div>
+          <div class="box"><div class="t">Pass/Merit/Dist</div><div class="v">${escapeHtml(attempt.passMeritDistinction)}</div></div>
+          <div class="box"><div class="t">9–1 grade</div><div class="v">${escapeHtml(String(attempt.grade9to1))}</div></div>
+          <div class="box"><div class="t">A–H grade</div><div class="v">${escapeHtml(String(attempt.gradeAH))}</div></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="note">
+          <strong>Marking is integer-based:</strong> translation uses ideas + quality; writing uses content + timeframes + opinion + range + relevance (soft multiplier).
+        </div>
+
+        <div class="divider"></div>
+
+        <button class="btn" id="btnShowBreakdown">Show breakdown</button>
+        <div id="bdList" class="hide" style="margin-top:12px"></div>
+      </div>
+    </div>
+  `;
+
+  $("#btnShowBreakdown").addEventListener("click", ()=>{
+    const d = $("#bdList");
+    d.classList.toggle("hide");
+    if(!d.classList.contains("hide")){
+      d.innerHTML = res.breakdown.map(b=>`
+        <div class="attempt">
+          <div class="top">
+            <div><strong>${escapeHtml(b.part)}</strong></div>
+            <div><span class="badge">${b.score} / ${b.max}</span></div>
+          </div>
+          <div class="meta">${escapeHtml(b.detail)}</div>
+        </div>
+      `).join("");
+    }
+  });
+
+  setBadge("Submitted","badge good");
+}
+
+/* =========================================================
+   RESULTS PANEL
+========================================================= */
+function drawResults(){
+  const listEl = $("#resultsList");
+  const all = loadResults();
+  const filter = ($("#filterCandidate").value || "").trim();
+  const filtered = filter ? all.filter(a => String(a.candidateNo) === String(filter)) : all;
+
+  if(filtered.length === 0){
+    listEl.innerHTML = `<div class="note">No stored attempts${filter ? " for this candidate" : ""}.</div>`;
+    return;
+  }
+
+  listEl.innerHTML = filtered.map(a=>{
+    const [cls, txt] = badgeForScore(a.score);
+    return `
+      <div class="attempt">
+        <div class="top">
+          <div>
+            <strong>${escapeHtml(a.candidateNo)}</strong>${a.candidateName ? " • " + escapeHtml(a.candidateName) : ""}
+            <span class="badge" style="margin-left:8px">Centre ${escapeHtml(a.centre)}</span>
+            <span class="badge" style="margin-left:8px">${escapeHtml(a.tier.toUpperCase())}</span>
+          </div>
+          <div class="${cls}">${escapeHtml(txt)} • ${escapeHtml(String(a.score))}/${escapeHtml(String(a.maxScore))}</div>
+        </div>
+        <div class="meta">
+          <div><strong>Date:</strong> ${escapeHtml(new Date(a.submittedAt).toLocaleString())}</div>
+          <div><strong>Grades:</strong> PMD ${escapeHtml(a.passMeritDistinction)} • 9–1 ${escapeHtml(String(a.grade9to1))} • A–H ${escapeHtml(String(a.gradeAH))}</div>
+          <div><strong>Theme 4 included?</strong> ${a.includeTheme4 ? "YES" : "NO"} • <strong>Time:</strong> ${escapeHtml(String(a.timeAllowedMin))} min</div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+function exportResults(){
+  const all = loadResults();
+  $("#exportText").textContent = JSON.stringify(all, null, 2);
+  $("#exportBox").classList.remove("hide");
+}
+function clearResults(){
+  if(!confirm("Clear ALL stored Writing results on this browser?")) return;
+  localStorage.removeItem(STORE_KEY);
+  $("#exportBox").classList.add("hide");
+  drawResults();
+}
+
+/* =========================================================
+   NAVIGATION / EVENTS
+========================================================= */
+$("#btnHome").addEventListener("click", ()=>{
+  state.mode="home";
+  renderHome();
+});
+$("#btnResults").addEventListener("click", ()=>{
+  state.mode="results";
+  $("#sideBody").classList.add("hide");
+  $("#resultsBody").classList.remove("hide");
+  $("#sideTitle").textContent = "Saved results";
+  $("#sideMeta").textContent = "Stored in this browser (localStorage).";
+  setBadge("Results","badge");
+  stopTimer();
+  $("#timerText").textContent="--:--";
+  drawResults();
+});
+
+$("#tabAll").addEventListener("click", ()=>{
+  $("#tabAll").classList.add("active");
+  $("#tabCandidate").classList.remove("active");
+  $("#filterCandidate").value="";
+  drawResults();
+});
+$("#tabCandidate").addEventListener("click", ()=>{
+  $("#tabCandidate").classList.add("active");
+  $("#tabAll").classList.remove("active");
+  $("#filterCandidate").focus();
+});
+$("#filterCandidate").addEventListener("input", drawResults);
+$("#btnExport").addEventListener("click", exportResults);
+$("#btnClear").addEventListener("click", clearResults);
+
+$("#btnPreview").addEventListener("click", ()=>{
+  const c = ($("#candidateNo").value || "").trim();
+  if(!c){ alert("Enter a candidate number first."); return; }
+  const tier = $("#tier").value;
+  const paper = generatePaper(tier);
+
+  const box = $("#previewBox");
+  box.classList.remove("hide");
+
+  if(tier==="foundation"){
+    box.innerHTML = `
+      <strong>Preview (not started)</strong><br/>
+      Tier: <strong>${escapeHtml(tier.toUpperCase())}</strong><br/>
+      Q1: 5 translation sentences<br/>
+      Q2: 5 grammar gaps<br/>
+      Q3: 40-word theme: <strong>${escapeHtml(paper.questions.w40.themeName)}</strong><br/>
+      Q4: 70-word options: <strong>${paper.questions.w70.map(x=>escapeHtml(x.code)).join(", ")}</strong><br/>
+      Theme 4 included somewhere? <strong>${paper.includeTheme4 ? "YES" : "NO"}</strong>
+    `;
+  }else{
+    box.innerHTML = `
+      <strong>Preview (not started)</strong><br/>
+      Tier: <strong>${escapeHtml(tier.toUpperCase())}</strong><br/>
+      Q1: Translation paragraph: <strong>${escapeHtml(paper.questions.translation.id)}</strong><br/>
+      Q2: 70-word options: <strong>${paper.questions.w70.map(x=>escapeHtml(x.code)).join(", ")}</strong><br/>
+      Q3: 110-word options: <strong>${paper.questions.w110.map(x=>escapeHtml(x.code)).join(", ")}</strong><br/>
+      Theme 4 included somewhere? <strong>${paper.includeTheme4 ? "YES" : "NO"}</strong>
+    `;
+  }
+});
+
+$("#btnStart").addEventListener("click", ()=>{
+  const c = ($("#candidateNo").value || "").trim();
+  if(!c){ alert("Candidate number is required."); return; }
+
+  state.candidateNo = c;
+  state.candidateName = ($("#candidateName").value || "").trim();
+  state.tier = $("#tier").value;
+  state.paper = generatePaper(state.tier);
+
+  populateTimeOptions();
+  renderTest();
+});
+
+$("#btnReset").addEventListener("click", ()=>{
+  if(!confirm("Reset and generate a NEW random writing paper?")) return;
+  stopTimer();
+  state.paper = generatePaper(state.tier);
+  renderTest();
+});
+
+$("#btnSubmit").addEventListener("click", ()=>submitPaper(false));
+
+/* =========================================================
+   INITIALISE
+========================================================= */
+populateTimeOptions();
+renderHome();
+
+/* =========================================================
+   Anti-cheat (same)
+========================================================= */
+const disabledKeys = ["u", "I"];
+const showAlert = e => {
+  e.preventDefault();
+  return alert("Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!");
+};
+document.addEventListener("contextmenu", e => { showAlert(e); });
+document.addEventListener("keydown", e => {
+  if ((e.ctrlKey && disabledKeys.includes(e.key)) || e.key === "F12") showAlert(e);
+});
+</script>
+
+</body>
+</html>
