@@ -1,0 +1,2319 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>🟣 Otono Spanish — A Level • Lectura + Mini-ensayo + Traducción — El Drummond Encrotintástico</title>
+  <style>
+    :root{
+      --bg1:#2b0a3d; --bg2:#7a0036;
+      --card:#0f0b18cc; --card2:#120c22e6;
+      --text:#f4efff; --muted:#c9b9ff;
+      --accent:#b000ff; --accent2:#ff1b6a;
+      --good:#19ff9a; --warn:#ffd166; --bad:#ff4d6d;
+      --line:rgba(255,255,255,.12);
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:var(--sans); color:var(--text);
+      background:
+        radial-gradient(1000px 700px at 15% 10%, rgba(176,0,255,.22), transparent 60%),
+        radial-gradient(900px 650px at 80% 20%, rgba(255,27,106,.18), transparent 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+    }
+    .wrap{max-width:1200px; margin:0 auto; padding:22px;}
+    .topbar{
+      display:flex; gap:14px; align-items:center; justify-content:space-between;
+      padding:14px 16px; border:1px solid var(--line); border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      box-shadow:var(--shadow);
+      position:sticky; top:14px; z-index:20; backdrop-filter: blur(10px);
+    }
+    .brand{display:flex; flex-direction:column; gap:2px}
+    .brand h1{margin:0; font-size:16px; letter-spacing:.3px}
+    .brand .sub{font-size:12px; color:var(--muted)}
+    .pill{
+      padding:8px 10px; border-radius:999px; border:1px solid var(--line);
+      background:rgba(0,0,0,.25); font-family:var(--mono); font-size:12px;
+      display:flex; gap:10px; align-items:center;
+    }
+    .pill strong{color:#fff}
+    .btn{
+      border:1px solid var(--line); background:rgba(0,0,0,.25);
+      color:var(--text); padding:10px 12px; border-radius:14px; cursor:pointer;
+      transition:.15s transform, .15s background, .15s border;
+      font-weight:600;
+    }
+    .btn:hover{transform:translateY(-1px); background:rgba(0,0,0,.33); border-color:rgba(255,255,255,.22)}
+    .btn.primary{
+      background:linear-gradient(135deg, rgba(176,0,255,.55), rgba(255,27,106,.45));
+      border-color:rgba(255,255,255,.22);
+    }
+    .btn.danger{background:rgba(255,77,109,.18); border-color:rgba(255,77,109,.35)}
+    .grid{display:grid; grid-template-columns: 1.15fr .85fr; gap:16px; margin-top:16px;}
+    @media (max-width: 980px){ .grid{grid-template-columns:1fr} .topbar{position:static} }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .card .hd{
+      padding:14px 16px; border-bottom:1px solid var(--line);
+      display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
+      background:linear-gradient(180deg, rgba(255,255,255,.06), transparent);
+    }
+    .card .hd h2{margin:0; font-size:14px}
+    .card .hd .meta{font-size:12px; color:var(--muted); line-height:1.25}
+    .card .bd{padding:16px}
+    label{display:block; font-size:12px; color:var(--muted); margin:10px 0 6px}
+
+    input[type="text"], input[type="number"], textarea, select{
+      width:100%; border:1px solid var(--line); background:rgba(0,0,0,.25);
+      color:var(--text); padding:10px 12px; border-radius:14px; outline:none;
+      font-family:var(--sans);
+    }
+    textarea{min-height:110px; resize:vertical}
+
+    .row{display:flex; gap:10px; flex-wrap:wrap}
+    .row > div{flex:1 1 180px}
+
+    .note{
+      font-size:12px; color:var(--muted); line-height:1.45;
+      padding:10px 12px; border-radius:14px; border:1px dashed rgba(255,255,255,.18);
+      background:rgba(0,0,0,.18);
+    }
+    .badge{
+      font-family:var(--mono); font-size:12px; padding:6px 10px; border-radius:999px;
+      border:1px solid var(--line); background:rgba(0,0,0,.20);
+      display:inline-flex; align-items:center; gap:6px;
+    }
+    .badge.good{border-color:rgba(25,255,154,.35); background:rgba(25,255,154,.12)}
+    .badge.warn{border-color:rgba(255,209,102,.35); background:rgba(255,209,102,.12)}
+    .badge.bad{border-color:rgba(255,77,109,.35); background:rgba(255,77,109,.12)}
+    .divider{height:1px; background:var(--line); margin:14px 0}
+    .passage{
+      padding:12px 14px; border:1px solid var(--line); border-radius:16px;
+      background:rgba(0,0,0,.22); line-height:1.62;
+      font-size:14px;
+    }
+    .q{
+      margin-top:14px; padding:12px 14px; border:1px solid var(--line);
+      border-radius:16px; background:rgba(0,0,0,.20);
+    }
+    .q h3{margin:0 0 8px; font-size:13px}
+    .opts{display:grid; gap:8px; margin-top:8px}
+    .opt{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:10px 10px; border-radius:14px; border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+      cursor:pointer;
+    }
+    .opt input{margin-top:3px}
+    .kpi{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
+    @media (max-width: 980px){ .kpi{grid-template-columns:repeat(2,1fr)} }
+    .kpi .box{
+      border:1px solid var(--line); border-radius:16px; padding:10px 12px;
+      background:rgba(0,0,0,.22);
+    }
+    .kpi .box .t{font-size:12px; color:var(--muted)}
+    .kpi .box .v{font-size:18px; font-weight:800; margin-top:4px}
+    .small{font-size:12px; color:var(--muted)}
+    .tabs{display:flex; gap:8px; flex-wrap:wrap}
+    .tab{padding:10px 12px; border-radius:14px; border:1px solid var(--line); background:rgba(0,0,0,.22); cursor:pointer; font-weight:700}
+    .tab.active{background:linear-gradient(135deg, rgba(176,0,255,.35), rgba(255,27,106,.22)); border-color:rgba(255,255,255,.22)}
+    .resultsList{display:grid; gap:10px}
+    .attempt{
+      border:1px solid var(--line); border-radius:16px; padding:12px 14px;
+      background:rgba(0,0,0,.20);
+    }
+    .attempt .top{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap}
+    .attempt .top strong{font-family:var(--mono)}
+    .attempt .meta{font-size:12px; color:var(--muted); margin-top:6px; line-height:1.45}
+    .copy{font-family:var(--mono); font-size:12px; white-space:pre-wrap; word-break:break-word}
+    .hide{display:none !important}
+
+    /* Candidate number 4 cases */
+    .digitRow{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
+    .digitRow .digit{
+      width:52px; text-align:center; font-family:var(--mono);
+      font-size:18px; font-weight:900; padding:12px 0;
+      border-radius:14px; border:1px solid var(--line);
+      background:rgba(0,0,0,.25); color:var(--text);
+      outline:none;
+    }
+    .digitRow .hint{font-size:12px; color:var(--muted)}
+    .miniRow{display:flex; gap:10px; flex-wrap:wrap; align-items:flex-end}
+    .miniRow > *{flex:1 1 160px}
+
+    .essayHelp{
+      display:grid; gap:8px;
+      padding:10px 12px; border-radius:14px; border:1px solid rgba(255,255,255,.16);
+      background:rgba(0,0,0,.16);
+      font-size:12px; color:var(--muted);
+    }
+    .essayHelp strong{color:#fff}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <h1>🟣 Otono Spanish — A Level • Lectura + Mini-ensayo + Traducción — El Drummond Encrotintástico</h1>
+        <div class="sub">
+          3 textos × 20 + 1 mini-ensayo × 20 + 1 traducción × 20 = <strong>100</strong> • Centro: <strong id="centreTop">50749</strong>
+        </div>
+      </div>
+      <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end">
+        <div class="pill"><span>⏱️ Cronómetro:</span><strong id="timerText">--:--</strong></div>
+        <button class="btn" id="btnResults">Resultados</button>
+        <button class="btn primary" id="btnHome">Prueba</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- IZQUIERDA -->
+      <div class="card" id="panelHome">
+        <div class="hd">
+          <div>
+            <h2>Configuración del candidato</h2>
+            <div class="meta">
+              Sin diccionario • Sin traductor • Respuestas en español • Auto-corrección por ideas/palabras clave (no perfecta).
+            </div>
+          </div>
+          <span class="badge" id="statusBadge">Listo</span>
+        </div>
+
+        <div class="bd" id="homeBody">
+          <div class="miniRow">
+            <div>
+              <label>Número de centro</label>
+              <input type="text" id="centreNo" value="50749" disabled />
+              <div class="small" style="margin-top:6px">
+                Valor por defecto: <strong>50749</strong> (editable, opcional).
+              </div>
+            </div>
+            <div style="display:flex; gap:10px; align-items:flex-end; flex-wrap:wrap">
+              <button class="btn" id="btnEditCentre">Personalizar</button>
+              <button class="btn" id="btnResetCentre">Restablecer</button>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div>
+            <label>Número de candidato (obligatorio, 4 cifras)</label>
+            <div class="digitRow" aria-label="Número de candidato">
+              <input class="digit" id="candD1" inputmode="numeric" maxlength="1" />
+              <input class="digit" id="candD2" inputmode="numeric" maxlength="1" />
+              <input class="digit" id="candD3" inputmode="numeric" maxlength="1" />
+              <input class="digit" id="candD4" inputmode="numeric" maxlength="1" />
+              <span class="hint">Solo cifras • avance automático</span>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top:6px">
+            <div>
+              <label>Apellido (opcional)</label>
+              <input type="text" id="candSurname" placeholder="Apellido" />
+            </div>
+            <div>
+              <label>Nombre(s) (opcional)</label>
+              <input type="text" id="candForenames" placeholder="Nombre(s)" />
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>Recordatorio importante (nombre):</strong><br/>
+            “<strong>Otono</strong>” (del departamento) <strong>NO</strong> tiene relación con la palabra española “<strong>otoño</strong>”.<br/>
+            Son palabras distintas y no tienen el mismo origen en este contexto.
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>Estructura del examen:</strong><br/>
+            • <strong>3 textos largos</strong> sobre Otono Team / El Drummond Encrotintástico: <strong>20</strong> puntos cada uno.<br/>
+            • <strong>1 mini-ensayo</strong> (respuesta ~90 palabras) basado en UN texto: <strong>20</strong> puntos.<br/>
+            • <strong>1 traducción</strong> inglés → español: <strong>20</strong> puntos.<br/><br/>
+            <strong>Tipos de preguntas:</strong> Opción múltiple • Verdadero/Falso/No se menciona • Positivo/Negativo/Ambos • Respuestas escritas •
+            Encontrar en el texto una palabra/expresión con <strong>el mismo significado</strong> que otra palabra.
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="row">
+            <div>
+              <label>Tiempo permitido</label>
+              <select id="timeAllowed">
+                <option value="90">90 minutos</option>
+                <option value="105">105 minutos</option>
+                <option value="120" selected>120 minutos (recomendado)</option>
+                <option value="135">135 minutos</option>
+                <option value="150">150 minutos (máx.)</option>
+              </select>
+            </div>
+            <div>
+              <label>Orden de preguntas</label>
+              <select id="shuffleMode">
+                <option value="shuffleAll" selected>Mezclar preguntas (más difícil)</option>
+                <option value="keepOrder">Mantener el orden</option>
+              </select>
+            </div>
+            <div>
+              <label>Fin del cronómetro</label>
+              <select id="autoSubmit">
+                <option value="yes" selected>Enviar automáticamente</option>
+                <option value="no">No enviar</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap">
+            <button class="btn primary" id="btnStart">Empezar prueba aleatoria</button>
+            <button class="btn" id="btnPreview">Vista previa (sin empezar)</button>
+          </div>
+
+          <div id="previewBox" class="note hide" style="margin-top:12px"></div>
+        </div>
+
+        <!-- CUERPO DE LA PRUEBA -->
+        <div class="bd hide" id="testBody">
+          <div class="kpi">
+            <div class="box"><div class="t">Candidato</div><div class="v" id="kpiCandidate">—</div></div>
+            <div class="box"><div class="t">Textos</div><div class="v" id="kpiPassages">—</div></div>
+            <div class="box"><div class="t">Mini-ensayo</div><div class="v" id="kpiEssay">—</div></div>
+            <div class="box"><div class="t">Nota máx.</div><div class="v">100</div></div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>Recordatorio:</strong> respuestas solo en español. Apóyate en el texto. Para respuestas escritas, sé claro y directo.
+          </div>
+
+          <div id="paper"></div>
+
+          <div class="divider"></div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap">
+            <button class="btn primary" id="btnSubmit">Enviar y auto-corregir</button>
+            <button class="btn" id="btnReset">Reiniciar (nueva prueba)</button>
+          </div>
+
+          <div id="markingBox" class="hide" style="margin-top:14px"></div>
+        </div>
+      </div>
+
+      <!-- DERECHA -->
+      <div class="card" id="panelSide">
+        <div class="hd">
+          <div>
+            <h2 id="sideTitle">Calificación Otono</h2>
+            <div class="meta" id="sideMeta">Puntuación → nota Otono + estimación GCSE + Pass/Merit/Distinction.</div>
+          </div>
+        </div>
+
+        <div class="bd" id="sideBody">
+          <div class="note">
+            <strong>Pass / Merit / Distinction</strong><br/>
+            PASS : 66+<br/>
+            MERIT : 80+<br/>
+            DISTINCTION : 90+<br/>
+          </div>
+          <div class="divider"></div>
+          <div class="note">
+            <strong>Notas Otono (A–H + secreto S)</strong><br/>
+            S : 101+ (secreto)<br/>
+            A* : 95–100<br/>
+            A : 90–94<br/>
+            B : 80–89<br/>
+            C : 70–79<br/>
+            D : 66–69<br/>
+            E : 55–65<br/>
+            F : 45–54<br/>
+            G : 30–44<br/>
+            H : 15–29<br/>
+            U : 0–14
+          </div>
+          <div class="divider"></div>
+          <div class="note">
+            <strong>Estimación GCSE 9–1 (mapeo simple)</strong><br/>
+            9 : 90–100 • 8 : 80–89 • 7 : 70–79 • 6 : 60–69 • 5 : 50–59<br/>
+            4 : 40–49 • 3 : 30–39 • 2 : 20–29 • 1 : 10–19 • U : 0–9
+          </div>
+          <div class="divider"></div>
+          <div class="small">Los resultados se guardan solo en este navegador (localStorage).</div>
+        </div>
+
+        <!-- RESULTADOS -->
+        <div class="bd hide" id="resultsBody">
+          <div class="tabs">
+            <div class="tab active" id="tabAll">Todos los intentos</div>
+            <div class="tab" id="tabCandidate">Por candidato</div>
+          </div>
+
+          <div class="row" style="margin-top:10px">
+            <div>
+              <label>Filtrar por número (4 cifras)</label>
+              <input type="text" id="filterCandidate" placeholder="ej.: 1105" inputmode="numeric" />
+            </div>
+            <div>
+              <label>Acciones</label>
+              <div style="display:flex; gap:10px; flex-wrap:wrap">
+                <button class="btn" id="btnExport">Exportar JSON</button>
+                <button class="btn danger" id="btnClear">Borrar todo</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+          <div class="resultsList" id="resultsList"></div>
+
+          <div id="exportBox" class="note hide" style="margin-top:12px">
+            <div><strong>JSON exportado</strong> (cópialo/guárdalo):</div>
+            <div class="divider"></div>
+            <div class="copy" id="exportText"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* =========================================================
+   🔒 ANTI-COPIA / ANTI-DETECCIÓN (razonable)
+   Objetivo: evitar que la UI muestre los bancos en claro
+   y desanimar el copiar/pegar del “source”.
+   (No sustituye la seguridad real — pero es útil para un test local.)
+========================================================= */
+
+const disabledKeys = ["u", "I"];
+const showAlert = e => {
+  e.preventDefault();
+  return alert("Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!");
+};
+document.addEventListener("contextmenu", e => { showAlert(e); });
+document.addEventListener("keydown", e => {
+  if ((e.ctrlKey && disabledKeys.includes(e.key)) || e.key === "F12") {
+    showAlert(e);
+  }
+});
+
+/* =========================================================
+   OTONO — A LEVEL BANCOS (Otono Team / El Drummond Encrotintástico)
+   3 textos × 20 = 60
+   1 mini-ensayo (~90 palabras) × 20 = 20
+   1 traducción EN->ES × 20 = 20
+   TOTAL = 100
+========================================================= */
+
+const PASSAGES_A = [
+  {
+    id:"P1",
+    titre:"Texto P1 — Los sobres morados",
+    theme:"El Drummond Encrotintástico — Resultados y reglas",
+    texte:`El día de los resultados, Red decidió hacerlo a su manera. En lugar de imprimir una simple nota final, preparó un sobre morado para cada candidato. Dentro había dos cosas: primero, la hoja de resultados detallada, con los puntos por sección y el total; después, la copia original, la que debía devolverse a Red tras consultarla. La regla era clara: se podía mirar la copia, pero no se podía modificar. Red decía que era una cuestión de honestidad y trazabilidad.
+
+Para algunos, el sobre tenía un valor extra. Si el candidato cumplía los requisitos, el sobre también incluía un pequeño bonus. Pero ese bonus nunca era automático: dependía del respeto de las instrucciones. Una sola cosa podía complicarlo todo: una penalización. Por ejemplo, si la tinta estaba prohibida o si una parte estaba en el idioma equivocado, Red podía quitar puntos. En ese caso, escribía dos notas: la puntuación original y la puntuación con penalización. A veces era frustrante, pero Red insistía: «Yo corrijo lo que está escrito, no lo que querías escribir».
+
+A pesar de la tensión, el ambiente seguía siendo particular: algunos bromeaban, otros se comparaban y Luke, por su parte, miraba sobre todo la nitidez de las respuestas y el color de la tinta.`,
+    questions:[
+      {id:"P1_q1", type:"mcq", marks:2,
+        prompt:"1) En el sobre morado, sobre todo hay…",
+        options:["una sola nota final sin detalle","la hoja de resultados detallada y la copia original","una carta de motivación y un contrato","un teléfono y un código secreto"],
+        answerIndex:1
+      },
+      {id:"P1_q2", type:"tfnm", marks:2,
+        prompt:"2) El candidato tiene derecho a modificar la copia original. (Verdadero / Falso / No se menciona)",
+        correct:"Falso"
+      },
+      {id:"P1_q3", type:"pn", marks:2,
+        prompt:"3) El autor presenta la penalización como… (P / N / P+N)",
+        correct:"P+N"
+      },
+      {id:"P1_q4", type:"syn", marks:4,
+        prompt:"4) Encuentra en el texto una palabra que signifique «seguimiento oficial» (una palabra).",
+        acceptable:["trazabilidad"]
+      },
+      {id:"P1_q5", type:"match", marks:4,
+        prompt:"5) En el texto, ¿qué palabra significa «prohibida» (femenino)? (una palabra del texto)",
+        acceptable:["prohibida"]
+      },
+      {id:"P1_q6", type:"short", marks:6,
+        prompt:"6) Explica dos razones por las que Red escribe dos notas (puntuación original y con penalización).",
+        rubric:"Ideas: mostrar el impacto de la penalización; ser transparente; corregir lo escrito; probar la regla/instrucción; trazabilidad/honestidad.",
+        keywords:[
+          ["penalizacion","penalización","impacto"],
+          ["transparente","transparencia","mostrar"],
+          ["corrijo lo que esta escrito","corrijo lo que está escrito","lo que esta escrito","lo que está escrito"],
+          ["honestidad","trazabilidad"],
+          ["regla","instruccion","instrucción","consigna"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id:"P2",
+    titre:"Texto P2 — La regla de la tinta negra",
+    theme:"El Drummond Encrotintástico — Presentación y sanciones",
+    texte:`En el Otono Team, la presentación no es un detalle; casi es una disciplina. Red tiene una regla muy estricta: la tinta negra es obligatoria. Explica que, en un examen, la legibilidad importa tanto como la respuesta. A algunos les parece excesivo, pero Red responde que la justicia empieza por condiciones idénticas para todo el mundo. La mayoría de los candidatos se adapta sin discutir demasiado, sobre todo porque ya han visto caer una penalización.
+
+El problema no es solo el color. Red también comprueba si la respuesta corresponde a la consigna, si el candidato no mezcla idiomas y si la página no parece un borrador. Cuando alguien usa una tinta prohibida, Red no grita: anota tranquilamente «penalización por tinta» y ajusta el total. A veces quita puntos por la presentación; otras veces, si afecta a una parte entera, puede decidir que esa sección no cuenta. Dice que la regla no está hecha para castigar a una persona, sino para proteger el valor del resultado.
+
+Luke se toma la regla en serio. Para él, la tinta negra no es solo una elección: es una evidencia. Otros, como Wyatt, siguen la regla sobre todo porque odian la idea de una puntuación reducida por un detalle evitable.`,
+    questions:[
+      {id:"P2_q1", type:"mcq", marks:2,
+        prompt:"1) ¿Por qué Red impone la tinta negra?",
+        options:["Porque le gustan los colores vivos","Porque la legibilidad y las condiciones idénticas importan","Porque quiere asustar a todo el mundo","Porque prohíbe todos los bolígrafos"],
+        answerIndex:1
+      },
+      {id:"P2_q2", type:"tfnm", marks:2,
+        prompt:"2) Red grita cuando alguien usa una tinta prohibida. (Verdadero / Falso / No se menciona)",
+        correct:"Falso"
+      },
+      {id:"P2_q3", type:"pn", marks:2,
+        prompt:"3) La regla se presenta como… (P / N / P+N)",
+        correct:"P"
+      },
+      {id:"P2_q4", type:"syn", marks:4,
+        prompt:"4) Encuentra en el texto una palabra que signifique «legibilidad» (una palabra del texto).",
+        acceptable:["legibilidad"]
+      },
+      {id:"P2_q5", type:"match", marks:4,
+        prompt:"5) En el texto, ¿qué palabra corresponde a «borrador» (misma palabra)?",
+        acceptable:["borrador"]
+      },
+      {id:"P2_q6", type:"short", marks:6,
+        prompt:"6) Da dos cosas que Red comprueba además del color de la tinta.",
+        rubric:"Consigna; mezcla de idiomas; página limpia; sección; borrador; legibilidad.",
+        keywords:[
+          ["consigna","instruccion","instrucción"],
+          ["idioma","idiomas","mezcla","mezclar"],
+          ["pagina","página","limpia"],
+          ["borrador"],
+          ["seccion","sección"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id:"P3",
+    titre:"Texto P3 — Las revisiones y el cansancio",
+    theme:"El Drummond Encrotintástico — Correcciones y presión",
+    texte:`Cuando Red anunció que haría revisiones, algunos creyeron que sería un trámite. En realidad, una revisión exige rigor. Hay que releer sin dejarse influir por la primera impresión, comprobar los criterios y aceptar la posibilidad de un error inicial. Red dice que una revisión no es un regalo: es una segunda lectura seria.
+
+Ese día, el cansancio lo complicó. Varios candidatos habían entregado copias largas, y Red ya había pasado mucho tiempo comprobando las secciones. Cuando Clayton llegó, estaba seguro de sí mismo en una materia… pero no en todas. En idiomas, no tenía la misma estabilidad, y eso sorprendió a algunas personas. Angus Drummond, por su parte, esperaba sobre todo que la corrección fuera coherente: odia las aproximaciones, incluso cuando le benefician.
+
+Así que Red decidió trabajar paso a paso. Separó la copia en bloques, anotó las pruebas y comparó la respuesta con la consigna. También explicó su método en voz alta: «Tengo que poder justificar cada punto. Si no puedo justificarlo, no lo doy». Al final, la revisión no siempre cambió la nota, pero a menudo aclaró por qué existía esa nota.`,
+    questions:[
+      {id:"P3_q1", type:"mcq", marks:2,
+        prompt:"1) Para Red, una revisión es sobre todo…",
+        options:["un regalo automático","una segunda lectura seria","una forma de cambiar todas las notas","un juego para comparar candidatos"],
+        answerIndex:1
+      },
+      {id:"P3_q2", type:"tfnm", marks:2,
+        prompt:"2) Red explica que da puntos aunque no pueda justificarlos. (Verdadero / Falso / No se menciona)",
+        correct:"Falso"
+      },
+      {id:"P3_q3", type:"pn", marks:2,
+        prompt:"3) El cansancio se presenta como… (P / N / P+N)",
+        correct:"N"
+      },
+      {id:"P3_q4", type:"syn", marks:4,
+        prompt:"4) Encuentra en el texto una palabra que signifique «justificar» (misma palabra).",
+        acceptable:["justificar"]
+      },
+      {id:"P3_q5", type:"match", marks:4,
+        prompt:"5) En el texto, ¿qué palabra significa «manera»? (una palabra del texto)",
+        acceptable:["metodo","método"]
+      },
+      {id:"P3_q6", type:"short", marks:6,
+        prompt:"6) ¿Por qué Red trabaja «paso a paso» durante la revisión? Da dos razones.",
+        rubric:"Rigor; evitar influencia de la primera impresión; justificar cada punto; comparar con la consigna; coherencia.",
+        keywords:[
+          ["rigor"],
+          ["primera impresion","primera impresión","influ"],
+          ["justificar","prueba","pruebas"],
+          ["consigna"],
+          ["coherencia","coherente"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id:"P4",
+    titre:"Texto P4 — Los mensajes y la comparación",
+    theme:"Otono Team — Amistades, presión, comparación",
+    texte:`Después de los resultados, empezaron a llegar mensajes. Unos felicitaban, otros pedían detalles y algunos querían comparar. En el Otono Team, la comparación puede convertirse rápido en una trampa: no se comparan solo puntuaciones, sino esfuerzos, métodos y a veces incluso personalidades. Benjamin Nelson tiene una frase sencilla sobre esto: odia cuando alguien mide su valor mirando al de al lado.
+
+Red lo sabe, pero también entiende por qué la gente compara. Cuando una nota parece misteriosa, se busca un referente. Cuando se ha trabajado mucho, se quiere una prueba de que sirvió. Sin embargo, la comparación tiene un efecto secundario: convierte un progreso personal en una competición permanente. Luke prefiere analizar su propia copia: mira la estructura, la precisión y los lugares donde podría haber sido más claro. Wyatt, en cambio, no quiere pasarse la noche con eso. Solo quiere saber si se respetó la regla y si no se perdió ningún punto por un detalle evitable.
+
+En medio de esas reacciones, Red repite la misma idea: la nota no es una identidad. Es un resultado en un momento dado. Puede guiar el próximo trabajo, pero no debería decidir la confianza de una persona.`,
+    questions:[
+      {id:"P4_q1", type:"mcq", marks:2,
+        prompt:"1) ¿Por qué algunas personas comparan sus notas?",
+        options:["Porque siempre quieren hacer trampas","Porque la nota parece misteriosa y buscan un referente","Porque Red prohíbe los sobres","Porque no hay ningún método"],
+        answerIndex:1
+      },
+      {id:"P4_q2", type:"tfnm", marks:2,
+        prompt:"2) El texto dice que la nota es una identidad. (Verdadero / Falso / No se menciona)",
+        correct:"Falso"
+      },
+      {id:"P4_q3", type:"pn", marks:2,
+        prompt:"3) La comparación se presenta como… (P / N / P+N)",
+        correct:"P+N"
+      },
+      {id:"P4_q4", type:"syn", marks:4,
+        prompt:"4) Encuentra en el texto una palabra que signifique «trampa» (misma palabra).",
+        acceptable:["trampa"]
+      },
+      {id:"P4_q5", type:"match", marks:4,
+        prompt:"5) En el texto, ¿qué palabra significa «confianza» (misma palabra)?",
+        acceptable:["confianza"]
+      },
+      {id:"P4_q6", type:"short", marks:6,
+        prompt:"6) Da dos diferencias entre la reacción de Luke y la de Wyatt.",
+        rubric:"Luke analiza su copia (estructura, precisión); Wyatt solo verifica reglas/penalización; Luke dedica tiempo; Wyatt evita la noche.",
+        keywords:[
+          ["luke","analiza","estructura","precision","precisión","claro"],
+          ["wyatt","regla","respet","detalle","penalizacion","penalización"],
+          ["no quiere","evita","noche"]
+        ]
+      }
+    ]
+  },
+
+  /* --- MÁS TEXTOS (banco ampliado) --- */
+  {
+    id:"P5",
+    titre:"Texto P5 — El salón, la calma y el orden",
+    theme:"Otono Team — Organización y concentración",
+    texte:`En una de las salas del Otono Team hay un ritual discreto antes de estudiar: ordenar, clasificar y apartar lo que distrae. No es una obsesión, sino una forma de proteger la atención. Red dice que la concentración no se fabrica solo con fuerza de voluntad; también se fabrica con el entorno. Por eso, antes de empezar, pide cosas simples: el móvil fuera de alcance, una hoja limpia y un objetivo preciso para la sesión.
+
+A Luke le encanta el ritual. Le gusta sentir que todo está listo: la tinta negra, la regla, el orden de las páginas. Dice que esa calma exterior crea una calma interior. OWing es más rápido: quiere empezar inmediatamente, a veces sin hablar, como si ponerse en marcha ya fuera una pérdida de tiempo. Jessica encuentra un equilibrio: le gusta planificar, pero se niega a convertir la sesión en una ceremonia. Para ella, lo importante es comprender y reformular.
+
+Este ritual también tiene una ventaja social. Cuando todos respetan el silencio al principio, bajan las tensiones. No se comparan, no se provocan y se concentran en el trabajo. Luego, cuando termina la sesión, se puede bromear. Red insiste: «El silencio no es un castigo, es una protección».`,
+    questions:[
+      {id:"P5_q1", type:"mcq", marks:2,
+        prompt:"1) El ritual sirve sobre todo para…",
+        options:["hacer perder tiempo","proteger la atención","prohibir hablar para siempre","cambiar las notas automáticamente"],
+        answerIndex:1
+      },
+      {id:"P5_q2", type:"tfnm", marks:2,
+        prompt:"2) Jessica quiere convertir la sesión en una ceremonia. (Verdadero / Falso / No se menciona)",
+        correct:"Falso"
+      },
+      {id:"P5_q3", type:"pn", marks:2,
+        prompt:"3) El silencio se presenta como… (P / N / P+N)",
+        correct:"P"
+      },
+      {id:"P5_q4", type:"syn", marks:4,
+        prompt:"4) Encuentra en el texto una palabra que signifique «proteger» (misma palabra).",
+        acceptable:["proteger","proteccion","protección"]
+      },
+      {id:"P5_q5", type:"match", marks:4,
+        prompt:"5) En el texto, ¿qué palabra significa «equilibrio»? (una palabra del texto)",
+        acceptable:["equilibrio"]
+      },
+      {id:"P5_q6", type:"short", marks:6,
+        prompt:"6) Da dos razones por las que el ritual también ayuda al grupo (no solo a una persona).",
+        rubric:"Bajan tensiones; no hay comparación/provocación; silencio común; ambiente; después se bromea.",
+        keywords:[
+          ["tension","tensiones","bajan"],
+          ["compar","provoc"],
+          ["silencio","comun","común"],
+          ["ambiente"],
+          ["bromear","broma"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id:"P6",
+    titre:"Texto P6 — La copia original y la confianza",
+    theme:"El Drummond Encrotintástico — Transparencia",
+    texte:`La regla de la copia original creó debate. Algunos se preguntaban: ¿por qué devolver la copia a Red? ¿por qué no guardarla? Red respondía siempre con la misma lógica: la copia original no es un recuerdo, es una prueba. En su sistema, la idea de prueba protege a todos. Protege al candidato frente a un error de corrección; protege al corrector frente a acusaciones injustas; y también protege al grupo frente a discusiones interminables.
+
+Para demostrar que no busca controlar, Red permite la consulta. Dice: «Puedes leer, puedes anotar tus errores, puedes comprender. Pero no puedes reescribir la historia». Esa frase marcó a varias personas, porque convierte la corrección en un momento de aprendizaje. A Luke le gustó inmediatamente: le encanta la idea de que un resultado tenga que ser claro y verificable. Otros pensaban que la regla era demasiado rígida, pero reconocían algo: cuando todo es verificable, se discute menos.
+
+Al final, la copia original no está ahí para humillar. Está ahí para recordar que el progreso empieza cuando se acepta lo que está escrito y luego se decide qué se va a mejorar.`,
+    questions:[
+      {id:"P6_q1", type:"mcq", marks:2,
+        prompt:"1) Para Red, la copia original es sobre todo…",
+        options:["un recuerdo","una prueba","un castigo","un objeto decorativo"],
+        answerIndex:1
+      },
+      {id:"P6_q2", type:"tfnm", marks:2,
+        prompt:"2) Red prohíbe consultar la copia. (Verdadero / Falso / No se menciona)",
+        correct:"Falso"
+      },
+      {id:"P6_q3", type:"pn", marks:2,
+        prompt:"3) La regla se presenta como… (P / N / P+N)",
+        correct:"P+N"
+      },
+      {id:"P6_q4", type:"syn", marks:4,
+        prompt:"4) Encuentra en el texto una palabra que signifique «verificable» (misma palabra).",
+        acceptable:["verificable"]
+      },
+      {id:"P6_q5", type:"match", marks:4,
+        prompt:"5) En el texto, ¿qué palabra significa «discusiones» (misma palabra)?",
+        acceptable:["discusiones"]
+      },
+      {id:"P6_q6", type:"short", marks:6,
+        prompt:"6) Explica cómo la regla puede «proteger a todos» (dos ideas).",
+        rubric:"Protege candidato (error); protege corrector (acusaciones); protege grupo (discusiones).",
+        keywords:[
+          ["candidato","error"],
+          ["corrector","acusacion","acusación","acusaciones"],
+          ["grupo","discusiones","interminables","se discute menos"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id:"P7",
+    titre:"Texto P7 — Elegir el tono en una revisión",
+    theme:"El Drummond Encrotintástico — Comunicación",
+    texte:`En una revisión, la manera de hablar puede cambiar la manera de entender. Red se dio cuenta de que, si el tono se vuelve agresivo, el candidato ya no escucha la justificación: se cierra y la discusión se convierte en una batalla. Por eso Red prefiere un tono neutro y preciso. Usa frases simples: «Aquí no se respeta la consigna»; «Allí la idea es buena, pero falta la prueba». Para él, una revisión debe parecerse a un informe, no a una humillación.
+
+Esa actitud no siempre es fácil de mantener. Cuando el cansancio sube, cuando el candidato insiste sin argumentos o cuando alguien niega lo evidente, el corrector puede perder la paciencia. Angus Drummond lo entiende, porque odia la aproximación, pero respeta la coherencia. Prefiere una frase fría pero exacta a una frase amable pero falsa. Luke observa la lógica: si el punto está justificado, lo acepta; si el punto es confuso, hace una pregunta.
+
+Al final, el tono neutro no elimina la frustración, pero hace la decisión más clara. Y cuando la decisión está clara, se puede pasar al siguiente trabajo: mejorar lo que se pueda mejorar.`,
+    questions:[
+      {id:"P7_q1", type:"mcq", marks:2,
+        prompt:"1) ¿Por qué Red elige un tono neutro?",
+        options:["Para parecer más gracioso","Para que el candidato escuche la justificación","Para evitar toda prueba","Para cambiar las reglas"],
+        answerIndex:1
+      },
+      {id:"P7_q2", type:"tfnm", marks:2,
+        prompt:"2) Red quiere que la revisión parezca una humillación. (Verdadero / Falso / No se menciona)",
+        correct:"Falso"
+      },
+      {id:"P7_q3", type:"pn", marks:2,
+        prompt:"3) El tono agresivo se presenta como… (P / N / P+N)",
+        correct:"N"
+      },
+      {id:"P7_q4", type:"syn", marks:4,
+        prompt:"4) Encuentra en el texto una palabra que signifique «justificación» (misma palabra).",
+        acceptable:["justificacion","justificación"]
+      },
+      {id:"P7_q5", type:"match", marks:4,
+        prompt:"5) En el texto, ¿qué palabra significa «batalla» (misma palabra)?",
+        acceptable:["batalla"]
+      },
+      {id:"P7_q6", type:"short", marks:6,
+        prompt:"6) Da dos momentos en los que el corrector puede perder la paciencia, según el texto.",
+        rubric:"Cansancio; el candidato insiste sin argumentos; alguien niega lo evidente.",
+        keywords:[
+          ["cansancio"],
+          ["insiste","sin argumento","sin argumentos","argumento","argumentos"],
+          ["niega","negar","evidente","lo evidente"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id:"P8",
+    titre:"Texto P8 — Otono Airways y la reputación",
+    theme:"Otono Team — Identidad y detalles",
+    texte:`En las conversaciones del Otono Team, Otono Airways aparece a menudo como un símbolo. No es solo una aerolínea: es una idea de calidad. Red dice que los detalles construyen una reputación: la organización, la claridad de las reglas y la comodidad percibida. Incluso cuando alguien viaja en clase económica, debe sentir que el sistema está pensado. A Luke le gusta esa lógica porque se parece a la corrección: si el sistema es coherente, se confía.
+
+Pero esa obsesión por los detalles puede cansar. Algunos amigos de Red no notan la diferencia al principio; luego, un día, la ven y reaccionan. Red lo considera normal: la costumbre cambia la percepción. Al principio aceptas lo que conoces; después comparas. Sin embargo, Red insiste en una cosa: no hay que confundir comodidad y respeto. Un asiento más grande no sustituye la cortesía, y una regla estricta no sustituye la comprensión. Para él, la verdadera calidad es un equilibrio: un marco sólido, pero una actitud humana.
+
+Cuando el debate se vuelve demasiado intenso, Jessica lo resume con calma: «Los detalles sirven para ayudar, no para aplastar». Esa frase suele poner a todos de acuerdo, al menos por unos minutos.`,
+    questions:[
+      {id:"P8_q1", type:"mcq", marks:2,
+        prompt:"1) Según Red, una reputación se construye sobre todo con…",
+        options:["el azar","los detalles y la coherencia","gritos y peleas","excusas sin reglas"],
+        answerIndex:1
+      },
+      {id:"P8_q2", type:"tfnm", marks:2,
+        prompt:"2) El texto dice que un asiento más grande sustituye el respeto. (Verdadero / Falso / No se menciona)",
+        correct:"Falso"
+      },
+      {id:"P8_q3", type:"pn", marks:2,
+        prompt:"3) La obsesión por los detalles se presenta como… (P / N / P+N)",
+        correct:"P+N"
+      },
+      {id:"P8_q4", type:"syn", marks:4,
+        prompt:"4) Encuentra en el texto una palabra que signifique «confianza» (misma palabra).",
+        acceptable:["confianza"]
+      },
+      {id:"P8_q5", type:"match", marks:4,
+        prompt:"5) En el texto, ¿qué palabra significa «equilibrio» (misma palabra)?",
+        acceptable:["equilibrio"]
+      },
+      {id:"P8_q6", type:"short", marks:6,
+        prompt:"6) Explica la idea de Jessica: «Los detalles sirven para ayudar, no para aplastar» (dos ideas).",
+        rubric:"Detalles útiles; no para humillar; marco sólido + actitud humana; comprensión/cortesía.",
+        keywords:[
+          ["ayudar"],
+          ["aplastar","humillar","castigar"],
+          ["marco","solido","sólido"],
+          ["humana","humano","cortesia","cortesía","respeto"],
+          ["comprension","comprensión","comprender"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id:"P9",
+    titre:"Texto P9 — OWing y la velocidad de trabajo",
+    theme:"Otono Team — Métodos, eficacia, equilibrio",
+    texte:`En el Otono Team, OWing es conocido por una cosa: va rápido. No rápido en el sentido de “apurado”, sino rápido en el sentido de “directo”. Cuando empieza una sesión, no le gustan las introducciones largas. Abre la hoja, identifica la consigna y ataca. Red admira esa energía, pero a veces le preocupa: ir rápido puede dar la ilusión de dominar, cuando algunas ideas necesitan tiempo.
+
+Una noche, Red quiso poner a prueba el método de OWing. Le propuso una sesión cuyo objetivo no era solo terminar, sino justificar cada paso. OWing aceptó, un poco divertido: «De acuerdo, pero verás que puedo ser rápido y preciso». Luke observaba en silencio. Quería comprobar si la precisión se mantenía cuando la velocidad subía.
+
+Al principio, OWing demostró su fuerza: reformula la pregunta, elige una estructura clara y anota ejemplos sin dudar. Pero a mitad, un detalle frenó la máquina: un matiz en la consigna, una palabra que lo cambia todo. Red insistió: «No es un castigo. Es el momento en el que demuestras que entiendes, no solo que avanzas». OWing se detuvo, releyó y corrigió su enfoque. No perdió su estilo: lo reforzó.
+
+Después, Red concluyó que la velocidad no es el enemigo. El verdadero peligro es la velocidad sin control. OWing sonrió: no le gustan las lecciones, pero respeta las ideas que le ayudan a ganar tiempo sin perder calidad.`,
+    questions:[
+      {id:"P9_q1", type:"mcq", marks:2,
+        prompt:"1) ¿Por qué a veces Red se preocupa por la velocidad de OWing?",
+        options:[
+          "Porque OWing se niega a trabajar",
+          "Porque la velocidad puede dar la ilusión de dominar sin comprender",
+          "Porque Red odia que alguien termine pronto",
+          "Porque OWing escribe con colores"
+        ],
+        answerIndex:1
+      },
+      {id:"P9_q2", type:"tfnm", marks:2,
+        prompt:"2) OWing rechaza la sesión en la que debe justificar cada paso. (Verdadero / Falso / No se menciona)",
+        correct:"Falso"
+      },
+      {id:"P9_q3", type:"pn", marks:2,
+        prompt:"3) La velocidad se presenta como… (P / N / P+N)",
+        correct:"P+N"
+      },
+      {id:"P9_q4", type:"syn", marks:4,
+        prompt:"4) Encuentra en el texto una palabra que signifique «duda / vacilación» (una palabra).",
+        acceptable:["dudar","duda","vacilacion","vacilación","vacila","vacilar"]
+      },
+      {id:"P9_q5", type:"match", marks:4,
+        prompt:"5) En el texto, ¿qué palabra significa «matiz» (misma palabra)?",
+        acceptable:["matiz","matices"]
+      },
+      {id:"P9_q6", type:"short", marks:6,
+        prompt:"6) Explica dos cosas que Red quiere comprobar con la sesión (dos ideas).",
+        rubric:"Comprensión real vs ilusión; justificar pasos; precisión bajo velocidad; atención a la consigna; control.",
+        keywords:[
+          ["ilusion","ilusión","dominar","comprender","entiendes","entiende"],
+          ["justificar","paso","pasos"],
+          ["precision","precisión"],
+          ["consigna","matiz","palabra que lo cambia todo"],
+          ["control"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id:"P10",
+    titre:"Texto P10 — Joshua y el «moradísimo, moradísimo, moradísimo, moradísimo, moradísimo oscuro»",
+    theme:"Otono Team — Humor, reglas, identidad",
+    texte:`A Joshua le encantan las bromas, sobre todo las que llegan en el peor momento: cuando todo el mundo intenta ser serio. Un día, mientras Red recordaba otra vez la regla de la tinta negra, Joshua levantó su bolígrafo con cara inocente. «Yo respeto la regla», anunció, «pero yo no uso negro. Yo uso moradísimo, moradísimo, moradísimo, moradísimo, moradísimo oscuro». Marcó cada “moradísimo” como si fuera una demostración científica.
+
+Luke miró inmediatamente la punta del bolígrafo, listo para declarar una catástrofe. Wyatt se echó a reír, porque le encanta cuando alguien provoca sin romper de verdad la regla. Red no se rió al instante. Miró a Joshua y preguntó con calma: «¿Quieres una broma o quieres un punto?». Joshua respondió: «Quiero las dos cosas». Eso define su humor: quiere relajar el ambiente sin perder el objetivo.
+
+Al final, Joshua sacó un bolígrafo negro de verdad. Pero no abandonó la broma: escribió “morado oscuro” como título, solo para que todos lo recordaran. Red suspiró, pero reconoció algo: a veces, una broma impide que una tensión se convierta en una discusión. Mientras se respete la regla, el humor puede servir para respirar.
+
+Después de la sesión, Joshua explicó su lógica: si nunca se puede reír, uno acaba odiando el trabajo. Red respondió que reír está permitido, pero que la copia debe seguir siendo clara. En eso estaban de acuerdo.`,
+    questions:[
+      {id:"P10_q1", type:"mcq", marks:2,
+        prompt:"1) ¿Por qué Joshua insiste tanto en «moradísimo»?",
+        options:[
+          "Porque quiere imitar una demostración",
+          "Porque quiere que Luke cambie las reglas",
+          "Porque no tiene ningún bolígrafo",
+          "Porque rechaza toda corrección"
+        ],
+        answerIndex:0
+      },
+      {id:"P10_q2", type:"tfnm", marks:2,
+        prompt:"2) Joshua acaba usando un bolígrafo negro de verdad. (Verdadero / Falso / No se menciona)",
+        correct:"Verdadero"
+      },
+      {id:"P10_q3", type:"pn", marks:2,
+        prompt:"3) El humor se presenta como… (P / N / P+N)",
+        correct:"P+N"
+      },
+      {id:"P10_q4", type:"syn", marks:4,
+        prompt:"4) Encuentra en el texto una palabra que signifique «discusión» (misma palabra).",
+        acceptable:["discusion","discusión","discusiones"]
+      },
+      {id:"P10_q5", type:"match", marks:4,
+        prompt:"5) En el texto, ¿qué palabra significa «tensión» (misma palabra)?",
+        acceptable:["tension","tensión","tensiones"]
+      },
+      {id:"P10_q6", type:"short", marks:6,
+        prompt:"6) Da dos razones por las que Red acepta el humor de Joshua, según el texto.",
+        rubric:"Relaja el ambiente; evita que la tensión sea discusión; se respeta la regla; ayuda a respirar; mantener el objetivo.",
+        keywords:[
+          ["relajar","ambiente"],
+          ["evita","tension","tensión","discusion","discusión"],
+          ["regla","respete","respetar"],
+          ["respirar"],
+          ["objetivo","copia","clara"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id:"P11",
+    titre:"Texto P11 — El puente entre idiomas",
+    theme:"Otono Team — Ayuda, claridad, estrategias",
+    texte:`Shireen tiene una manera particular de ayudar: no da la respuesta, da una ruta. Cuando alguien se bloquea, hace una pregunta simple: «¿Qué estás intentando decir, exactamente?». Luego transforma esa idea en pasos. A Red le gusta mucho ese método porque respeta la autonomía del candidato. Para Shireen, el objetivo no es ser brillante; es ser claro.
+
+En una sesión de repaso, Thomas había escrito una frase larga pero confusa. Luke quería corregir cada detalle inmediatamente. Shireen lo paró: «Si corregimos sin entender la intención, corremos el riesgo de romper la frase». Le pidió a Thomas que reformulara en una sola idea y luego reconstruyera. Red observó la escena y entendió por qué Shireen es útil: reduce el estrés organizando el caos.
+
+Shireen insiste también en una cosa: mezclar idiomas suele ser un síntoma. No es un error “tonto”, sino cansancio o duda. Por eso propone una regla de supervivencia: elegir una estructura simple, comprobar los conectores y luego releer en voz baja. Dice que la voz revela incoherencias más rápido que los ojos.
+
+Al final, Red dio las gracias a Shireen. Dijo que, en el Otono Team, la disciplina es importante, pero que la disciplina sin método se convierte en presión inútil. Shireen respondió que un buen método no elimina el esfuerzo: lo hace posible.`,
+    questions:[
+      {id:"P11_q1", type:"mcq", marks:2,
+        prompt:"1) Según el texto, ¿cómo ayuda Shireen sobre todo?",
+        options:[
+          "Da directamente las respuestas",
+          "Da una ruta y pasos",
+          "Se niega a hablar",
+          "Sustituye a Red como correctora"
+        ],
+        answerIndex:1
+      },
+      {id:"P11_q2", type:"tfnm", marks:2,
+        prompt:"2) Shireen cree que mezclar idiomas siempre es un error «tonto». (Verdadero / Falso / No se menciona)",
+        correct:"Falso"
+      },
+      {id:"P11_q3", type:"pn", marks:2,
+        prompt:"3) El método se presenta como… (P / N / P+N)",
+        correct:"P"
+      },
+      {id:"P11_q4", type:"syn", marks:4,
+        prompt:"4) Encuentra en el texto una palabra que signifique «autonomía» (misma palabra).",
+        acceptable:["autonomia","autonomía"]
+      },
+      {id:"P11_q5", type:"match", marks:4,
+        prompt:"5) En el texto, ¿qué palabra significa «incoherencias» (misma palabra)?",
+        acceptable:["incoherencias"]
+      },
+      {id:"P11_q6", type:"short", marks:6,
+        prompt:"6) Da dos razones por las que Red aprecia el método de Shireen (dos ideas).",
+        rubric:"Respeta autonomía; organiza pasos; reduce estrés; evita corregir sin intención; hace posible el esfuerzo.",
+        keywords:[
+          ["autonomia","autonomía"],
+          ["pasos","ruta","organiza","organizar"],
+          ["estres","estrés","reduce","redu"],
+          ["intencion","intención","entender"],
+          ["posible","presion inutil","presión inútil"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id:"P12",
+    titre:"Texto P12 — Thomas, «Lenfer» y la lógica de la oscuridad",
+    theme:"Otono Team — Imaginación, expresión, precisión",
+    texte:`Thomas tiene una imaginación intensa. En sus juegos, le gustan las ciudades nocturnas y los lugares oscuros, y su mundo se llama «Lenfer». Cuando lo cuenta, algunos piensan que solo busca provocar. En realidad, Thomas explica que la oscuridad le ayuda a organizar sus ideas: con un decorado simple, ve mejor los detalles.
+
+Un día, durante una preparación, Red le pidió a Thomas que escribiera una respuesta corta, clara y estructurada. Thomas empezó con una frase muy dramática, como si estuviera escribiendo una escena. Luke levantó la vista: para él, la belleza debe estar al servicio de la precisión. Shireen propuso un compromiso: conservar el estilo, pero controlar la estructura.
+
+Thomas aceptó. Conservó una imagen fuerte y luego añadió conectores y pruebas. Red notó algo importante: Thomas trabaja mejor cuando tiene derecho a ser él mismo, siempre que respete la consigna. El verdadero desafío no es suprimir su universo, sino traducirlo en argumentos.
+
+Al final, Thomas dijo que escribir se parece a su mundo: si pones demasiados elementos, te pierdes; si eliges bien, construyes una atmósfera y una lógica. Red respondió que es exactamente eso: puede existir una atmósfera, pero la nota depende de la claridad.`,
+    questions:[
+      {id:"P12_q1", type:"mcq", marks:2,
+        prompt:"1) ¿Por qué Thomas dice que la oscuridad le ayuda?",
+        options:[
+          "Porque no le gusta estudiar",
+          "Porque un decorado simple le ayuda a ver los detalles",
+          "Porque quiere impedir que otros lean",
+          "Porque rechaza los conectores"
+        ],
+        answerIndex:1
+      },
+      {id:"P12_q2", type:"tfnm", marks:2,
+        prompt:"2) Red quiere suprimir totalmente el universo de Thomas. (Verdadero / Falso / No se menciona)",
+        correct:"Falso"
+      },
+      {id:"P12_q3", type:"pn", marks:2,
+        prompt:"3) El estilo dramático de Thomas se presenta como… (P / N / P+N)",
+        correct:"P+N"
+      },
+      {id:"P12_q4", type:"syn", marks:4,
+        prompt:"4) Encuentra en el texto una palabra que signifique «compromiso» (misma palabra).",
+        acceptable:["compromiso"]
+      },
+      {id:"P12_q5", type:"match", marks:4,
+        prompt:"5) En el texto, ¿qué palabra significa «atmósfera» (misma palabra)?",
+        acceptable:["atmosfera","atmósfera"]
+      },
+      {id:"P12_q6", type:"short", marks:6,
+        prompt:"6) Explica dos ideas del “compromiso” propuesto a Thomas (dos ideas).",
+        rubric:"Mantener estilo/imagen; controlar estructura; añadir conectores; añadir pruebas; respetar consigna.",
+        keywords:[
+          ["mantener","conservar","estilo","imagen"],
+          ["estructura","controlar","control"],
+          ["conectores"],
+          ["prueba","pruebas"],
+          ["consigna","respetar"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id:"P13",
+    titre:"Texto P13 — Wyatt, los detalles evitables y la disciplina",
+    theme:"Otono Team — Hábitos, reglas, eficacia",
+    texte:`Wyatt es conocido por dos cosas: suele comer Doritos y odia perder puntos por un error evitable. Para él, lo más frustrante no es una idea difícil; es un detalle simple que se podría haber evitado. Por eso sigue las reglas de presentación con una concentración casi mecánica. Dice que la disciplina no es una obsesión; es un escudo.
+
+Cuando Red explica una penalización, Wyatt no discute mucho. Pregunta: «¿Qué tengo que hacer la próxima vez?». A Luke le gusta esa actitud porque convierte la corrección en un plan de acción. Sin embargo, Wyatt no es perfecto: cuando está cansado, puede escribir demasiado rápido y una frase se vuelve menos clara. Red le recuerda que la velocidad debe seguir siendo legible, o se vuelve en su contra.
+
+En una sesión, Wyatt vio a Joshua bromear con el “morado oscuro”. Se rió, pero añadió algo serio: «Haz lo que quieras, pero yo no doy puntos al azar». Red entendió que Wyatt no es duro por ser duro. Es duro porque quiere una nota que represente de verdad lo que sabe.
+
+Al final, Wyatt resume su enfoque con una idea: si el sistema es claro, se puede ser libre dentro. Las reglas son las paredes; el argumento es la habitación que construyes.`,
+    questions:[
+      {id:"P13_q1", type:"mcq", marks:2,
+        prompt:"1) Para Wyatt, la disciplina sirve sobre todo para…",
+        options:[
+          "hacer feliz a Red",
+          "proteger contra errores evitables",
+          "impedir cualquier libertad",
+          "sustituir el trabajo"
+        ],
+        answerIndex:1
+      },
+      {id:"P13_q2", type:"tfnm", marks:2,
+        prompt:"2) A Wyatt le gusta perder puntos por un detalle simple. (Verdadero / Falso / No se menciona)",
+        correct:"Falso"
+      },
+      {id:"P13_q3", type:"pn", marks:2,
+        prompt:"3) Las reglas se presentan como… (P / N / P+N)",
+        correct:"P+N"
+      },
+      {id:"P13_q4", type:"syn", marks:4,
+        prompt:"4) Encuentra en el texto una palabra que signifique «escudo» (misma palabra).",
+        acceptable:["escudo"]
+      },
+      {id:"P13_q5", type:"match", marks:4,
+        prompt:"5) En el texto, ¿qué palabra significa «plan» (en “plan de acción”)? (una palabra)",
+        acceptable:["plan"]
+      },
+      {id:"P13_q6", type:"short", marks:6,
+        prompt:"6) Da dos ideas que muestren que Wyatt quiere una nota “representativa” (dos ideas).",
+        rubric:"Evitar errores evitables; corrección = plan de acción; no al azar; nota representa saber; claridad del sistema.",
+        keywords:[
+          ["error","evitable","evitables"],
+          ["plan de accion","plan de acción","proxima vez","próxima vez"],
+          ["azar","no doy puntos al azar","no al azar"],
+          ["represent","sabe","saber"],
+          ["sistema claro","claro"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id:"P14",
+    titre:"Texto P14 — Karlito, Kiara y la confianza en uno mismo",
+    theme:"Otono Team — Respeto, identidad, ambiente de grupo",
+    texte:`Karlito tiene una presencia particular: puede cambiar el ambiente de una sala con solo entrar. A veces también usa el nombre Kiara, y eso sorprende a algunas personas al principio. Red ha observado que esa sorpresa puede crear dos reacciones: curiosidad respetuosa o juicio rápido. En el Otono Team, Red insiste en una regla simple: se respeta a las personas antes de comentar sus elecciones.
+
+En una sesión, Karlito llegó con una energía tranquila. Pidió algo muy concreto: «Corrígeme el contenido, no lo demás». Luke lo entendió enseguida: la copia debe ser un espacio neutro, donde la calidad del idioma importe más que el miedo a la mirada de otros. Shireen añadió que la confianza también se construye con detalles: una observación clara, un tono estable y criterios idénticos.
+
+Sin embargo, Karlito admitió que no siempre se siente cómodo. Cuando uno se siente observado, escribe con menos libertad. Red respondió que precisamente por eso las reglas deben ser coherentes: protegen al alumno de comentarios inútiles. La copia se convierte entonces en una prueba de competencia, no en un objeto de juicio social.
+
+Al final, Karlito dijo una frase simple: «Cuando me siento respetado, escribo mejor». Red anotó esa idea porque conecta el respeto con el rendimiento: no como una excusa, sino como una condición para hacer el trabajo de verdad.`,
+    questions:[
+      {id:"P14_q1", type:"mcq", marks:2,
+        prompt:"1) ¿Qué regla recuerda Red en este texto?",
+        options:[
+          "Hay que comentarlo todo",
+          "Se respeta a las personas antes de comentar sus elecciones",
+          "Se prohíben las sesiones de repaso",
+          "Se eliminan los criterios"
+        ],
+        answerIndex:1
+      },
+      {id:"P14_q2", type:"tfnm", marks:2,
+        prompt:"2) Karlito pide que se le corrija el contenido. (Verdadero / Falso / No se menciona)",
+        correct:"Verdadero"
+      },
+      {id:"P14_q3", type:"pn", marks:2,
+        prompt:"3) La coherencia de las reglas se presenta como… (P / N / P+N)",
+        correct:"P"
+      },
+      {id:"P14_q4", type:"syn", marks:4,
+        prompt:"4) Encuentra en el texto una palabra que signifique «juicio» (misma palabra).",
+        acceptable:["juicio"]
+      },
+      {id:"P14_q5", type:"match", marks:4,
+        prompt:"5) En el texto, ¿qué palabra significa «criterios» (misma palabra)?",
+        acceptable:["criterios"]
+      },
+      {id:"P14_q6", type:"short", marks:6,
+        prompt:"6) Explica dos razones por las que unas reglas coherentes pueden “proteger” a un alumno, según el texto.",
+        rubric:"Contra comentarios inútiles; espacio neutro; criterios idénticos; prueba de competencia; menos miedo.",
+        keywords:[
+          ["comentarios inutiles","comentarios","inutil","inútil"],
+          ["espacio neutro","neutro"],
+          ["criterios identicos","criterios idénticos","identicos","idénticos"],
+          ["prueba","competencia"],
+          ["miedo","observado","observada","mirada"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id:"P15",
+    titre:"Texto P15 — Angus Drummond y el odio a las aproximaciones",
+    theme:"El Drummond Encrotintástico — Coherencia, pruebas, revisiones",
+    texte:`Angus Drummond no teme una mala nota. Lo que odia es una nota borrosa. Para él, una corrección debe ser una demostración: cada punto debe tener una razón visible. Cuando Red habla de “revisión”, Angus no lo ve como una oportunidad de ganar puntos; lo ve como una oportunidad de hacer coherente la decisión.
+
+Un día, Angus le pidió a Red que mostrara la prueba de dos puntos. Red aceptó, pero puso una condición: «Si yo justifico, tú aceptas el resultado». Angus dijo que sí. A Luke le pareció lógico: es un contrato de claridad. Clayton, en cambio, lo veía demasiado frío; preferiría una corrección más “amable”. Pero Angus considera que la amabilidad sin exactitud es una traición.
+
+Durante la relectura, Red mostró los criterios, la consigna y luego las frases exactas de la copia. Angus aprobó cuando todo era sólido e insistió cuando era frágil. Al final, la nota apenas cambió, pero la discusión cambió todo lo demás: eliminó la duda. Red concluyó que a veces ese es el mejor uso de una revisión: no modificar la nota, sino hacerla imposible de discutir.
+
+Después, Angus dijo que seguiría escribiendo solo con tinta negra. No por obsesión, sino porque quiere que la copia se parezca a lo que respeta: una prueba nítida.`,
+    questions:[
+      {id:"P15_q1", type:"mcq", marks:2,
+        prompt:"1) ¿Qué es lo que más odia Angus?",
+        options:[
+          "Una nota borrosa",
+          "Una copia corta",
+          "Una revisión",
+          "Una regla clara"
+        ],
+        answerIndex:0
+      },
+      {id:"P15_q2", type:"tfnm", marks:2,
+        prompt:"2) Angus ve la revisión como un regalo para ganar puntos. (Verdadero / Falso / No se menciona)",
+        correct:"Falso"
+      },
+      {id:"P15_q3", type:"pn", marks:2,
+        prompt:"3) La “amabilidad sin exactitud” se presenta como… (P / N / P+N)",
+        correct:"N"
+      },
+      {id:"P15_q4", type:"syn", marks:4,
+        prompt:"4) Encuentra en el texto una palabra que signifique «demostración» (misma palabra).",
+        acceptable:["demostracion","demostración"]
+      },
+      {id:"P15_q5", type:"match", marks:4,
+        prompt:"5) En el texto, ¿qué palabra significa «duda» (misma palabra)?",
+        acceptable:["duda"]
+      },
+      {id:"P15_q6", type:"short", marks:6,
+        prompt:"6) Da dos razones por las que la revisión es útil, según este texto.",
+        rubric:"Hacer coherente la decisión; mostrar pruebas/criterios; eliminar la duda; hacer la nota difícil de discutir; aclarar.",
+        keywords:[
+          ["coherente","coherencia"],
+          ["prueba","pruebas","criterios","consigna"],
+          ["eliminar","duda"],
+          ["imposible de discutir","discutir"],
+          ["aclarar","clara","claridad"]
+        ]
+      }
+    ]
+  }
+];
+
+
+/* =========================================================
+   MINI-ENSAYOS (~90 palabras)
+   - 20 puntos
+   - El texto es largo (como los demás), pero la respuesta esperada es corta.
+========================================================= */
+
+const ESSAYS = [
+  {
+    id:"E_P1",
+    passageId:"P1",
+    titre:"Mini-ensayo — ¿Los sobres morados: útil o estresante?",
+    passage:`Algunas personas creen que el sobre morado es una idea brillante: hace transparente la corrección y permite entender los errores. Otras dicen que aumenta la presión, porque la copia original parece un juicio. Sin embargo, Red insiste en una cosa: se aprende mejor cuando se acepta lo que está escrito y luego se decide qué se va a mejorar.`,
+    consigne:`Escribe unas 90 palabras. ¿En qué medida el sobre morado ayuda al aprendizaje? Da un argumento “a favor”, uno “en contra” y una conclusión breve.`,
+    structureAnchors:[
+      ["para empezar","primero","en primer lugar"],
+      ["sin embargo","no obstante","en cambio","por otro lado"],
+      ["en conclusion","en conclusión","para concluir","finalmente","en resumen"]
+    ],
+    ideaGroups:[
+      ["transparente","transparencia","prueba","verificable","trazabilidad"],
+      ["presion","presión","estresante","estrés","juicio"],
+      ["aprender","entender","errores","mejorar","mejora"],
+      ["a favor","util","útil","ayuda","ayudar"],
+      ["en contra","inconveniente","fatiga"]
+    ],
+    connectors:[
+      ["primero","en primer lugar"],
+      ["sin embargo","no obstante","en cambio","por otro lado"],
+      ["por lo tanto","así que","por consiguiente"],
+      ["en conclusión","para concluir","finalmente","en resumen"]
+    ],
+    modelAnswer:
+`Primero, el sobre morado ayuda porque hace la corrección transparente: se ve el detalle y se entienden los errores. Eso da una prueba clara y evita discusiones. Sin embargo, también puede aumentar la presión: la copia original se siente como un juicio y algunos se bloquean. En conclusión, ayuda en la medida en que el candidato acepta la copia como un punto de partida: observa, aprende y luego mejora para la próxima vez.`
+  },
+
+  {
+    id:"E_P2",
+    passageId:"P2",
+    titre:"Mini-ensayo — La regla de la tinta negra: ¿justa o demasiado estricta?",
+    passage:`En el Otono Team, la tinta negra es obligatoria. Red justifica la regla por la legibilidad y la igualdad de condiciones. Sin embargo, una regla estricta puede frustrar: se pueden perder puntos aunque la idea sea buena. Así que la cuestión es si la regla protege el resultado… o si aplasta innecesariamente al candidato.`,
+    consigne:`Escribe unas 90 palabras. ¿La regla es sobre todo positiva? Apóyate en el texto y termina con una conclusión clara.`,
+    structureAnchors:[
+      ["para empezar","primero","en primer lugar"],
+      ["sin embargo","no obstante","en cambio","por otro lado"],
+      ["en conclusion","en conclusión","para concluir","finalmente","en resumen"]
+    ],
+    ideaGroups:[
+      ["legibilidad","claro","claridad"],
+      ["igualdad","condiciones identicas","condiciones idénticas","justicia"],
+      ["penalizacion","penalización","quitar","puntos"],
+      ["frustrante","frustracion","frustración","demasiado estricta","rigida","rígida"],
+      ["valor del resultado","proteger","protege"]
+    ],
+    connectors:[
+      ["primero","en primer lugar"],
+      ["sin embargo","no obstante","en cambio","por otro lado"],
+      ["por lo tanto","así que","por consiguiente"],
+      ["en conclusión","para concluir","finalmente","en resumen"]
+    ],
+    modelAnswer:
+`Primero, la regla de la tinta negra es positiva porque protege la legibilidad y la igualdad de condiciones: todos son evaluados del mismo modo. Eso refuerza la confianza en el resultado. Sin embargo, puede parecer demasiado estricta, porque una penalización puede quitar puntos aunque la idea sea buena. En conclusión, la regla es útil si es proporcional: debe proteger el valor del resultado sin aplastar innecesariamente al candidato.`
+  },
+
+  {
+    id:"E_P4",
+    passageId:"P4",
+    titre:"Mini-ensayo — Comparar notas: ¿motivación o trampa?",
+    passage:`Después de los resultados, algunos comparan sus puntuaciones. Eso puede dar un referente, pero también puede convertir el progreso en una competición permanente. Red insiste: una nota no es una identidad, es un resultado en un momento dado. El objetivo debería ser aprender, no medirse sin fin.`,
+    consigne:`Escribe unas 90 palabras. ¿Comparar ayuda de verdad? Da una respuesta matizada.`,
+    structureAnchors:[
+      ["para empezar","primero","en primer lugar"],
+      ["sin embargo","no obstante","en cambio","por otro lado"],
+      ["en conclusion","en conclusión","para concluir","finalmente","en resumen"]
+    ],
+    ideaGroups:[
+      ["referente","punto de referencia","entender","aclarar"],
+      ["competicion","competición","permanente","presion","presión"],
+      ["progreso","progresion","progresión"],
+      ["identidad","resultado"],
+      ["matizada","en cierta medida","equilibrio"]
+    ],
+    connectors:[
+      ["primero","en primer lugar"],
+      ["sin embargo","no obstante","en cambio","por otro lado"],
+      ["por lo tanto","así que","por consiguiente"],
+      ["en conclusión","para concluir","finalmente","en resumen"]
+    ],
+    modelAnswer:
+`Primero, comparar notas puede ayudar: da un referente y puede aclarar si un método funciona. Sin embargo, se convierte rápido en una trampa: transforma el progreso en competición y aumenta la presión. Entonces se olvida que la nota no es una identidad, sino un resultado en un momento. En conclusión, comparar sirve solo en cierta medida: lo más útil es analizar la propia copia y buscar el progreso.`
+  },
+
+  {
+    id:"E_P9",
+    passageId:"P9",
+    titre:"Mini-ensayo — Velocidad y calidad: ¿OWing tiene razón?",
+    passage:`OWing trabaja rápido y va directo al grano. Red admira esa energía, pero recuerda que la velocidad puede crear la ilusión de dominar. Cuando aparece un matiz en la consigna, hay que frenar, releer y justificar.`,
+    consigne:`Escribe unas 90 palabras. ¿La velocidad es una ventaja en una prueba? Da un argumento “a favor”, uno “en contra” y una conclusión breve.`,
+    structureAnchors:[
+      ["para empezar","primero","en primer lugar"],
+      ["sin embargo","no obstante","en cambio","por otro lado"],
+      ["en conclusion","en conclusión","para concluir","finalmente","en resumen"]
+    ],
+    ideaGroups:[
+      ["velocidad","rapido","rápido","eficiente","ganar tiempo"],
+      ["ilusion","ilusión","dominar","comprender","entiendes"],
+      ["matiz","consigna","releer","releyó","releyo"],
+      ["justificar","pruebas","precision","precisión"],
+      ["equilibrio","control"]
+    ],
+    connectors:[
+      ["primero","en primer lugar"],
+      ["sin embargo","no obstante","en cambio","por otro lado"],
+      ["por lo tanto","así que","por consiguiente"],
+      ["en conclusión","para concluir","finalmente","en resumen"]
+    ],
+    modelAnswer:
+`Primero, la velocidad puede ser una ventaja: se gana tiempo y se responde con más eficacia, como OWing. Eso también evita quedarse bloqueado. Sin embargo, la velocidad puede crear una ilusión de dominio: si aparece un matiz en la consigna, hay que releer y justificar, o baja la precisión. En conclusión, la velocidad es útil solo con control: se puede ir rápido, pero hay que frenar en los detalles para mantener la calidad.`
+  },
+
+  {
+    id:"E_P10",
+    passageId:"P10",
+    titre:"Mini-ensayo — El humor de Joshua: ¿ayuda o distrae?",
+    passage:`Joshua bromea con su “moradísimo oscuro”, pero al final respeta la regla. Red acepta el humor siempre que la copia sea clara y no se pierda el objetivo.`,
+    consigne:`Escribe unas 90 palabras. ¿En qué medida el humor puede mejorar una sesión de estudio?`,
+    structureAnchors:[
+      ["para empezar","primero","en primer lugar"],
+      ["sin embargo","no obstante","en cambio","por otro lado"],
+      ["en conclusion","en conclusión","para concluir","finalmente","en resumen"]
+    ],
+    ideaGroups:[
+      ["humor","broma","reir","reír","relajar"],
+      ["tension","tensión","estres","estrés","respirar"],
+      ["distraer","distrae","perder el objetivo"],
+      ["regla","respeta","respetar","copia clara"],
+      ["equilibrio","en cierta medida"]
+    ],
+    connectors:[
+      ["primero","en primer lugar"],
+      ["sin embargo","no obstante","en cambio","por otro lado"],
+      ["por lo tanto","así que","por consiguiente"],
+      ["en conclusión","para concluir","finalmente","en resumen"]
+    ],
+    modelAnswer:
+`Primero, el humor puede ayudar: una broma como la de Joshua relaja el ambiente y evita que el estrés se convierta en discusión. Así se respira mejor y se vuelve a empezar con más energía. Sin embargo, el humor también puede distraer: si se pierde el objetivo, la sesión se vuelve ruido. En conclusión, es positivo en la medida en que se respete la regla y la copia siga siendo clara: es una herramienta, no un sustituto del trabajo.`
+  },
+
+  {
+    id:"E_P12",
+    passageId:"P12",
+    titre:"Mini-ensayo — Estilo y claridad: ¿se puede conservar el universo de Thomas?",
+    passage:`Thomas escribe con un estilo dramático y un universo oscuro. Shireen propone conservar la imagen, pero controlar la estructura y añadir pruebas.`,
+    consigne:`Escribe unas 90 palabras. ¿Hay que priorizar el estilo o la claridad en una prueba?`,
+    structureAnchors:[
+      ["para empezar","primero","en primer lugar"],
+      ["sin embargo","no obstante","en cambio","por otro lado"],
+      ["en conclusion","en conclusión","para concluir","finalmente","en resumen"]
+    ],
+    ideaGroups:[
+      ["estilo","imagen","atmosfera","atmósfera"],
+      ["precision","precisión","claridad","claro"],
+      ["estructura","conectores","pruebas"],
+      ["consigna","respetar"],
+      ["compromiso","equilibrio"]
+    ],
+    connectors:[
+      ["primero","en primer lugar"],
+      ["sin embargo","no obstante","en cambio","por otro lado"],
+      ["por lo tanto","así que","por consiguiente"],
+      ["en conclusión","para concluir","finalmente","en resumen"]
+    ],
+    modelAnswer:
+`Primero, el estilo puede ser una ventaja: una imagen fuerte hace el texto más vivo y puede expresar mejor una idea, como en Thomas. Sin embargo, en una prueba la nota depende sobre todo de la claridad: sin estructura, conectores y pruebas, el estilo se vuelve confusión. En conclusión, hace falta un compromiso: conservar un toque personal, pero controlar la estructura y respetar la consigna. El estilo debe servir a la precisión, no reemplazarla.`
+  },
+
+  {
+    id:"E_P13",
+    passageId:"P13",
+    titre:"Mini-ensayo — Reglas como “escudo”: la visión de Wyatt",
+    passage:`Wyatt sigue las reglas porque odia perder puntos por un detalle evitable. Para él, la disciplina protege la nota y convierte la corrección en un plan de acción.`,
+    consigne:`Escribe unas 90 palabras. ¿Las reglas estrictas hacen la evaluación más justa?`,
+    structureAnchors:[
+      ["para empezar","primero","en primer lugar"],
+      ["sin embargo","no obstante","en cambio","por otro lado"],
+      ["en conclusion","en conclusión","para concluir","finalmente","en resumen"]
+    ],
+    ideaGroups:[
+      ["justa","justicia","igualdad"],
+      ["detalles evitables","detalle evitable","penalizacion","penalización"],
+      ["disciplina","escudo"],
+      ["libertad","dentro","dentro del marco"],
+      ["limites","límite","demasiado estricta","cansar","cansancio"]
+    ],
+    connectors:[
+      ["primero","en primer lugar"],
+      ["sin embargo","no obstante","en cambio","por otro lado"],
+      ["por lo tanto","así que","por consiguiente"],
+      ["en conclusión","para concluir","finalmente","en resumen"]
+    ],
+    modelAnswer:
+`Primero, unas reglas estrictas pueden hacer la evaluación más justa: crean condiciones idénticas y evitan detalles evitables que distorsionan la nota. Para Wyatt, la disciplina es un escudo. Sin embargo, demasiada rigidez puede cansar y penalizar incluso cuando la idea es buena. En conclusión, las reglas son útiles si son proporcionales: deben proteger la justicia sin aplastar la libertad de argumentar dentro del marco.`
+  },
+
+  {
+    id:"E_P15",
+    passageId:"P15",
+    titre:"Mini-ensayo — Revisar para cambiar la nota… o para eliminar la duda",
+    passage:`Angus Drummond quiere una corrección demostrable: pruebas, criterios y consigna. Red muestra que una revisión a veces sirve más para hacer coherente la decisión y eliminar la duda que para subir la nota.`,
+    consigne:`Escribe unas 90 palabras. ¿Cuál es, para ti, el mejor objetivo de una revisión?`,
+    structureAnchors:[
+      ["para empezar","primero","en primer lugar"],
+      ["sin embargo","no obstante","en cambio","por otro lado"],
+      ["en conclusion","en conclusión","para concluir","finalmente","en resumen"]
+    ],
+    ideaGroups:[
+      ["pruebas","criterios","consigna"],
+      ["coherente","coherencia","claro","claridad"],
+      ["duda","discutir","imposible de discutir"],
+      ["cambiar la nota","modificar la nota","subir la nota"],
+      ["objetivo","util","útil"]
+    ],
+    connectors:[
+      ["primero","en primer lugar"],
+      ["sin embargo","no obstante","en cambio","por otro lado"],
+      ["por lo tanto","así que","por consiguiente"],
+      ["en conclusión","para concluir","finalmente","en resumen"]
+    ],
+    modelAnswer:
+`Primero, una revisión puede servir para cambiar la nota si se demuestra un error; así se protege al candidato. Sin embargo, el mejor objetivo suele ser eliminar la duda: mostrar criterios, consigna y pruebas hace la decisión coherente y clara. Aunque la nota cambie poco, aumenta la confianza. En conclusión, una revisión útil no es siempre la que “da puntos”, sino la que hace la nota demostrable y difícil de discutir.`
+  }
+];
+
+/* =========================================================
+   TRADUCCIONES (EN -> ES): Otono Team / El Drummond Encrotintástico
+   20 puntos: 5 ideas-clave × 4
+========================================================= */
+
+const TRANSLATIONS_A = [
+  {
+    id:"T1",
+    titre:"Traducción — La revisión",
+    theme:"El Drummond Encrotintástico",
+    textEN:"During a remark, Red reads the paper again and explains every point. He says it is not a gift but a serious second reading. If he cannot justify a mark, he does not give it.",
+    keyBundles:[
+      ["durante una revision","durante una revisión","en una revision","en una revisión"],
+      ["lee de nuevo","vuelve a leer","relee","releé","relee la copia","relee el examen","relee el texto"],
+      ["explica","justifica","justificar","prueba","pruebas"],
+      ["no es un regalo","no se trata de un regalo"],
+      ["si no puede justificar","no lo da","no da el punto","no concede el punto"]
+    ],
+    sampleFR:"Durante una revisión, Red vuelve a leer la copia y explica cada punto. Dice que no es un regalo, sino una segunda lectura seria. Si no puede justificar un punto, no lo da."
+  },
+  {
+    id:"T2",
+    titre:"Traducción — Sobre morado y transparencia",
+    theme:"El Drummond Encrotintástico",
+    textEN:"The purple envelope contains a detailed results sheet and the original paper. Candidates can look at it, but they cannot change it. If there is a penalty, Red writes the original score and the penalized score.",
+    keyBundles:[
+      ["sobre morado","sobres morados"],
+      ["hoja de resultados","resultados detallados","hoja detallada"],
+      ["copia original","original"],
+      ["pueden mirarla","pueden consultarla","pero no pueden modificarla","no pueden cambiarla"],
+      ["penalizacion","penalización","puntuacion original","puntuación original","puntuacion con penalizacion","puntuación con penalización"]
+    ],
+    sampleFR:"El sobre morado contiene una hoja de resultados detallada y la copia original. Los candidatos pueden consultarla, pero no pueden modificarla. Si hay una penalización, Red escribe la puntuación original y la puntuación con penalización."
+  },
+  {
+    id:"T3",
+    titre:"Traducción — Comparación",
+    theme:"Otono Team",
+    textEN:"Some people compare their scores to feel safer. But comparison can become a trap and turn progress into permanent competition. Red reminds everyone that a grade is not an identity.",
+    keyBundles:[
+      ["algunas personas","alguien","algunas"],
+      ["comparan","comparacion","comparación","comparar sus puntuaciones","comparar sus notas"],
+      ["para sentirse","sentirse mas seguro","sentirse más seguro"],
+      ["trampa","competicion permanente","competición permanente","progreso"],
+      ["una nota no es una identidad","no es una identidad","no es identidad"]
+    ],
+    sampleFR:"Algunas personas comparan sus notas para sentirse más seguras. Pero la comparación puede convertirse en una trampa y transformar el progreso en una competición permanente. Red recuerda que una nota no es una identidad."
+  },
+  {
+    id:"T4",
+    titre:"Traducción — OWing y la velocidad",
+    theme:"Otono Team",
+    textEN:"OWing works fast and goes straight to the point. Red admires his energy, but he warns that speed can create the illusion of mastery. When a nuance appears in the instruction, OWing stops, rereads, and corrects his approach.",
+    keyBundles:[
+      ["owing trabaja rapido","owing trabaja rápido","owing va rapido","owing va rápido"],
+      ["va directo al grano","va al punto","directo"],
+      ["red admira","red aprecia","red admira su energia","red admira su energía"],
+      ["ilusion de dominar","ilusión de dominar","ilusion de maestria","ilusión de maestría","ilusion de dominio","ilusión de dominio"],
+      ["matiz","consigna","se detiene","relee","vuelve a leer","corrige su enfoque"]
+    ],
+    sampleFR:"OWing trabaja rápido y va directo al grano. Red admira su energía, pero advierte que la velocidad puede crear la ilusión de dominar. Cuando aparece un matiz en la consigna, OWing se detiene, relee y corrige su enfoque."
+  },
+  {
+    id:"T5",
+    titre:"Traducción — El morado oscuro de Joshua",
+    theme:"Otono Team",
+    textEN:"Joshua jokes that he does not use black ink but a very, very, very, very, very dark purple. Red asks him calmly whether he wants a joke or a mark. In the end, Joshua uses a real black pen, and the atmosphere becomes less tense.",
+    keyBundles:[
+      ["joshua bromea","joshua hace una broma","joshua dice en broma"],
+      ["tinta negra","boligrafo negro","bolígrafo negro"],
+      ["muy muy muy muy muy morado oscuro","moradísimo oscuro","morado muy oscuro"],
+      ["quieres una broma o un punto","con calma"],
+      ["al final","finalmente","usa un bolígrafo negro de verdad","el ambiente se vuelve menos tenso","la atmosfera se vuelve menos tensa","la atmósfera se vuelve menos tensa"]
+    ],
+    sampleFR:"Joshua bromea diciendo que no usa tinta negra, sino un moradísimo oscuro. Red le pregunta con calma si quiere una broma o un punto. Al final, Joshua usa un bolígrafo negro de verdad y el ambiente se vuelve menos tenso."
+  },
+  {
+    id:"T6",
+    titre:"Traducción — Thomas y la claridad",
+    theme:"Otono Team",
+    textEN:"Thomas writes with dramatic images, but the exam still requires clarity. Shireen suggests keeping the style while controlling the structure and adding evidence. Red concludes that a personal universe is allowed if the instruction is respected.",
+    keyBundles:[
+      ["thomas escribe","imagenes dramaticas","imágenes dramáticas","estilo dramático"],
+      ["el examen exige","la prueba exige","claridad"],
+      ["mantener el estilo","conservar el estilo","controlar la estructura"],
+      ["anadir pruebas","añadir pruebas","prueba","pruebas"],
+      ["universo personal","esta permitido","está permitido","si se respeta la consigna","si la consigna se respeta"]
+    ],
+    sampleFR:"Thomas escribe con imágenes dramáticas, pero el examen exige claridad. Shireen propone mantener el estilo mientras se controla la estructura y se añaden pruebas. Red concluye que un universo personal está permitido si se respeta la consigna."
+  },
+  {
+    id:"T7",
+    titre:"Traducción — Wyatt y los detalles evitables",
+    theme:"Otono Team",
+    textEN:"Wyatt hates losing marks for avoidable details. For him, discipline is a shield and the correction should become an action plan. Red reminds him that writing too fast can reduce clarity.",
+    keyBundles:[
+      ["wyatt odia","detesta"],
+      ["perder puntos","perder notas","por detalles evitables","detalle evitable","detalles evitables"],
+      ["disciplina","es un escudo","escudo"],
+      ["plan de accion","plan de acción"],
+      ["escribir demasiado rapido","escribir demasiado rápido","reduce la claridad","menos claro","claridad"]
+    ],
+    sampleFR:"Wyatt odia perder puntos por detalles evitables. Para él, la disciplina es un escudo y la corrección debe convertirse en un plan de acción. Red le recuerda que escribir demasiado rápido puede reducir la claridad."
+  },
+  {
+    id:"T8",
+    titre:"Traducción — Angus Drummond y la prueba",
+    theme:"El Drummond Encrotintástico",
+    textEN:"Angus Drummond does not fear a low grade; he fears an unclear one. He wants every mark to be demonstrable with criteria and evidence. Red shows that a remark is sometimes useful not to change the score, but to remove doubt and make the decision coherent.",
+    keyBundles:[
+      ["angus drummond","angus"],
+      ["no teme una mala nota","no tiene miedo de una mala nota","teme una nota borrosa","teme una nota poco clara"],
+      ["demostrable","criterios","pruebas","prueba"],
+      ["revision","revisión","util","útil"],
+      ["no para cambiar la nota","sino para eliminar la duda","quitar la duda","hacer coherente la decision","hacer coherente la decisión"]
+    ],
+    sampleFR:"Angus Drummond no teme una mala nota; teme una nota borrosa. Quiere que cada punto sea demostrable con criterios y pruebas. Red muestra que una revisión a veces es útil no para cambiar la nota, sino para eliminar la duda y hacer coherente la decisión."
+  }
+];
+
+/* =========================================================
+   UTILIDADES
+========================================================= */
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+function nowISO(){ return new Date().toISOString(); }
+
+function norm(s){
+  return (s ?? "")
+    .toString()
+    .toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .replace(/[^a-z0-9\s]/g," ")
+    .replace(/\s+/g," ")
+    .trim();
+}
+function countWords(s){
+  const t = (s ?? "").toString().trim();
+  if(!t) return 0;
+  return t.split(/\s+/).filter(Boolean).length;
+}
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+function pickRandom(arr, n){ return shuffle(arr).slice(0,n); }
+function escapeHtml(str){
+  return (str ?? "").toString()
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+/* Otono grading (sin cambios) */
+function otonoLetterGrade(score){
+  if(score >= 101) return "S";
+  if(score >= 95) return "A*";
+  if(score >= 90) return "A";
+  if(score >= 80) return "B";
+  if(score >= 70) return "C";
+  if(score >= 66) return "D";
+  if(score >= 55) return "E";
+  if(score >= 45) return "F";
+  if(score >= 30) return "G";
+  if(score >= 15) return "H";
+  return "U";
+}
+function passMeritDistinction(score){
+  if(score >= 90) return "DISTINCTION";
+  if(score >= 80) return "MERIT";
+  if(score >= 66) return "PASS";
+  return "FAIL";
+}
+function gcseEstimate(score){
+  if(score >= 90) return 9;
+  if(score >= 80) return 8;
+  if(score >= 70) return 7;
+  if(score >= 60) return 6;
+  if(score >= 50) return 5;
+  if(score >= 40) return 4;
+  if(score >= 30) return 3;
+  if(score >= 20) return 2;
+  if(score >= 10) return 1;
+  return "U";
+}
+function badgeForScore(score){
+  if(score >= 90) return ["badge good","🏆 Excelente"];
+  if(score >= 80) return ["badge good","⭐ Muy bien"];
+  if(score >= 66) return ["badge warn","✅ Ok"];
+  return ["badge bad","❌ Malo"];
+}
+
+/* =========================================================
+   ALMACENAMIENTO LOCAL
+========================================================= */
+const STORE_KEY = "otonoSpanish_AlevelReadingDrummond_results_v2";
+function loadResults(){
+  try{ return JSON.parse(localStorage.getItem(STORE_KEY) || "[]"); }
+  catch(e){ return []; }
+}
+function saveResults(list){ localStorage.setItem(STORE_KEY, JSON.stringify(list)); }
+function addResult(attempt){
+  const list = loadResults();
+  list.unshift(attempt);
+  saveResults(list);
+}
+
+/* =========================================================
+   ESTADO
+========================================================= */
+let state = {
+  mode: "home",
+  timer: null,
+  remainingSec: 0,
+  startedAt: null,
+
+  centreNo: "50749",
+  candidateNo: null,
+  candSurname: "",
+  candForenames: "",
+
+  selection: null,         // { passages:[...], essay:{...}, translation:{...} }
+  answers: {},             // qid -> string
+  choiceCorrectValue: {},  // qid -> correct index after shuffle
+  submitted: false
+};
+
+/* =========================================================
+   CENTRO
+========================================================= */
+function setCentre(no){
+  state.centreNo = String(no);
+  $("#centreNo").value = state.centreNo;
+  $("#centreTop").textContent = state.centreNo;
+}
+$("#btnEditCentre").addEventListener("click", () => {
+  const val = prompt("Introduce el número de centro (solo cifras):", state.centreNo);
+  if(val === null) return;
+  const clean = String(val).replace(/\D/g,"").slice(0,10);
+  if(clean.length < 3){
+    alert("El número de centro debe tener al menos 3 cifras.");
+    return;
+  }
+  setCentre(clean);
+});
+$("#btnResetCentre").addEventListener("click", () => setCentre("50749"));
+
+/* =========================================================
+   NÚMERO DE CANDIDATO (4 casillas)
+========================================================= */
+const digitIds = ["#candD1","#candD2","#candD3","#candD4"];
+function focusDigit(i){ const el = $(digitIds[i]); if(el) el.focus(); }
+function getCandidateNoFromSquares(){
+  const d = digitIds.map(id => ($(id).value || "").trim());
+  if(d.some(x => x.length !== 1 || !/^\d$/.test(x))) return "";
+  return d.join("");
+}
+(function wireDigitSquares(){
+  digitIds.forEach((id, idx) => {
+    const el = $(id);
+    el.addEventListener("input", () => {
+      el.value = (el.value || "").replace(/\D/g,"").slice(0,1);
+      if(el.value && idx < 3) focusDigit(idx+1);
+    });
+    el.addEventListener("keydown", (e) => {
+      if(e.key === "Backspace" && !el.value && idx > 0){ focusDigit(idx-1); }
+      if(e.key === "ArrowLeft" && idx > 0){ e.preventDefault(); focusDigit(idx-1); }
+      if(e.key === "ArrowRight" && idx < 3){ e.preventDefault(); focusDigit(idx+1); }
+    });
+    el.addEventListener("paste", (e) => {
+      e.preventDefault();
+      const txt = (e.clipboardData || window.clipboardData).getData("text") || "";
+      const digits = txt.replace(/\D/g,"").slice(0,4).split("");
+      digits.forEach((ch, j) => { const t = $(digitIds[j]); if(t) t.value = ch; });
+      const joined = getCandidateNoFromSquares();
+      if(joined.length === 4) focusDigit(3);
+      else{
+        const firstEmpty = digitIds.findIndex(did => !$(did).value);
+        if(firstEmpty >= 0) focusDigit(firstEmpty);
+      }
+    });
+  });
+})();
+
+/* =========================================================
+   GENERACIÓN DE LA PRUEBA
+========================================================= */
+function generateSelection(){
+  const passages = pickRandom(PASSAGES_A, 3);
+
+  // Elegir un mini-ensayo que corresponda a uno de los textos seleccionados
+  const eligibleEssays = ESSAYS.filter(e => passages.some(p => p.id === e.passageId));
+  const essay = (eligibleEssays.length ? pickRandom(eligibleEssays,1)[0] : pickRandom(ESSAYS,1)[0]);
+
+  const translation = pickRandom(TRANSLATIONS_A, 1)[0];
+  return { passages, essay, translation };
+}
+function selectionSummary(sel){
+  const p = sel.passages.map(x=>x.id).join(", ");
+  return `Textos: ${p} • Mini-ensayo: ${sel.essay.id} • Traducción: ${sel.translation.id}`;
+}
+
+/* =========================================================
+   NAVEGACIÓN / RENDER
+========================================================= */
+function setBadge(text, cls="badge"){
+  const b = $("#statusBadge");
+  b.className = cls;
+  b.textContent = text;
+}
+function stopTimer(){
+  if(state.timer){ clearInterval(state.timer); state.timer = null; }
+}
+function startTimer(minutes){
+  stopTimer();
+  state.remainingSec = Math.max(1, Math.floor(minutes*60));
+  state.startedAt = Date.now();
+
+  const tick = () => {
+    if(state.submitted) return;
+    const m = Math.floor(state.remainingSec/60);
+    const s = state.remainingSec%60;
+    $("#timerText").textContent = `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+    state.remainingSec--;
+    if(state.remainingSec < 0){
+      stopTimer();
+      const auto = $("#autoSubmit").value === "yes";
+      if(auto) submitPaper(true);
+      else alert("Tiempo terminado. Aún puedes enviar manualmente.");
+    }
+  };
+  tick();
+  state.timer = setInterval(tick, 1000);
+}
+
+function renderHome(){
+  $("#homeBody").classList.remove("hide");
+  $("#testBody").classList.add("hide");
+  $("#resultsBody").classList.add("hide");
+  $("#sideTitle").textContent = "Calificación Otono";
+  $("#sideMeta").textContent = "Puntuación → nota Otono + estimación GCSE + Pass/Merit/Distinction.";
+  $("#sideBody").classList.remove("hide");
+  setBadge("Listo","badge");
+  $("#timerText").textContent = "--:--";
+}
+function renderResults(){
+  $("#homeBody").classList.add("hide");
+  $("#testBody").classList.add("hide");
+  $("#sideBody").classList.add("hide");
+  $("#resultsBody").classList.remove("hide");
+  $("#sideTitle").textContent = "Resultados guardados";
+  $("#sideMeta").textContent = "Guardados en este navegador (localStorage).";
+  setBadge("Resultados","badge");
+  $("#timerText").textContent = "--:--";
+  drawResults();
+}
+function renderTest(){
+  $("#homeBody").classList.add("hide");
+  $("#testBody").classList.remove("hide");
+  $("#resultsBody").classList.add("hide");
+  $("#sideBody").classList.remove("hide");
+
+  const candNameLine = [
+    state.candSurname ? state.candSurname : "",
+    state.candForenames ? state.candForenames : ""
+  ].filter(Boolean).join(", ");
+
+  const cand = `${state.candidateNo}${candNameLine ? " • " + candNameLine : ""}`;
+  $("#kpiCandidate").textContent = cand;
+  $("#kpiPassages").textContent = state.selection.passages.map(p=>p.id).join(" ");
+  $("#kpiEssay").textContent = state.selection.essay.id;
+
+  $("#paper").innerHTML = "";
+  state.choiceCorrectValue = {};
+
+  const shuffleMode = $("#shuffleMode").value;
+
+  const head = document.createElement("div");
+  head.className = "note";
+  head.innerHTML =
+    `<strong>Contenido seleccionado</strong><br/>` +
+    state.selection.passages.map(p => `• ${escapeHtml(p.titre)} (${escapeHtml(p.id)})`).join("<br/>") +
+    `<br/>• ${escapeHtml(state.selection.essay.titre)} (${escapeHtml(state.selection.essay.id)})` +
+    `<br/>• ${escapeHtml(state.selection.translation.titre)} (${escapeHtml(state.selection.translation.id)})`;
+  $("#paper").appendChild(head);
+
+  // Textos
+  state.selection.passages.forEach(p => {
+    const block = document.createElement("div");
+    block.className = "card";
+    block.style.marginTop = "14px";
+    block.innerHTML = `
+      <div class="hd">
+        <div>
+          <h2>${escapeHtml(p.titre)}</h2>
+          <div class="meta">${escapeHtml(p.theme)} • <strong>20 puntos</strong></div>
+        </div>
+        <span class="badge">${escapeHtml(p.id)}</span>
+      </div>
+      <div class="bd">
+        <div class="passage">${escapeHtml(p.texte).replace(/\n/g,"<br/>")}</div>
+        <div class="divider"></div>
+        <div class="small">Opciones/etiquetas: las opciones se mezclan siempre. Escritas: corrección por ideas/palabras clave.</div>
+        <div class="qs"></div>
+      </div>
+    `;
+    const qs = block.querySelector(".qs");
+    let qsList = p.questions.slice();
+    if(shuffleMode === "shuffleAll") qsList = shuffle(qsList);
+
+    qsList.forEach(q => {
+      const qWrap = document.createElement("div");
+      qWrap.className = "q";
+      qWrap.dataset.qid = q.id;
+      qWrap.innerHTML = `
+        <h3>${escapeHtml(q.prompt)} <span class="badge">${q.marks} pts</span></h3>
+        ${renderQuestion(q)}
+        <div class="small" style="margin-top:8px">${escapeHtml(instructionFor(q.type))}</div>
+      `;
+      qs.appendChild(qWrap);
+    });
+
+    $("#paper").appendChild(block);
+  });
+
+  // Mini-ensayo
+  const e = state.selection.essay;
+  const essayBlock = document.createElement("div");
+  essayBlock.className = "card";
+  essayBlock.style.marginTop = "14px";
+  essayBlock.innerHTML = `
+    <div class="hd">
+      <div>
+        <h2>${escapeHtml(e.titre)}</h2>
+        <div class="meta">Respuesta corta (~90 palabras) • <strong>20 puntos</strong></div>
+      </div>
+      <span class="badge">MINI-ENSAYO</span>
+    </div>
+    <div class="bd">
+      <div class="passage">${escapeHtml(e.passage).replace(/\n/g,"<br/>")}</div>
+      <div class="divider"></div>
+      <div class="note"><strong>Consigna:</strong><br/>${escapeHtml(e.consigne)}</div>
+      <div class="essayHelp">
+        <strong>Auto-corrección:</strong>
+        <div>• Busca 3 elementos: <strong>a favor</strong> + <strong>en contra</strong> + <strong>conclusión</strong>.</div>
+        <div>• Objetivo: <strong>75–110 palabras</strong> (ideal ~90). Muy corto → penalización suave.</div>
+        <div>• Usa al menos un conector: <em>primero</em>, <em>sin embargo</em>, <em>en conclusión</em>…</div>
+      </div>
+      <div class="q" data-qid="essay">
+        <h3>Redacción (en español) <span class="badge">20 pts</span></h3>
+        <textarea id="ans_essay" placeholder="Escribe tu mini-ensayo aquí (~90 palabras)…"></textarea>
+        <div class="small" id="essayCount" style="margin-top:6px">Palabras: 0</div>
+      </div>
+    </div>
+  `;
+  $("#paper").appendChild(essayBlock);
+
+  // Traducción
+  const t = state.selection.translation;
+  const tBlock = document.createElement("div");
+  tBlock.className = "card";
+  tBlock.style.marginTop = "14px";
+  tBlock.innerHTML = `
+    <div class="hd">
+      <div>
+        <h2>${escapeHtml(t.titre)}</h2>
+        <div class="meta">${escapeHtml(t.theme)} • <strong>20 puntos</strong></div>
+      </div>
+      <span class="badge">TRADUCCIÓN</span>
+    </div>
+    <div class="bd">
+      <div class="note"><strong>Texto (inglés):</strong><br/>${escapeHtml(t.textEN)}</div>
+      <div class="divider"></div>
+      <div class="q" data-qid="translation">
+        <h3>Traducir al español <span class="badge">20 pts</span></h3>
+        <textarea id="ans_translation" placeholder="Escribe tu traducción al español…"></textarea>
+        <div class="small" style="margin-top:8px">Auto-corr: 5 ideas-clave (sentido) • 4 puntos cada una.</div>
+      </div>
+    </div>
+  `;
+  $("#paper").appendChild(tBlock);
+
+  bindInputs();
+
+  const mins = parseInt($("#timeAllowed").value,10);
+  startTimer(mins);
+  state.submitted = false;
+
+  $("#markingBox").classList.add("hide");
+  $("#markingBox").innerHTML = "";
+  setBadge("En curso","badge warn");
+}
+
+function instructionFor(type){
+  if(type === "mcq") return "Elige UNA respuesta.";
+  if(type === "tfnm") return "Elige: Verdadero / Falso / No se menciona.";
+  if(type === "pn") return "Elige: P / N / P+N.";
+  if(type === "syn") return "Escribe la palabra exacta (o la expresión) encontrada en el texto.";
+  if(type === "match") return "Escribe la palabra exacta solicitada (una palabra del texto).";
+  return "Respuesta redactada: sé conciso y preciso (auto-corrección por palabras clave).";
+}
+
+function renderQuestion(q){
+  if(q.type === "mcq"){
+    const opts = q.options.map((text, idx) => ({ text, isCorrect: idx === q.answerIndex }));
+    return renderChoice(q, opts);
+  }
+  if(q.type === "pn"){
+    const opts = [
+      { text:"P", isCorrect: q.correct === "P" },
+      { text:"N", isCorrect: q.correct === "N" },
+      { text:"P+N", isCorrect: q.correct === "P+N" }
+    ];
+    return renderChoice(q, opts);
+  }
+  if(q.type === "tfnm"){
+    const opts = [
+      { text:"Verdadero", isCorrect: q.correct === "Verdadero" },
+      { text:"Falso", isCorrect: q.correct === "Falso" },
+      { text:"No se menciona", isCorrect: q.correct === "No se menciona" }
+    ];
+    return renderChoice(q, opts);
+  }
+  if(q.type === "syn"){
+    return `<input type="text" id="ans_${q.id}" placeholder="Palabra exacta del texto…" />`;
+  }
+  if(q.type === "match"){
+    return `<input type="text" id="ans_${q.id}" placeholder="Una palabra exacta del texto…" />`;
+  }
+  return `<textarea id="ans_${q.id}" placeholder="Responde en español…"></textarea>`;
+}
+
+function renderChoice(q, optionObjects){
+  const name = `ans_${q.id}`;
+  const shuffled = shuffle(optionObjects);
+  const correctIndex = shuffled.findIndex(o => o.isCorrect);
+  state.choiceCorrectValue[q.id] = String(correctIndex);
+
+  return `
+    <div class="opts">
+      ${shuffled.map((opt, idx) => `
+        <label class="opt">
+          <input type="radio" name="${name}" value="${idx}" />
+          <div><div><strong>${String.fromCharCode(65+idx)}.</strong> ${escapeHtml(opt.text)}</div></div>
+        </label>
+      `).join("")}
+    </div>
+  `;
+}
+
+function bindInputs(){
+  $$("input[type='radio']").forEach(r => {
+    r.addEventListener("change", () => {
+      const qid = r.name.replace("ans_","");
+      state.answers[qid] = r.value;
+    });
+  });
+
+  $$("textarea").forEach(t => {
+    t.addEventListener("input", () => {
+      const id = t.id.replace("ans_","");
+      state.answers[id] = t.value;
+      if(id === "essay"){
+        $("#essayCount").textContent = "Palabras: " + countWords(t.value);
+      }
+    });
+  });
+
+  $$("input[type='text']").forEach(inp => {
+    if(inp.id === "centreNo" || inp.id.startsWith("candD") || inp.id === "candSurname" || inp.id === "candForenames") return;
+    inp.addEventListener("input", () => {
+      const id = inp.id.replace("ans_","");
+      state.answers[id] = inp.value;
+    });
+  });
+}
+
+/* =========================================================
+   AUTO-CORRECCIÓN
+========================================================= */
+function markChoice(qid, chosenValue, marks){
+  const correctValue = state.choiceCorrectValue[qid];
+  const ok = String(chosenValue ?? "") === String(correctValue);
+  return { score: ok ? marks : 0, max: marks, detail: ok ? "Correcto." : "Incorrecto." };
+}
+function markExactWord(q, userText){
+  const t = norm(userText);
+  if(!t) return {score:0, max:q.marks, detail:"Respuesta vacía."};
+  const acc = (q.acceptable || []).map(x => norm(x));
+  const ok = acc.includes(t);
+  return {score: ok ? q.marks : 0, max:q.marks, detail: ok ? "Correcto (palabra del texto)." : "Incorrecto (se esperaba una palabra del texto)." };
+}
+function markShort(q, userText){
+  const t = norm(userText);
+  if(!t) return {score:0, max:q.marks, detail:"Respuesta vacía."};
+
+  const groups = q.keywords || [];
+  if(groups.length === 0) return {score:0, max:q.marks, detail:"Rúbrica no configurada."};
+
+  let hits = 0;
+  groups.forEach(g => {
+    const found = g.some(k => t.includes(norm(k)));
+    if(found) hits++;
+  });
+
+  const per = q.marks / groups.length;
+  const raw = hits * per;
+  const score = Math.max(0, Math.min(q.marks, Math.round(raw*2)/2));
+  let detail = `Grupos de palabras clave encontrados: ${hits}/${groups.length}.`;
+  if(q.rubric) detail += ` Esperado: ${q.rubric}`;
+  return {score, max:q.marks, detail};
+}
+
+function markMiniEssay(essayObj, userText){
+  const raw = (userText ?? "").toString();
+  const t = norm(raw);
+  if(!t) return {score:0, max:20, detail:"Mini-ensayo vacío.", wordCount:0};
+
+  const wc = countWords(raw);
+
+  // Estructura (6): introducción + oposición + conclusión (2 pts cada una)
+  let structHits = 0;
+  (essayObj.structureAnchors || []).forEach(group => {
+    const ok = group.some(k => t.includes(norm(k)));
+    if(ok) structHits++;
+  });
+  const structureScore = Math.min(6, structHits * 2);
+
+  // Ideas (10): 5 grupos × 2
+  let ideaHits = 0;
+  (essayObj.ideaGroups || []).forEach(group => {
+    const ok = group.some(k => t.includes(norm(k)));
+    if(ok) ideaHits++;
+  });
+  const ideaScore = Math.min(10, ideaHits * 2);
+
+  // Conectores (4): 4 familias, 1 pt cada una
+  let connHits = 0;
+  (essayObj.connectors || []).forEach(group => {
+    const ok = group.some(k => t.includes(norm(k)));
+    if(ok) connHits++;
+  });
+  const connScore = Math.min(4, connHits);
+
+  // Longitud (penalización suave)
+  let lengthAdj = 0;
+  if(wc < 60) lengthAdj = -6;
+  else if(wc < 75) lengthAdj = -3;
+  else if(wc > 140) lengthAdj = -2; // demasiado largo para “estilo 90 palabras”
+  else lengthAdj = 0;
+
+  const total = Math.max(0, Math.min(20, structureScore + ideaScore + connScore + lengthAdj));
+  const detail =
+    `Estructura: ${structureScore}/6 • Ideas: ${ideaScore}/10 • Conectores: ${connScore}/4 • Longitud: ${wc} palabras (${lengthAdj<0 ? lengthAdj+" pts" : "OK"}).`;
+  return {score: Math.round(total*2)/2, max:20, detail, wordCount:wc};
+}
+
+function markTranslation(trObj, userText){
+  const t = norm(userText);
+  if(!t) return {score:0, max:20, detail:"Traducción vacía."};
+
+  // 5 paquetes (bundles) × 4
+  let hits = 0;
+  (trObj.keyBundles || []).forEach(bundle => {
+    const ok = bundle.some(k => t.includes(norm(k)));
+    if(ok) hits++;
+  });
+  const score = Math.min(20, hits * 4);
+  const detail = `Ideas clave: ${hits}/5 (puntuación ${score}/20).`;
+  return {score, max:20, detail};
+}
+
+function computeTotal(){
+  let total = 0;
+  let breakdown = [];
+
+  // Pasajes
+  state.selection.passages.forEach(p => {
+    p.questions.forEach(q => {
+      const ans = state.answers[q.id];
+      let res;
+      if(["mcq","pn","tfnm"].includes(q.type)){
+        res = markChoice(q.id, ans, q.marks);
+      }else if(q.type === "syn" || q.type === "match"){
+        res = markExactWord(q, ans);
+      }else{
+        res = markShort(q, ans);
+      }
+      total += res.score;
+      breakdown.push({
+        qid: q.id, bloc: p.id, type: q.type, prompt: q.prompt,
+        score: res.score, max: res.max, detail: res.detail
+      });
+    });
+  });
+
+  // Mini-ensayo
+  const essayAns = state.answers["essay"] ?? $("#ans_essay")?.value ?? "";
+  const eRes = markMiniEssay(state.selection.essay, essayAns);
+  total += eRes.score;
+  breakdown.push({
+    qid:"essay", bloc:"MINI-ENSAYO", type:"essay90", prompt:"Mini-ensayo (~90 palabras)",
+    score:eRes.score, max:eRes.max, detail:eRes.detail
+  });
+
+  // Traducción
+  const trAns = state.answers["translation"] ?? $("#ans_translation")?.value ?? "";
+  const tRes = markTranslation(state.selection.translation, trAns);
+  total += tRes.score;
+  breakdown.push({
+    qid:"translation", bloc:"TRADUCCIÓN", type:"translation", prompt:"Traducción inglés → español",
+    score:tRes.score, max:tRes.max, detail:tRes.detail
+  });
+
+  return { total: Math.round(total*2)/2, max: 100, breakdown };
+}
+
+/* =========================================================
+   ENVÍO + GUARDADO
+========================================================= */
+function submitPaper(fromAutoTimer=false){
+  if(state.submitted) return;
+
+  const { total, max, breakdown } = computeTotal();
+  state.submitted = true;
+  stopTimer();
+
+  const letter = otonoLetterGrade(total);
+  const pmd = passMeritDistinction(total);
+  const gcse = gcseEstimate(total);
+  const [badgeCls, badgeText] = badgeForScore(total);
+
+  const attempt = {
+    paper: "Otono Spanish — A Level • Lectura + Mini-ensayo + Traducción — El Inkredible Drummond",
+    centre: state.centreNo,
+    candidateNo: String(state.candidateNo),
+    candidateSurname: state.candSurname || "",
+    candidateForenames: state.candForenames || "",
+    submittedAt: nowISO(),
+    timeAllowedMin: parseInt($("#timeAllowed").value,10),
+    selectedPassages: state.selection.passages.map(p=>p.id),
+    selectedEssay: state.selection.essay.id,
+    selectedTranslation: state.selection.translation.id,
+    score: total,
+    maxScore: max,
+    otonoGrade: letter,
+    gcseEstimated: gcse,
+    outcome: pmd,
+    breakdown
+  };
+  addResult(attempt);
+
+  const nameLine = [attempt.candidateSurname, attempt.candidateForenames].filter(Boolean).join(", ");
+
+  const box = $("#markingBox");
+  box.classList.remove("hide");
+  box.innerHTML = `
+    <div class="card">
+      <div class="hd">
+        <div>
+          <h2>✅ Corregido${fromAutoTimer ? " (envío automático)" : ""}</h2>
+          <div class="meta">
+            Guardado en Resultados • Centro ${escapeHtml(attempt.centre)} • Candidato ${escapeHtml(attempt.candidateNo)}${nameLine ? " • " + escapeHtml(nameLine) : ""}
+          </div>
+        </div>
+        <span class="${badgeCls}">${escapeHtml(badgeText)}</span>
+      </div>
+      <div class="bd">
+        <div class="kpi">
+          <div class="box"><div class="t">Puntuación</div><div class="v">${attempt.score} / ${attempt.maxScore}</div></div>
+          <div class="box"><div class="t">Nota Otono</div><div class="v">${escapeHtml(attempt.otonoGrade)}</div></div>
+          <div class="box"><div class="t">Estimación GCSE</div><div class="v">${escapeHtml(String(attempt.gcseEstimated))}</div></div>
+          <div class="box"><div class="t">Estado</div><div class="v">${escapeHtml(attempt.outcome)}</div></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="note">
+          <strong>Notas de auto-corrección</strong><br/>
+          • MCQ / V-F-NM / P-N-P+N: corrección exacta (opciones mezcladas).<br/>
+          • “Palabra del texto”: se espera exactitud (ortografía normalizada).<br/>
+          • Respuestas redactadas + mini-ensayo: corrección por ideas/palabras clave → si reformulas mucho, puede bajar la nota.
+        </div>
+
+        <div class="divider"></div>
+
+        <button class="btn" id="btnShowBreakdown">Mostrar el detalle</button>
+        <div id="breakdown" class="hide" style="margin-top:12px"></div>
+
+        <div class="divider"></div>
+
+        <div class="note">
+          <strong>Modelo (mini-ensayo / traducción) — para referencia</strong><br/>
+          <div class="divider"></div>
+          <div><strong>Mini-ensayo:</strong><br/>${escapeHtml(state.selection.essay.modelAnswer).replace(/\n/g,"<br/>")}</div>
+          <div class="divider"></div>
+          <div><strong>Traducción:</strong><br/>${escapeHtml(state.selection.translation.sampleFR)}</div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  $("#btnShowBreakdown").addEventListener("click", () => {
+    const bd = $("#breakdown");
+    bd.classList.toggle("hide");
+    if(!bd.classList.contains("hide")){
+      bd.innerHTML = breakdown.map(b => `
+        <div class="attempt">
+          <div class="top">
+            <div><strong>${escapeHtml(b.qid)}</strong> • ${escapeHtml(b.bloc)} • ${escapeHtml(String(b.type))}</div>
+            <div><span class="badge">${b.score} / ${b.max}</span></div>
+          </div>
+          <div class="meta">
+            <div><strong>Pregunta:</strong> ${escapeHtml(b.prompt)}</div>
+            <div><strong>Auto-corr:</strong> ${escapeHtml(b.detail)}</div>
+          </div>
+        </div>
+      `).join("");
+    }
+  });
+
+  setBadge("Enviado","badge good");
+}
+
+/* =========================================================
+   UI DE RESULTADOS
+========================================================= */
+function drawResults(){
+  const listEl = $("#resultsList");
+  const all = loadResults();
+  const filter = ($("#filterCandidate").value || "").replace(/\D/g,"").slice(0,4);
+  const filtered = filter ? all.filter(a => String(a.candidateNo) === String(filter)) : all;
+
+  if(filtered.length === 0){
+    listEl.innerHTML = `<div class="note">No hay intentos guardados${filter ? " para este candidato" : ""}.</div>`;
+    return;
+  }
+
+  listEl.innerHTML = filtered.map(a => {
+    const [cls, txt] = badgeForScore(a.score);
+    const nameLine = [a.candidateSurname, a.candidateForenames].filter(Boolean).join(", ");
+    return `
+      <div class="attempt">
+        <div class="top">
+          <div>
+            <strong>${escapeHtml(a.candidateNo)}</strong>${nameLine ? " • " + escapeHtml(nameLine) : ""}
+            <span class="badge" style="margin-left:8px">Centro ${escapeHtml(a.centre)}</span>
+          </div>
+          <div class="${cls}">${escapeHtml(txt)} • ${escapeHtml(String(a.score))}/100</div>
+        </div>
+        <div class="meta">
+          <div><strong>Fecha:</strong> ${escapeHtml(new Date(a.submittedAt).toLocaleString())}</div>
+          <div><strong>Selección:</strong> Pasajes ${escapeHtml(a.selectedPassages.join(", "))} • Ensayo ${escapeHtml(a.selectedEssay)} • Trad ${escapeHtml(a.selectedTranslation)}</div>
+          <div><strong>Notas:</strong> Otono ${escapeHtml(a.otonoGrade)} • GCSE ${escapeHtml(String(a.gcseEstimated))} • ${escapeHtml(a.outcome)}</div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function exportResults(){
+  const all = loadResults();
+  $("#exportText").textContent = JSON.stringify(all, null, 2);
+  $("#exportBox").classList.remove("hide");
+}
+
+function clearResults(){
+  if(!confirm("¿Borrar TODOS los intentos guardados en este navegador?")) return;
+  localStorage.removeItem(STORE_KEY);
+  drawResults();
+  $("#exportBox").classList.add("hide");
+}
+
+/* =========================================================
+   BOTONES
+========================================================= */
+$("#btnHome").addEventListener("click", () => { state.mode="home"; renderHome(); });
+$("#btnResults").addEventListener("click", () => { state.mode="results"; renderResults(); });
+
+$("#btnPreview").addEventListener("click", () => {
+  const c = getCandidateNoFromSquares();
+  if(!c){ alert("Primero introduce un número de candidato."); focusDigit(0); return; }
+  const sel = generateSelection();
+  const box = $("#previewBox");
+  box.classList.remove("hide");
+  box.innerHTML = `<strong>Vista previa (sin empezar):</strong><br/>${escapeHtml(selectionSummary(sel))}<br/>` +
+    sel.passages.map(p => `• ${escapeHtml(p.titre)} (${escapeHtml(p.id)})`).join("<br/>") +
+    `<br/>• ${escapeHtml(sel.essay.titre)} (${escapeHtml(sel.essay.id)})` +
+    `<br/>• ${escapeHtml(sel.translation.titre)} (${escapeHtml(sel.translation.id)})`;
+});
+
+$("#btnStart").addEventListener("click", () => {
+  const c = getCandidateNoFromSquares();
+  if(!c){ alert("El número de candidato es obligatorio."); focusDigit(0); return; }
+
+  state.candidateNo = c;
+  state.candSurname = ($("#candSurname").value || "").trim();
+  state.candForenames = ($("#candForenames").value || "").trim();
+
+  state.selection = generateSelection();
+  state.answers = {};
+  renderTest();
+});
+
+$("#btnSubmit").addEventListener("click", () => submitPaper(false));
+
+$("#btnReset").addEventListener("click", () => {
+  if(!confirm("¿Reiniciar y generar un NUEVO examen? Se perderán las respuestas actuales.")) return;
+  stopTimer();
+  state.answers = {};
+  state.submitted = false;
+  state.selection = generateSelection();
+  renderTest();
+});
+
+/* Resultados */
+$("#filterCandidate").addEventListener("input", (e) => {
+  e.target.value = e.target.value.replace(/\D/g,"").slice(0,4);
+  drawResults();
+});
+$("#tabAll").addEventListener("click", () => {
+  $("#tabAll").classList.add("active");
+  $("#tabCandidate").classList.remove("active");
+  $("#filterCandidate").value = "";
+  drawResults();
+});
+$("#tabCandidate").addEventListener("click", () => {
+  $("#tabCandidate").classList.add("active");
+  $("#tabAll").classList.remove("active");
+  $("#filterCandidate").focus();
+});
+$("#btnExport").addEventListener("click", exportResults);
+$("#btnClear").addEventListener("click", clearResults);
+
+/* INIT */
+setCentre("50749");
+renderHome();
+</script>
+</body>
+</html>

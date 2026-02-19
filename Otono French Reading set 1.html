@@ -1480,8 +1480,8 @@ $("#btnEditCentre").addEventListener("click", () => {
   const val = prompt("Enter centre number (digits only, e.g. 50749):", state.centreNo);
   if(val === null) return;
   const clean = String(val).replace(/\D/g,"").slice(0, 10);
-  if(clean.length < 3){
-    alert("Centre number must be digits only (at least 3 digits).");
+  if(clean.length < 5){
+    alert("Centre number must be digits only (at least 5 digits).");
     return;
   }
   setCentre(clean);
