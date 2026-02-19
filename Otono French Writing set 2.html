@@ -1118,13 +1118,43 @@ function countHits(textNorm, vocab){
 }
 
 const FRENCH_MARKERS = [
-  "je","j ai","j'ai","nous","vous","il","elle","on","dans","avec","sans","parce que",
-  "mais","cependant","pourtant","donc","alors","ensuite","d abord","d'abord",
-  "aujourd hui","aujourd'hui","hier","demain","plus tard","la semaine prochaine",
-  "mon","ma","mes","un","une","des","du","de la","au","aux"
+  // pronouns + core function words
+  "je","j ai","j'ai","nous","vous","il","elle","on",
+  "mon","ma","mes","un","une","des","du","de la","au","aux",
+  "dans","avec","sans","pour","contre","chez",
+  // common time + discourse
+  "aujourd hui","aujourd'hui","hier","demain","plus tard",
+  "la semaine prochaine","l an prochain","l'an prochain",
+  // opinion-ish (helps translation quality too)
+  "a mon avis","à mon avis","je pense","je trouve",
+  // extra “French-ness” signals often used in formal translation
+  "ce qui","ce que","ce dont","dont","afin de","lorsque","puisque",
+  "par exemple","en general","en général"
 ];
-const CONNECTORS = ["parce que","cependant","pourtant","donc","alors","ensuite","d abord","d'abord","en plus","de plus","par contre","tandis que"];
-const RANGE_MARKERS = ["qui","que","dont","si","quand","pendant que","afin de","pour que","meme si","même si","comme","par exemple"];
+
+// IMPORTANT: Your “quality connectors” currently only checks CONNECTORS.
+// So we expand it to include common, valid connectors (including “mais”, “car”, “afin de”, etc.).
+const CONNECTORS = [
+  // original-ish
+  "parce que","cependant","pourtant","donc","alors",
+  "ensuite","d abord","d'abord","en plus","de plus",
+  "par contre","tandis que",
+  // added (high impact)
+  "mais","car","puisque","lorsque","ainsi","ainsi que",
+  "afin de","pour que","meme si","même si",
+  "par exemple","en general","en général",
+  "en revanche","au contraire","par conséquent","c est a dire","c'est a dire","c'est-à-dire"
+];
+
+const RANGE_MARKERS = [
+  // original set
+  "qui","que","dont","si","quand","pendant que","afin de","pour que","meme si","même si","comme","par exemple",
+  // added: richer syntax signals for top-band
+  "ce qui","ce que","ce dont",
+  "bien que","avant de","apres","après","apres avoir","après avoir",
+  "afin que","de sorte que","tandis que","alors que",
+  "ne pas","jamais","plus","rien" // helps negation/complexity detection
+];
 
 function markHigherTranslation(user, keyIdeas){
   const t = norm(user);

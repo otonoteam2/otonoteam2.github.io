@@ -486,33 +486,41 @@ const HIGHER_TRANSLATION_POOL = [
     id:"HT-A",
     en:`At Otono, students quickly learn that respecting rules is as important as knowledge. A small mistake, like using the wrong pen, can affect results. Good organisation reduces stress.`,
     keyIdeas: [
-      ["en otono","en el otono","otono"],
-      ["los alumnos","los estudiantes"],
-      ["aprenden","aprendemos"],
-      ["respetar las reglas","respetar las normas","el respeto de las reglas"],
-      ["tan importante como","igual de importante que"],
-      ["los conocimientos","el conocimiento"],
-      ["un pequeño error","un pequeno error"],
-      ["bolígrafo incorrecto","boligrafo incorrecto","el bolígrafo equivocado","el boligrafo equivocado"],
-      ["puede afectar","puede cambiar","puede influir"],
-      ["la organización","la organizacion","reduce el estrés","reduce el estres","menos estrés","menos estres"]
+      ["en otono","en el otono"],
+      ["los estudiantes","el alumnado","los alumnos","las alumnas"],
+      ["aprenden rapidamente","aprenden rápido","aprenden pronto","aprenden enseguida"],
+      ["respetar las normas","respetar las reglas","cumplir las normas","cumplir las reglas"],
+      ["tan importante como","igual de importante que","tan importante como el conocimiento","tan importante como saber"],
+      ["el conocimiento","los conocimientos","saber","la inteligencia"],
+      ["un pequeno error","un pequeño error","un error pequeño"],
+      ["como","por ejemplo"],
+      ["usar el bolígrafo equivocado","usar el bolígrafo incorrecto","usar el pen equivocado","usar el bolígrafo malo","usar el bolígrafo que no toca"],
+      ["puede afectar","puede influir en","puede cambiar"],
+      ["los resultados","las notas","el resultado"],
+      ["una buena organizacion","una buena organización","la buena organización","estar bien organizado","estar bien organizada"],
+      ["reduce el estres","reduce el estrés","disminuye el estrés","baja el estrés","menos estrés"]
     ]
   },
   {
     id:"HT-B",
-    en:`Travelling with Otono Airways feels like a perfectly controlled system. Every detail is planned to guarantee comfort and efficiency, even in economy class.`,
+    en:`With Otono Airways, the passenger experience feels organised from start to finish. Even in economy class, comfort is taken seriously, so you notice the calm atmosphere and the efficient service. However, when every detail is planned, travellers feel less stressed and more confident.`,
     keyIdeas: [
-      ["viajar","cuando viajas"],
-      ["otono airways"],
-      ["se siente como","parece","da la impresión","da la impresion"],
-      ["un sistema"],
-      ["perfectamente controlado","muy controlado","bien controlado"],
-      ["cada detalle"],
-      ["está planeado","esta planeado","se planifica","está planificado","esta planificado"],
-      ["para garantizar","para asegurar"],
-      ["comodidad"],
-      ["eficiencia","y eficiencia"],
-      ["incluso en clase económica","incluso en clase economica","hasta en clase económica","clase económica","clase economica"]
+      ["con otono airways","con otono","en otono airways"],
+      ["la experiencia del pasajero","la experiencia de los pasajeros","la experiencia de viaje","la experiencia a bordo"],
+      ["parece organizada","se siente organizada","está organizada","muy organizada"],
+      ["de principio a fin","del principio al final"],
+      ["incluso en clase turista","incluso en económica","incluso en clase económica","en clase turista","en clase económica"],
+      ["la comodidad","el confort"],
+      ["se toma en serio","se considera importante","se cuida mucho","es una prioridad"],
+      ["por eso","así que","asi que"],
+      ["notas","se nota","se puede notar","te das cuenta"],
+      ["un ambiente tranquilo","una atmósfera tranquila","una atmosfera tranquila","un ambiente calmado"],
+      ["un servicio eficiente","la eficiencia del servicio","servicio rápido","servicio eficaz"],
+      ["sin embargo","pero","no obstante"],
+      ["cuando cada detalle esta planificado","cuando cada detalle está planificado","todo está planificado","cada detalle está pensado"],
+      ["los viajeros","los pasajeros"],
+      ["se sienten menos estresados","se sienten menos estresadas","tienen menos estrés","menos estresados","menos estresadas"],
+      ["más seguros","más seguras","con más confianza","más confiados","más confiadas"]
     ]
   }
 ];
@@ -1115,13 +1123,42 @@ function countHits(textNorm, vocab){
 
 /* Spanish markers */
 const SPANISH_MARKERS = [
+  // pronouns + core function words
   "yo","tu","tú","el","él","ella","nosotros","vosotros","ustedes",
-  "porque","pero","aunque","sin embargo","por eso","ademas","además",
-  "hoy","ayer","manana","mañana","ahora","en el futuro","la semana",
-  "mi","mis","un","una","unos","unas","de","del","al","con","sin"
+  "mi","mis","un","una","unos","unas","de","del","al","con","sin","para","por",
+  // time + discourse
+  "hoy","ayer","manana","mañana","ahora","en el futuro","la semana","la semana que viene",
+  "normalmente","generalmente","en general","cada vez",
+  // common connectors/opinion signals
+  "porque","pero","aunque","sin embargo","por eso","ademas","además","tambien","también",
+  "a mi modo de ver","en mi opinion","en mi opinión","pienso que","creo que",
+  // extra “Spanish-ness” formal signals
+  "lo que","lo cual","ya que","puesto que","debido a","gracias a","por lo tanto"
 ];
-const CONNECTORS = ["porque","aunque","sin embargo","por eso","además","ademas","por ejemplo","también","en cambio","mientras","cuando"];
-const RANGE_MARKERS = ["que","si","cuando","mientras","para que","antes de","después de","despues de","a pesar de","ya que","por ejemplo","lo que"];
+
+// Expand connectors so strong Spanish isn’t punished
+const SPANISH_CONNECTORS = [
+  // original
+  "porque","aunque","sin embargo","por eso","además","ademas","por ejemplo","también","tambien","en cambio","mientras","cuando",
+  // added high-level
+  "ya que","puesto que","debido a","gracias a",
+  "por lo tanto","por consiguiente","asi que","así que",
+  "sin duda","no solo","no sólo","sino tambien","sino también",
+  "mientras que","por otra parte","por un lado","por otro lado"
+];
+
+// Range markers for Spanish writing sophistication
+const SPANISH_RANGE_MARKERS = [
+  // original
+  "que","si","cuando","mientras","para que","antes de","después de","despues de","a pesar de","ya que","por ejemplo","lo que",
+  // added (A*/9 boost)
+  "lo cual","el cual","la cual",
+  "al","para","para + infinitivo",
+  "después de + infinitivo","antes de + infinitivo",
+  "si pudiera","si tuviera","si fuera",
+  "cuando era","cuando tenia","cuando tenía",
+  "no","nunca","jamás" // negation complexity
+];
 
 /* Higher translation marking:
    - Ideas: 10 (1 per idea group hit)

@@ -487,39 +487,43 @@ const FOUNDATION_TRANSLATION_POOL = [
 const HIGHER_TRANSLATION_POOL = [
   {
     id:"HT-C",
-    en:`During exams, organisation matters as much as intelligence. If you panic, you waste time, but if you stay calm and follow the instructions, you can improve your result. In the future, I want to be more confident.`,
+    en:`During exams, organisation matters as much as intelligence. If you panic, you lose time, but if you stay calm and follow the instructions, you can improve your result. In the future, I want to be more confident and better prepared.`,
     keyIdeas: [
-      ["durante los examenes","durante los exámenes","en los exámenes"],
-      ["la organizacion","la organización","organizacion","organización"],
-      ["tan importante como","igual de importante que"],
-      ["la inteligencia","inteligencia"],
-      ["si entras en panico","si entras en pánico","si me pongo nervioso","si me pongo nerviosa","si panico","si pánico","si te pones nervioso","si te pones nerviosa"],
-      ["pierdes tiempo","perder tiempo","pierdo tiempo","se pierde tiempo"],
+      ["durante los examenes","durante los exámenes","en los exámenes","en los examenes"],
+      ["la organizacion","la organización","organización"],
+      ["importa tanto como","es tan importante como","cuenta tanto como"],
+      ["la inteligencia","ser inteligente","el talento"],
+      ["si entras en panico","si entras en pánico","si me entra el pánico","si me pongo nervioso","si me pongo nerviosa","si me asusto"],
+      ["pierdes tiempo","se pierde tiempo","pierdo tiempo"],
       ["pero","sin embargo"],
-      ["si te mantienes tranquilo","si te mantienes tranquila","si me mantengo tranquilo","si me mantengo tranquila","mantener la calma"],
-      ["seguir las instrucciones","seguir las consignas"],
-      ["mejorar","puedes mejorar","puedo mejorar"],
-      ["tu resultado","mi resultado","el resultado","la nota","mi nota"],
-      ["en el futuro","más tarde","mas tarde"],
-      ["quiero tener mas confianza","quiero tener más confianza","quiero ser mas seguro","quiero ser más seguro","quiero ser mas segura","quiero ser más segura","quiero estar mas seguro","quiero estar más seguro","quiero estar mas segura","quiero estar más segura"]
+      ["si te mantienes tranquilo","si te mantienes tranquila","si mantienes la calma","si me mantengo tranquilo","si me mantengo tranquila"],
+      ["sigues las instrucciones","seguir las instrucciones","seguir las normas","seguir las consignas"],
+      ["puedes mejorar","se puede mejorar","mejorar"],
+      ["tu resultado","mi resultado","el resultado","la nota","las notas"],
+      ["en el futuro","más adelante","mas adelante","en el futuro cercano"],
+      ["quiero tener mas confianza","quiero tener más confianza","quiero ser más seguro","quiero ser más segura","me gustaría tener más confianza"],
+      ["estar mejor preparado","estar mejor preparada","mejor preparado","mejor preparada","prepararme mejor"]
     ]
   },
   {
     id:"HT-D",
-    en:`In my area, there are not many activities, so I often stay at home. However, I practise music to relax, and I also play online with friends. Next weekend, I’m going to try something new.`,
+    en:`In my area, there are not many activities, so I often stay at home. However, I practise music to relax, and I also play online with friends to have fun. Next weekend, I’m going to try a new activity, because I want to change my routine.`,
     keyIdeas: [
-      ["en mi region","en mi región","en mi zona","en mi barrio","en mi ciudad"],
-      ["no hay muchas actividades","no hay muchas cosas que hacer","no hay muchas actividades para hacer"],
-      ["asi que","así que","por eso"],
-      ["a menudo me quedo en casa","me quedo en casa","suelo quedarme en casa"],
-      ["sin embargo","no obstante","pero"],
-      ["practico musica","practico música","hago musica","hago música"],
-      ["para relajarme","para relajar"],
-      ["tambien juego en linea","también juego en línea","juego en linea","juego en línea","juego por internet"],
-      ["con amigos","con mis amigos"],
+      ["en mi zona","en mi barrio","en mi ciudad","en mi area","en mi área"],
+      ["no hay muchas actividades","no hay muchas cosas que hacer","hay pocas actividades","no hay demasiadas actividades"],
+      ["por eso","así que","asi que"],
+      ["a menudo me quedo en casa","suelo quedarme en casa","me quedo en casa","me suelo quedar en casa"],
+      ["sin embargo","pero","no obstante"],
+      ["practico musica","practico música","hago música","toco un instrumento","toco música"],
+      ["para relajarme","para descansar","para desconectar","para estar tranquilo","para estar tranquila"],
+      ["tambien juego en linea","también juego en línea","juego en línea","juego online","juego por internet"],
+      ["con amigos","con mis amigos","con unas amistades"],
+      ["para divertirme","para pasarlo bien","por diversión","por diversion"],
       ["el proximo fin de semana","el próximo fin de semana","el fin de semana que viene"],
-      ["voy a probar","voy a intentar","voy a hacer"],
-      ["algo nuevo","una actividad nueva","una cosa nueva"]
+      ["voy a probar","voy a intentar","voy a hacer","voy a probar algo nuevo"],
+      ["una actividad nueva","algo nuevo","un nuevo pasatiempo"],
+      ["porque","ya que"],
+      ["quiero cambiar mi rutina","quiero variar mi rutina","quiero romper la rutina","quiero salir de la rutina"]
     ]
   }
 ];
@@ -1117,13 +1121,42 @@ function countHits(textNorm, vocab){
 }
 
 const SPANISH_MARKERS = [
-  "yo","me","mi","mis","tengo","estoy","soy","hago","voy","suelo",
-  "porque","pero","sin embargo","ademas","además","por eso","entonces",
-  "hoy","ayer","mañana","manana","más tarde","mas tarde","en el futuro",
-  "un","una","unos","unas","el","la","los","las","de","del","al","con","sin","para","por"
+  // pronouns + core function words
+  "yo","tu","tú","el","él","ella","nosotros","vosotros","ustedes",
+  "mi","mis","un","una","unos","unas","de","del","al","con","sin","para","por",
+  // time + discourse
+  "hoy","ayer","manana","mañana","ahora","en el futuro","la semana","la semana que viene",
+  "normalmente","generalmente","en general","cada vez",
+  // common connectors/opinion signals
+  "porque","pero","aunque","sin embargo","por eso","ademas","además","tambien","también",
+  "a mi modo de ver","en mi opinion","en mi opinión","pienso que","creo que",
+  // extra “Spanish-ness” formal signals
+  "lo que","lo cual","ya que","puesto que","debido a","gracias a","por lo tanto"
 ];
-const CONNECTORS = ["porque","pero","sin embargo","no obstante","ademas","además","por eso","entonces","después","despues","primero","luego","en cambio","por ejemplo","aunque"];
-const RANGE_MARKERS = ["que","cuando","mientras","si","porque","para que","aunque","como","por ejemplo","sin embargo","ademas","además"];
+
+// Expand connectors so strong Spanish isn’t punished
+const SPANISH_CONNECTORS = [
+  // original
+  "porque","aunque","sin embargo","por eso","además","ademas","por ejemplo","también","tambien","en cambio","mientras","cuando",
+  // added high-level
+  "ya que","puesto que","debido a","gracias a",
+  "por lo tanto","por consiguiente","asi que","así que",
+  "sin duda","no solo","no sólo","sino tambien","sino también",
+  "mientras que","por otra parte","por un lado","por otro lado"
+];
+
+// Range markers for Spanish writing sophistication
+const SPANISH_RANGE_MARKERS = [
+  // original
+  "que","si","cuando","mientras","para que","antes de","después de","despues de","a pesar de","ya que","por ejemplo","lo que",
+  // added (A*/9 boost)
+  "lo cual","el cual","la cual",
+  "al","para","para + infinitivo",
+  "después de + infinitivo","antes de + infinitivo",
+  "si pudiera","si tuviera","si fuera",
+  "cuando era","cuando tenia","cuando tenía",
+  "no","nunca","jamás" // negation complexity
+];
 
 function markHigherTranslation(user, keyIdeas){
   const t = norm(user);

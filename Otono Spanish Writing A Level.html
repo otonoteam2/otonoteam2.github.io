@@ -790,39 +790,39 @@ const TRANSLATION_POOL = [
     id:"T1",
     en:`During the mock exams, the students believed that small details did not matter. However, the marking process proved the opposite. One candidate lost marks because of presentation, while another succeeded thanks to precision and discipline. In the future, they will understand that perfection is not only about knowledge, but also about attitude.`,
     keyIdeas: [
-      ["mock exams","mocks"],
-      ["small details","details"],
-      ["did not matter"],
-      ["however","but"],
-      ["marking process","marking"],
-      ["proved the opposite"],
-      ["lost marks"],
-      ["presentation"],
-      ["another succeeded","succeeded"],
-      ["thanks to"],
-      ["precision"],
-      ["discipline"],
-      ["in the future","future"],
-      ["not only about knowledge"],
-      ["but also about attitude","attitude"]
+      ["simulacros","exámenes simulados","exámenes de prueba","mocks"],
+    ["pequeños detalles","detalles pequeños","detalles menores","detalles"],
+    ["no importaban","no eran importantes","no tenía importancia","no importaba"],
+    ["sin embargo","no obstante","pero"],
+    ["proceso de corrección","proceso de calificación","corrección","evaluación"],
+    ["demostró lo contrario","probó lo contrario","mostró lo contrario"],
+    ["perdió puntos","le quitaron puntos","perdió notas"],
+    ["presentación","presentación del examen","la presentación"],
+    ["otro tuvo éxito","otro lo consiguió","otro logró","tuvo éxito"],
+    ["gracias a","debido a"],
+    ["precisión","la precisión"],
+    ["disciplina","la disciplina"],
+    ["en el futuro","en un futuro","futuro"],
+    ["no solo por el conocimiento","no solo se trata de conocimiento","no solo sobre el conocimiento"],
+    ["sino también por la actitud","pero también la actitud","actitud"]
     ]
   },
   {
     id:"T2",
     en:`In school, rules can protect students, but they can also create anxiety. If someone follows the instructions carefully, they feel safer. On the other hand, one mistake can become a big problem. Next year, the class wants a fairer system.`,
     keyIdeas: [
-      ["rules","instructions"],
-      ["protect"],
-      ["but","however"],
-      ["anxiety","stress"],
-      ["follows","follow"],
-      ["carefully"],
-      ["safer"],
-      ["on the other hand"],
-      ["mistake","error"],
-      ["big problem"],
-      ["next year"],
-      ["fairer system","fair system"]
+      ["reglas","normas","instrucciones"],
+    ["proteger","protegen","pueden proteger"],
+    ["pero","sin embargo","no obstante"],
+    ["ansiedad","estrés","estres","nerviosismo"],
+    ["sigue","seguir","cumple","hacer caso de"],
+    ["cuidadosamente","con cuidado","con mucha atención","atentamente"],
+    ["más seguro","más segura","se siente seguro","se siente segura","más seguros"],
+    ["por otro lado","en cambio"],
+    ["error","un error","un fallo","una equivocación"],
+    ["gran problema","problema grande","problema importante"],
+    ["el año que viene","el próximo año","próximo año"],
+    ["sistema más justo","sistema más equitativo","sistema justo","más justo"]
     ]
   }
 ];
@@ -832,14 +832,71 @@ const TRANSLATION_POOL = [
    (French -> Spanish only)
 ========================================================= */
 const SPANISH_MARKERS = [
-  "yo","tu","tú","nosotros","vosotros","usted","ustedes","el","él","ella","en","con","sin","porque",
-  "pero","sin embargo","no obstante","por lo tanto","entonces","despues","después","primero",
-  "hoy","ayer","mañana","mas tarde","más tarde","la semana que viene",
-  "mi","mis","un","una","unos","unas","del","de la","al","a los","a las"
+  // core pronouns / function words
+  "yo","tu","tú","él","el","ella","nosotros","vosotros","ustedes",
+  "mi","mis","un","una","unos","unas","de","del","al","con","sin","para","por","en",
+
+  // time markers
+  "hoy","ayer","mañana","manana","ahora","en el futuro","la semana que viene",
+  "antes","después","despues","mientras","cuando",
+
+  // core discourse
+  "porque","pero","aunque","sin embargo","por eso","además","ademas","también","tambien",
+  "por ejemplo","en cambio","mientras que",
+
+  // A-level essay / analytical signals
+  "en efecto","en realidad","de hecho","por una parte","por otra parte",
+  "es evidente que","está claro que","cabe señalar que","hay que destacar que",
+  "se puede afirmar que","esto demuestra que","esto significa que",
+  "en resumen","en definitiva","en conclusión"
 ];
-const CONNECTORS = ["porque","sin embargo","no obstante","por lo tanto","por eso","ademas","además","de hecho","en cambio","por un lado","por otro lado","mientras que","aunque"];
-const RANGE_MARKERS = ["que","quien","quién","cual","cuál","cuyo","si","sí","cuando","mientras","para que","a fin de","aunque","lo que","lo cual","en vez de"];
-const NEGATION = ["no","nunca","nadie","nada","ni"];
+
+const CONNECTORS = [
+  // cause
+  "porque","ya que","puesto que","debido a","gracias a","a causa de",
+
+  // contrast / concession
+  "pero","sin embargo","no obstante","aunque","aun asi","aún así",
+  "a pesar de","pese a","si bien",
+
+  // result / consequence
+  "por eso","asi que","así que","por lo tanto","por consiguiente","en consecuencia",
+
+  // addition / structure
+  "además","ademas","también","tambien","de hecho","en efecto","por ejemplo",
+  "por una parte","por otra parte","por un lado","por otro lado",
+  "primero","en primer lugar","luego","después","despues","finalmente",
+
+  // comparison / contrast structures
+  "en cambio","mientras","mientras que","en vez de"
+];
+
+const RANGE_MARKERS = [
+  // subordination / clause depth
+  "que","si","cuando","mientras","mientras que","aunque","ya que",
+
+  // purpose + subjunctive triggers (huge at A-level)
+  "para que","a fin de que","con el fin de que",
+  "es posible que","es probable que","es importante que","es necesario que",
+  "quiero que","prefiero que","no creo que","dudo que",
+
+  // relatives + formal reference
+  "lo que","lo cual","el cual","la cual","los cuales","las cuales",
+
+  // infinitive structures
+  "antes de","después de","despues de","al",
+  "al + infinitivo","para + infinitivo",
+
+  // concessive / advanced frames
+  "a pesar de","pese a","si bien",
+
+  // exemplification / argumentation
+  "por ejemplo","de hecho","en efecto"
+];
+
+const NEGATION = [
+  "no","nunca","jamás","jamas","nadie","nada","ningún","ningun","ninguna","ni"
+];
 
 function countHits(textNorm, vocab){
   let hits = 0;

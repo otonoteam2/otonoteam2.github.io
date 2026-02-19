@@ -782,39 +782,39 @@ const TRANSLATION_POOL = [
     id:"T1",
     en:`During the mock exams, the students believed that small details did not matter. However, the marking process proved the opposite. One candidate lost marks because of presentation, while another succeeded thanks to precision and discipline. In the future, they will understand that perfection is not only about knowledge, but also about attitude.`,
     keyIdeas: [
-      ["mock exams","mocks"],
-      ["small details","details"],
-      ["did not matter"],
-      ["however","but"],
-      ["marking process","marking"],
-      ["proved the opposite"],
-      ["lost marks"],
-      ["presentation"],
-      ["another succeeded","succeeded"],
-      ["thanks to"],
-      ["precision"],
-      ["discipline"],
-      ["in the future","future"],
-      ["not only about knowledge"],
-      ["but also about attitude","attitude"]
+      ["examens blancs","mocks","épreuves blanches"],
+      ["petits détails","les détails","détails mineurs"],
+      ["n avaient pas d importance","ne comptaient pas","n etaient pas importants"],
+      ["cependant","mais","pourtant","toutefois"],
+      ["processus de correction","correction","processus d évaluation"],
+      ["a prouvé le contraire","a montré le contraire"],
+      ["a perdu des points","perdre des points","points perdus"],
+      ["présentation","la présentation"],
+      ["un autre a réussi","a réussi","réussir"],
+      ["grâce à","grace a"],
+      ["précision","la précision"],
+      ["discipline","la discipline"],
+      ["à l avenir","dans le futur","à l avenir"],
+      ["pas seulement une question de connaissances","pas seulement sur les connaissances","pas seulement le savoir"],
+      ["mais aussi l attitude","mais également l attitude","l attitude"]
     ]
   },
   {
     id:"T2",
     en:`In school, rules can protect students, but they can also create anxiety. If someone follows the instructions carefully, they feel safer. On the other hand, one mistake can become a big problem. Next year, the class wants a fairer system.`,
     keyIdeas: [
-      ["rules","instructions"],
-      ["protect"],
-      ["but","however"],
-      ["anxiety","stress"],
-      ["follows","follow"],
-      ["carefully"],
-      ["safer"],
-      ["on the other hand"],
-      ["mistake","error"],
-      ["big problem"],
-      ["next year"],
-      ["fairer system","fair system"]
+      ["règles","les règles","consignes","instructions"],
+      ["protéger","protègent","peuvent protéger"],
+      ["mais","cependant","pourtant","toutefois"],
+      ["anxiété","stress"],
+      ["suit","suivre","respecte","respecter"],
+      ["soigneusement","avec soin","attentivement"],
+      ["plus en sécurité","se sent plus en sécurité","plus sûr","plus sure"],
+      ["d un autre côté","par contre","en revanche"],
+      ["erreur","faute"],
+      ["gros problème","grand problème","problème important"],
+      ["l année prochaine","l an prochain"],
+      ["système plus juste","système équitable","plus juste"]
     ]
   }
 ];
@@ -822,15 +822,83 @@ const TRANSLATION_POOL = [
 /* =========================================================
    LANGUAGE SIGNALS
 ========================================================= */
+/* =========================================================
+   FRENCH — A LEVEL DETECTION (UPGRADED)
+========================================================= */
+
 const FRENCH_MARKERS = [
-  "je","j ai","j'ai","nous","vous","il","elle","on","dans","avec","sans","parce que",
-  "mais","cependant","pourtant","donc","alors","ensuite","d abord","d'abord",
+  // core pronouns / function words
+  "je","j ai","j'ai","nous","vous","il","elle","on",
+  "mon","ma","mes","un","une","des","du","de la","au","aux",
+  "dans","avec","sans","pour","contre",
+
+  // time markers
   "aujourd hui","aujourd'hui","hier","demain","plus tard","la semaine prochaine",
-  "mon","ma","mes","un","une","des","du","de la","au","aux"
+
+  // core discourse
+  "parce que","mais","cependant","pourtant","donc","alors","ensuite",
+  "d abord","d'abord","en effet","en realite","en réalité",
+  "ainsi","par consequent","par conséquent","en somme",
+
+  // analytical / essay signals (A-level important)
+  "on peut dire que","il est clair que","il faut noter que",
+  "cela montre que","cela signifie que","il semble que",
+
+  // extra Frenchness
+  "par exemple","en general","en général"
 ];
-const CONNECTORS = ["parce que","cependant","pourtant","donc","alors","ensuite","d abord","d'abord","en plus","de plus","en revanche","par contre","tandis que","comme"];
-const RANGE_MARKERS = ["qui","que","dont","si","quand","pendant que","afin de","pour que","bien que","quoique","meme si","même si","ce qui","ce que","au lieu de","plutot que","plutôt que"];
-const NEGATION = ["ne","pas","jamais","rien","personne","plus"];
+
+
+const CONNECTORS = [
+  // causal / contrast / addition
+  "parce que","car","puisque","comme",
+  "mais","cependant","pourtant","neanmoins","néanmoins",
+  "en revanche","par contre","tandis que","alors que",
+
+  // logical development
+  "donc","alors","ainsi","par consequent","par conséquent",
+  "en effet","de plus","en plus","ensuite",
+
+  // structure markers
+  "tout d abord","tout d'abord","d abord","d'abord",
+  "d une part","d'autre part","d autre part",
+  "par exemple",
+
+  // purpose / concession
+  "afin de","afin que","pour que",
+  "bien que","quoique","meme si","même si",
+  "de sorte que","de maniere a","de manière à"
+];
+
+
+const RANGE_MARKERS = [
+  // core subordination
+  "qui","que","dont","si","quand","lorsque",
+  "pendant que","tandis que","alors que",
+
+  // purpose / concession
+  "afin de","afin que","pour que",
+  "bien que","quoique","meme si","même si",
+
+  // relative complexity
+  "ce qui","ce que","ce dont","ce a quoi","ce à quoi",
+
+  // comparison / contrast
+  "au lieu de","plutot que","plutôt que",
+
+  // advanced essay signals
+  "de sorte que","de maniere a","de manière à",
+  "de facon a","de façon à",
+
+  // useful boosters
+  "par exemple","en effet","ainsi"
+];
+
+
+const NEGATION = [
+  "ne","pas","jamais","rien","personne","plus",
+  "ni","aucun","aucune","guere","guère"
+];
 
 function countHits(textNorm, vocab){
   let hits = 0;
