@@ -500,23 +500,18 @@ const HIGHER_TRANSLATION_POOL = [
   },
   {
     id:"HT-B",
-    en:`With Otono Airways, the passenger experience feels organised from start to finish. Even in economy class, comfort is taken seriously, so you notice the calm atmosphere and the efficient service. However, when every detail is planned, travellers feel less stressed and more confident.`,
+    en:`Travelling with Otono Airways feels like a perfectly controlled system. Every detail is planned to guarantee comfort and efficiency, even in economy class.`,
     keyIdeas: [
-      ["avec otono airways","chez otono airways"],
-      ["l experience des passagers","l'expérience des passagers","experience des passagers","expérience des passagers"],
-      ["organise","organisée","organise","bien organise","bien organisée","organisation","organisée"],
-      ["du debut a la fin","du début à la fin","debut a la fin","début à la fin"],
-      ["meme en classe economique","même en classe économique","en classe economique","en classe économique","meme en economique","même en économique"],
-      ["le confort","confort"],
-      ["pris au serieux","prise au serieux","pris au sérieux","prise au sérieux","au serieux","au sérieux"],
-      ["on remarque","on remarque que","tu remarques","je remarque","remarquer"],
-      ["une ambiance calme","l ambiance calme","l'ambiance calme","atmosphere calme","atmosphère calme"],
-      ["un service efficace","service efficace","efficacite du service","efficacité du service"],
-      ["cependant","pourtant","mais","toutefois","en revanche"],
-      ["chaque detail est planifie","chaque détail est planifié","tout est planifie","tout est planifié","chaque detail est soigneusement planifie","chaque détail est soigneusement planifié"],
-      ["les voyageurs","les passagers","les voyageurs se sentent","les passagers se sentent"],
-      ["moins stresses","moins stressés","moins stressées","moins de stress","moins stressant"],
-      ["plus confiants","plus confiantes","plus de confiance","plus surs","plus sûrs","plus sûres"]
+      ["voyager","voyage"],
+      ["otono airways"],
+      ["donne l impression","donne l'impression","on a l impression","on a l'impression"],
+      ["systeme","système"],
+      ["parfaitement controle","parfaitement contrôlé","bien controle","bien contrôlé"],
+      ["chaque detail","chaque détail"],
+      ["est pense","est pensé","est planifie","est planifié"],
+      ["garantir","assurer"],
+      ["confort"],
+      ["efficacite","efficacité","meme en classe economique","même en classe économique","classe economique","classe économique"]
     ]
   }
 ];
@@ -1330,7 +1325,7 @@ function markWriting(text, spec, maxMarks, themeKey){
   let mult = 1.0;
   if(themeHits < 1) mult = 0.25;
   else if(themeHits < expected) mult = 0.65;
-  else if(themeHits < expected + 2) mult = 0.85;
+  else if(themeHits < expected + 1) mult = 0.85;
 
   const raw = wcScore + contentScore + tfScore + opScore + rangeScore;
   const score = clamp(Math.round(raw * mult), 0, maxMarks);

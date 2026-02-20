@@ -487,37 +487,42 @@ const FOUNDATION_TRANSLATION_POOL = [
 const HIGHER_TRANSLATION_POOL = [
   {
     id:"HT-C",
-    en:`During exams, organisation matters as much as intelligence. If you panic, you waste time, but if you stay calm and follow the instructions, you can improve your result. In the future, I want to be more confident.`,
+    en:`During exams, organisation matters as much as intelligence. If you panic, you lose time, but if you stay calm and follow the instructions, you can improve your result. In the future, I want to be more confident and better prepared.`,
     keyIdeas: [
-      ["pendant les examens","lors des examens"],
+      ["pendant les examens","lors des examens","aux examens"],
       ["l organisation","l'organisation","organisation"],
-      ["aussi importante que","autant que"],
+      ["compte autant que","est aussi importante que","aussi importante que","autant que"],
       ["l intelligence","l'intelligence","intelligence"],
-      ["si tu paniques","si on panique","si je panique","paniquer"],
-      ["tu perds du temps","on perd du temps","je perds du temps"],
-      ["mais"],
+      ["si tu paniques","si on panique","si je panique","paniquer","panique"],
+      ["tu perds du temps","on perd du temps","je perds du temps","perdre du temps"],
+      ["mais","cependant","pourtant"],
       ["si tu restes calme","si on reste calme","si je reste calme","rester calme"],
-      ["suivre les consignes","suivre les instructions","suivre la consigne"],
+      ["suivre les consignes","suivre les instructions","respecter les consignes","respecter les instructions"],
       ["ameliorer","améliorer","ton resultat","son resultat","mon resultat","résultat","resultat"],
       ["a l avenir","à l'avenir","dans le futur","plus tard"],
-      ["je veux etre plus confiant","je veux être plus confiant","je voudrais etre plus confiant","je voudrais être plus confiant","plus de confiance"]
+      ["je veux etre plus confiant","je veux être plus confiant","je voudrais etre plus confiant","je voudrais être plus confiant","plus de confiance"],
+      ["mieux prepare","mieux préparé","mieux préparée","mieux preparee","mieux preparé","mieux preparée","bien prepare","bien préparé","bien préparée","bien preparé","bien preparee"]
     ]
   },
   {
     id:"HT-D",
-    en:`In my area, there are not many activities, so I often stay at home. However, I practise music to relax, and I also play online with friends. Next weekend, I’m going to try something new.`,
+    en:`In my area, there are not many activities, so I often stay at home. However, I practise music to relax, and I also play online with friends to have fun. Next weekend, I’m going to try a new activity, because I want to change my routine.`,
     keyIdeas: [
       ["dans ma region","dans ma région","dans mon quartier","dans ma ville"],
       ["il n y a pas beaucoup d activites","il n'y a pas beaucoup d'activités","pas beaucoup d activites","pas beaucoup d'activités"],
       ["donc","alors"],
-      ["je reste souvent a la maison","je reste souvent à la maison","je reste a la maison","je reste à la maison"],
-      ["cependant","pourtant"],
-      ["je pratique la musique","je fais de la musique"],
-      ["pour me detendre","pour me détendre","me detendre","me détendre","relaxer"],
-      ["je joue en ligne","je joue sur internet","en ligne"],
-      ["avec des amis","avec mes amis"],
+      ["je reste souvent a la maison","je reste souvent à la maison","je reste a la maison","je reste à la maison","je reste chez moi"],
+      ["cependant","pourtant","mais","en revanche","toutefois"],
+      ["je pratique la musique","je fais de la musique","je joue de la musique"],
+      ["pour me detendre","pour me détendre","me detendre","me détendre","pour me relaxer","pour me calmer"],
+      ["je joue en ligne","je joue sur internet","en ligne","je joue en ligne avec"],
+      ["avec des amis","avec mes amis","entre amis"],
+      ["pour m amuser","pour m'amuser","m amuser","m'amuser","pour le plaisir"],
       ["le week end prochain","le week-end prochain","week end prochain","week-end prochain"],
-      ["je vais essayer","je vais tenter","quelque chose de nouveau","une nouvelle activite","une nouvelle activité"]
+      ["je vais essayer","je vais tenter","je vais faire"],
+      ["une nouvelle activite","une nouvelle activité","quelque chose de nouveau","un nouveau loisir","un nouveau hobby"],
+      ["parce que","car"],
+      ["je veux changer","je veux modifier","changer ma routine","modifier ma routine","sortir de ma routine","casser ma routine"]
     ]
   }
 ];
@@ -1263,7 +1268,7 @@ function markWriting(text, spec, maxMarks, themeKey){
   let mult = 1.0;
   if(themeHits < 1) mult = 0.25;
   else if(themeHits < expected) mult = 0.65;
-  else if(themeHits < expected + 2) mult = 0.85;
+  else if(themeHits < expected + 1) mult = 0.85;
 
   const raw = wcScore + contentScore + tfScore + opScore + rangeScore;
   const score = clamp(Math.round(raw * mult), 0, maxMarks);

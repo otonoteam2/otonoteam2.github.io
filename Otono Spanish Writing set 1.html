@@ -1281,7 +1281,7 @@ function markWriting(text, spec, maxMarks, themeKey){
   let mult = 1.0;
   if(themeHits < 1) mult = 0.25;
   else if(themeHits < expected) mult = 0.65;
-  else if(themeHits < expected + 2) mult = 0.85;
+  else if(themeHits < expected + 1) mult = 0.85;
 
   const raw = wcScore + contentScore + tfScore + opScore + rangeScore;
   const score = clamp(Math.round(raw * mult), 0, maxMarks);
