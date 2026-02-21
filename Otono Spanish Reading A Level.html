@@ -876,57 +876,68 @@ Después de la sesión, Joshua explicó su lógica: si nunca se puede reír, uno
     ]
   },
 
-  {
-    id:"P11",
-    titre:"Texto P11 — El puente entre idiomas",
-    theme:"Otono Team — Ayuda, claridad, estrategias",
-    texte:`Shireen tiene una manera particular de ayudar: no da la respuesta, da una ruta. Cuando alguien se bloquea, hace una pregunta simple: «¿Qué estás intentando decir, exactamente?». Luego transforma esa idea en pasos. A Red le gusta mucho ese método porque respeta la autonomía del candidato. Para Shireen, el objetivo no es ser brillante; es ser claro.
+  /* -------------------- P11 SPANISH (replacement due to complaints) -------------------- */
+{
+  id:"P11",
+  titre:"Pasaje P11 — El departamento de lenguas de Otono",
+  theme:"Departamento MFL de Otono — quejas, organización y credibilidad",
+  texte:`El departamento de lenguas de Otono no empezó como una actividad divertida. Empezó con quejas. Algunos alumnos decían que las instrucciones no eran claras. Otros pensaban que los criterios eran demasiado duros. También había personas que decían que el sistema parecía imprevisible.
 
-En una sesión de repaso, Thomas había escrito una frase larga pero confusa. Luke quería corregir cada detalle inmediatamente. Shireen lo paró: «Si corregimos sin entender la intención, corremos el riesgo de romper la frase». Le pidió a Thomas que reformulara en una sola idea y luego reconstruyera. Red observó la escena y entendió por qué Shireen es útil: reduce el estrés organizando el caos.
+Red escuchó todas las críticas, pero tomó una decisión importante: mejorar la claridad sin bajar el nivel. Según él, un departamento serio debe ser comprensible y coherente. Si los alumnos no entienden por qué pierden puntos, el problema no es la dificultad, sino la explicación.
 
-Shireen insiste también en una cosa: mezclar idiomas suele ser un síntoma. No es un error “tonto”, sino cansancio o duda. Por eso propone una regla de supervivencia: elegir una estructura simple, comprobar los conectores y luego releer en voz baja. Dice que la voz revela incoherencias más rápido que los ojos.
+Para solucionar esto, Red creó un pequeño grupo de ayuda. Luke se encargó del formato y de comprobar que todo fuera claro: acentos, puntuación, estructura y orden de las preguntas. Shireen trabajó sobre el contenido lingüístico. Revisaba los textos, buscaba errores de sentido y comprobaba que una pregunta no castigara a un alumno honesto. Thomas analizaba la lógica de preguntas como verdadero/falso/no mencionado. Lewis ayudaba a simplificar instrucciones sin hacerlas fáciles. Benjamin Nelson tenía otra función: recordar que el objetivo del departamento es aprender idiomas, no comparar personas.
 
-Al final, Red dio las gracias a Shireen. Dijo que, en el Otono Team, la disciplina es importante, pero que la disciplina sin método se convierte en presión inútil. Shireen respondió que un buen método no elimina el esfuerzo: lo hace posible.`,
-    questions:[
-      {id:"P11_q1", type:"mcq", marks:2,
-        prompt:"1) Según el texto, ¿cómo ayuda Shireen sobre todo?",
-        options:[
-          "Da directamente las respuestas",
-          "Da una ruta y pasos",
-          "Se niega a hablar",
-          "Sustituye a Red como correctora"
-        ],
-        answerIndex:1
-      },
-      {id:"P11_q2", type:"tfnm", marks:2,
-        prompt:"2) Shireen cree que mezclar idiomas siempre es un error «tonto». (Verdadero / Falso / No se menciona)",
-        correct:"Falso"
-      },
-      {id:"P11_q3", type:"pn", marks:2,
-        prompt:"3) El método se presenta como… (P / N / P+N)",
-        correct:"P"
-      },
-      {id:"P11_q4", type:"syn", marks:4,
-        prompt:"4) Encuentra en el texto una palabra que signifique «autonomía» (misma palabra).",
-        acceptable:["autonomia","autonomía"]
-      },
-      {id:"P11_q5", type:"match", marks:4,
-        prompt:"5) En el texto, ¿qué palabra significa «incoherencias» (misma palabra)?",
-        acceptable:["incoherencias"]
-      },
-      {id:"P11_q6", type:"short", marks:6,
-        prompt:"6) Da dos razones por las que Red aprecia el método de Shireen (dos ideas).",
-        rubric:"Respeta autonomía; organiza pasos; reduce estrés; evita corregir sin intención; hace posible el esfuerzo.",
-        keywords:[
-          ["autonomia","autonomía"],
-          ["pasos","ruta","organiza","organizar"],
-          ["estres","estrés","reduce","redu"],
-          ["intencion","intención","entender"],
-          ["posible","presion inutil","presión inútil"]
-        ]
-      }
-    ]
-  },
+El nuevo sistema se volvió más exigente, pero también más claro. Curiosamente, las quejas más fuertes desaparecieron poco a poco. La razón era simple: cuando cada decisión puede explicarse, el sistema puede criticarse… pero también puede respetarse.`,
+  questions:[
+    {id:"P11_q1", type:"mcq", marks:2,
+      prompt:"1) ¿Por qué se reorganizó el departamento de lenguas?",
+      options:[
+        "Porque querían hacerlo más divertido",
+        "Porque había quejas sobre claridad, severidad e imprevisibilidad",
+        "Porque Luke prohibió los idiomas",
+        "Porque Benjamin Nelson eliminó las reglas"
+      ],
+      answerIndex:1
+    },
+    {id:"P11_q2", type:"tfnm", marks:2,
+      prompt:"2) Red decidió bajar el nivel para evitar quejas. (Verdadero / Falso / No mencionado)",
+      correct:"Falso"
+    },
+    {id:"P11_q3", type:"pn", marks:2,
+      prompt:"3) Las quejas se presentan como… (P / N / P+N)",
+      correct:"P+N"
+    },
+    {id:"P11_q4", type:"syn", marks:3,
+      prompt:"4) Encuentra en el texto una palabra que significa «claro / fácil de entender».",
+      acceptable:["comprensible","claro"]
+    },
+    {id:"P11_q5", type:"match", marks:3,
+      prompt:"5) En el texto, ¿qué palabra significa «ser digno de confianza»?",
+      acceptable:["respetarse","coherente"]
+    },
+    {id:"P11_q6", type:"short", marks:4,
+      prompt:"6) ¿Quién hace el trabajo principal sobre el contenido lingüístico y qué hace exactamente? (dos ideas)",
+      rubric:"Shireen; revisa textos; detecta errores de sentido; comprueba que no haya trampas injustas.",
+      keywords:[
+        ["shireen"],
+        ["revisa","revisar","textos"],
+        ["errores","sentido"],
+        ["trampa","injusta","honesto"]
+      ]
+    },
+    {id:"P11_q7", type:"short", marks:4,
+      prompt:"7) Explica por qué el sistema puede criticarse pero también respetarse (dos ideas).",
+      rubric:"Las decisiones pueden explicarse; hay transparencia; los alumnos entienden la pérdida de puntos; coherencia del sistema.",
+      keywords:[
+        ["explicar","explicarse","decision"],
+        ["transparente","claridad"],
+        ["entienden","pierden puntos"],
+        ["coherente","coherencia"],
+        ["respeto","respetar"]
+      ]
+    }
+  ]
+},
 
   {
     id:"P12",
@@ -1286,8 +1297,8 @@ const ESSAYS = [
   },
 
   {
-    id:"E_P12",
-    passageId:"P12",
+    id:"E_P11",
+    passageId:"P11",
     titre:"Mini-ensayo — Estilo y claridad: ¿se puede conservar el universo de Thomas?",
     passage:`Thomas escribe con un estilo dramático y un universo oscuro. Shireen propone conservar la imagen, pero controlar la estructura y añadir pruebas.`,
     consigne:`Escribe unas 90 palabras. ¿Hay que priorizar el estilo o la claridad en una prueba?`,
@@ -1314,8 +1325,8 @@ const ESSAYS = [
   },
 
   {
-    id:"E_P13",
-    passageId:"P13",
+    id:"E_P12",
+    passageId:"P12",
     titre:"Mini-ensayo — Reglas como “escudo”: la visión de Wyatt",
     passage:`Wyatt sigue las reglas porque odia perder puntos por un detalle evitable. Para él, la disciplina protege la nota y convierte la corrección en un plan de acción.`,
     consigne:`Escribe unas 90 palabras. ¿Las reglas estrictas hacen la evaluación más justa?`,
@@ -1342,8 +1353,8 @@ const ESSAYS = [
   },
 
   {
-    id:"E_P15",
-    passageId:"P15",
+    id:"E_P13",
+    passageId:"P13",
     titre:"Mini-ensayo — Revisar para cambiar la nota… o para eliminar la duda",
     passage:`Angus Drummond quiere una corrección demostrable: pruebas, criterios y consigna. Red muestra que una revisión a veces sirve más para hacer coherente la decisión y eliminar la duda que para subir la nota.`,
     consigne:`Escribe unas 90 palabras. ¿Cuál es, para ti, el mejor objetivo de una revisión?`,
