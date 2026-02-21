@@ -1,0 +1,1628 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>🟣 Otono French — Listening + Dictation (Auto Marking) • GCSE Style</title>
+  <style>
+    :root{
+      --bg1:#2b0a3d; --bg2:#7a0036;
+      --card:#0f0b18cc;
+      --text:#f4efff; --muted:#c9b9ff;
+      --accent:#b000ff; --accent2:#ff1b6a;
+      --good:#19ff9a; --warn:#ffd166; --bad:#ff4d6d;
+      --line:rgba(255,255,255,.12);
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:var(--sans); color:var(--text);
+      background:
+        radial-gradient(1000px 700px at 15% 10%, rgba(176,0,255,.22), transparent 60%),
+        radial-gradient(900px 650px at 80% 20%, rgba(255,27,106,.18), transparent 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+    }
+    .wrap{max-width:1180px; margin:0 auto; padding:22px;}
+    .topbar{
+      display:flex; gap:14px; align-items:center; justify-content:space-between;
+      padding:14px 16px; border:1px solid var(--line); border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      box-shadow:var(--shadow);
+      position:sticky; top:14px; z-index:30; backdrop-filter: blur(10px);
+      flex-wrap:wrap;
+    }
+    .brand{display:flex; flex-direction:column; gap:2px}
+    .brand h1{margin:0; font-size:16px; letter-spacing:.3px}
+    .brand .sub{font-size:12px; color:var(--muted); line-height:1.25}
+    .pill{
+      padding:8px 10px; border-radius:999px; border:1px solid var(--line);
+      background:rgba(0,0,0,.25); font-family:var(--mono); font-size:12px;
+      display:flex; gap:10px; align-items:center;
+    }
+    .pill strong{color:#fff}
+    .btn{
+      border:1px solid var(--line); background:rgba(0,0,0,.25);
+      color:var(--text); padding:10px 12px; border-radius:14px; cursor:pointer;
+      transition:.15s transform, .15s background, .15s border, .15s opacity;
+      font-weight:600;
+    }
+    .btn:hover{transform:translateY(-1px); background:rgba(0,0,0,.33); border-color:rgba(255,255,255,.22)}
+    .btn.primary{
+      background:linear-gradient(135deg, rgba(176,0,255,.55), rgba(255,27,106,.45));
+      border-color:rgba(255,255,255,.22);
+    }
+    .btn:disabled{opacity:.55; cursor:not-allowed; transform:none}
+    .grid{display:grid; grid-template-columns: 1.1fr .9fr; gap:16px; margin-top:16px;}
+    @media (max-width: 980px){ .grid{grid-template-columns:1fr} .topbar{position:static} }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .card .hd{
+      padding:14px 16px; border-bottom:1px solid var(--line);
+      display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
+      background:linear-gradient(180deg, rgba(255,255,255,.06), transparent);
+    }
+    .card .hd h2{margin:0; font-size:14px}
+    .card .hd .meta{font-size:12px; color:var(--muted); line-height:1.25}
+    .card .bd{padding:16px}
+    label{display:block; font-size:12px; color:var(--muted); margin:10px 0 6px}
+
+    input[type="text"], textarea, select{
+      width:100%; border:1px solid var(--line); background:rgba(0,0,0,.25);
+      color:var(--text); padding:10px 12px; border-radius:14px; outline:none;
+      font-family:var(--sans);
+    }
+    textarea{min-height:90px; resize:vertical}
+
+    .row{display:flex; gap:10px; flex-wrap:wrap}
+    .row > div{flex:1 1 180px}
+
+    .note{
+      font-size:12px; color:var(--muted); line-height:1.45;
+      padding:10px 12px; border-radius:14px; border:1px dashed rgba(255,255,255,.18);
+      background:rgba(0,0,0,.18);
+    }
+    .badge{
+      font-family:var(--mono); font-size:12px; padding:6px 10px; border-radius:999px;
+      border:1px solid var(--line); background:rgba(0,0,0,.20);
+      display:inline-flex; align-items:center; gap:6px;
+    }
+    .badge.good{border-color:rgba(25,255,154,.35); background:rgba(25,255,154,.12)}
+    .badge.warn{border-color:rgba(255,209,102,.35); background:rgba(255,209,102,.12)}
+    .badge.bad{border-color:rgba(255,77,109,.35); background:rgba(255,77,109,.12)}
+    .divider{height:1px; background:var(--line); margin:14px 0}
+
+    .q{
+      margin-top:14px; padding:12px 14px; border:1px solid var(--line);
+      border-radius:16px; background:rgba(0,0,0,.20);
+    }
+    .q h3{margin:0 0 8px; font-size:13px}
+    .opts{display:grid; gap:8px; margin-top:8px}
+    .opt{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:10px 10px; border-radius:14px; border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+      cursor:pointer;
+    }
+    .opt input{margin-top:3px}
+
+    .kpi{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
+    @media (max-width: 980px){ .kpi{grid-template-columns:repeat(2,1fr)} }
+    .kpi .box{
+      border:1px solid var(--line); border-radius:16px; padding:10px 12px;
+      background:rgba(0,0,0,.22);
+    }
+    .kpi .box .t{font-size:12px; color:var(--muted)}
+    .kpi .box .v{font-size:18px; font-weight:800; margin-top:4px}
+    .small{font-size:12px; color:var(--muted)}
+    .hide{display:none !important}
+
+    .digitRow{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
+    .digitRow .digit{
+      width:52px; text-align:center; font-family:var(--mono);
+      font-size:18px; font-weight:900; padding:12px 0;
+      border-radius:14px; border:1px solid var(--line);
+      background:rgba(0,0,0,.25); color:var(--text);
+      outline:none;
+    }
+    .digitRow .hint{font-size:12px; color:var(--muted)}
+
+    /* Right panel: tabs */
+    .tabs{display:flex; gap:8px; flex-wrap:wrap}
+    .tab{
+      padding:10px 12px; border-radius:14px; border:1px solid var(--line);
+      background:rgba(0,0,0,.22); cursor:pointer; font-weight:800;
+      user-select:none;
+    }
+    .tab.active{
+      background:linear-gradient(135deg, rgba(176,0,255,.35), rgba(255,27,106,.22));
+      border-color:rgba(255,255,255,.22)
+    }
+    .stickyRight{
+      position:sticky;
+      top:88px;
+      max-height: calc(100vh - 118px);
+      overflow:auto;
+      padding-right:6px;
+    }
+
+    .charGrid{display:flex; flex-wrap:wrap; gap:8px}
+    .charBtn{
+      font-family:var(--mono);
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.25);
+      color:var(--text);
+      padding:8px 10px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:900;
+      min-width:44px;
+      text-align:center;
+    }
+    .charBtn:hover{background:rgba(0,0,0,.33); border-color:rgba(255,255,255,.22)}
+
+    .sectionTitle{
+      margin-top:16px;
+      padding:12px 14px;
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:16px;
+      background:linear-gradient(135deg, rgba(176,0,255,.20), rgba(255,27,106,.12));
+    }
+    .sectionTitle h3{margin:0; font-size:13px}
+    .sectionTitle .meta{margin-top:6px; font-size:12px; color:var(--muted); line-height:1.35}
+
+    /* Floating Special Characters launcher (fix: no scroll needed) */
+    .floatBtn{
+      position:fixed;
+      right:16px;
+      bottom:16px;
+      z-index:999;
+      border:1px solid rgba(255,255,255,.22);
+      background:linear-gradient(135deg, rgba(176,0,255,.55), rgba(255,27,106,.45));
+      color:var(--text);
+      padding:12px 14px;
+      border-radius:999px;
+      box-shadow: var(--shadow);
+      cursor:pointer;
+      font-weight:900;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .floatBtn:active{transform:translateY(1px)}
+    .floatBadge{
+      font-family:var(--mono);
+      padding:2px 8px;
+      border-radius:999px;
+      background:rgba(0,0,0,.25);
+      border:1px solid rgba(255,255,255,.18);
+      font-size:12px;
+      font-weight:900;
+    }
+
+    /* Modal */
+    .modalBack{
+      position:fixed; inset:0;
+      background:rgba(0,0,0,.55);
+      z-index:1000;
+      display:none;
+      align-items:flex-end;
+      justify-content:center;
+      padding:14px;
+    }
+    .modalBack.show{display:flex}
+    .modal{
+      width:min(720px, 100%);
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:22px;
+      background:linear-gradient(180deg, rgba(15,11,24,.96), rgba(18,12,34,.92));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .modalHd{
+      padding:14px 16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      border-bottom:1px solid rgba(255,255,255,.12);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), transparent);
+    }
+    .modalHd h3{margin:0; font-size:14px}
+    .modalBd{padding:14px 16px}
+    .modalActions{display:flex; gap:10px; flex-wrap:wrap}
+    .miniHelp{font-size:12px; color:var(--muted); line-height:1.35; margin-top:10px}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <h1>🟣 Otono French — Listening + Dictation • GCSE Style</h1>
+        <div class="sub">
+          Listening: <strong>60 marks</strong> total • Dictation: <strong id="dictTop">40</strong> marks total • Full mark:
+          <strong id="maxTop">100</strong> • Centre: <strong id="centreTop">50749</strong>
+        </div>
+      </div>
+      <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end">
+        <div class="pill"><span>⏱️ Timer:</span><strong id="timerText">--:--</strong></div>
+        <button class="btn" id="btnToolsTop">Tools</button>
+        <button class="btn" id="btnResultsTop">Results</button>
+        <button class="btn primary" id="btnTestTop">Test</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- Left -->
+      <div class="card" id="panelLeft">
+        <div class="hd">
+          <div>
+            <h2 id="leftTitle">Candidate setup</h2>
+            <div class="meta" id="leftMeta">
+              GCSE style • No dictionary • No translator • No voice selection • Listening reduced • Dictation is 5 sentences.
+            </div>
+          </div>
+          <span class="badge" id="statusBadge">Ready</span>
+        </div>
+
+        <!-- HOME -->
+        <div class="bd" id="homeBody">
+          <div class="row">
+            <div>
+              <label>Centre number</label>
+              <input type="text" id="centreNo" value="50749" disabled />
+              <div class="small" style="margin-top:6px">Default is <strong>50749</strong>.</div>
+            </div>
+            <div style="display:flex; gap:10px; align-items:flex-end; flex-wrap:wrap">
+              <button class="btn" id="btnEditCentre">Customise centre</button>
+              <button class="btn" id="btnResetCentre">Reset centre</button>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div>
+            <label>Candidate number (required, 4 digits)</label>
+            <div class="digitRow" aria-label="Candidate number 4 digits">
+              <input class="digit" id="candD1" inputmode="numeric" maxlength="1" />
+              <input class="digit" id="candD2" inputmode="numeric" maxlength="1" />
+              <input class="digit" id="candD3" inputmode="numeric" maxlength="1" />
+              <input class="digit" id="candD4" inputmode="numeric" maxlength="1" />
+              <span class="hint">Digits only • auto-advance</span>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top:6px">
+            <div>
+              <label>Candidate surname (optional)</label>
+              <input type="text" id="candSurname" placeholder="Surname" />
+            </div>
+            <div>
+              <label>Candidate forename(s) (optional)</label>
+              <input type="text" id="candForenames" placeholder="Forename(s)" />
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="row">
+            <div>
+              <label>Tier</label>
+              <select id="tier">
+                <option value="higher" selected>Higher (max 100)</option>
+                <option value="foundation">Foundation (max 90)</option>
+              </select>
+              <div class="small" style="margin-top:6px">
+                Higher: 60 listening + 5×8 dictation = <strong>100</strong><br/>
+                Foundation: 60 listening + 5×6 dictation = <strong>90</strong>
+              </div>
+            </div>
+
+            <div>
+              <label>Extra time</label>
+              <select id="extraTime">
+                <option value="0" selected>Normal timing</option>
+                <option value="25">25% extra time</option>
+                <option value="50" id="opt50">50% extra time (locked)</option>
+              </select>
+              <div class="small" id="extraTimeHint" style="margin-top:6px">
+                50% extra time is locked unless you use an authorised candidate number.
+              </div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>Big fixes:</strong><br/>
+            • Special characters are available anywhere via the <strong>floating button</strong> (bottom-right).<br/>
+            • Listening is <strong>only 6 tasks</strong> (60 marks).<br/>
+            • Dictation is <strong>always 5 sentences</strong> (8 marks each Higher / 6 marks each Foundation).<br/>
+            • No voice selection (GCSE style).
+          </div>
+
+          <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap">
+            <button class="btn primary" id="btnStart">Start Random Paper</button>
+            <button class="btn" id="btnPreview">Preview Selection</button>
+          </div>
+
+          <div id="previewBox" class="note hide" style="margin-top:12px"></div>
+        </div>
+
+        <!-- TEST -->
+        <div class="bd hide" id="testBody">
+          <div class="kpi">
+            <div class="box"><div class="t">Candidate</div><div class="v" id="kpiCandidate">—</div></div>
+            <div class="box"><div class="t">Tier</div><div class="v" id="kpiTier">—</div></div>
+            <div class="box"><div class="t">Max score</div><div class="v" id="kpiMax">—</div></div>
+            <div class="box"><div class="t">Extra time</div><div class="v" id="kpiExtra">—</div></div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>Audio rules:</strong><br/>
+            • Listening recording: max <strong>2 plays</strong> per task.<br/>
+            • Dictation: max <strong>3 plays</strong> (full → chunks → full).<br/>
+            • Special characters: use the floating <strong>“Special chars”</strong> button (bottom-right).
+          </div>
+
+          <div id="paper"></div>
+
+          <div class="divider"></div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap">
+            <button class="btn primary" id="btnSubmit">Submit & Auto-Mark</button>
+            <button class="btn" id="btnReset">Reset (new random paper)</button>
+          </div>
+
+          <div id="markingBox" class="hide" style="margin-top:14px"></div>
+        </div>
+      </div>
+
+      <!-- Right -->
+      <div class="card" id="panelRight">
+        <div class="hd">
+          <div>
+            <h2>Side panel</h2>
+            <div class="meta">Tabs: Tools / Grades / Results</div>
+          </div>
+        </div>
+
+        <div class="bd">
+          <div class="tabs">
+            <div class="tab active" id="tabTools">Tools</div>
+            <div class="tab" id="tabGrades">Grades</div>
+            <div class="tab" id="tabResults">Results</div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="stickyRight">
+            <!-- TOOLS -->
+            <div id="toolsPanel">
+              <div class="note">
+                <strong>Special characters (also available via floating button)</strong><br/>
+                Click to insert into the active answer box.
+              </div>
+              <div class="divider"></div>
+              <div class="charGrid" id="charGrid"></div>
+
+              <div class="divider"></div>
+              <div class="note">
+                <strong>Otono members list (reference)</strong>
+                <div class="divider"></div>
+                <div id="memberList" style="line-height:1.6"></div>
+              </div>
+            </div>
+
+            <!-- GRADES -->
+            <div id="gradesPanel" class="hide">
+              <div class="note">
+                <strong>Pass / Merit / Distinction</strong><br/>
+                PASS: 66+<br/>MERIT: 80+<br/>DISTINCTION: 90+
+              </div>
+
+              <div class="divider"></div>
+
+              <div class="note">
+                <strong>Higher tier grade boundaries</strong><br/>
+                A* = 95<br/>
+                A = 90<br/>
+                B = 80<br/>
+                C = 66<br/>
+                D = 55<br/>
+                E = 45<br/>
+                F = 40<br/>
+                else = U
+              </div>
+
+              <div class="divider"></div>
+
+              <div class="note">
+                <strong>Foundation tier grade boundaries</strong><br/>
+                C = 80<br/>
+                D = 66<br/>
+                E = 50<br/>
+                F = 40<br/>
+                G = 30<br/>
+                H = 20<br/>
+                else = U
+              </div>
+            </div>
+
+            <!-- RESULTS -->
+            <div id="resultsPanel" class="hide">
+              <div class="note">Stored attempts (this browser only).</div>
+              <div class="divider"></div>
+              <div id="resultsList"></div>
+              <div class="divider"></div>
+              <button class="btn" id="btnClear">Clear stored results</button>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+          <div class="small">Even if you’re at the bottom, the floating special-chars button stays visible.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating button -->
+  <button class="floatBtn" id="floatChars" type="button" aria-label="Open special characters">
+    ✨ Special chars <span class="floatBadge">FR</span>
+  </button>
+
+  <!-- Modal -->
+  <div class="modalBack" id="modalBack" role="dialog" aria-modal="true">
+    <div class="modal">
+      <div class="modalHd">
+        <h3>✨ Special characters (insert into your answer)</h3>
+        <div class="modalActions">
+          <button class="btn" id="btnCloseModal" type="button">Close</button>
+        </div>
+      </div>
+      <div class="modalBd">
+        <div class="charGrid" id="charGridModal"></div>
+        <div class="miniHelp">
+          Tip: click any character to insert it into the last answer box you were typing in.
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* =========================================================
+   Fixes in this version:
+   ✅ Floating special characters modal (works anywhere on page)
+   ✅ Extra time options returned (0/25/50 locked)
+   ✅ Dictation always 5 sentences:
+      - Higher: 8 marks each (40 total)
+      - Foundation: 6 marks each (30 total)
+   ✅ Listening fixed at 60 marks (6 tasks)
+========================================================= */
+
+const OTONO_CENTRE_DEFAULT = "50749";
+
+/* Authorised candidate numbers for 50% extra time */
+const EXTRA50_ALLOWED = new Set([
+  "1149","1152","1155","9932","3399","6642","6184","1479","1132","4167","4755","1141","2048","8044","4601"
+]);
+
+/* Otono members reference */
+const MEMBER_REFERENCE = [
+  "Gary","Ivy","Mr Ribbon Cutter","Big Guy","Middle Guy","Grandpa Belt","Grandma Sleep",
+  "Luke","OWing","Red","Jessica","Lit",
+  "Clayton"
+];
+
+/* Dictation banks: 4–9 words */
+const DICT_OVERLAP = [
+  "Red préfère l’hiver.",
+  "Luke écrit en encre noire.",
+  "L’équipe Otono travaille ensemble.",
+  "Nous révisons avant l’examen.",
+  "On respecte la règle de l’examen.",
+  "Je souligne les mots importants."
+];
+
+const DICT_HIGHER_ONLY = [
+  "Ivy change le plan au dernier moment.",
+  "La précision évite des erreurs bêtes.",
+  "Nous restons concentrés jusqu’à la fin.",
+  "Clayton calcule vite et correctement.",
+  "Lit relit tout avant de rendre.",
+  "Gary organise le départ du vol.",
+  "Je demande une répétition, s’il vous plaît."
+];
+
+const DICT_FOUNDATION_ONLY = [
+  "Red adore le français.",
+  "Il faut écrire clairement.",
+  "Je vérifie mes réponses.",
+  "Nous aimons les langues.",
+  "L’avion part ce soir.",
+  "J’ai oublié mon stylo noir.",
+  "On commence par facile."
+];
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+function pickRandom(arr, n){ return shuffle(arr).slice(0,n); }
+
+function pickDictations5(tier){
+  if(tier === "higher"){
+    const overlap = pickRandom(DICT_OVERLAP, 2);
+    const rest = pickRandom(DICT_HIGHER_ONLY, 3);
+    return shuffle([...overlap, ...rest]).slice(0,5);
+  }else{
+    const overlap = pickRandom(DICT_OVERLAP, 2);
+    const rest = pickRandom(DICT_FOUNDATION_ONLY, 3);
+    return shuffle([...overlap, ...rest]).slice(0,5);
+  }
+}
+
+/* Listening tasks: 10 marks each; choose 6 => 60 */
+const LISTENING_TASKS = [
+  {
+    id:"L1",
+    title:"Listening — Exam instructions",
+    transcript:`Le jour de l’examen, les élèves entrent calmement. L’invigilateur lit les consignes : pas de téléphone, écrire clairement, et respecter les règles.`,
+    questions:[
+      { id:"L1Q1", type:"mcq", marks:2, prompt:"What is not allowed?",
+        options:["A phone","A ruler","A dictionary","A pencil"], answerIndex:0
+      },
+      { id:"L1Q2", type:"tfnm", marks:2, prompt:"Students run into the room. (True/False/Not mentioned)", correct:"False" },
+      { id:"L1Q3", type:"pn", marks:2, prompt:"‘Students enter calmly.’ (P/N/P+N)", correct:"P" },
+      { id:"L1Q4", type:"short", marks:4, prompt:"Give TWO instructions mentioned.",
+        keywords:[
+          ["pas de telephone","pas de téléphone","telephone","phone"],
+          ["ecrire clairement","écrire clairement","clearly","clearly write"],
+          ["respecter les regles","respecter les règles","règles","rules"],
+          ["consignes","instructions"]
+        ]
+      }
+    ]
+  },
+  {
+    id:"L2",
+    title:"Listening — Study method",
+    transcript:`Monsieur Barley explique qu’il faut lire la consigne et répondre exactement. Red souligne les mots importants pour éviter des erreurs simples.`,
+    questions:[
+      { id:"L2Q1", type:"mcq", marks:2, prompt:"What must students do first?",
+        options:["Read the instructions","Skip the question","Copy a friend","Write faster"], answerIndex:0
+      },
+      { id:"L2Q2", type:"tfnm", marks:2, prompt:"The transcript says Red underlines words. (True/False/Not mentioned)", correct:"True" },
+      { id:"L2Q3", type:"pn", marks:2, prompt:"‘This helps avoid simple mistakes.’ (P/N/P+N)", correct:"P" },
+      { id:"L2Q4", type:"short", marks:4, prompt:"Why does Red underline important words?",
+        keywords:[
+          ["eviter des erreurs","éviter des erreurs","avoid mistakes","mistakes"],
+          ["repondre exactement","répondre exactement","exactly","exact"]
+        ]
+      }
+    ]
+  },
+  {
+    id:"L3",
+    title:"Listening — Time management",
+    transcript:`Pour réussir, la gestion du temps est essentielle. Red utilise un planning simple et travaille régulièrement.`,
+    questions:[
+      { id:"L3Q1", type:"mcq", marks:2, prompt:"Time management is described as…",
+        options:["Essential","Useless","Dangerous","Funny"], answerIndex:0
+      },
+      { id:"L3Q2", type:"pn", marks:2, prompt:"‘Red works regularly.’ (P/N/P+N)", correct:"P" },
+      { id:"L3Q3", type:"tfnm", marks:2, prompt:"The transcript says Red has no plan. (True/False/Not mentioned)", correct:"False" },
+      { id:"L3Q4", type:"short", marks:4, prompt:"Give ONE detail about Red’s method.",
+        keywords:[
+          ["planning","plan","planning simple"],
+          ["travaille regulierement","travaille régulièrement","régulièrement","regularly"]
+        ]
+      }
+    ]
+  },
+  {
+    id:"L4",
+    title:"Listening — Otono Airways",
+    transcript:`Avec Otono Airways, les passagers remarquent l’organisation dans la cabine et le confort des sièges. Même en classe économique, il y a assez d’espace.`,
+    questions:[
+      { id:"L4Q1", type:"mcq", marks:2, prompt:"Passengers notice…",
+        options:["Organisation and comfort","Only pilots","Only food","Only exams"], answerIndex:0
+      },
+      { id:"L4Q2", type:"tfnm", marks:2, prompt:"Economy has no space. (True/False/Not mentioned)", correct:"False" },
+      { id:"L4Q3", type:"pn", marks:2, prompt:"‘There is enough space in economy.’ (P/N/P+N)", correct:"P" },
+      { id:"L4Q4", type:"short", marks:4, prompt:"Name TWO things passengers notice.",
+        keywords:[
+          ["organisation","cabine"],
+          ["confort","sieges","sièges"],
+          ["assez d espace","assez d’espace","espace","economique","économique"]
+        ]
+      }
+    ]
+  },
+  {
+    id:"L5",
+    title:"Listening — Teamwork",
+    transcript:`Le travail d’équipe est essentiel. Red préfère aller vite, et OWing préfère la précision. Ensemble, le projet progresse.`,
+    questions:[
+      { id:"L5Q1", type:"mcq", marks:2, prompt:"Teamwork is described as…",
+        options:["Essential","Impossible","Boring","Unfair"], answerIndex:0
+      },
+      { id:"L5Q2", type:"pn", marks:2, prompt:"‘OWing prefers precision.’ (P/N/P+N)", correct:"P" },
+      { id:"L5Q3", type:"tfnm", marks:2, prompt:"The transcript says Red is slow. (True/False/Not mentioned)", correct:"False" },
+      { id:"L5Q4", type:"short", marks:4, prompt:"Give TWO contrasts mentioned.",
+        keywords:[
+          ["vite","aller vite","rapid"],
+          ["precision","précision","accurate"]
+        ]
+      }
+    ]
+  },
+  {
+    id:"L6",
+    title:"Listening — Preparation",
+    transcript:`Avant l’épreuve, Luke prépare son matériel : stylo noir, règle et gomme. Red vérifie l’heure et relit les consignes.`,
+    questions:[
+      { id:"L6Q1", type:"mcq", marks:2, prompt:"What does Luke prepare?",
+        options:["Equipment","A sandwich","A video","A bike"], answerIndex:0
+      },
+      { id:"L6Q2", type:"tfnm", marks:2, prompt:"Red ignores the instructions. (True/False/Not mentioned)", correct:"False" },
+      { id:"L6Q3", type:"pn", marks:2, prompt:"‘Red rereads the instructions.’ (P/N/P+N)", correct:"P" },
+      { id:"L6Q4", type:"short", marks:4, prompt:"Give TWO items Luke prepares.",
+        keywords:[
+          ["stylo noir","stylo","noir"],
+          ["regle","règle","ruler"],
+          ["gomme","eraser"]
+        ]
+      }
+    ]
+  }
+];
+
+/* -----------------------------
+   DOM helpers
+--------------------------------*/
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+function escapeHtml(str){
+  return (str ?? "").toString()
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+function normLoose(s){
+  return (s ?? "")
+    .toString()
+    .toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .replace(/[’]/g,"'")
+    .replace(/[^a-z0-9'\s]/g," ")
+    .replace(/\s+/g," ")
+    .trim();
+}
+function normStrict(s){
+  return (s ?? "")
+    .toString()
+    .trim()
+    .replace(/[’]/g,"'")
+    .replace(/\s+/g," ");
+}
+function tokeniseLoose(s){ return normLoose(s).split(" ").filter(Boolean); }
+
+/* -----------------------------
+   Grades (your boundaries)
+--------------------------------*/
+function gradeHigher(score){
+  if(score >= 95) return "A*";
+  if(score >= 90) return "A";
+  if(score >= 80) return "B";
+  if(score >= 66) return "C";
+  if(score >= 55) return "D";
+  if(score >= 45) return "E";
+  if(score >= 40) return "F";
+  return "U";
+}
+function gradeFoundation(score){
+  if(score >= 80) return "C";
+  if(score >= 66) return "D";
+  if(score >= 50) return "E";
+  if(score >= 40) return "F";
+  if(score >= 30) return "G";
+  if(score >= 20) return "H";
+  return "U";
+}
+function passMeritDistinction(score){
+  if(score >= 90) return "DISTINCTION";
+  if(score >= 80) return "MERIT";
+  if(score >= 66) return "PASS";
+  return "FAIL";
+}
+function badgeForScore(score){
+  if(score >= 90) return ["badge good","🏆 DISTINCTION"];
+  if(score >= 80) return ["badge good","⭐ MERIT"];
+  if(score >= 66) return ["badge warn","✅ PASS"];
+  return ["badge bad","❌ FAIL"];
+}
+
+/* -----------------------------
+   Storage
+--------------------------------*/
+const STORE_KEY = "otonoFrenchListeningDictation_gcseStyle_v2";
+function loadResults(){ try{ return JSON.parse(localStorage.getItem(STORE_KEY)||"[]"); }catch(e){ return []; } }
+function saveResults(list){ localStorage.setItem(STORE_KEY, JSON.stringify(list)); }
+function addResult(attempt){ const list=loadResults(); list.unshift(attempt); saveResults(list); }
+
+/* -----------------------------
+   Candidate squares
+--------------------------------*/
+const digitIds = ["#candD1","#candD2","#candD3","#candD4"];
+function getCandidateNoFromSquares(){
+  const d = digitIds.map(id => ($(id).value || "").trim());
+  if(d.some(x => x.length !== 1 || !/^\d$/.test(x))) return "";
+  return d.join("");
+}
+function focusDigit(i){ const el = $(digitIds[i]); if(el) el.focus(); }
+digitIds.forEach((id, idx) => {
+  const el = $(id);
+  el.addEventListener("input", () => {
+    el.value = (el.value || "").replace(/\D/g,"").slice(0,1);
+    if(el.value && idx < 3) focusDigit(idx+1);
+    refreshExtraTimeLockUI();
+  });
+  el.addEventListener("keydown", (e) => {
+    if(e.key === "Backspace" && !el.value && idx > 0){ focusDigit(idx-1); }
+  });
+  el.addEventListener("paste", (e) => {
+    e.preventDefault();
+    const txt = (e.clipboardData || window.clipboardData).getData("text") || "";
+    const digits = txt.replace(/\D/g,"").slice(0,4).split("");
+    digits.forEach((ch, j) => { const target = $(digitIds[j]); if(target) target.value = ch; });
+    refreshExtraTimeLockUI();
+  });
+});
+
+/* -----------------------------
+   Special characters (modal + side tab)
+--------------------------------*/
+const SPECIAL_CHARS = ["é","è","ê","ë","à","â","î","ï","ô","ù","û","ç","œ","æ","’","'","É","À","Ç"];
+let lastFocusedTextarea = null;
+document.addEventListener("focusin", (e) => {
+  if(e.target && e.target.tagName === "TEXTAREA") lastFocusedTextarea = e.target;
+});
+function insertAtCursor(textarea, ch){
+  if(!textarea) return;
+  const start = textarea.selectionStart ?? textarea.value.length;
+  const end = textarea.selectionEnd ?? textarea.value.length;
+  textarea.value = textarea.value.slice(0,start) + ch + textarea.value.slice(end);
+  const pos = start + ch.length;
+  textarea.setSelectionRange(pos,pos);
+  textarea.dispatchEvent(new Event("input", {bubbles:true}));
+  textarea.focus();
+}
+function renderCharButtons(containerId){
+  const grid = $(containerId);
+  grid.innerHTML = SPECIAL_CHARS
+    .map(ch => `<button class="charBtn" type="button" data-ch="${escapeHtml(ch)}">${escapeHtml(ch)}</button>`)
+    .join("");
+  grid.querySelectorAll(".charBtn").forEach(btn => {
+    btn.addEventListener("click", () => insertAtCursor(lastFocusedTextarea, btn.getAttribute("data-ch")));
+  });
+}
+function renderMembers(){
+  $("#memberList").innerHTML = MEMBER_REFERENCE.map(n => `• ${escapeHtml(n)}`).join("<br/>");
+}
+
+/* Modal open/close */
+function openModal(){
+  $("#modalBack").classList.add("show");
+}
+function closeModal(){
+  $("#modalBack").classList.remove("show");
+}
+$("#floatChars").addEventListener("click", openModal);
+$("#btnCloseModal").addEventListener("click", closeModal);
+$("#modalBack").addEventListener("click", (e) => {
+  if(e.target === $("#modalBack")) closeModal();
+});
+document.addEventListener("keydown", (e) => {
+  if(e.key === "Escape" && $("#modalBack").classList.contains("show")) closeModal();
+});
+
+/* -----------------------------
+   Speech synthesis (GCSE style: no selection)
+--------------------------------*/
+let voices = [];
+function loadVoices(){ voices = (window.speechSynthesis?.getVoices?.() || []).slice(); }
+function isFrenchVoice(v){
+  const lang = (v.lang || "").toLowerCase();
+  return lang.startsWith("fr");
+}
+function pickVoiceA(){
+  const fr = voices.filter(isFrenchVoice);
+  return fr[0] || voices[0] || null;
+}
+function pickVoiceB(){
+  const fr = voices.filter(isFrenchVoice);
+  return fr[1] || fr[0] || voices[0] || null;
+}
+function getVoiceByIndex(i){ return (i % 2 === 0) ? pickVoiceA() : pickVoiceB(); }
+
+function speakOnce(text, voiceIndex, rate=0.90){
+  return new Promise((resolve) => {
+    try{
+      if(!("speechSynthesis" in window)){
+        alert("Speech Synthesis not supported. Use Chrome/Edge.");
+        resolve(); return;
+      }
+      const u = new SpeechSynthesisUtterance(text);
+      const v = getVoiceByIndex(voiceIndex);
+      if(v) u.voice = v;
+      u.lang = v?.lang || "fr-FR";
+      u.rate = rate;
+      u.pitch = 1.0;
+      u.onend = resolve;
+      u.onerror = resolve;
+      speechSynthesis.speak(u);
+    }catch(e){ resolve(); }
+  });
+}
+function sleep(ms){ return new Promise(r => setTimeout(r, ms)); }
+function chunkSentence(sentence){
+  const words = sentence.split(/\s+/).filter(Boolean);
+  const chunks = [];
+  let i=0;
+  while(i < words.length){
+    const size = (words.length - i <= 1) ? 1 : (Math.random() < 0.65 ? 1 : 2);
+    chunks.push(words.slice(i,i+size).join(" "));
+    i += size;
+  }
+  return chunks;
+}
+
+/* Extra time affects pauses AND timer */
+let extraTimePct = 0;
+function pauseMultiplier(){ return 1 + (extraTimePct/100); }
+
+/* audio locks */
+const audioLocks = {};
+function getLock(key, maxPlays){
+  if(!audioLocks[key]) audioLocks[key] = {plays:0, max:maxPlays, playing:false};
+  audioLocks[key].max = maxPlays;
+  return audioLocks[key];
+}
+async function playListening(key, transcript, btn, voiceIndex){
+  const lock = getLock(key, 2);
+  if(lock.playing) return;
+  if(lock.plays >= lock.max){ alert("Play limit reached (2)."); return; }
+
+  lock.playing = true;
+  btn.disabled = true;
+  lock.plays++;
+
+  const left = lock.max - lock.plays;
+  btn.textContent = left>0 ? `Play recording (${left} left)` : "Play limit reached";
+
+  await speakOnce(transcript, voiceIndex, 0.90);
+  await sleep(Math.round(2200 * pauseMultiplier()));
+
+  lock.playing = false;
+  btn.disabled = (lock.plays >= lock.max);
+}
+async function playDictation(key, sentence, btn, voiceIndex){
+  const lock = getLock(key, 3);
+  if(lock.playing) return;
+  if(lock.plays >= lock.max){ alert("Play limit reached (3)."); return; }
+
+  lock.playing = true;
+  btn.disabled = true;
+  lock.plays++;
+
+  const left = lock.max - lock.plays;
+  btn.textContent = left>0 ? `Play dictation (${left} left)` : "Play limit reached";
+
+  const stage = lock.plays; // 1 full, 2 chunks, 3 full
+  const pauseMs = Math.round(2800 * pauseMultiplier());
+
+  if(stage === 1){
+    await speakOnce(sentence, voiceIndex, 0.78);
+  }else if(stage === 2){
+    const chunks = chunkSentence(sentence);
+    for(let i=0;i<chunks.length;i++){
+      await speakOnce(chunks[i], voiceIndex, 0.72);
+      if(i<chunks.length-1) await sleep(pauseMs + 700);
+    }
+  }else{
+    await speakOnce(sentence, voiceIndex, 0.78);
+  }
+
+  await sleep(pauseMs + 700);
+  lock.playing = false;
+  btn.disabled = (lock.plays >= lock.max);
+}
+
+/* -----------------------------
+   App state
+--------------------------------*/
+let state = {
+  mode:"home",
+  centre: OTONO_CENTRE_DEFAULT,
+  tier:"higher",
+  maxScore:100,
+  selection:null,
+  answers:{},
+  mcqCorrect:{},
+  submitted:false,
+  timer:null,
+  remainingSec:0
+};
+
+function setBadge(text, cls="badge"){
+  const b = $("#statusBadge");
+  b.className = cls;
+  b.textContent = text;
+}
+function showLeft(panel){
+  $("#homeBody").classList.toggle("hide", panel !== "home");
+  $("#testBody").classList.toggle("hide", panel !== "test");
+}
+function setTopSub(tier){
+  if(tier === "foundation"){
+    $("#maxTop").textContent = "90";
+    $("#dictTop").textContent = "30";
+  }else{
+    $("#maxTop").textContent = "100";
+    $("#dictTop").textContent = "40";
+  }
+}
+
+/* Timer */
+function stopTimer(){
+  if(state.timer){ clearInterval(state.timer); state.timer=null; }
+}
+function startTimer(minutes){
+  stopTimer();
+  const scaledMinutes = Math.round(minutes * (1 + extraTimePct/100));
+  state.remainingSec = Math.max(1, Math.floor(scaledMinutes*60));
+  const tick = () => {
+    const m = Math.floor(state.remainingSec/60);
+    const s = state.remainingSec%60;
+    $("#timerText").textContent = `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+    state.remainingSec--;
+    if(state.remainingSec < 0){
+      stopTimer();
+      alert("Time is up. Submit now.");
+    }
+  };
+  tick();
+  state.timer = setInterval(tick, 1000);
+}
+
+/* Paper generation */
+function generatePaper(tier){
+  const maxScore = (tier === "foundation") ? 90 : 100;
+  const listening = pickRandom(LISTENING_TASKS, 6); // 60 marks
+
+  const dictSentences = pickDictations5(tier);
+  const marksEach = (tier === "foundation") ? 6 : 8;
+
+  const dictItems = dictSentences.map((s, i) => ({
+    id:`D${i+1}`,
+    sentence:s,
+    marks:marksEach
+  }));
+
+  return { tier, maxScore, listening, dictation:{ items: dictItems } };
+}
+
+/* Render choices */
+function renderChoice(q, optionObjects){
+  const name = `ans_${q.id}`;
+  const shuffled = shuffle(optionObjects);
+  const correctIndex = shuffled.findIndex(o => o.isCorrect);
+  state.mcqCorrect[q.id] = String(correctIndex);
+
+  return `
+    <div class="opts">
+      ${shuffled.map((opt, idx) => `
+        <label class="opt">
+          <input type="radio" name="${name}" value="${idx}" />
+          <div><div><strong>${String.fromCharCode(65+idx)}.</strong> ${escapeHtml(opt.text)}</div></div>
+        </label>
+      `).join("")}
+    </div>
+  `;
+}
+
+function renderListeningTask(t, number){
+  const block = document.createElement("div");
+  block.className = "card";
+  block.style.marginTop = "14px";
+
+  block.innerHTML = `
+    <div class="hd">
+      <div>
+        <h2>${escapeHtml(t.title)}</h2>
+        <div class="meta">Section A • Task ${number} • LISTENING • <strong>10 marks</strong></div>
+      </div>
+      <span class="badge">${escapeHtml(t.id)}</span>
+    </div>
+    <div class="bd">
+      <div class="q" style="margin-top:0">
+        <div style="display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; align-items:center">
+          <div class="small"><strong>Audio:</strong> max 2 plays</div>
+          <button class="btn primary" id="play_${t.id}">Play recording (2 left)</button>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="qs"></div>
+    </div>
+  `;
+
+  const qs = block.querySelector(".qs");
+
+  t.questions.forEach(q => {
+    const qWrap = document.createElement("div");
+    qWrap.className = "q";
+
+    let body = "";
+    if(q.type === "mcq"){
+      const opts = q.options.map((text, idx) => ({ text, isCorrect: idx === q.answerIndex }));
+      body = renderChoice(q, opts);
+    }else if(q.type === "pn"){
+      body = renderChoice(q, [
+        {text:"P", isCorrect:q.correct==="P"},
+        {text:"N", isCorrect:q.correct==="N"},
+        {text:"P+N", isCorrect:q.correct==="P+N"}
+      ]);
+    }else if(q.type === "tfnm"){
+      body = renderChoice(q, [
+        {text:"True", isCorrect:q.correct==="True"},
+        {text:"False", isCorrect:q.correct==="False"},
+        {text:"Not mentioned", isCorrect:q.correct==="Not mentioned"}
+      ]);
+    }else{
+      body = `<textarea id="ans_${q.id}" placeholder="Write your answer here..."></textarea>`;
+    }
+
+    qWrap.innerHTML = `
+      <h3>${escapeHtml(q.prompt)} <span class="badge">${q.marks} marks</span></h3>
+      ${body}
+      <div class="small" style="margin-top:8px">${q.type==="short" ? "Auto-mark uses keywords." : "Select one option."}</div>
+    `;
+    qs.appendChild(qWrap);
+  });
+
+  // voice alternates automatically
+  const voiceIndex = number;
+  setTimeout(() => {
+    const btn = $("#play_"+t.id);
+    btn.addEventListener("click", () => playListening("listen_"+t.id, t.transcript, btn, voiceIndex));
+  }, 0);
+
+  return block;
+}
+
+function renderDictation(paper){
+  const tier = paper.tier;
+  const items = paper.dictation.items;
+  const marksEach = (tier === "foundation") ? 6 : 8;
+  const totalDict = marksEach * 5;
+
+  const block = document.createElement("div");
+  block.className = "card";
+  block.style.marginTop = "14px";
+
+  block.innerHTML = `
+    <div class="hd">
+      <div>
+        <h2>Section B — Dictation (always last)</h2>
+        <div class="meta">
+          5 dictations • <strong>${marksEach} marks each</strong> • Total <strong>${totalDict}</strong> marks
+        </div>
+      </div>
+      <span class="badge">DICT</span>
+    </div>
+    <div class="bd">
+      <div class="note">
+        Dictation marking is partial: you can score even if accents are not perfect.
+        Use the floating special-chars button if needed.
+      </div>
+      <div class="divider"></div>
+      <div class="qs"></div>
+    </div>
+  `;
+
+  const qs = block.querySelector(".qs");
+
+  items.forEach((it, i) => {
+    const qWrap = document.createElement("div");
+    qWrap.className = "q";
+
+    qWrap.innerHTML = `
+      <h3>Dictation ${i+1} <span class="badge">${it.marks} marks</span></h3>
+      <div style="display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; align-items:center">
+        <div class="small"><strong>Audio:</strong> max 3 plays (full → chunks → full)</div>
+        <button class="btn primary" id="play_${it.id}">Play dictation (3 left)</button>
+      </div>
+      <textarea id="ans_${it.id}" placeholder="Type the dictation here..."></textarea>
+    `;
+
+    qs.appendChild(qWrap);
+
+    const voiceIndex = 200 + i;
+    setTimeout(() => {
+      const btn = $("#play_"+it.id);
+      btn.addEventListener("click", () => playDictation("dict_"+it.id, it.sentence, btn, voiceIndex));
+    }, 0);
+  });
+
+  return block;
+}
+
+function bindInputs(){
+  $$("input[type='radio']").forEach(r => {
+    r.addEventListener("change", () => {
+      const qid = r.name.replace("ans_","");
+      state.answers[qid] = r.value;
+    });
+  });
+  $$("textarea").forEach(t => {
+    t.addEventListener("input", () => {
+      const id = t.id.replace("ans_","");
+      state.answers[id] = t.value;
+    });
+  });
+}
+
+/* Marking: listening */
+function markChoice(qid, chosenValue, marks){
+  const correctValue = state.mcqCorrect[qid];
+  const ok = String(chosenValue ?? "") === String(correctValue);
+  return { score: ok ? marks : 0, max: marks, detail: ok ? "Correct." : "Incorrect." };
+}
+function markShort(q, userText){
+  const t = normLoose(userText);
+  if(!t) return {score:0, max:q.marks, detail:"Blank answer."};
+  const groups = q.keywords || [];
+  let hits = 0;
+  groups.forEach(g => { if(g.some(k => t.includes(normLoose(k)))) hits++; });
+  const per = q.marks / Math.max(1, groups.length);
+  const raw = hits * per;
+  const score = Math.max(0, Math.min(q.marks, Math.round(raw*2)/2));
+  return {score, max:q.marks, detail:`Keyword groups matched: ${hits}/${groups.length}.`};
+}
+
+/* Dictation scoring:
+   - Higher (/8): word accuracy up to 5 + strict up to 3
+   - Foundation (/6): word accuracy up to 4 + strict up to 2
+*/
+function wordAccuracyScore(expected, typed, maxWord){
+  const eToks = tokeniseLoose(expected);
+  const uToks = tokeniseLoose(typed);
+  if(eToks.length === 0) return 0;
+
+  let match = 0;
+  const uCopy = uToks.slice();
+  eToks.forEach(w => {
+    const idx = uCopy.indexOf(w);
+    if(idx >= 0){
+      match++;
+      uCopy.splice(idx,1);
+    }
+  });
+
+  const ratio = match / eToks.length;
+  const raw = ratio * maxWord;
+  return Math.max(0, Math.min(maxWord, Math.round(raw*2)/2));
+}
+function strictAccuracyScore(expected, typed, maxStrict){
+  const e = normStrict(expected).toLowerCase();
+  const u = normStrict(typed).toLowerCase();
+  if(!u) return 0;
+  if(e === u) return maxStrict;
+
+  // if loose matches perfectly, give half strict credit
+  const looseE = normLoose(expected);
+  const looseU = normLoose(typed);
+  if(looseE === looseU) return Math.round((maxStrict/2)*2)/2;
+
+  return 0;
+}
+function markDictation(expected, typed, maxMarks){
+  if(!typed || !typed.trim()){
+    return {score:0, max:maxMarks, detail:"Blank dictation."};
+  }
+
+  const isHigher = (maxMarks === 8);
+  const maxWord = isHigher ? 5 : 4;
+  const maxStrict = isHigher ? 3 : 2;
+
+  const w = wordAccuracyScore(expected, typed, maxWord);
+  const s = strictAccuracyScore(expected, typed, maxStrict);
+
+  const score = Math.max(0, Math.min(maxMarks, w + s));
+  return {score, max:maxMarks, detail:`Word +${w}/${maxWord}, strict +${s}/${maxStrict}. Expected: "${expected}"`};
+}
+
+function computeTotal(){
+  let total = 0;
+  const breakdown = [];
+
+  // Listening (60)
+  state.selection.listening.forEach(t => {
+    t.questions.forEach(q => {
+      const ans = state.answers[q.id];
+      let res;
+      if(["mcq","pn","tfnm"].includes(q.type)) res = markChoice(q.id, ans, q.marks);
+      else res = markShort(q, ans);
+
+      total += res.score;
+      breakdown.push({section:"A", task:t.id, qid:q.id, score:res.score, max:res.max, detail:res.detail, prompt:q.prompt});
+    });
+  });
+
+  // Dictation
+  state.selection.dictation.items.forEach(it => {
+    const ans = state.answers[it.id] ?? "";
+    const res = markDictation(it.sentence, ans, it.marks);
+    total += res.score;
+    breakdown.push({section:"B", task:"DICT", qid:it.id, score:res.score, max:res.max, detail:res.detail, prompt:`Dictation ${it.id}`});
+  });
+
+  total = Math.max(0, Math.min(state.selection.maxScore, Math.round(total*2)/2));
+  return { total, breakdown };
+}
+
+function goHome(){
+  state.mode = "home";
+  stopTimer();
+  speechSynthesis?.cancel?.();
+  setBadge("Ready","badge");
+  $("#leftTitle").textContent = "Candidate setup";
+  $("#leftMeta").textContent =
+    "GCSE style • No dictionary • No translator • No voice selection • Listening reduced • Dictation is 5 sentences.";
+  showLeft("home");
+}
+
+function goTest(){
+  if(!state.selection){
+    alert("Start a random paper first.");
+    return;
+  }
+  state.mode = "test";
+  $("#leftTitle").textContent = "Test";
+  $("#leftMeta").textContent =
+    "In progress • Audio play limits apply • Submit to save results.";
+  showLeft("test");
+}
+
+/* Render test */
+function renderTest(){
+  showLeft("test");
+
+  const candNo = getCandidateNoFromSquares();
+  const nameLine = [($("#candSurname").value||"").trim(), ($("#candForenames").value||"").trim()].filter(Boolean).join(", ");
+  $("#kpiCandidate").textContent = candNo + (nameLine ? " • " + nameLine : "");
+  $("#kpiTier").textContent = state.selection.tier.toUpperCase();
+  $("#kpiMax").textContent = String(state.selection.maxScore);
+  $("#kpiExtra").textContent = extraTimePct ? (extraTimePct + "%") : "Normal";
+
+  // reset audio locks
+  for(const k in audioLocks) delete audioLocks[k];
+  state.mcqCorrect = {};
+  state.answers = {};
+  state.submitted = false;
+
+  const paper = $("#paper");
+  paper.innerHTML = "";
+
+  // Section A
+  const secA = document.createElement("div");
+  secA.className = "sectionTitle";
+  secA.innerHTML = `<h3>Section A — Listening</h3><div class="meta">6 tasks • 10 marks each • Total 60 marks</div>`;
+  paper.appendChild(secA);
+
+  state.selection.listening.forEach((t, i) => paper.appendChild(renderListeningTask(t, i+1)));
+
+  // Section B
+  const secB = document.createElement("div");
+  secB.className = "sectionTitle";
+  const marksEach = (state.selection.tier === "foundation") ? 6 : 8;
+  secB.innerHTML = `<h3>Section B — Dictation (always last)</h3><div class="meta">5 sentences • ${marksEach} marks each</div>`;
+  paper.appendChild(secB);
+  paper.appendChild(renderDictation(state.selection));
+
+  bindInputs();
+
+  // Suggested GCSE-ish times, scaled by extra time
+  const baseMinutes = (state.selection.tier === "foundation") ? 40 : 50;
+  startTimer(baseMinutes);
+
+  $("#markingBox").classList.add("hide");
+  $("#markingBox").innerHTML = "";
+  setBadge("In progress","badge warn");
+}
+
+/* Submit */
+function submitPaper(){
+  if(state.submitted) return;
+
+  const candNo = getCandidateNoFromSquares();
+  if(!candNo){ alert("Candidate number is required."); focusDigit(0); return; }
+
+  const { total, breakdown } = computeTotal();
+  state.submitted = true;
+  stopTimer();
+
+  const tier = state.selection.tier;
+  const letter = (tier === "foundation") ? gradeFoundation(total) : gradeHigher(total);
+  const pmd = passMeritDistinction(total);
+  const [badgeCls, badgeText] = badgeForScore(total);
+
+  const attempt = {
+    submittedAt: new Date().toISOString(),
+    centre: state.centre,
+    candidateNo: candNo,
+    tier,
+    extraTimePct,
+    maxScore: state.selection.maxScore,
+    score: total,
+    grade: letter,
+    pmd,
+    breakdown
+  };
+  addResult(attempt);
+
+  const box = $("#markingBox");
+  box.classList.remove("hide");
+  box.innerHTML = `
+    <div class="card">
+      <div class="hd">
+        <div>
+          <h2>✅ Marked</h2>
+          <div class="meta">Saved to Results • Centre ${escapeHtml(attempt.centre)} • Candidate ${escapeHtml(attempt.candidateNo)} • Extra time ${escapeHtml(String(attempt.extraTimePct))}%</div>
+        </div>
+        <span class="${badgeCls}">${escapeHtml(badgeText)}</span>
+      </div>
+      <div class="bd">
+        <div class="kpi">
+          <div class="box"><div class="t">Score</div><div class="v">${attempt.score} / ${attempt.maxScore}</div></div>
+          <div class="box"><div class="t">Tier grade</div><div class="v">${escapeHtml(attempt.grade)}</div></div>
+          <div class="box"><div class="t">Outcome</div><div class="v">${escapeHtml(attempt.pmd)}</div></div>
+          <div class="box"><div class="t">Tier</div><div class="v">${escapeHtml(attempt.tier.toUpperCase())}</div></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <button class="btn" id="btnBreakdown">Show breakdown</button>
+        <div id="breakdownBox" class="hide" style="margin-top:12px"></div>
+      </div>
+    </div>
+  `;
+
+  $("#btnBreakdown").addEventListener("click", () => {
+    const b = $("#breakdownBox");
+    b.classList.toggle("hide");
+    if(!b.classList.contains("hide")){
+      b.innerHTML = breakdown.map(x => `
+        <div class="q">
+          <div style="display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap">
+            <div><strong>${escapeHtml(x.section)}</strong> • ${escapeHtml(x.task)} • ${escapeHtml(x.qid)}</div>
+            <div class="badge">${x.score} / ${x.max}</div>
+          </div>
+          <div class="small" style="margin-top:6px"><strong>${escapeHtml(x.prompt)}</strong></div>
+          <div class="small" style="margin-top:6px">${escapeHtml(x.detail)}</div>
+        </div>
+      `).join("");
+    }
+  });
+
+  setBadge("Submitted","badge good");
+}
+
+/* Results panel */
+function drawResults(){
+  const list = loadResults();
+  const el = $("#resultsList");
+  if(list.length === 0){
+    el.innerHTML = `<div class="note">No stored attempts yet.</div>`;
+    return;
+  }
+  el.innerHTML = list.slice(0, 15).map(a => {
+    const [cls, txt] = badgeForScore(a.score);
+    const when = new Date(a.submittedAt).toLocaleString();
+    return `
+      <div class="q">
+        <div style="display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap">
+          <div><strong>${escapeHtml(a.candidateNo)}</strong> • Centre ${escapeHtml(a.centre)} • ${escapeHtml(when)}</div>
+          <div class="${cls}">${escapeHtml(txt)} • ${a.score}/${a.maxScore}</div>
+        </div>
+        <div class="small" style="margin-top:6px">
+          Tier: ${escapeHtml(a.tier.toUpperCase())} • Extra time: ${escapeHtml(String(a.extraTimePct))}% • Grade: <strong>${escapeHtml(a.grade)}</strong> • ${escapeHtml(a.pmd)}
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+/* Right tabs */
+function setRightTab(which){
+  $("#tabTools").classList.toggle("active", which==="tools");
+  $("#tabGrades").classList.toggle("active", which==="grades");
+  $("#tabResults").classList.toggle("active", which==="results");
+
+  $("#toolsPanel").classList.toggle("hide", which!=="tools");
+  $("#gradesPanel").classList.toggle("hide", which!=="grades");
+  $("#resultsPanel").classList.toggle("hide", which!=="results");
+
+  if(which==="results") drawResults();
+}
+$("#tabTools").addEventListener("click", () => setRightTab("tools"));
+$("#tabGrades").addEventListener("click", () => setRightTab("grades"));
+$("#tabResults").addEventListener("click", () => setRightTab("results"));
+
+/* Topbar quick buttons */
+$("#btnToolsTop").addEventListener("click", () => {
+  setRightTab("tools");
+  $("#panelRight").scrollIntoView({behavior:"smooth", block:"start"});
+});
+
+$("#btnResultsTop").addEventListener("click", () => {
+  setRightTab("results");
+  $("#panelRight").scrollIntoView({behavior:"smooth", block:"start"});
+});
+
+$("#btnTestTop").addEventListener("click", () => {
+  goHome(); // ✅ TEST button returns to MENU
+});
+
+/* Centre controls */
+function setCentre(no){
+  state.centre = String(no);
+  $("#centreNo").value = state.centre;
+  $("#centreTop").textContent = state.centre;
+}
+$("#btnEditCentre").addEventListener("click", () => {
+  const val = prompt("Enter centre number (digits only):", state.centre);
+  if(val === null) return;
+  const clean = String(val).replace(/\D/g,"").slice(0,10);
+  if(clean.length < 5){ alert("Centre number must be digits only (at least 5 digits)."); return; }
+  setCentre(clean);
+});
+$("#btnResetCentre").addEventListener("click", () => setCentre(OTONO_CENTRE_DEFAULT));
+
+/* Extra time locking */
+function refreshExtraTimeLockUI(){
+  const cand = getCandidateNoFromSquares();
+  const allowed = EXTRA50_ALLOWED.has(cand);
+  const opt50 = $("#opt50");
+
+  if(!allowed && $("#extraTime").value === "50"){
+    $("#extraTime").value = "25";
+  }
+
+  opt50.disabled = !allowed;
+  opt50.textContent = allowed ? "50% extra time" : "50% extra time (locked)";
+  $("#extraTimeHint").textContent = allowed
+    ? "50% extra time is unlocked for this authorised candidate number."
+    : "50% extra time is locked unless you use an authorised candidate number.";
+}
+$("#extraTime").addEventListener("change", refreshExtraTimeLockUI);
+
+/* Tier change updates top numbers */
+$("#tier").addEventListener("change", () => setTopSub($("#tier").value));
+
+/* Preview */
+$("#btnPreview").addEventListener("click", () => {
+  const cand = getCandidateNoFromSquares();
+  if(!cand){ alert("Enter a candidate number first."); focusDigit(0); return; }
+
+  const tier = $("#tier").value;
+  const paper = generatePaper(tier);
+
+  const box = $("#previewBox");
+  box.classList.remove("hide");
+
+  const marksEach = (tier==="foundation") ? 6 : 8;
+  const dictTotal = marksEach * 5;
+  const dictLines = paper.dictation.items.map(d => `• ${escapeHtml(d.sentence)}`).join("<br/>");
+
+  box.innerHTML =
+    `<strong>Preview:</strong><br/>` +
+    `Section A: 6 listening tasks = 60 marks<br/>` +
+    `Section B: dictation = ${dictTotal} marks (${marksEach} × 5)<br/>` +
+    `<strong>Total:</strong> ${paper.maxScore}<br/>` +
+    `<div class="divider"></div>` +
+    `<strong>Dictations:</strong><br/>${dictLines}`;
+});
+
+/* Start */
+$("#btnStart").addEventListener("click", () => {
+  const cand = getCandidateNoFromSquares();
+  if(!cand){ alert("Candidate number is required."); focusDigit(0); return; }
+
+  refreshExtraTimeLockUI();
+
+  state.tier = $("#tier").value;
+  state.selection = generatePaper(state.tier);
+  state.maxScore = state.selection.maxScore;
+
+  // set extra time percentage
+  const et = parseInt($("#extraTime").value, 10);
+  if(et === 50 && !EXTRA50_ALLOWED.has(cand)){
+    extraTimePct = 25;
+    $("#extraTime").value = "25";
+  }else{
+    extraTimePct = (et === 25 || et === 50) ? et : 0;
+  }
+
+  setTopSub(state.tier);
+  renderTest();
+});
+
+/* Reset */
+$("#btnReset").addEventListener("click", () => {
+  if(!confirm("Reset and generate a NEW random paper?")) return;
+  stopTimer();
+  speechSynthesis?.cancel?.();
+  state.selection = generatePaper(state.tier);
+  renderTest();
+});
+
+/* Submit */
+$("#btnSubmit").addEventListener("click", () => submitPaper());
+
+/* Clear results */
+$("#btnClear").addEventListener("click", () => {
+  if(!confirm("Clear ALL stored results on this browser?")) return;
+  localStorage.removeItem(STORE_KEY);
+  drawResults();
+});
+
+/* Anti-source detection (kept) */
+const disabledKeys = ["u","I"];
+const showAlert = e => {
+  e.preventDefault();
+  return alert("Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!");
+};
+document.addEventListener("contextmenu", e => showAlert(e));
+document.addEventListener("keydown", e => {
+  if ((e.ctrlKey && disabledKeys.includes(e.key)) || e.key === "F12") showAlert(e);
+});
+
+/* Init */
+renderCharButtons("#charGrid");
+renderCharButtons("#charGridModal");
+renderMembers();
+setCentre(OTONO_CENTRE_DEFAULT);
+setTopSub("higher");
+setRightTab("tools");
+showLeft("home");
+setBadge("Ready","badge");
+
+refreshExtraTimeLockUI();
+
+if("speechSynthesis" in window){
+  loadVoices();
+  speechSynthesis.onvoiceschanged = () => loadVoices();
+}
+</script>
+</body>
+</html>

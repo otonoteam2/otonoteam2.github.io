@@ -484,34 +484,43 @@ const FOUNDATION_TRANSLATION_POOL = [
 const HIGHER_TRANSLATION_POOL = [
   {
     id:"HT-A",
-    en:`At Otono, students quickly learn that respecting the rules is just as important as knowledge. Even a small mistake, such as using the wrong pen, can affect results. However, good organisation helps to reduce stress.`,
+    en:`At Otono, students quickly learn that respecting rules is as important as knowledge. A small mistake, like using the wrong pen, can affect results. Good organisation reduces stress.`,
     keyIdeas: [
-      ["a otono","à otono","otono"],
-      ["les eleves","les élèves"],
-      ["apprennent","apprend"],
-      ["respecter les regles","respecter les règles","respect des regles","respect des règles"],
-      ["aussi important que","autant que"],
-      ["les connaissances","la connaissance"],
-      ["une petite erreur","une erreur"],
-      ["mauvais stylo","le mauvais stylo"],
-      ["peut","pourrait"],
-      ["organisation","organise","organisée","reduire le stress","réduire le stress","moins de stress"]
+      ["à otono","dans otono"],
+      ["les élèves","les étudiants","les apprenants"],
+      ["apprennent rapidement","apprennent vite","apprennent assez vite","apprennent très vite"],
+      ["respecter les règles","respecter les normes","suivre les règles","obéir aux règles"],
+      ["aussi important que","tout aussi important que","aussi important que les connaissances","aussi important que le savoir"],
+      ["les connaissances","le savoir","la connaissance"],
+      ["une petite erreur","une erreur mineure","une erreur petite"],
+      ["comme","par exemple"],
+      ["utiliser le mauvais stylo","utiliser un stylo incorrect","prendre le mauvais stylo","écrire avec le mauvais stylo"],
+      ["peut affecter","peut influencer","peut changer","peut modifier"],
+      ["les résultats","les notes","le résultat final"],
+      ["une bonne organisation","la bonne organisation","être bien organisé","être bien organisée"],
+      ["réduit le stress","diminue le stress","baisse le stress","moins de stress"]
     ]
   },
   {
     id:"HT-B",
-    en:`Travelling with Otono Airways feels like a perfectly controlled system. Every detail is planned to guarantee comfort and efficiency, even in economy class.`,
+    en:`With Otono Airways, the passenger experience feels organised from start to finish. Even in economy class, comfort is taken seriously, so you notice the calm atmosphere and the efficient service. However, when every detail is planned, travellers feel less stressed and more confident.`,
     keyIdeas: [
-      ["voyager","voyage"],
-      ["otono airways"],
-      ["donne l impression","donne l'impression","on a l impression","on a l'impression"],
-      ["systeme","système"],
-      ["parfaitement controle","parfaitement contrôlé","bien controle","bien contrôlé"],
-      ["chaque detail","chaque détail"],
-      ["est pense","est pensé","est planifie","est planifié"],
-      ["garantir","assurer"],
-      ["confort"],
-      ["efficacite","efficacité","meme en classe economique","même en classe économique","classe economique","classe économique"]
+      ["avec otono airways","avec otono","chez otono airways"],
+      ["l’expérience du passager","l’expérience des passagers","l’expérience de voyage","l’expérience à bord"],
+      ["semble organisée","se sent organisée","est organisée","très organisée"],
+      ["du début à la fin","du commencement à la fin"],
+      ["même en classe économique","même en classe éco","en classe économique","en classe économique aussi"],
+      ["le confort","la commodité"],
+      ["est pris au sérieux","est considéré important","est très important","est une priorité"],
+      ["donc","alors","c’est pourquoi"],
+      ["on remarque","on peut remarquer","on voit","on se rend compte"],
+      ["une atmosphère calme","une atmosphère tranquille","une ambiance calme","une ambiance tranquille"],
+      ["un service efficace","un service rapide","un service performant","un service très efficace"],
+      ["cependant","mais","pourtant","néanmoins"],
+      ["quand chaque détail est planifié","lorsque chaque détail est planifié","tout est planifié","chaque détail est pensé"],
+      ["les voyageurs","les passagers"],
+      ["se sentent moins stressés","ont moins de stress","moins stressés","moins stressées"],
+      ["plus confiants","plus confiantes","avec plus de confiance"]
     ]
   }
 ];
@@ -1200,30 +1209,27 @@ function markHigherTranslation(user, keyIdeas){
   const wc = wordCount(user);
   if(!t) return {score:0, max:20, detail:"Blank.", parts:{ideas:0, quality:0}};
 
-  // Ideas (0..10)
   let ideaHits = 0;
-  keyIdeas.forEach(group => {
+  keyIdeas.forEach(group=>{
     const alts = Array.isArray(group) ? group : [group];
     if(alts.some(k => t.includes(norm(k)))) ideaHits++;
   });
   const ideas = clamp(ideaHits, 0, 10);
 
-  // Quality (0..10)
   let markerHits = 0;
   FRENCH_MARKERS.forEach(m => { if(t.includes(norm(m))) markerHits++; });
   const markerScore = clamp(Math.round((markerHits/12)*6), 0, 6); // up to 6
 
   const connScore = clamp(countHits(t, CONNECTORS) >= 1 ? 2 : 0, 0, 2); // up to 2
 
-  // length: translation should be roughly 18–55 words (soft)
   let lenScore = 0;
-  if(wc >= 18 && wc <= 55) lenScore = 2;
-  else if(wc >= 12 && wc <= 75) lenScore = 1;
+  if(wc >= 18 && wc <= 70) lenScore = 2;
+  else if(wc >= 12 && wc <= 90) lenScore = 1;
 
   const quality = clamp(markerScore + connScore + lenScore, 0, 10);
 
   const score = ideas + quality;
-  const detail = `Ideas: ${ideas}/10 (hits ${ideaHits}/10). Quality: ${quality}/10 (markers ${markerScore}/6, connectors ${connScore}/2, length ${lenScore}/2, WC ${wc}).`;
+  const detail = `Ideas: ${ideas}/10 (hits ${ideaHits}). Quality: ${quality}/10 (markers ${markerScore}/6, connectors ${connScore}/2, length ${lenScore}/2, WC ${wc}).`;
   return {score, max:20, detail, parts:{ideas, quality}};
 }
 
