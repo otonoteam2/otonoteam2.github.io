@@ -1122,7 +1122,7 @@ function countHits(textNorm, vocab){
 }
 
 /* Spanish markers */
-const SPANISH_MARKERS = [
+const MARKERS = [
   // pronouns + core function words
   "yo","tu","tú","el","él","ella","nosotros","vosotros","ustedes",
   "mi","mis","un","una","unos","unas","de","del","al","con","sin","para","por",
@@ -1137,7 +1137,7 @@ const SPANISH_MARKERS = [
 ];
 
 // Expand connectors so strong Spanish isn’t punished
-const SPANISH_CONNECTORS = [
+const ONNECTORS = [
   // original
   "porque","aunque","sin embargo","por eso","además","ademas","por ejemplo","también","tambien","en cambio","mientras","cuando",
   // added high-level
@@ -1148,7 +1148,7 @@ const SPANISH_CONNECTORS = [
 ];
 
 // Range markers for Spanish writing sophistication
-const SPANISH_RANGE_MARKERS = [
+const RANGE_MARKERS = [
   // original
   "que","si","cuando","mientras","para que","antes de","después de","despues de","a pesar de","ya que","por ejemplo","lo que",
   // added (A*/9 boost)
