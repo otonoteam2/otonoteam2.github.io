@@ -1,0 +1,827 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>🟣 Otono MFL Tests — Full History, FAQs, Myth-Busted + Scoreboard</title>
+  <meta name="description" content="Full story of the Otono MFL test system: the Year 1 origin, the 66 copies legend, grading, tiers, FAQs, myth-busted rumours, and a scoreboard with totals." />
+  <style>
+    :root{
+      --bg1:#2b0a3d; --bg2:#7a0036;
+      --card:#0f0b18cc; --card2:#120c22e6;
+      --text:#f4efff; --muted:#c9b9ff;
+      --accent:#b000ff; --accent2:#ff1b6a;
+      --good:#19ff9a; --warn:#ffd166; --bad:#ff4d6d;
+      --line:rgba(255,255,255,.12);
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --max: 1120px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 15% 10%, rgba(176,0,255,.35), transparent 55%),
+        radial-gradient(900px 600px at 85% 25%, rgba(255,27,106,.28), transparent 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+    }
+    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 80px;}
+    header{
+      display:flex; gap:14px; align-items:flex-start; justify-content:space-between;
+      padding:18px 18px;
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(18,12,34,.85), rgba(15,11,24,.75));
+      border-radius:calc(var(--radius) + 8px);
+      box-shadow:var(--shadow);
+      position:sticky; top:12px; z-index:5; backdrop-filter: blur(10px);
+    }
+    .brand h1{margin:0; font-size:20px; letter-spacing:.2px;}
+    .brand p{margin:6px 0 0; color:var(--muted); font-size:13px; line-height:1.35}
+    .chips{display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; padding-top:2px}
+    .chip{
+      font-size:12px; border:1px solid var(--line);
+      background:rgba(255,255,255,.06);
+      padding:6px 10px; border-radius:999px;
+      user-select:none;
+    }
+    .chip b{color:var(--good)}
+    main{margin-top:18px; display:grid; grid-template-columns: 330px 1fr; gap:14px}
+    @media (max-width: 980px){
+      header{position:relative; top:auto}
+      main{grid-template-columns:1fr}
+    }
+    nav{
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(18,12,34,.82), rgba(15,11,24,.70));
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:14px;
+      position:sticky; top:104px; height:max-content;
+    }
+    @media (max-width: 980px){
+      nav{position:relative; top:auto}
+    }
+    nav h2{margin:0 0 10px; font-size:14px; color:var(--muted); letter-spacing:.25px}
+    .navlinks button{
+      width:100%;
+      text-align:left;
+      padding:10px 10px;
+      border-radius:12px;
+      border:1px solid transparent;
+      color:var(--text);
+      margin-bottom:6px;
+      background:rgba(255,255,255,.04);
+      cursor:pointer;
+      font: inherit;
+    }
+    .navlinks button:hover{border-color:rgba(255,255,255,.18); background:rgba(255,255,255,.06)}
+    .navlinks small{display:block; color:var(--muted); margin-top:2px}
+    section.card{
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(18,12,34,.82), rgba(15,11,24,.70));
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:16px;
+      margin-bottom:14px;
+    }
+    section.card h2{margin:0 0 10px; font-size:18px}
+    section.card p{margin:10px 0; color:var(--text); line-height:1.55}
+    .muted{color:var(--muted)}
+    .grid2{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+    @media (max-width: 820px){ .grid2{grid-template-columns:1fr} }
+    .box{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      border-radius:14px;
+      padding:12px;
+    }
+    .box h3{margin:0 0 6px; font-size:14px}
+    .box ul{margin:0; padding-left:18px; color:var(--text)}
+    .box li{margin:6px 0}
+    .kpi{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;}
+    .pill{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.05);
+      border-radius:999px;
+      padding:10px 12px;
+      font-size:13px;
+    }
+    .pill strong{font-family:var(--mono)}
+    .timeline{
+      margin-top:10px;
+      border-left:2px solid rgba(255,255,255,.16);
+      padding-left:14px;
+    }
+    .titem{padding:10px 10px; margin:10px 0; border:1px solid var(--line); border-radius:14px; background:rgba(255,255,255,.04)}
+    .titem .date{font-family:var(--mono); color:var(--muted); font-size:12px}
+    .titem .title{margin:6px 0 0; font-weight:800}
+    .titem .desc{margin:6px 0 0; color:var(--text); line-height:1.5}
+    details{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      border-radius:14px;
+      padding:10px 12px;
+      margin:10px 0;
+    }
+    summary{cursor:pointer; font-weight:800; outline:none;}
+    summary span.tag{
+      display:inline-block; margin-left:8px; font-weight:700;
+      font-size:12px; padding:3px 8px; border-radius:999px; border:1px solid var(--line);
+      color:var(--muted);
+    }
+    .answer{margin-top:8px; color:var(--text); line-height:1.55}
+    .answer code{font-family:var(--mono); background:rgba(176,0,255,.18); padding:2px 6px; border-radius:8px; border:1px solid rgba(255,255,255,.10)}
+    .myth{
+      border:1px solid rgba(255,255,255,.14);
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+      border-radius:14px;
+      padding:12px;
+      margin:10px 0;
+    }
+    .myth .mhead{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+    .badge{
+      font-family:var(--mono);
+      font-size:12px;
+      border-radius:999px;
+      padding:4px 10px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.05);
+    }
+    .false{color:var(--bad)}
+    .myth p{margin:8px 0 0; line-height:1.55}
+    .callout{
+      border:1px dashed rgba(255,255,255,.20);
+      background:rgba(25,255,154,.07);
+      border-radius:14px;
+      padding:12px;
+      margin-top:12px;
+    }
+
+    /* Scoreboard */
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+    }
+    th, td{
+      padding:10px 10px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      font-size:13px;
+      vertical-align:top;
+    }
+    th{
+      text-align:left;
+      color:var(--muted);
+      font-weight:800;
+      background:rgba(255,255,255,.03);
+    }
+    tr:last-child td{border-bottom:none}
+    .score{
+      font-family:var(--mono);
+      font-weight:900;
+      letter-spacing:.2px;
+    }
+    .score.good{color:var(--good)}
+    .score.warn{color:var(--warn)}
+    .score.bad{color:var(--bad)}
+    .note{color:var(--muted); font-size:12px; line-height:1.35}
+
+    /* Hidden legend (reveal later) */
+    .spoilerMask{
+      display:inline-block;
+      padding:3px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.06);
+      font-family:var(--mono);
+      color:var(--muted);
+    }
+    .revealBar{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      border-radius:14px;
+      padding:10px 12px;
+      margin:12px 0 0;
+    }
+    .revealBar b{font-family:var(--mono)}
+    .revealBtn{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+      border-radius:999px;
+      padding:8px 12px;
+      cursor:pointer;
+      font-weight:800;
+    }
+    .revealBtn:hover{background:rgba(255,255,255,.09)}
+
+    /* Rainbow effect ONLY for 100s */
+    @keyframes rainbowMove{
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+    .rainbowText{
+      background: linear-gradient(90deg,
+        #ff004c, #ff7a00, #ffd400, #2dff74, #00d7ff, #3a6bff, #b000ff, #ff004c);
+      background-size: 300% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: rainbowMove 2.6s linear infinite;
+      font-weight: 900;
+    }
+    .rainbowBadge{
+      display:inline-block;
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.20);
+      background:rgba(255,255,255,.05);
+    }
+
+    .hiddenBlock{
+      display:none;
+      margin-top:10px;
+    }
+    .hiddenBlock.show{display:block}
+
+    .topbtn{
+      position:fixed; right:14px; bottom:14px;
+      border:1px solid var(--line);
+      background:rgba(15,11,24,.75);
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:999px;
+      box-shadow:var(--shadow);
+      cursor:pointer;
+    }
+    .topbtn:hover{background:rgba(15,11,24,.9)}
+    footer{margin-top:18px; color:var(--muted); font-size:12px; text-align:center;}
+  </style>
+</head>
+<body>
+  <div class="wrap" id="top">
+    <header>
+      <div class="brand">
+        <h1>🟣 Otono MFL Tests — Full History + FAQs + Myth-Busted</h1>
+        <p>
+          Full origin story (no incidents), the 66 copies legend, grading & tiers, FAQs, myth-busting,
+          and a scoreboard with totals. <span class="muted">One part of the story is intentionally hidden until you scroll or click.</span>
+        </p>
+      </div>
+      <div class="chips" aria-label="Quick facts">
+        <div class="chip"><b>/100</b> default</div>
+        <div class="chip">Pass <b>66</b></div>
+        <div class="chip">Merit <b>80</b></div>
+        <div class="chip">Distinction <b>90</b></div>
+        <div class="chip">Tiers <b>late 2024</b></div>
+        <div class="chip">A* <b>late 2025</b></div>
+      </div>
+    </header>
+
+    <main>
+      <nav>
+        <h2>Navigate</h2>
+        <div class="navlinks">
+          <button type="button" data-jump="story">📖 Full story <small>Mr Clock, the slam, the 66</small></button>
+          <button type="button" data-jump="scores">📊 Scoreboard <small>All known scores + totals</small></button>
+          <button type="button" data-jump="copies">📄 66 copies legend <small>Why 66, what happened to them</small></button>
+          <button type="button" data-jump="grades">🏷️ Grades & boundaries <small>Old vs new + why H exists</small></button>
+          <button type="button" data-jump="tiers">🎚️ Tiers <small>Foundation vs Higher</small></button>
+          <button type="button" data-jump="faq">❓ FAQs <small>65, 99 vs 100, pens</small></button>
+          <button type="button" data-jump="myths">🧨 Myth-busted <small>Rumours vs rules</small></button>
+          <button type="button" id="navRevealBtn">🟦 Reveal hidden legend <small>Unlock the withheld part</small></button>
+        </div>
+      </nav>
+
+      <div>
+
+        <!-- FULL STORY -->
+        <section class="card" id="story">
+          <h2>📖 The Full Origin Story (No Incidents)</h2>
+
+          <p class="muted">
+            Luke once asked Red: “Why are Otono MFL tests always out of 100, and why are Pass, Merit, Distinction always 66, 80 and 90?”
+            Red’s answer wasn’t a policy document. It was a memory.
+          </p>
+
+          <div class="kpi">
+            <div class="pill">Printed on the paper: <strong>Pass 66</strong></div>
+            <div class="pill">Merit / Distinction: <strong>80 / 90</strong></div>
+            <div class="pill">Year group size: <strong>157</strong></div>
+          </div>
+
+          <div class="timeline">
+            <div class="titem">
+              <div class="date">Year 1 • Red age 5</div>
+              <div class="title">First ever test: maths</div>
+              <div class="desc">
+                Red was good at maths, but he didn’t understand how exams worked.
+                The primary school used a simple scale printed on the paper: <b>Pass 66</b>, <b>Merit 80</b>, <b>Distinction 90</b>.
+              </div>
+            </div>
+
+            <div class="titem">
+              <div class="date">Results day • Class 1A</div>
+              <div class="title">Mr Clock’s slam-stack moment 🕰️</div>
+              <div class="desc">
+                Mr Clock walked in with a pile of papers, told the class: <b>“You all SMASHED this test!!”</b> and began slamming results onto desks.
+                When Red saw his own, it was <b>66</b>. Exactly the minimum pass.
+              </div>
+            </div>
+
+            <div class="titem">
+              <div class="date">Known reactions</div>
+              <div class="title">Scores people still remember</div>
+              <div class="desc">
+                Behind Red, Alfred scored <b>98</b>. Next to Red, Travis scored <b>78</b>. In front of Red, Conrad scored <b>50</b>.
+                Wyatt scored <b>42</b>. Red remembered every number because it was the first time marks felt “real”.
+              </div>
+            </div>
+
+            <div class="titem">
+              <div class="date">The >90 announcement</div>
+              <div class="title">Fourteen students above 90</div>
+              <div class="desc">
+                Mr Clock announced the students scoring above 90. There were a lot — and Red instantly became jealous.
+              </div>
+            </div>
+
+            <div class="titem">
+              <div class="date">Social time</div>
+              <div class="title">Red finally learns OWing’s score</div>
+              <div class="desc">
+                Red didn’t know what OWing got until social time because OWing was in <b>1C</b>. OWing scored <b>93</b>.
+                Red’s <b>66</b> stayed stuck in his mind forever — as a number and as a feeling.
+              </div>
+            </div>
+
+            <div class="titem">
+              <div class="date">One detail intentionally withheld</div>
+              <div class="title">A top-score legend exists</div>
+              <div class="desc">
+                The year group later became obsessed with a “top-score legend” from that test.
+                Otono documents hide it until you scroll or reveal it on purpose.
+              </div>
+            </div>
+          </div>
+
+          <div class="revealBar">
+            <div>
+              <div style="font-weight:900;">Hidden legend status: <b id="legendStatus">LOCKED</b></div>
+              <div class="note">Scroll to the “66 copies” section or click reveal to unlock the withheld part.</div>
+            </div>
+            <button class="revealBtn" type="button" id="revealBtn">Reveal now</button>
+          </div>
+
+          <!-- THIS IS THE ADDED MOMENT (NO INCIDENTS) — hidden until reveal -->
+          <div class="hiddenBlock" id="momentBlock">
+            <div class="callout">
+              <b>The Moment Everyone Found Out</b>
+              <p class="note" style="margin:8px 0 0;">
+                Mr Clock didn’t just “announce a mark”. He made it feel like an event.
+              </p>
+              <p style="margin:10px 0 0;">
+                The room had already been buzzing from all the scores above 90, but there was still one paper left.
+                Mr Clock stopped slamming papers. He held the last one up like he was about to read a headline.
+              </p>
+              <p style="margin:10px 0 0;">
+                He said one word — slowly — and the class froze for half a second:
+                <b>“One hundred.”</b>
+              </p>
+              <p style="margin:10px 0 0;">
+                Then everything flipped. Children gasped, people whispered “NO WAY”, chairs scraped, and everyone stared at the final paper as if it was glowing.
+                Red’s heart went fast, because for the first time he realised marks weren’t just numbers — they were status.
+              </p>
+              <p style="margin:10px 0 0;">
+                Mr Clock went louder:
+                he had checked the whole year group, <b>157 students</b>, and only <b>two</b> had reached that top score.
+                And one of them was in this class.
+              </p>
+              <p style="margin:10px 0 0;">
+                When he said Andy’s name, the room erupted into pure cheering.
+                Andy looked shocked, like he didn’t even believe it was his.
+                Mr Clock didn’t place the paper on a desk — he made Andy walk to the front and collect it properly, like it was a prize.
+              </p>
+              <p style="margin:10px 0 0;">
+                Red clapped too — everyone did — but inside he felt two things at once:
+                <b>jealousy</b> and <b>determination</b>.
+                That exact mix is why the system later became so strict about what “top marks” mean.
+              </p>
+            </div>
+          </div>
+
+          <div class="callout">
+            <b>Why it matters:</b> Red didn’t invent 66/80/90 from nowhere. He copied what was printed on his first paper — and then never let it go.
+          </div>
+        </section>
+
+        <!-- SCOREBOARD -->
+        <section class="card" id="scores">
+          <h2>📊 Scoreboard (All Known Scores) + Totals</h2>
+          <p class="muted">
+            This includes every score that is explicitly known from the story: Red, OWing, Wyatt, Alfred, Travis, Conrad,
+            and <b>all</b> named students who scored above 90.
+            <br><span class="note">Some rows are intentionally masked until the hidden legend is revealed.</span>
+          </p>
+
+          <div class="box" style="margin-bottom:12px;">
+            <h3>Instant stats</h3>
+            <div class="kpi" id="scoreStats">
+              <div class="pill">Scores shown: <strong id="statCount">—</strong></div>
+              <div class="pill">Total of shown scores: <strong id="statSum">—</strong></div>
+              <div class="pill">Average: <strong id="statAvg">—</strong></div>
+              <div class="pill">Highest shown: <strong id="statHigh">—</strong></div>
+              <div class="pill">Lowest shown: <strong id="statLow">—</strong></div>
+            </div>
+            <p class="note" style="margin:10px 0 0;">
+              Totals update when the hidden legend is revealed.
+            </p>
+          </div>
+
+          <table aria-label="Known scores table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Class</th>
+                <th>Score</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody id="scoreRows"></tbody>
+          </table>
+        </section>
+
+        <!-- 66 COPIES -->
+        <section class="card" id="copies">
+          <h2>📄 The 66 Copies Legend</h2>
+          <p>
+            After the Year 1 test, the school produced exactly <b>66 photocopies</b> of the top-score paper.
+            The number was deliberate: <b>66</b> is the pass mark, so the copies became a “pass-mark sized” reference set.
+          </p>
+
+          <div class="grid2" id="legendReveal">
+            <div class="box">
+              <h3>What the school intended</h3>
+              <ul>
+                <li>Students could borrow them</li>
+                <li>Look at the answers</li>
+                <li>Compare mistakes</li>
+                <li>Try to understand how full marks were achieved</li>
+              </ul>
+            </div>
+            <div class="box">
+              <h3>What actually happened (because they were 5)</h3>
+              <ul>
+                <li>Some were folded and shoved into trays</li>
+                <li>Some were coloured on</li>
+                <li><b>One became a paper plane</b></li>
+                <li>Someone tried to trace the handwriting</li>
+                <li>A few got ripped corners from over-handling</li>
+                <li>Several vanished into school bags forever</li>
+                <li>Some went home and got binned months later</li>
+                <li>Teachers kept extras for folders and displays</li>
+              </ul>
+            </div>
+          </div>
+
+          <details>
+            <summary>Where is the Otono Mansion copy now? <span class="tag">mystery</span></summary>
+            <div class="answer">
+              The team believed it was in <code>Room 47</code> for years — but Red later remembered that was wrong.
+              The best current lead is <code>Room 46</code>, and it likely needs a deep search.
+            </div>
+          </details>
+
+          <div class="callout">
+            <b>Important:</b> Reaching this section unlocks the hidden legend automatically (and reveals the “moment” above too).
+          </div>
+        </section>
+
+        <!-- GRADES -->
+        <section class="card" id="grades">
+          <h2>🏷️ Grades & Boundaries</h2>
+          <p class="muted">Otono boundaries are usually fixed before the paper. The system is identity-based, not calculated afterwards.</p>
+
+          <div class="grid2">
+            <div class="box">
+              <h3>Old grade boundaries (legacy)</h3>
+              <ul>
+                <li>A — 95</li>
+                <li>B — 80</li>
+                <li>C — 70</li>
+                <li>D — 66</li>
+                <li>E — 60</li>
+                <li>F — 50</li>
+                <li>G — 40</li>
+                <li>H — 30</li>
+              </ul>
+            </div>
+            <div class="box">
+              <h3>New boundaries (if tireless)</h3>
+              <ul>
+                <li>S — 101 <span class="muted">(normally impossible)</span></li>
+                <li>A* — 95 <span class="muted">(added late 2025)</span></li>
+                <li>A — 90</li>
+                <li>B — 80</li>
+                <li>C — 70</li>
+                <li>D — 66</li>
+                <li>E — 55</li>
+                <li>F — 40</li>
+                <li>G — 30</li>
+                <li>H — 15</li>
+              </ul>
+            </div>
+          </div>
+
+          <details>
+            <summary>Why does Grade H exist? <span class="tag">main question</span></summary>
+            <div class="answer">
+              Red saw older GCSE systems stopped at <code>G</code>, but felt the “bottom boundary” was still too high.
+              <code>H</code> exists to represent very low scores more fairly — “struggled, but showed something.”
+            </div>
+          </details>
+        </section>
+
+        <!-- TIERS -->
+        <section class="card" id="tiers">
+          <h2>🎚️ Foundation & Higher Tiers</h2>
+          <p>
+            People complained that a pass mark of <b>66</b> felt high. That complaint was real.
+            The team refused to change 66 (memory rule), so they introduced tiers and adjusted paper difficulty.
+          </p>
+
+          <div class="grid2">
+            <div class="box">
+              <h3>Foundation (typical)</h3>
+              <p class="muted">Capped at C</p>
+              <ul>
+                <li>C — 80</li>
+                <li>D — 66</li>
+                <li>E — 50</li>
+                <li>F — 40</li>
+                <li>G — 30</li>
+                <li>H — 20</li>
+              </ul>
+            </div>
+            <div class="box">
+              <h3>Higher (typical)</h3>
+              <p class="muted">A*–E, with F as a safety net</p>
+              <ul>
+                <li>A* — 95</li>
+                <li>A — 90</li>
+                <li>B — 80</li>
+                <li>C — 66</li>
+                <li>D — 55</li>
+                <li>E — 45</li>
+                <li>F — 40 <span class="muted">(safety net)</span></li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="card" id="faq">
+          <h2>❓ FAQs</h2>
+
+          <details open>
+            <summary>What if you score 65?</summary>
+            <div class="answer">
+              No rounding. <code>66</code> is Pass. <code>65</code> stays <code>65</code>.
+              The response to “pass is high” was tiers and easier Foundation papers — not moving the number.
+            </div>
+          </details>
+
+          <details>
+            <summary>Why is 100 so rare, and why do perfect scripts often get 99?</summary>
+            <div class="answer">
+              <code>100</code> is treated as special. Many scripts that are fully correct may still receive <code>99</code> because markers reserve 100
+              for answers that are not just correct, but also exceptionally clear and complete.
+            </div>
+          </details>
+
+          <details>
+            <summary>What pen or pencil do you have to use?</summary>
+            <div class="answer">
+              Anything is allowed as long as it is <b>legible</b>. Otono will mark it.
+            </div>
+          </details>
+
+          <details>
+            <summary>What if the paper says “don’t use black ink” and you use it anyway?</summary>
+            <div class="answer">
+              Your work is still marked, but you may receive an ink-rule penalty.
+              The maximum penalty is <b>50% of the mark</b>. The script is never confiscated.
+            </div>
+          </details>
+        </section>
+
+        <!-- MYTHS -->
+        <section class="card" id="myths">
+          <h2>🧨 Myth-Busted</h2>
+          <p class="muted">Rumours spread fast. Here are the big ones that needed destroying.</p>
+
+          <div class="myth">
+            <div class="mhead">
+              <span class="badge">Myth 1</span>
+              <strong>“If you score 60–65, examiners secretly bump you to a pass.”</strong>
+              <span class="badge false">False</span>
+            </div>
+            <p>
+              Pass is <code>66</code>. No rounding. If you score <code>65</code>, you stay on <code>65</code>.
+              The fix was tiers and difficulty adjustments — not moving the boundary.
+            </p>
+          </div>
+
+          <div class="myth">
+            <div class="mhead">
+              <span class="badge">Myth 2</span>
+              <strong>“If you use pencil or non-black ink, your work won’t be marked.”</strong>
+              <span class="badge false">False</span>
+            </div>
+            <p>
+              If it’s legible, it will be marked.
+              If a paper includes a specific ink instruction and you ignore it, you may receive a penalty —
+              but the work is still marked. Maximum penalty: <b>50%</b>.
+            </p>
+          </div>
+        </section>
+
+        <footer>
+          🟣 Otono MFL Tests • Full History + FAQs + Myth-Busted • Scoreboard totals update on reveal
+        </footer>
+      </div>
+    </main>
+  </div>
+
+  <button class="topbtn" type="button" aria-label="Back to top"
+          onclick="document.getElementById('top').scrollIntoView({behavior:'smooth'});">
+    ↑ Top
+  </button>
+
+  <script>
+    // Smooth jump buttons
+    document.querySelectorAll('[data-jump]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const id = btn.getAttribute('data-jump');
+        const el = document.getElementById(id);
+        if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
+
+    // Hidden legend state (this hides the existence of the 100s until reveal)
+    let legendRevealed = false;
+
+    // All known scores from the story.
+    const scores = [
+      { name:"Red", class:"1A", score:66, note:"Exactly Pass (printed on the paper). The number that shaped everything." },
+      { name:"Wyatt", class:"1A", score:42, note:"Same primary as Red. Struggled at the time." },
+      { name:"Travis", class:"1A", score:78, note:"Just below Merit (80)." },
+      { name:"Conrad", class:"1A", score:50, note:"Mid-range score remembered by seating." },
+
+      // Above 90 (named)
+      { name:"Alfred", class:"1A", score:98, note:"Above 90 list. Felt frustrated when the top-score legend was revealed." },
+      { name:"Maya", class:"1A", score:94, note:"Above 90 list." },
+      { name:"Liam", class:"1A", score:96, note:"Above 90 list." },
+      { name:"Sophie", class:"1A", score:91, note:"Above 90 list." },
+      { name:"Daniel", class:"1A", score:95, note:"Above 90 list." },
+      { name:"Olivia", class:"1A", score:97, note:"Above 90 list." },
+      { name:"Lucas", class:"1A", score:92, note:"Above 90 list." },
+      { name:"Grace", class:"1A", score:94, note:"Above 90 list." },
+      { name:"Henry", class:"1A", score:93, note:"Above 90 list." },
+      { name:"Zara", class:"1A", score:96, note:"Above 90 list." },
+      { name:"Jacob", class:"1A", score:91, note:"Above 90 list." },
+      { name:"Amelia", class:"1A", score:95, note:"Above 90 list." },
+      { name:"Ryan", class:"1A", score:94, note:"Above 90 list." },
+      { name:"Chloe", class:"1A", score:92, note:"Above 90 list." },
+
+      // Known 1C
+      { name:"OWing", class:"1C", score:93, note:"Found out later at social time. Distinction." },
+
+      // Hidden legend rows (only revealed later)
+      { name:"Andy", class:"1A", score:100, note:"Top-score legend. One of only two perfect papers across 157 students. Collected from the desk." },
+      { name:"Isabella", class:"1C", score:100, note:"Top-score legend. The other perfect paper in the year group." },
+    ];
+
+    function scoreClass(score){
+      if(score >= 90) return "good";
+      if(score >= 66) return "warn";
+      return "bad";
+    }
+
+    function renderTable(){
+      const tbody = document.getElementById("scoreRows");
+      const sorted = [...scores].sort((a,b)=>b.score - a.score);
+
+      tbody.innerHTML = sorted.map(s=>{
+        const isHiddenLegend = (s.score === 100);
+        const hideThis = isHiddenLegend && !legendRevealed;
+        const rainbow = (s.score === 100 && legendRevealed);
+
+        const nameCell = hideThis
+          ? `<span class="spoilerMask">[hidden]</span>`
+          : (rainbow
+              ? `<span class="rainbowText">${s.name}</span> <span class="rainbowBadge"><span class="rainbowText">100</span></span>`
+              : `<b>${s.name}</b>`);
+
+        const classCell = hideThis ? `<span class="spoilerMask">—</span>` : s.class;
+
+        const scoreCell = hideThis
+          ? `<span class="spoilerMask">—</span>`
+          : (rainbow
+              ? `<span class="score"><span class="rainbowText">100</span></span>`
+              : `<span class="score ${scoreClass(s.score)}">${s.score}</span>`);
+
+        const noteCell = hideThis
+          ? `<span class="note">Top-score legend is hidden until you reveal it.</span>`
+          : (rainbow
+              ? `<span class="note"><span class="rainbowText">${s.note}</span></span>`
+              : `<span class="note">${s.note}</span>`);
+
+        return `
+          <tr>
+            <td>${nameCell}</td>
+            <td>${classCell}</td>
+            <td>${scoreCell}</td>
+            <td>${noteCell}</td>
+          </tr>
+        `;
+      }).join("");
+
+      renderStats();
+    }
+
+    function renderStats(){
+      const visibleScores = scores
+        .filter(s => legendRevealed ? true : (s.score !== 100))
+        .map(s => s.score);
+
+      const count = visibleScores.length;
+      const sum = visibleScores.reduce((a,b)=>a+b,0);
+      const avg = count ? (sum / count) : 0;
+      const high = count ? Math.max(...visibleScores) : 0;
+      const low = count ? Math.min(...visibleScores) : 0;
+
+      document.getElementById("statCount").textContent = String(count);
+      document.getElementById("statSum").textContent = String(sum);
+      document.getElementById("statAvg").textContent = avg.toFixed(2);
+      document.getElementById("statHigh").textContent = String(high);
+      document.getElementById("statLow").textContent = String(low);
+
+      document.getElementById("legendStatus").textContent = legendRevealed ? "UNLOCKED" : "LOCKED";
+    }
+
+    function revealLegend(){
+      if(legendRevealed) return;
+      legendRevealed = true;
+
+      // Reveal the "moment everyone found out" block (still no incidents)
+      document.getElementById("momentBlock").classList.add("show");
+
+      // Re-render table & stats
+      renderTable();
+
+      // Update status label
+      document.getElementById("legendStatus").textContent = "UNLOCKED";
+    }
+
+    // Reveal buttons
+    document.getElementById("revealBtn").addEventListener("click", revealLegend);
+    document.getElementById("navRevealBtn").addEventListener("click", ()=>{
+      revealLegend();
+      document.getElementById("scores").scrollIntoView({behavior:'smooth', block:'start'});
+    });
+
+    // Auto-reveal when user scrolls to the 66 copies section
+    const trigger = document.getElementById("legendReveal");
+    if("IntersectionObserver" in window && trigger){
+      const io = new IntersectionObserver((entries)=>{
+        for(const e of entries){
+          if(e.isIntersecting){
+            revealLegend();
+            io.disconnect();
+            break;
+          }
+        }
+      }, { threshold: 0.25 });
+      io.observe(trigger);
+    }
+
+    // Initial render
+    renderTable();
+  </script>
+</body>
+</html>
