@@ -607,113 +607,122 @@ Cuando habla de esa lista, algunos alumnos entran en pánico. Se preguntan si ha
   },
 
   {
-    id: 5,
-    title: "Pasaje 5 — El servidor de Minecraft Otono",
-    theme: "Tema 2 — Tiempo libre",
-    unit: "Unidad 5 (Servidor de Minecraft)",
-    text: `En el servidor de Minecraft Otono, los jugadores tienen que trabajar juntos. Antes de una gran construcción, hablan del plan y deciden las etapas. Cada uno tiene un papel y hay que ponerse de acuerdo.
+  id: 5,
+  title: "Pasaje 5 — El servidor de Minecraft Otono: cooperación y tensiones",
+  theme: "Theme 2 — Free time",
+  unit: "Unit 5 (Minecraft server)",
+  text: `En el servidor de Minecraft Otono, los jugadores suelen construir en equipo. Antes de una construcción grande, eligen un objetivo claro: una casa, una torre o una zona completa del mundo. Luego se reparten las tareas. Por ejemplo, una persona consigue materiales, otra construye la estructura y otra revisa los detalles para evitar errores.
 
-A Red le gusta ir rápido: prefiere empezar enseguida y ver resultados pronto. OWing es diferente: se toma su tiempo, comprueba los detalles y corrige los pequeños errores. A veces no están de acuerdo, pero cuando cooperan, el proyecto avanza mejor. Red aporta la velocidad y OWing aporta la precisión. Juntos, el servidor progresa.`,
-    questions: [
-      { id:"p5q1", type:"mcq", marks:2,
-        prompt:"(E) On the server, players must…",
-        options:["Work together","Play alone","Ignore the plan","Stop building"],
-        answerIndex:0
-      },
-      { id:"p5q2", type:"tfnm", marks:2,
-        prompt:"(E) The players never discuss plans. (True / False / Not mentioned)",
-        correct:"False"
-      },
-      { id:"p5q3", type:"short", marks:4,
-        prompt:"(E) Give TWO things players do before a big build.",
-        rubric:"Discuss the plan; decide steps; agree roles.",
-        keywords:[
-          ["discuss","hablan","plan"],
-          ["steps","etapas","decide","deciden"],
-          ["role","papel","roles","función"]
-        ]
-      },
-      { id:"p5q4", type:"pn", marks:2,
-        prompt:"(E) ‘OWing checks details.’ (P / N / P+N)",
-        correct:"P"
-      },
-      { id:"p5q5", type:"short", marks:6,
-        prompt:"(H) Why does teamwork help their project succeed?",
-        rubric:"Their strengths combine: speed + precision; fewer mistakes; better progress.",
-        keywords:[
-          ["speed","rápido","velocidad"],
-          ["precision","precisión","details","detalles"],
-          ["together","juntos","cooperate","cooperan","cooperar"],
-          ["mistakes","errores","corrige","corregir"],
-          ["progress","avanza","progresa"]
-        ]
-      },
-      { id:"p5q6", type:"es_short", marks:4,
-        prompt:"(M) En español: Da una diferencia entre Red y OWing.",
-        rubric:"Red va rápido / OWing comprueba los detalles.",
-        keywords:[
-          ["red","rápido","velocidad"],
-          ["owing","comprueba","verifica","detalles"]
-        ]
-      }
-    ]
-  },
+Esta organización ayuda mucho, pero también puede crear tensiones. Red quiere ir rápido y ver resultados inmediatamente. OWing prefiere avanzar más despacio: revisa el plan, corrige errores pequeños y insiste en la precisión. A veces, Red piensa que OWing frena el proyecto. A veces, OWing piensa que Red va demasiado rápido y se olvida de detalles.
+
+Cuando siguen un método simple, el proyecto funciona mejor. Primero hacen una etapa rápida (la estructura) y después una etapa de revisión (los detalles). Así ahorran tiempo, porque evitan tener que rehacer el trabajo más tarde.`,
+  questions: [
+    { id:"p5q1", type:"mcq", marks:2,
+      prompt:"(E) In the Otono Minecraft server, players usually build…",
+      options:["Alone","In teams","Only at night","Without rules"],
+      answerIndex:1
+    },
+    { id:"p5q2", type:"short", marks:4,
+      prompt:"(E) Give TWO example roles mentioned in the passage.",
+      rubric:"Two roles such as: get materials; build the structure; review details/correct errors.",
+      keywords:[
+        ["materiales","materials","consigue","get","conseguir"],
+        ["construye","build","estructura","structure"],
+        ["revisa","review","detalles","details"],
+        ["corrige","correct","errores","errors"]
+      ]
+    },
+    { id:"p5q3", type:"tfnm", marks:2,
+      prompt:"(E) Red wants results immediately. (True / False / Not mentioned)",
+      correct:"True"
+    },
+    { id:"p5q4", type:"short", marks:4,
+      prompt:"(E) Why can teamwork create tension between Red and OWing? Give ONE reason.",
+      rubric:"Because Red prioritises speed and OWing prioritises precision/checking, so they disagree about pace/details.",
+      keywords:[
+        ["rápido","rapido","speed"],
+        ["despacio","slow"],
+        ["precisión","precision","precision"],
+        ["detalles","details"],
+        ["tensiones","tension","desacuerdo","disagree"]
+      ]
+    },
+    { id:"p5q5", type:"pn", marks:2,
+      prompt:"(E) The passage suggests teamwork on the server is… (P / N / P+N)",
+      answer:"P+N"
+    },
+    { id:"p5q6", type:"es_short", marks:4,
+      prompt:"(M) En español: ¿Cuál es el método de DOS etapas que ayuda al proyecto?",
+      rubric:"Etapa 1: construir la estructura rápido. Etapa 2: revisar/corregir los detalles.",
+      keywords:[
+        ["etapa"],
+        ["estructura"],
+        ["rápido","rapido"],
+        ["revisar","revisa","corrigir","corregir"],
+        ["detalles"]
+      ]
+    }
+  ]
+},
 
   {
-    id: 6,
-    title: "Pasaje 6 — Viajar con Otono Airways",
-    theme: "Tema 3 — Otono Team",
-    unit: "Unidad 8 (Otono Airways)",
-    text: `Viajar con Otono Airways suele ser cómodo. Los pasajeros notan la organización en la cabina y la disposición de los asientos. Incluso en clase turista, hay suficiente espacio para sentarse cómodamente.
+  id: 6,
+  title: "Pasaje 6 — Otono Airways: comodidad y límites",
+  theme: "Theme 3 — Otono Team",
+  unit: "Unit 8 (Otono Airways)",
+  text: `Viajar con Otono Airways suele ser cómodo. Los pasajeros notan la organización en la cabina, la distribución de los asientos y el ambiente general. Incluso en clase económica, muchos consideran que hay suficiente espacio para sentarse bien.
 
-Red observa todo con atención. Mira la cabina, los asientos y los detalles técnicos. Para él, cada vuelo es una oportunidad de aprender: compara las decisiones de la compañía y anota lo que funciona bien.`,
-    questions: [
-      { id:"p6q1", type:"mcq", marks:2,
-        prompt:"(E) Passengers notice…",
-        options:["Organisation and comfort","Only pilots","Only luggage","Only exams"],
-        answerIndex:0
-      },
-      { id:"p6q2", type:"pn", marks:2,
-        prompt:"(E) ‘Economy class has enough space in this passage.’ (P / N / P+N)",
-        correct:"P"
-      },
-      { id:"p6q3", type:"tfnm", marks:2,
-        prompt:"(E) The passage says Red sleeps on every flight. (True / False / Not mentioned)",
-        correct:"Not mentioned"
-      },
-      { id:"p6q4", type:"short", marks:4,
-        prompt:"(E) Give TWO things Red observes.",
-        rubric:"Cabin; seats; layout; technical details; organisation.",
-        keywords:[
-          ["cabine","cabina"],
-          ["sieges","asientos"],
-          ["details","detalles","technical","técnicos"],
-          ["organisation","organización"]
-        ]
-      },
-      { id:"p6q5", type:"short", marks:6,
-        prompt:"(H) Why does Red like analysing flights in this text?",
-        rubric:"He likes learning, comparing, and noting what works well; he focuses on details.",
-        keywords:[
-          ["learn","aprender"],
-          ["compare","comparar"],
-          ["note","anotar","anota"],
-          ["details","detalles"],
-          ["works well","funciona","bien"]
-        ]
-      },
-      { id:"p6q6", type:"es_short", marks:4,
-        prompt:"(M) En español: ¿Por qué cada vuelo es una oportunidad de aprender para Red?",
-        rubric:"Porque compara y observa los detalles.",
-        keywords:[
-          ["comparar","compara"],
-          ["observa","observar"],
-          ["detalles"],
-          ["aprender"]
-        ]
-      }
-    ]
-  },
+Sin embargo, no todo es perfecto. Algunos pasajeros piensan que las reglas a bordo son estrictas, sobre todo en zonas tranquilas como el salón. Otros dicen que el servicio puede sentirse demasiado rápido: la comida llega pronto, pero hay menos tiempo para hablar con la tripulación. Red observa estos detalles con atención. Para él, un buen vuelo depende de un equilibrio entre comodidad, eficacia y respeto de las instrucciones.
+
+Al final, Red concluye que la experiencia es positiva, pero que también tiene pequeños límites según las expectativas de cada persona.`,
+  questions: [
+    { id:"p6q1", type:"mcq", marks:2,
+      prompt:"(E) The passage says travelling with Otono Airways is usually…",
+      options:["Uncomfortable","Comfortable","Dangerous","Impossible"],
+      answerIndex:1
+    },
+    { id:"p6q2", type:"short", marks:4,
+      prompt:"(E) Give TWO things passengers notice in the cabin.",
+      rubric:"Any two: organisation; seat layout; general atmosphere; enough space in economy.",
+      keywords:[
+        ["organización","organizacion","organisation"],
+        ["distribución","distribucion","layout"],
+        ["asientos","seats"],
+        ["ambiente","atmosphere"],
+        ["espacio","space","económica","economica","economy"]
+      ]
+    },
+    { id:"p6q3", type:"tfnm", marks:2,
+      prompt:"(E) The passage says many passengers find there is enough space in economy. (True / False / Not mentioned)",
+      correct:"True"
+    },
+    { id:"p6q4", type:"short", marks:4,
+      prompt:"(E) Give ONE criticism mentioned about the flight experience.",
+      rubric:"Any one: rules can feel strict (especially in quiet areas like the lounge); service can feel too fast / less time to talk to crew.",
+      keywords:[
+        ["reglas","rules","estrictas","strict"],
+        ["salón","salon","lounge","tranquil","tranquilo","quiet"],
+        ["servicio","service","comida","meal"],
+        ["rápido","rapido","fast"],
+        ["menos tiempo","less time","tripulación","tripulacion","crew"]
+      ]
+    },
+    { id:"p6q5", type:"pn", marks:2,
+      prompt:"(E) Overall, the passage presents Otono Airways as… (P / N / P+N)",
+      answer:"P+N"
+    },
+    { id:"p6q6", type:"es_short", marks:4,
+      prompt:"(M) En español: ¿Qué ‘equilibrio’ dice Red que debe tener un buen vuelo? Da DOS elementos.",
+      rubric:"Dos elementos entre: comodidad; eficacia; respeto de las instrucciones.",
+      keywords:[
+        ["comodidad"],
+        ["eficacia"],
+        ["respeto","respetar"],
+        ["instrucciones","reglas"]
+      ]
+    }
+  ]
+},
 
   {
     id: 7,
