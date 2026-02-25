@@ -1676,18 +1676,33 @@ function getCandidateNoFromSquares(){
    GENERACIÓN DE LA PRUEBA
 ========================================================= */
 function generateSelection(){
-  const passages = pickRandom(PASSAGES_A, 3);
 
-  // Elegir un mini-ensayo que corresponda a uno de los textos seleccionados
+  const pool = PASSAGES_A.slice();
+
+  // 1% chance for P11
+  let chosen = [];
+
+  if(Math.random() < 0.01){
+    const p11 = pool.find(p => p.id === "P11");
+    if(p11){
+      chosen.push(p11);
+    }
+  }
+
+  // remove chosen from pool
+  const remaining = pool.filter(p => !chosen.includes(p));
+
+  // fill remaining slots normally
+  chosen.push(...pickRandom(remaining, 3 - chosen.length));
+
+  const passages = chosen;
+
   const eligibleEssays = ESSAYS.filter(e => passages.some(p => p.id === e.passageId));
   const essay = (eligibleEssays.length ? pickRandom(eligibleEssays,1)[0] : pickRandom(ESSAYS,1)[0]);
 
   const translation = pickRandom(TRANSLATIONS_A, 1)[0];
+
   return { passages, essay, translation };
-}
-function selectionSummary(sel){
-  const p = sel.passages.map(x=>x.id).join(", ");
-  return `Textos: ${p} • Mini-ensayo: ${sel.essay.id} • Traducción: ${sel.translation.id}`;
 }
 
 /* =========================================================

@@ -771,52 +771,62 @@ Red intenta organizar su trabajo con antelación. Usa un horario sencillo donde 
 
   {
     id: 8,
-    title: "Pasaje 8 — El estrés antes de una prueba",
+    title: "Pasaje 8 — El estrés antes de un control",
     theme: "Tema 1 — Escuela",
     unit: "Unidad 4 (Exámenes)",
-    text: `Antes de una prueba importante, muchos alumnos sienten estrés. Algunos tienen miedo de olvidar lo que saben, aunque hayan repasado bien. Otros se preocupan por el tiempo o por el silencio en el aula.
+    text: `Antes de un control importante, muchos alumnos sienten estrés. Aunque hayan estudiado, tienen miedo de “quedarse en blanco” al leer la primera pregunta. Algunos se preocupan por el tiempo y miran el reloj continuamente. Otros se ponen nerviosos por el silencio: cualquier ruido (una silla, una página, un bolígrafo que cae) parece enorme y les distrae.
 
-Red piensa que el estrés es normal, pero que hay que aprender a gestionarlo. Respira con calma, lee las preguntas despacio y empieza por los ejercicios más fáciles. Para él, mantenerse tranquilo ayuda a pensar mejor.`,
+Red nota que el estrés también cambia la manera de leer. Cuando está nervioso, la gente suele leer demasiado rápido y se salta palabras clave. Por ejemplo, confunden “menciona DOS” con “menciona UNO”, o no ven el verbo “explica”. Para evitarlo, Red crea una rutina sencilla. Antes de empezar, respira con calma durante unos segundos. Luego lee la pregunta lentamente una segunda vez y subraya una o dos palabras clave, como “dos razones”, “justifica” o “según el texto”.
+
+Después, Red empieza por los ejercicios más fáciles para ganar puntos rápidos y sentirse más seguro. Si una pregunta le parece difícil, la marca y continúa con la siguiente. Al final, si le queda tiempo, vuelve a las preguntas marcadas y revisa que ha respondido exactamente lo que se pide. Red dice que el objetivo no es “no sentir nada”, sino usar el estrés como concentración y mantener la cabeza clara.`,
     questions: [
       { id:"p8q1", type:"mcq", marks:2,
-        prompt:"(E) Many students feel stress before a test because they…",
-        options:["Hate school","Forget knowledge","Like exams","Finish early"],
-        answerIndex:1
+        prompt:"(E) ¿Cuál es el tema principal del pasaje?",
+        options:["El estrés antes de un control y cómo gestionarlo","Un viaje escolar","Un partido de fútbol","Una receta de cocina"],
+        answerIndex:0
       },
-      { id:"p8q2", type:"pn", marks:2,
-        prompt:"(E) ‘Stress before an exam is completely abnormal.’ (P / N / P+N)",
-        correct:"N"
+      { id:"p8q2", type:"short", marks:4,
+        prompt:"(E) Da DOS causas del estrés mencionadas en el texto.",
+        rubric:"Cualquier dos: miedo a quedarse en blanco; preocupación por el tiempo/reloj; el silencio; ruidos pequeños que distraen.",
+        keywords:[
+          ["quedarse en blanco","blanco"],
+          ["tiempo","reloj"],
+          ["silencio"],
+          ["ruido","silla","página","bolígrafo","boligrafo"]
+        ]
       },
       { id:"p8q3", type:"short", marks:4,
-        prompt:"(E) Give TWO causes of stress mentioned.",
-        rubric:"Fear of forgetting; time pressure; silence.",
+        prompt:"(E) ¿Qué problema de lectura menciona Red cuando hay estrés?",
+        rubric:"Que se lee demasiado rápido y se saltan palabras clave / se confunden instrucciones (dos vs uno, etc.).",
         keywords:[
-          ["forget","olvidar","olvidar lo que sabe"],
-          ["time","tiempo","presión del tiempo"],
-          ["silence","silencio"]
+          ["leer","rápido","rapido"],
+          ["saltan","saltar"],
+          ["palabras clave","clave"],
+          ["confunden","confundir","dos","uno","explica","justifica"]
         ]
       },
       { id:"p8q4", type:"tfnm", marks:2,
-        prompt:"(E) Red listens to music during exams. (True / False / Not mentioned)",
-        correct:"Not mentioned"
+        prompt:"(E) Red subraya palabras clave para no confundir la consigna. (True / False / Not mentioned)",
+        correct:"True"
       },
       { id:"p8q5", type:"short", marks:6,
-        prompt:"(H) How does Red manage stress, and why does it help?",
-        rubric:"Breathing; reading slowly; starting with easy questions; helps thinking.",
+        prompt:"(H) Describe TRES pasos de la rutina de Red para controlar el estrés.",
+        rubric:"Tres de: respirar con calma; leer la pregunta lentamente otra vez; subrayar palabras clave; empezar por lo más fácil; marcar y saltar una difícil; volver al final; revisar respuestas.",
         keywords:[
-          ["breathe","respira","respirar"],
-          ["read","leer","despacio","lentamente"],
-          ["easy","fáciles","más fáciles"],
-          ["think","pensar","reflexionar"]
+          ["respira","respirar","calma","tranquilo"],
+          ["lee","leer","lentamente","despacio"],
+          ["subraya","subrayar","palabras clave","clave"],
+          ["fáciles","faciles","más fácil","mas facil"],
+          ["marca","marcar","continúa","continuar","siguiente"],
+          ["vuelve","volver","al final","revisa","revisar"]
         ]
       },
-      { id:"p8q6", type:"es_short", marks:4,
-        prompt:"(M) En español: ¿Por qué es importante mantenerse tranquilo?",
-        rubric:"Porque ayuda a pensar mejor y a responder correctamente.",
+      { id:"p8q6", type:"fr_short", marks:4,
+        prompt:"(M) En español: ¿Por qué Red empieza por los ejercicios más fáciles?",
+        rubric:"Para ganar puntos rápido y sentirse más seguro / para aumentar la confianza.",
         keywords:[
-          ["ayuda","permite"],
-          ["pensar","reflexionar"],
-          ["correctamente","bien"]
+          ["puntos","rápido","rapido"],
+          ["seguro","segura","confianza"]
         ]
       }
     ]
@@ -827,46 +837,59 @@ Red piensa que el estrés es normal, pero que hay que aprender a gestionarlo. Re
     title: "Pasaje 9 — El trabajo en grupo",
     theme: "Tema 2 — Tiempo libre",
     unit: "Unidad 5 (Trabajo en equipo)",
-    text: `En algunas clases, los alumnos tienen que trabajar en grupo. Este método puede ser eficaz, pero también tiene dificultades. A veces, una persona trabaja mucho mientras otra participa poco.
+    text: `En algunas clases y proyectos, los alumnos deben trabajar en grupo. Esto puede ser útil porque se comparten ideas, se reparten tareas y se corrigen errores. Sin embargo, también puede crear problemas. A veces una persona hace casi todo el trabajo y otra participa muy poco. Entonces el grupo se frustra y la calidad baja.
 
-Red prefiere grupos organizados. Piensa que cada alumno debe tener un papel claro. Cuando todos participan, el trabajo avanza más rápido y las ideas son más variadas.`,
+Red prefiere grupos organizados. Para él, el secreto es simple: desde el principio, cada alumno debe tener un papel claro. Por ejemplo: una persona hace el plan, otra escribe la respuesta final y otra revisa los detalles. Red añade una regla más: todos deben aportar al menos una idea, aunque sea pequeña. Así nadie puede “desaparecer” durante el proyecto.
+
+Cuando los roles están claros, Red ve varias ventajas. Primero, el trabajo avanza más rápido porque cada uno sabe qué hacer. Segundo, las ideas son más variadas porque participan más personas. Tercero, hay menos errores, porque alguien revisa al final. Para Red, un grupo no es solo “estar juntos”, sino ser un equipo con una forma de trabajar.`,
     questions: [
       { id:"p9q1", type:"mcq", marks:2,
-        prompt:"(E) Group work can be…",
-        options:["Only negative","Effective","Useless","Forbidden"],
-        answerIndex:1
+        prompt:"(E) Según Red, ¿qué es lo más importante para un buen trabajo en grupo?",
+        options:["Tener roles claros desde el principio","Trabajar en silencio total","No repartir tareas","Hacerlo todo a última hora"],
+        answerIndex:0
       },
-      { id:"p9q2", type:"tfnm", marks:2,
-        prompt:"(E) Everyone always works equally in groups. (True / False / Not mentioned)",
-        correct:"False"
+      { id:"p9q2", type:"short", marks:4,
+        prompt:"(E) Da DOS problemas del trabajo en grupo mencionados.",
+        rubric:"Dos de: trabajo desigual; poca participación; frustración; baja calidad.",
+        keywords:[
+          ["una persona","casi todo","mucho"],
+          ["otra","poco","participa","participación"],
+          ["frustración","frustra","frustrado"],
+          ["calidad","baja"]
+        ]
       },
       { id:"p9q3", type:"short", marks:4,
-        prompt:"(E) Give TWO problems of group work mentioned.",
-        rubric:"Unequal work; lack of participation.",
+        prompt:"(E) Da DOS roles de ejemplo que propone Red.",
+        rubric:"Dos de: hacer el plan; escribir la respuesta final; revisar detalles; revisar al final.",
         keywords:[
-          ["one person","una persona","trabaja mucho"],
-          ["poco","little","participate","participa poco"]
+          ["plan"],
+          ["escribe","escribir","respuesta final"],
+          ["revisa","revisar","detalles"],
+          ["al final","corregir","errores"]
         ]
       },
-      { id:"p9q4", type:"pn", marks:2,
-        prompt:"(E) ‘Clear roles improve group work.’ (P / N / P+N)",
-        correct:"P"
+      { id:"p9q4", type:"tfnm", marks:2,
+        prompt:"(E) Red quiere que todos aporten al menos una idea. (True / False / Not mentioned)",
+        correct:"True"
       },
       { id:"p9q5", type:"short", marks:6,
-        prompt:"(H) Why does Red prefer organised groups?",
-        rubric:"Clear roles; faster progress; more ideas.",
+        prompt:"(H) Da TRES ventajas de tener roles claros en un grupo, según el texto.",
+        rubric:"Tres de: avanza más rápido; ideas más variadas; menos errores; mejor calidad; menos frustración.",
         keywords:[
-          ["roles","papel","claro"],
-          ["faster","más rápido","más deprisa"],
-          ["ideas","ideas","variadas"]
+          ["avanza","más rápido","mas rapido"],
+          ["ideas","variadas","más ideas","mas ideas"],
+          ["menos","errores","revisar"],
+          ["calidad","mejor"],
+          ["frustración","menos"]
         ]
       },
-      { id:"p9q6", type:"es_short", marks:4,
-        prompt:"(M) En español: ¿Cuál es la ventaja principal del trabajo en grupo?",
-        rubric:"El trabajo avanza más rápido / hay más ideas.",
+      { id:"p9q6", type:"fr_short", marks:4,
+        prompt:"(M) En español: ¿Por qué alguien revisa el trabajo al final?",
+        rubric:"Para encontrar y corregir errores / para mejorar la calidad.",
         keywords:[
-          ["avanza","más rápido","rápido"],
-          ["ideas","más ideas"]
+          ["revisa","al final"],
+          ["corregir","errores"],
+          ["mejorar","calidad"]
         ]
       }
     ]
@@ -877,49 +900,59 @@ Red prefiere grupos organizados. Piensa que cada alumno debe tener un papel clar
     title: "Pasaje 10 — El entorno de trabajo",
     theme: "Tema 2 — Tu región",
     unit: "Unidad 7 (Entorno)",
-    text: `El entorno de trabajo influye mucho en la concentración. Algunos alumnos prefieren el silencio total, mientras que otros prefieren un poco de ruido de fondo. Una habitación ordenada también puede ayudar a concentrarse mejor.
+    text: `El entorno de trabajo influye mucho en la concentración. Algunos alumnos prefieren el silencio total porque cualquier ruido les molesta. Otros prefieren un pequeño ruido de fondo, como un ventilador o música muy baja, porque les ayuda a entrar en “modo estudio”. No existe una única solución para todos, pero sí hay hábitos que suelen funcionar.
 
-OWing piensa que un espacio claro y tranquilo da ganas de trabajar. Ordena su escritorio antes de empezar y evita las distracciones. Según él, un buen entorno mejora la calidad del trabajo.`,
+OWing cree que un espacio claro y tranquilo da ganas de trabajar. Antes de empezar, ordena el escritorio: quita papeles inútiles, prepara solo lo necesario y deja el móvil lejos para evitar tentaciones. También intenta estudiar siempre en el mismo lugar, porque eso crea una rutina. Para él, ese ritual manda un mensaje al cerebro: “ahora toca concentrarse”.
+
+OWing dice que cuando el espacio está desordenado, se pierde tiempo buscando cosas y se cae más fácil en distracciones. En cambio, cuando todo está preparado, se empieza antes y se termina mejor. Según él, un buen entorno no hace milagros, pero reduce el estrés y mejora la calidad del trabajo.`,
     questions: [
       { id:"p10q1", type:"mcq", marks:2,
-        prompt:"(E) A tidy space can help students…",
-        options:["Sleep","Concentrate","Talk","Eat"],
-        answerIndex:1
+        prompt:"(E) ¿Qué hace OWing antes de empezar a estudiar?",
+        options:["Ordena el escritorio y aleja el móvil","Sale a correr","Enciende videojuegos","Llama a sus amigos"],
+        answerIndex:0
       },
-      { id:"p10q2", type:"pn", marks:2,
-        prompt:"(E) ‘All students need complete silence.’ (P / N / P+N)",
-        correct:"N"
+      { id:"p10q2", type:"short", marks:4,
+        prompt:"(E) Da DOS preferencias diferentes sobre el ruido al estudiar.",
+        rubric:"Dos: silencio total; ruido de fondo ligero; música muy baja; ventilador.",
+        keywords:[
+          ["silencio","total"],
+          ["ruido","fondo"],
+          ["música","baja","musica"],
+          ["ventilador"]
+        ]
       },
       { id:"p10q3", type:"short", marks:4,
-        prompt:"(E) Give TWO things that can improve concentration.",
-        rubric:"Silence; light background noise; tidy room; fewer distractions.",
+        prompt:"(E) Da DOS cosas concretas que OWing hace para evitar distracciones.",
+        rubric:"Dos de: quitar papeles inútiles; preparar solo lo necesario; dejar el móvil lejos; estudiar en el mismo lugar.",
         keywords:[
-          ["silence","silencio"],
-          ["noise","ruido","de fondo"],
-          ["tidy","ordenada","ordenado","ordenar"],
-          ["distractions","distracciones"]
+          ["quita","papeles","inútiles","inutiles"],
+          ["prepara","necesario"],
+          ["móvil","movil","lejos"],
+          ["mismo","lugar","rutina"]
         ]
       },
       { id:"p10q4", type:"tfnm", marks:2,
-        prompt:"(E) OWing studies only at night. (True / False / Not mentioned)",
-        correct:"Not mentioned"
+        prompt:"(E) OWing cree que un entorno ordenado puede reducir el estrés. (True / False / Not mentioned)",
+        correct:"True"
       },
       { id:"p10q5", type:"short", marks:6,
-        prompt:"(H) Why does OWing believe environment affects work quality?",
-        rubric:"Calm; organisation; fewer distractions; better focus.",
+        prompt:"(H) Explica por qué un espacio desordenado puede perjudicar el estudio, según OWing.",
+        rubric:"Porque se pierde tiempo buscando cosas, hay más distracciones y cuesta más concentrarse; con todo preparado se empieza antes y se termina mejor.",
         keywords:[
-          ["calm","tranquilo","tranquilidad"],
-          ["organise","organizado","organización","orden"],
-          ["focus","concentración"],
-          ["quality","calidad"]
+          ["desordenado","desorden"],
+          ["pierde tiempo","buscar"],
+          ["distracciones"],
+          ["concentrarse","concentración"],
+          ["preparado","empieza","antes","termina","mejor"]
         ]
       },
-      { id:"p10q6", type:"es_short", marks:4,
-        prompt:"(M) En español: ¿Por qué OWing ordena su escritorio?",
-        rubric:"Para concentrarse mejor / evitar distracciones.",
+      { id:"p10q6", type:"fr_short", marks:4,
+        prompt:"(M) En español: ¿Qué significa para OWing el ‘ritual’ antes de estudiar?",
+        rubric:"Que crea rutina y ayuda al cerebro a entrar en modo concentración.",
         keywords:[
-          ["concentrar","concentrarse","mejor"],
-          ["evitar","distracciones"]
+          ["ritual","rutina"],
+          ["cerebro"],
+          ["modo","concentración","concentrarse"]
         ]
       }
     ]
@@ -927,53 +960,64 @@ OWing piensa que un espacio claro y tranquilo da ganas de trabajar. Ordena su es
 
   {
     id: 11,
-    title: "Pasaje 11 — Clayton y el GCSE adelantado",
+    title: "Pasaje 11 — Clayton y el GCSE anticipado",
     theme: "Tema extra 4 — Resultados",
-    unit: "Unidad 10 (Clayton GCSE)",
-    text: `Clayton hizo su examen de matemáticas mucho antes que la mayoría de los alumnos. Sacó 160 de 160, lo cual es una nota perfecta. Muchas personas admiran su éxito y reconocen su trabajo serio.
+    unit: "Unidad 10 (GCSE de Clayton)",
+    text: `Clayton hizo su examen de matemáticas mucho antes que la mayoría. Normalmente, una clase entera se presenta en la fecha oficial, pero a él le permitieron hacerlo antes porque sus profesores pensaban que estaba preparado. El día de los resultados, sacó 160 sobre 160: una nota perfecta. Mucha gente lo admiró y dijo que tenía una lógica rápida y una técnica muy clara.
 
-Sin embargo, algunas personas piensan que habla demasiado de su resultado. Creen que el éxito es importante, pero que la humildad también lo es. Para Clayton, esa nota representa años de esfuerzo y concentración. Dice que la disciplina y la práctica regular son las claves de su éxito.`,
+Después, en la escuela se habló muchísimo del tema. Algunos alumnos se sintieron motivados: pensaron que podían mejorar si trabajaban con disciplina. Otros, en cambio, se sintieron desanimados porque compararon su nivel con una perfección. Clayton explicó que no era “magia”: para él era el resultado de años de práctica, corrección de errores y constancia.
+
+Sin embargo, no todos reaccionaron bien. Algunas personas dijeron que Clayton hablaba demasiado de su puntuación. Para ellos, el éxito es importante, pero también lo es la humildad. Clayton respondió que estaba orgulloso y que quería demostrar que la disciplina funciona. El debate continuó: ¿cómo se celebra un logro enorme sin crear tensión en los demás?`,
     questions: [
       { id:"p11q1", type:"mcq", marks:2,
-        prompt:"(E) Clayton’s score was…",
-        options:["150/160","160/160","100/100","140/160"],
-        answerIndex:1
+        prompt:"(E) ¿Qué puntuación obtuvo Clayton?",
+        options:["160/160","150/160","140/160","100/160"],
+        answerIndex:0
       },
-      { id:"p11q2", type:"tfnm", marks:2,
-        prompt:"(E) Clayton failed his early exam. (True / False / Not mentioned)",
-        correct:"False"
+      { id:"p11q2", type:"short", marks:4,
+        prompt:"(E) ¿Por qué le permitieron hacer el examen antes?",
+        rubric:"Porque los profesores pensaban que estaba preparado / tenía el nivel.",
+        keywords:[
+          ["permitieron","antes"],
+          ["profesores"],
+          ["preparado","nivel"]
+        ]
       },
       { id:"p11q3", type:"short", marks:4,
-        prompt:"(E) Give TWO reactions people have to his result.",
-        rubric:"Admiration; think he talks too much; respect his work.",
+        prompt:"(E) Da DOS reacciones diferentes tras su resultado.",
+        rubric:"Dos de: admiración; motivación; desánimo; críticas por hablar demasiado; debate sobre humildad.",
         keywords:[
-          ["admire","admiration","admiran"],
-          ["habla demasiado","too often","too much"],
-          ["respect","reconocen","reconocer","respeto"]
+          ["admiraron","admiración"],
+          ["motivados","motivación"],
+          ["desanimados","desánimo","desanimo"],
+          ["critican","habla demasiado"],
+          ["humildad","debate"]
         ]
       },
-      { id:"p11q4", type:"pn", marks:2,
-        prompt:"(E) ‘Some people think humility is important.’ (P / N / P+N)",
-        correct:"P"
+      { id:"p11q4", type:"tfnm", marks:2,
+        prompt:"(E) Clayton dice que su éxito fue ‘magia’. (True / False / Not mentioned)",
+        correct:"False"
       },
       { id:"p11q5", type:"short", marks:6,
-        prompt:"(H) According to Clayton, what leads to success?",
-        rubric:"Discipline; regular practice; effort; concentration.",
+        prompt:"(H) Según Clayton, da TRES razones de su éxito.",
+        rubric:"Tres de: años de práctica; corregir errores; constancia; disciplina; técnica clara; esfuerzo.",
         keywords:[
-          ["discipline","disciplina"],
-          ["pratique","práctica","practice"],
-          ["regulier","regular","regularidad"],
-          ["efforts","esfuerzo","esfuerzos"],
-          ["concentration","concentración"]
+          ["años","práctica","practica"],
+          ["corregir","errores"],
+          ["constancia","regular"],
+          ["disciplina"],
+          ["técnica","tecnica","clara"],
+          ["esfuerzo"]
         ]
       },
-      { id:"p11q6", type:"es_short", marks:4,
-        prompt:"(M) En español: ¿Por qué algunas personas critican a Clayton?",
-        rubric:"Porque habla demasiado de su nota / le falta humildad.",
+      { id:"p11q6", type:"fr_short", marks:4,
+        prompt:"(M) En español: ¿Por qué algunas personas lo critican?",
+        rubric:"Porque creen que habla demasiado de su puntuación y que le falta humildad.",
         keywords:[
+          ["critican"],
           ["habla demasiado"],
-          ["nota","resultado","puntuación"],
-          ["humildad","falta de humildad"]
+          ["puntuación","nota","resultado"],
+          ["humildad","falta"]
         ]
       }
     ]
@@ -984,48 +1028,63 @@ Sin embargo, algunas personas piensan que habla demasiado de su resultado. Creen
     title: "Pasaje 12 — Las notas perfectas",
     theme: "Tema extra 4 — Resultados",
     unit: "Unidad 10 (Reacciones)",
-    text: `Cuando un alumno saca una nota perfecta, las reacciones varían. Algunos se sienten motivados y quieren trabajar más duro. Otros se sienten desanimados y piensan que nunca podrán alcanzar ese nivel.
+    text: `Cuando alguien consigue una nota perfecta, las reacciones en una clase pueden ser muy diferentes. Algunas personas se sienten motivadas: piensan “si es posible, yo también puedo mejorar”. Piden consejos, cambian su método de estudio y repiten ejercicios. Para ellos, una nota perfecta es una prueba de que el esfuerzo funciona.
 
-Red piensa que un excelente resultado debe inspirar a los demás. Según él, la competición puede ser sana si empuja a cada uno a mejorar sin crear celos innecesarios.`,
+Otras personas se sienten desanimadas. Comparan su nivel con la perfección y creen que nunca podrán llegar. En algunos casos, el desánimo se convierte en celos, sobre todo si el alumno con la nota perfecta presume demasiado o lo menciona continuamente.
+
+Red cree que un gran resultado debe inspirar, no aplastar. Dice que se debe celebrar el esfuerzo, no solo el número. Para él, la competencia puede ser sana si empuja a progresar con respeto y sin dramas. Su idea final es clara: compárate contigo mismo y mejora poco a poco, sin convertir la clase en una batalla.`,
     questions: [
       { id:"p12q1", type:"mcq", marks:2,
-        prompt:"(E) Reactions to perfect scores are…",
-        options:["Identical","Varied","Always negative","Always positive"],
-        answerIndex:1
+        prompt:"(E) Según el pasaje, las reacciones a una nota perfecta son…",
+        options:["Variadas","Siempre positivas","Siempre negativas","Iguales para todos"],
+        answerIndex:0
       },
       { id:"p12q2", type:"short", marks:4,
-        prompt:"(E) Give TWO different reactions mentioned.",
-        rubric:"Motivated; discouraged; work harder; feel they cannot reach level.",
+        prompt:"(E) Da DOS reacciones positivas mencionadas.",
+        rubric:"Dos de: sentirse motivado; pedir consejos; cambiar método; repetir ejercicios; trabajar más.",
         keywords:[
-          ["motiver","motivados","motivación","motivado"],
-          ["desanimados","desanimado","discouraged"],
-          ["work harder","trabajar más","más duro"],
-          ["never reach","nunca alcanzar","no podrán alcanzar"]
+          ["motivadas","motivación"],
+          ["consejos","pedir"],
+          ["método","metodo","cambiar"],
+          ["repetir","ejercicios"],
+          ["trabajar más","mas"]
         ]
       },
-      { id:"p12q3", type:"pn", marks:2,
-        prompt:"(E) ‘Red believes competition can be healthy.’ (P / N / P+N)",
-        correct:"P"
+      { id:"p12q3", type:"short", marks:4,
+        prompt:"(E) Da DOS reacciones negativas mencionadas.",
+        rubric:"Dos de: sentirse desanimado; pensar que nunca llegará; celos; sentirse aplastado.",
+        keywords:[
+          ["desanimadas","desánimo","desanimo"],
+          ["nunca","llegar","alcanzar"],
+          ["celos"],
+          ["aplastar","aplastado"]
+        ]
       },
       { id:"p12q4", type:"tfnm", marks:2,
-        prompt:"(E) The text says competition should create jealousy. (True / False / Not mentioned)",
-        correct:"False"
+        prompt:"(E) Red piensa que se debe celebrar el esfuerzo, no solo el número. (True / False / Not mentioned)",
+        correct:"True"
       },
       { id:"p12q5", type:"short", marks:6,
-        prompt:"(H) What is Red’s message about success?",
-        rubric:"Inspire others; healthy competition; avoid jealousy.",
+        prompt:"(H) Resume el mensaje de Red sobre la competencia y el éxito.",
+        rubric:"Competencia sana con respeto; inspirar sin aplastar; celebrar esfuerzo; evitar celos y dramas; compararse con uno mismo.",
         keywords:[
-          ["inspire","inspirar"],
-          ["competition","competición","competencia"],
-          ["sain","sana","healthy","saludable"],
-          ["jalousie","celos"]
+          ["competencia","sana","saludable"],
+          ["respeto"],
+          ["inspirar"],
+          ["esfuerzo"],
+          ["evitar","celos","dramas"],
+          ["compararse","uno mismo"]
         ]
       },
-      { id:"p12q6", type:"es_short", marks:4,
-        prompt:"(M) En español: ¿Por qué la competición puede ser positiva?",
-        rubric:"Porque empuja a mejorar.",
+      { id:"p12q6", type:"fr_short", marks:4,
+        prompt:"(M) En español: ¿Cuál es la idea final de Red en una frase?",
+        rubric:"Compararse con uno mismo y mejorar poco a poco, sin dramas.",
         keywords:[
-          ["mejorar","progresar","avanzar"]
+          ["compararse"],
+          ["uno mismo"],
+          ["mejorar"],
+          ["poco a poco"],
+          ["dramas"]
         ]
       }
     ]
@@ -1035,46 +1094,64 @@ Red piensa que un excelente resultado debe inspirar a los demás. Según él, la
     id: 13,
     title: "Pasaje 13 — La presión de los exámenes",
     theme: "Tema 1 — Escuela",
-    unit: "Unidad 4 (Presión de exámenes)",
-    text: `La época de exámenes puede ser intensa. Los alumnos tienen que repasar varias asignaturas al mismo tiempo. Algunos organizan un horario detallado, mientras que otros trabajan de manera más espontánea.
+    unit: "Unidad 4 (Presión de examen)",
+    text: `La época de exámenes puede ser intensa. Los alumnos tienen que repasar varias asignaturas a la vez y, a veces, seguir entregando deberes. En los pasillos se oyen frases como “no tengo tiempo” o “tengo demasiados temas”. La presión también aumenta cuando la gente se compara: algunos parecen preparados, otros entran en pánico, y el nerviosismo se contagia.
 
-OWing prefiere planificar cada día. Piensa que eso reduce la presión y evita sorpresas. Para él, la preparación es la mejor forma de mantenerse seguro.`,
+En este contexto, aparecen métodos distintos. Algunos crean un plan muy detallado con horas y objetivos. Otros estudian de manera espontánea: hacen “lo que les apetece” ese día. Las dos formas pueden funcionar, pero cada una tiene riesgos. Sin plan, se puede olvidar una asignatura. Con un plan demasiado rígido, uno se siente culpable por descansar.
+
+OWing prefiere planificar, pero de forma razonable. Elige objetivos simples: “hacer un ejercicio”, “repasar una ficha” o “aprender veinte palabras”. También incluye descansos, porque cree que el cansancio destruye la concentración. Para él, la preparación reduce sorpresas y aumenta la confianza: cuando llega el examen, sabe lo que ha hecho y se siente más seguro.`,
     questions: [
       { id:"p13q1", type:"mcq", marks:2,
-        prompt:"(E) Exams are described as…",
-        options:["Relaxing","Intense","Boring","Easy"],
-        answerIndex:1
+        prompt:"(E) ¿Cómo se describe la época de exámenes?",
+        options:["Intensa","Relajante","Irrelevante","Divertida"],
+        answerIndex:0
       },
-      { id:"p13q2", type:"tfnm", marks:2,
-        prompt:"(E) All students use detailed planning. (True / False / Not mentioned)",
-        correct:"False"
+      { id:"p13q2", type:"short", marks:4,
+        prompt:"(E) Da DOS razones por las que aumenta la presión en el pasaje.",
+        rubric:"Dos de: varias asignaturas a la vez; falta de tiempo; demasiados temas; compararse con otros; pánico contagioso; deberes.",
+        keywords:[
+          ["varias","asignaturas"],
+          ["no tengo tiempo","tiempo"],
+          ["demasiados","temas"],
+          ["comparar","otros"],
+          ["pánico","panico","contagia","contagioso"],
+          ["deberes","entregar"]
+        ]
       },
       { id:"p13q3", type:"short", marks:4,
-        prompt:"(E) Give TWO study approaches mentioned.",
-        rubric:"Detailed planning; spontaneous work.",
+        prompt:"(E) Nombra DOS métodos de estudio mencionados.",
+        rubric:"Plan detallado; estudio espontáneo.",
         keywords:[
-          ["planning","plan","horario","detallado"],
-          ["spontane","espontánea","espontáneo","spontaneous"]
+          ["plan","detallado","horas"],
+          ["espontáneo","apetece"]
         ]
       },
-      { id:"p13q4", type:"pn", marks:2,
-        prompt:"(E) ‘Preparation increases confidence.’ (P / N / P+N)",
-        correct:"P"
+      { id:"p13q4", type:"tfnm", marks:2,
+        prompt:"(E) OWing planifica, pero incluye descansos. (True / False / Not mentioned)",
+        correct:"True"
       },
       { id:"p13q5", type:"short", marks:6,
-        prompt:"(H) Why does OWing prefer planning?",
-        rubric:"Reduces pressure; avoids surprises; builds confidence.",
+        prompt:"(H) Da TRES elementos del enfoque de OWing.",
+        rubric:"Tres de: objetivos simples; tareas concretas (ejercicio, ficha, 20 palabras); descansos; evitar cansancio; reducir sorpresas; aumentar confianza.",
         keywords:[
-          ["reduce","reduce","presión","menos presión"],
-          ["avoid","evitar","sorpresas"],
-          ["confidence","confianza","seguro","segura"]
+          ["objetivos","simples"],
+          ["ejercicio"],
+          ["ficha","repasar"],
+          ["veinte","20","palabras"],
+          ["descansos","descanso"],
+          ["cansancio","fatiga"],
+          ["sorpresas"],
+          ["confianza","seguro"]
         ]
       },
-      { id:"p13q6", type:"es_short", marks:4,
-        prompt:"(M) En español: ¿Cómo organiza OWing sus repasos?",
-        rubric:"Con un horario detallado.",
+      { id:"p13q6", type:"fr_short", marks:4,
+        prompt:"(M) En español: ¿Por qué OWing dice que el descanso es importante?",
+        rubric:"Porque el cansancio destruye la concentración y empeora el trabajo.",
         keywords:[
-          ["horario","detallado","planificar"]
+          ["cansancio","fatiga"],
+          ["destruye"],
+          ["concentración","concentrarse"],
+          ["empeora"]
         ]
       }
     ]
@@ -1085,46 +1162,65 @@ OWing prefiere planificar cada día. Piensa que eso reduce la presión y evita s
     title: "Pasaje 14 — La concentración en clase",
     theme: "Tema 1 — Escuela",
     unit: "Unidad 4 (Concentración)",
-    text: `En clase, la concentración es esencial para entender las explicaciones del profesor. Algunos alumnos se distraen fácilmente por ruidos o por sus pensamientos.
+    text: `En clase, la concentración es esencial para entender al profesor. Sin embargo, mantenerse atento no siempre es fácil. Algunos alumnos se distraen por ruidos: una conversación al fondo, una puerta que se cierra o un bolígrafo golpeando la mesa. Otros se distraen por pensamientos: el fin de semana, un mensaje o un problema personal. A veces, una distracción pequeña basta para perder una explicación importante.
 
-Red piensa que hay que escuchar activamente y tomar apuntes claros. Evita usar el móvil durante las clases, porque eso puede reducir la atención.`,
+Red cree que hay que escuchar de forma activa, no solo estar sentado. Para él, escuchar activamente significa mirar al profesor, seguir el hilo y tomar apuntes claros. Escribe palabras esenciales y usa títulos para organizar. Si no entiende algo, marca un signo de interrogación para preguntar después, en lugar de desconectar por completo.
+
+Red también evita usar el móvil en clase. Dice que una sola notificación rompe la atención y luego cuesta volver al tema. Según él, si te concentras bien en clase, necesitas menos tiempo de repaso por la tarde y cometes menos errores en los deberes.`,
     questions: [
       { id:"p14q1", type:"mcq", marks:2,
-        prompt:"(E) Concentration helps students…",
-        options:["Sleep","Understand lessons","Skip class","Talk more"],
-        answerIndex:1
+        prompt:"(E) ¿Qué significa ‘escuchar activamente’ para Red?",
+        options:["Mirar al profesor y tomar apuntes claros","Hablar todo el tiempo","Usar el móvil para buscar respuestas","No escribir nada"],
+        answerIndex:0
       },
       { id:"p14q2", type:"short", marks:4,
-        prompt:"(E) Give TWO distractions mentioned.",
-        rubric:"Noise; thoughts.",
+        prompt:"(E) Da DOS distracciones mencionadas.",
+        rubric:"Dos de: conversación; puerta; bolígrafo golpeando; pensamientos sobre fin de semana; mensajes; problemas personales.",
         keywords:[
-          ["bruits","ruidos","noise"],
-          ["pensees","pensamientos","thoughts"]
+          ["conversación","conversacion"],
+          ["puerta"],
+          ["bolígrafo","boligrafo","mesa"],
+          ["pensamientos"],
+          ["fin de semana"],
+          ["mensaje"],
+          ["problema"]
         ]
       },
-      { id:"p14q3", type:"pn", marks:2,
-        prompt:"(E) ‘Red avoids using his phone in class.’ (P / N / P+N)",
-        correct:"P"
+      { id:"p14q3", type:"short", marks:4,
+        prompt:"(E) Da DOS acciones que hace Red para concentrarse mejor.",
+        rubric:"Dos de: mirar al profesor; tomar apuntes claros; usar títulos; escribir palabras esenciales; marcar interrogación para preguntar después; evitar el móvil.",
+        keywords:[
+          ["mirar","profesor"],
+          ["apuntes","claros"],
+          ["títulos","titulos"],
+          ["palabras","esenciales"],
+          ["interrogación","interrogacion","preguntar"],
+          ["evitar","móvil","movil"]
+        ]
       },
       { id:"p14q4", type:"tfnm", marks:2,
-        prompt:"(E) The teacher uses music during lessons. (True / False / Not mentioned)",
-        correct:"Not mentioned"
+        prompt:"(E) Red dice que una notificación puede romper la atención. (True / False / Not mentioned)",
+        correct:"True"
       },
       { id:"p14q5", type:"short", marks:6,
-        prompt:"(H) How can active listening improve results?",
-        rubric:"Better understanding; clearer notes; fewer mistakes.",
+        prompt:"(H) Explica por qué la buena concentración en clase reduce el trabajo en casa.",
+        rubric:"Porque entiendes más en clase, pierdes menos información por distracciones y necesitas menos repaso después; menos errores en deberes.",
         keywords:[
-          ["understand","entender","comprender"],
-          ["notes","apuntes","notas"],
-          ["mistakes","errores","menos errores"]
+          ["entiendes","entender"],
+          ["distracciones"],
+          ["menos repaso","repaso"],
+          ["después","tarde"],
+          ["menos","errores","deberes"]
         ]
       },
-      { id:"p14q6", type:"es_short", marks:4,
-        prompt:"(M) En español: ¿Por qué hay que evitar las distracciones?",
-        rubric:"Para concentrarse mejor y entender.",
+      { id:"p14q6", type:"fr_short", marks:4,
+        prompt:"(M) En español: ¿Qué hace Red si no entiende algo durante la clase?",
+        rubric:"Lo marca con un signo de interrogación para preguntar después, en vez de desconectar.",
         keywords:[
-          ["concentrar","concentrarse"],
-          ["entender","comprender"]
+          ["no entiende","entender"],
+          ["marca","interrogación","interrogacion"],
+          ["preguntar","después"],
+          ["desconectar"]
         ]
       }
     ]
@@ -1135,46 +1231,63 @@ Red piensa que hay que escuchar activamente y tomar apuntes claros. Evita usar e
     title: "Pasaje 15 — La organización de Otono Mansion",
     theme: "Tema 3 — Otono Team",
     unit: "Unidad 9 (Otono Mansion)",
-    text: `Otono Mansion tiene más de noventa habitaciones. Cada espacio tiene una función precisa. Algunas salas están destinadas al trabajo y otras al descanso.
+    text: `Otono Mansion tiene más de noventa habitaciones repartidas en varios pisos. En un edificio tan grande, la organización no es un lujo: es una necesidad. Cada habitación tiene una función. Hay espacios para trabajar, para descansar y para actividades del día a día. Cuando todo está bien organizado, los habitantes pierden menos tiempo y los invitados entienden mejor adónde ir.
 
-Esta organización ayuda a evitar el caos. Los habitantes saben adónde ir según sus necesidades. Red aprecia especialmente los espacios tranquilos para estudiar.`,
+Esta estructura evita el caos. Por ejemplo, los objetos importantes no se quedan “en cualquier sitio”: hay lugares para guardar material, para dejar documentos y para reunirse. Los pasillos están más tranquilos y hay menos discusiones, porque cada uno respeta el uso de las habitaciones. Si una sala es para estudiar, no se convierte en un lugar ruidoso de repente.
+
+Red aprecia especialmente los espacios tranquilos. Elige un sitio con poco paso, una mesa despejada y buena luz. Dice que en una casa enorme el silencio es un tesoro: si sabes dónde encontrarlo, puedes concentrarte mejor. Para él, la organización no es solo estética, sino una forma de convivir sin estrés.`,
     questions: [
       { id:"p15q1", type:"mcq", marks:2,
-        prompt:"(E) Otono Mansion has…",
-        options:["Less than 20 rooms","Over 90 rooms","Exactly 50 rooms","One room"],
-        answerIndex:1
+        prompt:"(E) ¿Por qué es necesaria la organización en Otono Mansion?",
+        options:["Porque tiene muchas habitaciones y evita el caos","Porque es una casa pequeña","Porque no hay reglas","Porque no vive nadie allí"],
+        answerIndex:0
       },
-      { id:"p15q2", type:"pn", marks:2,
-        prompt:"(E) ‘Organisation reduces chaos.’ (P / N / P+N)",
-        correct:"P"
+      { id:"p15q2", type:"short", marks:4,
+        prompt:"(E) Da DOS beneficios de la organización mencionados.",
+        rubric:"Dos de: evitar el caos; perder menos tiempo; ayudar a invitados; pasillos tranquilos; menos discusiones; saber dónde guardar cosas.",
+        keywords:[
+          ["evitar","caos"],
+          ["menos tiempo","tiempo"],
+          ["invitados","entienden"],
+          ["pasillos","tranquilos"],
+          ["menos","discusiones"],
+          ["guardar","material","documentos"]
+        ]
       },
       { id:"p15q3", type:"short", marks:4,
-        prompt:"(E) Give TWO types of rooms mentioned.",
-        rubric:"Work rooms; rest rooms.",
+        prompt:"(E) Da DOS características del espacio de estudio que elige Red.",
+        rubric:"Dos de: poco paso; mesa despejada; buena luz; espacio tranquilo.",
         keywords:[
-          ["travail","trabajo","work"],
-          ["repos","descanso","rest"]
+          ["poco paso","paso"],
+          ["mesa","despejada"],
+          ["buena","luz"],
+          ["tranquilo","silencio"]
         ]
       },
       { id:"p15q4", type:"tfnm", marks:2,
-        prompt:"(E) Red dislikes quiet spaces. (True / False / Not mentioned)",
-        correct:"False"
+        prompt:"(E) El texto dice que Red valora el silencio para concentrarse. (True / False / Not mentioned)",
+        correct:"True"
       },
       { id:"p15q5", type:"short", marks:6,
-        prompt:"(H) Why is structure important in a large building?",
-        rubric:"Avoid chaos; clear functions; easier organisation.",
+        prompt:"(H) Explica por qué la estructura reduce discusiones entre habitantes.",
+        rubric:"Porque cada habitación tiene un uso claro, se respetan funciones, se sabe dónde van las cosas y se evita el caos/ruido inesperado.",
         keywords:[
-          ["chaos","caos"],
-          ["fonction","función","funciones"],
-          ["organiser","organización","organizar"]
+          ["uso","función","claro"],
+          ["respetar","respeta"],
+          ["dónde","guardar","cosas"],
+          ["evitar","caos"],
+          ["ruido","inesperado"],
+          ["discusiones","menos"]
         ]
       },
-      { id:"p15q6", type:"es_short", marks:4,
-        prompt:"(M) En español: ¿Por qué le gustan a Red algunos espacios?",
-        rubric:"Porque son tranquilos para estudiar.",
+      { id:"p15q6", type:"fr_short", marks:4,
+        prompt:"(M) En español: ¿Qué dice Red sobre el silencio en una casa grande?",
+        rubric:"Que es un tesoro y que ayuda a concentrarse si sabes dónde encontrarlo.",
         keywords:[
-          ["tranquilo","tranquilos","calma"],
-          ["estudiar","para estudiar"]
+          ["silencio"],
+          ["tesoro"],
+          ["concentrarse"],
+          ["encontrarlo","dónde"]
         ]
       }
     ]
@@ -1185,45 +1298,60 @@ Esta organización ayuda a evitar el caos. Los habitantes saben adónde ir segú
     title: "Pasaje 16 — El equilibrio entre velocidad y precisión",
     theme: "Tema 2 — Tiempo libre",
     unit: "Unidad 5 (Equilibrio)",
-    text: `En los proyectos de Otono, algunos prefieren ir rápido, mientras que otros prefieren la precisión. La velocidad permite terminar pronto, pero la precisión reduce los errores.
+    text: `En los proyectos de Otono, se ven dos estilos de trabajo. Algunas personas prefieren ir rápido para terminar pronto y ver resultados. Otras prefieren la precisión: revisan todo y avanzan más despacio para evitar fallos. Los dos estilos pueden ser útiles, pero también pueden causar problemas si se usan en exceso.
 
-OWing piensa que hay que encontrar un equilibrio. Según él, trabajar demasiado rápido puede crear problemas, pero trabajar demasiado lento puede retrasar el proyecto.`,
+La velocidad ayuda a mantener la motivación: cuando ves progreso rápido, te dan ganas de continuar. Pero si vas demasiado rápido, puedes olvidar detalles y cometer un error que luego cuesta mucho tiempo arreglar. La precisión reduce errores y mejora la calidad, pero si te vuelves demasiado lento, el proyecto se retrasa y los demás tienen que esperar.
+
+OWing dice que la solución es un equilibrio con una regla simple: avanzar rápido en las etapas grandes y frenar en momentos concretos para revisar. Por ejemplo, construir una primera versión rápido y después hacer una revisión completa antes de finalizar. Así se evita tanto el caos de los errores como el bloqueo por lentitud. Para OWing, no es “velocidad o precisión”: es combinar las dos de forma inteligente.`,
     questions: [
       { id:"p16q1", type:"mcq", marks:2,
-        prompt:"(E) Speed helps to…",
-        options:["Create errors","Finish quickly","Sleep","Delay work"],
-        answerIndex:1
+        prompt:"(E) ¿Qué recomienda OWing para trabajar bien?",
+        options:["Combinar velocidad y precisión","Solo ir rápido siempre","Solo revisar y nunca avanzar","Trabajar sin plan"],
+        answerIndex:0
       },
-      { id:"p16q2", type:"pn", marks:2,
-        prompt:"(E) ‘Precision reduces errors.’ (P / N / P+N)",
-        correct:"P"
+      { id:"p16q2", type:"short", marks:4,
+        prompt:"(E) Da UN beneficio de la velocidad y UN beneficio de la precisión.",
+        rubric:"Velocidad: terminar pronto / mantener motivación. Precisión: menos errores / mejor calidad.",
+        keywords:[
+          ["velocidad","terminar","pronto","motivar","motivación"],
+          ["precisión","precision","menos","errores","calidad"]
+        ]
       },
       { id:"p16q3", type:"short", marks:4,
-        prompt:"(E) Give TWO risks mentioned.",
-        rubric:"Working too fast; working too slowly.",
+        prompt:"(E) Da DOS riesgos: uno por ir demasiado rápido y otro por ser demasiado lento.",
+        rubric:"Rápido: olvidar detalles / error costoso. Lento: retraso / otros esperan / bloqueo.",
         keywords:[
-          ["trop vite","demasiado rápido","too fast"],
-          ["trop lentement","demasiado lento","too slow","muy lento"]
+          ["demasiado rápido","muy rápido"],
+          ["olvidar","detalles","error","arreglar"],
+          ["demasiado lento","muy lento"],
+          ["retraso","retrasar"],
+          ["esperar","bloqueo"]
         ]
       },
       { id:"p16q4", type:"tfnm", marks:2,
-        prompt:"(E) The project is always delayed. (True / False / Not mentioned)",
-        correct:"Not mentioned"
+        prompt:"(E) OWing propone revisar en momentos concretos del proyecto. (True / False / Not mentioned)",
+        correct:"True"
       },
       { id:"p16q5", type:"short", marks:6,
-        prompt:"(H) Why is balance important?",
-        rubric:"Avoid errors; avoid delays; improve quality.",
+        prompt:"(H) Describe el método de OWing en DOS fases.",
+        rubric:"Fase 1: avanzar rápido en etapas grandes / primera versión. Fase 2: frenar para revisión completa antes de finalizar.",
         keywords:[
-          ["erreurs","errores"],
-          ["retard","retraso","retrasar"],
-          ["qualite","calidad","mejorar"]
+          ["etapas grandes","primera versión","version"],
+          ["rápido","rapido"],
+          ["frenar","revisar","revisión","revision"],
+          ["completa"],
+          ["finalizar"]
         ]
       },
-      { id:"p16q6", type:"es_short", marks:4,
-        prompt:"(M) En español: ¿Qué piensa OWing del trabajo demasiado rápido?",
-        rubric:"Puede crear problemas.",
+      { id:"p16q6", type:"fr_short", marks:4,
+        prompt:"(M) En español: ¿Cuál es la frase clave al final del pasaje?",
+        rubric:"No es ‘velocidad o precisión’: es combinar las dos de forma inteligente.",
         keywords:[
-          ["problemas","crear problemas"]
+          ["no es"],
+          ["velocidad"],
+          ["precisión","precision"],
+          ["combinar"],
+          ["inteligente"]
         ]
       }
     ]
@@ -1234,52 +1362,63 @@ OWing piensa que hay que encontrar un equilibrio. Según él, trabajar demasiado
     title: "Pasaje 17 — La importancia de la disciplina",
     theme: "Tema 1 — Escuela",
     unit: "Unidad 4 (Disciplina)",
-    text: `La disciplina es una cualidad importante para tener éxito. Implica trabajar con regularidad y respetar las reglas. Sin disciplina, es fácil perder la motivación.
+    text: `La disciplina es una cualidad importante para tener éxito. No significa ser duro contigo mismo todo el día, sino seguir trabajando incluso cuando no tienes ganas. Implica constancia, reglas simples y una dirección clara. Sin disciplina, es fácil perder la motivación: se deja todo para mañana, se abandona ante el primer obstáculo y se progresa menos.
 
-Red piensa que la disciplina no es solo escolar: también es útil en la música, el deporte e incluso en los juegos. Según él, la regularidad crea resultados sólidos.`,
+Red cree que la disciplina no es solo escolar. Dice que la misma lógica sirve para la música, el deporte y hasta los juegos. Si quieres mejorar, tienes que repetir, corregir y volver varias veces a lo mismo. Red da un ejemplo: trabajar diez minutos cada día puede ser más útil que estudiar tres horas una vez al mes. La regularidad crea hábitos, y los hábitos crean resultados sólidos.
+
+Red también afirma que la disciplina ayuda a estar más tranquilo. Si tienes una rutina, paniqueas menos antes de una prueba porque sabes que ya has trabajado. Aun así, habrá días difíciles. Para Red, la disciplina es precisamente volver al día siguiente sin culparte y continuar el camino.`,
     questions: [
       { id:"p17q1", type:"mcq", marks:2,
-        prompt:"(E) Discipline helps you…",
-        options:["Lose motivation","Succeed","Avoid school","Break rules"],
-        answerIndex:1
+        prompt:"(E) En este pasaje, ‘disciplina’ significa principalmente…",
+        options:["Ser constante incluso cuando no apetece","No descansar nunca","Ser perfecto","Ignorar reglas"],
+        answerIndex:0
       },
       { id:"p17q2", type:"short", marks:4,
-        prompt:"(E) Give TWO areas where discipline is useful.",
-        rubric:"School; music; sport; games.",
+        prompt:"(E) Da DOS consecuencias de no tener disciplina.",
+        rubric:"Dos de: perder motivación; dejar todo para mañana; abandonar ante obstáculos; progresar menos.",
         keywords:[
-          ["school","escolar","escuela"],
-          ["musique","música"],
-          ["sport","deporte"],
-          ["jeux","juegos"]
+          ["perder","motivación","motivacion"],
+          ["mañana","dejar"],
+          ["abandonar","obstáculo","obstaculo"],
+          ["progresar","menos"]
         ]
       },
-      { id:"p17q3", type:"pn", marks:2,
-        prompt:"(E) ‘Discipline prevents loss of motivation.’ (P / N / P+N)",
-        correct:"P"
+      { id:"p17q3", type:"short", marks:4,
+        prompt:"(E) Da DOS ámbitos donde Red dice que la disciplina es útil (no solo escuela).",
+        rubric:"Dos: música; deporte; juegos.",
+        keywords:[
+          ["música","musica"],
+          ["deporte"],
+          ["juegos"]
+        ]
       },
       { id:"p17q4", type:"tfnm", marks:2,
-        prompt:"(E) Discipline is only useful at school. (True / False / Not mentioned)",
-        correct:"False"
+        prompt:"(E) Red dice que diez minutos al día pueden ser muy útiles. (True / False / Not mentioned)",
+        correct:"True"
       },
       { id:"p17q5", type:"short", marks:6,
-        prompt:"(H) Why does regular work create solid results?",
-        rubric:"Consistency; improvement over time; stability.",
+        prompt:"(H) Explica por qué la regularidad crea ‘resultados sólidos’ según Red.",
+        rubric:"Porque construye hábitos, permite repetir/corregir con el tiempo y mejora de forma estable; más progreso que estudiar rara vez.",
         keywords:[
-          ["regular","regularidad","con regularidad"],
-          ["improve","mejorar","progresar"],
-          ["stable","sólidos","estabilidad","solidez"]
+          ["regularidad","constancia"],
+          ["hábitos","habito"],
+          ["repetir","corregir"],
+          ["con el tiempo"],
+          ["mejora","estable"],
+          ["rara vez","pocas veces"]
         ]
       },
-      { id:"p17q6", type:"es_short", marks:4,
-        prompt:"(M) En español: ¿Por qué es importante la disciplina?",
-        rubric:"Porque ayuda a tener éxito y a mantener la motivación.",
+      { id:"p17q6", type:"fr_short", marks:4,
+        prompt:"(M) En español: ¿Cómo ayuda la disciplina a Red antes de una prueba?",
+        rubric:"Con una rutina, se pone menos nervioso porque sabe que ya ha trabajado.",
         keywords:[
-          ["éxito","tener éxito","lograr"],
-          ["motivación","mantenerse motivado","motivado"]
+          ["rutina"],
+          ["menos nervioso","nervios"],
+          ["sabe","ya ha trabajado","trabajado"]
         ]
       }
     ]
-  },
+  }
 ];
 
 /* -----------------------------
@@ -1567,8 +1706,8 @@ $("#btnEditCentre").addEventListener("click", () => {
   const val = prompt("Enter centre number (digits only, e.g. 50749):", state.centreNo);
   if(val === null) return;
   const clean = String(val).replace(/\D/g,"").slice(0, 10);
-  if(clean.length < 3){
-    alert("Centre number must be digits only (at least 3 digits).");
+  if(clean.length < 5){
+    alert("Centre number must be digits only (at least 5 digits).");
     return;
   }
   setCentre(clean);
