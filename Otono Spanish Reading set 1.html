@@ -382,55 +382,77 @@
 const PASSAGES = [
   {
     id: 1,
-    title: "Pasaje 1 — Monsieur Barley y el método",
+    title: "Pasaje 1 — Señor Barley y el método",
     theme: "Tema 1 — Escuela",
-    unit: "Unidad 1 (Monsieur Barley)",
-    text: `Monsieur Barley es profesor de ciencias en la escuela Otono. Habla con calma y le gusta que todo sea claro. En su aula hay reglas sencillas: los cuadernos están guardados, las mesas están limpias y el material está listo antes de la clase. Los alumnos dicen que es estricto, pero Monsieur Barley responde: «Quiero sobre todo que sea preciso».
+    unit: "Unidad 1 (Señor Barley)",
+    text: `Señor Barley es profesor de ciencias en la escuela Otono. Habla con calma y le gusta que todo sea claro. En su aula hay reglas sencillas: los cuadernos están guardados, las mesas están limpias y el material está listo antes de la clase. Los alumnos dicen que es estricto, pero Señor Barley responde: «Quiero sobre todo que sea preciso».
 
 Antes de cada prueba, repite la misma idea: hay que leer la consigna y responder exactamente a la pregunta. Explica que un alumno puede conocer el tema, pero perder puntos si la respuesta no es completa. Por ejemplo, si la pregunta pide una justificación, escribir una sola palabra no basta. Si la pregunta pide dos razones, dar una sola razón no es suficiente.
 
 Red escucha e intenta cambiar su forma de trabajar. Vuelve a leer la pregunta, subraya las palabras importantes y comprueba cuántos detalles se piden. Piensa que este pequeño esfuerzo puede evitar errores simples.`,
     questions: [
-      { id:"p1q1", type:"mcq", marks:2,
-        prompt:"(E) What subject does Monsieur Barley teach?",
-        options:["Science","Music","PE","English"],
-        answerIndex:0
+      {
+        id: "p1q1",
+        type: "mcq",
+        marks: 2,
+        prompt: "(E) What subject does Señor Barley teach?",
+        options: ["Science", "Music", "PE", "English"],
+        answerIndex: 0
       },
-      { id:"p1q2", type:"pn", marks:2,
-        prompt:"(E) ‘Monsieur Barley likes clear rules.’ (P / N / P+N)",
-        answerLabel:"P",
-        correct:"P"
+      {
+        id: "p1q2",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) The passage presents Señor Barley’s classroom style as… (P / N / P+N)",
+        correct: "P"
       },
-      { id:"p1q3", type:"short", marks:4,
-        prompt:"(E) Give TWO signs that the classroom is organised.",
-        rubric:"Any two: notebooks are put away; tables are clean; equipment is ready; simple rules; everything is clear.",
-        keywords:[
-          ["notebooks","cuadernos","guardados","guardar"],
-          ["tables","mesas","clean","limpias","limpia"],
-          ["equipment","material","ready","listo","lista"],
-          ["rules","reglas","simple","sencillas"]
+      {
+        id: "p1q3",
+        type: "short",
+        marks: 4,
+        prompt: "(E) Give TWO signs that the classroom is organised.",
+        rubric:
+          "Any two: notebooks are put away; tables are clean; equipment is ready; simple rules; everything is clear.",
+        keywords: [
+          ["notebooks", "cuadernos", "guardados", "guardar"],
+          ["tables", "mesas", "clean", "limpias", "limpia"],
+          ["equipment", "material", "ready", "listo", "lista"],
+          ["rules", "reglas", "simple", "sencillas"],
+          ["clear", "claro", "clara"]
         ]
       },
-      { id:"p1q4", type:"tfnm", marks:2,
-        prompt:"(E) The text says Red never rereads questions. (True / False / Not mentioned)",
-        correct:"False"
+      {
+        id: "p1q4",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) The passage says Señor Barley is a maths teacher. (True / False / Not mentioned)",
+        correct: "False"
       },
-      { id:"p1q5", type:"short", marks:6,
-        prompt:"(H) Give ONE example from the passage of how someone could lose marks, and say what they should do instead.",
-        rubric:"Example: justification needed → give an explanation; two reasons needed → give two reasons.",
-        keywords:[
-          ["justify","justification","explain","explicar","porque","porque","ya que"],
-          ["two reasons","dos razones","two","dos","reasons","razones"],
-          ["instead","en lugar","should","debe","hay que"]
+      {
+        id: "p1q5",
+        type: "short",
+        marks: 6,
+        prompt:
+          "(H) Give ONE example from the passage of how someone could lose marks, and say what they should do instead.",
+        rubric:
+          "Example: if justification is required → explain; if two reasons are required → give two reasons.",
+        keywords: [
+          ["justification", "justificar", "explain", "explicar", "porque", "ya que"],
+          ["two", "dos", "reasons", "razones"],
+          ["instead", "en lugar", "should", "debe", "hay que"]
         ]
       },
-      { id:"p1q6", type:"es_short", marks:4,
-        prompt:"(M) En español: ¿Por qué Red subraya palabras importantes?",
-        rubric:"Para responder exactamente a la consigna / evitar errores / estar más seguro.",
-        keywords:[
-          ["responder","exactamente","consigna","pregunta"],
-          ["evitar","errores","simples"],
-          ["mas seguro","más seguro","seguro","segura"]
+      {
+        id: "p1q6",
+        type: "es_short",
+        marks: 4,
+        prompt: "(M) En español: ¿Qué hace Red para evitar errores simples? Da DOS acciones.",
+        rubric:
+          "Dos de: vuelve a leer la pregunta; subraya palabras importantes; comprueba cuántos detalles se piden.",
+        keywords: [
+          ["vuelve a leer", "leer", "pregunta"],
+          ["subraya", "subrayar", "palabras", "importantes"],
+          ["comprueba", "comprobar", "detalles", "piden"]
         ]
       }
     ]
@@ -447,47 +469,71 @@ A Luke le gusta la tinta negra. Dice que es limpia y fácil de leer. En matemát
 
 Esta situación puede crear confusión. La víspera de un examen, algunos alumnos preparan dos bolígrafos. Otros preguntan al profesor. Red elige una estrategia simple: se mantiene tranquilo y lee la consigna escrita en la hoja del examen, porque esa es la regla oficial.`,
     questions: [
-      { id:"p2q1", type:"mcq", marks:2,
-        prompt:"(E) Why do some students stress before exams?",
-        options:["They want more homework","They fear using the wrong pen","They dislike reading","They forget lunch"],
-        answerIndex:1
+      {
+        id: "p2q1",
+        type: "mcq",
+        marks: 2,
+        prompt: "(E) Why do some students stress before exams?",
+        options: ["They want more homework", "They fear using the wrong pen", "They dislike reading", "They forget lunch"],
+        answerIndex: 1
       },
-      { id:"p2q2", type:"tfnm", marks:2,
-        prompt:"(E) Maths copies are scanned. (True / False / Not mentioned)",
-        correct:"True"
-      },
-      { id:"p2q3", type:"short", marks:4,
-        prompt:"(E) Give TWO reasons Luke likes black ink.",
-        rubric:"Any two: neat/clean; easy to read; serious; clear.",
-        keywords:[
-          ["clean","limpia","limpio","ordenada","pulcra"],
-          ["easy to read","fácil","leer","legible"],
-          ["clear","clara","claro"],
-          ["serious","serio","seria","seria"]
+      {
+        id: "p2q2",
+        type: "short",
+        marks: 4,
+        prompt: "(E) Give TWO reasons Luke likes black ink.",
+        rubric: "Any two: clean/neat; easy to read; clear.",
+        keywords: [
+          ["clean", "limpia", "limpio", "ordenada", "pulcra"],
+          ["easy", "fácil", "leer", "legible"],
+          ["clear", "clara", "claro"]
         ]
       },
-      { id:"p2q4", type:"pn", marks:2,
-        prompt:"(E) ‘The rules are always the same in every subject.’ (P / N / P+N)",
-        correct:"N"
+      {
+        id: "p2q3",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) Overall, the passage presents pen rules as… (P / N / P+N)",
+        correct: "P+N"
       },
-      { id:"p2q5", type:"short", marks:6,
-        prompt:"(H) What is Red’s strategy, and why is it sensible?",
-        rubric:"He stays calm and checks the written instructions; sensible because written instructions are official.",
-        keywords:[
-          ["calm","tranquilo","tranquila","calma"],
-          ["check","comprobar","verificar","read","leer"],
-          ["written","escrita","escrito","hoja","papel"],
-          ["official","oficial","rule","regla","consigna"]
+      {
+        id: "p2q4",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) The passage says science always uses the same ink rules as maths. (True / False / Not mentioned)",
+        correct: "False"
+      },
+      {
+        id: "p2q5",
+        type: "short",
+        marks: 6,
+        prompt: "(H) What is Red’s strategy, and why is it sensible?",
+        rubric: "He stays calm and reads the written instructions; sensible because written instructions are official.",
+        keywords: [
+          ["calm", "tranquilo", "tranquila", "calma"],
+          ["read", "leer", "consigna", "instructions", "instrucciones"],
+          ["written", "escrita", "hoja", "papel"],
+          ["official", "oficial", "rule", "regla"]
         ]
       },
-      { id:"p2q6", type:"es_short", marks:4,
-        prompt:"(M) En español: Da una solución para evitar la confusión sobre los bolígrafos.",
-        rubric:"Ej: preparar dos bolígrafos / preguntar al profesor / leer la consigna.",
-        keywords:[
-          ["dos bolígrafos","dos","bolígrafos"],
-          ["preguntar","profesor"],
-          ["leer","consigna","hoja"]
+      {
+        id: "p2q6",
+        type: "es_short",
+        marks: 4,
+        prompt: "(M) En español: Da UNA solución mencionada para evitar la confusión sobre los bolígrafos.",
+        rubric: "Una: preparar dos bolígrafos / preguntar al profesor / leer la consigna en la hoja del examen.",
+        keywords: [
+          ["preparan", "preparar", "dos", "bolígrafos", "boligrafos"],
+          ["preguntan", "preguntar", "profesor"],
+          ["lee", "leer", "consigna", "hoja", "examen"]
         ]
+      },
+      {
+        id: "p2q7",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) The passage mentions Luke using blue ink for maths. (True / False / Not mentioned)",
+        correct: "Not mentioned"
       }
     ]
   },
@@ -503,46 +549,54 @@ En Otono, también hay limitaciones: puede haber un número limitado de plazas e
 
 Al final, Thomas elige francés. La escuela acepta su elección, aunque sea un poco tarde. Para él, es tranquilizador: si uno explica bien su situación, el sistema puede ser flexible.`,
     questions: [
-      { id:"p3q1", type:"mcq", marks:2,
-        prompt:"(E) Choosing GCSE options is described as…",
-        options:["Important","Impossible","A joke","Only for Year 7"],
-        answerIndex:0
+      {
+        id: "p3q1",
+        type: "mcq",
+        marks: 2,
+        prompt: "(E) What is the passage mainly about?",
+        options: ["Choosing GCSE options", "A sports match", "A school trip", "Cooking lessons"],
+        answerIndex: 0
       },
-      { id:"p3q2", type:"tfnm", marks:2,
-        prompt:"(E) Thomas hates Spanish. (True / False / Not mentioned)",
-        correct:"False"
-      },
-      { id:"p3q3", type:"short", marks:4,
-        prompt:"(E) Give TWO reasons why some students hesitate.",
-        rubric:"Any two: like several subjects; fear wrong choice; worry about being good enough; timetable clashes; limited places.",
-        keywords:[
-          ["varias","varios","asignaturas","materias"],
-          ["fear","miedo","equivocarse","elección"],
-          ["good enough","lo bastante bueno","suficiente"],
-          ["timetable","horario","coincidir","mismo tiempo"],
-          ["limited","limitado","plazas","plaza"]
+      {
+        id: "p3q2",
+        type: "short",
+        marks: 4,
+        prompt: "(E) Give TWO reasons some students hesitate when choosing options.",
+        rubric: "Any two: like several subjects; fear making the wrong choice; worry they aren’t good enough; timetable clashes; limited places.",
+        keywords: [
+          ["varias", "asignaturas", "materias", "several", "subjects"],
+          ["miedo", "equivocarse", "wrong choice", "fear"],
+          ["lo bastante bueno", "good enough"],
+          ["horario", "coincidir", "clash", "same time"],
+          ["plazas", "limitado", "limited"]
         ]
       },
-      { id:"p3q4", type:"pn", marks:2,
-        prompt:"(E) ‘The school can be flexible in some cases.’ (P / N / P+N)",
-        correct:"P"
+      {
+        id: "p3q3",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) The passage presents Thomas’s final choice as… (P / N / P+N)",
+        correct: "P"
       },
-      { id:"p3q5", type:"short", marks:6,
-        prompt:"(H) What should a student do if they need a late change, according to the text?",
-        rubric:"Explain the situation clearly; communicate; ask.",
-        keywords:[
-          ["explain","explicar","situación"],
-          ["clearly","claramente","bien","claro"],
-          ["ask","pedir","solicitar","acepta","aceptar"]
-        ]
+      {
+        id: "p3q4",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) The passage says Thomas dislikes French. (True / False / Not mentioned)",
+        correct: "False"
       },
-      { id:"p3q6", type:"es_short", marks:4,
-        prompt:"(M) En español: ¿Qué ayuda a Thomas a decidir?",
-        rubric:"Habla con otros alumnos y ve que tienen las mismas preocupaciones.",
-        keywords:[
-          ["habla","hablar"],
-          ["otros","alumnos","estudiantes"],
-          ["mismas","preocupaciones"]
+      {
+        id: "p3q5",
+        type: "short",
+        marks: 6,
+        prompt: "(H) What helps Thomas make his decision, and what happens in the end?",
+        rubric: "He talks to other students and realises they share worries; he chooses French; the school accepts it even though it is a bit late.",
+        keywords: [
+          ["habla", "hablar", "talks"],
+          ["otros", "alumnos", "students"],
+          ["mismas", "preocupaciones", "same worries"],
+          ["elige", "francés", "choose French"],
+          ["acepta", "accepts", "tarde", "late"]
         ]
       }
     ]
@@ -559,170 +613,225 @@ En la sala, las mesas están separadas y las mochilas se colocan al frente. El v
 
 Cuando habla de esa lista, algunos alumnos entran en pánico. Se preguntan si han olvidado algo en un bolsillo. Red, en cambio, se mantiene concentrado. Se repite que un pequeño error puede costar puntos, pero que lo más importante es seguir las consignas hasta el final.`,
     questions: [
-      { id:"p4q1", type:"mcq", marks:2,
-        prompt:"(E) How do students enter the exam room?",
-        options:["Calmly","Running","Singing","Shouting"],
-        answerIndex:0
+      {
+        id: "p4q1",
+        type: "mcq",
+        marks: 2,
+        prompt: "(E) Where are the bags placed in the exam room?",
+        options: ["At the front", "Under each chair", "Outside the school", "On the tables"],
+        answerIndex: 0
       },
-      { id:"p4q2", type:"short", marks:4,
-        prompt:"(E) Give TWO details that show the room is prepared for an exam.",
-        rubric:"Any two: spaced tables; bags placed at the front; invigilator reads instructions; list of forbidden items.",
-        keywords:[
-          ["tables","mesas","separadas"],
-          ["bags","mochilas","al frente","frente"],
-          ["invigilator","vigilante","reads","lee","consignas"],
-          ["forbidden","prohibidos","lista"]
+      {
+        id: "p4q2",
+        type: "short",
+        marks: 4,
+        prompt: "(E) Give TWO exam-room details from the passage.",
+        rubric: "Any two: spaced tables; bags at the front; invigilator reads instructions; phones not allowed; list of forbidden items.",
+        keywords: [
+          ["mesas", "separadas", "spaced tables"],
+          ["mochilas", "al frente", "bags front"],
+          ["vigilante", "lee", "consignas", "invigilator reads instructions"],
+          ["móvil", "movil", "phone not allowed"],
+          ["objetos", "prohibidos", "lista", "forbidden list"]
         ]
       },
-      { id:"p4q3", type:"tfnm", marks:2,
-        prompt:"(E) Students are allowed to use phones. (True / False / Not mentioned)",
-        correct:"False"
+      {
+        id: "p4q3",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) Overall, the exam room atmosphere is presented as… (P / N / P+N)",
+        correct: "P+N"
       },
-      { id:"p4q4", type:"pn", marks:2,
-        prompt:"(E) ‘Some students panic because they think they forgot something.’ (P / N / P+N)",
-        correct:"P"
+      {
+        id: "p4q4",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) The passage says the invigilator allows phones. (True / False / Not mentioned)",
+        correct: "False"
       },
-      { id:"p4q5", type:"short", marks:6,
-        prompt:"(H) What is Red’s mindset at the end, and how can it help?",
-        rubric:"Stay focused and follow instructions; helps avoid small mistakes and keeps calm.",
-        keywords:[
-          ["focused","concentrado","concentrada","concentrarse"],
-          ["follow","seguir","respetar"],
-          ["instructions","consignas","instrucciones"],
-          ["avoid","evitar","mistakes","errores"],
-          ["calm","calma","tranquilo"]
+      {
+        id: "p4q5",
+        type: "short",
+        marks: 6,
+        prompt: "(H) What does Red tell himself to stay calm, and what does he focus on?",
+        rubric: "Small mistakes can lose marks, but the key is to follow instructions until the end; he stays focused.",
+        keywords: [
+          ["pequeño", "error", "small mistake"],
+          ["costar", "puntos", "lose marks"],
+          ["lo más importante", "most important"],
+          ["seguir", "consignas", "follow instructions"],
+          ["hasta el final", "until the end"]
         ]
       },
-      { id:"p4q6", type:"es_short", marks:4,
-        prompt:"(M) En español: ¿Por qué la lista de objetos prohibidos hace que algunos alumnos entren en pánico?",
-        rubric:"Porque tienen miedo de haber olvidado algo en un bolsillo.",
-        keywords:[
-          ["pánico","entrar en pánico"],
-          ["miedo","preocupados"],
-          ["olvidado","olvidar"],
-          ["bolsillo","bolsillos"]
+      {
+        id: "p4q6",
+        type: "es_short",
+        marks: 4,
+        prompt: "(M) En español: ¿Por qué algunos alumnos entran en pánico cuando oyen la lista de objetos prohibidos?",
+        rubric: "Porque temen haber olvidado algo en un bolsillo.",
+        keywords: [
+          ["pánico", "panico"],
+          ["temen", "miedo"],
+          ["olvidado", "olvidar"],
+          ["bolsillo", "bolsillos"],
+          ["objetos", "prohibidos"]
+        ]
+      },
+      {
+        id: "p4q7",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) The passage mentions students bringing a dictionary into the exam. (True / False / Not mentioned)",
+        correct: "Not mentioned"
+      }
+    ]
+  },
+
+  {
+    id: 5,
+    title: "Pasaje 5 — El servidor de Minecraft Otono: cooperación y tensiones",
+    theme: "Tema 2 — Tiempo libre",
+    unit: "Unidad 5 (Minecraft server)",
+    text: `En el servidor de Minecraft Otono, los jugadores suelen construir en equipo. Antes de una construcción grande, eligen un objetivo claro: una casa, una torre o una zona completa del mundo. Luego se reparten las tareas. Por ejemplo, una persona consigue materiales, otra construye la estructura y otra revisa los detalles para evitar errores.
+
+Esta organización ayuda mucho, pero también puede crear tensiones. Red quiere ir rápido y ver resultados inmediatamente. OWing prefiere avanzar más despacio: revisa el plan, corrige errores pequeños y insiste en la precisión. A veces, Red piensa que OWing frena el proyecto. A veces, OWing piensa que Red va demasiado rápido y se olvida de detalles.
+
+Cuando siguen un método simple, el proyecto funciona mejor. Primero hacen una etapa rápida (la estructura) y después una etapa de revisión (los detalles). Así ahorran tiempo, porque evitan tener que rehacer el trabajo más tarde.`,
+    questions: [
+      {
+        id: "p5q1",
+        type: "mcq",
+        marks: 2,
+        prompt: "(E) On the Otono Minecraft server, players usually build…",
+        options: ["Alone", "In teams", "Only in silence", "Without a plan"],
+        answerIndex: 1
+      },
+      {
+        id: "p5q2",
+        type: "short",
+        marks: 4,
+        prompt: "(E) Give TWO example roles mentioned in the passage.",
+        rubric: "Two roles such as: get materials; build the structure; check details/correct errors.",
+        keywords: [
+          ["materiales", "consigue", "get materials"],
+          ["construye", "estructura", "build structure"],
+          ["revisa", "detalles", "check details"],
+          ["corrige", "errores", "correct errors"]
+        ]
+      },
+      {
+        id: "p5q3",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) The passage presents teamwork on the server as… (P / N / P+N)",
+        correct: "P+N"
+      },
+      {
+        id: "p5q4",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) The passage says OWing prefers to work slowly and check details. (True / False / Not mentioned)",
+        correct: "True"
+      },
+      {
+        id: "p5q5",
+        type: "short",
+        marks: 6,
+        prompt: "(H) Explain ONE reason Red and OWing sometimes disagree, and how the two-step method helps.",
+        rubric:
+          "They disagree about speed vs precision; the method separates fast building from later checking, reducing rework and tension.",
+        keywords: [
+          ["rápido", "speed"],
+          ["precisión", "precision"],
+          ["desacuerdo", "tensión", "tensions"],
+          ["etapa", "rápida", "fast stage"],
+          ["revisión", "detalles", "checking"],
+          ["rehacer", "rework", "más tarde"]
         ]
       }
     ]
   },
 
   {
-  id: 5,
-  title: "Pasaje 5 — El servidor de Minecraft Otono: cooperación y tensiones",
-  theme: "Tema 2 — Free time",
-  unit: "Unit 5 (Minecraft server)",
-  text: `En el servidor de Minecraft Otono, los jugadores suelen construir en equipo. Antes de una construcción grande, eligen un objetivo claro: una casa, una torre o una zona completa del mundo. Luego se reparten las tareas. Por ejemplo, una persona consigue materiales, otra construye la estructura y otra revisa los detalles para evitar errores.
-
-Esta organización ayuda mucho, pero también puede crear tensiones. Red quiere ir rápido y ver resultados inmediatamente. OWing prefiere avanzar más despacio: revisa el plan, corrige errores pequeños y insiste en la precisión. A veces, Red piensa que OWing frena el proyecto. A veces, OWing piensa que Red va demasiado rápido y se olvida de detalles.
-
-Cuando siguen un método simple, el proyecto funciona mejor. Primero hacen una etapa rápida (la estructura) y después una etapa de revisión (los detalles). Así ahorran tiempo, porque evitan tener que rehacer el trabajo más tarde.`,
-  questions: [
-    { id:"p5q1", type:"mcq", marks:2,
-      prompt:"(E) In the Otono Minecraft server, players usually build…",
-      options:["Alone","In teams","Only at night","Without rules"],
-      answerIndex:1
-    },
-    { id:"p5q2", type:"short", marks:4,
-      prompt:"(E) Give TWO example roles mentioned in the passage.",
-      rubric:"Two roles such as: get materials; build the structure; review details/correct errors.",
-      keywords:[
-        ["materiales","materials","consigue","get","conseguir"],
-        ["construye","build","estructura","structure"],
-        ["revisa","review","detalles","details"],
-        ["corrige","correct","errores","errors"]
-      ]
-    },
-    { id:"p5q3", type:"tfnm", marks:2,
-      prompt:"(E) Red wants results immediately. (True / False / Not mentioned)",
-      correct:"True"
-    },
-    { id:"p5q4", type:"short", marks:4,
-      prompt:"(E) Why can teamwork create tension between Red and OWing? Give ONE reason.",
-      rubric:"Because Red prioritises speed and OWing prioritises precision/checking, so they disagree about pace/details.",
-      keywords:[
-        ["rápido","rapido","speed"],
-        ["despacio","slow"],
-        ["precisión","precision","precision"],
-        ["detalles","details"],
-        ["tensiones","tension","desacuerdo","disagree"]
-      ]
-    },
-    { id:"p5q5", type:"pn", marks:2,
-      prompt:"(E) The passage suggests teamwork on the server is… (P / N / P+N)",
-      answer:"P+N"
-    },
-    { id:"p5q6", type:"es_short", marks:4,
-      prompt:"(M) En español: ¿Cuál es el método de DOS etapas que ayuda al proyecto?",
-      rubric:"Etapa 1: construir la estructura rápido. Etapa 2: revisar/corregir los detalles.",
-      keywords:[
-        ["etapa"],
-        ["estructura"],
-        ["rápido","rapido"],
-        ["revisar","revisa","corrigir","corregir"],
-        ["detalles"]
-      ]
-    }
-  ]
-},
-
-  {
-  id: 6,
-  title: "Pasaje 6 — Otono Airways: comodidad y límites",
-  theme: "Tema 3 — Otono Team",
-  unit: "Unit 8 (Otono Airways)",
-  text: `Viajar con Otono Airways suele ser cómodo. Los pasajeros notan la organización en la cabina, la distribución de los asientos y el ambiente general. Incluso en clase económica, muchos consideran que hay suficiente espacio para sentarse bien.
+    id: 6,
+    title: "Pasaje 6 — Otono Airways: comodidad y límites",
+    theme: "Tema 3 — Otono Team",
+    unit: "Unidad 8 (Otono Airways)",
+    text: `Viajar con Otono Airways suele ser cómodo. Los pasajeros notan la organización en la cabina, la distribución de los asientos y el ambiente general. Incluso en clase económica, muchos consideran que hay suficiente espacio para sentarse bien.
 
 Sin embargo, no todo es perfecto. Algunos pasajeros piensan que las reglas a bordo son estrictas, sobre todo en zonas tranquilas como el salón. Otros dicen que el servicio puede sentirse demasiado rápido: la comida llega pronto, pero hay menos tiempo para hablar con la tripulación. Red observa estos detalles con atención. Para él, un buen vuelo depende de un equilibrio entre comodidad, eficacia y respeto de las instrucciones.
 
 Al final, Red concluye que la experiencia es positiva, pero que también tiene pequeños límites según las expectativas de cada persona.`,
-  questions: [
-    { id:"p6q1", type:"mcq", marks:2,
-      prompt:"(E) The passage says travelling with Otono Airways is usually…",
-      options:["Uncomfortable","Comfortable","Dangerous","Impossible"],
-      answerIndex:1
-    },
-    { id:"p6q2", type:"short", marks:4,
-      prompt:"(E) Give TWO things passengers notice in the cabin.",
-      rubric:"Any two: organisation; seat layout; general atmosphere; enough space in economy.",
-      keywords:[
-        ["organización","organizacion","organisation"],
-        ["distribución","distribucion","layout"],
-        ["asientos","seats"],
-        ["ambiente","atmosphere"],
-        ["espacio","space","económica","economica","economy"]
-      ]
-    },
-    { id:"p6q3", type:"tfnm", marks:2,
-      prompt:"(E) The passage says many passengers find there is enough space in economy. (True / False / Not mentioned)",
-      correct:"True"
-    },
-    { id:"p6q4", type:"short", marks:4,
-      prompt:"(E) Give ONE criticism mentioned about the flight experience.",
-      rubric:"Any one: rules can feel strict (especially in quiet areas like the lounge); service can feel too fast / less time to talk to crew.",
-      keywords:[
-        ["reglas","rules","estrictas","strict"],
-        ["salón","salon","lounge","tranquil","tranquilo","quiet"],
-        ["servicio","service","comida","meal"],
-        ["rápido","rapido","fast"],
-        ["menos tiempo","less time","tripulación","tripulacion","crew"]
-      ]
-    },
-    { id:"p6q5", type:"pn", marks:2,
-      prompt:"(E) Overall, the passage presents Otono Airways as… (P / N / P+N)",
-      answer:"P+N"
-    },
-    { id:"p6q6", type:"es_short", marks:4,
-      prompt:"(M) En español: ¿Qué ‘equilibrio’ dice Red que debe tener un buen vuelo? Da DOS elementos.",
-      rubric:"Dos elementos entre: comodidad; eficacia; respeto de las instrucciones.",
-      keywords:[
-        ["comodidad"],
-        ["eficacia"],
-        ["respeto","respetar"],
-        ["instrucciones","reglas"]
-      ]
-    }
-  ]
-},
+    questions: [
+      {
+        id: "p6q1",
+        type: "mcq",
+        marks: 2,
+        prompt: "(E) The passage says travelling with Otono Airways is usually…",
+        options: ["Uncomfortable", "Comfortable", "Dangerous", "Impossible"],
+        answerIndex: 1
+      },
+      {
+        id: "p6q2",
+        type: "short",
+        marks: 4,
+        prompt: "(E) Give TWO things passengers notice in the cabin.",
+        rubric: "Any two: organisation; seat layout; general atmosphere; enough space in economy.",
+        keywords: [
+          ["organización", "organisation"],
+          ["distribución", "layout"],
+          ["asientos", "seats"],
+          ["ambiente", "atmosphere"],
+          ["espacio", "económica", "economy space"]
+        ]
+      },
+      {
+        id: "p6q3",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) Overall, the passage presents Otono Airways as… (P / N / P+N)",
+        correct: "P+N"
+      },
+      {
+        id: "p6q4",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) The passage says the lounge rules can feel strict. (True / False / Not mentioned)",
+        correct: "True"
+      },
+      {
+        id: "p6q5",
+        type: "short",
+        marks: 6,
+        prompt: "(H) Give ONE criticism and ONE positive point mentioned, then explain Red’s ‘balance’.",
+        rubric:
+          "Criticism: strict rules / service too fast / less time with crew. Positive: comfort / organisation / space. Balance: comfort + efficiency + respecting rules.",
+        keywords: [
+          ["estrictas", "rules", "strict"],
+          ["salón", "lounge"],
+          ["servicio", "rápido", "fast service"],
+          ["menos tiempo", "tripulación", "less time with crew"],
+          ["cómodo", "comodidad", "comfort"],
+          ["organización", "organisation"],
+          ["espacio", "space"],
+          ["equilibrio", "comodidad", "eficacia", "respeto", "instrucciones"]
+        ]
+      },
+      {
+        id: "p6q6",
+        type: "es_short",
+        marks: 4,
+        prompt: "(M) En español: ¿Qué tres elementos dice Red que forman un buen vuelo?",
+        rubric: "Comodidad, eficacia y respeto de las instrucciones.",
+        keywords: [
+          ["comodidad"],
+          ["eficacia"],
+          ["respeto"],
+          ["instrucciones", "consignas", "reglas"]
+        ]
+      }
+    ]
+  },
 
   {
     id: 7,
@@ -733,47 +842,61 @@ Al final, Red concluye que la experiencia es positiva, pero que también tiene p
 
 Red intenta organizar su trabajo con antelación. Usa un horario sencillo donde anota sus deberes y sus repasos. No siempre trabaja mucho tiempo, pero trabaja con regularidad. Según él, este método permite mantenerse concentrado y evitar el cansancio antes de los exámenes.`,
     questions: [
-      { id:"p7q1", type:"mcq", marks:2,
-        prompt:"(E) Time management is described as…",
-        options:["Useless","Essential","Confusing","Optional"],
-        answerIndex:1
+      {
+        id: "p7q1",
+        type: "mcq",
+        marks: 2,
+        prompt: "(E) Time management is described as…",
+        options: ["Useless", "Essential", "Confusing", "Optional"],
+        answerIndex: 1
       },
-      { id:"p7q2", type:"tfnm", marks:2,
-        prompt:"(E) Some students feel stressed because they start homework late. (True / False / Not mentioned)",
-        correct:"True"
-      },
-      { id:"p7q3", type:"short", marks:4,
-        prompt:"(E) Give TWO advantages of working a little every day.",
-        rubric:"Avoid pressure; stay focused; reduce stress; avoid fatigue.",
-        keywords:[
-          ["avoid","evitar","pressure","presión"],
-          ["focused","concentrado","concentrarse"],
-          ["stress","estrés"],
-          ["fatigue","cansancio"]
+      {
+        id: "p7q2",
+        type: "short",
+        marks: 4,
+        prompt: "(E) Give TWO benefits of working a little every day (from the passage).",
+        rubric: "Two: avoid pressure; stay focused; avoid fatigue before exams; reduce stress.",
+        keywords: [
+          ["evitar", "presión", "pressure"],
+          ["concentrado", "concentrarse", "focus"],
+          ["cansancio", "fatiga", "fatigue"],
+          ["estrés", "stress"]
         ]
       },
-      { id:"p7q4", type:"pn", marks:2,
-        prompt:"(E) ‘Red works for very long hours every day.’ (P / N / P+N)",
-        correct:"N"
+      {
+        id: "p7q3",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) The passage presents Red’s method as… (P / N / P+N)",
+        correct: "P"
       },
-      { id:"p7q5", type:"short", marks:6,
-        prompt:"(H) Explain why Red’s method is effective.",
-        rubric:"Planning; regular work; better focus; less stress.",
-        keywords:[
-          ["planning","plan","horario"],
-          ["regular","regularidad","con regularidad"],
-          ["focus","concentración"],
-          ["stress","estrés","cansancio"]
+      {
+        id: "p7q4",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) The passage says Red never uses a schedule. (True / False / Not mentioned)",
+        correct: "False"
+      },
+      {
+        id: "p7q5",
+        type: "short",
+        marks: 6,
+        prompt: "(H) Explain why Red’s method can help before exams.",
+        rubric: "It organises homework and revision, keeps work regular, improves focus, and avoids fatigue/stress before exams.",
+        keywords: [
+          ["organizar", "horario", "schedule"],
+          ["deberes", "repasos", "revision"],
+          ["regularidad", "constancia", "regular"],
+          ["concentrado", "concentración", "focus"],
+          ["cansancio", "estrés", "before exams", "exámenes"]
         ]
       },
-      { id:"p7q6", type:"es_short", marks:4,
-        prompt:"(M) En español: ¿Por qué Red usa un horario?",
-        rubric:"Para organizar su trabajo / anotar los deberes / repasar mejor.",
-        keywords:[
-          ["organizar"],
-          ["anotar","deberes"],
-          ["repasar","repaso"]
-        ]
+      {
+        id: "p7q6",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) The passage mentions Red studying exactly two hours every night. (True / False / Not mentioned)",
+        correct: "Not mentioned"
       }
     ]
   },
@@ -789,53 +912,74 @@ Red nota que el estrés también cambia la manera de leer. Cuando está nervioso
 
 Después, Red empieza por los ejercicios más fáciles para ganar puntos rápidos y sentirse más seguro. Si una pregunta le parece difícil, la marca y continúa con la siguiente. Al final, si le queda tiempo, vuelve a las preguntas marcadas y revisa que ha respondido exactamente lo que se pide. Red dice que el objetivo no es “no sentir nada”, sino usar el estrés como concentración y mantener la cabeza clara.`,
     questions: [
-      { id:"p8q1", type:"mcq", marks:2,
-        prompt:"(E) ¿Cuál es el tema principal del pasaje?",
-        options:["El estrés antes de un control y cómo gestionarlo","Un viaje escolar","Un partido de fútbol","Una receta de cocina"],
-        answerIndex:0
+      {
+        id: "p8q1",
+        type: "mcq",
+        marks: 2,
+        prompt: "(E) What is the main topic of the passage?",
+        options: [
+          "Exam stress and how to manage it",
+          "A school trip",
+          "A football match",
+          "A cooking recipe"
+        ],
+        answerIndex: 0
       },
-      { id:"p8q2", type:"short", marks:4,
-        prompt:"(E) Da DOS causas del estrés mencionadas en el texto.",
-        rubric:"Cualquier dos: miedo a quedarse en blanco; preocupación por el tiempo/reloj; el silencio; ruidos pequeños que distraen.",
-        keywords:[
-          ["quedarse en blanco","blanco"],
-          ["tiempo","reloj"],
-          ["silencio"],
-          ["ruido","silla","página","bolígrafo","boligrafo"]
+      {
+        id: "p8q2",
+        type: "short",
+        marks: 4,
+        prompt: "(E) Give TWO causes of stress mentioned in the passage.",
+        rubric: "Any two: fear of blanking; worrying about time/clock; silence; small noises feel huge and distract.",
+        keywords: [
+          ["quedarse en blanco", "blank"],
+          ["tiempo", "reloj", "clock"],
+          ["silencio", "silence"],
+          ["ruido", "silla", "página", "bolígrafo", "noise"]
         ]
       },
-      { id:"p8q3", type:"short", marks:4,
-        prompt:"(E) ¿Qué problema de lectura menciona Red cuando hay estrés?",
-        rubric:"Que se lee demasiado rápido y se saltan palabras clave / se confunden instrucciones (dos vs uno, etc.).",
-        keywords:[
-          ["leer","rápido","rapido"],
-          ["saltan","saltar"],
-          ["palabras clave","clave"],
-          ["confunden","confundir","dos","uno","explica","justifica"]
+      {
+        id: "p8q3",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) Overall, the passage presents stress as… (P / N / P+N)",
+        correct: "P+N"
+      },
+      {
+        id: "p8q4",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) The passage says stress can make people read too fast. (True / False / Not mentioned)",
+        correct: "True"
+      },
+      {
+        id: "p8q5",
+        type: "short",
+        marks: 6,
+        prompt: "(H) Describe THREE steps in Red’s routine to control stress.",
+        rubric:
+          "Three steps such as: breathe calmly; reread slowly; underline key words; start with easiest tasks; mark hard questions and move on; return and check at the end.",
+        keywords: [
+          ["respira", "calma", "breathe"],
+          ["lee", "lentamente", "reread"],
+          ["subraya", "palabras clave", "underline"],
+          ["más fáciles", "puntos", "easiest"],
+          ["marca", "continúa", "move on"],
+          ["al final", "revisa", "check"]
         ]
       },
-      { id:"p8q4", type:"tfnm", marks:2,
-        prompt:"(E) Red subraya palabras clave para no confundir la consigna. (True / False / Not mentioned)",
-        correct:"True"
-      },
-      { id:"p8q5", type:"short", marks:6,
-        prompt:"(H) Describe TRES pasos de la rutina de Red para controlar el estrés.",
-        rubric:"Tres de: respirar con calma; leer la pregunta lentamente otra vez; subrayar palabras clave; empezar por lo más fácil; marcar y saltar una difícil; volver al final; revisar respuestas.",
-        keywords:[
-          ["respira","respirar","calma","tranquilo"],
-          ["lee","leer","lentamente","despacio"],
-          ["subraya","subrayar","palabras clave","clave"],
-          ["fáciles","faciles","más fácil","mas facil"],
-          ["marca","marcar","continúa","continuar","siguiente"],
-          ["vuelve","volver","al final","revisa","revisar"]
-        ]
-      },
-      { id:"p8q6", type:"fr_short", marks:4,
-        prompt:"(M) En español: ¿Por qué Red empieza por los ejercicios más fáciles?",
-        rubric:"Para ganar puntos rápido y sentirse más seguro / para aumentar la confianza.",
-        keywords:[
-          ["puntos","rápido","rapido"],
-          ["seguro","segura","confianza"]
+      {
+        id: "p8q6",
+        type: "es_short",
+        marks: 4,
+        prompt: "(M) En español: ¿Por qué Red subraya palabras clave?",
+        rubric:
+          "Para no confundir la consigna y responder exactamente lo que se pide / evitar errores.",
+        keywords: [
+          ["subraya", "palabras clave"],
+          ["no confundir", "consigna"],
+          ["responder", "exactamente"],
+          ["evitar", "errores"]
         ]
       }
     ]
@@ -852,53 +996,71 @@ Red prefiere grupos organizados. Para él, el secreto es simple: desde el princi
 
 Cuando los roles están claros, Red ve varias ventajas. Primero, el trabajo avanza más rápido porque cada uno sabe qué hacer. Segundo, las ideas son más variadas porque participan más personas. Tercero, hay menos errores, porque alguien revisa al final. Para Red, un grupo no es solo “estar juntos”, sino ser un equipo con una forma de trabajar.`,
     questions: [
-      { id:"p9q1", type:"mcq", marks:2,
-        prompt:"(E) Según Red, ¿qué es lo más importante para un buen trabajo en grupo?",
-        options:["Tener roles claros desde el principio","Trabajar en silencio total","No repartir tareas","Hacerlo todo a última hora"],
-        answerIndex:0
+      {
+        id: "p9q1",
+        type: "mcq",
+        marks: 2,
+        prompt: "(E) What does Red think is the secret of good group work?",
+        options: ["Clear roles from the start", "Never speaking", "Working alone", "Finishing late"],
+        answerIndex: 0
       },
-      { id:"p9q2", type:"short", marks:4,
-        prompt:"(E) Da DOS problemas del trabajo en grupo mencionados.",
-        rubric:"Dos de: trabajo desigual; poca participación; frustración; baja calidad.",
-        keywords:[
-          ["una persona","casi todo","mucho"],
-          ["otra","poco","participa","participación"],
-          ["frustración","frustra","frustrado"],
-          ["calidad","baja"]
+      {
+        id: "p9q2",
+        type: "short",
+        marks: 4,
+        prompt: "(E) Give TWO problems of group work mentioned in the passage.",
+        rubric: "Any two: unequal work; low participation; frustration; quality drops.",
+        keywords: [
+          ["casi todo", "una persona", "unequal"],
+          ["participa", "poco", "low participation"],
+          ["frustra", "frustración"],
+          ["calidad", "baja", "drops"]
         ]
       },
-      { id:"p9q3", type:"short", marks:4,
-        prompt:"(E) Da DOS roles de ejemplo que propone Red.",
-        rubric:"Dos de: hacer el plan; escribir la respuesta final; revisar detalles; revisar al final.",
-        keywords:[
-          ["plan"],
-          ["escribe","escribir","respuesta final"],
-          ["revisa","revisar","detalles"],
-          ["al final","corregir","errores"]
+      {
+        id: "p9q3",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) The passage presents group work as… (P / N / P+N)",
+        correct: "P+N"
+      },
+      {
+        id: "p9q4",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) The passage says everyone must speak at least once. (True / False / Not mentioned)",
+        correct: "True"
+      },
+      {
+        id: "p9q5",
+        type: "short",
+        marks: 6,
+        prompt: "(H) Give THREE advantages Red sees when roles are clear.",
+        rubric: "Three: faster progress; more varied ideas; fewer errors; better quality.",
+        keywords: [
+          ["avanza", "más rápido", "faster"],
+          ["ideas", "variadas", "varied ideas"],
+          ["menos errores", "revisa", "fewer errors"],
+          ["calidad", "better quality"]
         ]
       },
-      { id:"p9q4", type:"tfnm", marks:2,
-        prompt:"(E) Red quiere que todos aporten al menos una idea. (True / False / Not mentioned)",
-        correct:"True"
+      {
+        id: "p9q6",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) The passage mentions using phones during group work. (True / False / Not mentioned)",
+        correct: "Not mentioned"
       },
-      { id:"p9q5", type:"short", marks:6,
-        prompt:"(H) Da TRES ventajas de tener roles claros en un grupo, según el texto.",
-        rubric:"Tres de: avanza más rápido; ideas más variadas; menos errores; mejor calidad; menos frustración.",
-        keywords:[
-          ["avanza","más rápido","mas rapido"],
-          ["ideas","variadas","más ideas","mas ideas"],
-          ["menos","errores","revisar"],
-          ["calidad","mejor"],
-          ["frustración","menos"]
-        ]
-      },
-      { id:"p9q6", type:"fr_short", marks:4,
-        prompt:"(M) En español: ¿Por qué alguien revisa el trabajo al final?",
-        rubric:"Para encontrar y corregir errores / para mejorar la calidad.",
-        keywords:[
-          ["revisa","al final"],
-          ["corregir","errores"],
-          ["mejorar","calidad"]
+      {
+        id: "p9q7",
+        type: "es_short",
+        marks: 4,
+        prompt: "(M) En español: ¿Por qué Red quiere que todos aporten al menos una idea?",
+        rubric: "Para que nadie desaparezca y para que todos participen en el proyecto.",
+        keywords: [
+          ["todos", "aportar", "idea"],
+          ["nadie", "desaparecer"],
+          ["participar", "proyecto"]
         ]
       }
     ]
@@ -915,54 +1077,61 @@ OWing cree que un espacio claro y tranquilo da ganas de trabajar. Antes de empez
 
 OWing dice que cuando el espacio está desordenado, se pierde tiempo buscando cosas y se cae más fácil en distracciones. En cambio, cuando todo está preparado, se empieza antes y se termina mejor. Según él, un buen entorno no hace milagros, pero reduce el estrés y mejora la calidad del trabajo.`,
     questions: [
-      { id:"p10q1", type:"mcq", marks:2,
-        prompt:"(E) ¿Qué hace OWing antes de empezar a estudiar?",
-        options:["Ordena el escritorio y aleja el móvil","Sale a correr","Enciende videojuegos","Llama a sus amigos"],
-        answerIndex:0
+      {
+        id: "p10q1",
+        type: "mcq",
+        marks: 2,
+        prompt: "(E) OWing believes a good work space should be…",
+        options: ["Clear and calm", "Noisy and messy", "Crowded", "Outside only"],
+        answerIndex: 0
       },
-      { id:"p10q2", type:"short", marks:4,
-        prompt:"(E) Da DOS preferencias diferentes sobre el ruido al estudiar.",
-        rubric:"Dos: silencio total; ruido de fondo ligero; música muy baja; ventilador.",
-        keywords:[
-          ["silencio","total"],
-          ["ruido","fondo"],
-          ["música","baja","musica"],
-          ["ventilador"]
+      {
+        id: "p10q2",
+        type: "short",
+        marks: 4,
+        prompt: "(E) Give TWO different preferences students can have about noise.",
+        rubric: "Some prefer total silence; others prefer light background noise (fan/quiet music).",
+        keywords: [
+          ["silencio", "total", "total silence"],
+          ["ruido", "de fondo", "background noise"],
+          ["ventilador", "fan"],
+          ["música", "baja", "quiet music"]
         ]
       },
-      { id:"p10q3", type:"short", marks:4,
-        prompt:"(E) Da DOS cosas concretas que OWing hace para evitar distracciones.",
-        rubric:"Dos de: quitar papeles inútiles; preparar solo lo necesario; dejar el móvil lejos; estudiar en el mismo lugar.",
-        keywords:[
-          ["quita","papeles","inútiles","inutiles"],
-          ["prepara","necesario"],
-          ["móvil","movil","lejos"],
-          ["mismo","lugar","rutina"]
+      {
+        id: "p10q3",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) The passage presents background noise (like a fan) as… (P / N / P+N)",
+        correct: "P+N"
+      },
+      {
+        id: "p10q4",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) The passage says OWing keeps his phone close while studying. (True / False / Not mentioned)",
+        correct: "False"
+      },
+      {
+        id: "p10q5",
+        type: "short",
+        marks: 6,
+        prompt: "(H) Explain why a tidy environment saves time, according to the passage.",
+        rubric: "You waste less time searching for things, get distracted less, start sooner, and finish better.",
+        keywords: [
+          ["desordenado", "desorden", "messy"],
+          ["pierde tiempo", "buscar", "waste time searching"],
+          ["distracciones", "distractions"],
+          ["empieza", "antes", "start sooner"],
+          ["termina", "mejor", "finish better"]
         ]
       },
-      { id:"p10q4", type:"tfnm", marks:2,
-        prompt:"(E) OWing cree que un entorno ordenado puede reducir el estrés. (True / False / Not mentioned)",
-        correct:"True"
-      },
-      { id:"p10q5", type:"short", marks:6,
-        prompt:"(H) Explica por qué un espacio desordenado puede perjudicar el estudio, según OWing.",
-        rubric:"Porque se pierde tiempo buscando cosas, hay más distracciones y cuesta más concentrarse; con todo preparado se empieza antes y se termina mejor.",
-        keywords:[
-          ["desordenado","desorden"],
-          ["pierde tiempo","buscar"],
-          ["distracciones"],
-          ["concentrarse","concentración"],
-          ["preparado","empieza","antes","termina","mejor"]
-        ]
-      },
-      { id:"p10q6", type:"fr_short", marks:4,
-        prompt:"(M) En español: ¿Qué significa para OWing el ‘ritual’ antes de estudiar?",
-        rubric:"Que crea rutina y ayuda al cerebro a entrar en modo concentración.",
-        keywords:[
-          ["ritual","rutina"],
-          ["cerebro"],
-          ["modo","concentración","concentrarse"]
-        ]
+      {
+        id: "p10q6",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) The passage mentions OWing studying in a library every day. (True / False / Not mentioned)",
+        correct: "Not mentioned"
       }
     ]
   },
@@ -978,55 +1147,66 @@ Después, en la escuela se habló muchísimo del tema. Algunos alumnos se sintie
 
 Sin embargo, no todos reaccionaron bien. Algunas personas dijeron que Clayton hablaba demasiado de su puntuación. Para ellos, el éxito es importante, pero también lo es la humildad. Clayton respondió que estaba orgulloso y que quería demostrar que la disciplina funciona. El debate continuó: ¿cómo se celebra un logro enorme sin crear tensión en los demás?`,
     questions: [
-      { id:"p11q1", type:"mcq", marks:2,
-        prompt:"(E) ¿Qué puntuación obtuvo Clayton?",
-        options:["160/160","150/160","140/160","100/160"],
-        answerIndex:0
+      {
+        id: "p11q1",
+        type: "mcq",
+        marks: 2,
+        prompt: "(E) What score did Clayton get?",
+        options: ["160/160", "150/160", "140/160", "100/160"],
+        answerIndex: 0
       },
-      { id:"p11q2", type:"short", marks:4,
-        prompt:"(E) ¿Por qué le permitieron hacer el examen antes?",
-        rubric:"Porque los profesores pensaban que estaba preparado / tenía el nivel.",
-        keywords:[
-          ["permitieron","antes"],
-          ["profesores"],
-          ["preparado","nivel"]
+      {
+        id: "p11q2",
+        type: "short",
+        marks: 4,
+        prompt: "(E) Why was Clayton allowed to take the exam early?",
+        rubric: "Because teachers believed he was ready / had the level.",
+        keywords: [
+          ["permitieron", "antes", "allowed early"],
+          ["profesores", "teachers"],
+          ["preparado", "ready"],
+          ["nivel", "level"]
         ]
       },
-      { id:"p11q3", type:"short", marks:4,
-        prompt:"(E) Da DOS reacciones diferentes tras su resultado.",
-        rubric:"Dos de: admiración; motivación; desánimo; críticas por hablar demasiado; debate sobre humildad.",
-        keywords:[
-          ["admiraron","admiración"],
-          ["motivados","motivación"],
-          ["desanimados","desánimo","desanimo"],
-          ["critican","habla demasiado"],
-          ["humildad","debate"]
+      {
+        id: "p11q3",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) Overall, reactions to Clayton’s result are presented as… (P / N / P+N)",
+        correct: "P+N"
+      },
+      {
+        id: "p11q4",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) The passage says everyone reacted positively. (True / False / Not mentioned)",
+        correct: "False"
+      },
+      {
+        id: "p11q5",
+        type: "short",
+        marks: 6,
+        prompt: "(H) According to Clayton, what are THREE reasons for his success?",
+        rubric: "Three: years of practice; correcting mistakes; regular work/constancy; discipline; clear technique.",
+        keywords: [
+          ["años", "práctica", "practice"],
+          ["corrección", "corregir", "errores", "correct mistakes"],
+          ["constancia", "regular", "regular work"],
+          ["disciplina", "discipline"],
+          ["técnica", "clara", "clear technique"]
         ]
       },
-      { id:"p11q4", type:"tfnm", marks:2,
-        prompt:"(E) Clayton dice que su éxito fue ‘magia’. (True / False / Not mentioned)",
-        correct:"False"
-      },
-      { id:"p11q5", type:"short", marks:6,
-        prompt:"(H) Según Clayton, da TRES razones de su éxito.",
-        rubric:"Tres de: años de práctica; corregir errores; constancia; disciplina; técnica clara; esfuerzo.",
-        keywords:[
-          ["años","práctica","practica"],
-          ["corregir","errores"],
-          ["constancia","regular"],
-          ["disciplina"],
-          ["técnica","tecnica","clara"],
-          ["esfuerzo"]
-        ]
-      },
-      { id:"p11q6", type:"fr_short", marks:4,
-        prompt:"(M) En español: ¿Por qué algunas personas lo critican?",
-        rubric:"Porque creen que habla demasiado de su puntuación y que le falta humildad.",
-        keywords:[
-          ["critican"],
-          ["habla demasiado"],
-          ["puntuación","nota","resultado"],
-          ["humildad","falta"]
+      {
+        id: "p11q6",
+        type: "es_short",
+        marks: 4,
+        prompt: "(M) En español: ¿Por qué algunas personas critican a Clayton?",
+        rubric: "Porque creen que habla demasiado de su puntuación y que le falta humildad.",
+        keywords: [
+          ["critican", "criticar"],
+          ["habla", "demasiado"],
+          ["puntuación", "resultado", "nota"],
+          ["falta", "humildad"]
         ]
       }
     ]
@@ -1043,57 +1223,76 @@ Otras personas se sienten desanimadas. Comparan su nivel con la perfección y cr
 
 Red cree que un gran resultado debe inspirar, no aplastar. Dice que se debe celebrar el esfuerzo, no solo el número. Para él, la competencia puede ser sana si empuja a progresar con respeto y sin dramas. Su idea final es clara: compárate contigo mismo y mejora poco a poco, sin convertir la clase en una batalla.`,
     questions: [
-      { id:"p12q1", type:"mcq", marks:2,
-        prompt:"(E) Según el pasaje, las reacciones a una nota perfecta son…",
-        options:["Variadas","Siempre positivas","Siempre negativas","Iguales para todos"],
-        answerIndex:0
+      {
+        id: "p12q1",
+        type: "mcq",
+        marks: 2,
+        prompt: "(E) The passage says reactions to perfect scores are…",
+        options: ["Varied", "Always positive", "Always negative", "Unchanged"],
+        answerIndex: 0
       },
-      { id:"p12q2", type:"short", marks:4,
-        prompt:"(E) Da DOS reacciones positivas mencionadas.",
-        rubric:"Dos de: sentirse motivado; pedir consejos; cambiar método; repetir ejercicios; trabajar más.",
-        keywords:[
-          ["motivadas","motivación"],
-          ["consejos","pedir"],
-          ["método","metodo","cambiar"],
-          ["repetir","ejercicios"],
-          ["trabajar más","mas"]
+      {
+        id: "p12q2",
+        type: "short",
+        marks: 4,
+        prompt: "(E) Give TWO positive reactions mentioned.",
+        rubric: "Any two: feel motivated; ask for advice; change method; redo exercises.",
+        keywords: [
+          ["motivadas", "motivación", "motivated"],
+          ["consejos", "advice"],
+          ["método", "cambiar", "change method"],
+          ["repetir", "ejercicios", "redo exercises"]
         ]
       },
-      { id:"p12q3", type:"short", marks:4,
-        prompt:"(E) Da DOS reacciones negativas mencionadas.",
-        rubric:"Dos de: sentirse desanimado; pensar que nunca llegará; celos; sentirse aplastado.",
-        keywords:[
-          ["desanimadas","desánimo","desanimo"],
-          ["nunca","llegar","alcanzar"],
-          ["celos"],
-          ["aplastar","aplastado"]
+      {
+        id: "p12q3",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) Overall, the passage presents perfect scores as… (P / N / P+N)",
+        correct: "P+N"
+      },
+      {
+        id: "p12q4",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) The passage says jealousy can sometimes appear. (True / False / Not mentioned)",
+        correct: "True"
+      },
+      {
+        id: "p12q5",
+        type: "short",
+        marks: 6,
+        prompt: "(H) What is Red’s main message about success and competition?",
+        rubric:
+          "Celebrate effort, not only the number; competition can be healthy with respect; compare yourself to yourself; avoid dramas.",
+        keywords: [
+          ["celebrar", "esfuerzo", "effort"],
+          ["número", "number"],
+          ["competencia", "sana", "healthy competition"],
+          ["respeto", "respect"],
+          ["compararse", "uno mismo", "compare yourself"],
+          ["dramas", "avoid dramas"]
         ]
       },
-      { id:"p12q4", type:"tfnm", marks:2,
-        prompt:"(E) Red piensa que se debe celebrar el esfuerzo, no solo el número. (True / False / Not mentioned)",
-        correct:"True"
+      {
+        id: "p12q6",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) The passage mentions Red banning competition in class. (True / False / Not mentioned)",
+        correct: "Not mentioned"
       },
-      { id:"p12q5", type:"short", marks:6,
-        prompt:"(H) Resume el mensaje de Red sobre la competencia y el éxito.",
-        rubric:"Competencia sana con respeto; inspirar sin aplastar; celebrar esfuerzo; evitar celos y dramas; compararse con uno mismo.",
-        keywords:[
-          ["competencia","sana","saludable"],
-          ["respeto"],
-          ["inspirar"],
-          ["esfuerzo"],
-          ["evitar","celos","dramas"],
-          ["compararse","uno mismo"]
-        ]
-      },
-      { id:"p12q6", type:"fr_short", marks:4,
-        prompt:"(M) En español: ¿Cuál es la idea final de Red en una frase?",
-        rubric:"Compararse con uno mismo y mejorar poco a poco, sin dramas.",
-        keywords:[
-          ["compararse"],
-          ["uno mismo"],
-          ["mejorar"],
+      {
+        id: "p12q7",
+        type: "es_short",
+        marks: 4,
+        prompt: "(M) En español: ¿Cuál es la idea final de Red en una frase?",
+        rubric: "Compárate contigo mismo y mejora poco a poco, sin dramas.",
+        keywords: [
+          ["compárate", "compararse"],
+          ["contigo mismo", "uno mismo"],
+          ["mejora", "mejorar"],
           ["poco a poco"],
-          ["dramas"]
+          ["sin dramas", "dramas"]
         ]
       }
     ]
@@ -1110,57 +1309,57 @@ En este contexto, aparecen métodos distintos. Algunos crean un plan muy detalla
 
 OWing prefiere planificar, pero de forma razonable. Elige objetivos simples: “hacer un ejercicio”, “repasar una ficha” o “aprender veinte palabras”. También incluye descansos, porque cree que el cansancio destruye la concentración. Para él, la preparación reduce sorpresas y aumenta la confianza: cuando llega el examen, sabe lo que ha hecho y se siente más seguro.`,
     questions: [
-      { id:"p13q1", type:"mcq", marks:2,
-        prompt:"(E) ¿Cómo se describe la época de exámenes?",
-        options:["Intensa","Relajante","Irrelevante","Divertida"],
-        answerIndex:0
+      {
+        id: "p13q1",
+        type: "mcq",
+        marks: 2,
+        prompt: "(E) The exam period is described as…",
+        options: ["Intense", "Relaxing", "Unimportant", "Funny"],
+        answerIndex: 0
       },
-      { id:"p13q2", type:"short", marks:4,
-        prompt:"(E) Da DOS razones por las que aumenta la presión en el pasaje.",
-        rubric:"Dos de: varias asignaturas a la vez; falta de tiempo; demasiados temas; compararse con otros; pánico contagioso; deberes.",
-        keywords:[
-          ["varias","asignaturas"],
-          ["no tengo tiempo","tiempo"],
-          ["demasiados","temas"],
-          ["comparar","otros"],
-          ["pánico","panico","contagia","contagioso"],
-          ["deberes","entregar"]
+      {
+        id: "p13q2",
+        type: "short",
+        marks: 4,
+        prompt: "(E) Give TWO reasons why students feel pressure in this passage.",
+        rubric: "Any two: many subjects at once; not enough time; too many topics; comparing with others; panic spreads; still have homework.",
+        keywords: [
+          ["varias", "asignaturas", "many subjects"],
+          ["no tengo tiempo", "not enough time"],
+          ["demasiados", "temas", "too many topics"],
+          ["compararse", "others", "compare"],
+          ["pánico", "contagia", "panic spreads"],
+          ["deberes", "homework"]
         ]
       },
-      { id:"p13q3", type:"short", marks:4,
-        prompt:"(E) Nombra DOS métodos de estudio mencionados.",
-        rubric:"Plan detallado; estudio espontáneo.",
-        keywords:[
-          ["plan","detallado","horas"],
-          ["espontáneo","apetece"]
-        ]
+      {
+        id: "p13q3",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) The passage presents planning as… (P / N / P+N)",
+        correct: "P+N"
       },
-      { id:"p13q4", type:"tfnm", marks:2,
-        prompt:"(E) OWing planifica, pero incluye descansos. (True / False / Not mentioned)",
-        correct:"True"
+      {
+        id: "p13q4",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) The passage says spontaneous study can have risks. (True / False / Not mentioned)",
+        correct: "True"
       },
-      { id:"p13q5", type:"short", marks:6,
-        prompt:"(H) Da TRES elementos del enfoque de OWing.",
-        rubric:"Tres de: objetivos simples; tareas concretas (ejercicio, ficha, 20 palabras); descansos; evitar cansancio; reducir sorpresas; aumentar confianza.",
-        keywords:[
-          ["objetivos","simples"],
+      {
+        id: "p13q5",
+        type: "short",
+        marks: 6,
+        prompt: "(H) Give THREE things OWing includes in his approach.",
+        rubric: "Three: simple goals; specific tasks (exercise, sheet, 20 words); rest time; avoid fatigue; preparation reduces surprises; builds confidence.",
+        keywords: [
+          ["objetivos", "simples", "simple goals"],
           ["ejercicio"],
-          ["ficha","repasar"],
-          ["veinte","20","palabras"],
-          ["descansos","descanso"],
-          ["cansancio","fatiga"],
-          ["sorpresas"],
-          ["confianza","seguro"]
-        ]
-      },
-      { id:"p13q6", type:"fr_short", marks:4,
-        prompt:"(M) En español: ¿Por qué OWing dice que el descanso es importante?",
-        rubric:"Porque el cansancio destruye la concentración y empeora el trabajo.",
-        keywords:[
-          ["cansancio","fatiga"],
-          ["destruye"],
-          ["concentración","concentrarse"],
-          ["empeora"]
+          ["ficha", "repasar", "sheet"],
+          ["veinte", "20", "palabras", "words"],
+          ["descanso", "descansos", "rest"],
+          ["cansancio", "fatiga", "fatigue"],
+          ["confianza", "seguro", "confidence"]
         ]
       }
     ]
@@ -1177,60 +1376,68 @@ Red cree que hay que escuchar de forma activa, no solo estar sentado. Para él, 
 
 Red también evita usar el móvil en clase. Dice que una sola notificación rompe la atención y luego cuesta volver al tema. Según él, si te concentras bien en clase, necesitas menos tiempo de repaso por la tarde y cometes menos errores en los deberes.`,
     questions: [
-      { id:"p14q1", type:"mcq", marks:2,
-        prompt:"(E) ¿Qué significa ‘escuchar activamente’ para Red?",
-        options:["Mirar al profesor y tomar apuntes claros","Hablar todo el tiempo","Usar el móvil para buscar respuestas","No escribir nada"],
-        answerIndex:0
+      {
+        id: "p14q1",
+        type: "mcq",
+        marks: 2,
+        prompt: "(E) In this passage, ‘active listening’ mainly means…",
+        options: [
+          "Looking at the teacher and taking clear notes",
+          "Talking all the time",
+          "Using a phone to search answers",
+          "Writing nothing"
+        ],
+        answerIndex: 0
       },
-      { id:"p14q2", type:"short", marks:4,
-        prompt:"(E) Da DOS distracciones mencionadas.",
-        rubric:"Dos de: conversación; puerta; bolígrafo golpeando; pensamientos sobre fin de semana; mensajes; problemas personales.",
-        keywords:[
-          ["conversación","conversacion"],
+      {
+        id: "p14q2",
+        type: "short",
+        marks: 4,
+        prompt: "(E) Give TWO distractions mentioned in the passage.",
+        rubric: "Any two: conversation; door; pen tapping; thoughts about weekend; message; personal problem.",
+        keywords: [
+          ["conversación"],
           ["puerta"],
-          ["bolígrafo","boligrafo","mesa"],
-          ["pensamientos"],
+          ["bolígrafo", "mesa"],
           ["fin de semana"],
           ["mensaje"],
-          ["problema"]
+          ["problema", "personal"]
         ]
       },
-      { id:"p14q3", type:"short", marks:4,
-        prompt:"(E) Da DOS acciones que hace Red para concentrarse mejor.",
-        rubric:"Dos de: mirar al profesor; tomar apuntes claros; usar títulos; escribir palabras esenciales; marcar interrogación para preguntar después; evitar el móvil.",
-        keywords:[
-          ["mirar","profesor"],
-          ["apuntes","claros"],
-          ["títulos","titulos"],
-          ["palabras","esenciales"],
-          ["interrogación","interrogacion","preguntar"],
-          ["evitar","móvil","movil"]
+      {
+        id: "p14q3",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) The passage presents phone notifications in class as… (P / N / P+N)",
+        correct: "N"
+      },
+      {
+        id: "p14q4",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) The passage says one notification can break attention. (True / False / Not mentioned)",
+        correct: "True"
+      },
+      {
+        id: "p14q5",
+        type: "short",
+        marks: 6,
+        prompt: "(H) Explain why good focus in class reduces work at home, according to Red.",
+        rubric: "You understand more in class, lose less info to distractions, need less revision later, and make fewer homework mistakes.",
+        keywords: [
+          ["entiendes", "entender", "understand"],
+          ["distracciones", "distractions"],
+          ["menos repaso", "revision"],
+          ["por la tarde", "later"],
+          ["menos errores", "deberes", "fewer mistakes"]
         ]
       },
-      { id:"p14q4", type:"tfnm", marks:2,
-        prompt:"(E) Red dice que una notificación puede romper la atención. (True / False / Not mentioned)",
-        correct:"True"
-      },
-      { id:"p14q5", type:"short", marks:6,
-        prompt:"(H) Explica por qué la buena concentración en clase reduce el trabajo en casa.",
-        rubric:"Porque entiendes más en clase, pierdes menos información por distracciones y necesitas menos repaso después; menos errores en deberes.",
-        keywords:[
-          ["entiendes","entender"],
-          ["distracciones"],
-          ["menos repaso","repaso"],
-          ["después","tarde"],
-          ["menos","errores","deberes"]
-        ]
-      },
-      { id:"p14q6", type:"fr_short", marks:4,
-        prompt:"(M) En español: ¿Qué hace Red si no entiende algo durante la clase?",
-        rubric:"Lo marca con un signo de interrogación para preguntar después, en vez de desconectar.",
-        keywords:[
-          ["no entiende","entender"],
-          ["marca","interrogación","interrogacion"],
-          ["preguntar","después"],
-          ["desconectar"]
-        ]
+      {
+        id: "p14q6",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) The passage says Red always studies with music in class. (True / False / Not mentioned)",
+        correct: "Not mentioned"
       }
     ]
   },
@@ -1246,57 +1453,55 @@ Esta estructura evita el caos. Por ejemplo, los objetos importantes no se quedan
 
 Red aprecia especialmente los espacios tranquilos. Elige un sitio con poco paso, una mesa despejada y buena luz. Dice que en una casa enorme el silencio es un tesoro: si sabes dónde encontrarlo, puedes concentrarte mejor. Para él, la organización no es solo estética, sino una forma de convivir sin estrés.`,
     questions: [
-      { id:"p15q1", type:"mcq", marks:2,
-        prompt:"(E) ¿Por qué es necesaria la organización en Otono Mansion?",
-        options:["Porque tiene muchas habitaciones y evita el caos","Porque es una casa pequeña","Porque no hay reglas","Porque no vive nadie allí"],
-        answerIndex:0
+      {
+        id: "p15q1",
+        type: "mcq",
+        marks: 2,
+        prompt: "(E) How many rooms does Otono Mansion have?",
+        options: ["Over 90", "Exactly 20", "Less than 10", "Over 200"],
+        answerIndex: 0
       },
-      { id:"p15q2", type:"short", marks:4,
-        prompt:"(E) Da DOS beneficios de la organización mencionados.",
-        rubric:"Dos de: evitar el caos; perder menos tiempo; ayudar a invitados; pasillos tranquilos; menos discusiones; saber dónde guardar cosas.",
-        keywords:[
-          ["evitar","caos"],
-          ["menos tiempo","tiempo"],
-          ["invitados","entienden"],
-          ["pasillos","tranquilos"],
-          ["menos","discusiones"],
-          ["guardar","material","documentos"]
+      {
+        id: "p15q2",
+        type: "short",
+        marks: 4,
+        prompt: "(E) Give TWO reasons why organisation is necessary in a very large house.",
+        rubric: "Any two: avoid chaos; save time; help guests; keep corridors calmer; reduce conflicts; know where items go.",
+        keywords: [
+          ["evitar", "caos"],
+          ["menos tiempo", "tiempo"],
+          ["invitados", "entienden", "adónde ir"],
+          ["pasillos", "tranquilos"],
+          ["menos discusiones", "conflictos"],
+          ["guardar", "material", "documentos"]
         ]
       },
-      { id:"p15q3", type:"short", marks:4,
-        prompt:"(E) Da DOS características del espacio de estudio que elige Red.",
-        rubric:"Dos de: poco paso; mesa despejada; buena luz; espacio tranquilo.",
-        keywords:[
-          ["poco paso","paso"],
-          ["mesa","despejada"],
-          ["buena","luz"],
-          ["tranquilo","silencio"]
-        ]
+      {
+        id: "p15q3",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) The passage presents strict room roles (study rooms stay quiet) as… (P / N / P+N)",
+        correct: "P"
       },
-      { id:"p15q4", type:"tfnm", marks:2,
-        prompt:"(E) El texto dice que Red valora el silencio para concentrarse. (True / False / Not mentioned)",
-        correct:"True"
+      {
+        id: "p15q4",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) The passage says Red prefers noisy spaces for working. (True / False / Not mentioned)",
+        correct: "False"
       },
-      { id:"p15q5", type:"short", marks:6,
-        prompt:"(H) Explica por qué la estructura reduce discusiones entre habitantes.",
-        rubric:"Porque cada habitación tiene un uso claro, se respetan funciones, se sabe dónde van las cosas y se evita el caos/ruido inesperado.",
-        keywords:[
-          ["uso","función","claro"],
-          ["respetar","respeta"],
-          ["dónde","guardar","cosas"],
-          ["evitar","caos"],
-          ["ruido","inesperado"],
-          ["discusiones","menos"]
-        ]
-      },
-      { id:"p15q6", type:"fr_short", marks:4,
-        prompt:"(M) En español: ¿Qué dice Red sobre el silencio en una casa grande?",
-        rubric:"Que es un tesoro y que ayuda a concentrarse si sabes dónde encontrarlo.",
-        keywords:[
-          ["silencio"],
-          ["tesoro"],
-          ["concentrarse"],
-          ["encontrarlo","dónde"]
+      {
+        id: "p15q5",
+        type: "short",
+        marks: 6,
+        prompt: "(H) Give THREE features of the study space Red chooses.",
+        rubric: "Three: quiet; little passage/low traffic; clear table; good light; calm environment.",
+        keywords: [
+          ["tranquilo", "silencio", "quiet"],
+          ["poco paso", "low traffic"],
+          ["mesa", "despejada", "clear table"],
+          ["buena luz", "good light"],
+          ["concentrarte", "focus"]
         ]
       }
     ]
@@ -1313,52 +1518,68 @@ La velocidad ayuda a mantener la motivación: cuando ves progreso rápido, te da
 
 OWing dice que la solución es un equilibrio con una regla simple: avanzar rápido en las etapas grandes y frenar en momentos concretos para revisar. Por ejemplo, construir una primera versión rápido y después hacer una revisión completa antes de finalizar. Así se evita tanto el caos de los errores como el bloqueo por lentitud. Para OWing, no es “velocidad o precisión”: es combinar las dos de forma inteligente.`,
     questions: [
-      { id:"p16q1", type:"mcq", marks:2,
-        prompt:"(E) ¿Qué recomienda OWing para trabajar bien?",
-        options:["Combinar velocidad y precisión","Solo ir rápido siempre","Solo revisar y nunca avanzar","Trabajar sin plan"],
-        answerIndex:0
+      {
+        id: "p16q1",
+        type: "mcq",
+        marks: 2,
+        prompt: "(E) What does OWing recommend?",
+        options: ["Balancing speed and precision", "Only speed always", "Only precision always", "Never checking work"],
+        answerIndex: 0
       },
-      { id:"p16q2", type:"short", marks:4,
-        prompt:"(E) Da UN beneficio de la velocidad y UN beneficio de la precisión.",
-        rubric:"Velocidad: terminar pronto / mantener motivación. Precisión: menos errores / mejor calidad.",
-        keywords:[
-          ["velocidad","terminar","pronto","motivar","motivación"],
-          ["precisión","precision","menos","errores","calidad"]
+      {
+        id: "p16q2",
+        type: "short",
+        marks: 4,
+        prompt: "(E) Give ONE benefit of speed and ONE benefit of precision.",
+        rubric: "Speed: finish quickly / keep motivation. Precision: reduce errors / improve quality.",
+        keywords: [
+          ["terminar", "pronto", "motivación", "speed benefit"],
+          ["precisión", "menos errores", "calidad", "precision benefit"]
         ]
       },
-      { id:"p16q3", type:"short", marks:4,
-        prompt:"(E) Da DOS riesgos: uno por ir demasiado rápido y otro por ser demasiado lento.",
-        rubric:"Rápido: olvidar detalles / error costoso. Lento: retraso / otros esperan / bloqueo.",
-        keywords:[
-          ["demasiado rápido","muy rápido"],
-          ["olvidar","detalles","error","arreglar"],
-          ["demasiado lento","muy lento"],
-          ["retraso","retrasar"],
-          ["esperar","bloqueo"]
+      {
+        id: "p16q3",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) The passage presents speed and precision together as… (P / N / P+N)",
+        correct: "P"
+      },
+      {
+        id: "p16q4",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) The passage says going too slow can delay a project. (True / False / Not mentioned)",
+        correct: "True"
+      },
+      {
+        id: "p16q5",
+        type: "short",
+        marks: 6,
+        prompt: "(H) Describe OWing’s method in TWO parts.",
+        rubric: "Part 1: move fast on big steps / first version. Part 2: slow down to check fully before finalising.",
+        keywords: [
+          ["etapas grandes", "primera versión", "fast"],
+          ["frenar", "revisión completa", "check"],
+          ["finalizar", "finish"]
         ]
       },
-      { id:"p16q4", type:"tfnm", marks:2,
-        prompt:"(E) OWing propone revisar en momentos concretos del proyecto. (True / False / Not mentioned)",
-        correct:"True"
+      {
+        id: "p16q6",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) The passage mentions OWing refusing to check any work. (True / False / Not mentioned)",
+        correct: "False"
       },
-      { id:"p16q5", type:"short", marks:6,
-        prompt:"(H) Describe el método de OWing en DOS fases.",
-        rubric:"Fase 1: avanzar rápido en etapas grandes / primera versión. Fase 2: frenar para revisión completa antes de finalizar.",
-        keywords:[
-          ["etapas grandes","primera versión","version"],
-          ["rápido","rapido"],
-          ["frenar","revisar","revisión","revision"],
-          ["completa"],
-          ["finalizar"]
-        ]
-      },
-      { id:"p16q6", type:"fr_short", marks:4,
-        prompt:"(M) En español: ¿Cuál es la frase clave al final del pasaje?",
-        rubric:"No es ‘velocidad o precisión’: es combinar las dos de forma inteligente.",
-        keywords:[
+      {
+        id: "p16q7",
+        type: "es_short",
+        marks: 4,
+        prompt: "(M) En español: ¿Qué frase resume la idea final del pasaje?",
+        rubric: "No es ‘velocidad o precisión’: es combinar las dos de forma inteligente.",
+        keywords: [
           ["no es"],
           ["velocidad"],
-          ["precisión","precision"],
+          ["precisión", "precision"],
           ["combinar"],
           ["inteligente"]
         ]
@@ -1377,57 +1598,197 @@ Red cree que la disciplina no es solo escolar. Dice que la misma lógica sirve p
 
 Red también afirma que la disciplina ayuda a estar más tranquilo. Si tienes una rutina, paniqueas menos antes de una prueba porque sabes que ya has trabajado. Aun así, habrá días difíciles. Para Red, la disciplina es precisamente volver al día siguiente sin culparte y continuar el camino.`,
     questions: [
-      { id:"p17q1", type:"mcq", marks:2,
-        prompt:"(E) En este pasaje, ‘disciplina’ significa principalmente…",
-        options:["Ser constante incluso cuando no apetece","No descansar nunca","Ser perfecto","Ignorar reglas"],
-        answerIndex:0
+      {
+        id: "p17q1",
+        type: "mcq",
+        marks: 2,
+        prompt: "(E) In this passage, discipline mainly means…",
+        options: ["Continuing regularly even when you don’t feel like it", "Never resting", "Being perfect", "Ignoring rules"],
+        answerIndex: 0
       },
-      { id:"p17q2", type:"short", marks:4,
-        prompt:"(E) Da DOS consecuencias de no tener disciplina.",
-        rubric:"Dos de: perder motivación; dejar todo para mañana; abandonar ante obstáculos; progresar menos.",
-        keywords:[
-          ["perder","motivación","motivacion"],
-          ["mañana","dejar"],
-          ["abandonar","obstáculo","obstaculo"],
-          ["progresar","menos"]
+      {
+        id: "p17q2",
+        type: "short",
+        marks: 4,
+        prompt: "(E) Give TWO things that can happen without discipline.",
+        rubric: "Any two: lose motivation; postpone work; give up at obstacles; progress less.",
+        keywords: [
+          ["perder", "motivación", "lose motivation"],
+          ["mañana", "postpone"],
+          ["abandonar", "obstáculo", "give up"],
+          ["progresar", "menos", "less progress"]
         ]
       },
-      { id:"p17q3", type:"short", marks:4,
-        prompt:"(E) Da DOS ámbitos donde Red dice que la disciplina es útil (no solo escuela).",
-        rubric:"Dos: música; deporte; juegos.",
-        keywords:[
-          ["música","musica"],
-          ["deporte"],
-          ["juegos"]
+      {
+        id: "p17q3",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) The passage presents discipline as… (P / N / P+N)",
+        correct: "P+N"
+      },
+      {
+        id: "p17q4",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) The passage says discipline only matters at school. (True / False / Not mentioned)",
+        correct: "False"
+      },
+      {
+        id: "p17q5",
+        type: "short",
+        marks: 6,
+        prompt: "(H) Explain why ‘regularity creates solid results’ according to the passage.",
+        rubric: "Regular work builds habits, repeated practice and correction improves skills over time, and you progress more than working rarely.",
+        keywords: [
+          ["regularidad", "hábitos", "habit"],
+          ["repetir", "corregir", "repeat/correct"],
+          ["con el tiempo", "over time"],
+          ["progresar", "más", "more progress"],
+          ["rara vez", "rarely"]
         ]
       },
-      { id:"p17q4", type:"tfnm", marks:2,
-        prompt:"(E) Red dice que diez minutos al día pueden ser muy útiles. (True / False / Not mentioned)",
-        correct:"True"
+      {
+        id: "p17q6",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) The passage mentions Red doing a 5am swimming routine. (True / False / Not mentioned)",
+        correct: "Not mentioned"
       },
-      { id:"p17q5", type:"short", marks:6,
-        prompt:"(H) Explica por qué la regularidad crea ‘resultados sólidos’ según Red.",
-        rubric:"Porque construye hábitos, permite repetir/corregir con el tiempo y mejora de forma estable; más progreso que estudiar rara vez.",
-        keywords:[
-          ["regularidad","constancia"],
-          ["hábitos","habito"],
-          ["repetir","corregir"],
-          ["con el tiempo"],
-          ["mejora","estable"],
-          ["rara vez","pocas veces"]
-        ]
-      },
-      { id:"p17q6", type:"fr_short", marks:4,
-        prompt:"(M) En español: ¿Cómo ayuda la disciplina a Red antes de una prueba?",
-        rubric:"Con una rutina, se pone menos nervioso porque sabe que ya ha trabajado.",
-        keywords:[
+      {
+        id: "p17q7",
+        type: "es_short",
+        marks: 4,
+        prompt: "(M) En español: ¿Cómo ayuda la disciplina a Red antes de una prueba?",
+        rubric: "Con una rutina, se pone menos nervioso porque sabe que ya ha trabajado.",
+        keywords: [
           ["rutina"],
-          ["menos nervioso","nervios"],
-          ["sabe","ya ha trabajado","trabajado"]
+          ["menos nervioso", "paniqueas menos", "calma"],
+          ["sabe", "ya ha trabajado", "trabajado"]
         ]
       }
     ]
-  }
+  },
+  {
+  id: 18,
+  title: "Pasaje 18 — Jessica y el equilibrio entre asignaturas",
+  theme: "Tema 1 — Escuela",
+  unit: "Unidad 4 (Equilibrio de estudio)",
+  text: `Jessica disfruta varias asignaturas, pero no aborda todas de la misma manera. En arte, le encanta la libertad de crear y desarrollar ideas. En historia, prefiere organizar la información y construir una respuesta lógica. Con matemáticas, su relación es más complicada: suele decir que no le gusta mucho, aunque saca buenos resultados. A algunos alumnos les parece raro, pero para Jessica es totalmente normal.
+
+Según ella, disfrutar una asignatura y rendir bien en esa asignatura no siempre es lo mismo. Puedes ser fuerte en algo sin sentir mucho placer, y al revés: puedes amar una asignatura y aun así encontrarla difícil. Por eso, Jessica intenta mantener un equilibrio. No quiere que una sola materia defina toda su vida escolar.
+
+Cuando repasa, Jessica adapta su método según la asignatura. Para historia, relee apuntes y ordena los eventos por temas. Para matemáticas, prefiere hacer ejercicios concretos para detectar errores. Para asignaturas creativas, piensa más en el estilo, la presentación y el efecto que produce su trabajo. Para ella, lo importante no es amar todo igual, sino entender cómo mejorar en cada área.`,
+  questions: [
+    { id:"p18q1", type:"mcq", marks:2,
+      prompt:"(E) What does Jessica especially enjoy about art?",
+      options:["Creative freedom","Memorising dates only","Doing calculations silently","Skipping planning"],
+      answerIndex:0
+    },
+    { id:"p18q2", type:"short", marks:4,
+      prompt:"(E) Give TWO ways Jessica approaches different subjects.",
+      rubric:"Any two: art = creative freedom; history = organising info + logical response; maths = she says she doesn’t really like it but gets good results.",
+      keywords:[
+        ["arte","libertad","crear","creative","freedom"],
+        ["historia","organizar","información","lógica","logical"],
+        ["matemáticas","buenos resultados","good results"],
+        ["no le gusta","doesn't like","complicada","complicated"]
+      ]
+    },
+    { id:"p18q3", type:"pn", marks:2,
+      prompt:"(E) Jessica’s attitude to maths is presented as… (P / N / P+N)",
+      correct:"P+N"
+    },
+    { id:"p18q4", type:"tfnm", marks:2,
+      prompt:"(E) The passage says Jessica only likes one subject. (True / False / Not mentioned)",
+      correct:"False"
+    },
+    { id:"p18q5", type:"short", marks:6,
+      prompt:"(H) Why does Jessica believe success and enjoyment are not always the same thing?",
+      rubric:"Because you can be strong at a subject without enjoying it, and you can enjoy a subject while finding it difficult; she therefore keeps balance so one subject doesn’t define her school life.",
+      keywords:[
+        ["éxito","success","rendir bien","good results"],
+        ["sin placer","no disfrutar","no le gusta"],
+        ["difícil","difficult"],
+        ["equilibrio","balance"],
+        ["una sola materia","one subject","defina","define"]
+      ]
+    },
+    { id:"p18q6", type:"es_short", marks:4,
+      prompt:"(M) En español: ¿Cómo adapta Jessica su forma de repasar según la asignatura? Da DOS ejemplos.",
+      rubric:"Dos ejemplos: en historia relee apuntes y ordena eventos por temas; en matemáticas hace ejercicios concretos para detectar errores; en creativas piensa en estilo/presentación/efecto.",
+      keywords:[
+        ["historia","relee","apuntes","temas"],
+        ["matemáticas","ejercicios","errores","detectar"],
+        ["creativas","estilo","presentación","efecto"]
+      ]
+    }
+  ]
+},
+{
+  id: 19,
+  title: "Pasaje 19 — Red y La Marsellesa",
+  theme: "Tema 2 — Música e identidad",
+  unit: "Unidad 6 (La Marsellesa)",
+  text: `A Red le encanta La Marsellesa. Para él, no es solo un himno famoso: es una música con energía, solemnidad e identidad nacional muy marcada. Le interesa el texto, la historia que representa y la fuerza con la que avanza la melodía. Cada vez que la escucha, siente que la música quiere decir algo importante y no simplemente llenar el silencio.
+
+Como Red es un soprano, también se fija en detalles musicales que a veces otros pasan por alto. Presta atención a la línea melódica, a la altura de las notas y al efecto que se produce cuando se canta con convicción. No le importan solo las palabras: piensa en el color de la voz, en la intensidad y en el impulso general del canto. Para él, un himno debe ser preciso, expresivo y digno.
+
+Red entiende que no todo el mundo reacciona igual ante La Marsellesa. Algunas personas admiran su fuerza y su valor histórico. Otras la consideran demasiado intensa o más severa que alegre. Red acepta esa diversidad, pero mantiene su postura: para él, esta obra sigue siendo impresionante, memorable y profundamente francesa. Dice que encaja con su gusto por las obras con carácter, que nunca resultan “insípidas”.`,
+  questions: [
+    { id:"p19q1", type:"mcq", marks:2,
+      prompt:"(E) Why does Red especially value La Marseillaise?",
+      options:["Because it feels powerful and meaningful","Because it is quiet and simple","Because it has no history","Because it is only background noise"],
+      answerIndex:0
+    },
+    { id:"p19q2", type:"short", marks:4,
+      prompt:"(E) Give TWO reasons La Marseillaise matters to Red.",
+      rubric:"Any two: energy; solemnity; strong national identity; meaningful text; historical value; powerful melody.",
+      keywords:[
+        ["energía","energy"],
+        ["solemnidad","solemnity"],
+        ["identidad nacional","national identity"],
+        ["texto","meaningful"],
+        ["historia","histórico","historical"],
+        ["melodía","fuerza","powerful"]
+      ]
+    },
+    { id:"p19q3", type:"pn", marks:2,
+      prompt:"(E) Overall, the passage presents La Marseillaise as… (P / N / P+N)",
+      correct:"P+N"
+    },
+    { id:"p19q4", type:"tfnm", marks:2,
+      prompt:"(E) The passage says Red is a soprano. (True / False / Not mentioned)",
+      correct:"True"
+    },
+    { id:"p19q5", type:"short", marks:2,
+      prompt:"(E) Because of his voice type, what extra musical detail does Red notice? Give ONE.",
+      rubric:"One detail such as: melodic line; pitch/height of notes; voice colour; intensity; effect when singing with conviction.",
+      keywords:[
+        ["línea melódica","melodic line"],
+        ["altura","notas","pitch"],
+        ["color de la voz","voice colour"],
+        ["intensidad","intensity"],
+        ["convicción","effect"]
+      ]
+    },
+    { id:"p19q6", type:"tfnm", marks:2,
+      prompt:"(E) The passage says Red always performs La Marseillaise in a stadium. (True / False / Not mentioned)",
+      correct:"Not mentioned"
+    },
+    { id:"p19q7", type:"es_short", marks:6,
+      prompt:"(H) En español: ¿Cómo responde Red a las personas que no sienten lo mismo, y por qué sigue admirando la obra?",
+      rubric:"Él acepta que hay opiniones distintas (algunos la admiran, otros la ven demasiado intensa/severa), pero mantiene su admiración porque la considera impresionante, memorable y muy francesa, y porque le gustan las obras con carácter.",
+      keywords:[
+        ["acepta","diversidad","opiniones"],
+        ["admiran","fuerza","histórico"],
+        ["demasiado intensa","severa"],
+        ["mantiene","postura","admira"],
+        ["impresionante","memorable","francesa"],
+        ["carácter","no insípida"]
+      ]
+    }
+  ]
+},
 ];
 
 /* -----------------------------
@@ -1609,6 +1970,10 @@ function shuffle(arr){
   return a;
 }
 
+function hasPassage(selection, id){
+  return !!selection?.passages?.some(p => p.id === id);
+}
+
 function pickRandom(arr, n){
   return shuffle(arr).slice(0, n);
 }
@@ -1657,6 +2022,7 @@ function gcseEstimate(score){
 }
 
 function badgeForScore(score){
+  if(score >= 101) return ["badge good","🏆 SECRET SCORE"];
   if(score >= 90) return ["badge good","🏆 DISTINCTION"];
   if(score >= 80) return ["badge good","⭐ MERIT"];
   if(score >= 66) return ["badge warn","✅ PASS"];
@@ -1922,7 +2288,7 @@ function renderTest(){
       qWrap.dataset.qid = q.id;
 
       const markTag = `<span class="badge" title="Marks for this question">${q.marks} marks</span>`;
-      const instruction = (q.type === "fr_short")
+      const instruction = (q.type === "es_short")
         ? "Answer in Spanish. Auto-mark uses keywords."
         : (["mcq","pn","tfnm"].includes(q.type) ? "Select one option." : "Auto-mark uses keywords. Write concise, direct answers.");
 
@@ -1981,14 +2347,14 @@ function renderQuestion(q){
     return renderChoice(q, opts);
   }
   if(q.type === "pn"){
-    // Positive / Negative / Both
-    const opts = [
-      { text:"P", isCorrect: q.correct === "P" },
-      { text:"N", isCorrect: q.correct === "N" },
-      { text:"P+N", isCorrect: q.correct === "P+N" }
-    ];
-    return renderChoice(q, opts);
-  }
+  const key = q.correct ?? q.answer; // ✅ supports both
+  const opts = [
+    { text:"P", isCorrect: key === "P" },
+    { text:"N", isCorrect: key === "N" },
+    { text:"P+N", isCorrect: key === "P+N" }
+  ];
+  return renderChoice(q, opts);
+}
   if(q.type === "tfnm"){
     const opts = [
       { text:"True", isCorrect: q.correct === "True" },
@@ -1997,8 +2363,8 @@ function renderQuestion(q){
     ];
     return renderChoice(q, opts);
   }
-  // short / fr_short
-  return `<textarea id="ans_${q.id}" placeholder="${q.type === "fr_short" ? "Réponds en français..." : "Write your answer here..."}"></textarea>`;
+  // short / es_short
+  return `<textarea id="ans_${q.id}" placeholder="${q.type === "es_short" ? "Responde en español..." : "Write your answer here..."}"></textarea>`;
 }
 
 function renderChoice(q, optionObjects){
