@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>🟣 Otono Airways — Future Planned Seat Maps (777-9 • A350-2000)</title>
+
+  <!-- Same stack/style reference you provided -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    .font-serif { font-family: 'Playfair Display', serif; }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; }
+    ::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #555; }
+    .animate-fade-in { animation: fadeIn 0.3s ease-in-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(5px);} to { opacity: 1; transform: translateY(0);} }
+
+    /* Fuselage + seats (same vibe as A380 page) */
+    .fuselage-style{
+      background-color:white;
+      border:4px solid #cbd5e1;
+      border-top-left-radius:50% 120px;
+      border-top-right-radius:50% 120px;
+      border-bottom-left-radius:50% 260px;
+      border-bottom-right-radius:50% 260px;
+      position:relative;
+      overflow:hidden;
+      box-shadow:0 0 50px rgba(0,0,0,.2);
+      padding: 0 10px 260px 10px;
+    }
+    .seat-style{
+      border-top-left-radius:8px;
+      border-top-right-radius:8px;
+      border-bottom-left-radius:4px;
+      border-bottom-right-radius:4px;
+      border-width:1px;
+      box-shadow:0 1px 2px rgba(0,0,0,0.08);
+      user-select:none;
+    }
+    .seat-occupied-style{
+      background-color:#e5e7eb !important;
+      border-color:#9ca3af !important;
+      color:#4b5563 !important;
+      cursor:not-allowed !important;
+      pointer-events:none;
+      transform:none !important;
+      box-shadow:none !important;
+      opacity:0.85;
+    }
+    .seat-selected-style{
+      background-color:#3fd166 !important;
+      border-color:#298c43 !important;
+      color:black !important;
+      transform:scale(1.15);
+      z-index:20;
+      box-shadow:0 0 15px rgba(0,255,21,0.7);
+    }
+    .good-seat-badge{
+      background-color:#e9d5ff;
+      color:#6d28d9;
+      border:1px solid #d8b4fe;
+    }
+    .bad-seat-badge{
+      background-color:#bfdbfe;
+      color:#1e40af;
+      border:1px solid #93c5fd;
+    }
+    .mini-hatch{
+      background-image: linear-gradient(135deg, rgba(0,0,0,.06) 25%, transparent 25%, transparent 50%, rgba(0,0,0,.06) 50%, rgba(0,0,0,.06) 75%, transparent 75%, transparent);
+      background-size: 10px 10px;
+    }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useMemo, useState } = React;
+
+    // ---------- Icons ----------
+    const IconWrapper = ({ children, size = 24, className = "" }) => (
+      <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+        {children}
+      </svg>
+    );
+    const Plane = (props) => <IconWrapper {...props}><path d="M2 12h20"/><path d="M13 2l9 10-9 10"/><path d="M2 12l5-5m-5 5l5 5"/></IconWrapper>;
+    const Star = (props) => <IconWrapper {...props}><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></IconWrapper>;
+    const User = (props) => <IconWrapper {...props}><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></IconWrapper>;
+    const Wifi = (props) => <IconWrapper {...props}><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.44 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></IconWrapper>;
+    const Coffee = (props) => <IconWrapper {...props}><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></IconWrapper>;
+    const Bath = (props) => <IconWrapper {...props}><path d="M9 6 6.5 3.5a1.5 1.5 0 0 0-1-1C5.5 2.5 5 3 5 4v8"/><line x1="10" y1="5" x2="8" y2="7"/><path d="M2 12h20"/><path d="M7 19v2"/><path d="M17 19v2"/></IconWrapper>;
+    const ArrowUp = (props) => <IconWrapper {...props}><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></IconWrapper>;
+    const ThumbsUp = (props) => <IconWrapper {...props}><path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z"/></IconWrapper>;
+    const ThumbsDown = (props) => <IconWrapper {...props}><path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22h0a3.13 3.13 0 0 1-3-3.88Z"/></IconWrapper>;
+
+    // ---------- Constants ----------
+    const DECK_MAIN = "MAIN";
+    const DECK_CARGO = "CARGO";
+
+    const CLASS_OTONO_ONE = "Otono One";
+    const CLASS_FIRST = "First Class";
+    const CLASS_BUSINESS = "Business";
+    const CLASS_PREM_ECO = "Premium Economy";
+    const CLASS_ECONOMY = "Economy";
+
+    const CLASS_COLORS = {
+      [CLASS_OTONO_ONE]: "bg-purple-900 border-yellow-400 text-yellow-100",
+      [CLASS_FIRST]: "bg-purple-700 border-purple-300 text-white",
+      [CLASS_BUSINESS]: "bg-red-900 border-red-700 text-white",
+      [CLASS_PREM_ECO]: "bg-red-700 border-red-500 text-white",
+      [CLASS_ECONOMY]: "bg-red-500 border-red-400 text-white hover:bg-red-400 hover:border-red-300",
+    };
+
+    const AIRCRAFT = {
+      B779: { code: "777-9", name: "Boeing 777-9", notBefore: 2029, tagline: "High-premium flagship (6 Otono One suites)" },
+      A35K2:{ code: "A350-2000", name: "Airbus A350-2000", notBefore: 2035, tagline: "Ultra-long-range ‘fake double decker’ concept" },
+    };
+
+    // ---------- Pricing (REMADE to match your rules) ----------
+    // Rules you asked for:
+    // 1) Extra legroom should be charged more (like A380)
+    // 2) Main deck rear economy should be charged less (like A380)
+    // 3) Extra legroom on cargo deck should be charged the same as normal seat (no surcharge)
+    // 4) Normal cargo deck economy seats should be cheaper than rear economy seats (main deck)
+    // 5) ALL cargo deck seats should be charged less than normal seats
+    const PRICING = {
+      MAIN: {
+        [CLASS_OTONO_ONE]: 14000,
+        [CLASS_FIRST]: 6500,
+        [CLASS_BUSINESS]: 3500,
+        [CLASS_PREM_ECO]: 2150,
+        [CLASS_ECONOMY]: 1500,
+      },
+      CARGO: {
+        // all cheaper than MAIN
+        [CLASS_OTONO_ONE]: 12000,   // still premium but cheaper
+        [CLASS_FIRST]: 5500,
+        [CLASS_BUSINESS]: 3000,
+        [CLASS_PREM_ECO]: 1750,
+        [CLASS_ECONOMY]: 1150,      // MUST be cheaper than MAIN rear economy
+      }
+    };
+
+    const EXTRA_LEGROOM_SURCHARGE = {
+      // MAIN deck only
+      [CLASS_PREM_ECO]: 150,
+      [CLASS_ECONOMY]: 150
+    };
+
+    // rear economy discount (MAIN deck only) - like your A380 logic
+    const getMainRearDiscount = (aircraftKey, row) => {
+      if (aircraftKey === "B779") {
+        // 777-9 main economy: rows 74-75 are the chopped tail rows (rear)
+        return (row >= 74) ? 150 : 0;
+      }
+      if (aircraftKey === "A35K2") {
+        // A350-2000 main economy: last block is rows 75-78 (rear)
+        return (row >= 75) ? 150 : 0;
+      }
+      return 0;
+    };
+
+    const computePrice = ({ cabinClass, deck, aircraftKey, row, features }) => {
+      const base = PRICING[deck][cabinClass] ?? 0;
+
+      // Extra legroom surcharge ONLY on MAIN deck
+      let extra = 0;
+      const hasExtraLegroom = features.includes("Extra Legroom");
+      if (deck === DECK_MAIN && hasExtraLegroom) extra += (EXTRA_LEGROOM_SURCHARGE[cabinClass] ?? 0);
+
+      // Rear discount ONLY on MAIN deck and ONLY for economy
+      let rearDisc = 0;
+      if (deck === DECK_MAIN && cabinClass === CLASS_ECONOMY) rearDisc += getMainRearDiscount(aircraftKey, row);
+
+      const final = Math.max(0, base + extra - rearDisc);
+      return `£${final.toLocaleString()}`;
+    };
+
+    // ---------- Layouts ----------
+    const LAYOUTS = {
+      "1-1":   { order: ["A","K"], aislesAfter: ["A"] },
+      "1-2-1": { order: ["A","D","G","K"], aislesAfter: ["A","G"] },
+      "2-4-2": { order: ["A","C","D","E","F","G","H","K"], aislesAfter: ["C","G"] },
+      "2-3-2": { order: ["A","C","D","F","G","H","K"], aislesAfter: ["C","G"] },
+      "3-4-3": { order: ["A","B","C","D","E","F","G","H","J","K"], aislesAfter: ["C","G"] },
+      "3-3-3": { order: ["A","B","C","D","F","G","H","J","K"], aislesAfter: ["C","G"] },
+    };
+
+    // ---------- Seat Creation ----------
+    const createSeat = ({ row, col, cabinClass, deck, aircraftKey, features = [], forcedOccupied = null }) => {
+      const id = `${row}${col}`;
+
+      const wifiFeature =
+        (cabinClass === CLASS_OTONO_ONE || cabinClass === CLASS_FIRST || cabinClass === CLASS_BUSINESS)
+          ? "Free High-Speed WiFi"
+          : (cabinClass === CLASS_PREM_ECO)
+          ? "£2.50 High-Speed WiFi + Free Messaging WiFi"
+          : "Free Messaging WiFi + £7.50 High-Speed WiFi";
+
+      const deckFeature =
+        deck === DECK_CARGO ? "Cargo Deck (lower ceiling • virtual windows)" : "Main Deck";
+
+      const finalFeatures = [...features, wifiFeature, deckFeature];
+
+      // deterministic light occupancy
+      const seed = (row * 97 + col.charCodeAt(0) * 17 + aircraftKey.charCodeAt(0) * 13 + (deck === DECK_CARGO ? 31 : 7)) % 100;
+      const isOccupied = forcedOccupied !== null ? forcedOccupied : seed >= 92;
+
+      return {
+        id, row, col,
+        type: cabinClass,
+        deck, aircraftKey,
+        isOccupied,
+        isAisle: false,
+        features: finalFeatures,
+        price: computePrice({ cabinClass, deck, aircraftKey, row, features: finalFeatures }),
+      };
+    };
+
+    // ---------- Quality badges ----------
+    const getSeatQuality = (seat) => {
+      if (seat.type === CLASS_OTONO_ONE) return { type:"GOOD", label:"Amazing Suite", reason:"Otono One luxury", icon:ThumbsUp };
+      if (seat.features.includes("Extra Legroom")) return { type:"GOOD", label:"Good Seat", reason:"Extra legroom", icon:ThumbsUp };
+      if (seat.type === CLASS_ECONOMY && seat.deck === DECK_MAIN) {
+        const disc = getMainRearDiscount(seat.aircraftKey, seat.row);
+        if (disc > 0) return { type:"BAD", label:"Cheaper Rear Seat", reason:"Rear cabin (discounted)", icon:ThumbsDown };
+      }
+      return null;
+    };
+
+    // ---------- Cabin Generators (match your diagram & missing seats) ----------
+    // Boeing 777-9 MAIN deck
+    const generate777Main = () => {
+      const cabins = [];
+
+      // Otono One: rows 1-3, 1-1 (A/K) = 6 suites total
+      const o1 = [];
+      [1,2,3].forEach(r => {
+        o1.push(createSeat({ row:r, col:"A", cabinClass:CLASS_OTONO_ONE, deck:DECK_MAIN, aircraftKey:"B779", features:["Private suite for two","Fine dining","Largest IFE"] }));
+        o1.push(createSeat({ row:r, col:"K", cabinClass:CLASS_OTONO_ONE, deck:DECK_MAIN, aircraftKey:"B779", features:["Private suite for two","Fine dining","Largest IFE"] }));
+      });
+      cabins.push({ name:"Otono One", layout:"1-1", seats:o1 });
+
+      // First: rows 5-9, mostly 1-2-1
+      // Missing: 5D,5G,6D,6G (staircase in middle of rows 5-6)
+      // Missing: 9A,9K (row 9 has only D/G)
+      const first = [];
+      [5,6,7,8,9].forEach(r => {
+        if (r !== 9) {
+          first.push(createSeat({ row:r, col:"A", cabinClass:CLASS_FIRST, deck:DECK_MAIN, aircraftKey:"B779", features:["Shower access","Private suite","Larger IFE"] }));
+          first.push(createSeat({ row:r, col:"K", cabinClass:CLASS_FIRST, deck:DECK_MAIN, aircraftKey:"B779", features:["Shower access","Private suite","Larger IFE"] }));
+        }
+        if (r !== 5 && r !== 6) {
+          first.push(createSeat({ row:r, col:"D", cabinClass:CLASS_FIRST, deck:DECK_MAIN, aircraftKey:"B779", features:["Centre pair","Shower access","Private suite"] }));
+          first.push(createSeat({ row:r, col:"G", cabinClass:CLASS_FIRST, deck:DECK_MAIN, aircraftKey:"B779", features:["Centre pair","Shower access","Private suite"] }));
+        }
+      });
+      cabins.push({ name:"First Class", layout:"1-2-1", seats:first });
+
+      // Business forward: rows 11,12 A/K only; row 15 A/D/G/K
+      const biz1 = [];
+      [11,12].forEach(r => {
+        ["A","K"].forEach(c => biz1.push(createSeat({ row:r, col:c, cabinClass:CLASS_BUSINESS, deck:DECK_MAIN, aircraftKey:"B779", features:["Lie-flat","Direct aisle access"] })));
+      });
+      [15].forEach(r => {
+        ["A","D","G","K"].forEach(c => biz1.push(createSeat({ row:r, col:c, cabinClass:CLASS_BUSINESS, deck:DECK_MAIN, aircraftKey:"B779", features:["Lie-flat","Direct aisle access"] })));
+      });
+      cabins.push({ name:"Business (Forward)", layout:"1-2-1", seats:biz1 });
+
+      // Business main: rows 23-29 A/D/G/K, missing 23D/23G
+      const biz2 = [];
+      for (let r=23; r<=29; r++){
+        ["A","K"].forEach(c => biz2.push(createSeat({ row:r, col:c, cabinClass:CLASS_BUSINESS, deck:DECK_MAIN, aircraftKey:"B779", features:["Lie-flat","Direct aisle access"] })));
+        if (r !== 23) ["D","G"].forEach(c => biz2.push(createSeat({ row:r, col:c, cabinClass:CLASS_BUSINESS, deck:DECK_MAIN, aircraftKey:"B779", features:["Lie-flat","Direct aisle access","Centre"] })));
+      }
+      cabins.push({ name:"Business (Main)", layout:"1-2-1", seats:biz2 });
+
+      // Premium Economy: rows 40-43 2-4-2
+      const prem = [];
+      for (let r=40; r<=43; r++){
+        ["A","C","D","E","F","G","H","K"].forEach(c => prem.push(createSeat({
+          row:r, col:c, cabinClass:CLASS_PREM_ECO, deck:DECK_MAIN, aircraftKey:"B779",
+          features:[r===40 ? "Extra Legroom" : ""].filter(Boolean),
+        })));
+      }
+      cabins.push({ name:"Premium Economy", layout:"2-4-2", seats:prem });
+
+      // Economy: rows 58-75 3-4-3
+      // Tail rows 74-75 missing A and K (becomes BC / DEFG / HJ)
+      const eco = [];
+      for (let r=58; r<=75; r++){
+        const left = (r>=74) ? ["B","C"] : ["A","B","C"];
+        const mid  = ["D","E","F","G"];
+        const right = (r>=74) ? ["H","J"] : ["H","J","K"];
+        [...left, ...mid, ...right].forEach(c => eco.push(createSeat({
+          row:r, col:c, cabinClass:CLASS_ECONOMY, deck:DECK_MAIN, aircraftKey:"B779",
+          features:[r===58 ? "Extra Legroom" : ""].filter(Boolean),
+        })));
+      }
+      cabins.push({ name:"Economy", layout:"3-4-3", seats:eco });
+
+      return cabins;
+    };
+
+    // Boeing 777-9 CARGO deck
+    const generate777Cargo = () => {
+      const cabins = [];
+
+      // Business: rows 32-38 A/D/G/K
+      const biz = [];
+      for (let r=32; r<=38; r++){
+        ["A","D","G","K"].forEach(c => biz.push(createSeat({
+          row:r, col:c, cabinClass:CLASS_BUSINESS, deck:DECK_CARGO, aircraftKey:"B779",
+          features:["Lie-flat","Direct aisle access","Cargo deck fare"],
+        })));
+      }
+      cabins.push({ name:"Business (Cargo Deck)", layout:"1-2-1", seats:biz });
+
+      // Premium Economy: rows 48-51 2-3-2 (A C / D F G / H K)
+      const prem = [];
+      for (let r=48; r<=51; r++){
+        ["A","C","D","F","G","H","K"].forEach(c => prem.push(createSeat({
+          row:r, col:c, cabinClass:CLASS_PREM_ECO, deck:DECK_CARGO, aircraftKey:"B779",
+          features:[r===48 ? "Extra Legroom" : ""].filter(Boolean), // NO surcharge on cargo (pricing handles)
+        })));
+      }
+      cabins.push({ name:"Premium Economy (Cargo Deck)", layout:"2-3-2", seats:prem });
+
+      // Economy: rows 85-93 3-3-3 (ABC / DFG / HJK)
+      const eco = [];
+      for (let r=85; r<=93; r++){
+        ["A","B","C","D","F","G","H","J","K"].forEach(c => eco.push(createSeat({
+          row:r, col:c, cabinClass:CLASS_ECONOMY, deck:DECK_CARGO, aircraftKey:"B779",
+          features:[r===85 ? "Extra Legroom" : ""].filter(Boolean), // NO surcharge on cargo
+        })));
+      }
+      cabins.push({ name:"Economy (Cargo Deck)", layout:"3-3-3", seats:eco });
+
+      return cabins;
+    };
+
+    // A350-2000 MAIN deck
+    const generateA350Main = () => {
+      const cabins = [];
+
+      // Otono One: row 1 1-1
+      const o1 = [];
+      ["A","K"].forEach(c => o1.push(createSeat({
+        row:1, col:c, cabinClass:CLASS_OTONO_ONE, deck:DECK_MAIN, aircraftKey:"A35K2",
+        features:["Private suite for two","Fine dining","Largest IFE"],
+      })));
+      cabins.push({ name:"Otono One", layout:"1-1", seats:o1 });
+
+      // First: rows 5-8 mostly 1-2-1
+      // Missing: 7D,7G,8D,8G (staircase in middle of rows 7-8)
+      const first = [];
+      [5,6,7,8].forEach(r => {
+        ["A","K"].forEach(c => first.push(createSeat({
+          row:r, col:c, cabinClass:CLASS_FIRST, deck:DECK_MAIN, aircraftKey:"A35K2",
+          features:["Shower access","Private suite","Larger IFE"],
+        })));
+        if (r === 5 || r === 6){
+          ["D","G"].forEach(c => first.push(createSeat({
+            row:r, col:c, cabinClass:CLASS_FIRST, deck:DECK_MAIN, aircraftKey:"A35K2",
+            features:["Centre pair","Shower access","Private suite"],
+          })));
+        }
+      });
+      cabins.push({ name:"First Class", layout:"1-2-1", seats:first });
+
+      // Business forward: rows 11-12 A/D/G/K
+      const biz0 = [];
+      [11,12].forEach(r => ["A","D","G","K"].forEach(c => biz0.push(createSeat({
+        row:r, col:c, cabinClass:CLASS_BUSINESS, deck:DECK_MAIN, aircraftKey:"A35K2",
+        features:["Lie-flat","Direct aisle access"],
+      }))));
+      cabins.push({ name:"Business (Forward)", layout:"1-2-1", seats:biz0 });
+
+      // Business main: rows 20-29 A/D/G/K
+      const biz = [];
+      for (let r=20; r<=29; r++){
+        ["A","D","G","K"].forEach(c => biz.push(createSeat({
+          row:r, col:c, cabinClass:CLASS_BUSINESS, deck:DECK_MAIN, aircraftKey:"A35K2",
+          features:["Lie-flat","Direct aisle access"],
+        })));
+      }
+      cabins.push({ name:"Business (Main)", layout:"1-2-1", seats:biz });
+
+      // Premium Economy: rows 40-44 2-4-2
+      // Missing row 40 A,C,H,K (row 40 only DEFG)
+      const prem = [];
+      for (let r=40; r<=44; r++){
+        const cols = (r===40) ? ["D","E","F","G"] : ["A","C","D","E","F","G","H","K"];
+        cols.forEach(c => prem.push(createSeat({
+          row:r, col:c, cabinClass:CLASS_PREM_ECO, deck:DECK_MAIN, aircraftKey:"A35K2",
+          features:[r===40 ? "Extra Legroom" : ""].filter(Boolean),
+        })));
+      }
+      cabins.push({ name:"Premium Economy", layout:"2-4-2", seats:prem });
+
+      // Economy: rows 55-78 (tail changes)
+      // 55-72: 3-4-3 (ABC / DEFG / HJK)
+      // 73-74: 3-3-3-ish (ABC / DFG / HJK) missing E
+      // 75-78: chopped tail (BC / DFG / HJ) missing A,E,K
+      const eco = [];
+      for (let r=55; r<=78; r++){
+        let left, mid, right;
+        if (r <= 72){
+          left = ["A","B","C"];
+          mid = ["D","E","F","G"];
+          right = ["H","J","K"];
+        } else if (r === 73 || r === 74){
+          left = ["A","B","C"];
+          mid = ["D","F","G"];
+          right = ["H","J","K"];
+        } else {
+          left = ["B","C"];
+          mid = ["D","F","G"];
+          right = ["H","J"];
+        }
+        [...left, ...mid, ...right].forEach(c => eco.push(createSeat({
+          row:r, col:c, cabinClass:CLASS_ECONOMY, deck:DECK_MAIN, aircraftKey:"A35K2",
+          features:[r===55 ? "Extra Legroom" : ""].filter(Boolean),
+        })));
+      }
+      cabins.push({ name:"Economy", layout:"3-4-3", seats:eco });
+
+      return cabins;
+    };
+
+    // A350-2000 CARGO deck
+    const generateA350Cargo = () => {
+      const cabins = [];
+
+      // Business: rows 31-37 A/D/G/K
+      const biz = [];
+      for (let r=31; r<=37; r++){
+        ["A","D","G","K"].forEach(c => biz.push(createSeat({
+          row:r, col:c, cabinClass:CLASS_BUSINESS, deck:DECK_CARGO, aircraftKey:"A35K2",
+          features:["Lie-flat","Direct aisle access","Cargo deck fare"],
+        })));
+      }
+      cabins.push({ name:"Business (Cargo Deck)", layout:"1-2-1", seats:biz });
+
+      // Premium Economy: rows 48-54 2-3-2
+      const prem = [];
+      for (let r=48; r<=54; r++){
+        ["A","C","D","F","G","H","K"].forEach(c => prem.push(createSeat({
+          row:r, col:c, cabinClass:CLASS_PREM_ECO, deck:DECK_CARGO, aircraftKey:"A35K2",
+          features:[r===48 ? "Extra Legroom" : ""].filter(Boolean),
+        })));
+      }
+      cabins.push({ name:"Premium Economy (Cargo Deck)", layout:"2-3-2", seats:prem });
+
+      // Economy: rows 88-92 3-3-3
+      const eco = [];
+      for (let r=88; r<=92; r++){
+        ["A","B","C","D","F","G","H","J","K"].forEach(c => eco.push(createSeat({
+          row:r, col:c, cabinClass:CLASS_ECONOMY, deck:DECK_CARGO, aircraftKey:"A35K2",
+          features:[r===88 ? "Extra Legroom" : ""].filter(Boolean),
+        })));
+      }
+      cabins.push({ name:"Economy (Cargo Deck)", layout:"3-3-3", seats:eco });
+
+      return cabins;
+    };
+
+    const getCabins = (aircraftKey, deck) => {
+      if (aircraftKey === "B779" && deck === DECK_MAIN) return generate777Main();
+      if (aircraftKey === "B779" && deck === DECK_CARGO) return generate777Cargo();
+      if (aircraftKey === "A35K2" && deck === DECK_MAIN) return generateA350Main();
+      if (aircraftKey === "A35K2" && deck === DECK_CARGO) return generateA350Cargo();
+      return [];
+    };
+
+    // ---------- Seat Stats ----------
+    const flattenCabins = (cabins) => cabins.reduce((acc, c) => acc.concat(c.seats), []);
+    const buildSeatStats = (seats) => {
+      const totals = {
+        total: 0, occupied: 0, available: 0,
+        byClass: {
+          [CLASS_OTONO_ONE]: { total: 0, occupied: 0, available: 0 },
+          [CLASS_FIRST]: { total: 0, occupied: 0, available: 0 },
+          [CLASS_BUSINESS]: { total: 0, occupied: 0, available: 0 },
+          [CLASS_PREM_ECO]: { total: 0, occupied: 0, available: 0 },
+          [CLASS_ECONOMY]: { total: 0, occupied: 0, available: 0 },
+        }
+      };
+      for (const s of seats) {
+        const pax = (s.type === CLASS_OTONO_ONE) ? 2 : 1;
+        totals.total += pax;
+        totals.byClass[s.type].total += pax;
+        if (s.isOccupied) { totals.occupied += pax; totals.byClass[s.type].occupied += pax; }
+        else { totals.available += pax; totals.byClass[s.type].available += pax; }
+      }
+      return totals;
+    };
+
+    // ---------- UI Components ----------
+    const Seat = ({ seat, onSelect, isSelected }) => {
+      const base = "w-7 h-8 m-[1px] md:m-0.5 text-[9px] flex items-center justify-center font-bold cursor-pointer transition-all duration-200 seat-style";
+      let typeClasses = CLASS_COLORS[seat.type] || "bg-slate-300 border-slate-400 text-slate-700";
+
+      if (seat.isOccupied) typeClasses = "seat-occupied-style";
+      else if (isSelected) typeClasses = "seat-selected-style";
+      else typeClasses += " hover:scale-110 hover:z-10";
+
+      if (seat.type === CLASS_OTONO_ONE){
+        return (
+          <div
+            onClick={() => !seat.isOccupied && onSelect(seat)}
+            className={`w-16 h-16 m-2 rounded-lg text-xs flex flex-col items-center justify-center font-serif border-2 ${
+              seat.isOccupied ? "seat-occupied-style" : typeClasses
+            } ${isSelected ? "seat-selected-style" : ""}`}
+          >
+            <span>{seat.id}</span>
+            <span className="text-[8px] opacity-75">SUITE</span>
+          </div>
+        );
+      }
+
+      if (seat.type === CLASS_FIRST){
+        return (
+          <div
+            onClick={() => !seat.isOccupied && onSelect(seat)}
+            className={`w-10 h-10 m-1 rounded-md text-[10px] flex items-center justify-center border ${
+              seat.isOccupied ? "seat-occupied-style" : typeClasses
+            } ${isSelected ? "seat-selected-style" : ""}`}
+          >
+            {seat.id}
+          </div>
+        );
+      }
+
+      return (
+        <div
+          onClick={() => !seat.isOccupied && onSelect(seat)}
+          className={`${base} ${typeClasses}`}
+          title={seat.features.join(", ")}
+        >
+          {seat.col}
+        </div>
+      );
+    };
+
+    const ShowerSuite = ({ note = "Otono One & First" }) => (
+      <div className="flex flex-col items-center justify-center bg-blue-100 border border-blue-300 text-blue-800 p-2 rounded-xl w-28 h-24 m-2 text-xs text-center shadow-inner">
+        <Bath size={24} className="mb-1" />
+        <span className="font-bold">Shower Spa</span>
+        <span className="text-[9px]">{note}</span>
+      </div>
+    );
+
+    const Lounge = () => (
+      <div className="w-full bg-purple-900 text-white p-6 rounded-b-3xl flex flex-col items-center justify-center mt-4 border-t-4 border-red-600 shadow-2xl relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+        <div className="z-10 flex items-center space-x-4">
+          <Coffee size={32} />
+          <div className="text-center">
+            <h3 className="text-xl font-bold font-serif">The Otono Lounge</h3>
+            <p className="text-xs text-purple-200">Cargo Deck (fake double-decker feature)</p>
+            <p className="text-xs text-purple-200">Open to ALL Classes</p>
+          </div>
+        </div>
+      </div>
+    );
+
+    // This is the “A380-style” staircase block (NOT at the nose)
+    const StairWellOverlay = ({ label }) => (
+      <div className="absolute left-1/2 top-0 -translate-x-1/2 w-28 md:w-36 h-full bg-gray-200 border-x-2 border-gray-300 flex flex-col items-center justify-center z-0 rounded-md opacity-80 mini-hatch">
+        <ArrowUp size={16} className="text-gray-500 mb-1" />
+        <div className="text-[9px] text-gray-600 font-bold uppercase tracking-widest text-center leading-tight px-1">
+          {label}
+        </div>
+      </div>
+    );
+
+    const SeatCounterPanel = ({ stats }) => {
+      const classOrder = [CLASS_OTONO_ONE, CLASS_FIRST, CLASS_BUSINESS, CLASS_PREM_ECO, CLASS_ECONOMY];
+      return (
+        <div className="bg-white p-4 rounded-xl shadow-md border border-gray-100">
+          <h2 className="text-sm font-bold text-gray-500 uppercase mb-3">Passenger Availability</h2>
+          <div className="grid grid-cols-3 gap-2 mb-4">
+            <div className="rounded-lg border border-gray-100 p-3">
+              <div className="text-[11px] text-gray-500 font-bold uppercase">Total</div>
+              <div className="text-2xl font-extrabold text-purple-700">{stats.total}</div>
+            </div>
+            <div className="rounded-lg border border-gray-100 p-3">
+              <div className="text-[11px] text-gray-500 font-bold uppercase">Occupied</div>
+              <div className="text-2xl font-extrabold text-red-600">{stats.occupied}</div>
+            </div>
+            <div className="rounded-lg border border-gray-100 p-3">
+              <div className="text-[11px] text-gray-500 font-bold uppercase">Available</div>
+              <div className="text-2xl font-extrabold text-green-600">{stats.available}</div>
+            </div>
+          </div>
+
+          <div className="border-t border-gray-100 pt-3">
+            <div className="text-[11px] text-gray-500 font-bold uppercase mb-2">By Class</div>
+            <div className="space-y-2">
+              {classOrder.map(cls => {
+                const c = stats.byClass[cls];
+                const badgeBg = (CLASS_COLORS[cls] ? CLASS_COLORS[cls].split(" ")[0] : "bg-slate-200");
+                return (
+                  <div key={cls} className="rounded-lg border border-gray-100 p-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <span className={`w-3 h-3 rounded-sm ${badgeBg} border border-black/10`}></span>
+                        <span className="font-bold text-gray-700 text-sm">{cls}</span>
+                      </div>
+                      <div className="text-xs font-bold text-purple-700">{c.total} pax</div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 mt-2">
+                      <div className="rounded-md bg-gray-50 p-2">
+                        <div className="text-[10px] uppercase font-bold text-gray-500">Occupied</div>
+                        <div className="text-lg font-extrabold text-red-600">{c.occupied}</div>
+                      </div>
+                      <div className="rounded-md bg-gray-50 p-2">
+                        <div className="text-[10px] uppercase font-bold text-gray-500">Available</div>
+                        <div className="text-lg font-extrabold text-green-600">{c.available}</div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    // Row renderer with aisle gaps + optional staircase overlay
+    const RowRenderer = ({ rowNum, rowSeats, layoutKey, onSelect, selectedSeat, stairOverlayLabel = null }) => {
+      const layout = LAYOUTS[layoutKey] || { order: rowSeats.map(s => s.col), aislesAfter: [] };
+      const ordered = layout.order.map(c => rowSeats.find(s => s.col === c)).filter(Boolean);
+      const aisleAfter = new Set(layout.aislesAfter);
+
+      const spacerFor = (col) => (aisleAfter.has(col) ? <div className="w-3 md:w-6"></div> : null);
+
+      return (
+        <div className="flex items-center justify-center w-full my-0.5 relative">
+          {/* Staircase block sits in the middle of the row (A380-style placement) */}
+          {stairOverlayLabel && <StairWellOverlay label={stairOverlayLabel} />}
+
+          <span className="w-7 text-[10px] text-gray-400 text-right mr-1 font-mono z-10">{rowNum}</span>
+
+          <div className="flex z-10">
+            {ordered.map((seat) => (
+              <React.Fragment key={seat.id}>
+                <Seat seat={seat} onSelect={onSelect} isSelected={selectedSeat?.id === seat.id} />
+                {spacerFor(seat.col)}
+              </React.Fragment>
+            ))}
+          </div>
+
+          <span className="w-7 text-[10px] text-gray-400 text-left ml-1 font-mono z-10">{rowNum}</span>
+        </div>
+      );
+    };
+
+    const DeckMap = ({ aircraftKey, deck, cabins, onSelect, selectedSeat }) => {
+      const is777 = aircraftKey === "B779";
+      const isA350 = aircraftKey === "A35K2";
+
+      // Shower rules:
+      // - 777-9: both showers behind cockpit (MAIN deck)
+      // - A350-2000: both showers on CARGO deck
+      const showShowers = (is777 && deck === DECK_MAIN) || (isA350 && deck === DECK_CARGO);
+
+      // Lounge is on cargo deck for both
+      const showLounge = (deck === DECK_CARGO);
+
+      // Staircase location:
+      // - 777-9: between First rows 5 and 6 (overlay rows 5 & 6)
+      // - A350-2000: between First rows 7 and 8 (overlay rows 7 & 8)
+      const stairRows = (() => {
+        if (deck !== DECK_MAIN) return new Set(); // staircase shown on MAIN deck cabins
+        if (is777) return new Set([5,6]);
+        if (isA350) return new Set([7,8]);
+        return new Set();
+      })();
+
+      const stairLabel = is777 ? "Grand Staircase" : "Grand Staircase";
+
+      return (
+        <div className="flex flex-col items-center bg-white rounded-3xl shadow-2xl border-4 border-gray-300 p-2 md:p-4 w-full max-w-2xl mx-auto relative overflow-hidden min-h-[820px] fuselage-style">
+          {/* Nose / Front */}
+          <div className="mt-7 mb-3 w-full flex justify-center z-10">
+            {showShowers ? (
+              <div className="flex justify-between w-full px-4 md:px-8">
+                <ShowerSuite note="Shower 1" />
+                <div className="flex flex-col justify-end pb-2 w-full mx-2">
+                  <div className="w-full text-center text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                    {deck === DECK_MAIN ? "Cockpit ahead" : "Cargo deck front"}
+                  </div>
+                </div>
+                <ShowerSuite note="Shower 2" />
+              </div>
+            ) : (
+              <div className="w-full text-center py-2 text-gray-400 font-bold uppercase tracking-widest text-[10px]">
+                {deck === DECK_MAIN ? "Cockpit ahead" : "Cargo deck front"}
+              </div>
+            )}
+          </div>
+
+          {/* Cabins */}
+          <div className="w-full flex flex-col items-center space-y-2">
+            {cabins.map((cabin, cIdx) => {
+              const rows = {};
+              cabin.seats.forEach(s => {
+                if (!rows[s.row]) rows[s.row] = [];
+                rows[s.row].push(s);
+              });
+              const rowNumbers = Object.keys(rows).map(n => parseInt(n,10)).sort((a,b)=>a-b);
+
+              return (
+                <div key={cabin.name} className="w-full flex flex-col items-center">
+                  <div className="w-full px-2 md:px-6 pt-3">
+                    <div className="flex items-center justify-between">
+                      <div className="font-bold text-sm text-gray-800">{cabin.name}</div>
+                      <div className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">
+                        Layout {cabin.layout}
+                      </div>
+                    </div>
+                    <div className="h-px bg-gray-100 mt-2"></div>
+                  </div>
+
+                  {cIdx > 0 && (
+                    <div className="w-full flex items-center justify-center my-4">
+                      <div className="h-12 w-full bg-gray-100 border-y border-gray-200 flex items-center justify-center">
+                        <span className="text-[10px] text-gray-400 tracking-widest uppercase">Galley / Exit</span>
+                      </div>
+                    </div>
+                  )}
+
+                  {rowNumbers.map(r => (
+                    <RowRenderer
+                      key={r}
+                      rowNum={r}
+                      rowSeats={rows[r]}
+                      layoutKey={cabin.layout}
+                      onSelect={onSelect}
+                      selectedSeat={selectedSeat}
+                      stairOverlayLabel={stairRows.has(r) ? stairLabel : null}
+                    />
+                  ))}
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Rear */}
+          <div className="mt-8 w-full z-10">
+            {showLounge ? (
+              <Lounge />
+            ) : (
+              <div className="w-full py-4 text-center text-gray-400">
+                <div className="w-full h-8 bg-gray-100 my-2 flex items-center justify-center text-[10px] text-gray-400 uppercase tracking-widest">
+                  Rear galley
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    };
+
+    function App(){
+      const [aircraftKey, setAircraftKey] = useState("B779");
+      const [deck, setDeck] = useState(DECK_MAIN);
+      const [selectedSeat, setSelectedSeat] = useState(null);
+
+      const cabins = useMemo(() => getCabins(aircraftKey, deck), [aircraftKey, deck]);
+      const allSeats = useMemo(() => flattenCabins(cabins), [cabins]);
+      const seatStats = useMemo(() => buildSeatStats(allSeats), [allSeats]);
+
+      const aircraftMeta = aircraftKey === "B779" ? AIRCRAFT.B779 : AIRCRAFT.A35K2;
+      const quality = selectedSeat ? getSeatQuality(selectedSeat) : null;
+
+      return (
+        <div className="min-h-screen bg-slate-50 font-sans text-slate-800 pb-20">
+          <header className="bg-gradient-to-r from-purple-900 to-red-700 text-white p-4 shadow-lg sticky top-0 z-50">
+            <div className="max-w-6xl mx-auto flex justify-between items-center gap-4">
+              <div className="flex items-center space-x-2">
+                <Plane className="transform -rotate-45" size={28} />
+                <div>
+                  <h1 className="text-xl font-bold tracking-wider">OTONO AIRWAYS</h1>
+                  <p className="text-xs text-purple-200">
+                    Future Planned Seat Maps • {aircraftMeta.name} ({aircraftMeta.code})
+                  </p>
+                  <p className="text-xs text-purple-200">
+                    Not expected to enter service before: <span className="font-bold text-yellow-300">{aircraftMeta.notBefore}</span>
+                  </p>
+                </div>
+              </div>
+
+              <div className="text-right hidden sm:block">
+                <div className="flex items-center justify-end">
+                  <Wifi size={16} className="text-yellow-400 mr-1" />
+                  <span className="text-sm font-bold text-yellow-300">Free Messaging WiFi</span>
+                </div>
+                <p className="text-sm font-bold italic">"NO MORE FEAR of economy class!"</p>
+              </div>
+            </div>
+          </header>
+
+          <main className="max-w-6xl mx-auto mt-6 px-2 md:px-6 flex flex-col md:flex-row gap-8">
+
+            {/* LEFT */}
+            <div className="w-full md:w-1/3 space-y-6">
+
+              <div className="bg-white p-4 rounded-xl shadow-md border border-gray-100">
+                <h2 className="text-sm font-bold text-gray-500 uppercase mb-3">Choose Aircraft</h2>
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    onClick={() => { setAircraftKey("B779"); setDeck(DECK_MAIN); setSelectedSeat(null); }}
+                    className={`p-3 rounded-lg text-left border transition-all ${
+                      aircraftKey==="B779" ? "border-purple-400 bg-purple-50" : "border-gray-200 hover:bg-gray-50"
+                    }`}
+                  >
+                    <div className="font-bold text-gray-800">Boeing 777-9</div>
+                    <div className="text-[11px] text-gray-500">Not before 2029</div>
+                    <div className="text-[11px] text-gray-500">6 Otono One suites</div>
+                  </button>
+
+                  <button
+                    onClick={() => { setAircraftKey("A35K2"); setDeck(DECK_MAIN); setSelectedSeat(null); }}
+                    className={`p-3 rounded-lg text-left border transition-all ${
+                      aircraftKey==="A35K2" ? "border-purple-400 bg-purple-50" : "border-gray-200 hover:bg-gray-50"
+                    }`}
+                  >
+                    <div className="font-bold text-gray-800">A350-2000</div>
+                    <div className="text-[11px] text-gray-500">Not before 2035</div>
+                    <div className="text-[11px] text-gray-500">Cargo-deck showers</div>
+                  </button>
+                </div>
+              </div>
+
+              <div className="bg-white p-4 rounded-xl shadow-md border border-gray-100">
+                <h2 className="text-sm font-bold text-gray-500 uppercase mb-3">Choose Deck</h2>
+                <div className="flex space-x-2 bg-gray-100 p-1 rounded-lg">
+                  <button
+                    onClick={() => { setDeck(DECK_MAIN); setSelectedSeat(null); }}
+                    className={`flex-1 py-3 rounded-md text-sm font-bold transition-all ${
+                      deck===DECK_MAIN ? "bg-white text-purple-700 shadow-sm" : "text-gray-500 hover:bg-gray-200"
+                    }`}
+                  >
+                    Main Deck
+                    <span className="block text-[9px] font-normal opacity-75">Standard cabins</span>
+                  </button>
+                  <button
+                    onClick={() => { setDeck(DECK_CARGO); setSelectedSeat(null); }}
+                    className={`flex-1 py-3 rounded-md text-sm font-bold transition-all ${
+                      deck===DECK_CARGO ? "bg-white text-indigo-700 shadow-sm" : "text-gray-500 hover:bg-gray-200"
+                    }`}
+                  >
+                    Cargo Deck
+                    <span className="block text-[9px] font-normal opacity-75">Fake double-decker</span>
+                  </button>
+                </div>
+              </div>
+
+              <div className="bg-white p-4 rounded-xl shadow-md border border-gray-100">
+                <h2 className="text-sm font-bold text-gray-500 uppercase mb-3">Why the cargo deck? ✈️</h2>
+                <div className="text-sm text-gray-700 space-y-2 leading-relaxed">
+                  <p>
+                    Since Airbus no longer produces the Airbus A380 and the team still loves the double decker feeling,
+                    Otono Airways planned a “fake double decker” on these new large aircraft.
+                  </p>
+                  <p>
+                    The onboard lounge is placed on the cargo deck for both aircraft. The ceiling is much lower, but passengers at each side
+                    still receive virtual windows. 🪟✨
+                  </p>
+                  <p>
+                    Showers stay too: the A350-2000 has both showers on the cargo deck, while the 777-9 keeps both showers behind the cockpit.
+                  </p>
+                  <p>
+                    Only around half of the cargo deck is used, keeping flights profitable. Cargo deck passengers get cheaper pricing.
+                    These aircraft are planned to gradually replace the Airbus A380s in the 2030s and replace them completely in the late 2030s / early 2040s.
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100 min-h-[220px]">
+                {selectedSeat ? (
+                  <div className="animate-fade-in">
+                    <div className="flex justify-between items-start mb-4">
+                      <div>
+                        <span className={`px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wide text-white ${
+                          (CLASS_COLORS[selectedSeat.type] || "bg-slate-400").split(" ")[0]
+                        }`}>
+                          {selectedSeat.type}
+                        </span>
+                        <h2 className="text-3xl font-bold text-gray-800 mt-2">{selectedSeat.id}</h2>
+                        <div className="text-xs text-gray-500 font-bold mt-1">
+                          {aircraftMeta.name} • {deck === DECK_MAIN ? "Main Deck" : "Cargo Deck"}
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <span className="block text-2xl font-bold text-green-600">{selectedSeat.price}</span>
+                        <span className="text-xs text-gray-400">One Way</span>
+                      </div>
+                    </div>
+
+                    {quality && (
+                      <div className={`p-2 rounded-lg mb-4 text-sm font-bold flex items-center shadow-inner ${
+                        quality.type === "GOOD" ? "good-seat-badge" : "bad-seat-badge"
+                      }`}>
+                        <quality.icon size={18} className="mr-2" />
+                        <div className="flex flex-col">
+                          <span>{quality.label}</span>
+                          <span className="text-[10px] font-normal opacity-80 italic">{quality.reason}</span>
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="space-y-2">
+                      <div className="flex items-center text-sm text-gray-600">
+                        <User size={16} className="mr-2" />
+                        <span>{selectedSeat.isAisle ? "Aisle Access" : "Window / Interior"}</span>
+                      </div>
+                      {selectedSeat.features.map((feat, i) => (
+                        <div key={i} className="flex items-center text-sm text-gray-600">
+                          {feat.includes("WiFi") ? <Wifi size={16} className="mr-2 text-blue-500" /> : <Star size={16} className="mr-2 text-yellow-500" />}
+                          <span>{feat}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="h-full flex flex-col items-center justify-center text-gray-400 text-center py-8">
+                    <p>Select a seat to view details 🙂</p>
+                  </div>
+                )}
+              </div>
+
+              <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+                <h3 className="text-xs font-bold text-gray-400 uppercase mb-3">Key</h3>
+                <div className="space-y-2">
+                  {Object.keys(CLASS_COLORS).map(cls => (
+                    <div key={cls} className="flex items-center">
+                      <div className={`w-4 h-4 rounded-sm mr-3 ${(CLASS_COLORS[cls]).split(" ")[0]} border border-black/10`}></div>
+                      <span className="text-sm font-medium text-gray-600">{cls}</span>
+                    </div>
+                  ))}
+                  <div className="flex items-center mt-4 pt-4 border-t border-gray-100">
+                    <div className="w-4 h-4 rounded-sm mr-3 bg-gray-300"></div>
+                    <span className="text-sm text-gray-400">Occupied</span>
+                  </div>
+                </div>
+              </div>
+
+              <SeatCounterPanel stats={seatStats} />
+            </div>
+
+            {/* RIGHT */}
+            <div className="w-full md:w-2/3">
+              <DeckMap
+                aircraftKey={aircraftKey}
+                deck={deck}
+                cabins={cabins}
+                onSelect={setSelectedSeat}
+                selectedSeat={selectedSeat}
+              />
+            </div>
+          </main>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
+</body>
+</html>
