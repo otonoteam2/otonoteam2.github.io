@@ -1,0 +1,1468 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>🟣 Otono Science — Sample Set 1 (Randomised, Auto Marking)</title>
+  <style>
+    :root{
+      --bg1:#2b0a3d; --bg2:#7a0036;
+      --card:#0f0b18cc; --card2:#120c22e6;
+      --text:#f4efff; --muted:#c9b9ff;
+      --accent:#b000ff; --accent2:#ff1b6a;
+      --good:#19ff9a; --warn:#ffd166; --bad:#ff4d6d;
+      --line:rgba(255,255,255,.12);
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; color:var(--text); font-family:var(--sans);
+      background: radial-gradient(1200px 800px at 10% 10%, #5b1b8a66, transparent 60%),
+                  radial-gradient(900px 700px at 90% 15%, #ff1b6a44, transparent 55%),
+                  linear-gradient(135deg,var(--bg1),var(--bg2));
+    }
+    .wrap{max-width:1100px; margin:0 auto; padding:26px 18px 60px}
+    .topbar{
+      display:flex; gap:14px; flex-wrap:wrap; align-items:center; justify-content:space-between;
+      margin-bottom:18px;
+    }
+    .brand{
+      display:flex; flex-direction:column; gap:4px;
+    }
+    .brand .title{
+      font-size:20px; font-weight:900; letter-spacing:.2px;
+      display:flex; gap:10px; align-items:center;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 10px; border:1px solid var(--line);
+      border-radius:999px; background:rgba(255,255,255,.06);
+      box-shadow: 0 10px 30px rgba(0,0,0,.18);
+      font-size:12px; color:var(--muted);
+    }
+    .grid{
+      display:grid; gap:14px;
+      grid-template-columns: 1.05fr .95fr;
+    }
+    @media (max-width: 980px){
+      .grid{grid-template-columns: 1fr}
+    }
+    .card{
+      border:1px solid var(--line);
+      background: linear-gradient(180deg,var(--card),var(--card2));
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      overflow:hidden;
+    }
+    .card h2{
+      margin:0; padding:14px 16px;
+      font-size:14px; letter-spacing:.2px;
+      background: rgba(255,255,255,.05);
+      border-bottom:1px solid var(--line);
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    .card .content{padding:16px}
+    label{display:block; font-size:12px; color:var(--muted); margin:10px 0 6px}
+    input, select, textarea{
+      width:100%;
+      padding:11px 12px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      color: var(--text);
+      outline:none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+    }
+    textarea{min-height:120px; resize:vertical}
+    .row{display:grid; gap:10px; grid-template-columns: 1fr 1fr}
+    @media (max-width:720px){ .row{grid-template-columns:1fr} }
+    .btns{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+    button{
+      border:0; cursor:pointer;
+      padding:11px 14px;
+      border-radius:14px;
+      font-weight:800;
+      color: #fff;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 14px 35px rgba(0,0,0,.28);
+    }
+    button.secondary{
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.14);
+      color: var(--text);
+      box-shadow:none;
+      font-weight:700;
+    }
+    button:disabled{opacity:.45; cursor:not-allowed}
+    .note{
+      font-size:12px; color: var(--muted); line-height:1.45;
+      border-left:3px solid rgba(255,255,255,.18);
+      padding-left:10px; margin:10px 0;
+    }
+    .warn{
+      border-left-color: rgba(255,77,109,.6);
+      color: #ffe4ea;
+    }
+    .good{
+      border-left-color: rgba(25,255,154,.6);
+      color: #eafff6;
+    }
+    .kpi{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin:10px 0 2px;
+    }
+    .kpi .pill{font-size:12px}
+    .mono{font-family:var(--mono)}
+    .hidden{display:none !important}
+    .qwrap{display:flex; flex-direction:column; gap:12px}
+    .q{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      border-radius: 16px;
+      padding:12px 12px 10px;
+    }
+    .qhead{
+      display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
+      margin-bottom:8px;
+    }
+    .qtitle{font-weight:900}
+    .qmeta{font-size:12px; color:var(--muted)}
+    .choices{display:grid; gap:8px; margin-top:8px}
+    .choice{
+      display:flex; gap:10px; align-items:flex-start;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.14);
+      border-radius:12px;
+      padding:10px 10px;
+    }
+    .choice input{width:auto; margin-top:2px}
+    .mini{
+      font-size:12px; color:var(--muted);
+      margin-top:8px; line-height:1.45;
+    }
+    details{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      border-radius: 16px;
+      padding:10px 12px;
+    }
+    summary{cursor:pointer; font-weight:900}
+    .sheet{
+      margin-top:10px;
+      border-top:1px dashed rgba(255,255,255,.18);
+      padding-top:10px;
+      color: #f6f1ff;
+      font-size:12px;
+      line-height:1.55;
+    }
+    .sheet h3{
+      margin:10px 0 6px; font-size:12px; letter-spacing:.2px;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .eq{
+      display:grid; gap:8px;
+      grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width:720px){ .eq{grid-template-columns:1fr} }
+    .eq .box{
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.14);
+      border-radius: 12px;
+      padding:10px 10px;
+      font-family: var(--mono);
+      font-size:12px;
+      white-space: pre-wrap;
+    }
+    .ptable{
+      display:grid;
+      grid-template-columns: repeat(10, minmax(0,1fr));
+      gap:6px;
+      margin-top:10px;
+    }
+    @media (max-width:720px){ .ptable{grid-template-columns: repeat(5, minmax(0,1fr));} }
+    .el{
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.14);
+      border-radius: 12px;
+      padding:8px 8px;
+      text-align:center;
+    }
+    .el .sym{font-weight:1000; font-size:14px}
+    .el .num{font-size:11px; color:var(--muted)}
+    .footerbar{
+      margin-top:14px; display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;
+    }
+    .bigscore{
+      font-size:34px; font-weight:1000; letter-spacing:.3px;
+    }
+    .rainbow{
+      background: linear-gradient(90deg, #ff5bf7, #7c5cff, #2ad7ff, #19ff9a, #ffd166, #ff4d6d);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color: transparent;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.25));
+    }
+    .tiny{font-size:11px; color:var(--muted)}
+    .divider{height:1px; background:rgba(255,255,255,.10); margin:10px 0}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <div class="title">🟣 Otono Science — Sample Set 1 <span class="pill">Randomised • Auto-marking • 100 marks (+ secret 1)</span></div>
+        <div class="pill">Combined Science friendly ✅ (with ONE extension topic included) • Marks scaled (6-marker → 12) • No question picking 😈</div>
+      </div>
+      <div class="pill mono" id="clockPill">⏱️ Timer: <span id="timerText">—</span></div>
+    </div>
+
+    <div class="grid">
+      <!-- Setup -->
+      <div class="card" id="setupCard">
+        <h2>
+          <span>🧾 Candidate setup (required!)</span>
+          <span class="pill mono">Centre default: 50749</span>
+        </h2>
+        <div class="content">
+          <div class="note warn">
+            Candidate number is REQUIRED and must be exactly 4 digits, or the system will NOT allow you to start. 🔒
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="centreNo">Centre number (editable)</label>
+              <input id="centreNo" class="mono" value="50749" inputmode="numeric" />
+            </div>
+            <div>
+              <label for="candNo">Candidate number (4 digits) *</label>
+              <input id="candNo" class="mono" placeholder="e.g. 1155" inputmode="numeric" maxlength="4" />
+              <div class="tiny" id="candNoHint"></div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="surname">Surname (optional)</label>
+              <input id="surname" placeholder="Optional" />
+            </div>
+            <div>
+              <label for="forenames">Forenames (optional)</label>
+              <input id="forenames" placeholder="Optional" />
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="row">
+            <div>
+              <label for="tier">Tier</label>
+              <select id="tier">
+                <option value="foundation">Foundation (capped at GCSE 5)</option>
+                <option value="higher" selected>Higher (GCSE 9–4 with allowed 3)</option>
+              </select>
+            </div>
+            <div>
+              <label for="paper">Paper (select one)</label>
+              <select id="paper">
+                <option value="bio_p1">Biology Paper 1 (B1–B4)</option>
+                <option value="chem_p2" selected>Chemistry Paper 2 (C5–C10)</option>
+                <option value="phys_p2">Physics Paper 2 (P5–P8)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="timeAllowed">Time allowed (recommended)</label>
+              <select id="timeAllowed">
+                <option value="45">45 minutes</option>
+                <option value="60" selected>60 minutes</option>
+                <option value="75">75 minutes</option>
+              </select>
+            </div>
+            <div>
+              <label>Otono marks (same system)</label>
+              <div class="kpi">
+                <span class="pill">Fail &lt; 66</span>
+                <span class="pill">Pass ≥ 66</span>
+                <span class="pill">Merit ≥ 80</span>
+                <span class="pill">Distinction ≥ 90</span>
+              </div>
+            </div>
+          </div>
+
+          <details style="margin-top:12px">
+            <summary>📚 Topics included in this set (bank)</summary>
+            <div class="sheet">
+              <div><b>Biology:</b> B1 cell biology • B2 organisation • B3 infection and response • B4 bioenergetics</div>
+              <div><b>Chemistry:</b> C5 energy changes • C6 rate and extent • C7 organic • C8 analysis • C9 atmosphere • C10 resources</div>
+              <div><b>Physics:</b> P5 forces • P6 waves • P7 magnetism & electromagnetism • P8 space physics</div>
+              <div class="mini">Also: one extension-flavoured question is in the bank (not ruled out). 😉</div>
+            </div>
+          </details>
+
+          <div class="btns">
+            <button id="buildBtn">Build random paper 🎲</button>
+            <button class="secondary" id="resetBtn">Reset</button>
+          </div>
+
+          <div class="note" id="buildNote">
+            You will NOT pick questions. The system will build a random paper that adds up to <b>100</b> marks. If you’re Higher tier, a <b>secret +1</b> can appear (S grade possible only if everything is perfect). 👀✨
+          </div>
+        </div>
+      </div>
+
+      <!-- Sheets / Info -->
+      <div class="card" id="sheetsCard">
+        <h2>
+          <span>📄 Reference sheets (appear when needed)</span>
+          <span class="pill">Physics equations • Chemistry periodic table</span>
+        </h2>
+        <div class="content">
+          <div class="note">
+            These sheets only show when you choose the matching paper. (Physics → equation sheet, Chemistry → periodic table) ✅
+          </div>
+
+          <div id="physicsSheet" class="hidden">
+            <details open>
+              <summary>🧲 Physics equation sheet (P5–P8)</summary>
+              <div class="sheet">
+                <h3>Core equations</h3>
+                <div class="eq">
+                  <div class="box">speed = distance / time
+v = s / t</div>
+                  <div class="box">acceleration = (final v − initial v) / time
+a = (v − u) / t</div>
+                  <div class="box">force = mass × acceleration
+F = m a</div>
+                  <div class="box">weight = mass × gravitational field strength
+W = m g</div>
+                  <div class="box">moment = force × perpendicular distance
+M = F d</div>
+                  <div class="box">pressure = force / area
+p = F / A</div>
+                  <div class="box">work done = force × distance
+W = F d</div>
+                  <div class="box">power = energy / time
+P = E / t</div>
+                  <div class="box">energy in a store = power × time
+E = P t</div>
+                  <div class="box">wave speed = frequency × wavelength
+v = f λ</div>
+                  <div class="box">magnification = image height / object height
+m = hi / ho</div>
+                  <div class="box">transformer: Vs/Vp = Ns/Np</div>
+                  <div class="box">extension = (force) / (spring constant)
+x = F / k</div>
+                  <div class="box">gravitational potential energy = m g h</div>
+                  <div class="box">kinetic energy = ½ m v²</div>
+                </div>
+
+                <h3>P8 space physics bits</h3>
+                <div class="eq">
+                  <div class="box">orbital speed (idea): v = 2πr / T</div>
+                  <div class="box">redshift: z = (observed − rest) / rest</div>
+                </div>
+                <div class="mini">Tip: Always write symbols + units. Examiners LOVE that. 📏</div>
+              </div>
+            </details>
+          </div>
+
+          <div id="chemSheet" class="hidden">
+            <details open>
+              <summary>🧪 Chemistry mini periodic table (first 20 + key extras)</summary>
+              <div class="sheet">
+                <div class="mini">This is a helpful mini-table (not the full wall chart), but enough for most combined questions. ✅</div>
+                <div class="ptable" id="ptable"></div>
+
+                <h3>Useful chemistry formulas</h3>
+                <div class="eq">
+                  <div class="box">relative formula mass (Mr) = sum of (Ar × number of atoms)</div>
+                  <div class="box">concentration (g/dm³) = mass / volume</div>
+                  <div class="box">moles (mol) = mass (g) / Mr</div>
+                  <div class="box">Rf = distance moved by spot / distance moved by solvent front</div>
+                </div>
+              </div>
+            </details>
+          </div>
+
+          <div class="divider"></div>
+
+          <details>
+            <summary>🎯 Grade boundaries used (Otono + GCSE 9–1)</summary>
+            <div class="sheet">
+              <h3>Otono grades</h3>
+              <div class="mini mono">
+                Higher: S=101 • A*=95–100 • A=90–94 • B=80–89 • C=66–79 • D=55–65 • E=45–54 • F=40–44 • U below that
+                <br/>
+                Foundation: C=80+ • D=66–79 • E=50–65 • F=40–49 • G=30–39 • H=20–29 • U below that
+              </div>
+
+              <h3>GCSE 9–1 (approx, out of 100)</h3>
+              <div class="mini mono" id="gcseInfo">
+                Higher: 9=75+ • 8=68–74 • 7=62–67 • 6=52–61 • 5=43–51 • 4=34–42 • 3=26–33
+                <br/>
+                Foundation: capped at 5 (same 5 boundary), then 4/3/2/1 are still possible below.
+              </div>
+            </div>
+          </details>
+
+          <div class="note good" id="sheetHint">
+            Tip: If you choose Physics Paper 2, the equation sheet pops up here. If you choose Chemistry Paper 2, the periodic table pops up here. 📌
+          </div>
+        </div>
+      </div>
+
+      <!-- Test -->
+      <div class="card hidden" id="testCard" style="grid-column:1 / -1">
+        <h2>
+          <span>🧠 Your paper (random)</span>
+          <span class="pill mono">Total: <span id="totalMarks">0</span> / 100</span>
+        </h2>
+        <div class="content">
+          <div class="kpi">
+            <span class="pill mono">Centre: <span id="kCentre">50749</span></span>
+            <span class="pill mono">Candidate: <span id="kCand">—</span></span>
+            <span class="pill">Tier: <span id="kTier">—</span></span>
+            <span class="pill">Paper: <span id="kPaper">—</span></span>
+          </div>
+
+          <div class="note warn" id="lockNote">
+            No cheating 😈 Right click + Ctrl+U/Ctrl+I + F12 are blocked (good luck, valiant soldier). ⚔️
+          </div>
+
+          <div class="qwrap" id="qwrap"></div>
+
+          <div class="btns" style="margin-top:14px">
+            <button id="submitBtn">Submit & mark ✅</button>
+            <button class="secondary" id="regenBtn">Rebuild random paper 🎲</button>
+          </div>
+
+          <div class="note" id="regenNote">
+            Rebuild gives a NEW random selection (still adds to 100). You still can’t pick the questions. 😌
+          </div>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="card hidden" id="resultsCard" style="grid-column:1 / -1">
+        <h2>
+          <span>🏁 Results</span>
+          <span class="pill mono">Marked instantly</span>
+        </h2>
+        <div class="content">
+          <div class="footerbar">
+            <div>
+              <div class="tiny">Score</div>
+              <div class="bigscore" id="scoreBig">0</div>
+              <div class="tiny" id="scoreTiny">out of 100</div>
+            </div>
+            <div>
+              <div class="tiny">Otono grade</div>
+              <div class="bigscore" id="otonoGrade">—</div>
+              <div class="tiny" id="otonoBand">—</div>
+            </div>
+            <div>
+              <div class="tiny">GCSE 9–1 (approx)</div>
+              <div class="bigscore" id="gcseGrade">—</div>
+              <div class="tiny" id="gcseBand">—</div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="kpi" id="gapPills"></div>
+
+          <div class="note" id="messageBox"></div>
+
+          <details style="margin-top:10px">
+            <summary>🔍 Breakdown (per question)</summary>
+            <div class="sheet" id="breakdown"></div>
+          </details>
+
+          <div class="btns" style="margin-top:14px">
+            <button id="backBtn" class="secondary">Back to setup</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+<script>
+/* =========================================================
+   PREVENT CHEATING CODE (MUST BE ADDED EXACTLY LIKE THIS!)
+========================================================= */
+const disabledKeys = ["u", "I"];
+const showAlert = e => {
+  e.preventDefault();
+  return alert("Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!");
+};
+document.addEventListener("contextmenu", e => { showAlert(e); });
+document.addEventListener("keydown", e => {
+  if ((e.ctrlKey && disabledKeys.includes(e.key)) || e.key === "F12") {
+    showAlert(e);
+  }
+});
+
+/* =========================================================
+   Otono Science — Randomised quiz engine
+   - Combined Science friendly
+   - Tier selection
+   - Paper selection
+   - Candidate number gate (4 digits)
+   - Random paper totals 100 (Chem includes mandatory chromatography question)
+   - Secret +1 question possible on Higher tier only (S=101 possible)
+========================================================= */
+
+const $ = (id) => document.getElementById(id);
+
+const state = {
+  built: false,
+  tier: "higher",
+  paper: "chem_p2",
+  timeMin: 60,
+  timer: null,
+  secondsLeft: 0,
+  questions: [],
+  total: 0,
+  secretIncluded: false
+};
+
+const PASS = 66, MERIT = 80, DIST = 90;
+
+// Mini periodic table (first 20 + key extras)
+const periodicMini = [
+  {n:1,s:"H"},{n:2,s:"He"},
+  {n:3,s:"Li"},{n:4,s:"Be"},{n:5,s:"B"},{n:6,s:"C"},{n:7,s:"N"},{n:8,s:"O"},{n:9,s:"F"},{n:10,s:"Ne"},
+  {n:11,s:"Na"},{n:12,s:"Mg"},{n:13,s:"Al"},{n:14,s:"Si"},{n:15,s:"P"},{n:16,s:"S"},{n:17,s:"Cl"},{n:18,s:"Ar"},
+  {n:19,s:"K"},{n:20,s:"Ca"},
+  // useful extras
+  {n:26,s:"Fe"},{n:29,s:"Cu"},{n:30,s:"Zn"},{n:47,s:"Ag"},{n:79,s:"Au"},{n:82,s:"Pb"}
+];
+
+function renderPeriodicTable(){
+  const host = $("ptable");
+  host.innerHTML = "";
+  periodicMini.forEach(e=>{
+    const d = document.createElement("div");
+    d.className = "el";
+    d.innerHTML = `<div class="sym">${e.s}</div><div class="num">${e.n}</div>`;
+    host.appendChild(d);
+  });
+}
+
+const bank = {
+  bio_p1: [
+    // B1 cell biology
+    qMC("B1 • Cells", 4, "Which structure controls the cell’s activities?", ["Cell membrane","Nucleus","Cytoplasm","Ribosome"], 1, "Combined"),
+    qMC("B1 • Cells", 4, "Which is a bacterial cell feature (prokaryote)?", ["Nucleus","Mitochondria","Plasmids","Chloroplast"], 2, "Combined"),
+    qShort("B1 • Cells", 6, "State TWO differences between plant and animal cells.", [
+      "cell wall", "chloroplast", "permanent vacuole", "plant"
+    ], 6, "Combined"),
+    // B2 organisation
+    qMC("B2 • Organisation", 4, "Which blood component carries oxygen?", ["Platelets","Plasma","Red blood cells","White blood cells"], 2, "Combined"),
+    qShort("B2 • Organisation", 6, "Name the TWO parts of the digestive system where most absorption happens, and what is absorbed.", [
+      "small intestine","villi","glucose","amino acid","fatty acid","glycerol","blood","lymph"
+    ], 6, "Combined"),
+    // B3 infection and response
+    qMC("B3 • Infection", 4, "Which is an example of a pathogen?", ["Hormone","Virus","Enzyme","Starch"], 1, "Combined"),
+    qShort("B3 • Infection", 6, "Explain how vaccination protects a person from disease.", [
+      "antigen","immune","white blood","lymphocyte","antibody","memory cell","faster","secondary response"
+    ], 6, "Combined"),
+    // B4 bioenergetics
+    qMC("B4 • Bioenergetics", 4, "Which equation matches aerobic respiration?", [
+      "glucose → lactic acid",
+      "glucose + oxygen → carbon dioxide + water",
+      "carbon dioxide + water → glucose + oxygen",
+      "fat + oxygen → lactic acid"
+    ], 1, "Combined"),
+    qCalc("B4 • Bioenergetics", 6, "A student’s heart rate goes from 72 bpm to 156 bpm. Calculate the increase.", 84, 6, "Combined"),
+    // one extension-style (still fair)
+    qShort("B4 • Bioenergetics (extension)", 6, "Describe how a leaf is adapted for photosynthesis (give THREE ideas).", [
+      "large surface area","thin","chlorophyll","palisade","stomata","guard cell","vein","xylem","phloem","diffusion"
+    ], 6, "Extension-ish")
+  ],
+
+  chem_p2: [
+    // Mandatory chromatography question (scaled 12)
+    qLongChromatographyMandatory(),
+
+    // C5 energy changes
+    qMC("C5 • Energy changes", 4, "A reaction that releases heat is called…", ["Endothermic","Exothermic","Neutral","Catalytic"], 1, "Combined"),
+    qShort("C5 • Energy changes", 6, "Give TWO ways to measure temperature change in a simple calorimetry experiment.", [
+      "thermometer","temperature probe","insulation","polystyrene cup","lid","stir","record"
+    ], 6, "Combined"),
+
+    // C6 rates
+    qMC("C6 • Rates", 4, "Which change will usually increase rate of reaction?", ["Lower temperature","Smaller surface area","Higher concentration","No catalyst"], 2, "Combined"),
+    qShort("C6 • Rates", 6, "Explain why increasing surface area increases reaction rate.", [
+      "more particles","more collisions","successful collisions","frequency","reacting surface"
+    ], 6, "Combined"),
+
+    // C7 organic
+    qMC("C7 • Organic", 4, "Which is the general formula of alkanes?", ["CnH2n","CnH2n+2","CnH2n-2","CnHn"], 1, "Combined"),
+    qShort("C7 • Organic", 6, "What is cracking? Include what it produces.", [
+      "break","long chain","shorter","alkane","alkene","catalyst","heat"
+    ], 6, "Combined"),
+
+    // C8 analysis
+    qMC("C8 • Analysis", 4, "A positive test for hydrogen gives…", ["Squeaky pop","Relights splint","Turns limewater milky","Brown gas"], 0, "Combined"),
+    qMC("C8 • Analysis", 4, "A pure substance has…", ["A range of melting points","A sharp melting point","No boiling point","Always black colour"], 1, "Combined"),
+    qShort("C8 • Analysis", 6, "Explain how to use paper chromatography to check if a dye is pure.", [
+      "spot","baseline","solvent","separate","one spot","same Rf","solvent front"
+    ], 6, "Combined"),
+
+    // C9 atmosphere
+    qMC("C9 • Atmosphere", 4, "Most of Earth’s atmosphere is…", ["Oxygen","Nitrogen","Carbon dioxide","Argon"], 1, "Combined"),
+    qShort("C9 • Atmosphere", 6, "Explain ONE effect of increased carbon dioxide on Earth’s temperature.", [
+      "greenhouse","infrared","traps heat","global warming","temperature increases"
+    ], 6, "Combined"),
+
+    // C10 resources
+    qMC("C10 • Resources", 4, "Which is a finite resource?", ["Wind","Sunlight","Crude oil","Geothermal"], 2, "Combined"),
+    qShort("C10 • Resources", 6, "Explain TWO reasons why recycling metals is useful.", [
+      "less landfill","save energy","reduce mining","conserve resources","lower pollution","reduce CO2","economic"
+    ], 6, "Combined"),
+
+    // One extension-ish chemistry item (still okay)
+    qMC("C7/C8 • Extension-ish", 4, "Which technique best separates liquids with different boiling points?", ["Filtration","Fractional distillation","Crystallisation","Chromatography"], 1, "Extension-ish")
+  ],
+
+  phys_p2: [
+    // P5 forces
+    qMC("P5 • Forces", 4, "The unit of force is…", ["Joule","Newton","Watt","Pascal"], 1, "Combined"),
+    qCalc("P5 • Forces", 6, "A 2 kg object accelerates at 3 m/s². Calculate the force (F=ma).", 6, 6, "Combined"),
+    qShort("P5 • Forces", 6, "Explain what happens when forces are balanced on an object.", [
+      "resultant","zero","constant velocity","stationary","no acceleration"
+    ], 6, "Combined"),
+
+    // P6 waves
+    qMC("P6 • Waves", 4, "Sound waves are…", ["Transverse","Longitudinal","Electromagnetic","Non-mechanical"], 1, "Combined"),
+    qCalc("P6 • Waves", 6, "Wave speed is 340 m/s and frequency is 170 Hz. Calculate wavelength (v=fλ).", 2, 6, "Combined"),
+    qShort("P6 • Waves", 6, "Describe TWO differences between longitudinal and transverse waves.", [
+      "parallel","perpendicular","oscillation","direction of travel","compressions","rarefactions","crests","troughs"
+    ], 6, "Combined"),
+
+    // P7 magnetism
+    qMC("P7 • Magnetism", 4, "A current in a wire produces…", ["Gravity","A magnetic field","A vacuum","Friction"], 1, "Combined"),
+    qShort("P7 • Magnetism", 6, "Explain how to increase the strength of an electromagnet (TWO ways).", [
+      "more turns","increase current","soft iron core","coil","solenoid"
+    ], 6, "Combined"),
+
+    // P8 space physics
+    qMC("P8 • Space", 4, "The orbits of planets are…", ["Perfect circles","Ellipses","Triangles","Random"], 1, "Combined"),
+    qShort("P8 • Space", 6, "Explain what red-shift tells scientists about galaxies.", [
+      "moving away","expanding universe","wavelength increases","doppler","speed"
+    ], 6, "Combined"),
+
+    // one extension-style (still fair for combined)
+    qShort("P8 • Space (extension)", 6, "State TWO pieces of evidence for the Big Bang theory.", [
+      "redshift","cosmic microwave background","CMB","abundance of hydrogen","helium"
+    ], 6, "Extension-ish")
+  ]
+};
+
+// Secret +1 (Higher only) — S possible if perfect.
+const secretQuestion = {
+  id: "secret_1",
+  paper: "any",
+  tier: "higher",
+  topic: "👀 Secret",
+  type: "mc",
+  marks: 1,
+  scaledMarks: 1,
+  prompt: "Secret 1-mark question: Which statement is ALWAYS true about a scientific conclusion?",
+  choices: [
+    "It can ignore evidence",
+    "It should be based on results/evidence",
+    "It never changes",
+    "It must be written in purple ink"
+  ],
+  correct: 1,
+  tag: "Secret"
+};
+
+function qId(){
+  return "q_" + Math.random().toString(16).slice(2) + "_" + Date.now().toString(16);
+}
+
+function qMC(topic, baseMarks, prompt, choices, correctIndex, tag){
+  return {
+    id: qId(),
+    tier: "any",
+    type: "mc",
+    topic,
+    prompt,
+    choices,
+    correct: correctIndex,
+    marks: baseMarks,
+    scaledMarks: baseMarks*2,
+    tag
+  };
+}
+
+function qShort(topic, baseMarks, prompt, anchors, full, tag){
+  return {
+    id: qId(),
+    tier: "any",
+    type: "short",
+    topic,
+    prompt,
+    anchors,
+    marks: baseMarks,
+    scaledMarks: baseMarks*2,
+    max: baseMarks*2,
+    tag
+  };
+}
+
+function qCalc(topic, baseMarks, prompt, answerNumber, tag){
+  return {
+    id: qId(),
+    tier: "any",
+    type: "calc",
+    topic,
+    prompt,
+    answer: answerNumber,
+    marks: baseMarks,
+    scaledMarks: baseMarks*2,
+    max: baseMarks*2,
+    tag
+  };
+}
+
+function qLongChromatographyMandatory(){
+  // REQUIRED EXACT question wording included
+  const prompt =
+`Black ink is a mixture of several colours.  Plan an experiment using paper chromatography to:
+ • separate the colours in black ink
+ • identify the colours from their Rf values.`;
+
+  // scaled 12 (6-marker → 12)
+  return {
+    id: "chem_mandatory_chromatography",
+    tier: "any",
+    type: "long",
+    topic: "C8 • Chemical analysis (REQUIRED)",
+    prompt,
+    marks: 6,
+    scaledMarks: 12,
+    max: 12,
+    tag: "Required",
+    anchors: [
+      "chromatography",
+      "paper",
+      "baseline",
+      "pencil",
+      "spot",
+      "ink",
+      "solvent",
+      "beaker",
+      "capillary",
+      "lid",
+      "solvent front",
+      "allow to run",
+      "dry",
+      "separate",
+      "measure",
+      "distance",
+      "rf",
+      "Rf",
+      "divide",
+      "distance moved by spot",
+      "distance moved by solvent front",
+      "compare",
+      "known",
+      "reference",
+      "standards",
+      "same solvent",
+      "repeat"
+    ]
+  };
+}
+
+// ---------- Candidate gating ----------
+function validCandidateNumber(v){
+  return /^\d{4}$/.test((v||"").trim());
+}
+function validCentreNumber(v){
+  // allow 4–6 digits, but default 50749. Keep flexible.
+  return /^\d{4,6}$/.test((v||"").trim());
+}
+
+function updateCandidateHint(){
+  const v = $("candNo").value.trim();
+  const ok = validCandidateNumber(v);
+  $("candNoHint").textContent = ok ? "✅ Accepted (4 digits)" : "Must be exactly 4 digits.";
+  $("candNoHint").style.color = ok ? "var(--good)" : "var(--warn)";
+}
+
+// ---------- Random paper building (sum to 100) ----------
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function buildPaper(){
+  const tier = $("tier").value;
+  const paper = $("paper").value;
+  const timeMin = parseInt($("timeAllowed").value,10);
+
+  const cand = $("candNo").value.trim();
+  const centre = $("centreNo").value.trim();
+
+  if(!validCentreNumber(centre)){
+    alert("Centre number must be 4–6 digits.");
+    return;
+  }
+  if(!validCandidateNumber(cand)){
+    alert("Candidate number must be exactly 4 digits. The system will not allow start otherwise.");
+    return;
+  }
+
+  state.tier = tier;
+  state.paper = paper;
+  state.timeMin = timeMin;
+
+  // show sheets based on paper
+  $("physicsSheet").classList.toggle("hidden", paper !== "phys_p2");
+  $("chemSheet").classList.toggle("hidden", paper !== "chem_p2");
+  if(paper === "chem_p2") renderPeriodicTable();
+
+  // Build list from bank
+  let pool = bank[paper].slice();
+
+  // Mandatory chemistry question must always be included
+  let selected = [];
+  let total = 0;
+
+  if(paper === "chem_p2"){
+    const mand = pool.find(q => q.id === "chem_mandatory_chromatography");
+    if(mand){
+      selected.push(mand);
+      total += mand.scaledMarks;
+      pool = pool.filter(q => q.id !== mand.id);
+    }
+  }
+
+  // Randomly include secret question (Higher only) with some chance
+  state.secretIncluded = false;
+  const canSecret = (tier === "higher");
+  if(canSecret && Math.random() < 0.35){
+    selected.push(secretQuestion);
+    total += secretQuestion.scaledMarks; // +1
+    state.secretIncluded = true;
+  }
+
+  // We must make paper add up to exactly 100 (excluding secret?) — user says adds to 100,
+  // but secret allows 101 possible. We’ll make BASE total 100 even if secret exists:
+  // meaning: target = 100, but if secret included, we still fill to 100 (so max 101).
+  const target = 100;
+
+  // Backtracking fill
+  const poolShuffled = shuffle(pool);
+
+  // Slight bias: include a mix (some 4s and 12s)
+  function backtrack(startIdx, currentTotal, currentList, usedIds){
+    if(currentTotal === target) return currentList;
+    if(currentTotal > target) return null;
+
+    for(let i=startIdx; i<poolShuffled.length; i++){
+      const q = poolShuffled[i];
+      if(usedIds.has(q.id)) continue;
+      const nextTotal = currentTotal + q.scaledMarks;
+      if(nextTotal > target) continue;
+
+      usedIds.add(q.id);
+      currentList.push(q);
+
+      const res = backtrack(i+1, nextTotal, currentList, usedIds);
+      if(res) return res;
+
+      currentList.pop();
+      usedIds.delete(q.id);
+    }
+    return null;
+  }
+
+  // We already have selected+total. We need fill until total==target (base).
+  // But selected might already exceed 100 (rare, only if mandatory 12 + secret 1 still ok).
+  if(total > target){
+    // If this happens, drop secret first (since it is optional)
+    const idx = selected.findIndex(q=>q.id==="secret_1");
+    if(idx>=0){
+      total -= selected[idx].scaledMarks;
+      selected.splice(idx,1);
+      state.secretIncluded = false;
+    }
+  }
+
+  // Now fill base total to 100
+  const used = new Set(selected.map(q=>q.id));
+  const need = target - total;
+  const fill = backtrack(0, total, selected.slice(), used);
+
+  if(!fill){
+    // fallback: try without secret (if present), then rebuild
+    if(state.secretIncluded){
+      state.secretIncluded = false;
+      selected = selected.filter(q=>q.id!=="secret_1");
+      total = selected.reduce((s,q)=>s+q.scaledMarks,0);
+      const used2 = new Set(selected.map(q=>q.id));
+      const fill2 = backtrack(0, total, selected.slice(), used2);
+      if(!fill2){
+        alert("Paper build failed (rare). Click Rebuild random paper 🎲");
+        return;
+      }
+      selected = fill2;
+    }else{
+      alert("Paper build failed (rare). Click Rebuild random paper 🎲");
+      return;
+    }
+  }else{
+    selected = fill;
+  }
+
+  // Save + render
+  state.questions = selected;
+  state.total = selected.reduce((s,q)=>s+q.scaledMarks,0);
+
+  // Must be 100 base; allow 101 if secret included and everything perfect.
+  // We ensured total==100 when secret not included; when secret included, total could be 101.
+  // Actually: we filled to 100 including secret if present (so total==100, secret included means still 100).
+  // Wait: we included secret in total during fill; so total becomes 100 always. That would make max 100, not 101.
+  // Fix: if secret included, we should fill to 100 WITHOUT counting secret, so max is 101.
+  // We'll correct by rebuilding with baseTarget=100 but ignoring secret mark in fill.
+
+  // --- QUICK correction approach: rebuild properly ---
+  if(state.secretIncluded){
+    // Remove secret temporarily from fill total
+    const secret = selected.find(q=>q.id==="secret_1");
+    let baseSelected = selected.filter(q=>q.id!=="secret_1");
+    let baseTotal = baseSelected.reduce((s,q)=>s+q.scaledMarks,0);
+
+    // If chemistry, mandatory remains inside baseSelected (good).
+    // Now fill base to 100 using pool without those already used.
+    let pool2 = bank[paper].slice();
+    // remove mandatory if already included
+    baseSelected.forEach(q => { pool2 = pool2.filter(p=>p.id!==q.id); });
+
+    const pool2Shuf = shuffle(pool2);
+
+    function backtrack2(startIdx, currentTotal, currentList, usedIds){
+      if(currentTotal === 100) return currentList;
+      if(currentTotal > 100) return null;
+      for(let i=startIdx;i<pool2Shuf.length;i++){
+        const q = pool2Shuf[i];
+        if(usedIds.has(q.id)) continue;
+        const next = currentTotal + q.scaledMarks;
+        if(next>100) continue;
+        usedIds.add(q.id);
+        currentList.push(q);
+        const res = backtrack2(i+1,next,currentList,usedIds);
+        if(res) return res;
+        currentList.pop();
+        usedIds.delete(q.id);
+      }
+      return null;
+    }
+
+    const used3 = new Set(baseSelected.map(q=>q.id));
+    const rebuiltBase = backtrack2(0, baseTotal, baseSelected.slice(), used3);
+
+    if(!rebuiltBase){
+      // if base rebuild fails, just drop secret
+      state.secretIncluded = false;
+      selected = baseSelected;
+    }else{
+      selected = rebuiltBase;
+      // put secret back on top
+      selected.unshift(secret);
+    }
+
+    state.questions = selected;
+    // base is 100, secret adds 1 possible
+    const baseScore = selected.filter(q=>q.id!=="secret_1").reduce((s,q)=>s+q.scaledMarks,0);
+    state.total = baseScore; // show /100
+  }
+
+  renderPaper();
+
+  // Show test card
+  $("setupCard").classList.add("hidden");
+  $("testCard").classList.remove("hidden");
+  $("resultsCard").classList.add("hidden");
+
+  $("kCentre").textContent = centre;
+  $("kCand").textContent = cand;
+  $("kTier").textContent = (tier === "higher" ? "Higher" : "Foundation");
+  $("kPaper").textContent = paperLabel(paper);
+  $("totalMarks").textContent = state.total;
+
+  startTimer(timeMin);
+}
+
+function paperLabel(p){
+  if(p==="bio_p1") return "Biology Paper 1";
+  if(p==="chem_p2") return "Chemistry Paper 2";
+  if(p==="phys_p2") return "Physics Paper 2";
+  return p;
+}
+
+// ---------- Timer ----------
+function startTimer(minutes){
+  clearInterval(state.timer);
+  state.secondsLeft = minutes*60;
+  updateTimerText();
+  state.timer = setInterval(()=>{
+    state.secondsLeft--;
+    updateTimerText();
+    if(state.secondsLeft<=0){
+      clearInterval(state.timer);
+      alert("Time is up! Auto-submitting now. ⏱️");
+      markPaper(true);
+    }
+  }, 1000);
+}
+
+function updateTimerText(){
+  if(!state.built && $("testCard").classList.contains("hidden")){
+    $("timerText").textContent = "—";
+    return;
+  }
+  const s = Math.max(0,state.secondsLeft);
+  const mm = String(Math.floor(s/60)).padStart(2,"0");
+  const ss = String(s%60).padStart(2,"0");
+  $("timerText").textContent = `${mm}:${ss}`;
+}
+
+// ---------- Render paper ----------
+function renderPaper(){
+  state.built = true;
+  const host = $("qwrap");
+  host.innerHTML = "";
+
+  state.questions.forEach((q,idx)=>{
+    const card = document.createElement("div");
+    card.className = "q";
+    const marksShown = (q.id==="secret_1") ? `+${q.scaledMarks} (secret)` : `${q.scaledMarks}`;
+    card.innerHTML = `
+      <div class="qhead">
+        <div>
+          <div class="qtitle">Q${idx+1}. ${escapeHtml(q.topic)}</div>
+          <div class="qmeta">${escapeHtml(q.tag || "Combined")} • ${marksShown} marks</div>
+        </div>
+        <div class="pill mono">ID: ${escapeHtml(q.id)}</div>
+      </div>
+      <div class="qbody">
+        <div>${escapeHtml(q.prompt).replace(/\n/g,"<br/>")}</div>
+        <div class="qinput" id="input_${q.id}"></div>
+        <div class="mini" id="hint_${q.id}"></div>
+      </div>
+    `;
+    host.appendChild(card);
+
+    const inputHost = $("input_"+q.id);
+
+    if(q.type==="mc"){
+      inputHost.innerHTML = `<div class="choices"></div>`;
+      const choices = inputHost.querySelector(".choices");
+      q.choices.forEach((c,i)=>{
+        const row = document.createElement("label");
+        row.className = "choice";
+        row.innerHTML = `
+          <input type="radio" name="${q.id}" value="${i}" />
+          <div>${escapeHtml(c)}</div>
+        `;
+        choices.appendChild(row);
+      });
+    }else if(q.type==="calc"){
+      inputHost.innerHTML = `
+        <label class="mini">Answer (number)</label>
+        <input class="mono" id="ans_${q.id}" placeholder="Type a number…" inputmode="decimal" />
+      `;
+      $("hint_"+q.id).textContent = "Tip: include units in your working on paper, but type the final number here.";
+    }else if(q.type==="short"){
+      inputHost.innerHTML = `
+        <label class="mini">Short answer</label>
+        <textarea id="ans_${q.id}" placeholder="Write your answer… (keywords matter)"></textarea>
+      `;
+      $("hint_"+q.id).textContent = "Auto-marking uses keyword/idea hits (Otono-style anchors).";
+    }else if(q.type==="long"){
+      inputHost.innerHTML = `
+        <label class="mini">6-marker style (scaled to 12)</label>
+        <textarea id="ans_${q.id}" placeholder="Plan clearly: method + measurements + Rf + identifying…"></textarea>
+      `;
+      $("hint_"+q.id).textContent = "Aim for: baseline in pencil, spots, solvent, solvent front, measuring distances, Rf, comparing to known references.";
+    }
+  });
+}
+
+function escapeHtml(str){
+  return String(str)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;");
+}
+
+// ---------- Marking ----------
+function getRadioValue(name){
+  const el = document.querySelector(`input[name="${CSS.escape(name)}"]:checked`);
+  return el ? parseInt(el.value,10) : null;
+}
+
+function normalize(s){
+  return (s||"").toLowerCase();
+}
+
+function countAnchorHits(text, anchors){
+  const t = normalize(text);
+  let hits = 0;
+  const seen = new Set();
+  anchors.forEach(a=>{
+    const key = String(a).toLowerCase();
+    if(seen.has(key)) return;
+    if(key.trim().length===0) return;
+    if(t.includes(key)){
+      hits++;
+      seen.add(key);
+    }
+  });
+  return {hits, total: anchors.length};
+}
+
+function scoreTextByAnchors(text, anchors, maxMarks){
+  const {hits,total} = countAnchorHits(text, anchors);
+  if(total<=0) return {score:0, hits, total};
+  // scale: proportion of anchors hit → marks, rounded
+  const raw = (hits/total)*maxMarks;
+  const score = Math.max(0, Math.min(maxMarks, Math.round(raw)));
+  return {score, hits, total};
+}
+
+function markPaper(fromAuto=false){
+  // base is /100 excluding secret
+  const baseQuestions = state.questions.filter(q=>q.id!=="secret_1");
+  const secretQ = state.questions.find(q=>q.id==="secret_1") || null;
+
+  let baseTotal = 0;
+  let baseScore = 0;
+  let bonusScore = 0;
+
+  const breakdown = [];
+
+  baseQuestions.forEach(q=>{
+    baseTotal += q.scaledMarks;
+    let got = 0;
+    let detail = "";
+
+    if(q.type==="mc"){
+      const v = getRadioValue(q.id);
+      got = (v===q.correct) ? q.scaledMarks : 0;
+      detail = (v===null) ? "No answer." : (v===q.correct ? "Correct ✅" : "Incorrect ❌");
+    }else if(q.type==="calc"){
+      const raw = $("ans_"+q.id).value.trim();
+      const num = parseFloat(raw);
+      if(!isFinite(num)){
+        got = 0; detail = "No valid number.";
+      }else{
+        // accept tiny rounding tolerance
+        const ok = Math.abs(num - q.answer) <= 0.02*Math.max(1,Math.abs(q.answer));
+        got = ok ? q.scaledMarks : 0;
+        detail = ok ? "Correct ✅" : `Incorrect ❌ (expected ${q.answer})`;
+      }
+    }else if(q.type==="short" || q.type==="long"){
+      const text = $("ans_"+q.id).value;
+      const res = scoreTextByAnchors(text, q.anchors, q.scaledMarks);
+      got = res.score;
+      detail = `Anchor hits: ${res.hits}/${res.total}`;
+    }
+
+    baseScore += got;
+    breakdown.push({q, got, max: q.scaledMarks, detail});
+  });
+
+  // Secret bonus (+1) if present
+  if(secretQ){
+    const v = getRadioValue(secretQ.id);
+    bonusScore = (v===secretQ.correct) ? 1 : 0;
+    breakdown.unshift({q: secretQ, got: bonusScore, max: 1, detail: (v===secretQ.correct ? "Correct ✅" : "Incorrect ❌")});
+  }
+
+  const outOf = 100;
+  // baseTotal should be 100
+  const score = Math.max(0, Math.min(100, Math.round((baseScore/baseTotal)*100)));
+  // bonus only counts if base is perfect (to stop weird scaling cheats)
+  const finalScore = (secretQ && score===100 && bonusScore===1) ? 101 : score;
+
+  showResults(finalScore, breakdown);
+
+  clearInterval(state.timer);
+  if(fromAuto) $("timerText").textContent = "00:00";
+}
+
+function showResults(finalScore, breakdown){
+  $("testCard").classList.add("hidden");
+  $("resultsCard").classList.remove("hidden");
+
+  $("scoreBig").textContent = finalScore;
+  $("scoreTiny").textContent = finalScore===101 ? "out of 101 (S possible!)" : "out of 100";
+
+  const tier = state.tier;
+
+  // Otono grade + band text
+  const og = getOtonoGrade(finalScore, tier);
+  $("otonoGrade").innerHTML = (og.grade==="S") ? `<span class="rainbow">S</span>` : og.grade;
+  $("otonoBand").textContent = og.band;
+
+  // GCSE grade + band
+  const gg = getGcseGrade(finalScore, tier);
+  $("gcseGrade").textContent = gg.grade;
+  $("gcseBand").textContent = gg.band;
+
+  // Gap pills: how many marks away from next grade boundary (GCSE)
+  renderGapPills(finalScore, tier, gg.grade);
+
+  // Messages
+  $("messageBox").className = "note";
+  $("messageBox").innerHTML = buildMessage(finalScore, tier, gg.grade);
+
+  // Breakdown render
+  const b = $("breakdown");
+  b.innerHTML = breakdown.map((r,i)=>{
+    const name = `Q${i+1} • ${escapeHtml(r.q.topic)}`;
+    const max = r.max;
+    const got = r.got;
+    const p = (max>0) ? Math.round((got/max)*100) : 0;
+    return `<div class="box" style="margin-bottom:8px">
+<b>${name}</b>
+Score: ${got}/${max} (${p}%)
+${escapeHtml(r.detail)}
+</div>`;
+  }).join("");
+}
+
+function getOtonoGrade(score, tier){
+  if(tier==="higher"){
+    if(score>=101) return {grade:"S", band:"S = 101 (perfect + secret)"};
+    if(score>=95) return {grade:"A*", band:"A* = 95–100"};
+    if(score>=90) return {grade:"A", band:"A = 90–94"};
+    if(score>=80) return {grade:"B", band:"B = 80–89"};
+    if(score>=66) return {grade:"C", band:"C = 66–79 (Pass)"};
+    if(score>=55) return {grade:"D", band:"D = 55–65"};
+    if(score>=45) return {grade:"E", band:"E = 45–54"};
+    if(score>=40) return {grade:"F", band:"F = 40–44"};
+    return {grade:"U", band:"U (ungraded)"};
+  }else{
+    if(score>=80) return {grade:"C", band:"C = 80+ (Foundation top)"};
+    if(score>=66) return {grade:"D", band:"D = 66–79 (Pass)"};
+    if(score>=50) return {grade:"E", band:"E = 50–65"};
+    if(score>=40) return {grade:"F", band:"F = 40–49"};
+    if(score>=30) return {grade:"G", band:"G = 30–39"};
+    if(score>=20) return {grade:"H", band:"H = 20–29"};
+    return {grade:"U", band:"U (ungraded)"};
+  }
+}
+
+function getGcseGrade(score, tier){
+  // approx boundaries given
+  // Higher: 9=75+ 8=68-74 7=62-67 6=52-61 5=43-51 4=34-42 3=26-33
+  // Foundation capped at 5
+  let g = 1;
+  if(score>=75) g=9;
+  else if(score>=68) g=8;
+  else if(score>=62) g=7;
+  else if(score>=52) g=6;
+  else if(score>=43) g=5;
+  else if(score>=34) g=4;
+  else if(score>=26) g=3;
+  else if(score>=18) g=2;
+  else if(score>=10) g=1;
+  else g="U";
+
+  if(tier==="foundation" && typeof g==="number" && g>5) g=5;
+
+  const band = (g==="U") ? "Below grade 1 (approx)" : `Approx grade ${g}`;
+  return {grade: g, band};
+}
+
+function renderGapPills(score, tier, gcseGrade){
+  const host = $("gapPills");
+  host.innerHTML = "";
+
+  // Next GCSE boundary (only if not top cap or already 9/5)
+  const next = nextGcseBoundary(score, tier);
+  if(next){
+    const p = document.createElement("span");
+    p.className = "pill";
+    p.textContent = `GCSE: +${next.diff} to reach grade ${next.to}`;
+    host.appendChild(p);
+  }else{
+    const p = document.createElement("span");
+    p.className = "pill";
+    p.textContent = `GCSE: top boundary reached 🎉`;
+    host.appendChild(p);
+  }
+
+  // Next Otono boundary
+  const nextO = nextOtonoBoundary(score, tier);
+  if(nextO){
+    const p2 = document.createElement("span");
+    p2.className = "pill";
+    p2.textContent = `Otono: +${nextO.diff} to reach ${nextO.to}`;
+    host.appendChild(p2);
+  }else{
+    const p2 = document.createElement("span");
+    p2.className = "pill";
+    p2.textContent = `Otono: top boundary reached ✨`;
+    host.appendChild(p2);
+  }
+
+  // Pass/Merit/Dist reminders
+  const pm = document.createElement("span");
+  pm.className = "pill";
+  pm.textContent = `Pass ${PASS} • Merit ${MERIT} • Distinction ${DIST}`;
+  host.appendChild(pm);
+}
+
+function nextGcseBoundary(score, tier){
+  // return next grade target and diff
+  // For higher, top is 9; for foundation, cap is 5.
+  const cap = (tier==="foundation") ? 5 : 9;
+  const targets = [
+    {g:1, min:10},
+    {g:2, min:18},
+    {g:3, min:26},
+    {g:4, min:34},
+    {g:5, min:43},
+    {g:6, min:52},
+    {g:7, min:62},
+    {g:8, min:68},
+    {g:9, min:75}
+  ].filter(x=>x.g<=cap);
+
+  for(const t of targets){
+    if(score < t.min){
+      return {to: t.g, diff: (t.min - score)};
+    }
+  }
+  return null;
+}
+
+function nextOtonoBoundary(score, tier){
+  if(tier==="higher"){
+    const targets = [
+      {g:"F", min:40},
+      {g:"E", min:45},
+      {g:"D", min:55},
+      {g:"C", min:66},
+      {g:"B", min:80},
+      {g:"A", min:90},
+      {g:"A*", min:95},
+      {g:"S", min:101}
+    ];
+    for(const t of targets){
+      if(score < t.min){
+        return {to:t.g, diff:(t.min-score)};
+      }
+    }
+    return null;
+  }else{
+    const targets = [
+      {g:"H", min:20},
+      {g:"G", min:30},
+      {g:"F", min:40},
+      {g:"E", min:50},
+      {g:"D", min:66},
+      {g:"C", min:80}
+    ];
+    for(const t of targets){
+      if(score < t.min){
+        return {to:t.g, diff:(t.min-score)};
+      }
+    }
+    return null;
+  }
+}
+
+function randomFrom(arr){
+  return arr[Math.floor(Math.random()*arr.length)];
+}
+
+function buildMessage(score, tier, gcseG){
+  // Special messages for strong grade 9 and grade 5 (as requested)
+  const grade9Words = ["YES!!! 🔥","OMG! 🤯","AWESOME ✨","LET’S GOOO 🚀","YAYYY 🥳","INCREDIBLE 😭💜"];
+  const grade5Words = ["very good! 🙂","nice! ✅","solid work! 👏","good job! 💪","that’s a decent 5! ⭐"];
+
+  if(typeof gcseG==="number" && gcseG===9){
+    // "only if it's a strong grade 9" → call strong as 85+
+    const msg = (score>=85) ? randomFrom(grade9Words) : "yay 😄 (you reached grade 9!)";
+    return `<b>${msg}</b><br/>That’s a strong result. Keep doing timed practice and don’t drop method marks.`;
+  }
+
+  if(typeof gcseG==="number" && gcseG===5){
+    return `<b>${randomFrom(grade5Words)}</b><br/>Reminder: if you’re on Foundation, consider moving to Higher tier when you’re ready — you could unlock grades above 5. 💡`;
+  }
+
+  // Pass / Merit / Distinction flavour
+  if(score>=DIST) return `<b>Distinction level 🌟</b><br/>You’re flying. Now target cleaner explanations + perfect calculations.`;
+  if(score>=MERIT) return `<b>Merit level 😃</b><br/>You’re close to Distinction — hunt those missed keywords + equation slips.`;
+  if(score>=PASS) return `<b>Pass ✅</b><br/>Good! Now push to Merit by practicing 6-mark planning + key terms.`;
+  return `<b>Not a pass yet ☹️</b><br/>Focus on: definitions, equation use, and structured answers (method → reason → conclusion).`;
+}
+
+// ---------- Buttons ----------
+$("candNo").addEventListener("input", updateCandidateHint);
+
+$("buildBtn").addEventListener("click", ()=>{
+  buildPaper();
+});
+
+$("regenBtn").addEventListener("click", ()=>{
+  // rebuild with same settings, still requires candidate number
+  buildPaper();
+});
+
+$("submitBtn").addEventListener("click", ()=>{
+  markPaper(false);
+});
+
+$("resetBtn").addEventListener("click", ()=>{
+  location.reload();
+});
+
+$("backBtn").addEventListener("click", ()=>{
+  // return to setup
+  $("resultsCard").classList.add("hidden");
+  $("setupCard").classList.remove("hidden");
+  $("testCard").classList.add("hidden");
+  clearInterval(state.timer);
+  $("timerText").textContent = "—";
+});
+
+// Show/hide sheets instantly on selection
+$("paper").addEventListener("change", ()=>{
+  const p = $("paper").value;
+  $("physicsSheet").classList.toggle("hidden", p !== "phys_p2");
+  $("chemSheet").classList.toggle("hidden", p !== "chem_p2");
+  if(p === "chem_p2") renderPeriodicTable();
+});
+
+// Init
+updateCandidateHint();
+renderPeriodicTable();
+</script>
+</body>
+</html>
