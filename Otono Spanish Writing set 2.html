@@ -1120,7 +1120,7 @@ function countHits(textNorm, vocab){
   return hits;
 }
 
-const SPANISH_MARKERS = [
+const MARKERS = [
   // pronouns + core function words
   "yo","tu","tú","el","él","ella","nosotros","vosotros","ustedes",
   "mi","mis","un","una","unos","unas","de","del","al","con","sin","para","por",
@@ -1135,7 +1135,7 @@ const SPANISH_MARKERS = [
 ];
 
 // Expand connectors so strong Spanish isn’t punished
-const SPANISH_CONNECTORS = [
+const CONNECTORS = [
   // original
   "porque","aunque","sin embargo","por eso","además","ademas","por ejemplo","también","tambien","en cambio","mientras","cuando",
   // added high-level
@@ -1146,7 +1146,7 @@ const SPANISH_CONNECTORS = [
 ];
 
 // Range markers for Spanish writing sophistication
-const SPANISH_RANGE_MARKERS = [
+const RANGE_MARKERS = [
   // original
   "que","si","cuando","mientras","para que","antes de","después de","despues de","a pesar de","ya que","por ejemplo","lo que",
   // added (A*/9 boost)
@@ -1171,7 +1171,7 @@ function markHigherTranslation(user, keyIdeas){
   const ideas = clamp(ideaHits, 0, 10);
 
   let markerHits = 0;
-  SPANISH_MARKERS.forEach(m => { if(t.includes(norm(m))) markerHits++; });
+  MARKERS.forEach(m => { if(t.includes(norm(m))) markerHits++; });
   const markerScore = clamp(Math.round((markerHits/12)*6), 0, 6);
 
   const connScore = clamp(countHits(t, CONNECTORS) >= 1 ? 2 : 0, 0, 2);

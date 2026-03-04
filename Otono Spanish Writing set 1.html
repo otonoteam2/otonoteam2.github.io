@@ -288,7 +288,7 @@
         <div class="bd hide" id="resultsBody">
           <div class="tabs">
             <div class="tab active" id="tabAll">All attempts</div>
-            <div class="tab" id="tabCandidate">By candidate</div>s
+            <div class="tab" id="tabCandidate">By candidate</div>
           </div>
 
           <div class="row" style="margin-top:10px">
@@ -1137,7 +1137,7 @@ const MARKERS = [
 ];
 
 // Expand connectors so strong Spanish isn’t punished
-const ONNECTORS = [
+const CONNECTORS = [
   // original
   "porque","aunque","sin embargo","por eso","además","ademas","por ejemplo","también","tambien","en cambio","mientras","cuando",
   // added high-level
@@ -1177,7 +1177,7 @@ function markHigherTranslation(user, keyIdeas){
   const ideas = clamp(ideaHits, 0, 10);
 
   let markerHits = 0;
-  SPANISH_MARKERS.forEach(m => { if(t.includes(norm(m))) markerHits++; });
+  MARKERS.forEach(m => { if(t.includes(norm(m))) markerHits++; });
   const markerScore = clamp(Math.round((markerHits/12)*6), 0, 6); // up to 6
 
   const connScore = clamp(countHits(t, CONNECTORS) >= 1 ? 2 : 0, 0, 2); // up to 2
