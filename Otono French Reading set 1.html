@@ -678,9 +678,9 @@ Quand ils suivent une méthode simple, le projet avance mieux. Ils fixent d’ab
     unit: "Unit 8 (Otono Airways)",
     text: `Voyager avec Otono Airways est souvent confortable. Les passagers remarquent l’organisation dans la cabine, la disposition des sièges et l’ambiance générale. Même en classe économique, beaucoup trouvent qu’il y a assez d’espace pour s’installer correctement.
 
-Cependant, tout n’est pas toujours parfait. Certains passagers trouvent que les règles à bord sont strictes, surtout dans les zones calmes comme le salon. D’autres disent que le service peut sembler rapide : le repas arrive vite, mais on a moins de temps pour discuter avec l’équipage. Red observe ces détails avec attention. Pour lui, un bon vol dépend d’un équilibre : confort, efficacité et respect des consignes.
+  Cependant, tout n’est pas toujours parfait. Certains passagers trouvent que les règles à bord sont strictes, surtout dans les zones calmes comme le salon. D’autres disent que le service peut sembler rapide : le repas arrive vite, mais on a moins de temps pour discuter avec l’équipage. Red observe ces détails avec attention. Pour lui, un bon vol dépend d’un équilibre : confort, efficacité et respect des consignes.
 
-À la fin, Red conclut que l’expérience est positive, mais qu’il existe aussi des petites limites selon les attentes de chacun.`,
+  À la fin, Red conclut que l’expérience est positive, mais qu’il existe aussi des petites limites selon les attentes de chacun.`,
     questions: [
       { id:"p6q1", type:"mcq", marks:2,
         prompt:"(E) The passage says travelling with Otono Airways is often…",
@@ -688,37 +688,55 @@ Cependant, tout n’est pas toujours parfait. Certains passagers trouvent que le
         answerIndex:1
       },
       { id:"p6q2", type:"tfnm", marks:2,
-        prompt:"(E) The passage mentions showers on the aircraft. (True / False / Not mentioned)",
-        correct:"Not mentioned"
+        prompt:"(E) The passage says that some passengers find the rules on board strict. (True / False / Not mentioned)",
+        correct:"True"
       },
       { id:"p6q3", type:"pn", marks:2,
         prompt:"(E) Overall, the passage presents Otono Airways as… (P / N / P+N)",
         answer:"P+N"
       },
-      { id:"p6q4", type:"short", marks:6,
-        prompt:"(H) Give TWO positive points and ONE criticism mentioned about the flight experience.",
-        rubric:"Positives: comfort; organisation; seat layout; atmosphere; enough economy space. Criticism: rules strict (lounge/quiet areas) OR service feels too fast/less time with crew.",
+      { id:"p6q4", type:"short", marks:4,
+        prompt:"(E) Give TWO positive things passengers notice about the flight.",
+        rubric:"Any two: organisation in the cabin; seat layout; general atmosphere; enough space in economy.",
         keywords:[
-          ["confort","comfortable"],
-          ["organisation","organised"],
-          ["disposition","layout","sièges","seats"],
-          ["ambiance","atmosphere"],
-          ["espace","space","économique","economy"],
-          ["règles","strictes","strict","salon","lounge"],
-          ["service","repas","vite","less time","équipage","crew"]
+          ["l organisation dans la cabine","organisation in the cabin"],
+          ["la disposition des sieges","seat layout"],
+          ["l ambiance generale","general atmosphere"],
+          ["assez d espace en classe economique","enough space in economy"],
+          ["il y a assez d espace pour s installer correctement","enough space to sit comfortably"]
         ]
       },
-      { id:"p6q5", type:"fr_short", marks:8,
-        prompt:"(M) En français : Quel ‘équilibre’ Red dit-il qu’un bon vol doit avoir ? Donne TROIS éléments.",
-        rubric:"Three elements (in French): comfort, efficiency, and respecting instructions/rules.",
+      { id:"p6q5", type:"fr_short", marks:4,
+        prompt:"(M) En français : Pourquoi certains passagers ne sont-ils pas totalement satisfaits ? Donne DEUX raisons.",
+        rubric:"Any two: rules on board are strict; quiet areas like the lounge have stricter rules; service can seem fast; less time to speak to the crew.",
         keywords:[
-          ["confort"],
-          ["efficacité","efficacite"],
-          ["respect","consignes","règles","regles"]
+          ["les regles a bord sont strictes","regles strictes"],
+          ["surtout dans les zones calmes comme le salon","zones calmes comme le salon"],
+          ["le service peut sembler rapide","service rapide"],
+          ["on a moins de temps pour discuter avec l equipage","moins de temps avec l equipage"]
         ]
-      }
-    ]
-  },
+   },
+    { id:"p6q6", type:"short", marks:2,
+      prompt:"(E) How does Red view the experience in the end?",
+      rubric:"He thinks the experience is positive overall.",
+      keywords:[
+        ["red conclut que l experience est positive","experience is positive"],
+        ["a la fin red conclut que l experience est positive","positive overall"]
+      ]
+    },
+    { id:"p6q7", type:"short", marks:4,
+      prompt:"(H) What does Red mean by a good balance on a flight?",
+      rubric:"A good flight should combine comfort, efficiency and respect for the rules/instructions.",
+      keywords:[
+        ["un bon vol depend d un equilibre","a good flight depends on a balance"],
+        ["confort","comfort"],
+        ["efficacite","efficiency"],
+        ["respect des consignes","respect for instructions"],
+        ["respect des regles","respect for rules"]
+      ]
+    }
+  ]
+},
 
   {
     id: 7,
@@ -969,7 +987,7 @@ Cependant, tout le monde n’est pas positif. Certaines personnes trouvent qu’
         options:["160/160","150/160","140/160","100/160"],
         answerIndex:0
       },
-      { id:"p11q2", type:"short", marks:8,
+      { id:"p11q2", type:"short", marks:6,
         prompt:"(E) Why was Clayton allowed to take the exam early?",
         rubric:"Because teachers believed he was ready / had the level to take it early.",
         keywords:[
@@ -996,7 +1014,7 @@ Cependant, tout le monde n’est pas positif. Certaines personnes trouvent qu’
           ["humilité"]
         ]
       },
-      { id:"p11q6", type:"short", marks:8,
+      { id:"p11q6", type:"short", marks:6,
         prompt:"(H) According to Clayton, what are THREE reasons for his success?",
         rubric:"Any three: lots of exercises/practice; correcting mistakes; regular work; discipline; effort over years; clear method.",
         keywords:[
