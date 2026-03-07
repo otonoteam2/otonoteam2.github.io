@@ -824,47 +824,55 @@ Après la séance, Red a conclu que la vitesse n’est pas l’ennemie. Le vrai 
     theme:"Otono Team — Humour, règles, identité",
     texte:`Joshua aime les blagues, surtout celles qui arrivent au pire moment, c’est-à-dire quand tout le monde essaie d’être sérieux. Un jour, alors que Red rappelait encore la règle de l’encre noire, Joshua a levé son stylo avec un air innocent. « Je respecte la règle », a-t-il annoncé, « mais moi je n’utilise pas de noir. J’utilise du très très très très très violet foncé ». Il a insisté sur chaque “très” comme si c’était une démonstration scientifique.
 
-Luke a immédiatement regardé la pointe du stylo, prêt à déclarer une catastrophe. Wyatt, lui, a éclaté de rire, parce qu’il adore quand quelqu’un provoque sans casser réellement la règle. Red n’a pas ri tout de suite. Il a regardé Joshua et a demandé calmement : « Tu veux une blague, ou tu veux un point ? ». Joshua a répondu : « Je veux les deux ». C’est exactement ce qui définit son humour : il veut détendre l’ambiance sans perdre l’objectif.
+  Luke a immédiatement regardé la pointe du stylo, prêt à déclarer une catastrophe. Wyatt, lui, a éclaté de rire, parce qu’il adore quand quelqu’un provoque sans casser réellement la règle. Red n’a pas ri tout de suite. Il a regardé Joshua et a demandé calmement : « Tu veux une blague, ou tu veux un point ? ». Joshua a répondu : « Je veux les deux ». C’est exactement ce qui définit son humour : il veut détendre l’ambiance sans perdre l’objectif.
 
-Finalement, Joshua a sorti un vrai stylo noir. Mais il n’a pas abandonné sa blague : il a écrit “violet foncé” en titre, juste pour que tout le monde s’en souvienne. Red a soupiré, mais il a reconnu une chose : parfois, une blague empêche une tension de devenir une dispute. Tant que la règle est respectée, l’humour peut servir à respirer.
+  Joshua n’a pourtant pas changé de stylo. Il a continué à écrire avec son violet extrêmement foncé, tout en gardant son sourire. Red a soupiré, mais il a reconnu une chose : parfois, une blague empêche une tension de devenir une dispute. Tant que la copie reste claire, l’humour peut aider tout le monde à respirer.
 
-Après la séance, Joshua a expliqué sa logique : si on ne peut jamais rire, on finit par détester le travail. Red a répondu que le rire est autorisé, mais que la copie doit rester claire. Sur ce point-là, ils étaient d’accord.`,
+  Après la séance, Joshua a expliqué sa logique : si on ne peut jamais rire, on finit par détester le travail. Red a répondu que le rire est autorisé, mais que la copie doit rester claire. Sur ce point-là, ils étaient d’accord.`,
     questions:[
       {id:"P10_q1", type:"mcq", marks:2,
         prompt:"1) Pourquoi Joshua insiste-t-il sur « très très très très très » ?",
         options:[
           "Parce qu’il veut imiter une démonstration",
-          "Parce qu’il veut que Luke change les règles",
-          "Parce qu’il n’a aucun stylo",
-          "Parce qu’il refuse toute correction"
+          "Parce qu’il veut changer la règle",
+          "Parce qu’il n’a pas de stylo",
+          "Parce qu’il refuse d’écrire"
         ],
         answerIndex:0
       },
       {id:"P10_q2", type:"tfnm", marks:2,
-        prompt:"2) Joshua finit par utiliser un vrai stylo noir. (Vrai / Faux / Non mentionné)",
-        correct:"Vrai"
+        prompt:"2) Joshua finit par utiliser un stylo noir. (Vrai / Faux / Non mentionné)",
+        correct:"Faux"
       },
       {id:"P10_q3", type:"pn", marks:2,
         prompt:"3) L’humour est présenté comme… (P / N / P+N)",
         correct:"P+N"
       },
-      {id:"P10_q4", type:"syn", marks:4,
-        prompt:"4) Trouve dans le texte un mot qui signifie « dispute » (même mot).",
-        acceptable:["dispute","disputes"]
+      {id:"P10_q4", type:"syn", marks:3,
+        prompt:"4) Trouve dans le texte un mot qui signifie « dispute ».",
+        acceptable:["dispute"]
       },
-      {id:"P10_q5", type:"match", marks:4,
-        prompt:"5) Dans le texte, quel mot signifie « tension » (même mot) ?",
-        acceptable:["tension","tensions"]
+      {id:"P10_q5", type:"match", marks:3,
+        prompt:"5) Dans le texte, quel mot signifie « tension » ?",
+        acceptable:["tension"]
       },
-      {id:"P10_q6", type:"short", marks:6,
-        prompt:"6) Donne deux raisons pour lesquelles Red accepte l’humour de Joshua, selon le texte.",
-        rubric:"Détend l’ambiance ; évite que la tension devienne dispute ; règle respectée ; aide à respirer ; garder objectif.",
+      {id:"P10_q6", type:"short", marks:4,
+        prompt:"6) Pourquoi Wyatt rit-il dans la scène ? (une idée)",
+        rubric:"Il aime quand quelqu’un provoque sans casser la règle.",
+        keywords:[
+          ["rit"],
+          ["provoque"],
+          ["regle","règle"]
+        ]
+      },
+      {id:"P10_q7", type:"short", marks:4,
+        prompt:"7) Donne deux raisons pour lesquelles Red accepte l’humour de Joshua.",
+        rubric:"Détend l’ambiance ; évite la dispute ; la copie reste claire.",
         keywords:[
           ["detendre","détendre","ambiance"],
-          ["evite","évite","tension","dispute"],
-          ["regle","règle","respectee","respectée"],
-          ["respirer"],
-          ["objectif","copie claire","claire"]
+          ["evite","évite","dispute"],
+          ["copie","claire"],
+          ["respirer"]
         ]
       }
     ]
@@ -1199,61 +1207,71 @@ Jessica a résumé la situation avec une phrase simple : « La vitesse n’est p
 /* -------------------- P18 (8 questions, total = 20) -------------------- */
 {
   id:"P18",
-  titre:"Passage P18 — Le piège des langues mélangées",
-  theme:"L’Encroyable Drummond — Consignes, langues, pénalités",
-  texte:`Pendant une séance de langues, Red a repéré un problème qu’il déteste : le mélange. Certains candidats commençaient une phrase en français, glissaient un mot anglais, puis terminaient en espagnol. Red a levé la main : « Stop. Ici, ce n’est pas un brouillon. Tu choisis une langue et tu la respectes ». Il a expliqué que, sinon, on ne sait plus si on évalue la connaissance ou la chance.
+  titre:"Passage P18 — L’équilibre difficile d’Otono Airways",
+  theme:"Otono Airways — décisions, responsabilité, vision",
+  texte:`Lorsque l’Otono Team a commencé à discuter sérieusement de l’avenir d’Otono Airways, un problème inattendu est apparu : tout le monde avait une idée brillante, mais ces idées ne pointaient pas toujours dans la même direction.
 
-Shireen a compris immédiatement : elle a relu ses réponses et elle a corrigé les transitions. Thomas, lui, a soupiré : il trouvait la règle dure, mais il a reconnu que c’était logique. Luke a ajouté un détail : même une bonne idée peut perdre de la valeur si la consigne n’est pas respectée.
+Red pensait surtout à l’expérience des passagers. Pour lui, un avion doit raconter une histoire. Il insistait sur des détails symboliques : l’accès au salon pour toutes les classes, les sièges d’économie avec plus d’espace, et l’impression que même un billet moins cher reste un choix digne. « Sinon », disait-il, « on construit simplement une machine, pas une compagnie ».
 
-Red a noté “pénalité de langue” dans la marge d’une copie, mais il n’a pas humilié le candidat. Il a insisté : « Je punis la règle, pas la personne ». Ensuite, il a donné une solution : relire à voix basse, repérer les mots intrus, puis reformuler. À la fin, l’ambiance était plus calme, parce que la règle était devenue claire et applicable.`,
+Luke, lui, regardait les chiffres. Il expliquait que certaines routes ne peuvent survivre que si la cabine affaires est assez grande. Sans cela, les vols long-courriers deviennent difficiles à rentabiliser, même si les passagers aiment l’avion. Pour lui, l’équilibre entre passion et réalité économique était essentiel.
+
+OWing écoutait les deux positions avec attention. Finalement, il a résumé le dilemme : une compagnie aérienne doit être à la fois un rêve et un système. Si l’on pense uniquement aux émotions, on oublie les contraintes. Mais si l’on pense seulement aux profits, on perd la raison pour laquelle les passagers choisissent cette compagnie plutôt qu’une autre.
+
+À ce moment-là, quelqu’un a rappelé une phrase souvent citée dans les discussions de l’Otono Team : « Le progrès ne consiste pas à gagner chaque débat, mais à construire quelque chose que personne ne pourrait créer seul ». Cette idée a calmé la discussion. Peu à peu, les propositions se sont transformées en compromis : assez de sièges premium pour soutenir les routes, mais une économie qui ne ressemble jamais à une punition.`,
   questions:[
     {id:"P18_q1", type:"mcq", marks:2,
-      prompt:"1) Quel problème Red déteste-t-il ici ?",
-      options:["les réponses trop longues","le mélange des langues","les stylos noirs","les feuilles blanches"],
+      prompt:"1) Quel est le problème principal décrit au début du texte ?",
+      options:[
+        "Les avions sont trop anciens",
+        "Les membres ont des idées différentes",
+        "Les passagers refusent de voler",
+        "Les pilotes ne sont pas disponibles"
+      ],
       answerIndex:1
     },
     {id:"P18_q2", type:"tfnm", marks:2,
-      prompt:"2) Red dit qu’un mélange de langues aide à évaluer la connaissance. (Vrai / Faux / Non mentionné)",
+      prompt:"2) Red pense que le prix d’un billet est l’élément le plus important pour une compagnie. (Vrai / Faux / Non mentionné)",
       correct:"Faux"
     },
     {id:"P18_q3", type:"pn", marks:2,
-      prompt:"3) La règle est présentée comme… (P / N / P+N)",
+      prompt:"3) La position de Luke est présentée comme… (P / N / P+N)",
       correct:"P+N"
     },
     {id:"P18_q4", type:"syn", marks:2,
-      prompt:"4) Trouve dans le texte un mot qui signifie « chance » (même mot).",
-      acceptable:["chance"]
+      prompt:"4) Trouve dans le texte un mot qui signifie « problème difficile ».",
+      acceptable:["dilemme"]
     },
     {id:"P18_q5", type:"match", marks:2,
-      prompt:"5) Dans le texte, quel mot signifie « calmer / plus tranquille » ? (un mot du texte)",
-      acceptable:["calme","calmer"]
+      prompt:"5) Dans le texte, quel mot signifie « gagner de l’argent / devenir rentable » ?",
+      acceptable:["rentabiliser","rentable"]
     },
     {id:"P18_q6", type:"short", marks:3,
-      prompt:"6) Donne une raison pour laquelle le mélange empêche une bonne évaluation (une idée).",
-      rubric:"On ne sait plus si c’est connaissance ou chance ; consigne non respectée ; confusion.",
+      prompt:"6) Donne une raison pour laquelle Luke insiste sur une grande cabine affaires.",
+      rubric:"Les vols long-courriers doivent être rentables ; les recettes premium soutiennent les routes.",
       keywords:[
-        ["connaissance","evaluer","évaluer"],
-        ["chance"],
-        ["consigne","respect"]
+        ["rentable","rentabil"],
+        ["affaires","premium"],
+        ["routes","vols"]
       ]
     },
     {id:"P18_q7", type:"short", marks:3,
-      prompt:"7) Quelle solution Red propose-t-il pour éviter les mots intrus ? (deux étapes)",
-      rubric:"Relire à voix basse ; repérer les mots intrus ; reformuler.",
+      prompt:"7) Comment OWing décrit-il la nature d’une compagnie aérienne ? (deux idées)",
+      rubric:"À la fois un rêve et un système ; équilibre émotions et contraintes économiques.",
       keywords:[
-        ["relire","voix basse"],
-        ["repérer","intrus"],
-        ["reformuler"]
+        ["reve","rêve"],
+        ["systeme","système"],
+        ["equilibre","équilibre"],
+        ["contraintes","profit"]
       ]
     },
     {id:"P18_q8", type:"short", marks:4,
-      prompt:"8) Explique l’idée : « Je punis la règle, pas la personne » (deux idées).",
-      rubric:"Sanctionner la consigne ; éviter l’humiliation ; rester juste ; séparer erreur et identité.",
+      prompt:"8) Explique l’idée finale du texte sur les compromis (deux idées).",
+      rubric:"Trouver un équilibre entre confort et rentabilité ; garder une économie digne tout en soutenant les routes.",
       keywords:[
-        ["regle","règle","consigne"],
-        ["humili","humiliation"],
-        ["juste","justice"],
-        ["personne","identit","identité"]
+        ["equilibre","équilibre"],
+        ["compromis"],
+        ["economy","économie"],
+        ["rentable","routes"]
       ]
     }
   ]
@@ -1652,17 +1670,17 @@ const TRANSLATIONS_A = [
 
   {
     id:"T5",
-    titre:"Traduction — Le violet foncé de Joshua",
+    titre:"Traduction — Le violet très foncé de Joshua",
     theme:"Otono Team",
-    textEN:"Joshua jokes that he does not use black ink but a very, very, very, very, very dark purple. Red asks him calmly whether he wants a joke or a mark. In the end, Joshua uses a real black pen, and the atmosphere becomes less tense.",
+    textEN:"Joshua jokes that he does not use black ink but a very, very, very, very, very dark purple. Red asks him calmly whether he wants a joke or a mark. In the end, Joshua still writes with his extremely dark purple pen, and the atmosphere becomes less tense.",
     keyBundles:[
       ["joshua plaisante","joshua fait une blague","joshua plaisante en disant"],
-      ["encre noire","stylo noir"],
-      ["très très très très très violet foncé","violet très foncé","violet foncé"],
-      ["tu veux une blague ou tu veux un point","blague ou un point","calmement"],
-      ["au final","finalement","il utilise un vrai stylo noir","l ambiance devient moins tendue","l’atmosphère devient moins tendue"]
+      ["il n utilise pas d encre noire","pas d encre noire","pas de stylo noir"],
+      ["très très très très très violet foncé","violet très très très très très foncé","violet extrêmement foncé","violet très foncé"],
+      ["red lui demande calmement","il demande calmement","tu veux une blague ou un point","blague ou un point"],
+      ["finalement","au final","il utilise toujours son stylo violet","il continue avec son stylo violet","l atmosphère devient moins tendue","l ambiance devient moins tendue"]
     ],
-    sampleFR:"Joshua plaisante en disant qu’il n’utilise pas d’encre noire, mais du très très très très très violet foncé. Red lui demande calmement s’il veut une blague ou un point. Finalement, Joshua utilise un vrai stylo noir, et l’atmosphère devient moins tendue."
+    sampleFR:"Joshua plaisante en disant qu’il n’utilise pas d’encre noire, mais du très très très très très violet foncé. Red lui demande calmement s’il veut une blague ou un point. Finalement, Joshua continue d’écrire avec son stylo violet extrêmement foncé, et l’atmosphère devient moins tendue."
   },
 
   {
