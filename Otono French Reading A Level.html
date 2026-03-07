@@ -872,8 +872,8 @@ Après la séance, Joshua a expliqué sa logique : si on ne peut jamais rire, on
 
   
   {
-  id:"P11",
-  titre:"Passage P11 — Le département MFL d’Otono : rigueur, plaintes, et crédibilité",
+  id:"P???",
+  titre:"Passage P??? — Le département MFL d’Otono : rigueur, plaintes, et crédibilité",
   theme:"Otono MFL Department — Organisation, qualité, réactions",
   texte:`Le département MFL d’Otono n’est pas né d’un “club sympa” ; il est né d’un problème. Après plusieurs séries d’activités, des plaintes sont arrivées : certains disaient que les consignes n’étaient pas assez nettes, d’autres trouvaient les critères trop sévères, et quelques-uns accusaient le système d’être “imprévisible”. Red a accepté une chose : si un département veut être respecté, il doit être lisible. Mais il a refusé une autre : baisser le niveau pour calmer le bruit.
 
@@ -881,7 +881,7 @@ Pour reconstruire la confiance, Red a formé une petite équipe — volontaireme
 
 Red a annoncé une règle interne : chaque exercice doit prouver deux choses à la fois — une compétence linguistique et une compétence de méthode. Cela a rendu le département plus exigeant, donc pas forcément plus populaire. Pourtant, la plainte la plus sérieuse a diminué : “On ne comprend pas pourquoi on perd des points.” Red disait que ce n’était pas un hasard : quand un système peut justifier chaque décision, il devient critiquable… mais il devient aussi crédible.`,
   questions:[
-    {id:"P11_q1", type:"mcq", marks:2,
+    {id:"P???_q1", type:"mcq", marks:2,
       prompt:"1) Pourquoi le département MFL d’Otono a-t-il été réorganisé ?",
       options:[
         "Parce que Red voulait faire un club amusant",
@@ -891,23 +891,23 @@ Red a annoncé une règle interne : chaque exercice doit prouver deux choses à 
       ],
       answerIndex:1
     },
-    {id:"P11_q2", type:"tfnm", marks:2,
+    {id:"P???_q2", type:"tfnm", marks:2,
       prompt:"2) Red accepte de baisser le niveau pour calmer les plaintes. (Vrai / Faux / Non mentionné)",
       correct:"Faux"
     },
-    {id:"P11_q3", type:"pn", marks:2,
+    {id:"P???_q3", type:"pn", marks:2,
       prompt:"3) Les plaintes sont présentées comme… (P / N / P+N)",
       correct:"P+N"
     },
-    {id:"P11_q4", type:"syn", marks:3,
+    {id:"P???_q4", type:"syn", marks:3,
       prompt:"4) Trouve dans le texte un mot qui signifie « facile à comprendre / clair » (un mot).",
       acceptable:["lisible"]
     },
-    {id:"P11_q5", type:"match", marks:3,
+    {id:"P???_q5", type:"match", marks:3,
       prompt:"5) Dans le texte, quel mot signifie « digne de confiance / sérieux » ? (un mot du texte)",
       acceptable:["crédible","credible"]
     },
-    {id:"P11_q6", type:"short", marks:4,
+    {id:"P???_q6", type:"short", marks:4,
       prompt:"6) Qui fait le travail le plus lourd sur le contenu, et en quoi consiste ce travail ? (deux éléments)",
       rubric:"Shireen ; relecture ; repérer faux sens ; tester les pièges injustes ; vérifier qu’un élève honnête n’est pas piégé.",
       keywords:[
@@ -918,7 +918,7 @@ Red a annoncé une règle interne : chaque exercice doit prouver deux choses à 
         ["eleve","élève","honnête","honnete"]
       ]
     },
-    {id:"P11_q7", type:"short", marks:4,
+    {id:"P???_q7", type:"short", marks:4,
       prompt:"7) Explique pourquoi le département devient “critiquable” mais aussi “crédible” selon Red (deux idées).",
       rubric:"Justifier chaque décision → on peut critiquer précisément ; transparence ; on comprend pourquoi points perdus ; cohérence ; confiance.",
       keywords:[
@@ -1742,7 +1742,7 @@ function shuffle(arr){
   return a;
 }
 function pickRandom(arr, n){ return shuffle(arr).slice(0,n); }
-function pickOnePercentEasterEgg(passages, eggId="P11", chance=0.01){
+function pickOnePercentEasterEgg(passages, eggId="P???", chance=0.01){
   const egg = passages.find(p => p.id === eggId);
   const others = passages.filter(p => p.id !== eggId);
 
@@ -1899,16 +1899,15 @@ function getCandidateNoFromSquares(){
    GÉNÉRATION DU SUJET
 ========================================================= */
 function generateSelection(){
-
   const pool = PASSAGES_A.slice();
 
-  // 1% chance for P11
+  // 1% chance for P???
   let chosen = [];
 
-  if(Math.random() < 0.01){
-    const p11 = pool.find(p => p.id === "P11");
-    if(p11){
-      chosen.push(p11);
+  if (Math.random() < 0.0001) {
+    const secretPassage = pool.find(p => p.id === "P???");
+    if (secretPassage) {
+      chosen.push(secretPassage);
     }
   }
 
