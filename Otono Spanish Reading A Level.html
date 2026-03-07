@@ -1676,32 +1676,42 @@ function getCandidateNoFromSquares(){
    GENERACIÓN DE LA PRUEBA
 ========================================================= */
 function generateSelection(){
-  const pool = PASSAGES_A.slice();
 
-  // 1% chance for P???
+  const secretId = "P???";
+  const secretChance = 0.001; // change this if you want a different rarity
+
+  const secretPassage = PASSAGES_A.find(p => p.id === secretId);
+
+  // pool WITHOUT the secret passage
+  const normalPool = PASSAGES_A.filter(p => p.id !== secretId);
+
   let chosen = [];
 
-  if (Math.random() < 0.0001) {
-    const secretPassage = pool.find(p => p.id === "P???");
-    if (secretPassage) {
-      chosen.push(secretPassage);
-    }
+  // secret roll
+  if (secretPassage && Math.random() < secretChance) {
+    chosen.push(secretPassage);
   }
 
-  // remove chosen from pool
-  const remaining = pool.filter(p => !chosen.includes(p));
-
-  // fill remaining slots normally
-  chosen.push(...pickRandom(remaining, 3 - chosen.length));
+  // fill remaining slots with normal passages
+  chosen.push(...pickRandom(normalPool, 3 - chosen.length));
 
   const passages = chosen;
 
-  const eligibleEssays = ESSAYS.filter(e => passages.some(p => p.id === e.passageId));
-  const essay = (eligibleEssays.length ? pickRandom(eligibleEssays,1)[0] : pickRandom(ESSAYS,1)[0]);
+  const eligibleEssays = ESSAYS.filter(e =>
+    passages.some(p => p.id === e.passageId)
+  );
+
+  const essay = eligibleEssays.length
+    ? pickRandom(eligibleEssays, 1)[0]
+    : pickRandom(ESSAYS, 1)[0];
 
   const translation = pickRandom(TRANSLATIONS_A, 1)[0];
 
-  return { passages, essay, translation };
+  return {
+    passages,
+    essay,
+    translation
+  };
 }
 
 /* =========================================================
