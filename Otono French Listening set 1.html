@@ -754,10 +754,10 @@ function passMeritDistinction(score){
   return "FAIL";
 }
 function badgeForScore(score){
-  if(score >= 90) return ["badge good","🏆 DISTINCTION"];
-  if(score >= 80) return ["badge good","⭐ MERIT"];
-  if(score >= 66) return ["badge warn","✅ PASS"];
-  return ["badge bad","❌ FAIL"];
+  if(score >= 90) return ["badge good","🏆 Excellent"];
+  if(score >= 80) return ["badge good","⭐ Très bien"];
+  if(score >= 66) return ["badge warn","✅ OK"];
+  return ["badge bad","❌ Mal"];
 }
 
 /* -----------------------------
@@ -1199,7 +1199,7 @@ function markChoice(qid, chosenValue, marks){
 }
 function markShort(q, userText){
   const t = normLoose(userText);
-  if(!t) return {score:0, max:q.marks, detail:"Blank answer."};
+  if(!t) return {score:0, max:q.marks, detail:"Blank."};
   const groups = q.keywords || [];
   let hits = 0;
   groups.forEach(g => { if(g.some(k => t.includes(normLoose(k)))) hits++; });
@@ -1247,7 +1247,7 @@ function strictAccuracyScore(expected, typed, maxStrict){
 }
 function markDictation(expected, typed, maxMarks){
   if(!typed || !typed.trim()){
-    return {score:0, max:maxMarks, detail:"Blank dictation."};
+    return {score:0, max:maxMarks, detail:"Blank."};
   }
 
   const isHigher = (maxMarks === 8);

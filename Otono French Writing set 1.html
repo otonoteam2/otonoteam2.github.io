@@ -446,10 +446,11 @@ function gradeAH(score, tier){
   }
 }
 function badgeForScore(score){
-  if(score >= 90) return ["badge good","🏆 DISTINCTION"];
-  if(score >= 80) return ["badge good","⭐ MERIT"];
-  if(score >= 66) return ["badge warn","✅ PASS"];
-  return ["badge bad","❌ FAIL"];
+  if(score >= 101) return ["badge good","🏆 SECRET SCORE"];
+  if(score >= 90) return ["badge good","🏆 Excellent"];
+  if(score >= 80) return ["badge good","⭐ Très bien"];
+  if(score >= 66) return ["badge warn","✅ OK"];
+  return ["badge bad","❌ Mal"];
 }
 
 /* =========================================================
