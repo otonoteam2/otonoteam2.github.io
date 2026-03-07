@@ -1907,25 +1907,51 @@ function bindInputs(){
 /* -----------------------------
    Auto marking
 --------------------------------*/
+function tokenOverlap(text, phrase){
+  const textTokens = new Set(norm(text).split(" ").filter(Boolean));
+  const phraseTokens = norm(phrase).split(" ").filter(Boolean);
+  const matched = phraseTokens.filter(tok => textTokens.has(tok)).length;
+  return phraseTokens.length ? matched / phraseTokens.length : 0;
+}
+
+function expectedDetailCount(marks){
+  if(marks === 2) return 1;
+  if(marks === 4) return 2;
+  if(marks === 6) return 3;
+  if(marks === 8) return 4;
+  return null;
+}
 function markShortAnswer(q, userText){
   const t = norm(userText);
-  if(!t) return {score:0, max:q.marks, detail:"Blank answer."};
+  if(!t) return {score:0, max:q.marks, detail:"Blank."};
 
   const groups = q.keywords || [];
   if(groups.length === 0) return {score:0, max:q.marks, detail:"No keyword rubric set."};
 
   let hits = 0;
-  groups.forEach(g => {
-    const found = g.some(k => t.includes(norm(k)));
-    if(found) hits++;
+  let matchedGroups = [];
+
+  groups.forEach((group, i) => {
+    const found = group.some(k => {
+      const nk = norm(k);
+      return t.includes(nk) || tokenOverlap(t, k) >= 0.7;
+    });
+    if(found){
+      hits++;
+      matchedGroups.push(i + 1);
+    }
   });
 
-  const per = q.marks / groups.length;
-  const raw = hits * per;
-  const score = Math.max(0, Math.min(q.marks, Math.round(raw*2)/2));
+  const expected = Math.min(expectedDetailCount(q.marks) || groups.length, groups.length);
+  const countedHits = Math.min(hits, expected);
+  const per = q.marks / expected;
+  const raw = countedHits * per;
+  const score = Math.max(0, Math.min(q.marks, Math.round(raw * 2) / 2));
 
-  let detail = `Keyword groups matched: ${hits}/${groups.length}.`;
+  let detail = `Keyword groups matched: ${hits}/${groups.length}; counted: ${countedHits}/${expected}.`;
+  if(matchedGroups.length) detail += ` Matched groups: ${matchedGroups.join(", ")}.`;
   if(q.rubric) detail += ` Expected: ${q.rubric}`;
+
   return {score, max:q.marks, detail};
 }
 
@@ -1941,7 +1967,7 @@ function markChoice(qid, chosenValue, marks){
 
 function markTranslation(tObj, userText){
   const t = norm(userText);
-  if(!t) return {score:0, max:20, detail:"Blank translation."};
+  if(!t) return {score:0, max:20, detail:"Blank."};
 
   let hits = 0;
   const ideas = tObj.keyIdeas || [];
