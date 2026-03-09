@@ -1025,8 +1025,8 @@ function generatePaper(level){
   const trans = pickRandom(TRANSLATION_POOL, 1)[0];
 
   const wordTargets = (level==="AS")
-    ? { essayTarget:250, essayMin:220, essayMax:320, transMin:80 }
-    : { essayTarget:300, essayMin:260, essayMax:380, transMin:80 };
+    ? { essayTarget:250, essayMin:220, essayMax:400, transMin:80 }
+    : { essayTarget:300, essayMin:260, essayMax:450, transMin:80 };
 
   return { level, wordTargets, sectionA:pickA, sectionB:pickB, translation:trans };
 }

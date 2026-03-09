@@ -1,0 +1,1277 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>🟣 Otono French — Vocabulary Checker • All Themes</title>
+  <style>
+    :root{
+      --bg1:#2b0a3d; --bg2:#7a0036;
+      --card:#0f0b18cc; --card2:#120c22e6;
+      --text:#f4efff; --muted:#c9b9ff;
+      --accent:#b000ff; --accent2:#ff1b6a;
+      --good:#19ff9a; --warn:#ffd166; --bad:#ff4d6d;
+      --line:rgba(255,255,255,.12);
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:var(--sans); color:var(--text);
+      background:
+        radial-gradient(1000px 700px at 15% 10%, rgba(176,0,255,.22), transparent 60%),
+        radial-gradient(900px 650px at 80% 20%, rgba(255,27,106,.18), transparent 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+    }
+    .wrap{max-width:1100px; margin:0 auto; padding:22px;}
+    .topbar{
+      display:flex; gap:14px; align-items:center; justify-content:space-between;
+      padding:14px 16px; border:1px solid var(--line); border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      box-shadow:var(--shadow);
+      position:sticky; top:14px; z-index:20; backdrop-filter: blur(10px);
+    }
+    .brand{display:flex; flex-direction:column; gap:2px}
+    .brand h1{margin:0; font-size:16px; letter-spacing:.3px}
+    .brand .sub{font-size:12px; color:var(--muted)}
+    .pill{
+      padding:8px 10px; border-radius:999px; border:1px solid var(--line);
+      background:rgba(0,0,0,.25); font-family:var(--mono); font-size:12px;
+      display:flex; gap:10px; align-items:center;
+    }
+    .pill strong{color:#fff}
+    .btn{
+      border:1px solid var(--line); background:rgba(0,0,0,.25);
+      color:var(--text); padding:10px 12px; border-radius:14px; cursor:pointer;
+      transition:.15s transform, .15s background, .15s border;
+      font-weight:600;
+      text-decoration:none;
+    }
+    .btn:hover{transform:translateY(-1px); background:rgba(0,0,0,.33); border-color:rgba(255,255,255,.22)}
+    .btn.primary{
+      background:linear-gradient(135deg, rgba(176,0,255,.55), rgba(255,27,106,.45));
+      border-color:rgba(255,255,255,.22);
+    }
+    .btn.danger{background:rgba(255,77,109,.18); border-color:rgba(255,77,109,.35)}
+    .grid{display:grid; grid-template-columns: 1.1fr .9fr; gap:16px; margin-top:16px;}
+    @media (max-width: 980px){ .grid{grid-template-columns:1fr} .topbar{position:static} }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .card .hd{
+      padding:14px 16px; border-bottom:1px solid var(--line);
+      display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
+      background:linear-gradient(180deg, rgba(255,255,255,.06), transparent);
+    }
+    .card .hd h2{margin:0; font-size:14px}
+    .card .hd .meta{font-size:12px; color:var(--muted); line-height:1.25}
+    .card .bd{padding:16px}
+    label{display:block; font-size:12px; color:var(--muted); margin:10px 0 6px}
+
+    input[type="text"], input[type="number"], textarea, select{
+      width:100%; border:1px solid var(--line); background:rgba(0,0,0,.25);
+      color:var(--text); padding:10px 12px; border-radius:14px; outline:none;
+      font-family:var(--sans);
+    }
+    textarea{min-height:90px; resize:vertical}
+
+    .row{display:flex; gap:10px; flex-wrap:wrap}
+    .row > div{flex:1 1 180px}
+
+    .note{
+      font-size:12px; color:var(--muted); line-height:1.4;
+      padding:10px 12px; border-radius:14px; border:1px dashed rgba(255,255,255,.18);
+      background:rgba(0,0,0,.18);
+    }
+    .badge{
+      font-family:var(--mono); font-size:12px; padding:6px 10px; border-radius:999px;
+      border:1px solid var(--line); background:rgba(0,0,0,.20);
+      display:inline-flex; align-items:center; gap:6px;
+    }
+    .badge.good{border-color:rgba(25,255,154,.35); background:rgba(25,255,154,.12)}
+    .badge.warn{border-color:rgba(255,209,102,.35); background:rgba(255,209,102,.12)}
+    .badge.bad{border-color:rgba(255,77,109,.35); background:rgba(255,77,109,.12)}
+    .divider{height:1px; background:var(--line); margin:14px 0}
+    .passage{
+      padding:12px 14px; border:1px solid var(--line); border-radius:16px;
+      background:rgba(0,0,0,.22); line-height:1.5;
+    }
+    .q{
+      margin-top:14px; padding:12px 14px; border:1px solid var(--line);
+      border-radius:16px; background:rgba(0,0,0,.20);
+    }
+    .q h3{margin:0 0 8px; font-size:13px}
+    .opts{display:grid; gap:8px; margin-top:8px}
+    .opt{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:10px 10px; border-radius:14px; border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+      cursor:pointer;
+    }
+    .opt input{margin-top:3px}
+    .kpi{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
+    @media (max-width: 980px){ .kpi{grid-template-columns:repeat(2,1fr)} }
+    .kpi .box{
+      border:1px solid var(--line); border-radius:16px; padding:10px 12px;
+      background:rgba(0,0,0,.22);
+    }
+    .kpi .box .t{font-size:12px; color:var(--muted)}
+    .kpi .box .v{font-size:18px; font-weight:800; margin-top:4px}
+    .small{font-size:12px; color:var(--muted)}
+    .tabs{display:flex; gap:8px; flex-wrap:wrap}
+    .tab{padding:10px 12px; border-radius:14px; border:1px solid var(--line); background:rgba(0,0,0,.22); cursor:pointer; font-weight:700}
+    .tab.active{background:linear-gradient(135deg, rgba(176,0,255,.35), rgba(255,27,106,.22)); border-color:rgba(255,255,255,.22)}
+    .resultsList{display:grid; gap:10px}
+    .attempt{
+      border:1px solid var(--line); border-radius:16px; padding:12px 14px;
+      background:rgba(0,0,0,.20);
+    }
+    .attempt .top{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap}
+    .attempt .top strong{font-family:var(--mono)}
+    .attempt .meta{font-size:12px; color:var(--muted); margin-top:6px; line-height:1.4}
+    .copy{font-family:var(--mono); font-size:12px; white-space:pre-wrap; word-break:break-word}
+    .hide{display:none !important}
+
+    .digitRow{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
+    .digitRow .digit{
+      width:52px; text-align:center; font-family:var(--mono);
+      font-size:18px; font-weight:900; padding:12px 0;
+      border-radius:14px; border:1px solid var(--line);
+      background:rgba(0,0,0,.25); color:var(--text);
+      outline:none;
+    }
+    .digitRow .hint{font-size:12px; color:var(--muted)}
+    .miniRow{display:flex; gap:10px; flex-wrap:wrap; align-items:flex-end}
+    .miniRow > *{flex:1 1 160px}
+    .sectionTitle{margin:0 0 10px; font-size:14px}
+    .mono{font-family:var(--mono)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <h1>🟣 Otono French — Vocabulary Checker • All Themes</h1>
+        <div class="sub">
+          Auto marking • Vocabulary understanding 40 • English to French 30 • Build sentences 30 • Centre:
+          <strong id="centreTop">50749</strong>
+        </div>
+      </div>
+      <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end">
+        <div class="pill">
+          <span>⏱️ Timer:</span>
+          <strong id="timerText">--:--</strong>
+        </div>
+        <button class="btn" id="btnResults">Results</button>
+        <button class="btn primary" id="btnHome">Test</button>
+        <a class="btn" href="https://otonoteam2.github.io" id="btnMenu">Main menu</a>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card" id="panelHome">
+        <div class="hd">
+          <div>
+            <h2>Candidate setup</h2>
+            <div class="meta">Foundation or Higher • Theme 1, 2, 3, 4 or All Themes • Unit 2 is called Contradictory rules.</div>
+          </div>
+          <span class="badge" id="statusBadge">Ready</span>
+        </div>
+
+        <div class="bd" id="homeBody">
+          <div class="miniRow">
+            <div>
+              <label>Centre number</label>
+              <input type="text" id="centreNo" value="50749" disabled />
+              <div class="small" style="margin-top:6px">
+                Default is <strong>50749</strong>. You can change it with the button.
+              </div>
+            </div>
+            <div style="display:flex; gap:10px; align-items:flex-end; flex-wrap:wrap">
+              <button class="btn" id="btnEditCentre">Customise centre</button>
+              <button class="btn" id="btnResetCentre">Reset centre</button>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div>
+            <label>Candidate number (required, 4 digits)</label>
+            <div class="digitRow" aria-label="Candidate number 4 digits">
+              <input class="digit" id="candD1" inputmode="numeric" maxlength="1" />
+              <input class="digit" id="candD2" inputmode="numeric" maxlength="1" />
+              <input class="digit" id="candD3" inputmode="numeric" maxlength="1" />
+              <input class="digit" id="candD4" inputmode="numeric" maxlength="1" />
+              <span class="hint">Digits only • auto-advance</span>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top:6px">
+            <div>
+              <label>Candidate surname (optional)</label>
+              <input type="text" id="candSurname" placeholder="Surname" />
+            </div>
+            <div>
+              <label>Candidate forename(s) (optional)</label>
+              <input type="text" id="candForenames" placeholder="Forename(s)" />
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="row">
+            <div>
+              <label>Theme</label>
+              <select id="themeSelect">
+                <option value="all" selected>All Themes</option>
+                <option value="1">Theme 1</option>
+                <option value="2">Theme 2</option>
+                <option value="3">Theme 3</option>
+                <option value="4">Theme 4</option>
+              </select>
+            </div>
+            <div>
+              <label>Tier</label>
+              <select id="tierSelect">
+                <option value="foundation">Foundation</option>
+                <option value="higher" selected>Higher</option>
+              </select>
+            </div>
+            <div>
+              <label>Time allowed</label>
+              <select id="timeAllowed">
+                <option value="45">45 minutes</option>
+                <option value="60">60 minutes</option>
+                <option value="75" selected>75 minutes (recommended)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>Paper structure</strong><br/>
+            • Section A: Vocabulary understanding = <strong>40 marks</strong><br/>
+            • Section B: English to French = <strong>30 marks</strong><br/>
+            • Section C: Building sentences = <strong>30 marks</strong><br/>
+            • Total = <strong>100 marks</strong><br/>
+            • Pass: <strong>66</strong> • Merit: <strong>80</strong> • Distinction: <strong>90</strong><br/>
+            • Foundation tier cannot choose <strong>75 minutes</strong>.
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="row">
+            <div>
+              <label>Question order</label>
+              <select id="shuffleMode">
+                <option value="shuffleAll" selected>Shuffle questions</option>
+                <option value="keepOrder">Keep original order</option>
+              </select>
+            </div>
+            <div>
+              <label>On timer end</label>
+              <select id="autoSubmit">
+                <option value="yes" selected>Auto-submit</option>
+                <option value="no">Do not auto-submit</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap">
+            <button class="btn primary" id="btnStart">Start Vocabulary Paper</button>
+            <button class="btn" id="btnPreview">Preview Random Selection</button>
+          </div>
+
+          <div id="previewBox" class="note hide" style="margin-top:12px"></div>
+        </div>
+
+        <div class="bd hide" id="testBody">
+          <div class="kpi">
+            <div class="box"><div class="t">Candidate</div><div class="v" id="kpiCandidate">—</div></div>
+            <div class="box"><div class="t">Theme</div><div class="v" id="kpiTheme">—</div></div>
+            <div class="box"><div class="t">Tier</div><div class="v" id="kpiTier">—</div></div>
+            <div class="box"><div class="t">Max score</div><div class="v">100</div></div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>Instructions reminder:</strong>
+            Vocabulary multiple choice is exact. English to French and sentence building are keyword-marked, so unusual but valid phrasing may score a bit lower.
+          </div>
+
+          <div id="paper"></div>
+
+          <div class="divider"></div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap">
+            <button class="btn primary" id="btnSubmit">Submit & Auto-Mark</button>
+            <button class="btn" id="btnReset">Reset (new random paper)</button>
+          </div>
+
+          <div id="markingBox" class="hide" style="margin-top:14px"></div>
+        </div>
+      </div>
+
+      <div class="card" id="panelSide">
+        <div class="hd">
+          <div>
+            <h2 id="sideTitle">Otono grading</h2>
+            <div class="meta" id="sideMeta">Score → Otono grade + GCSE estimate + Pass/Merit/Distinction.</div>
+          </div>
+        </div>
+
+        <div class="bd" id="sideBody">
+          <div class="note">
+            <strong>Pass/Merit/Distinction</strong><br/>
+            PASS: 66+<br/>
+            MERIT: 80+<br/>
+            DISTINCTION: 90+<br/>
+          </div>
+          <div class="divider"></div>
+          <div class="note">
+            <strong>Otono grades</strong><br/>
+            S: 101+ (secret)<br/>
+            A*: 95–100<br/>
+            A: 90–94<br/>
+            B: 80–89<br/>
+            C: 70–79<br/>
+            D: 66–69<br/>
+            E: 55–65<br/>
+            F: 45–54<br/>
+            G: 30–44<br/>
+            H: 15–29<br/>
+            U: 0–14
+          </div>
+          <div class="divider"></div>
+          <div class="note">
+            <strong>GCSE 9–1 estimate</strong><br/>
+            9: 90–100 • 8: 80–89 • 7: 70–79 • 6: 60–69 • 5: 50–59<br/>
+            4: 40–49 • 3: 30–39 • 2: 20–29 • 1: 10–19 • U: 0–9
+          </div>
+          <div class="divider"></div>
+          <div class="small">
+            Tip: results are stored locally on this browser only.
+          </div>
+        </div>
+
+        <div class="bd hide" id="resultsBody">
+          <div class="tabs">
+            <div class="tab active" id="tabAll">All attempts</div>
+            <div class="tab" id="tabCandidate">By candidate</div>
+          </div>
+
+          <div class="row" style="margin-top:10px">
+            <div>
+              <label>Filter candidate number (4 digits)</label>
+              <input type="text" id="filterCandidate" placeholder="e.g. 1105" inputmode="numeric" />
+            </div>
+            <div>
+              <label>Actions</label>
+              <div style="display:flex; gap:10px; flex-wrap:wrap">
+                <button class="btn" id="btnExport">Export JSON</button>
+                <button class="btn danger" id="btnClear">Clear stored results</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+          <div class="resultsList" id="resultsList"></div>
+
+          <div id="exportBox" class="note hide" style="margin-top:12px">
+            <div><strong>Exported JSON</strong> (copy/save it):</div>
+            <div class="divider"></div>
+            <div class="copy" id="exportText"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* -----------------------------
+   OTONO FRENCH VOCAB BANK
+--------------------------------*/
+const VOCAB_BANK = [
+  {id:"v1", theme:"1", unit:"Unit 1 — School life and teachers", tier:"foundation", fr:"l'emploi du temps", en:"timetable", distractors:["uniform","pencil case","playground"]},
+  {id:"v2", theme:"1", unit:"Unit 1 — School life and teachers", tier:"foundation", fr:"la cantine", en:"canteen", distractors:["corridor","library","detention"]},
+  {id:"v3", theme:"1", unit:"Unit 1 — School life and teachers", tier:"foundation", fr:"sympa", en:"nice", distractors:["strict","late","dirty"]},
+  {id:"v4", theme:"1", unit:"Unit 1 — School life and teachers", tier:"higher", fr:"contradictoire", en:"contradictory", distractors:["encouraging","confident","organised"]},
+  {id:"v5", theme:"1", unit:"Unit 2 — Contradictory rules", tier:"foundation", fr:"un stylo", en:"pen", distractors:["desk","bag","rule"]},
+  {id:"v6", theme:"1", unit:"Unit 2 — Contradictory rules", tier:"foundation", fr:"l'encre noire", en:"black ink", distractors:["yellow ink","eraser","blue ruler"]},
+  {id:"v7", theme:"1", unit:"Unit 2 — Contradictory rules", tier:"higher", fr:"effaçable", en:"erasable", distractors:["forbidden","expensive","transparent"]},
+  {id:"v8", theme:"1", unit:"Unit 2 — Contradictory rules", tier:"higher", fr:"le ruban correcteur", en:"correction tape", distractors:["ink bottle","sharpener","highlighter"]},
+  {id:"v9", theme:"1", unit:"Unit 3 — School rules and options", tier:"foundation", fr:"une règle", en:"rule", distractors:["grade","subject choice","window"]},
+  {id:"v10", theme:"1", unit:"Unit 3 — School rules and options", tier:"foundation", fr:"une option", en:"option", distractors:["result","corridor","badge"]},
+  {id:"v11", theme:"1", unit:"Unit 3 — School rules and options", tier:"higher", fr:"les sciences combinées", en:"combined science", distractors:["triple seat","double room","open day"]},
+  {id:"v12", theme:"1", unit:"Unit 3 — School rules and options", tier:"foundation", fr:"la ceinture", en:"belt", distractors:["tie","sock","blazer"]},
+  {id:"v13", theme:"1", unit:"Unit 4 — Exam rules", tier:"foundation", fr:"une épreuve", en:"exam paper", distractors:["holiday","penalty seat","locker"]},
+  {id:"v14", theme:"1", unit:"Unit 4 — Exam rules", tier:"foundation", fr:"un surveillant", en:"invigilator", distractors:["pilot","classmate","driver"]},
+  {id:"v15", theme:"1", unit:"Unit 4 — Exam rules", tier:"higher", fr:"tricher", en:"to cheat", distractors:["to revise","to rest","to compare"]},
+  {id:"v16", theme:"1", unit:"Unit 4 — Exam rules", tier:"higher", fr:"les objets interdits", en:"forbidden items", distractors:["extra marks","school gates","seat rows"]},
+
+  {id:"v17", theme:"2", unit:"Unit 5 — Technology and gaming", tier:"foundation", fr:"un serveur", en:"server", distractors:["teacher","floor","suitcase"]},
+  {id:"v18", theme:"2", unit:"Unit 5 — Technology and gaming", tier:"foundation", fr:"construire", en:"to build", distractors:["to arrest","to land","to invite"]},
+  {id:"v19", theme:"2", unit:"Unit 5 — Technology and gaming", tier:"foundation", fr:"récolter des ressources", en:"gather resources", distractors:["wash dishes","open luggage","set rules"]},
+  {id:"v20", theme:"2", unit:"Unit 5 — Technology and gaming", tier:"higher", fr:"un braquage", en:"robbery", distractors:["revision","landing","choir"]},
+  {id:"v21", theme:"2", unit:"Unit 5 — Technology and gaming", tier:"higher", fr:"s'évader de prison", en:"escape jail", distractors:["board a plane","win a prize","clean a room"]},
+  {id:"v22", theme:"2", unit:"Unit 5 — Technology and gaming", tier:"foundation", fr:"un taille-crayon", en:"pencil sharpener", distractors:["ink bottle","seatbelt","watch"]},
+  {id:"v23", theme:"2", unit:"Unit 6 — Music and identity", tier:"foundation", fr:"une chanson", en:"song", distractors:["seat","storm","corridor"]},
+  {id:"v24", theme:"2", unit:"Unit 6 — Music and identity", tier:"foundation", fr:"chanter", en:"to sing", distractors:["to hide","to revise","to drive"]},
+  {id:"v25", theme:"2", unit:"Unit 6 — Music and identity", tier:"higher", fr:"un hymne", en:"anthem", distractors:["uniform","method","vehicle"]},
+  {id:"v26", theme:"2", unit:"Unit 6 — Music and identity", tier:"higher", fr:"s'exprimer", en:"to express oneself", distractors:["to be punished","to miss the bus","to board late"]},
+  {id:"v27", theme:"2", unit:"Unit 7 — Environment and region", tier:"foundation", fr:"le temps", en:"weather", distractors:["time limit only","mark scheme","transport hub"]},
+  {id:"v28", theme:"2", unit:"Unit 7 — Environment and region", tier:"foundation", fr:"il pleut", en:"it is raining", distractors:["it is boarding","it is closed","it is marked"]},
+  {id:"v29", theme:"2", unit:"Unit 7 — Environment and region", tier:"higher", fr:"le réchauffement climatique", en:"climate change", distractors:["seat upgrade","quiet room","strict marking"]},
+  {id:"v30", theme:"2", unit:"Unit 7 — Environment and region", tier:"higher", fr:"les transports en commun", en:"public transport", distractors:["class rules","guest rooms","exam entries"]},
+
+  {id:"v31", theme:"3", unit:"Unit 8 — Otono Airways", tier:"foundation", fr:"un pilote", en:"pilot", distractors:["invigilator","driver only","prefect"]},
+  {id:"v32", theme:"3", unit:"Unit 8 — Otono Airways", tier:"foundation", fr:"une hôtesse de l'air", en:"female cabin crew", distractors:["female driver","female teacher","female scientist"]},
+  {id:"v33", theme:"3", unit:"Unit 8 — Otono Airways", tier:"foundation", fr:"la classe économique", en:"economy class", distractors:["business class","premium lounge","airport bus"]},
+  {id:"v34", theme:"3", unit:"Unit 8 — Otono Airways", tier:"foundation", fr:"34 pouces d'espace pour les jambes", en:"34 inches of legroom", distractors:["34 windows","34 flights","34 bags"]},
+  {id:"v35", theme:"3", unit:"Unit 8 — Otono Airways", tier:"higher", fr:"le cockpit", en:"cockpit", distractors:["corridor","canteen","wardrobe"]},
+  {id:"v36", theme:"3", unit:"Unit 8 — Otono Airways", tier:"higher", fr:"un salon à bord", en:"onboard lounge", distractors:["boarding gate","guest room","library hall"]},
+  {id:"v37", theme:"3", unit:"Unit 8 — Otono Airways", tier:"higher", fr:"un spa-douche", en:"shower spa", distractors:["safety card","air bridge","engine check"]},
+  {id:"v38", theme:"3", unit:"Unit 8 — Otono Airways", tier:"foundation", fr:"l'Airbus A380", en:"Airbus A380", distractors:["Boeing 737","train carriage","exam hall"]},
+  {id:"v39", theme:"3", unit:"Unit 8 — Otono Airways", tier:"higher", fr:"une flotte", en:"fleet", distractors:["floor","uniform set","group chat"]},
+  {id:"v40", theme:"3", unit:"Unit 9 — Otono Mansion", tier:"foundation", fr:"le sous-sol", en:"basement", distractors:["roof","third floor","canteen"]},
+  {id:"v41", theme:"3", unit:"Unit 9 — Otono Mansion", tier:"foundation", fr:"le troisième étage", en:"third floor", distractors:["ground floor","roof","airbridge"]},
+  {id:"v42", theme:"3", unit:"Unit 9 — Otono Mansion", tier:"foundation", fr:"le toit", en:"roof", distractors:["staircase","library","bed"]},
+  {id:"v43", theme:"3", unit:"Unit 9 — Otono Mansion", tier:"foundation", fr:"la chambre 47", en:"room 47", distractors:["gate 47","seat 47","row 47"]},
+  {id:"v44", theme:"3", unit:"Unit 9 — Otono Mansion", tier:"higher", fr:"un passage secret", en:"secret passage", distractors:["quiet teacher","late exam","flight delay"]},
+  {id:"v45", theme:"3", unit:"Unit 9 — Otono Mansion", tier:"higher", fr:"quatre-vingts-dix", en:"ninety", distractors:["seventy","eighty","nineteen"]},
+
+  {id:"v46", theme:"4", unit:"Unit 10 — Perfection vs progress", tier:"foundation", fr:"le progrès", en:"progress", distractors:["delay","grade boundary","seat pitch"]},
+  {id:"v47", theme:"4", unit:"Unit 10 — Perfection vs progress", tier:"foundation", fr:"la perfection", en:"perfection", distractors:["permission","detention","parking"]},
+  {id:"v48", theme:"4", unit:"Unit 10 — Perfection vs progress", tier:"higher", fr:"perfectionniste", en:"perfectionist", distractors:["pilot","passenger","optimist only"]},
+  {id:"v49", theme:"4", unit:"Unit 10 — Perfection vs progress", tier:"higher", fr:"la persévérance", en:"perseverance", distractors:["privacy","pressure mark","competition result"]},
+  {id:"v50", theme:"4", unit:"Unit 11 — Cars and racing", tier:"foundation", fr:"une voiture", en:"car", distractors:["train","library","suitcase"]},
+  {id:"v51", theme:"4", unit:"Unit 11 — Cars and racing", tier:"foundation", fr:"une course", en:"race", distractors:["coursework","classroom","air route"]},
+  {id:"v52", theme:"4", unit:"Unit 11 — Cars and racing", tier:"higher", fr:"dépasser", en:"to overtake", distractors:["to forget","to mark","to invite"]},
+  {id:"v53", theme:"4", unit:"Unit 11 — Cars and racing", tier:"higher", fr:"un dérapage", en:"skid / drift", distractors:["grade slip","warning letter","staircase"]},
+  {id:"v54", theme:"4", unit:"Unit 12 — Early GCSE entry", tier:"foundation", fr:"passer un examen", en:"to sit an exam", distractors:["to leave a lounge","to carry luggage","to build a room"]},
+  {id:"v55", theme:"4", unit:"Unit 12 — Early GCSE entry", tier:"foundation", fr:"tôt", en:"early", distractors:["late","carefully","quietly"]},
+  {id:"v56", theme:"4", unit:"Unit 12 — Early GCSE entry", tier:"higher", fr:"une entrée anticipée", en:"early entry", distractors:["priority boarding","secret room","flying lesson"]},
+  {id:"v57", theme:"4", unit:"Unit 12 — Early GCSE entry", tier:"higher", fr:"cent soixante sur cent soixante", en:"one hundred and sixty out of one hundred and sixty", distractors:["one hundred and six","sixty out of one hundred","sixteen out of sixty"]}
+];
+
+const TRANSLATION_BANK = [
+  {id:"t1", theme:"1", tier:"foundation", unit:"Unit 1 — School life and teachers", en:"The teacher is nice but strict.", sample:"Le professeur est sympa mais strict.", ideas:[["professeur","prof"],["sympa"],["mais"],["strict"]]},
+  {id:"t2", theme:"1", tier:"foundation", unit:"Unit 2 — Contradictory rules", en:"Black ink is allowed, but erasable pens are forbidden.", sample:"L'encre noire est autorisée, mais les stylos effaçables sont interdits.", ideas:[["encre noire"],["autorisee","autorisé","permise"],["mais"],["stylos effacables","stylos effaçables"],["interdits","interdites"]]},
+  {id:"t3", theme:"1", tier:"higher", unit:"Unit 4 — Exam rules", en:"Candidates must read the instructions carefully to avoid simple mistakes.", sample:"Les candidats doivent lire les consignes attentivement pour éviter des erreurs simples.", ideas:[["candidats"],["doivent"],["lire","consignes"],["attentivement"],["eviter","erreurs simples"]]},
+
+  {id:"t4", theme:"2", tier:"foundation", unit:"Unit 5 — Technology and gaming", en:"We gather resources and destroy beds.", sample:"Nous récoltons des ressources et nous détruisons des lits.", ideas:[["nous"],["recoltons","récoltons","ressources"],["et"],["detruisons","détruisons","lits"]]},
+  {id:"t5", theme:"2", tier:"higher", unit:"Unit 6 — Music and identity", en:"La Marseillaise is an anthem with a strong identity.", sample:"La Marseillaise est un hymne avec une identité forte.", ideas:[["la marseillaise"],["est"],["hymne"],["identite","identité"],["forte"]]},
+  {id:"t6", theme:"2", tier:"foundation", unit:"Unit 7 — Environment and region", en:"In winter it rains, but public transport is useful.", sample:"En hiver, il pleut, mais les transports en commun sont utiles.", ideas:[["en hiver"],["il pleut"],["mais"],["transports en commun"],["utiles"]]},
+
+  {id:"t7", theme:"3", tier:"foundation", unit:"Unit 8 — Otono Airways", en:"The pilot and the cabin crew welcome the passengers.", sample:"Le pilote et l'équipage de cabine accueillent les passagers.", ideas:[["pilote"],["equipage de cabine","cabin crew","hotesse","steward"],["accueillent","accueille"],["passagers"]]},
+  {id:"t8", theme:"3", tier:"higher", unit:"Unit 8 — Otono Airways", en:"Even in economy class, there are 34 inches of legroom.", sample:"Même en classe économique, il y a 34 pouces d'espace pour les jambes.", ideas:[["meme","même"],["classe economique"],["34"],["pouces"],["espace pour les jambes"]]},
+  {id:"t9", theme:"3", tier:"foundation", unit:"Unit 9 — Otono Mansion", en:"Room 47 is on the third floor, not in the basement.", sample:"La chambre 47 est au troisième étage, pas au sous-sol.", ideas:[["chambre 47","salle 47"],["troisieme etage","troisième étage"],["pas"],["sous sol","sous-sol"]]},
+
+  {id:"t10", theme:"4", tier:"foundation", unit:"Unit 10 — Perfection vs progress", en:"Progress is more important than perfection.", sample:"Le progrès est plus important que la perfection.", ideas:[["progres","progrès"],["plus important"],["que"],["perfection"]]},
+  {id:"t11", theme:"4", tier:"foundation", unit:"Unit 11 — Cars and racing", en:"The car is fast, but the turn is dangerous.", sample:"La voiture est rapide, mais le virage est dangereux.", ideas:[["voiture"],["rapide"],["mais"],["virage"],["dangereux"]]},
+  {id:"t12", theme:"4", tier:"higher", unit:"Unit 12 — Early GCSE entry", en:"Clayton got one hundred and sixty out of one hundred and sixty in an early exam.", sample:"Clayton a obtenu cent soixante sur cent soixante dans un examen anticipé.", ideas:[["clayton"],["obtenu","a eu","a obtenu"],["cent soixante sur cent soixante"],["examen anticipe","examen anticipé"]]}
+];
+
+const SENTENCE_BANK = [
+  {id:"s1", theme:"1", tier:"foundation", unit:"Unit 1 — School life and teachers", prompt:"Build ONE French sentence with: école • prof sympa • emploi du temps", sample:"Dans mon école, j'ai un prof sympa et un bon emploi du temps.", keywords:[["ecole"],["prof","professeur"],["sympa"],["emploi du temps"]]},
+  {id:"s2", theme:"1", tier:"foundation", unit:"Unit 2 — Contradictory rules", prompt:"Build ONE French sentence with: encre noire • interdit • sciences", sample:"En sciences, l'encre noire est interdite.", keywords:[["encre noire"],["interdit","interdite"],["sciences"]]},
+  {id:"s3", theme:"1", tier:"higher", unit:"Unit 4 — Exam rules", prompt:"Build ONE French sentence with: candidat • consigne • éviter • erreur", sample:"Le candidat lit la consigne pour éviter une erreur.", keywords:[["candidat"],["consigne"],["eviter","éviter"],["erreur"]]},
+
+  {id:"s4", theme:"2", tier:"foundation", unit:"Unit 5 — Technology and gaming", prompt:"Build ONE French sentence with: Roblox • ressources • gagner", sample:"Dans Roblox, nous récoltons des ressources pour gagner.", keywords:[["roblox"],["ressources"],["gagner"]]},
+  {id:"s5", theme:"2", tier:"higher", unit:"Unit 6 — Music and identity", prompt:"Build ONE French sentence with: hymne • identité • forte", sample:"Cet hymne a une identité forte.", keywords:[["hymne"],["identite","identité"],["forte","fort"]]},
+  {id:"s6", theme:"2", tier:"foundation", unit:"Unit 7 — Environment and region", prompt:"Build ONE French sentence with: hiver • pluie • région", sample:"En hiver, il y a beaucoup de pluie dans ma région.", keywords:[["hiver"],["pluie","pleut"],["region","région"]]},
+
+  {id:"s7", theme:"3", tier:"foundation", unit:"Unit 8 — Otono Airways", prompt:"Build ONE French sentence with: Otono Airways • classe économique • confortable", sample:"La classe économique d'Otono Airways est confortable.", keywords:[["otono airways"],["classe economique"],["confortable"]]},
+  {id:"s8", theme:"3", tier:"higher", unit:"Unit 8 — Otono Airways", prompt:"Build ONE French sentence with: A380 • salon à bord • passagers", sample:"Sur l'A380, les passagers aiment le salon à bord.", keywords:[["a380"],["salon a bord","salon à bord"],["passagers"]]},
+  {id:"s9", theme:"3", tier:"foundation", unit:"Unit 9 — Otono Mansion", prompt:"Build ONE French sentence with: chambre 12 • premier étage • manoir", sample:"La chambre 12 est au premier étage du manoir.", keywords:[["chambre 12"],["premier etage","premier étage"],["manoir"]]},
+
+  {id:"s10", theme:"4", tier:"foundation", unit:"Unit 10 — Perfection vs progress", prompt:"Build ONE French sentence with: progrès • important • perfection", sample:"Le progrès est plus important que la perfection.", keywords:[["progres","progrès"],["important"],["perfection"]]},
+  {id:"s11", theme:"4", tier:"foundation", unit:"Unit 11 — Cars and racing", prompt:"Build ONE French sentence with: voiture • rapide • course", sample:"La voiture rapide gagne la course.", keywords:[["voiture"],["rapide"],["course"]]},
+  {id:"s12", theme:"4", tier:"higher", unit:"Unit 12 — Early GCSE entry", prompt:"Build ONE French sentence with: examen anticipé • Clayton • 160", sample:"Clayton a réussi un examen anticipé avec 160 sur 160.", keywords:[["examen anticipe","examen anticipé"],["clayton"],["160","cent soixante"]]}
+];
+
+/* -----------------------------
+   Utilities
+--------------------------------*/
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+function nowISO(){ return new Date().toISOString(); }
+function norm(s){
+  return (s ?? "")
+    .toString()
+    .toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+function pickRandom(arr, n){ return shuffle(arr).slice(0, n); }
+function escapeHtml(str){
+  return (str ?? "").toString()
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+function otonoLetterGrade(score){
+  if(score >= 101) return "S";
+  if(score >= 95) return "A*";
+  if(score >= 90) return "A";
+  if(score >= 80) return "B";
+  if(score >= 70) return "C";
+  if(score >= 66) return "D";
+  if(score >= 55) return "E";
+  if(score >= 45) return "F";
+  if(score >= 30) return "G";
+  if(score >= 15) return "H";
+  return "U";
+}
+function passMeritDistinction(score){
+  if(score >= 90) return "DISTINCTION";
+  if(score >= 80) return "MERIT";
+  if(score >= 66) return "PASS";
+  return "FAIL";
+}
+function gcseEstimate(score){
+  if(score >= 90) return 9;
+  if(score >= 80) return 8;
+  if(score >= 70) return 7;
+  if(score >= 60) return 6;
+  if(score >= 50) return 5;
+  if(score >= 40) return 4;
+  if(score >= 30) return 3;
+  if(score >= 20) return 2;
+  if(score >= 10) return 1;
+  return "U";
+}
+function badgeForScore(score){
+  if(score >= 101) return ["badge good","🏆 SECRET SCORE"];
+  if(score >= 90) return ["badge good","🏆 Excellent"];
+  if(score >= 80) return ["badge good","⭐ Très bien"];
+  if(score >= 66) return ["badge warn","✅ OK"];
+  return ["badge bad","❌ Mal"];
+}
+
+/* -----------------------------
+   Local storage
+--------------------------------*/
+const STORE_KEY = "otonoFrenchVocabularyChecker_allThemes_v2";
+function loadResults(){
+  try{ return JSON.parse(localStorage.getItem(STORE_KEY) || "[]"); }
+  catch(e){ return []; }
+}
+function saveResults(list){ localStorage.setItem(STORE_KEY, JSON.stringify(list)); }
+function addResult(attempt){
+  const list = loadResults();
+  list.unshift(attempt);
+  saveResults(list);
+}
+
+/* -----------------------------
+   State
+--------------------------------*/
+let state = {
+  mode:"home",
+  timer:null,
+  remainingSec:0,
+  startedAt:null,
+  centreNo:"50749",
+  candidateNo:null,
+  candSurname:"",
+  candForenames:"",
+  selection:null,
+  answers:{},
+  mcqCorrectValue:{},
+  submitted:false
+};
+
+/* -----------------------------
+   Centre controls
+--------------------------------*/
+function setCentre(no){
+  state.centreNo = String(no);
+  $("#centreNo").value = state.centreNo;
+  $("#centreTop").textContent = state.centreNo;
+}
+$("#btnEditCentre").addEventListener("click", () => {
+  const val = prompt("Enter centre number (digits only, e.g. 50749):", state.centreNo);
+  if(val === null) return;
+  const clean = String(val).replace(/\D/g,"").slice(0,10);
+  if(clean.length < 5){
+    alert("Centre number must be digits only (at least 5 digits).");
+    return;
+  }
+  setCentre(clean);
+});
+$("#btnResetCentre").addEventListener("click", () => setCentre("50749"));
+
+/* -----------------------------
+   Candidate number 4 squares
+--------------------------------*/
+const digitIds = ["#candD1","#candD2","#candD3","#candD4"];
+function getCandidateNoFromSquares(){
+  const d = digitIds.map(id => ($(id).value || "").trim());
+  if(d.some(x => x.length !== 1 || !/^\d$/.test(x))) return "";
+  return d.join("");
+}
+function focusDigit(i){
+  const el = $(digitIds[i]);
+  if(el) el.focus();
+}
+function wireDigitSquares(){
+  digitIds.forEach((id, idx) => {
+    const el = $(id);
+
+    el.addEventListener("input", () => {
+      el.value = (el.value || "").replace(/\D/g,"").slice(0,1);
+      if(el.value && idx < digitIds.length-1) focusDigit(idx+1);
+    });
+
+    el.addEventListener("keydown", (e) => {
+      if(e.key === "Backspace" && !el.value && idx > 0) focusDigit(idx-1);
+      if(e.key === "ArrowLeft" && idx > 0){ e.preventDefault(); focusDigit(idx-1); }
+      if(e.key === "ArrowRight" && idx < digitIds.length-1){ e.preventDefault(); focusDigit(idx+1); }
+    });
+
+    el.addEventListener("paste", (e) => {
+      e.preventDefault();
+      const txt = (e.clipboardData || window.clipboardData).getData("text") || "";
+      const digits = txt.replace(/\D/g,"").slice(0,4).split("");
+      digits.forEach((ch, j) => {
+        const target = $(digitIds[j]);
+        if(target) target.value = ch;
+      });
+      const joined = getCandidateNoFromSquares();
+      if(joined.length === 4) focusDigit(3);
+      else {
+        const firstEmpty = digitIds.findIndex(did => !$(did).value);
+        if(firstEmpty >= 0) focusDigit(firstEmpty);
+      }
+    });
+  });
+}
+wireDigitSquares();
+
+/* -----------------------------
+   Selection builder
+--------------------------------*/
+function passesFilter(item, theme, tier){
+  const themeOK = theme === "all" ? true : item.theme === theme;
+  const tierOK = tier === "higher" ? true : item.tier === "foundation";
+  return themeOK && tierOK;
+}
+
+function buildSelection(theme, tier){
+  const vocabPool = VOCAB_BANK.filter(x => passesFilter(x, theme, tier));
+  const translationPool = TRANSLATION_BANK.filter(x => passesFilter(x, theme, tier));
+  const sentencePool = SENTENCE_BANK.filter(x => passesFilter(x, theme, tier));
+
+  return {
+    theme,
+    tier,
+    vocab: pickRandom(vocabPool, Math.min(10, vocabPool.length)),
+    translations: pickRandom(translationPool, Math.min(3, translationPool.length)),
+    sentences: pickRandom(sentencePool, Math.min(3, sentencePool.length))
+  };
+}
+function selectionSummary(sel){
+  return `Vocabulary: ${sel.vocab.length} • English→French: ${sel.translations.length} • Build sentences: ${sel.sentences.length}`;
+}
+
+/* -----------------------------
+   Rendering
+--------------------------------*/
+function setBadge(text, cls="badge"){
+  const b = $("#statusBadge");
+  b.className = cls;
+  b.textContent = text;
+}
+
+function renderHome(){
+  $("#homeBody").classList.remove("hide");
+  $("#testBody").classList.add("hide");
+  $("#resultsBody").classList.add("hide");
+  $("#sideTitle").textContent = "Otono grading";
+  $("#sideMeta").textContent = "Score → Otono grade + GCSE estimate + Pass/Merit/Distinction.";
+  $("#sideBody").classList.remove("hide");
+  setBadge("Ready","badge");
+  $("#timerText").textContent = "--:--";
+}
+
+function renderResults(){
+  $("#homeBody").classList.add("hide");
+  $("#testBody").classList.add("hide");
+  $("#sideBody").classList.add("hide");
+  $("#resultsBody").classList.remove("hide");
+  $("#sideTitle").textContent = "Saved results";
+  $("#sideMeta").textContent = "Stored per candidate in this browser (localStorage).";
+  setBadge("Results","badge");
+  $("#timerText").textContent = "--:--";
+  drawResults();
+}
+
+function stopTimer(){
+  if(state.timer){
+    clearInterval(state.timer);
+    state.timer = null;
+  }
+}
+function startTimer(minutes){
+  stopTimer();
+  state.remainingSec = Math.max(1, Math.floor(minutes * 60));
+  state.startedAt = Date.now();
+
+  const tick = () => {
+    if(state.submitted) return;
+    const m = Math.floor(state.remainingSec / 60);
+    const s = state.remainingSec % 60;
+    $("#timerText").textContent = `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+    state.remainingSec--;
+    if(state.remainingSec < 0){
+      stopTimer();
+      const auto = $("#autoSubmit").value === "yes";
+      if(auto) submitPaper(true);
+      else alert("Time is up. You can still submit manually.");
+    }
+  };
+
+  tick();
+  state.timer = setInterval(tick, 1000);
+}
+
+function renderChoice(name, options){
+  return `
+    <div class="opts">
+      ${options.map((opt, idx) => `
+        <label class="opt">
+          <input type="radio" name="${name}" value="${escapeHtml(opt.value)}" />
+          <div><strong>${String.fromCharCode(65+idx)}.</strong> ${escapeHtml(opt.label)}</div>
+        </label>
+      `).join("")}
+    </div>
+  `;
+}
+
+function renderTest(){
+  $("#homeBody").classList.add("hide");
+  $("#testBody").classList.remove("hide");
+  $("#resultsBody").classList.add("hide");
+  $("#sideBody").classList.remove("hide");
+
+  const themeLabel = state.selection.theme === "all" ? "All Themes" : `Theme ${state.selection.theme}`;
+  const candNameLine = [state.candSurname, state.candForenames].filter(Boolean).join(", ");
+
+  $("#kpiCandidate").textContent = `${state.candidateNo}${candNameLine ? " • " + candNameLine : ""}`;
+  $("#kpiTheme").textContent = themeLabel;
+  $("#kpiTier").textContent = state.selection.tier === "higher" ? "Higher" : "Foundation";
+
+  const paper = $("#paper");
+  paper.innerHTML = "";
+  state.mcqCorrectValue = {};
+
+  const summary = document.createElement("div");
+  summary.className = "note";
+  summary.innerHTML = `<strong>Selected paper</strong><br/>
+  Theme: ${escapeHtml(themeLabel)}<br/>
+  Tier: ${escapeHtml(state.selection.tier)}<br/>
+  ${escapeHtml(selectionSummary(state.selection))}`;
+  paper.appendChild(summary);
+
+  // Section A
+  const secA = document.createElement("div");
+  secA.className = "card";
+  secA.style.marginTop = "14px";
+  secA.innerHTML = `
+    <div class="hd">
+      <div>
+        <h2>Section A — Vocabulary understanding</h2>
+        <div class="meta">10 questions • 4 marks each • Total 40 marks</div>
+      </div>
+      <span class="badge">40 marks</span>
+    </div>
+    <div class="bd">
+      <div class="small">Choose the correct English meaning.</div>
+      <div id="sectionAQuestions"></div>
+    </div>
+  `;
+  paper.appendChild(secA);
+
+  let vocabList = state.selection.vocab.slice();
+  if($("#shuffleMode").value === "shuffleAll") vocabList = shuffle(vocabList);
+
+  vocabList.forEach((q, i) => {
+    const options = shuffle([
+      {value:q.en, label:q.en, correct:true},
+      ...q.distractors.map(x => ({value:x, label:x, correct:false}))
+    ]);
+    state.mcqCorrectValue[q.id] = options.find(o => o.correct).value;
+
+    const block = document.createElement("div");
+    block.className = "q";
+    block.innerHTML = `
+      <h3>Q${i+1}. What does <strong>${escapeHtml(q.fr)}</strong> mean? <span class="badge">4 marks</span></h3>
+      <div class="small">${escapeHtml(q.unit)} • Theme ${escapeHtml(q.theme)}</div>
+      ${renderChoice(`ans_${q.id}`, options)}
+    `;
+    $("#sectionAQuestions").appendChild(block);
+  });
+
+  // Section B
+  const secB = document.createElement("div");
+  secB.className = "card";
+  secB.style.marginTop = "14px";
+  secB.innerHTML = `
+    <div class="hd">
+      <div>
+        <h2>Section B — English to French</h2>
+        <div class="meta">3 questions • 10 marks each • Total 30 marks</div>
+      </div>
+      <span class="badge">30 marks</span>
+    </div>
+    <div class="bd">
+      <div class="small">Translate into French. Auto-mark checks key ideas.</div>
+      <div id="sectionBQuestions"></div>
+    </div>
+  `;
+  paper.appendChild(secB);
+
+  let transList = state.selection.translations.slice();
+  if($("#shuffleMode").value === "shuffleAll") transList = shuffle(transList);
+
+  transList.forEach((q, i) => {
+    const block = document.createElement("div");
+    block.className = "q";
+    block.innerHTML = `
+      <h3>Q${i+11}. Translate into French: <span class="badge">10 marks</span></h3>
+      <div class="passage">${escapeHtml(q.en)}</div>
+      <div class="small" style="margin-top:8px">${escapeHtml(q.unit)} • Theme ${escapeHtml(q.theme)}</div>
+      <textarea id="ans_${q.id}" placeholder="Write your French translation here..."></textarea>
+    `;
+    $("#sectionBQuestions").appendChild(block);
+  });
+
+  // Section C
+  const secC = document.createElement("div");
+  secC.className = "card";
+  secC.style.marginTop = "14px";
+  secC.innerHTML = `
+    <div class="hd">
+      <div>
+        <h2>Section C — Building sentences</h2>
+        <div class="meta">3 questions • 10 marks each • Total 30 marks</div>
+      </div>
+      <span class="badge">30 marks</span>
+    </div>
+    <div class="bd">
+      <div class="small">Build one French sentence for each prompt.</div>
+      <div id="sectionCQuestions"></div>
+    </div>
+  `;
+  paper.appendChild(secC);
+
+  let sentList = state.selection.sentences.slice();
+  if($("#shuffleMode").value === "shuffleAll") sentList = shuffle(sentList);
+
+  sentList.forEach((q, i) => {
+    const block = document.createElement("div");
+    block.className = "q";
+    block.innerHTML = `
+      <h3>Q${i+14}. ${escapeHtml(q.prompt)} <span class="badge">10 marks</span></h3>
+      <div class="small">${escapeHtml(q.unit)} • Theme ${escapeHtml(q.theme)}</div>
+      <textarea id="ans_${q.id}" placeholder="Write one French sentence..."></textarea>
+    `;
+    $("#sectionCQuestions").appendChild(block);
+  });
+
+  bindInputs();
+  startTimer(parseInt($("#timeAllowed").value,10));
+  state.submitted = false;
+  $("#markingBox").classList.add("hide");
+  $("#markingBox").innerHTML = "";
+  setBadge("In progress","badge warn");
+}
+
+function bindInputs(){
+  $$("input[type='radio']").forEach(r => {
+    r.addEventListener("change", () => {
+      const qid = r.name.replace("ans_","");
+      state.answers[qid] = r.value;
+    });
+  });
+  $$("textarea").forEach(t => {
+    t.addEventListener("input", () => {
+      const qid = t.id.replace("ans_","");
+      state.answers[qid] = t.value;
+    });
+  });
+}
+
+/* -----------------------------
+   Marking
+--------------------------------*/
+function scoreKeywordAnswer(answer, groups, totalMarks){
+  const text = norm(answer);
+  if(!text) return {score:0, detail:"Blank answer."};
+
+  let hits = 0;
+  const matched = [];
+
+  groups.forEach((group, idx) => {
+    const ok = group.some(token => text.includes(norm(token)));
+    if(ok){
+      hits++;
+      matched.push(idx + 1);
+    }
+  });
+
+  const score = Math.round((hits / groups.length) * totalMarks);
+  return {
+    score,
+    detail:`Key idea groups matched: ${hits}/${groups.length}${matched.length ? " • Groups: " + matched.join(", ") : ""}`
+  };
+}
+
+function computeTotal(){
+  let total = 0;
+  let breakdown = [];
+
+  state.selection.vocab.forEach(q => {
+    const chosen = state.answers[q.id] || "";
+    const correct = state.mcqCorrectValue[q.id];
+    const score = chosen === correct ? 4 : 0;
+    total += score;
+    breakdown.push({
+      qid:q.id,
+      section:"A",
+      prompt:`What does ${q.fr} mean?`,
+      score,
+      max:4,
+      detail: chosen === correct ? "Correct." : `Incorrect. Correct answer: ${correct}`
+    });
+  });
+
+  state.selection.translations.forEach(q => {
+    const ans = state.answers[q.id] || $(`#ans_${q.id}`)?.value || "";
+    const res = scoreKeywordAnswer(ans, q.ideas, 10);
+    total += res.score;
+    breakdown.push({
+      qid:q.id,
+      section:"B",
+      prompt:q.en,
+      score:res.score,
+      max:10,
+      detail:`${res.detail} • Sample: ${q.sample}`
+    });
+  });
+
+  state.selection.sentences.forEach(q => {
+    const ans = state.answers[q.id] || $(`#ans_${q.id}`)?.value || "";
+    const res = scoreKeywordAnswer(ans, q.keywords, 10);
+    total += res.score;
+    breakdown.push({
+      qid:q.id,
+      section:"C",
+      prompt:q.prompt,
+      score:res.score,
+      max:10,
+      detail:`${res.detail} • Sample: ${q.sample}`
+    });
+  });
+
+  return { total, max:100, breakdown };
+}
+
+/* -----------------------------
+   Submission
+--------------------------------*/
+function submitPaper(fromAutoTimer=false){
+  if(state.submitted) return;
+
+  const { total, max, breakdown } = computeTotal();
+  state.submitted = true;
+  stopTimer();
+
+  const letter = otonoLetterGrade(total);
+  const pmd = passMeritDistinction(total);
+  const gcse = gcseEstimate(total);
+  const [badgeCls, badgeText] = badgeForScore(total);
+
+  const themeLabel = state.selection.theme === "all" ? "All Themes" : `Theme ${state.selection.theme}`;
+
+  const attempt = {
+    paper: "Otono French Vocabulary Checker • All Themes",
+    centre: state.centreNo,
+    candidateNo: String(state.candidateNo),
+    candidateSurname: state.candSurname || "",
+    candidateForenames: state.candForenames || "",
+    submittedAt: nowISO(),
+    timeAllowedMin: parseInt($("#timeAllowed").value,10),
+    theme: state.selection.theme,
+    themeLabel,
+    tier: state.selection.tier,
+    score: total,
+    maxScore: max,
+    otonoGrade: letter,
+    gcseEstimated: gcse,
+    outcome: pmd,
+    breakdown
+  };
+  addResult(attempt);
+
+  const nameLine = [attempt.candidateSurname, attempt.candidateForenames].filter(Boolean).join(", ");
+  const sectionAScore = breakdown.filter(x => x.section === "A").reduce((a,b) => a + b.score, 0);
+  const sectionBScore = breakdown.filter(x => x.section === "B").reduce((a,b) => a + b.score, 0);
+  const sectionCScore = breakdown.filter(x => x.section === "C").reduce((a,b) => a + b.score, 0);
+
+  const box = $("#markingBox");
+  box.classList.remove("hide");
+  box.className = "";
+  box.innerHTML = `
+    <div class="card">
+      <div class="hd">
+        <div>
+          <h2>✅ Marked${fromAutoTimer ? " (auto-submitted)" : ""}</h2>
+          <div class="meta">Saved to Results • Centre ${escapeHtml(attempt.centre)} • Candidate ${escapeHtml(attempt.candidateNo)}${nameLine ? " • " + escapeHtml(nameLine) : ""}</div>
+        </div>
+        <span class="${badgeCls}">${escapeHtml(badgeText)}</span>
+      </div>
+      <div class="bd">
+        <div class="kpi">
+          <div class="box"><div class="t">Vocabulary</div><div class="v">${sectionAScore} / 40</div></div>
+          <div class="box"><div class="t">English → French</div><div class="v">${sectionBScore} / 30</div></div>
+          <div class="box"><div class="t">Sentences</div><div class="v">${sectionCScore} / 30</div></div>
+          <div class="box"><div class="t">Total</div><div class="v">${attempt.score} / ${attempt.maxScore}</div></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="kpi">
+          <div class="box"><div class="t">Otono grade</div><div class="v">${escapeHtml(attempt.otonoGrade)}</div></div>
+          <div class="box"><div class="t">GCSE estimate</div><div class="v">${escapeHtml(String(attempt.gcseEstimated))}</div></div>
+          <div class="box"><div class="t">Outcome</div><div class="v">${escapeHtml(attempt.outcome)}</div></div>
+          <div class="box"><div class="t">Theme</div><div class="v">${escapeHtml(attempt.themeLabel)}</div></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="note">
+          <strong>Marking notes</strong><br/>
+          • Section A multiple choice is exact.<br/>
+          • Sections B and C are keyword-based, so valid alternative French may sometimes score lower.
+        </div>
+
+        <div class="divider"></div>
+
+        <button class="btn" id="btnShowBreakdown">Show question breakdown</button>
+        <div id="breakdown" class="hide" style="margin-top:12px"></div>
+      </div>
+    </div>
+  `;
+
+  $("#btnShowBreakdown").addEventListener("click", () => {
+    const bd = $("#breakdown");
+    bd.classList.toggle("hide");
+    if(!bd.classList.contains("hide")){
+      bd.innerHTML = breakdown.map(b => `
+        <div class="attempt">
+          <div class="top">
+            <div><strong>${escapeHtml(b.qid)}</strong> • ${escapeHtml(b.section)}</div>
+            <div><span class="badge">${b.score} / ${b.max}</span></div>
+          </div>
+          <div class="meta">
+            <div><strong>Prompt:</strong> ${escapeHtml(b.prompt)}</div>
+            <div><strong>Marker:</strong> ${escapeHtml(b.detail)}</div>
+          </div>
+        </div>
+      `).join("");
+    }
+  });
+
+  setBadge("Submitted","badge good");
+}
+
+/* -----------------------------
+   Results UI
+--------------------------------*/
+function drawResults(){
+  const listEl = $("#resultsList");
+  const all = loadResults();
+  const filter = ($("#filterCandidate").value || "").replace(/\D/g,"").slice(0,4);
+  const filtered = filter ? all.filter(a => String(a.candidateNo) === String(filter)) : all;
+
+  if(filtered.length === 0){
+    listEl.innerHTML = `<div class="note">No stored attempts${filter ? " for this candidate" : ""} yet.</div>`;
+    return;
+  }
+
+  listEl.innerHTML = filtered.map(a => {
+    const [cls, txt] = badgeForScore(a.score);
+    const nameLine = [a.candidateSurname, a.candidateForenames].filter(Boolean).join(", ");
+    return `
+      <div class="attempt">
+        <div class="top">
+          <div>
+            <strong>${escapeHtml(a.candidateNo)}</strong>${nameLine ? " • " + escapeHtml(nameLine) : ""}
+            <span class="badge" style="margin-left:8px">Centre ${escapeHtml(a.centre)}</span>
+          </div>
+          <div class="${cls}">${escapeHtml(txt)} • ${escapeHtml(String(a.score))}/100</div>
+        </div>
+        <div class="meta">
+          <div><strong>Date:</strong> ${escapeHtml(new Date(a.submittedAt).toLocaleString())}</div>
+          <div><strong>Paper:</strong> ${escapeHtml(a.themeLabel)} • ${escapeHtml(a.tier)}</div>
+          <div><strong>Grades:</strong> Otono ${escapeHtml(a.otonoGrade)} • GCSE ${escapeHtml(String(a.gcseEstimated))} • ${escapeHtml(a.outcome)}</div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function exportResults(){
+  const all = loadResults();
+  $("#exportText").textContent = JSON.stringify(all, null, 2);
+  $("#exportBox").classList.remove("hide");
+}
+function clearResults(){
+  if(!confirm("Clear ALL stored Otono French vocabulary results on this browser?")) return;
+  localStorage.removeItem(STORE_KEY);
+  drawResults();
+  $("#exportBox").classList.add("hide");
+}
+
+/* -----------------------------
+   Buttons / navigation
+--------------------------------*/
+$("#btnHome").addEventListener("click", () => {
+  state.mode = "home";
+  renderHome();
+});
+
+$("#btnResults").addEventListener("click", () => {
+  state.mode = "results";
+  renderResults();
+});
+
+$("#btnPreview").addEventListener("click", () => {
+  const c = getCandidateNoFromSquares();
+  if(!c){
+    alert("Enter a candidate number first.");
+    return;
+  }
+
+  const theme = $("#themeSelect").value;
+  const tier = $("#tierSelect").value;
+  const sel = buildSelection(theme, tier);
+
+  $("#previewBox").classList.remove("hide");
+  $("#previewBox").innerHTML = `
+    <strong>Preview (not started)</strong><br/>
+    Theme: ${escapeHtml(theme === "all" ? "All Themes" : "Theme " + theme)}<br/>
+    Tier: ${escapeHtml(tier)}<br/>
+    ${escapeHtml(selectionSummary(sel))}<br/><br/>
+    <strong>Vocabulary sample</strong><br/>
+    ${sel.vocab.slice(0,5).map(v => `• ${escapeHtml(v.fr)} = ${escapeHtml(v.en)}`).join("<br/>")}<br/><br/>
+    <strong>Translation prompts</strong><br/>
+    ${sel.translations.map(t => `• ${escapeHtml(t.en)}`).join("<br/>")}<br/><br/>
+    <strong>Sentence prompts</strong><br/>
+    ${sel.sentences.map(s => `• ${escapeHtml(s.prompt)}`).join("<br/>")}
+  `;
+});
+
+$("#btnStart").addEventListener("click", () => {
+  const c = getCandidateNoFromSquares();
+  if(!c){
+    alert("Candidate number is required.");
+    focusDigit(0);
+    return;
+  }
+
+  const theme = $("#themeSelect").value;
+  const tier = $("#tierSelect").value;
+  const time = parseInt($("#timeAllowed").value, 10);
+
+  if(tier === "foundation" && time === 75){
+    alert("75 minutes is not allowed for foundation tier.");
+    return;
+  }
+
+  state.candidateNo = c;
+  state.candSurname = ($("#candSurname").value || "").trim();
+  state.candForenames = ($("#candForenames").value || "").trim();
+  state.selection = buildSelection(theme, tier);
+  state.answers = {};
+  renderTest();
+});
+
+$("#btnSubmit").addEventListener("click", () => submitPaper(false));
+
+$("#btnReset").addEventListener("click", () => {
+  if(!confirm("Reset this paper and generate a NEW random test? Your current answers will be lost.")) return;
+  stopTimer();
+  state.answers = {};
+  state.submitted = false;
+  state.selection = buildSelection($("#themeSelect").value, $("#tierSelect").value);
+  renderTest();
+});
+
+$("#filterCandidate").addEventListener("input", (e) => {
+  e.target.value = e.target.value.replace(/\D/g,"").slice(0,4);
+  drawResults();
+});
+
+$("#tabAll").addEventListener("click", () => {
+  $("#tabAll").classList.add("active");
+  $("#tabCandidate").classList.remove("active");
+  $("#filterCandidate").value = "";
+  drawResults();
+});
+$("#tabCandidate").addEventListener("click", () => {
+  $("#tabCandidate").classList.add("active");
+  $("#tabAll").classList.remove("active");
+  $("#filterCandidate").focus();
+});
+
+$("#btnExport").addEventListener("click", exportResults);
+$("#btnClear").addEventListener("click", clearResults);
+
+/* -----------------------------
+   Initial
+--------------------------------*/
+setCentre("50749");
+renderHome();
+
+/* -----------------------------
+   Anti-cheat / source protection
+--------------------------------*/
+const disabledKeys = ["u", "I"];
+const showAlert = e => {
+  e.preventDefault();
+  return alert("Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!");
+};
+document.addEventListener("contextmenu", e => { showAlert(e); });
+document.addEventListener("keydown", e => {
+  if ((e.ctrlKey && disabledKeys.includes(e.key)) || e.key === "F12") {
+    showAlert(e);
+  }
+});
+</script>
+</body>
+</html>
