@@ -930,7 +930,7 @@ function bindInputs(){
 --------------------------------*/
 function scoreKeywordAnswer(answer, groups, totalMarks){
   const text = norm(answer);
-  if(!text) return {score:0, detail:"Blank answer."};
+  if(!text) return {score:0, detail:"Blank."};
 
   let hits = 0;
   const matched = [];
