@@ -811,8 +811,8 @@ function generatePaper(level){
   const pickB = pickRandom(B, 2);
 
   const wordTargets = (level==="AS")
-    ? { essayTarget:250, essayMin:220, essayMax:400 }
-    : { essayTarget:300, essayMin:260, essayMax:450 };
+    ? { essayTarget:250, essayMin:220, essayMax:700 }
+    : { essayTarget:300, essayMin:260, essayMax:1000 };
 
   return { level, wordTargets, sectionA:pickA, sectionB:pickB, scheme: schemeFor(level) };
 }
