@@ -1,0 +1,961 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>🟣 Otono Pi Memory Challenge</title>
+  <style>
+    :root{
+      --bg1:#2b0a3d;
+      --bg2:#7a0036;
+      --card:#120c22ee;
+      --card2:#1a1230ee;
+      --line:rgba(255,255,255,.12);
+      --text:#f7f1ff;
+      --muted:#cebfff;
+      --good:#19ff9a;
+      --warn:#ffd166;
+      --bad:#ff6584;
+      --shadow:0 18px 55px rgba(0,0,0,.34);
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      min-height:100vh;
+      font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(176,0,255,.22), transparent 35%),
+        radial-gradient(circle at top right, rgba(255,27,106,.20), transparent 30%),
+        linear-gradient(135deg,var(--bg1),var(--bg2));
+      padding:22px;
+    }
+
+    .wrap{max-width:1300px;margin:0 auto}
+
+    .hero{
+      background:linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      border:1px solid var(--line);
+      border-radius:28px;
+      box-shadow:var(--shadow);
+      padding:24px 24px 18px;
+      margin-bottom:18px;
+      backdrop-filter: blur(10px);
+    }
+
+    .title{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      flex-wrap:wrap;
+      margin-bottom:8px;
+    }
+
+    .title h1{
+      margin:0;
+      font-size:clamp(1.8rem, 4vw, 3rem);
+      line-height:1.08;
+    }
+
+    .badge{
+      display:inline-block;
+      padding:6px 12px;
+      border-radius:999px;
+      background:linear-gradient(135deg,#a300ff,#ff2d6f);
+      font-weight:800;
+      font-size:.92rem;
+      box-shadow:0 8px 20px rgba(0,0,0,.2);
+    }
+
+    .subtitle{
+      color:var(--muted);
+      font-size:1rem;
+      margin-top:6px;
+      line-height:1.55;
+    }
+
+    .layout{
+      display:grid;
+      grid-template-columns:390px 1fr;
+      gap:18px;
+      align-items:start;
+    }
+
+    @media (max-width:1020px){
+      .layout{grid-template-columns:1fr}
+    }
+
+    .panel{
+      background:linear-gradient(180deg,var(--card),var(--card2));
+      border:1px solid var(--line);
+      border-radius:24px;
+      box-shadow:var(--shadow);
+      padding:18px;
+      backdrop-filter:blur(10px);
+    }
+
+    .panel h2{
+      margin:0 0 12px;
+      font-size:1.15rem;
+    }
+
+    .form-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .form-grid .full{grid-column:1 / -1}
+
+    label{
+      display:block;
+      font-size:.9rem;
+      font-weight:700;
+      color:#f0e8ff;
+      margin-bottom:6px;
+    }
+
+    input, select, button, textarea{
+      width:100%;
+      border:none;
+      outline:none;
+      border-radius:14px;
+      padding:12px 14px;
+      font-size:1rem;
+      background:rgba(255,255,255,.08);
+      color:var(--text);
+      border:1px solid rgba(255,255,255,.12);
+    }
+
+    input::placeholder,
+    textarea::placeholder{color:#cbb7eb}
+    select option{color:#111}
+
+    button{
+      cursor:pointer;
+      font-weight:800;
+      transition:.18s transform ease, .18s opacity ease, .18s background ease;
+    }
+
+    button:hover{transform:translateY(-1px)}
+    button:disabled{
+      opacity:.55;
+      cursor:not-allowed;
+      transform:none;
+    }
+
+    .primary{
+      background:linear-gradient(135deg,#9f00ff,#ff296d);
+      color:#fff;
+    }
+
+    .secondary{
+      background:rgba(255,255,255,.09);
+      color:#fff;
+    }
+
+    .danger{
+      background:linear-gradient(135deg,#8b1e3f,#ff4d6d);
+      color:#fff;
+    }
+
+    .btn-row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:14px;
+    }
+
+    .btn-row button{
+      flex:1 1 150px;
+    }
+
+    .table-like{
+      margin-top:14px;
+      border:1px solid var(--line);
+      border-radius:18px;
+      overflow:hidden;
+    }
+
+    .row{
+      display:grid;
+      grid-template-columns:1.2fr .8fr .8fr .8fr .8fr;
+    }
+
+    .row > div{
+      padding:12px 14px;
+      border-bottom:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      font-size:.95rem;
+    }
+
+    .row.head > div{
+      background:rgba(255,255,255,.09);
+      font-weight:900;
+    }
+
+    .row:last-child > div{
+      border-bottom:none;
+    }
+
+    .status-line{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:14px;
+    }
+
+    .status-pill{
+      padding:8px 12px;
+      border-radius:999px;
+      font-weight:800;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.06);
+    }
+
+    .status-good{color:var(--good)}
+    .status-warn{color:var(--warn)}
+    .status-bad{color:var(--bad)}
+
+    .info{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:10px;
+      margin-top:14px;
+    }
+
+    @media (max-width:900px){
+      .info{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+
+    @media (max-width:520px){
+      .info{grid-template-columns:1fr}
+    }
+
+    .box{
+      background:rgba(255,255,255,.05);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:14px;
+    }
+
+    .box .t{
+      color:var(--muted);
+      font-size:.86rem;
+      margin-bottom:6px;
+      font-weight:700;
+    }
+
+    .box .v{
+      font-size:1.18rem;
+      font-weight:900;
+      line-height:1.15;
+    }
+
+    .challenge-area{
+      border:1px solid var(--line);
+      border-radius:22px;
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      padding:18px;
+      min-height:260px;
+    }
+
+    .big-pi{
+      font-size:clamp(2.2rem, 6vw, 4.3rem);
+      font-weight:1000;
+      letter-spacing:.03em;
+      margin-bottom:12px;
+      text-align:center;
+    }
+
+    .memory-note{
+      color:var(--muted);
+      text-align:center;
+      line-height:1.6;
+      margin-bottom:16px;
+    }
+
+    .progress-display{
+      min-height:96px;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:18px;
+      background:rgba(255,255,255,.05);
+      padding:16px;
+      margin-bottom:14px;
+      font-size:1.25rem;
+      line-height:1.9;
+      word-break:break-word;
+    }
+
+    .memory-input{
+      width:100%;
+      min-height:86px;
+      resize:vertical;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.07);
+      color:var(--text);
+      padding:16px;
+      font-size:1.3rem;
+      letter-spacing:.14em;
+      font-weight:900;
+      outline:none;
+      font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    .small-note{
+      margin-top:10px;
+      color:#dccdf7;
+      font-size:.94rem;
+      line-height:1.55;
+    }
+
+    .log{
+      margin-top:14px;
+      padding:12px 14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.05);
+      border:1px solid var(--line);
+      color:#f4ecff;
+      min-height:54px;
+      line-height:1.5;
+    }
+
+    .results{
+      display:none;
+      margin-top:18px;
+    }
+
+    .results.show{display:block}
+
+    .results-grid{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:10px;
+      margin-top:12px;
+    }
+
+    @media (max-width:900px){
+      .results-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+
+    @media (max-width:520px){
+      .results-grid{grid-template-columns:1fr}
+    }
+
+    .secret{
+      margin-top:14px;
+      border-radius:18px;
+      padding:15px;
+      font-weight:900;
+      background:linear-gradient(135deg, rgba(176,0,255,.22), rgba(255,27,106,.18));
+      border:1px solid rgba(255,255,255,.16);
+      display:none;
+    }
+
+    .secret.show{display:block}
+
+    .leaderboard{
+      margin-top:18px;
+    }
+
+    .leaderboard table{
+      width:100%;
+      border-collapse:collapse;
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid var(--line);
+    }
+
+    .leaderboard th,
+    .leaderboard td{
+      padding:11px 12px;
+      text-align:left;
+      border-bottom:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      font-size:.95rem;
+    }
+
+    .leaderboard th{
+      background:rgba(255,255,255,.09);
+      font-weight:900;
+    }
+
+    .leaderboard tr:last-child td{
+      border-bottom:none;
+    }
+
+    .rank{font-weight:1000}
+    .muted{color:var(--muted)}
+
+    .digit{
+      display:inline-block;
+      min-width:.75ch;
+      text-align:center;
+      font-weight:1000;
+      margin:0 1px;
+      border-radius:8px;
+      padding:1px 2px;
+    }
+
+    .d1,.d5,.d9{ color:#c98aff; text-shadow:0 0 10px rgba(201,138,255,.25); }
+    .d4,.d6,.d0{ color:#ff6a8d; text-shadow:0 0 10px rgba(255,106,141,.25); }
+    .d2{ color:#80d0ff; text-shadow:0 0 10px rgba(128,208,255,.22); }
+    .d3{ color:#ffbf69; text-shadow:0 0 10px rgba(255,191,105,.20); }
+    .d7{ color:#6ef3c5; text-shadow:0 0 10px rgba(110,243,197,.20); }
+    .d8{ color:#ffe66d; text-shadow:0 0 10px rgba(255,230,109,.20); }
+
+    .correct{
+      background:rgba(25,255,154,.10);
+    }
+
+    .wrongmark{
+      display:inline-block;
+      margin-left:6px;
+      color:#ff7b95;
+      font-weight:900;
+    }
+
+    .three{ color:#ffbf69; text-shadow:0 0 14px rgba(255,191,105,.25); }
+    .dot{ color:#fff; }
+
+    .foot{
+      margin-top:14px;
+      color:#dccdf7;
+      font-size:.94rem;
+      line-height:1.6;
+    }
+
+    .mono{
+      font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="title">
+        <span class="badge">🟣 Otono Online Challenge</span>
+        <h1>Pi Memory Challenge</h1>
+      </div>
+      <div class="subtitle">
+        This is a <strong>pure memory challenge</strong>. Future digits are never shown.
+        Correctly entered digits appear on screen in colour. The challenge ends automatically after <strong>5 mistakes</strong>.
+      </div>
+    </section>
+
+    <section class="layout">
+      <div class="panel">
+        <h2>Candidate details</h2>
+
+        <div class="form-grid">
+          <div>
+            <label for="centreNumber">Centre number</label>
+            <input id="centreNumber" type="text" value="50749" maxlength="10" />
+          </div>
+
+          <div>
+            <label for="candidateNumber">Candidate number *</label>
+            <input id="candidateNumber" type="text" maxlength="10" placeholder="Required" />
+          </div>
+
+          <div>
+            <label for="surname">Candidate surname</label>
+            <input id="surname" type="text" placeholder="Optional" />
+          </div>
+
+          <div>
+            <label for="forenames">Candidate forename(s)</label>
+            <input id="forenames" type="text" placeholder="Optional" />
+          </div>
+
+          <div class="full">
+            <label for="level">Level</label>
+            <select id="level">
+              <option value="1">Level 1 — Pass 50 / Merit 60 / Distinction 68 / Cap 150</option>
+              <option value="2" selected>Level 2 (recommended) — Pass 66 / Merit 80 / Distinction 90 / Cap 250</option>
+              <option value="3">Level 3 — Pass 100 / Merit 120 / Distinction 135 / Cap 350</option>
+              <option value="4">Level 4 — Pass 200 / Merit 240 / Distinction 270 / Cap 500</option>
+              <option value="5">Level 5 — No cap</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-like">
+          <div class="row head">
+            <div>Level</div><div>Pass</div><div>Merit</div><div>Distinction</div><div>Cap</div>
+          </div>
+          <div class="row"><div>Level 1</div><div>50</div><div>60</div><div>68</div><div>150</div></div>
+          <div class="row"><div>Level 2</div><div>66</div><div>80</div><div>90</div><div>250</div></div>
+          <div class="row"><div>Level 3</div><div>100</div><div>120</div><div>135</div><div>350</div></div>
+          <div class="row"><div>Level 4</div><div>200</div><div>240</div><div>270</div><div>500</div></div>
+          <div class="row"><div>Level 5</div><div>—</div><div>—</div><div>—</div><div>No cap</div></div>
+        </div>
+
+        <div class="btn-row">
+          <button class="primary" id="startBtn">Start challenge</button>
+          <button class="secondary" id="resetBtn">Reset</button>
+          <button class="danger" id="clearBoardBtn">Clear leaderboard</button>
+        </div>
+
+        <div class="foot">
+          Candidates type digits <strong>after the decimal point</strong> only.<br>
+          Example: if they know <span class="mono">3.14159</span>, they type <span class="mono">14159</span>.
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="status-line">
+          <h2 style="margin:0;">Live challenge</h2>
+          <div id="statusPill" class="status-pill status-warn">Not started</div>
+        </div>
+
+        <div class="info">
+          <div class="box">
+            <div class="t">Digits</div>
+            <div class="v" id="digitsBox">0</div>
+          </div>
+          <div class="box">
+            <div class="t">Mistakes</div>
+            <div class="v" id="mistakesBox">0 / 5</div>
+          </div>
+          <div class="box">
+            <div class="t">Otono grade</div>
+            <div class="v" id="gradeBox">—</div>
+          </div>
+          <div class="box">
+            <div class="t">Level</div>
+            <div class="v" id="levelBox">2</div>
+          </div>
+        </div>
+
+        <div class="challenge-area">
+          <div class="big-pi"><span class="three">3</span><span class="dot">.</span></div>
+          <div class="memory-note">
+            Future digits are hidden. Correct digits you type will appear below in colour.
+          </div>
+
+          <div id="progressDisplay" class="progress-display">
+            <span class="three">3</span><span class="dot">.</span>
+          </div>
+
+          <textarea
+            id="memoryInput"
+            class="memory-input"
+            placeholder="Type digits of pi here from memory..."
+            disabled
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+          ></textarea>
+
+          <div class="small-note">
+            The system checks digits as you type. Correct digits are shown in colour. Wrong digits count as mistakes, but the correct hidden digit is not revealed.
+          </div>
+        </div>
+
+        <div id="log" class="log">Waiting to start…</div>
+
+        <div id="results" class="results">
+          <h2 style="margin:18px 0 0;">Result</h2>
+          <div class="results-grid">
+            <div class="box"><div class="t">Digits</div><div class="v" id="resultDigits">0</div></div>
+            <div class="box"><div class="t">Otono grade</div><div class="v" id="resultGrade">—</div></div>
+            <div class="box"><div class="t">Level</div><div class="v" id="resultLevel">—</div></div>
+            <div class="box"><div class="t">Outcome</div><div class="v" id="resultOutcome">—</div></div>
+          </div>
+          <div id="secret314" class="secret">🎉 Secret unlocked: EXACTLY 314 DIGITS!</div>
+        </div>
+
+        <div class="leaderboard">
+          <h2 style="margin:18px 0 10px;">Leaderboard</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Candidate</th>
+                <th>Level</th>
+                <th>Digits</th>
+                <th>Grade</th>
+                <th>Mistakes</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody id="leaderboardBody">
+              <tr><td colspan="7" class="muted">No attempts yet.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const PI_DIGITS =
+      "14159265358979323846264338327950288419716939937510" +
+      "58209749445923078164062862089986280348253421170679" +
+      "82148086513282306647093844609550582231725359408128" +
+      "48111745028410270193852110555964462294895493038196" +
+      "44288109756659334461284756482337867831652712019091" +
+      "45648566923460348610454326648213393607260249141273" +
+      "72458700660631558817488152092096282925409171536436" +
+      "78925903600113305305488204665213841469519415116094" +
+      "33057270365759591953092186117381932611793105118548" +
+      "07446237996274956735188575272489122793818301194912" +
+      "98336733624406566430860213949463952247371907021798" +
+      "60943702770539217176293176752384674818467669405132" +
+      "00056812714526356082778577134275778960917363717872" +
+      "14684409012249534301465495853710507922796892589235" +
+      "42019956112129021960864034418159813629774771309960" +
+      "51870721134999999837297804995105973173281609631859" +
+      "5024459455";
+
+    const LEVELS = {
+      1: { pass:50, merit:60, distinction:68, cap:150, label:"Level 1" },
+      2: { pass:66, merit:80, distinction:90, cap:250, label:"Level 2" },
+      3: { pass:100, merit:120, distinction:135, cap:350, label:"Level 3" },
+      4: { pass:200, merit:240, distinction:270, cap:500, label:"Level 4" },
+      5: { pass:null, merit:null, distinction:null, cap:null, label:"Level 5" }
+    };
+
+    const STORAGE_KEY = "otono_pi_memory_leaderboard_v3";
+
+    const state = {
+      started:false,
+      finished:false,
+      level:"2",
+      correctDigits:0,
+      mistakes:0,
+      checkedLength:0,
+      acceptedDigits:[]
+    };
+
+    const $ = s => document.querySelector(s);
+
+    const centreNumber = $("#centreNumber");
+    const candidateNumber = $("#candidateNumber");
+    const surname = $("#surname");
+    const forenames = $("#forenames");
+    const levelSelect = $("#level");
+    const startBtn = $("#startBtn");
+    const resetBtn = $("#resetBtn");
+    const clearBoardBtn = $("#clearBoardBtn");
+    const memoryInput = $("#memoryInput");
+    const statusPill = $("#statusPill");
+    const digitsBox = $("#digitsBox");
+    const mistakesBox = $("#mistakesBox");
+    const gradeBox = $("#gradeBox");
+    const levelBox = $("#levelBox");
+    const logBox = $("#log");
+    const progressDisplay = $("#progressDisplay");
+    const results = $("#results");
+    const resultDigits = $("#resultDigits");
+    const resultGrade = $("#resultGrade");
+    const resultLevel = $("#resultLevel");
+    const resultOutcome = $("#resultOutcome");
+    const secret314 = $("#secret314");
+    const leaderboardBody = $("#leaderboardBody");
+
+    function escapeHtml(str){
+      return String(str).replace(/[&<>"']/g, ch => ({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#39;"
+      }[ch]));
+    }
+
+    function getDigitClass(ch){
+      if (["1","5","9"].includes(ch)) return "d1";
+      if (["4","6","0"].includes(ch)) return "d4";
+      if (ch === "2") return "d2";
+      if (ch === "3") return "d3";
+      if (ch === "7") return "d7";
+      if (ch === "8") return "d8";
+      return "";
+    }
+
+    function renderProgress(lastWrong=false){
+      let html = `<span class="three">3</span><span class="dot">.</span>`;
+      for(const d of state.acceptedDigits){
+        html += `<span class="digit ${getDigitClass(d)} correct">${escapeHtml(d)}</span>`;
+      }
+      if(lastWrong){
+        html += `<span class="wrongmark">✗</span>`;
+      }
+      progressDisplay.innerHTML = html;
+    }
+
+    function validateStart(){
+      if(!candidateNumber.value.trim()){
+        alert("Candidate number is required.");
+        candidateNumber.focus();
+        return false;
+      }
+      return true;
+    }
+
+    function getThresholds(){
+      return LEVELS[state.level];
+    }
+
+    function getOtonoGrade(digits){
+      const t = getThresholds();
+      if(state.level === "5"){
+        if (digits === 314) return "Pi Secret";
+        if (digits >= 314) return "Legendary Pi";
+        if (digits >= 270) return "Distinction++";
+        if (digits >= 200) return "Distinction+";
+        if (digits >= 150) return "Distinction";
+        if (digits >= 100) return "Merit";
+        if (digits >= 66) return "Pass";
+        return "Unclassified";
+      }
+      if (digits >= t.distinction) return "Distinction";
+      if (digits >= t.merit) return "Merit";
+      if (digits >= t.pass) return "Pass";
+      return "Unclassified";
+    }
+
+    function getOutcome(digits){
+      const t = getThresholds();
+      if(state.level === "5"){
+        if (digits === 314) return "Secret exact result";
+        if (digits >= 314) return "Legendary performance";
+        if (digits >= 150) return "Excellent";
+        if (digits >= 66) return "Completed";
+        return "Keep practising";
+      }
+      if (digits >= t.distinction) return "Distinction achieved";
+      if (digits >= t.merit) return "Merit achieved";
+      if (digits >= t.pass) return "Pass achieved";
+      return "Below pass threshold";
+    }
+
+    function updateBoxes(){
+      digitsBox.textContent = state.correctDigits;
+      mistakesBox.textContent = `${state.mistakes} / 5`;
+      gradeBox.textContent = getOtonoGrade(state.correctDigits);
+      levelBox.textContent = state.level;
+    }
+
+    function setStatus(text, type){
+      statusPill.textContent = text;
+      statusPill.className = "status-pill";
+      if(type === "good") statusPill.classList.add("status-good");
+      else if(type === "bad") statusPill.classList.add("status-bad");
+      else statusPill.classList.add("status-warn");
+    }
+
+    function log(msg){
+      logBox.innerHTML = msg;
+    }
+
+    function sanitizeInput(text){
+      return text.replace(/\D/g, "");
+    }
+
+    function startChallenge(){
+      if(!validateStart()) return;
+
+      state.started = true;
+      state.finished = false;
+      state.level = levelSelect.value;
+      state.correctDigits = 0;
+      state.mistakes = 0;
+      state.checkedLength = 0;
+      state.acceptedDigits = [];
+
+      memoryInput.value = "";
+      memoryInput.disabled = false;
+      memoryInput.focus();
+
+      results.classList.remove("show");
+      secret314.classList.remove("show");
+
+      setStatus("In progress", "good");
+      updateBoxes();
+      renderProgress(false);
+      log(`Challenge started for candidate <strong>${escapeHtml(candidateNumber.value.trim())}</strong>. Type digits from memory only.`);
+    }
+
+    function resetChallenge(){
+      state.started = false;
+      state.finished = false;
+      state.level = levelSelect.value;
+      state.correctDigits = 0;
+      state.mistakes = 0;
+      state.checkedLength = 0;
+      state.acceptedDigits = [];
+
+      memoryInput.value = "";
+      memoryInput.disabled = true;
+
+      results.classList.remove("show");
+      secret314.classList.remove("show");
+
+      setStatus("Not started", "warn");
+      updateBoxes();
+      renderProgress(false);
+      log("Waiting to start…");
+    }
+
+    function finishChallenge(reason){
+      state.finished = true;
+      memoryInput.disabled = true;
+
+      const digits = state.correctDigits;
+      const grade = getOtonoGrade(digits);
+      const outcome = getOutcome(digits);
+
+      resultDigits.textContent = digits;
+      resultGrade.textContent = grade;
+      resultLevel.textContent = LEVELS[state.level].label;
+      resultOutcome.textContent = outcome;
+      results.classList.add("show");
+
+      if(digits === 314) secret314.classList.add("show");
+      else secret314.classList.remove("show");
+
+      saveAttempt({
+        dateISO: new Date().toISOString(),
+        dateText: new Date().toLocaleString(),
+        centreNumber: centreNumber.value.trim(),
+        candidateNumber: candidateNumber.value.trim(),
+        surname: surname.value.trim(),
+        forenames: forenames.value.trim(),
+        level: LEVELS[state.level].label,
+        levelNum: Number(state.level),
+        digits,
+        grade,
+        outcome,
+        mistakes: state.mistakes
+      });
+
+      renderLeaderboard();
+
+      const passLine = getThresholds().pass ?? 66;
+      setStatus("Finished", digits >= passLine ? "good" : "bad");
+      log(`🏁 ${escapeHtml(reason)}`);
+      updateBoxes();
+    }
+
+    function handleTyping(){
+      if(!state.started || state.finished) return;
+
+      const cleaned = sanitizeInput(memoryInput.value);
+      if(cleaned !== memoryInput.value){
+        memoryInput.value = cleaned;
+      }
+
+      if(cleaned.length < state.checkedLength){
+        memoryInput.value = memoryInput.value.slice(0, state.checkedLength);
+        return;
+      }
+
+      let lastWrong = false;
+
+      while(state.checkedLength < cleaned.length && !state.finished){
+        const index = state.checkedLength;
+        const typed = cleaned[index];
+        const expected = PI_DIGITS[index];
+
+        if(!expected){
+          finishChallenge("Stored pi digit bank exhausted.");
+          return;
+        }
+
+        if(typed === expected){
+          state.correctDigits++;
+          state.acceptedDigits.push(typed);
+          lastWrong = false;
+        } else {
+          state.mistakes++;
+          lastWrong = true;
+        }
+
+        state.checkedLength++;
+
+        const cap = getThresholds().cap;
+        if(cap !== null && state.correctDigits >= cap){
+          renderProgress(lastWrong);
+          finishChallenge(`Cap reached for ${escapeHtml(getThresholds().label)}.`);
+          return;
+        }
+
+        if(state.mistakes >= 5){
+          renderProgress(lastWrong);
+          finishChallenge("5 mistakes reached. Score awarded automatically.");
+          return;
+        }
+      }
+
+      renderProgress(lastWrong);
+      updateBoxes();
+      log(`Checked: <strong>${state.checkedLength}</strong> typed digits. Correct digits: <strong>${state.correctDigits}</strong>. Mistakes: <strong>${state.mistakes}</strong>/5.`);
+    }
+
+    function saveAttempt(attempt){
+      const arr = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+      arr.push(attempt);
+      arr.sort((a,b) => {
+        if (b.digits !== a.digits) return b.digits - a.digits;
+        if (a.mistakes !== b.mistakes) return a.mistakes - b.mistakes;
+        if (a.levelNum !== b.levelNum) return b.levelNum - a.levelNum;
+        return new Date(b.dateISO) - new Date(a.dateISO);
+      });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(arr.slice(0, 50)));
+    }
+
+    function getDisplayName(item){
+      const name = `${item.forenames || ""} ${item.surname || ""}`.trim();
+      if(name) return `${name} (${item.candidateNumber})`;
+      return `Candidate ${item.candidateNumber}`;
+    }
+
+    function renderLeaderboard(){
+      const arr = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+      if(!arr.length){
+        leaderboardBody.innerHTML = `<tr><td colspan="7" class="muted">No attempts yet.</td></tr>`;
+        return;
+      }
+
+      leaderboardBody.innerHTML = arr.map((item, i) => `
+        <tr>
+          <td class="rank">${i + 1}</td>
+          <td>${escapeHtml(getDisplayName(item))}</td>
+          <td>${escapeHtml(item.level)}</td>
+          <td><strong>${item.digits}</strong></td>
+          <td>${escapeHtml(item.grade)}</td>
+          <td>${item.mistakes}</td>
+          <td>${escapeHtml(item.dateText)}</td>
+        </tr>
+      `).join("");
+    }
+
+    function clearLeaderboard(){
+      const ok = confirm("Clear the whole leaderboard?");
+      if(!ok) return;
+      localStorage.removeItem(STORAGE_KEY);
+      renderLeaderboard();
+    }
+
+    startBtn.addEventListener("click", startChallenge);
+    resetBtn.addEventListener("click", resetChallenge);
+    clearBoardBtn.addEventListener("click", clearLeaderboard);
+    levelSelect.addEventListener("change", () => {
+      state.level = levelSelect.value;
+      updateBoxes();
+    });
+    memoryInput.addEventListener("input", handleTyping);
+
+    renderLeaderboard();
+    resetChallenge();
+  </script>
+</body>
+</html>
