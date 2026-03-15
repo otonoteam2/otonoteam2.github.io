@@ -1,0 +1,1529 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>🟣 Otono GCSE Biology — Randomised Auto-Marked Set</title>
+  <style>
+    :root{
+      --bg1:#2b0a3d; --bg2:#7a0036;
+      --card:#0f0b18cc; --card2:#120c22e6;
+      --text:#f4efff; --muted:#c9b9ff;
+      --accent:#b000ff; --accent2:#ff1b6a;
+      --good:#19ff9a; --warn:#ffd166; --bad:#ff4d6d;
+      --line:rgba(255,255,255,.12);
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:var(--sans); color:var(--text);
+      background:
+        radial-gradient(1000px 700px at 15% 10%, rgba(176,0,255,.22), transparent 60%),
+        radial-gradient(900px 650px at 80% 20%, rgba(255,27,106,.18), transparent 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+    }
+    .wrap{max-width:1150px; margin:0 auto; padding:22px;}
+    .topbar{
+      display:flex; gap:14px; align-items:center; justify-content:space-between;
+      padding:14px 16px; border:1px solid var(--line); border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      box-shadow:var(--shadow);
+      position:sticky; top:14px; z-index:20; backdrop-filter: blur(10px);
+    }
+    .brand{display:flex; flex-direction:column; gap:2px}
+    .brand h1{margin:0; font-size:16px; letter-spacing:.3px}
+    .brand .sub{font-size:12px; color:var(--muted)}
+    .pill{
+      padding:8px 10px; border-radius:999px; border:1px solid var(--line);
+      background:rgba(0,0,0,.25); font-family:var(--mono); font-size:12px;
+      display:flex; gap:10px; align-items:center;
+    }
+    .pill strong{color:#fff}
+    .btn{
+      border:1px solid var(--line); background:rgba(0,0,0,.25);
+      color:var(--text); padding:10px 12px; border-radius:14px; cursor:pointer;
+      transition:.15s transform, .15s background, .15s border;
+      font-weight:600;
+    }
+    .btn:hover{transform:translateY(-1px); background:rgba(0,0,0,.33); border-color:rgba(255,255,255,.22)}
+    .btn.primary{
+      background:linear-gradient(135deg, rgba(176,0,255,.55), rgba(255,27,106,.45));
+      border-color:rgba(255,255,255,.22);
+    }
+    .btn.danger{background:rgba(255,77,109,.18); border-color:rgba(255,77,109,.35)}
+    .grid{display:grid; grid-template-columns: 1.12fr .88fr; gap:16px; margin-top:16px;}
+    @media (max-width: 980px){ .grid{grid-template-columns:1fr} .topbar{position:static} }
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .card .hd{
+      padding:14px 16px; border-bottom:1px solid var(--line);
+      display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
+      background:linear-gradient(180deg, rgba(255,255,255,.06), transparent);
+    }
+    .card .hd h2{margin:0; font-size:14px}
+    .card .hd .meta{font-size:12px; color:var(--muted); line-height:1.25}
+    .card .bd{padding:16px}
+    label{display:block; font-size:12px; color:var(--muted); margin:10px 0 6px}
+    input[type="text"], input[type="number"], textarea, select{
+      width:100%; border:1px solid var(--line); background:rgba(0,0,0,.25);
+      color:var(--text); padding:10px 12px; border-radius:14px; outline:none;
+      font-family:var(--sans);
+    }
+    textarea{min-height:110px; resize:vertical; line-height:1.5}
+    .row{display:flex; gap:10px; flex-wrap:wrap}
+    .row > div{flex:1 1 180px}
+    .note{
+      font-size:12px; color:var(--muted); line-height:1.45;
+      padding:10px 12px; border-radius:14px; border:1px dashed rgba(255,255,255,.18);
+      background:rgba(0,0,0,.18);
+    }
+    .badge{
+      font-family:var(--mono); font-size:12px; padding:6px 10px; border-radius:999px;
+      border:1px solid var(--line); background:rgba(0,0,0,.20);
+      display:inline-flex; align-items:center; gap:6px;
+    }
+    .badge.good{border-color:rgba(25,255,154,.35); background:rgba(25,255,154,.12)}
+    .badge.warn{border-color:rgba(255,209,102,.35); background:rgba(255,209,102,.12)}
+    .badge.bad{border-color:rgba(255,77,109,.35); background:rgba(255,77,109,.12)}
+    .divider{height:1px; background:var(--line); margin:14px 0}
+    .task{
+      padding:12px 14px; border:1px solid var(--line); border-radius:16px;
+      background:rgba(0,0,0,.22); margin-bottom:12px;
+    }
+    .task h3{margin:0 0 8px; font-size:13px}
+    .bullets{margin:10px 0 0; padding-left:18px; color:var(--muted); font-size:12px}
+    .kpi{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
+    @media (max-width: 980px){ .kpi{grid-template-columns:repeat(2,1fr)} }
+    .kpi .box{
+      border:1px solid var(--line); border-radius:16px; padding:10px 12px;
+      background:rgba(0,0,0,.22);
+    }
+    .kpi .box .t{font-size:12px; color:var(--muted)}
+    .kpi .box .v{font-size:18px; font-weight:800; margin-top:4px}
+    .small{font-size:12px; color:var(--muted)}
+    .tabs{display:flex; gap:8px; flex-wrap:wrap}
+    .tab{padding:10px 12px; border-radius:14px; border:1px solid var(--line); background:rgba(0,0,0,.22); cursor:pointer; font-weight:700}
+    .tab.active{background:linear-gradient(135deg, rgba(176,0,255,.35), rgba(255,27,106,.22)); border-color:rgba(255,255,255,.22)}
+    .resultsList{display:grid; gap:10px}
+    .attempt{
+      border:1px solid var(--line); border-radius:16px; padding:12px 14px;
+      background:rgba(0,0,0,.20);
+    }
+    .attempt .top{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap}
+    .attempt .top strong{font-family:var(--mono)}
+    .attempt .meta{font-size:12px; color:var(--muted); margin-top:6px; line-height:1.45}
+    .copy{font-family:var(--mono); font-size:12px; white-space:pre-wrap; word-break:break-word}
+    .hide{display:none !important}
+    .mcChoice{
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.03);
+      padding:10px 12px; border-radius:14px; margin-top:8px;
+    }
+    .qTitle{font-weight:700; margin-bottom:6px}
+    .chips{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px}
+    .chip{
+      font-size:11px; padding:6px 10px; border-radius:999px;
+      border:1px solid var(--line); background:rgba(255,255,255,.06);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <h1>🟣 Otono GCSE Biology • B1–B4 • Randomised Auto-Marked Set</h1>
+        <div class="sub">Foundation + Higher • Topics: B1 Cell Biology, B2 Organisation, B3 Infection and Response, B4 Bioenergetics • Centre: <strong>50749</strong></div>
+      </div>
+      <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end">
+        <div class="pill">
+          <span>⏱️ Timer:</span>
+          <strong id="timerText">--:--</strong>
+        </div>
+        <button class="btn" id="btnResults">Results</button>
+        <button class="btn primary" id="btnHome">Test</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card" id="panelHome">
+        <div class="hd">
+          <div>
+            <h2>Candidate setup</h2>
+            <div class="meta">
+              Biology-only set using B1–B4. The questions are randomised, but the grading system stays the same.
+            </div>
+          </div>
+          <span class="badge" id="statusBadge">Ready</span>
+        </div>
+
+        <div class="bd" id="homeBody">
+          <div class="row">
+            <div>
+              <label>Centre number (fixed)</label>
+              <input type="text" value="50749" disabled />
+            </div>
+            <div>
+              <label>Candidate number (required)</label>
+              <input type="number" id="candidateNo" placeholder="e.g. 1105" min="1" />
+            </div>
+            <div>
+              <label>Candidate name (optional)</label>
+              <input type="text" id="candidateName" placeholder="Name" />
+            </div>
+          </div>
+
+          <div class="row" style="margin-top:6px">
+            <div>
+              <label>Tier</label>
+              <select id="tier">
+                <option value="foundation">Foundation Tier (grade 1–5, capped)</option>
+                <option value="higher">Higher Tier (grade 4–9, allow 3)</option>
+              </select>
+            </div>
+
+            <div>
+              <label>Time allowed</label>
+              <select id="timeAllowed"></select>
+              <div class="small" id="timeNote" style="margin-top:6px"></div>
+            </div>
+
+            <div>
+              <label>On timer end</label>
+              <select id="autoSubmit">
+                <option value="yes" selected>Auto-submit</option>
+                <option value="no">Do not auto-submit</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>How marking works:</strong><br/>
+            • Multiple choice and gap-fill are exact-marked.<br/>
+            • Short and long answers are marked by <strong>keyword coverage</strong>, <strong>relevance</strong>, and <strong>scientific structure</strong>.<br/>
+            • Writing random biology words without answering the question will score badly because the mark depends on the required points.
+          </div>
+
+          <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap">
+            <button class="btn" id="btnPreview">Preview random selection</button>
+            <button class="btn primary" id="btnStart">Start random paper</button>
+          </div>
+
+          <div id="previewBox" class="note hide" style="margin-top:12px"></div>
+        </div>
+
+        <div class="bd hide" id="testBody">
+          <div class="kpi">
+            <div class="box"><div class="t">Candidate</div><div class="v" id="kpiCandidate">—</div></div>
+            <div class="box"><div class="t">Tier</div><div class="v" id="kpiTier">—</div></div>
+            <div class="box"><div class="t">Max score</div><div class="v" id="kpiMax">—</div></div>
+            <div class="box"><div class="t">Topics</div><div class="v" id="kpiTopics">B1–B4</div></div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note" id="paperInfo"></div>
+          <div id="paper"></div>
+
+          <div class="divider"></div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap">
+            <button class="btn primary" id="btnSubmit">Submit & Auto-Mark</button>
+            <button class="btn" id="btnReset">Reset (new random paper)</button>
+          </div>
+
+          <div id="markingBox" class="hide" style="margin-top:14px"></div>
+        </div>
+      </div>
+
+      <div class="card" id="panelSide">
+        <div class="hd">
+          <div>
+            <h2 id="sideTitle">Grading rules</h2>
+            <div class="meta" id="sideMeta">Pass/Merit/Distinction stays the same regardless of 9–1 grade.</div>
+          </div>
+        </div>
+
+        <div class="bd" id="sideBody">
+          <div class="note">
+            <strong>Pass / Merit / Distinction (always)</strong><br/>
+            PASS: 66+<br/>
+            MERIT: 80+<br/>
+            DISTINCTION: 90+
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>9–1 system</strong><br/>
+            Higher tier: grade 4–9 (allowed grade 3)<br/>
+            Foundation tier: grade 1–5 (capped)
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>A–H system</strong><br/>
+            <u>Higher tier</u> (A*–E + allowed F; no G/H):<br/>
+            A*: 95+ • A: 90+ • B: 80+ • C: 66+ • D: 55+ • E: 45+ • F: 40+ • below 40 = U<br/><br/>
+            <u>Foundation tier</u> (capped at C; G/H appear):<br/>
+            C: 75+ • D: 66+ • E: 50+ • F: 40+ • G: 30+ • H: 20+ • below 20 = U
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>Included topics</strong><br/>
+            • B1 Cell Biology<br/>
+            • B2 Organisation<br/>
+            • B3 Infection and Response<br/>
+            • B4 Bioenergetics
+          </div>
+
+          <div class="divider"></div>
+          <div class="small">Results are saved locally on this browser (localStorage).</div>
+        </div>
+
+        <div class="bd hide" id="resultsBody">
+          <div class="tabs">
+            <div class="tab active" id="tabAll">All attempts</div>
+            <div class="tab" id="tabCandidate">By candidate</div>
+          </div>
+
+          <div class="row" style="margin-top:10px">
+            <div>
+              <label>Filter candidate number</label>
+              <input type="number" id="filterCandidate" placeholder="e.g. 1152" min="1" />
+            </div>
+            <div>
+              <label>Actions</label>
+              <div style="display:flex; gap:10px; flex-wrap:wrap">
+                <button class="btn" id="btnExport">Export JSON</button>
+                <button class="btn danger" id="btnClear">Clear stored results</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+          <div class="resultsList" id="resultsList"></div>
+
+          <div id="exportBox" class="note hide" style="margin-top:12px">
+            <div><strong>Exported JSON</strong> (copy/save it):</div>
+            <div class="divider"></div>
+            <div class="copy" id="exportText"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* =========================================================
+   HELPERS
+========================================================= */
+const $ = (sel) => document.querySelector(sel);
+function escapeHtml(str){
+  return (str ?? "").toString()
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+}
+function nowISO(){ return new Date().toISOString(); }
+function norm(s){
+  return (s ?? "")
+    .toString().toLowerCase()
+    .replace(/[^a-z0-9\s\-]/g," ")
+    .replace(/\s+/g," ")
+    .trim();
+}
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+function pickRandom(arr, n){ return shuffle(arr).slice(0,n); }
+function wordCount(text){
+  const t = (text ?? "").trim();
+  if(!t) return 0;
+  return t.split(/\s+/).filter(Boolean).length;
+}
+function clamp(x,a,b){ return Math.max(a, Math.min(b, x)); }
+function setBadge(text, cls="badge"){ const b=$("#statusBadge"); b.className=cls; b.textContent=text; }
+function containsAny(textNorm, phrases){ return phrases.some(p => textNorm.includes(norm(p))); }
+function countKeywordGroups(text, groups){
+  let hits = 0;
+  groups.forEach(g=>{
+    const arr = Array.isArray(g) ? g : [g];
+    if(arr.some(x => text.includes(norm(x)))) hits++;
+  });
+  return hits;
+}
+
+/* =========================================================
+   TIMER
+========================================================= */
+let timer = null;
+let remainingSec = 0;
+function stopTimer(){ if(timer){ clearInterval(timer); timer=null; } }
+function startTimer(minutes, onEnd){
+  stopTimer();
+  remainingSec = Math.max(1, Math.floor(minutes*60));
+  const tick = () => {
+    const m = Math.floor(remainingSec/60);
+    const s = remainingSec%60;
+    $("#timerText").textContent = `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+    remainingSec--;
+    if(remainingSec < 0){
+      stopTimer();
+      onEnd?.();
+    }
+  };
+  tick();
+  timer = setInterval(tick, 1000);
+}
+
+/* =========================================================
+   STORAGE
+========================================================= */
+const STORE_KEY = "otono_biology_gcse_b1_b4_results_v1";
+function loadResults(){
+  try{ return JSON.parse(localStorage.getItem(STORE_KEY) || "[]"); }
+  catch(e){ return []; }
+}
+function saveResults(list){ localStorage.setItem(STORE_KEY, JSON.stringify(list)); }
+function addResult(attempt){
+  const list = loadResults();
+  list.unshift(attempt);
+  saveResults(list);
+}
+
+/* =========================================================
+   GRADING (KEEP ORIGINAL BOUNDARIES)
+========================================================= */
+function passMeritDistinction(score){
+  if(score >= 90) return "DISTINCTION";
+  if(score >= 80) return "MERIT";
+  if(score >= 66) return "PASS";
+  return "FAIL";
+}
+function grade9to1(score, tier){
+  if(tier==="foundation"){
+    if(score >= 90) return 5;
+    if(score >= 80) return 5;
+    if(score >= 70) return 4;
+    if(score >= 60) return 4;
+    if(score >= 50) return 3;
+    if(score >= 40) return 2;
+    if(score >= 20) return 1;
+    return "U";
+  }else{
+    if(score >= 90) return 9;
+    if(score >= 80) return 8;
+    if(score >= 70) return 7;
+    if(score >= 60) return 6;
+    if(score >= 50) return 5;
+    if(score >= 40) return 4;
+    if(score >= 35) return 3;
+    return "U";
+  }
+}
+function gradeAH(score, tier){
+  if(tier==="higher"){
+    if(score >= 95) return "A*";
+    if(score >= 90) return "A";
+    if(score >= 80) return "B";
+    if(score >= 66) return "C";
+    if(score >= 55) return "D";
+    if(score >= 45) return "E";
+    if(score >= 40) return "F";
+    return "U";
+  }else{
+    if(score >= 75) return "C";
+    if(score >= 66) return "D";
+    if(score >= 50) return "E";
+    if(score >= 40) return "F";
+    if(score >= 30) return "G";
+    if(score >= 20) return "H";
+    return "U";
+  }
+}
+function badgeForScore(score){
+  if(score >= 90) return ["badge good","🏆 Excellent"];
+  if(score >= 80) return ["badge good","⭐ Strong"];
+  if(score >= 66) return ["badge warn","✅ Pass"];
+  return ["badge bad","❌ Below pass"];
+}
+
+/* =========================================================
+   BIOLOGY CONTENT
+========================================================= */
+const TOPIC_LABELS = {
+  B1:"B1 Cell Biology",
+  B2:"B2 Organisation",
+  B3:"B3 Infection and Response",
+  B4:"B4 Bioenergetics"
+};
+
+const FOUNDATION_MCQS = [
+  {
+    topic:"B1",
+    stem:"What structure controls the activities of a cell?",
+    options:["Cell membrane","Nucleus","Cytoplasm","Ribosome"],
+    answer:1
+  },
+  {
+    topic:"B1",
+    stem:"Which cell is adapted to absorb water and mineral ions from the soil?",
+    options:["Red blood cell","Root hair cell","Sperm cell","Nerve cell"],
+    answer:1
+  },
+  {
+    topic:"B1",
+    stem:"Diffusion is the movement of particles from...",
+    options:["Low concentration to high concentration","High concentration to low concentration","Inside the nucleus only","A solid to a liquid only"],
+    answer:1
+  },
+  {
+    topic:"B2",
+    stem:"Which organ produces bile?",
+    options:["Pancreas","Stomach","Liver","Small intestine"],
+    answer:2
+  },
+  {
+    topic:"B2",
+    stem:"The heart is mainly made of which type of tissue?",
+    options:["Muscular tissue","Glandular tissue","Epithelial tissue","Meristem tissue"],
+    answer:0
+  },
+  {
+    topic:"B2",
+    stem:"Enzymes work best at a particular...",
+    options:["Mass","Volume","Optimum temperature","Blood group"],
+    answer:2
+  },
+  {
+    topic:"B3",
+    stem:"A pathogen is...",
+    options:["A vitamin","A disease-causing microorganism","A white blood cell","A medicine"],
+    answer:1
+  },
+  {
+    topic:"B3",
+    stem:"Vaccination helps protect people by...",
+    options:["Killing all bacteria instantly","Making the body produce antibodies","Stopping all mutations","Removing red blood cells"],
+    answer:1
+  },
+  {
+    topic:"B3",
+    stem:"Measles is caused by a...",
+    options:["Fungus","Bacterium","Virus","Protist"],
+    answer:2
+  },
+  {
+    topic:"B4",
+    stem:"Photosynthesis takes place mainly in the...",
+    options:["Mitochondria","Chloroplasts","Nucleus","Vacuole"],
+    answer:1
+  },
+  {
+    topic:"B4",
+    stem:"The word equation for photosynthesis includes carbon dioxide and...",
+    options:["Oxygen","Glucose","Lactic acid","Protein"],
+    answer:1
+  },
+  {
+    topic:"B4",
+    stem:"Aerobic respiration releases energy from glucose using...",
+    options:["Nitrogen","Oxygen","Light","Chlorophyll"],
+    answer:1
+  }
+];
+
+const FOUNDATION_GAPS = [
+  { topic:"B1", prompt:"Diffusion happens from a ______ concentration to a low concentration.", answer:"high", alt:["higher"] },
+  { topic:"B1", prompt:"The ______ controls the movement of substances in and out of the cell.", answer:"cell membrane", alt:["membrane"] },
+  { topic:"B2", prompt:"Bile is made in the ______.", answer:"liver", alt:[] },
+  { topic:"B2", prompt:"Enzymes are biological ______.", answer:"catalysts", alt:["catalyst"] },
+  { topic:"B3", prompt:"White blood cells can produce ______ to destroy pathogens.", answer:"antibodies", alt:["antibody"] },
+  { topic:"B3", prompt:"Antibiotics do not kill ______.", answer:"viruses", alt:["virus"] },
+  { topic:"B4", prompt:"Photosynthesis needs light, water and carbon ______.", answer:"dioxide", alt:[] },
+  { topic:"B4", prompt:"Respiration happens in structures called ______.", answer:"mitochondria", alt:["mitochondrion"] }
+];
+
+const FOUNDATION_SHORT = [
+  {
+    topic:"B1",
+    title:"B1 Cell Biology — Microscopy and cells",
+    marks:20,
+    bullets:[
+      "State one difference between a bacterial cell and an animal cell.",
+      "Name one cell part found in both plant and animal cells.",
+      "Explain why specialised cells are useful in multicellular organisms.",
+      "Give one adaptation of a sperm cell or a root hair cell."
+    ],
+    groups:[
+      [["bacteria","bacterial"],["no nucleus","lack nucleus","does not have nucleus","doesn't have nucleus","circular dna","plasmid","cell wall"]],
+      [["nucleus","cell membrane","cytoplasm","mitochondria","ribosomes"]],
+      [["specialised","different function","specific function","job","role","efficient"]],
+      [["tail","mitochondria","enzyme","large surface area","root hair","absorbs","absorb","streamlined"]]
+    ]
+  },
+  {
+    topic:"B2",
+    title:"B2 Organisation — Digestive system and enzymes",
+    marks:20,
+    bullets:[
+      "Name one organ in the digestive system.",
+      "State the job of an enzyme.",
+      "Explain why enzymes can stop working at high temperatures.",
+      "State one reason bile helps digestion."
+    ],
+    groups:[
+      [["stomach","small intestine","large intestine","liver","pancreas","mouth"]],
+      [["catalyst","speed up","speeds up","reaction"]],
+      [["denature","denatured","active site changes","shape changes"]],
+      [["neutralises acid","neutralizes acid","alkaline","increases ph","emulsifies fat","larger surface area"]]
+    ]
+  },
+  {
+    topic:"B3",
+    title:"B3 Infection and Response — Defending the body",
+    marks:20,
+    bullets:[
+      "Name one type of pathogen.",
+      "State one body defence against pathogens.",
+      "Explain how white blood cells protect the body.",
+      "State one advantage of vaccination."
+    ],
+    groups:[
+      [["bacteria","virus","fungus","protist"]],
+      [["skin","mucus","cilia","hydrochloric acid","stomach acid"]],
+      [["antibodies","antitoxins","engulf","phagocytosis","destroy pathogens"]],
+      [["memory cells","immunity","protects population","prevents disease","fewer infections"]]
+    ]
+  },
+  {
+    topic:"B4",
+    title:"B4 Bioenergetics — Photosynthesis and respiration",
+    marks:20,
+    bullets:[
+      "Write one raw material needed for photosynthesis.",
+      "Name the organelle where photosynthesis happens.",
+      "Explain why plants need respiration as well as photosynthesis.",
+      "State one factor that can limit the rate of photosynthesis."
+    ],
+    groups:[
+      [["water","carbon dioxide"]],
+      [["chloroplast","chloroplasts"]],
+      [["release energy","energy for processes","growth","active transport","respiration"]],
+      [["light","temperature","carbon dioxide","chlorophyll"]]
+    ]
+  }
+];
+
+const FOUNDATION_LONG = [
+  {
+    topic:"B1",
+    title:"B1 6-mark — Explain how substances move into and out of cells",
+    marks:30,
+    minWords:60,
+    bullets:[
+      "Include diffusion or osmosis.",
+      "Give one example involving cells.",
+      "Explain the direction of movement.",
+      "Use scientific vocabulary clearly."
+    ],
+    groups:[
+      [["diffusion","osmosis","active transport"]],
+      [["root hair","alveoli","red blood cell","small intestine","cell membrane"]],
+      [["high concentration to low concentration","down concentration gradient","water potential","partially permeable","against concentration gradient"]],
+      [["particles","molecules","membrane","energy","water"]]
+    ]
+  },
+  {
+    topic:"B2",
+    title:"B2 6-mark — Explain how the digestive system breaks down food",
+    marks:30,
+    minWords:60,
+    bullets:[
+      "Mention at least two organs.",
+      "Include enzymes.",
+      "Explain one role of bile.",
+      "Show the idea of absorption."
+    ],
+    groups:[
+      [["mouth","stomach","small intestine","liver","pancreas"]],
+      [["enzyme","enzymes","amylase","protease","lipase"]],
+      [["neutralise acid","neutralize acid","alkaline","emulsify fat","surface area"]],
+      [["absorb","absorption","villi","bloodstream"]]
+    ]
+  },
+  {
+    topic:"B3",
+    title:"B3 6-mark — Explain how vaccinations help prevent disease",
+    marks:30,
+    minWords:60,
+    bullets:[
+      "Mention dead/inactive pathogen or antigen.",
+      "Explain antibody production.",
+      "Explain memory cells or future response.",
+      "Link to protection/immunity."
+    ],
+    groups:[
+      [["dead pathogen","inactive pathogen","weakened pathogen","antigen"]],
+      [["antibodies","produce antibodies"]],
+      [["memory cells","respond faster","quick response","secondary response"]],
+      [["immunity","immune","protected","less likely to get disease"]]
+    ]
+  },
+  {
+    topic:"B4",
+    title:"B4 6-mark — Explain the importance of photosynthesis",
+    marks:30,
+    minWords:60,
+    bullets:[
+      "Mention glucose production.",
+      "Link to biomass or food chains.",
+      "Mention oxygen.",
+      "Use at least one limiting factor or condition."
+    ],
+    groups:[
+      [["glucose"]],
+      [["biomass","food chains","food chain","stored","starch"]],
+      [["oxygen"]],
+      [["light","temperature","carbon dioxide","chlorophyll"]]
+    ]
+  }
+];
+
+const HIGHER_SHORT = [
+  {
+    topic:"B1",
+    title:"B1 Higher — Cell transport and microscopy",
+    marks:20,
+    bullets:[
+      "Compare diffusion and active transport.",
+      "State why active transport needs energy.",
+      "Give one example of active transport in plants or humans.",
+      "Explain how magnification is calculated."
+    ],
+    groups:[
+      [["diffusion","high to low","down concentration gradient"],["active transport","low to high","against concentration gradient"]],
+      [["energy","respiration","mitochondria"]],
+      [["root hair","small intestine","gut"]],
+      [["magnification","image size divided by actual size","image size / actual size"]]
+    ]
+  },
+  {
+    topic:"B2",
+    title:"B2 Higher — The heart and circulation",
+    marks:20,
+    bullets:[
+      "State the function of the coronary arteries.",
+      "Explain one cause of coronary heart disease.",
+      "Name one treatment.",
+      "Explain one risk or benefit of the treatment."
+    ],
+    groups:[
+      [["coronary arteries","blood to heart muscle","oxygen to heart muscle"]],
+      [["fatty deposits","plaque","narrowing","reduced blood flow"]],
+      [["stent","statins","bypass","transplant"]],
+      [["risk","benefit","recovery","blood clots","infection","long lasting","reblocks less"]]
+    ]
+  },
+  {
+    topic:"B3",
+    title:"B3 Higher — Monoclonal antibodies",
+    marks:20,
+    bullets:[
+      "State what monoclonal antibodies are.",
+      "Explain how they can target specific molecules.",
+      "Give one medical use.",
+      "State one limitation or risk."
+    ],
+    groups:[
+      [["identical antibodies","clone","single type of antibody"]],
+      [["specific","complementary","bind to antigen"]],
+      [["pregnancy test","pregnancy tests","diagnosis","detect","treat cancer","drug delivery"]],
+      [["side effects","not always successful","cost","risk"]]
+    ]
+  },
+  {
+    topic:"B4",
+    title:"B4 Higher — Limiting factors in photosynthesis",
+    marks:20,
+    bullets:[
+      "Name two limiting factors.",
+      "Explain why a factor can stop being limiting.",
+      "Describe the effect of temperature on enzymes in photosynthesis.",
+      "Use scientific detail."
+    ],
+    groups:[
+      [["light","carbon dioxide","temperature","chlorophyll"]],
+      [["another factor becomes limiting","levels off","plateau"]],
+      [["optimum","increase then decrease","denature","enzyme"]],
+      [["rate","photosynthesis","reaction"]]
+    ]
+  }
+];
+
+const HIGHER_LONG = [
+  {
+    topic:"B1",
+    title:"B1 9-mark — Evaluate exchange surfaces in humans and plants",
+    marks:30,
+    minWords:90,
+    bullets:[
+      "Explain features of good exchange surfaces.",
+      "Include alveoli or villi and one plant example.",
+      "Link structure to function.",
+      "Use detailed biological vocabulary."
+    ],
+    groups:[
+      [["large surface area","thin membrane","short diffusion distance","good blood supply","ventilation"]],
+      [["alveoli","villi","root hair"]],
+      [["faster diffusion","efficient exchange","absorption"]],
+      [["oxygen","carbon dioxide","glucose","water","minerals"]]
+    ]
+  },
+  {
+    topic:"B2",
+    title:"B2 9-mark — Explain how the body is organised from cells to organ systems",
+    marks:30,
+    minWords:90,
+    bullets:[
+      "Describe the hierarchy.",
+      "Give examples at each level.",
+      "Include one animal organ system.",
+      "Link specialisation to function."
+    ],
+    groups:[
+      [["cells","tissues","organs","organ systems","organism"]],
+      [["muscle cell","muscle tissue","heart","circulatory system","stomach","digestive system"]],
+      [["circulatory system","digestive system"]],
+      [["specialised","function","efficient","adapted"]]
+    ]
+  },
+  {
+    topic:"B3",
+    title:"B3 9-mark — Compare antibiotics, painkillers and vaccines",
+    marks:30,
+    minWords:90,
+    bullets:[
+      "Explain what each one does.",
+      "Compare which act on pathogens and which do not.",
+      "Include resistance or prevention.",
+      "Reach a clear scientific comparison."
+    ],
+    groups:[
+      [["antibiotics","kill bacteria","do not kill viruses"]],
+      [["painkillers","reduce symptoms","do not kill pathogens"]],
+      [["vaccines","prevent","immune response","memory cells"]],
+      [["resistance","antibiotic resistant","mrsa","overuse"]]
+    ]
+  },
+  {
+    topic:"B4",
+    title:"B4 9-mark — Explain the relationship between photosynthesis and respiration",
+    marks:30,
+    minWords:90,
+    bullets:[
+      "State what each process does.",
+      "Compare reactants and products.",
+      "Explain why plants need both.",
+      "Use a balanced scientific explanation."
+    ],
+    groups:[
+      [["photosynthesis","respiration"]],
+      [["carbon dioxide","water","glucose","oxygen"]],
+      [["energy","growth","repair","active transport","at night"]],
+      [["chloroplast","mitochondria","aerobic","light"]]
+    ]
+  }
+];
+
+const HIGHER_ESSAY = [
+  {
+    topic:"B1",
+    title:"B1 12-mark — Explain how cell specialisation and transport help organisms survive",
+    marks:50,
+    minWords:140,
+    bullets:[
+      "Use at least two specialised cells.",
+      "Include transport processes.",
+      "Link adaptations to survival.",
+      "Develop your explanation clearly."
+    ],
+    groups:[
+      [["root hair","sperm","nerve","muscle","red blood cell","xylem","phloem"]],
+      [["diffusion","osmosis","active transport"]],
+      [["adaptation","large surface area","many mitochondria","tail","streamlined","thin"]],
+      [["survival","function","efficient","exchange","movement","reproduction"]]
+    ]
+  },
+  {
+    topic:"B2",
+    title:"B2 12-mark — Explain how enzymes and the digestive system work together to supply the body",
+    marks:50,
+    minWords:140,
+    bullets:[
+      "Mention organs and enzymes.",
+      "Explain digestion and absorption.",
+      "Include bile or villi.",
+      "Develop links between structure and function."
+    ],
+    groups:[
+      [["mouth","stomach","small intestine","liver","pancreas"]],
+      [["amylase","protease","lipase","enzyme"]],
+      [["absorption","villi","surface area","bloodstream"]],
+      [["bile","neutralise acid","neutralize acid","emulsify fat"]]
+    ]
+  },
+  {
+    topic:"B3",
+    title:"B3 12-mark — Explain how the body and medicine respond to infection",
+    marks:50,
+    minWords:140,
+    bullets:[
+      "Include body defences.",
+      "Include vaccination or monoclonal antibodies.",
+      "Include antibiotics and limits.",
+      "Develop a balanced explanation."
+    ],
+    groups:[
+      [["skin","mucus","cilia","stomach acid","white blood cells","antibodies","antitoxins","phagocytosis"]],
+      [["vaccination","vaccine","memory cells","monoclonal antibodies"]],
+      [["antibiotics","bacteria","not viruses","resistance"]],
+      [["pathogen","infection","immune response","specific"]]
+    ]
+  },
+  {
+    topic:"B4",
+    title:"B4 12-mark — Explain how plants gain and use energy-rich substances",
+    marks:50,
+    minWords:140,
+    bullets:[
+      "Include photosynthesis.",
+      "Include respiration.",
+      "Include limiting factors.",
+      "Explain why these processes matter to the plant and ecosystem."
+    ],
+    groups:[
+      [["photosynthesis","glucose","chloroplast","light","carbon dioxide","water"]],
+      [["respiration","mitochondria","energy","aerobic"]],
+      [["limiting factor","light","temperature","carbon dioxide","chlorophyll"]],
+      [["biomass","starch","cellulose","protein","food chains","oxygen","growth"]]
+    ]
+  }
+];
+
+/* =========================================================
+   TIME OPTIONS
+========================================================= */
+function populateTimeOptions(){
+  const tier = $("#tier").value;
+  const sel = $("#timeAllowed");
+  const prev = sel.value;
+  sel.innerHTML = "";
+
+  let options;
+  if(tier === "foundation"){
+    options = [
+      { v:60, label:"60 minutes" },
+      { v:45, label:"45 minutes" }
+    ];
+    $("#timeNote").innerHTML = "Foundation tier: <strong>75 minutes is not allowed</strong>.";
+  } else
+  {
+    options = [
+      { v:75, label:"75 minutes (recommended)" },
+      { v:60, label:"60 minutes" },
+      { v:45, label:"45 minutes" }
+    ];
+    $("#timeNote").innerHTML = "Higher tier: 75 minutes allowed.";
+  }
+
+  const validValues = new Set(options.map(o => String(o.v)));
+  const useValue = validValues.has(String(prev)) ? String(prev) : String(options[0].v);
+
+  options.forEach(o=>{
+    const opt = document.createElement("option");
+    opt.value = String(o.v);
+    opt.textContent = o.label;
+    if(opt.value === useValue) opt.selected = true;
+    sel.appendChild(opt);
+  });
+}
+$("#tier").addEventListener("change", populateTimeOptions);
+
+/* =========================================================
+   PAPER STATE
+========================================================= */
+let state = {
+  mode:"home",
+  submitted:false,
+  candidateNo:null,
+  candidateName:"",
+  tier:"foundation",
+  paper:null
+};
+
+/* =========================================================
+   PAPER GENERATION
+========================================================= */
+function generatePaper(tier){
+  const q = {};
+  if(tier === "foundation"){
+    q.mcq = pickRandom(FOUNDATION_MCQS, 8);
+    q.gaps = pickRandom(FOUNDATION_GAPS, 5);
+    q.short = pickRandom(FOUNDATION_SHORT, 2);
+    q.long = pickRandom(FOUNDATION_LONG, 1)[0];
+  }else{
+    q.short = pickRandom(HIGHER_SHORT, 2);
+    q.long = pickRandom(HIGHER_LONG, 2);
+    q.essay = pickRandom(HIGHER_ESSAY, 1)[0];
+  }
+  return { tier, questions:q };
+}
+
+/* =========================================================
+   RENDER HELPERS
+========================================================= */
+function renderHome(){
+  $("#homeBody").classList.remove("hide");
+  $("#testBody").classList.add("hide");
+  $("#resultsBody").classList.add("hide");
+  $("#sideBody").classList.remove("hide");
+  $("#sideTitle").textContent = "Grading rules";
+  $("#sideMeta").textContent = "Pass/Merit/Distinction stays the same regardless of 9–1 grade.";
+  $("#timerText").textContent = "--:--";
+  setBadge("Ready","badge");
+}
+
+function renderTest(){
+  $("#homeBody").classList.add("hide");
+  $("#testBody").classList.remove("hide");
+  $("#resultsBody").classList.add("hide");
+  $("#sideBody").classList.remove("hide");
+
+  const tier = state.tier;
+  const cand = `${state.candidateNo}${state.candidateName ? " • " + state.candidateName : ""}`;
+  $("#kpiCandidate").textContent = cand;
+  $("#kpiTier").textContent = tier.toUpperCase();
+  $("#kpiMax").textContent = tier==="foundation" ? "90" : "100";
+  $("#kpiTopics").textContent = "B1–B4";
+
+  const mins = parseInt($("#timeAllowed").value,10);
+  const auto = $("#autoSubmit").value === "yes";
+  $("#paperInfo").innerHTML = `
+    <strong>Instructions:</strong> Answer all required questions. Use clear biological vocabulary where needed.
+    <br/><strong>Tier:</strong> ${escapeHtml(tier.toUpperCase())} • <strong>Time:</strong> ${mins} min • <strong>Auto-submit:</strong> ${auto ? "ON" : "OFF"}
+  `;
+
+  const paperDiv = $("#paper");
+  paperDiv.innerHTML = "";
+  $("#markingBox").classList.add("hide");
+  $("#markingBox").innerHTML = "";
+  state.submitted = false;
+
+  const q = state.paper.questions;
+
+  if(tier === "foundation"){
+    paperDiv.appendChild(renderFoundationMCQ(q.mcq));
+    paperDiv.appendChild(renderFoundationGaps(q.gaps));
+    q.short.forEach((item, i)=> paperDiv.appendChild(renderWrittenQuestion(item, `Q${i+3}`)));
+    paperDiv.appendChild(renderWrittenQuestion(q.long, "Q5"));
+  }else{
+    q.short.forEach((item, i)=> paperDiv.appendChild(renderWrittenQuestion(item, `Q${i+1}`)));
+    q.long.forEach((item, i)=> paperDiv.appendChild(renderWrittenQuestion(item, `Q${i+3}`)));
+    paperDiv.appendChild(renderWrittenQuestion(q.essay, "Q5"));
+  }
+
+  startTimer(mins, () => {
+    if($("#autoSubmit").value === "yes") submitPaper(true);
+    else alert("Time is up. You can still submit manually.");
+  });
+
+  setBadge("In progress","badge warn");
+}
+
+function makeTaskCard(title, meta, innerHtml){
+  const wrap = document.createElement("div");
+  wrap.className = "task";
+  wrap.innerHTML = `
+    <h3>${escapeHtml(title)}</h3>
+    <div class="small">${escapeHtml(meta)}</div>
+    <div class="divider"></div>
+    ${innerHtml}
+  `;
+  return wrap;
+}
+
+function renderFoundationMCQ(items){
+  const html = items.map((q,i)=>`
+    <div class="mcChoice">
+      <div class="qTitle">${i+1}. ${escapeHtml(q.stem)}</div>
+      <div class="chips"><span class="chip">${escapeHtml(TOPIC_LABELS[q.topic])}</span><span class="chip">5 marks</span></div>
+      ${q.options.map((opt,idx)=>`
+        <label style="display:flex; gap:10px; align-items:flex-start; cursor:pointer">
+          <input type="radio" name="mcq_${i}" value="${idx}" ${idx===0 ? "checked" : ""} />
+          <span>${escapeHtml(opt)}</span>
+        </label>
+      `).join("")}
+    </div>
+  `).join("");
+  return makeTaskCard("Q1 Multiple choice", "40 marks • 8 questions • 5 marks each", html);
+}
+
+function renderFoundationGaps(items){
+  const html = items.map((q,i)=>`
+    <div class="mcChoice">
+      <div class="qTitle">${i+1}. ${escapeHtml(q.prompt)}</div>
+      <div class="chips"><span class="chip">${escapeHtml(TOPIC_LABELS[q.topic])}</span><span class="chip">2 marks</span></div>
+      <label>Your answer</label>
+      <input type="text" id="gap_${i}" placeholder="Type the missing word or phrase" />
+    </div>
+  `).join("");
+  return makeTaskCard("Q2 Gap-fill", "10 marks • 5 gaps • 2 marks each", html);
+}
+
+function renderWrittenQuestion(item, qNo){
+  const taId = `ta_${qNo}_${item.topic}_${Math.random().toString(36).slice(2,8)}`;
+  const html = `
+    <div class="note">
+      <strong>${escapeHtml(TOPIC_LABELS[item.topic])}</strong><br/>
+      ${item.marks} marks
+      <ul class="bullets">
+        ${item.bullets.map(b=>`<li>${escapeHtml(b)}</li>`).join("")}
+      </ul>
+      ${item.minWords ? `<div class="small" style="margin-top:8px">Suggested minimum length: ${item.minWords} words</div>` : ""}
+    </div>
+    <div class="chips">
+      <span class="chip">${escapeHtml(TOPIC_LABELS[item.topic])}</span>
+      <span class="chip">${item.marks} marks</span>
+      ${item.minWords ? `<span class="chip">Min ${item.minWords} words</span>` : ""}
+    </div>
+    <label>Your answer</label>
+    <textarea id="${taId}" data-qid="${escapeHtml(qNo)}" data-topic="${escapeHtml(item.topic)}" placeholder="Write your answer here..."></textarea>
+    <div class="small" id="${taId}_wc"></div>
+  `;
+  const card = makeTaskCard(`${qNo} ${item.title}`, "Written response • keyword coverage + relevance + scientific structure", html);
+  setTimeout(()=>wireWordCount(taId, `${taId}_wc`), 0);
+  card.dataset.qref = taId;
+  card.dataset.qmarks = item.marks;
+  card.dataset.qtopic = item.topic;
+  card.dataset.qtitle = item.title;
+  return card;
+}
+
+function wireWordCount(textareaId, outId){
+  const ta = $("#"+textareaId);
+  const out = $("#"+outId);
+  if(!ta || !out) return;
+  const draw = () => out.textContent = `Word count: ${wordCount(ta.value)}`;
+  ta.addEventListener("input", draw);
+  draw();
+}
+
+/* =========================================================
+   MARKING
+========================================================= */
+function markMCQ(userIndex, answerIndex){
+  return {
+    score: userIndex === answerIndex ? 5 : 0,
+    max: 5,
+    detail: userIndex === answerIndex ? "Correct." : `Incorrect. Correct answer: option ${answerIndex + 1}.`
+  };
+}
+
+function markGap(user, answer, alt=[]){
+  const u = norm(user);
+  const a = norm(answer);
+  const alts = alt.map(norm);
+  if(!u) return { score:0, max:2, detail:"Blank." };
+  if(u === a || alts.includes(u)) return { score:2, max:2, detail:"Correct." };
+  if(a.split(" ").every(tok => u.includes(tok))) return { score:1, max:2, detail:"Close answer." };
+  return { score:0, max:2, detail:`Incorrect. Expected: ${answer}.` };
+}
+
+function markWritten(text, item){
+  const t = norm(text);
+  const wc = wordCount(text);
+  if(!t) return { score:0, max:item.marks, detail:"Blank.", parts:{} };
+
+  const keywordHits = countKeywordGroups(t, item.groups);
+  const keywordMax = Math.round(item.marks * 0.6);
+  const keywordScore = Math.round((keywordHits / item.groups.length) * keywordMax);
+
+  let lengthScore = 0;
+  const lengthMax = Math.round(item.marks * 0.15);
+  if(item.minWords){
+    if(wc >= item.minWords) lengthScore = lengthMax;
+    else if(wc >= Math.round(item.minWords * 0.7)) lengthScore = Math.round(lengthMax * 0.6);
+    else if(wc >= Math.round(item.minWords * 0.45)) lengthScore = Math.round(lengthMax * 0.3);
+  }else{
+    lengthScore = lengthMax;
+  }
+
+  const scienceWords = [
+    "cell","cells","membrane","nucleus","cytoplasm","ribosomes","mitochondria","chloroplasts",
+    "diffusion","osmosis","active transport","enzyme","enzymes","pathogen","antibody","antibodies",
+    "respiration","photosynthesis","glucose","oxygen","carbon dioxide","energy","tissue","organ",
+    "organ system","specialised","specialised cells","surface area","villi","alveoli","bacteria","virus","fungus","protist"
+  ];
+  const scienceHits = scienceWords.filter(w => t.includes(norm(w))).length;
+  const scienceMax = Math.round(item.marks * 0.15);
+  const scienceScore = clamp(scienceHits >= 5 ? scienceMax : Math.round((scienceHits/5) * scienceMax), 0, scienceMax);
+
+  const structureMax = item.marks - keywordMax - lengthMax - scienceMax;
+  let structureRaw = 0;
+  if(text.includes(".") || text.includes(",")) structureRaw++;
+  if(wc >= 20) structureRaw++;
+  if(keywordHits >= Math.ceil(item.groups.length/2)) structureRaw++;
+  const structureScore = clamp(Math.round((structureRaw/3) * structureMax), 0, structureMax);
+
+  const total = clamp(keywordScore + lengthScore + scienceScore + structureScore, 0, item.marks);
+
+  return {
+    score: total,
+    max: item.marks,
+    detail: `Keywords ${keywordHits}/${item.groups.length} => ${keywordScore}/${keywordMax}; length ${wc} words => ${lengthScore}/${lengthMax}; scientific vocabulary => ${scienceScore}/${scienceMax}; structure => ${structureScore}/${structureMax}.`
+  };
+}
+
+/* =========================================================
+   COMPUTE TOTAL
+========================================================= */
+function computeTotal(){
+  const tier = state.tier;
+  const q = state.paper.questions;
+  let total = 0;
+  let breakdown = [];
+
+  if(tier === "foundation"){
+    q.mcq.forEach((item,i)=>{
+      const picked = parseInt((document.querySelector(`input[name="mcq_${i}"]:checked`)?.value ?? "-1"), 10);
+      const res = markMCQ(picked, item.answer);
+      total += res.score;
+      breakdown.push({
+        part:`Q1 MCQ ${i+1} (${item.topic})`,
+        score:res.score,
+        max:res.max,
+        detail:res.detail
+      });
+    });
+
+    q.gaps.forEach((item,i)=>{
+      const ans = $("#gap_"+i)?.value || "";
+      const res = markGap(ans, item.answer, item.alt);
+      total += res.score;
+      breakdown.push({
+        part:`Q2 Gap ${i+1} (${item.topic})`,
+        score:res.score,
+        max:res.max,
+        detail:res.detail
+      });
+    });
+
+    const writtenItems = [...q.short, q.long];
+    const taskCards = Array.from(document.querySelectorAll("#paper .task")).filter(card => card.dataset.qref);
+
+    writtenItems.forEach((item, idx)=>{
+      const card = taskCards[idx];
+      const taId = card?.dataset.qref;
+      const ans = taId ? ($("#"+taId)?.value || "") : "";
+      const res = markWritten(ans, item);
+      total += res.score;
+      breakdown.push({
+        part:`${card ? card.querySelector("h3")?.textContent : item.title}`,
+        score:res.score,
+        max:res.max,
+        detail:res.detail
+      });
+    });
+
+    return {
+      total: clamp(Math.round(total),0,90),
+      max: 90,
+      breakdown
+    };
+  }
+
+  const writtenItems = [...q.short, ...q.long, q.essay];
+  const taskCards = Array.from(document.querySelectorAll("#paper .task")).filter(card => card.dataset.qref);
+
+  writtenItems.forEach((item, idx)=>{
+    const card = taskCards[idx];
+    const taId = card?.dataset.qref;
+    const ans = taId ? ($("#"+taId)?.value || "") : "";
+    const res = markWritten(ans, item);
+    total += res.score;
+    breakdown.push({
+      part:`${card ? card.querySelector("h3")?.textContent : item.title}`,
+      score:res.score,
+      max:res.max,
+      detail:res.detail
+    });
+  });
+
+  return {
+    total: clamp(Math.round(total),0,100),
+    max:100,
+    breakdown
+  };
+}
+
+/* =========================================================
+   SUBMIT
+========================================================= */
+function submitPaper(fromAuto=false){
+  if(state.submitted) return;
+  state.submitted = true;
+  stopTimer();
+
+  const res = computeTotal();
+  const total = res.total;
+  const tier = state.tier;
+
+  const pmd = passMeritDistinction(total);
+  const g9 = grade9to1(total, tier);
+  const gah = gradeAH(total, tier);
+  const [cls, txt] = badgeForScore(total);
+
+  const attempt = {
+    centre:"50749",
+    candidateNo:String(state.candidateNo),
+    candidateName:state.candidateName || "",
+    tier,
+    submittedAt: nowISO(),
+    timeAllowedMin: parseInt($("#timeAllowed").value,10),
+    maxScore: res.max,
+    score: total,
+    passMeritDistinction: pmd,
+    grade9to1: g9,
+    gradeAH: gah,
+    breakdown: res.breakdown
+  };
+  addResult(attempt);
+
+  const box = $("#markingBox");
+  box.classList.remove("hide");
+  box.innerHTML = `
+    <div class="card">
+      <div class="hd">
+        <div>
+          <h2 style="margin:0;font-size:14px">✅ Marked${fromAuto ? " (auto-submitted)" : ""}</h2>
+          <div class="meta">Saved to Results • Candidate ${escapeHtml(attempt.candidateNo)} • Tier ${escapeHtml(tier.toUpperCase())}</div>
+        </div>
+        <span class="${cls}">${escapeHtml(txt)}</span>
+      </div>
+      <div class="bd">
+        <div class="kpi">
+          <div class="box"><div class="t">Score</div><div class="v">${attempt.score} / ${attempt.maxScore}</div></div>
+          <div class="box"><div class="t">Pass/Merit/Dist</div><div class="v">${escapeHtml(attempt.passMeritDistinction)}</div></div>
+          <div class="box"><div class="t">9–1 grade</div><div class="v">${escapeHtml(String(attempt.grade9to1))}</div></div>
+          <div class="box"><div class="t">A–H grade</div><div class="v">${escapeHtml(String(attempt.gradeAH))}</div></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="note">
+          <strong>Auto-marking summary:</strong><br/>
+          Short and long biology answers are scored using required scientific points, keyword coverage, length, and relevance.
+        </div>
+
+        <div class="divider"></div>
+
+        <button class="btn" id="btnShowBreakdown">Show breakdown</button>
+        <div id="bdList" class="hide" style="margin-top:12px"></div>
+      </div>
+    </div>
+  `;
+
+  $("#btnShowBreakdown").addEventListener("click", ()=>{
+    const d = $("#bdList");
+    d.classList.toggle("hide");
+    if(!d.classList.contains("hide")){
+      d.innerHTML = res.breakdown.map(b=>`
+        <div class="attempt">
+          <div class="top">
+            <div><strong>${escapeHtml(b.part)}</strong></div>
+            <div><span class="badge">${b.score} / ${b.max}</span></div>
+          </div>
+          <div class="meta">${escapeHtml(b.detail)}</div>
+        </div>
+      `).join("");
+    }
+  });
+
+  setBadge("Submitted","badge good");
+}
+
+/* =========================================================
+   RESULTS
+========================================================= */
+function drawResults(){
+  const listEl = $("#resultsList");
+  const all = loadResults();
+  const filter = ($("#filterCandidate").value || "").trim();
+  const filtered = filter ? all.filter(a => String(a.candidateNo) === String(filter)) : all;
+
+  if(filtered.length === 0){
+    listEl.innerHTML = `<div class="note">No stored attempts${filter ? " for this candidate" : ""}.</div>`;
+    return;
+  }
+
+  listEl.innerHTML = filtered.map(a=>{
+    const [cls, txt] = badgeForScore(a.score);
+    return `
+      <div class="attempt">
+        <div class="top">
+          <div>
+            <strong>${escapeHtml(a.candidateNo)}</strong>${a.candidateName ? " • " + escapeHtml(a.candidateName) : ""}
+            <span class="badge" style="margin-left:8px">Centre ${escapeHtml(a.centre)}</span>
+            <span class="badge" style="margin-left:8px">${escapeHtml(a.tier.toUpperCase())}</span>
+          </div>
+          <div class="${cls}">${escapeHtml(txt)} • ${escapeHtml(String(a.score))}/${escapeHtml(String(a.maxScore))}</div>
+        </div>
+        <div class="meta">
+          <div><strong>Date:</strong> ${escapeHtml(new Date(a.submittedAt).toLocaleString())}</div>
+          <div><strong>Grades:</strong> PMD ${escapeHtml(a.passMeritDistinction)} • 9–1 ${escapeHtml(String(a.grade9to1))} • A–H ${escapeHtml(String(a.gradeAH))}</div>
+          <div><strong>Time:</strong> ${escapeHtml(String(a.timeAllowedMin))} min</div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function exportResults(){
+  const all = loadResults();
+  $("#exportText").textContent = JSON.stringify(all, null, 2);
+  $("#exportBox").classList.remove("hide");
+}
+
+function clearResults(){
+  if(!confirm("Clear ALL stored Biology results on this browser?")) return;
+  localStorage.removeItem(STORE_KEY);
+  $("#exportBox").classList.add("hide");
+  drawResults();
+}
+
+/* =========================================================
+   EVENTS
+========================================================= */
+$("#btnHome").addEventListener("click", ()=>{
+  state.mode = "home";
+  renderHome();
+});
+
+$("#btnResults").addEventListener("click", ()=>{
+  state.mode = "results";
+  $("#sideBody").classList.add("hide");
+  $("#resultsBody").classList.remove("hide");
+  $("#sideTitle").textContent = "Saved results";
+  $("#sideMeta").textContent = "Stored in this browser (localStorage).";
+  setBadge("Results","badge");
+  stopTimer();
+  $("#timerText").textContent="--:--";
+  drawResults();
+});
+
+$("#tabAll").addEventListener("click", ()=>{
+  $("#tabAll").classList.add("active");
+  $("#tabCandidate").classList.remove("active");
+  $("#filterCandidate").value = "";
+  drawResults();
+});
+
+$("#tabCandidate").addEventListener("click", ()=>{
+  $("#tabCandidate").classList.add("active");
+  $("#tabAll").classList.remove("active");
+  $("#filterCandidate").focus();
+});
+
+$("#filterCandidate").addEventListener("input", drawResults);
+$("#btnExport").addEventListener("click", exportResults);
+$("#btnClear").addEventListener("click", clearResults);
+
+$("#btnPreview").addEventListener("click", ()=>{
+  const c = ($("#candidateNo").value || "").trim();
+  if(!c){ alert("Enter a candidate number first."); return; }
+
+  const tier = $("#tier").value;
+  const paper = generatePaper(tier);
+  const box = $("#previewBox");
+  box.classList.remove("hide");
+
+  if(tier === "foundation"){
+    box.innerHTML = `
+      <strong>Preview (not started)</strong><br/>
+      Tier: <strong>${escapeHtml(tier.toUpperCase())}</strong><br/>
+      MCQs: <strong>${paper.questions.mcq.length}</strong><br/>
+      Gaps: <strong>${paper.questions.gaps.length}</strong><br/>
+      Short answers: <strong>${paper.questions.short.map(x=>escapeHtml(x.topic)).join(", ")}</strong><br/>
+      Long answer: <strong>${escapeHtml(paper.questions.long.topic)}</strong>
+    `;
+  }else{
+    box.innerHTML = `
+      <strong>Preview (not started)</strong><br/>
+      Tier: <strong>${escapeHtml(tier.toUpperCase())}</strong><br/>
+      Short answers: <strong>${paper.questions.short.map(x=>escapeHtml(x.topic)).join(", ")}</strong><br/>
+      Long answers: <strong>${paper.questions.long.map(x=>escapeHtml(x.topic)).join(", ")}</strong><br/>
+      Essay: <strong>${escapeHtml(paper.questions.essay.topic)}</strong>
+    `;
+  }
+});
+
+$("#btnStart").addEventListener("click", ()=>{
+  const c = ($("#candidateNo").value || "").trim();
+  if(!c){ alert("Candidate number is required."); return; }
+
+  state.candidateNo = c;
+  state.candidateName = ($("#candidateName").value || "").trim();
+  state.tier = $("#tier").value;
+  state.paper = generatePaper(state.tier);
+
+  populateTimeOptions();
+  renderTest();
+});
+
+$("#btnReset").addEventListener("click", ()=>{
+  if(!confirm("Reset and generate a NEW random biology paper?")) return;
+  stopTimer();
+  state.paper = generatePaper(state.tier);
+  renderTest();
+});
+
+$("#btnSubmit").addEventListener("click", ()=>submitPaper(false));
+
+/* =========================================================
+   INITIALISE
+========================================================= */
+populateTimeOptions();
+renderHome();
+
+/* =========================================================
+   ANTI-CHEAT
+========================================================= */
+const disabledKeys = ["u", "I"];
+const showAlert = e => {
+  e.preventDefault();
+  return alert("Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!");
+};
+document.addEventListener("contextmenu", e => { showAlert(e); });
+document.addEventListener("keydown", e => {
+  if ((e.ctrlKey && disabledKeys.includes(e.key)) || e.key === "F12") showAlert(e);
+});
+</script>
+</body>
+</html>
