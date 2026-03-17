@@ -443,47 +443,63 @@ Red écoute et il essaie de changer sa façon de travailler. Il relit la questio
 
   {
     id: 2,
-    title: "Passage 2 — L’encre et les consignes",
+    title: "Passage 2 — Règles contradictoires sur l’encre",
     theme: "Theme 1 — School",
-    unit: "Unit 2 (Ink system)",
-    text: `Avant les examens à Otono, on parle souvent des stylos. Certains élèves écrivent sans se poser de questions. D’autres stressent, parce qu’ils ont peur d’utiliser le mauvais stylo et de perdre des points.
+    unit: "Unit 2 (Contradictory rules)",
+    text: `Avant les examens à Otono, les élèves parlent souvent des stylos. En maths, on demande presque toujours d’écrire en encre noire, car les copies sont scannées. Luke aime cette règle : pour lui, c’est clair, simple et facile à suivre.
 
-Luke aime l’encre noire. Il dit que c’est propre et facile à lire. En maths, on demande souvent d’écrire en noir, car les copies sont scannées. En sciences, les consignes sont parfois différentes. On peut demander d’éviter certaines encres. On peut aussi demander de suivre une règle particulière pour un document.
+  Cependant, en sciences, les consignes peuvent être différentes. Parfois, on demande d’éviter certaines encres, ou de suivre une règle spéciale pour un document. Pour certains élèves, ces règles semblent contradictoires. Ils ne savent pas toujours quel stylo utiliser et ils ont peur de faire une erreur.
 
-Cette situation peut créer de la confusion, parce que les instructions sont différentes selon la matière. La veille d’un examen, certains élèves préparent deux stylos. D’autres demandent au professeur. Red choisit une stratégie simple : il reste calme et il lit la consigne écrite sur la feuille d’examen, car c’est la règle officielle.`,
+  Red pense que la solution est simple. Il reste calme et il lit toujours la consigne sur la feuille d’examen. Selon lui, même si les règles sont parfois contradictoires entre les matières, la consigne écrite reste la plus importante.`,
+
     questions: [
       { id:"p2q1", type:"mcq", marks:2,
-        prompt:"(E) Why do some students stress before exams?",
-        options:["They fear using the wrong pen","They want extra homework","They dislike reading","They forget lunch"],
+        prompt:"(E) Why is black ink used in maths?",
+        options:["Because copies are scanned","Because it is faster","Because it is cheaper","Because it is colourful"],
         answerIndex:0
       },
       { id:"p2q2", type:"tfnm", marks:2,
-        prompt:"(E) In maths, copies are scanned. (True / False / Not mentioned)",
-        correct:"True"
+        prompt:"(E) Science always uses the same ink rules as maths. (True / False / Not mentioned)",
+        correct:"False"
       },
       { id:"p2q3", type:"pn", marks:2,
-        prompt:"(E) The passage presents pen rules at Otono as… (P / N / P+N)",
-        answer:"P+N"
+        prompt:"(E) The ink rules are presented as… (P / N / P+N)",
+        answer:"N"
       },
-      { id:"p2q4", type:"short", marks:6,
-        prompt:"(H) Explain why the pen situation can cause confusion, using TWO details from the passage.",
-        rubric:"Because instructions differ by subject (maths vs science) and some inks may be avoided / special rules may apply; students then prepare extra pens or ask teachers.",
+      { id:"p2q4", type:"short", marks:4,
+        prompt:"(E) Give TWO reasons why students feel confused.",
+        rubric:"Any two: rules differ between subjects; some inks must be avoided; special rules exist; fear of making a mistake.",
         keywords:[
-          ["consignes","instructions","différentes","different"],
-          ["maths","sciences","science"],
-          ["éviter","avoid","encres","inks"],
-          ["deux stylos","two pens"],
-          ["professeur","teacher"]
+          ["different","différentes"],
+          ["avoid","éviter","inks"],
+          ["special rule","règle spéciale"],
+          ["fear","peur","mistake"]
         ]
       },
-      { id:"p2q5", type:"fr_short", marks:8,
-        prompt:"(M) En français : Pourquoi la stratégie de Red est-elle logique ? Donne DEUX raisons.",
-        rubric:"Two reasons (in French): he stays calm; he reads the written instructions; those instructions are the official rule.",
+      { id:"p2q5", type:"fr_short", marks:4,
+        prompt:"(M) En français : Explique pourquoi les règles sont ‘contradictoires’. Donne DEUX idées.",
+        rubric:"Deux idées en français : règles différentes selon les matières ; instructions qui ne sont pas les mêmes ; confusion.",
         keywords:[
-          ["calme","reste calme"],
-          ["lit","lire","consigne"],
-          ["feuille","d’examen","paper"],
-          ["règle officielle","officielle"]
+          ["différentes","matière"],
+          ["instructions","pas les mêmes"],
+          ["confusion"],
+          ["contradictoires"]
+        ]
+      },
+      { id:"p2q6", type:"short", marks:4,
+        prompt:"(H) What does Red do to avoid mistakes and why is it effective?",
+        rubric:"He reads the instructions carefully and stays calm; this works because the written instruction is the most important.",
+        keywords:[
+          ["reads","lit","instructions"],
+          ["calm","calme"],
+          ["most important","important","official"]
+        ]
+      },
+      { id:"p2q7", type:"short", marks:2,
+        prompt:"(E) Who prefers black ink?",
+        rubric:"Luke.",
+        keywords:[
+          ["luke"]
         ]
       }
     ]
@@ -974,7 +990,7 @@ Quand l’espace est désorganisé, OWing remarque que l’on perd du temps. On 
   {
     id: 11,
     title: "Passage 11 — Clayton et le GCSE anticipé",
-    theme: "Bonus Theme 4 — Results",
+    theme: "Theme 4 — Results",
     unit: "Unit 10 (Clayton GCSE)",
     text: `Clayton a passé son examen de maths bien avant la majorité des élèves. Normalement, les élèves attendent la période officielle, avec toute la classe. Lui, il a été autorisé à passer l’examen plus tôt, parce que ses professeurs pensaient qu’il était prêt. Le jour des résultats, il obtient 160 sur 160, une note parfaite. Beaucoup de personnes admirent sa réussite. Elles disent qu’il a une logique rapide, une méthode claire, et une discipline rare.
 
@@ -1032,7 +1048,7 @@ Cependant, tout le monde n’est pas positif. Certaines personnes trouvent qu’
   {
     id: 12,
     title: "Passage 12 — Les notes parfaites",
-    theme: "Bonus Theme 4 — Results",
+    theme: "Theme 4 — Results",
     unit: "Unit 10 (Reactions)",
     text: `Quand un élève obtient une note parfaite, les réactions varient beaucoup. Dans une même classe, on peut voir des émotions complètement différentes. Certains élèves se sentent motivés : ils se disent que si c’est possible, je peux aussi essayer. Ils demandent des conseils, ils refont des exercices, et ils veulent améliorer leurs méthodes. Pour eux, une note parfaite est comme une preuve qu’on peut atteindre très haut.
 
@@ -1517,7 +1533,71 @@ Red comprend que tout le monde ne réagit pas de la même manière à La Marseil
         ]
       }
     ]
-  }
+  },
+  {
+    id: 20,
+    title: "Passage 20 — OWing, la vitesse et la précision",
+    theme: "Theme 4 — Racing",
+    unit: "Unit 11 (OWing Racing)",
+    text: `OWing aime beaucoup les jeux de course. Pour lui, conduire vite est important, mais contrôler la voiture l’est encore plus. Il fait attention aux virages, à la trajectoire et au moment où il doit freiner. Il pense que la précision est la clé pour gagner.
+
+  Red joue souvent avec lui. Il aime la vitesse et l’énergie des courses, mais il perd la plupart du temps. Parfois, il accélère trop tôt ou il prend un virage trop vite. Malgré cela, il continue de jouer, car il trouve les courses très amusantes.
+
+  Dans certains jeux, les règles peuvent sembler contradictoires. On doit aller vite pour gagner, mais on doit aussi ralentir pour ne pas perdre le contrôle. OWing comprend cet équilibre, mais Red est encore en train de l’apprendre. Pour eux deux, l’important est simple : progresser et profiter du jeu.`,
+
+    questions: [
+      { id:"p20q1", type:"mcq", marks:2,
+        prompt:"(E) What does OWing think is most important?",
+        options:["Precision","Luck","Noise","Speed only"],
+        answerIndex:0
+      },
+      { id:"p20q2", type:"tfnm", marks:2,
+        prompt:"(E) Red usually wins the races. (True / False / Not mentioned)",
+        correct:"False"
+      },
+      { id:"p20q3", type:"pn", marks:2,
+        prompt:"(E) Red’s attitude to racing is… (P / N / P+N)",
+        answer:"P"
+      },
+      { id:"p20q4", type:"short", marks:4,
+        prompt:"(E) Give TWO mistakes Red makes during races.",
+        rubric:"Any two: accelerates too early; takes corners too fast; loses control.",
+        keywords:[
+          ["accelerates too early","accélère"],
+          ["corner too fast","virage"],
+          ["loses control","contrôle"]
+        ]
+      },
+      { id:"p20q5", type:"fr_short", marks:4,
+        prompt:"(M) En français : Explique pourquoi les règles sont ‘contradictoires’. Donne DEUX idées.",
+        rubric:"Deux idées en français : il faut aller vite mais aussi ralentir ; vitesse et contrôle opposés.",
+        keywords:[
+          ["aller vite"],
+          ["ralentir"],
+          ["contrôle"],
+          ["contradictoires"]
+        ]
+      },
+      { id:"p20q6", type:"short", marks:4,
+        prompt:"(H) Why is OWing more successful than Red?",
+        rubric:"Because he focuses on control, timing and precision, and understands the balance between speed and control.",
+        keywords:[
+          ["precision","précision"],
+          ["control","contrôle"],
+          ["timing","freiner"],
+          ["balance","équilibre"]
+        ]
+      },
+      { id:"p20q7", type:"short", marks:2,
+        prompt:"(E) Why does Red continue racing?",
+        rubric:"Because he enjoys it / finds it fun.",
+        keywords:[
+          ["enjoys","amusant"],
+          ["likes","aime"]
+        ]
+      }
+    ]
+  },
 ];
 
 /* -----------------------------

@@ -461,79 +461,64 @@ Red escucha e intenta cambiar su forma de trabajar. Vuelve a leer la pregunta, s
 
   {
     id: 2,
-    title: "Pasaje 2 — La tinta y las consignas",
+    title: "Pasaje 2 — Reglas contradictorias sobre la tinta",
     theme: "Tema 1 — Escuela",
-    unit: "Unidad 2 (Sistema de tinta)",
-    text: `Antes de los exámenes en Otono, se habla a menudo de los bolígrafos. Algunos alumnos escriben sin hacerse preguntas. Otros se estresan, porque tienen miedo de usar el bolígrafo equivocado y perder puntos.
+    unit: "Unidad 2 (Reglas contradictorias)",
+    text: `Antes de los exámenes en Otono, los alumnos hablan a menudo de los bolígrafos. En matemáticas, casi siempre se pide escribir en tinta negra porque los exámenes se escanean. A Luke le gusta esta regla: para él es clara, simple y fácil de seguir.
 
-A Luke le gusta la tinta negra. Dice que es limpia y fácil de leer. En matemáticas, a menudo se pide escribir en negro, porque los exámenes se escanean. Pero en ciencias, los alumnos a veces oyen consignas diferentes: se puede pedir evitar ciertas tintas o seguir una regla particular para un documento.
+  Sin embargo, en ciencias, las instrucciones pueden ser diferentes. A veces se pide evitar ciertas tintas o seguir una regla especial para un documento. Para algunos alumnos, estas reglas parecen contradictorias. No siempre saben qué bolígrafo usar y tienen miedo de cometer un error.
 
-Esta situación puede crear confusión. La víspera de un examen, algunos alumnos preparan dos bolígrafos. Otros preguntan al profesor. Red elige una estrategia simple: se mantiene tranquilo y lee la consigna escrita en la hoja del examen, porque esa es la regla oficial.`,
+  Red piensa que la solución es simple. Se mantiene tranquilo y siempre lee la instrucción en la hoja del examen. Según él, aunque las reglas sean a veces contradictorias entre materias, la instrucción escrita es la más importante.`,
+
     questions: [
-      {
-        id: "p2q1",
-        type: "mcq",
-        marks: 2,
-        prompt: "(E) Why do some students stress before exams?",
-        options: ["They want more homework", "They fear using the wrong pen", "They dislike reading", "They forget lunch"],
-        answerIndex: 1
+      { id:"p2q1", type:"mcq", marks:2,
+        prompt:"(E) Why is black ink used in maths?",
+        options:["Because copies are scanned","Because it is faster","Because it is cheaper","Because it is colourful"],
+        answerIndex:0
       },
-      {
-        id: "p2q2",
-        type: "short",
-        marks: 4,
-        prompt: "(E) Give TWO reasons Luke likes black ink.",
-        rubric: "Any two: clean/neat; easy to read; clear.",
-        keywords: [
-          ["la tinta negra es limpia", "black ink is clean"],
-          ["la tinta negra es facil de leer", "easy to read"],
-          ["la tinta negra es clara", "clear"]
+      { id:"p2q2", type:"tfnm", marks:2,
+        prompt:"(E) Science always uses the same ink rules as maths. (True / False / Not mentioned)",
+        correct:"False"
+      },
+      { id:"p2q3", type:"pn", marks:2,
+        prompt:"(E) The ink rules are presented as… (P / N / P+N)",
+        answer:"N"
+      },
+      { id:"p2q4", type:"short", marks:4,
+        prompt:"(E) Give TWO reasons why students feel confused.",
+        rubric:"Any two: rules differ between subjects; some inks must be avoided; special rules exist; fear of making a mistake.",
+        keywords:[
+          ["different","subjects"],
+          ["avoid","certain inks"],
+          ["special rule"],
+          ["fear","mistake"]
         ]
       },
-      {
-        id: "p2q3",
-        type: "pn",
-        marks: 2,
-        prompt: "(E) Overall, the passage presents pen rules as… (P / N / P+N)",
-        correct: "P+N"
-      },
-      {
-        id: "p2q4",
-        type: "tfnm",
-        marks: 2,
-        prompt: "(E) The passage says science always uses the same ink rules as maths. (True / False / Not mentioned)",
-        correct: "False"
-      },
-      {
-        id: "p2q5",
-        type: "short",
-        marks: 4,
-        prompt: "(H) What is Red’s strategy, and why is it sensible?",
-        rubric: "He stays calm and reads the written instructions; sensible because written instructions are official.",
-        keywords: [
-          ["red se mantiene tranquilo", "he stays calm"],
-          ["red lee la consigna escrita en la hoja del examen", "reads the written instructions"],
-          ["esa es la regla oficial", "official rule"]
+      { id:"p2q5", type:"es_short", marks:4,
+        prompt:"(M) En español: Explica por qué las reglas son ‘contradictorias’. Da DOS ideas.",
+        rubric:"Dos ideas en español: las reglas son diferentes según la materia; las instrucciones no son iguales; esto crea confusión.",
+        keywords:[
+          ["diferentes","materia"],
+          ["instrucciones","no son iguales"],
+          ["confusión"],
+          ["contradictorias"]
         ]
       },
-      {
-        id: "p2q6",
-        type: "es_short",
-        marks: 4,
-        prompt: "(M) En español: Da UNA solución mencionada para evitar la confusión sobre los bolígrafos.",
-        rubric: "Una: preparar dos bolígrafos / preguntar al profesor / leer la consigna en la hoja del examen.",
-        keywords: [
-          ["preparar dos boligrafos"],
-          ["preguntar al profesor"],
-          ["leer la consigna escrita en la hoja del examen"]
+      { id:"p2q6", type:"short", marks:4,
+        prompt:"(H) What does Red do to avoid mistakes and why is it effective?",
+        rubric:"He reads the instructions carefully and stays calm; this works because the written instruction is the most important.",
+        keywords:[
+          ["reads the instructions"],
+          ["stays calm"],
+          ["written instruction","most important"]
         ]
       },
-      {
-        id: "p2q7",
-        type: "tfnm",
-        marks: 2,
-        prompt: "(E) The passage mentions Luke using blue ink for maths. (True / False / Not mentioned)",
-        correct: "Not mentioned"
+      { id:"p2q7", type:"short", marks:2,
+        prompt:"(E) Who prefers black ink?",
+        rubric:"Luke.",
+        keywords:[
+          ["luke"]
+        ]
       }
     ]
   },
@@ -1766,6 +1751,70 @@ Red entiende que no todo el mundo reacciona igual ante La Marsellesa. Algunas pe
           ["red mantiene su postura", "keeps his admiration"],
           ["la considera impresionante memorable y profundamente francesa", "why he admires it"],
           ["le gustan las obras con caracter que nunca resultan insipidas", "works with character"]
+        ]
+      }
+    ]
+  },
+  {
+    id: 20,
+    title: "Pasaje 20 — OWing, la velocidad y la precisión",
+    theme: "Tema 4 — La velocidad",
+    unit: "Unit 11 (Juegos de carreras)",
+    text: `A OWing le gustan mucho los juegos de carreras. Para él, conducir rápido es importante, pero controlar el coche lo es aún más. Presta atención a las curvas, a la trayectoria y al momento en que debe frenar. Piensa que la precisión es la clave para ganar.
+
+  Red juega a menudo con él. Le gusta la velocidad y la energía de las carreras, pero pierde la mayoría de las veces. A veces acelera demasiado pronto o toma una curva demasiado rápido. A pesar de eso, sigue jugando porque le parecen muy divertidas.
+
+  En algunos juegos, las reglas pueden parecer contradictorias. Hay que ir rápido para ganar, pero también hay que reducir la velocidad para no perder el control. OWing entiende este equilibrio, pero Red todavía lo está aprendiendo. Para los dos, lo importante es simple: mejorar y disfrutar del juego.`,
+
+    questions: [
+      { id:"p20q1", type:"mcq", marks:2,
+        prompt:"(E) What does OWing think is most important?",
+        options:["Precision","Luck","Noise","Speed only"],
+        answerIndex:0
+      },
+      { id:"p20q2", type:"tfnm", marks:2,
+        prompt:"(E) Red usually wins the races. (True / False / Not mentioned)",
+        correct:"False"
+      },
+      { id:"p20q3", type:"pn", marks:2,
+        prompt:"(E) Red’s attitude to racing is… (P / N / P+N)",
+        answer:"P"
+      },
+      { id:"p20q4", type:"short", marks:4,
+        prompt:"(E) Give TWO mistakes Red makes during races.",
+        rubric:"Any two: he accelerates too early; he takes corners too fast; he loses control.",
+        keywords:[
+          ["accelerates too early"],
+          ["takes corners too fast"],
+          ["loses control"]
+        ]
+      },
+      { id:"p20q5", type:"es_short", marks:4,
+        prompt:"(M) En español: Explica por qué las reglas son ‘contradictorias’. Da DOS ideas.",
+        rubric:"Dos ideas en español: hay que ir rápido para ganar, pero también hay que reducir la velocidad; la velocidad y el control parecen opuestos.",
+        keywords:[
+          ["ir rápido"],
+          ["reducir la velocidad"],
+          ["control"],
+          ["contradictorias"]
+        ]
+      },
+      { id:"p20q6", type:"short", marks:4,
+        prompt:"(H) Why is OWing more successful than Red?",
+        rubric:"Because he focuses on control, timing and precision, and understands the balance between speed and control.",
+        keywords:[
+          ["control"],
+          ["timing"],
+          ["precision"],
+          ["balance between speed and control"]
+        ]
+      },
+      { id:"p20q7", type:"short", marks:2,
+        prompt:"(E) Why does Red continue racing?",
+        rubric:"Because he enjoys it / finds it fun.",
+        keywords:[
+          ["enjoys it"],
+          ["finds it fun"]
         ]
       }
     ]
