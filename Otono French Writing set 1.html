@@ -596,7 +596,27 @@ const PROMPTS_40 = {
       wordTarget:40, wordMin:34, wordMax:55,
       mustHaveOpinion:true
     }
-  }
+  },
+  t4: {
+    themeName:"Theme 4 — Pressure / achievement",
+    title:"40 words: La réussite et la pression",
+    bullets:[
+      "Say what happened.",
+      "Mention one reaction.",
+      "Say how you feel.",
+      "Give your opinion."
+    ],
+    required:{
+      bullets:[
+        {id:"b1", vocab:["clayton","score","160","parfait","maths"]},
+        {id:"b2", vocab:["admiration","admire","jalousie","pression","réaction","reaction"]},
+        {id:"b3", vocab:["je me sens","je suis","content","stressé","stressée","heureux","heureuse"]},
+        {id:"b4", vocab:[...DETECT.opinion]}
+      ],
+      wordTarget:40, wordMin:34, wordMax:55,
+      mustHaveOpinion:true
+    }
+  },
 };
 
 const PROMPTS_70 = {
@@ -917,14 +937,14 @@ let state = {
 
 function generatePaper(tier){
   const includeTheme4 = (tier==="higher") && (Math.random() < 0.45);
-  const themesAllowed70 = tier==="foundation" ? ["t1","t2","t3"] : (includeTheme4 ? ["t1","t2","t3","t4"] : ["t1","t2","t3"]);
+  const themesAllowed70 = tier==="foundation" ? ["t1","t2","t3","t4"] : (includeTheme4 ? ["t1","t2","t3","t4"] : ["t1","t2","t3","t4"]);
   const themesAllowed110 = ["t1","t2","t3","t4"];
 
   const q = {};
   if(tier==="foundation"){
     q.translation = pickRandom(FOUNDATION_TRANSLATION_POOL, 5);
     q.grammar = pickRandom(GRAMMAR_POOL, 5);
-    const t40 = pickRandom(["t1","t2","t3"],1)[0];
+    const t40 = pickRandom(["t1","t2","t3","t4"],1)[0];
     q.w40 = PROMPTS_40[t40];
     let pool70 = [];
     themesAllowed70.forEach(k => pool70 = pool70.concat(PROMPTS_70[k]));

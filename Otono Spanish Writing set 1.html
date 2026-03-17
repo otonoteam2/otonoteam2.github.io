@@ -604,7 +604,29 @@ const PROMPTS_40 = {
       must:{},
       themeKey:["t3"]
     }
-  }
+  },
+  t4: {
+    themeName:"Tema 4 — Presión y logro",
+    title:"40 palabras: El éxito y la presión",
+    bullets:[
+      "Say what happened.",
+      "Mention one reaction.",
+      "Say how you feel.",
+      "Give your opinion."
+    ],
+    required:{
+      bulletVocab: [
+        ["clayton","160","puntuación","puntuacion","perfecta","perfecto","mates","matemáticas","matematicas"],
+        ["admiración","admiracion","envidia","presión","presion","reacción","reaccion","comentarios"],
+        ["me siento","estoy","contento","contenta","estresado","estresada","feliz","orgulloso","orgullosa"],
+        [...DETECT.opinion]
+      ],
+      wordMin:34, wordMax:55,
+      mustHaveOpinion:true,
+      must:{},
+      themeKey:["t4"]
+    }
+  },
 };
 
 /* 70-word prompt bank: themes 1–4 (theme 4 only in higher) */
@@ -873,7 +895,7 @@ let state = {
 
 function generatePaper(tier){
   const includeTheme4 = (tier==="higher") && (Math.random() < 0.45);
-  const themesAllowed70 = tier==="foundation" ? ["t1","t2","t3"] : (includeTheme4 ? ["t1","t2","t3","t4"] : ["t1","t2","t3"]);
+  const themesAllowed70 = tier==="foundation" ? ["t1","t2","t3","t4"] : (includeTheme4 ? ["t1","t2","t3","t4"] : ["t1","t2","t3","t4"]);
   const themesAllowed110 = ["t1","t2","t3","t4"];
 
   const q = {};
