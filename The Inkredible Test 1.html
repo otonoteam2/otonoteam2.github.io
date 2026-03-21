@@ -1,0 +1,1100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>🟣 Otono Team Inkredible Test</title>
+  <style>
+    :root{
+      --bg1:#2b0a3d; --bg2:#7a0036;
+      --card:#0f0b18cc; --card2:#120c22e6;
+      --text:#f4efff; --muted:#c9b9ff;
+      --accent:#b000ff; --accent2:#ff1b6a;
+      --good:#19ff9a; --warn:#ffd166; --bad:#ff4d6d;
+      --line:rgba(255,255,255,.12);
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:var(--sans); color:var(--text);
+      background:
+        radial-gradient(1000px 700px at 15% 10%, rgba(176,0,255,.22), transparent 60%),
+        radial-gradient(900px 650px at 80% 20%, rgba(255,27,106,.18), transparent 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+    }
+    .wrap{max-width:1180px; margin:0 auto; padding:22px;}
+    .topbar{
+      display:flex; gap:14px; align-items:center; justify-content:space-between;
+      padding:14px 16px; border:1px solid var(--line); border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      box-shadow:var(--shadow);
+      position:sticky; top:14px; z-index:20; backdrop-filter: blur(10px);
+    }
+    .brand{display:flex; flex-direction:column; gap:2px}
+    .brand h1{margin:0; font-size:16px; letter-spacing:.3px}
+    .brand .sub{font-size:12px; color:var(--muted)}
+    .pill{
+      padding:8px 10px; border-radius:999px; border:1px solid var(--line);
+      background:rgba(0,0,0,.25); font-family:var(--mono); font-size:12px;
+      display:flex; gap:10px; align-items:center;
+    }
+    .pill strong{color:#fff}
+    .btn{
+      border:1px solid var(--line); background:rgba(0,0,0,.25);
+      color:var(--text); padding:10px 12px; border-radius:14px; cursor:pointer;
+      transition:.15s transform, .15s background, .15s border;
+      font-weight:700;
+    }
+    .btn:hover{transform:translateY(-1px); background:rgba(0,0,0,.33); border-color:rgba(255,255,255,.22)}
+    .btn.primary{
+      background:linear-gradient(135deg, rgba(176,0,255,.55), rgba(255,27,106,.45));
+      border-color:rgba(255,255,255,.22);
+    }
+    .btn.danger{background:rgba(255,77,109,.18); border-color:rgba(255,77,109,.35)}
+    .grid{display:grid; grid-template-columns: 1.15fr .85fr; gap:16px; margin-top:16px;}
+    @media (max-width: 980px){ .grid{grid-template-columns:1fr} .topbar{position:static} }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .card .hd{
+      padding:14px 16px; border-bottom:1px solid var(--line);
+      display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
+      background:linear-gradient(180deg, rgba(255,255,255,.06), transparent);
+    }
+    .card .hd h2{margin:0; font-size:14px}
+    .card .hd .meta{font-size:12px; color:var(--muted); line-height:1.35}
+    .card .bd{padding:16px}
+    label{display:block; font-size:12px; color:var(--muted); margin:10px 0 6px}
+
+    input[type="text"], input[type="number"], textarea, select{
+      width:100%; border:1px solid var(--line); background:rgba(0,0,0,.25);
+      color:var(--text); padding:10px 12px; border-radius:14px; outline:none;
+      font-family:var(--sans);
+    }
+    textarea{min-height:100px; resize:vertical}
+    .row{display:flex; gap:10px; flex-wrap:wrap}
+    .row > div{flex:1 1 180px}
+    .miniRow{display:flex; gap:10px; flex-wrap:wrap; align-items:flex-end}
+    .miniRow > *{flex:1 1 160px}
+    .note{
+      font-size:12px; color:var(--muted); line-height:1.45;
+      padding:10px 12px; border-radius:14px; border:1px dashed rgba(255,255,255,.18);
+      background:rgba(0,0,0,.18);
+    }
+    .badge{
+      font-family:var(--mono); font-size:12px; padding:6px 10px; border-radius:999px;
+      border:1px solid var(--line); background:rgba(0,0,0,.20);
+      display:inline-flex; align-items:center; gap:6px;
+    }
+    .badge.good{border-color:rgba(25,255,154,.35); background:rgba(25,255,154,.12)}
+    .badge.warn{border-color:rgba(255,209,102,.35); background:rgba(255,209,102,.12)}
+    .badge.bad{border-color:rgba(255,77,109,.35); background:rgba(255,77,109,.12)}
+    .divider{height:1px; background:var(--line); margin:14px 0}
+    .q{
+      margin-top:14px; padding:12px 14px; border:1px solid var(--line);
+      border-radius:16px; background:rgba(0,0,0,.20);
+    }
+    .q h3{margin:0 0 8px; font-size:13px; line-height:1.4}
+    .opts{display:grid; gap:8px; margin-top:8px}
+    .opt{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:10px 10px; border-radius:14px; border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03); cursor:pointer;
+    }
+    .opt input{margin-top:3px}
+    .kpi{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
+    @media (max-width: 980px){ .kpi{grid-template-columns:repeat(2,1fr)} }
+    .kpi .box{border:1px solid var(--line); border-radius:16px; padding:10px 12px; background:rgba(0,0,0,.22)}
+    .kpi .box .t{font-size:12px; color:var(--muted)}
+    .kpi .box .v{font-size:18px; font-weight:800; margin-top:4px}
+    .small{font-size:12px; color:var(--muted)}
+    .tabs{display:flex; gap:8px; flex-wrap:wrap}
+    .tab{padding:10px 12px; border-radius:14px; border:1px solid var(--line); background:rgba(0,0,0,.22); cursor:pointer; font-weight:700}
+    .tab.active{background:linear-gradient(135deg, rgba(176,0,255,.35), rgba(255,27,106,.22)); border-color:rgba(255,255,255,.22)}
+    .resultsList{display:grid; gap:10px}
+    .attempt{border:1px solid var(--line); border-radius:16px; padding:12px 14px; background:rgba(0,0,0,.20)}
+    .attempt .top{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap}
+    .attempt .top strong{font-family:var(--mono)}
+    .attempt .meta{font-size:12px; color:var(--muted); margin-top:6px; line-height:1.45}
+    .copy{font-family:var(--mono); font-size:12px; white-space:pre-wrap; word-break:break-word}
+    .hide{display:none !important}
+    .digitRow{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
+    .digitRow .digit{
+      width:52px; text-align:center; font-family:var(--mono);
+      font-size:18px; font-weight:900; padding:12px 0;
+      border-radius:14px; border:1px solid var(--line);
+      background:rgba(0,0,0,.25); color:var(--text); outline:none;
+    }
+    .sectionTag{display:inline-flex; margin-left:8px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <h1>🟣 Otono Team — Inkredible Test • Foundation / Higher</h1>
+        <div class="sub">Auto marking • Random paper generation • Black ink only • Centre: <strong id="centreTop">50749</strong></div>
+      </div>
+      <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end">
+        <div class="pill"><span>⏱️ Timer:</span><strong id="timerText">--:--</strong></div>
+        <button class="btn" id="btnResults">Results</button>
+        <button class="btn primary" id="btnHome">Test</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="hd">
+          <div>
+            <h2>Candidate setup</h2>
+            <div class="meta">Choose tier, time and language. Foundation = 75 marks max with hidden 76. Higher = 100 marks max with hidden 101.</div>
+          </div>
+          <span class="badge" id="statusBadge">Ready</span>
+        </div>
+
+        <div class="bd" id="homeBody">
+          <div class="miniRow">
+            <div>
+              <label>Centre number</label>
+              <input type="text" id="centreNo" value="50749" disabled />
+              <div class="small" style="margin-top:6px">Default is <strong>50749</strong>. You may customise it.</div>
+            </div>
+            <div style="display:flex; gap:10px; align-items:flex-end; flex-wrap:wrap">
+              <button class="btn" id="btnEditCentre">Customise centre</button>
+              <button class="btn" id="btnResetCentre">Reset centre</button>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div>
+            <label>Candidate number (required, 4 digits)</label>
+            <div class="digitRow">
+              <input class="digit" id="candD1" inputmode="numeric" maxlength="1" />
+              <input class="digit" id="candD2" inputmode="numeric" maxlength="1" />
+              <input class="digit" id="candD3" inputmode="numeric" maxlength="1" />
+              <input class="digit" id="candD4" inputmode="numeric" maxlength="1" />
+              <span class="small">Digits only • auto-advance</span>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top:6px">
+            <div>
+              <label>Candidate surname (optional)</label>
+              <input type="text" id="candSurname" placeholder="Surname" />
+            </div>
+            <div>
+              <label>Candidate forename(s) (optional)</label>
+              <input type="text" id="candForenames" placeholder="Forename(s)" />
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="row">
+            <div>
+              <label>Tier</label>
+              <select id="tierSelect">
+                <option value="foundation">Foundation tier • 75 marks</option>
+                <option value="higher" selected>Higher tier • 100 marks</option>
+              </select>
+            </div>
+            <div>
+              <label>Language option</label>
+              <select id="langSelect">
+                <option value="french">French</option>
+                <option value="spanish">Spanish</option>
+                <option value="both">Both (harder)</option>
+              </select>
+            </div>
+            <div>
+              <label>Time allowed</label>
+              <select id="timeAllowed">
+                <option value="75" selected>75 minutes (recommended)</option>
+                <option value="60">60 minutes</option>
+                <option value="45">45 minutes</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label>Question order</label>
+              <select id="shuffleMode">
+                <option value="shuffleAll" selected>Shuffle question order</option>
+                <option value="keepOrder">Keep generated order</option>
+              </select>
+            </div>
+            <div>
+              <label>On timer end</label>
+              <select id="autoSubmit">
+                <option value="yes" selected>Auto-submit</option>
+                <option value="no">Do not auto-submit</option>
+              </select>
+            </div>
+            <div>
+              <label>Question bank note</label>
+              <div class="note">Large random bank included so candidates cannot simply memorise one paper.</div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>Inkredible rules</strong><br/>
+            • Use <strong>black ink only</strong>.<br/>
+            • Maths uses <strong>Otono Airways</strong> contexts and is deliberately difficult.<br/>
+            • Matching questions include <strong>unused options</strong>; letters <strong>I</strong> and <strong>O</strong> are never used in the options.<br/>
+            • Foundation paper is built to <strong>75</strong> marks with a hidden <strong>+1</strong> route-based bonus.<br/>
+            • Higher paper is built to <strong>100</strong> marks with a hidden <strong>+1</strong> flagship bonus.
+          </div>
+
+          <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap">
+            <button class="btn primary" id="btnStart">Start Random Paper</button>
+            <button class="btn" id="btnPreview">Preview Random Selection</button>
+          </div>
+
+          <div id="previewBox" class="note hide" style="margin-top:12px"></div>
+        </div>
+
+        <div class="bd hide" id="testBody">
+          <div class="kpi">
+            <div class="box"><div class="t">Candidate</div><div class="v" id="kpiCandidate">—</div></div>
+            <div class="box"><div class="t">Tier</div><div class="v" id="kpiTier">—</div></div>
+            <div class="box"><div class="t">Language</div><div class="v" id="kpiLang">—</div></div>
+            <div class="box"><div class="t">Max score</div><div class="v" id="kpiMax">—</div></div>
+          </div>
+
+          <div class="divider"></div>
+          <div class="note"><strong>Instructions reminder:</strong> No translator. Show working in maths. For written answers, keyword auto-marking rewards clear direct answers.</div>
+          <div id="paper"></div>
+          <div class="divider"></div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap">
+            <button class="btn primary" id="btnSubmit">Submit & Auto-Mark</button>
+            <button class="btn" id="btnReset">Reset (new random paper)</button>
+          </div>
+          <div id="markingBox" class="hide" style="margin-top:14px"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="hd">
+          <div>
+            <h2 id="sideTitle">Grading guide</h2>
+            <div class="meta" id="sideMeta">Otono grades, GCSE estimate, and stored results.</div>
+          </div>
+        </div>
+
+        <div class="bd" id="sideBody">
+          <div class="note"><strong>Foundation</strong><br/>Pass: 50+<br/>Merit: 60+<br/>Distinction: 68+<br/>Grade S: 76</div>
+          <div class="divider"></div>
+          <div class="note"><strong>Higher</strong><br/>Pass: 66+<br/>Merit: 80+<br/>Distinction: 90+<br/>Grade S: 101</div>
+          <div class="divider"></div>
+          <div class="note"><strong>Otono grades</strong><br/>S: above max by hidden bonus<br/>A*: 95%+ of base marks<br/>A: 90%+<br/>B: 80%+<br/>C: 70%+<br/>D: pass band<br/>E/F/G/H/U below that</div>
+          <div class="divider"></div>
+          <div class="small">All results are stored locally in this browser only.</div>
+        </div>
+
+        <div class="bd hide" id="resultsBody">
+          <div class="tabs">
+            <div class="tab active" id="tabAll">All attempts</div>
+            <div class="tab" id="tabCandidate">By candidate</div>
+          </div>
+
+          <div class="row" style="margin-top:10px">
+            <div>
+              <label>Filter candidate number (4 digits)</label>
+              <input type="text" id="filterCandidate" placeholder="e.g. 1105" inputmode="numeric" />
+            </div>
+            <div>
+              <label>Actions</label>
+              <div style="display:flex; gap:10px; flex-wrap:wrap">
+                <button class="btn" id="btnExport">Export JSON</button>
+                <button class="btn danger" id="btnClear">Clear stored results</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+          <div class="resultsList" id="resultsList"></div>
+          <div id="exportBox" class="note hide" style="margin-top:12px">
+            <div><strong>Exported JSON</strong></div>
+            <div class="divider"></div>
+            <div class="copy" id="exportText"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+const $ = (s) => document.querySelector(s);
+const $$ = (s) => Array.from(document.querySelectorAll(s));
+
+function escapeHtml(str){
+  return (str ?? "").toString()
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/\"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+function norm(s){
+  return (s ?? "").toString().toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .replace(/[^a-z0-9\s]/g," ")
+    .replace(/\s+/g," ").trim();
+}
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+function nowISO(){ return new Date().toISOString(); }
+function randPick(arr, n){ return shuffle(arr).slice(0,n); }
+function sumMarks(arr){ return arr.reduce((a,b)=>a+(b.marks||0),0); }
+function tokenOverlap(text, phrase){
+  const textTokens = new Set(norm(text).split(" ").filter(Boolean));
+  const phraseTokens = norm(phrase).split(" ").filter(Boolean);
+  const matched = phraseTokens.filter(tok => textTokens.has(tok)).length;
+  return phraseTokens.length ? matched / phraseTokens.length : 0;
+}
+
+const OPTION_LABELS = ["A","B","C","D","E","F","G","H","J","K","L","M","N","P","Q","R"];
+
+const FOUNDATION_TARGETS = { knowledge:25, maths:30, mfl:20, total:75, bonus:76 };
+const HIGHER_TARGETS = { knowledge:40, maths:35, mfl:25, total:100, bonus:101 };
+
+function pmg(score, tier){
+  if(tier === 'foundation'){
+    if(score >= 76) return 'GRADE S';
+    if(score >= 68) return 'DISTINCTION';
+    if(score >= 60) return 'MERIT';
+    if(score >= 50) return 'PASS';
+    return 'FAIL';
+  }
+  if(score >= 101) return 'GRADE S';
+  if(score >= 90) return 'DISTINCTION';
+  if(score >= 80) return 'MERIT';
+  if(score >= 66) return 'PASS';
+  return 'FAIL';
+}
+function otonoLetter(score, maxBase){
+  const pct = (score / maxBase) * 100;
+  if(score > maxBase) return 'S';
+  if(pct >= 95) return 'A*';
+  if(pct >= 90) return 'A';
+  if(pct >= 80) return 'B';
+  if(pct >= 70) return 'C';
+  if(pct >= 60) return 'D';
+  if(pct >= 50) return 'E';
+  if(pct >= 40) return 'F';
+  if(pct >= 30) return 'G';
+  if(pct >= 15) return 'H';
+  return 'U';
+}
+function gcseEstimate(score, maxBase){
+  const pct = (score / maxBase) * 100;
+  if(pct >= 90) return 9;
+  if(pct >= 80) return 8;
+  if(pct >= 70) return 7;
+  if(pct >= 60) return 6;
+  if(pct >= 50) return 5;
+  if(pct >= 40) return 4;
+  if(pct >= 30) return 3;
+  if(pct >= 20) return 2;
+  if(pct >= 10) return 1;
+  return 'U';
+}
+function badgeForScore(score, tier){
+  const outcome = pmg(score, tier);
+  if(outcome === 'GRADE S') return ['badge good','🏆 Grade S'];
+  if(outcome === 'DISTINCTION') return ['badge good','🏆 Distinction'];
+  if(outcome === 'MERIT') return ['badge good','⭐ Merit'];
+  if(outcome === 'PASS') return ['badge warn','✅ Pass'];
+  return ['badge bad','❌ Fail'];
+}
+
+const MATCH_UNUSED_NOTE = 'Some options are not used.';
+
+const BANK = {
+  knowledge: {
+    foundation: [
+      {
+        id:'FK1', marks:5, type:'matching', section:'Otono Knowledge',
+        prompt:'Match each person to the correct trait. ' + MATCH_UNUSED_NOTE,
+        intro:'Write the correct letter next to each name.',
+        items:['Luke','Red','OWing','Clayton','Jessica'],
+        options:[
+          ['A','Black ink obsession'],['B','Languages and soprano'],['C','Anti-arrogance quote'],['D','100% maths'],['E','Mezzo-soprano and piano'],['F','Mahjong'],['G','Doritos']
+        ],
+        answerMap:{'Luke':'A','Red':'B','OWing':'C','Clayton':'D','Jessica':'E'}
+      },
+      {
+        id:'FK2', marks:5, type:'multi', section:'Otono Knowledge',
+        prompt:'Select all statements that are correct about Otono Airways.',
+        options:['Economy legroom is 34–35 inches across the fleet.','Showers are for Otono One and First only.','Economy passengers can freely use the showers.','The A380 lounge is open to all classes.','Every Boeing 777 has no lounge at all.'],
+        correct:[0,1,3],
+        scoring:'all-or-nothing'
+      },
+      {
+        id:'FK3', marks:5, type:'short', section:'Otono Knowledge',
+        prompt:'Give two reasons why the 777 premium configuration has so many Business seats.',
+        rubric:'Business-heavy layout improves long-haul profitability / targets premium demand / makes major routes more financially viable.',
+        keywords:[['profitabilite','profitable','profit'],['demande premium','premium demand','premium'],['vols long courrier','long haul','major routes'],['viable financiere','financially viable','viable']]
+      },
+      {
+        id:'FK4', marks:5, type:'short', section:'Otono Knowledge',
+        prompt:'What was Red’s old phone problem, and what replaced it later?',
+        rubric:'Old iPhone 7 with severe storage problems; later replaced by a purple iPhone 17 with 512GB.',
+        keywords:[['iphone 7'],['storage','stockage'],['purple iphone 17','iphone 17 violet','512gb'],['severe','grave','problem']]
+      },
+      {
+        id:'FK5', marks:5, type:'mcq', section:'Otono Knowledge',
+        prompt:'Which route is the flagship Otono Airways service?',
+        options:['London–Hong Kong–Sydney (OT116/117)','London–New York','London–Tokyo','London–Miami'],
+        answerIndex:0
+      },
+      {
+        id:'FK6', marks:5, type:'short', section:'Otono Knowledge',
+        prompt:'Name two things that make the A380 special in Otono Airways service.',
+        rubric:'Could mention lounge, showers, upper-deck premium cabins, high capacity, flagship role.',
+        keywords:[['lounge','salon'],['showers','douches'],['upper deck','pont superieur'],['high capacity','477'],['flagship','vaisseau amiral']]
+      },
+      {
+        id:'FK7', marks:5, type:'tfnm', section:'Otono Knowledge',
+        prompt:'All Otono One suites carry only one passenger. (True / False / Not mentioned)',
+        correct:'False'
+      },
+      {
+        id:'FK8', marks:5, type:'short', section:'Otono Knowledge',
+        prompt:'Why might the A350-1000 not be used on many medium routes?',
+        rubric:'It is intended mainly for very long flights (especially 17+ hours), so using it on shorter routes is less suitable / less efficient for that role.',
+        keywords:[['17 hours','17+','very long'],['less suitable','not suitable','moins adapte'],['medium routes','moyen courrier','medium'],['role','designed for']]
+      }
+    ],
+    higher: [
+      {
+        id:'HK1', marks:8, type:'matching', section:'Otono Knowledge',
+        prompt:'Elite matching. Some options are not used. Letters I and O are intentionally not used.',
+        intro:'Match each person to the best trait.',
+        items:['Luke','Red','OWing','Clayton','Jessica','Grandpa Belt','Mr Ribbon Cutter','Lit'],
+        options:[
+          ['A','Black ink obsession'],['B','Languages and soprano'],['C','Anti-arrogance quote'],['D','100% GCSE maths early'],['E','Mezzo-soprano and piano'],['F','Mahjong and 5am swimming'],['G','Works for Otono Airways in Hong Kong'],['H','Lives in Otono Mansion'],['J','Loves Doritos'],['K','Only stays in the UK a few times a year']
+        ],
+        answerMap:{'Luke':'A','Red':'B','OWing':'C','Clayton':'D','Jessica':'E','Grandpa Belt':'F','Mr Ribbon Cutter':'G','Lit':'H'}
+      },
+      {
+        id:'HK2', marks:8, type:'multi', section:'Otono Knowledge',
+        prompt:'Select all true statements about the Otono Airways fleet and cabins.',
+        options:['A380 upper deck includes Otono One, First, Premium Economy and some Economy seats.','Every 777 standard configuration has Otono One suites.','Showers are exclusive to Otono One and First passengers.','All Otono Airways aircraft have exactly the same total seat count.','Economy across Otono Airways is advertised with 34–35 inch legroom.'],
+        correct:[0,2,4], scoring:'all-or-nothing'
+      },
+      {
+        id:'HK3', marks:8, type:'short', section:'Otono Knowledge',
+        prompt:'Explain two reasons why the flagship Sydney via Hong Kong route matters so much to Otono Airways.',
+        rubric:'Prestige / branding / long-haul demand / identity / flagship aircraft deployment.',
+        keywords:[['prestige','prestigious','brand'],['identity','identite'],['demand','demande'],['long haul','long courrier'],['flagship','vaisseau amiral']]
+      },
+      {
+        id:'HK4', marks:8, type:'short', section:'Otono Knowledge',
+        prompt:'Why can the same excellent result from Clayton motivate some students but discourage others?',
+        rubric:'Some see proof of progress; others focus on the gap and feel overwhelmed.',
+        keywords:[['progress','progres','proof'],['gap','ecart'],['motivate','motiver'],['discourage','decourager','overwhelmed']]
+      },
+      {
+        id:'HK5', marks:8, type:'short', section:'Otono Knowledge',
+        prompt:'Give two advantages of the A380 over a smaller aircraft on a route with huge demand.',
+        rubric:'High capacity / premium product / flagship presence / lounge and showers / slot efficiency.',
+        keywords:[['capacity','capacite'],['premium'],['lounge','salon'],['showers','douches'],['slot efficiency','slots','presence']]
+      },
+      {
+        id:'HK6', marks:8, type:'mcq', section:'Otono Knowledge',
+        prompt:'Which statement is most accurate?',
+        options:['The 777 premium configuration carries 242 passengers.','The 777 premium configuration carries 477 passengers.','The A380 carries 242 passengers.','The standard 777 has no First Class.'],
+        answerIndex:0
+      }
+    ]
+  },
+  maths: {
+    foundation: [
+      {
+        id:'FM1', marks:6, type:'numeric', section:'Maths — Otono Airways',
+        prompt:'An Otono Airways A380 has 318 Economy seats. If 92% are filled, how many Economy passengers are on board? Round to the nearest whole passenger.',
+        answers:['293']
+      },
+      {
+        id:'FM2', marks:6, type:'short', section:'Maths — Otono Airways',
+        prompt:'A standard 777 has 12 First, 66 Business, 48 Premium Economy and 157 Economy seats. Find the total number of passengers if every seat is occupied.',
+        rubric:'12 + 66 + 48 + 157 = 283.',
+        keywords:[['283']]
+      },
+      {
+        id:'FM3', marks:6, type:'short', section:'Maths — Otono Airways',
+        prompt:'Business : Economy passengers on a flight are in the ratio 3 : 7. If there are 280 passengers in these two cabins together, how many are in Business?',
+        rubric:'280 ÷ 10 = 28, so Business = 84.',
+        keywords:[['84']]
+      },
+      {
+        id:'FM4', marks:6, type:'short', section:'Maths — Otono Airways',
+        prompt:'Economy revenue is £400 per passenger. If 250 Economy passengers travel, how much Economy revenue is made?',
+        rubric:'250 × 400 = 100000.',
+        keywords:[['100000','100,000']]
+      },
+      {
+        id:'FM5', marks:6, type:'short', section:'Maths — Otono Airways',
+        prompt:'An A380 route runs 10 times per week to Singapore and 4 times per week to Tokyo. How many total weekly A380 flights is that across those two routes?',
+        rubric:'10 + 4 = 14.',
+        keywords:[['14']]
+      },
+      {
+        id:'FM6', marks:6, type:'short', section:'Maths — Otono Airways',
+        prompt:'A Boeing 777 premium configuration has 2 Otono One suites, each carrying 2 passengers. How many passengers can travel in Otono One in total?',
+        rubric:'4 passengers.',
+        keywords:[['4']]
+      },
+      {
+        id:'FM7', marks:6, type:'short', section:'Maths — Otono Airways',
+        prompt:'On a route, load factor rises from 80% to 90% on a 300-seat aircraft. How many more seats are filled?',
+        rubric:'10% of 300 = 30 more seats.',
+        keywords:[['30']]
+      },
+      {
+        id:'FM8', marks:6, type:'short', section:'Maths — Otono Airways',
+        prompt:'A route has 21 New York A380 flights and 21 Dubai A380 flights per week. What fraction of these 42 flights are to New York?',
+        rubric:'21/42 = 1/2.',
+        keywords:[['1/2','0.5','half']]
+      },
+      {
+        id:'FM9', marks:6, type:'short', section:'Maths — Otono Airways',
+        prompt:'A flight has 60 Business passengers and 12 First passengers. How many more passengers are in Business than First?',
+        rubric:'48.',
+        keywords:[['48']]
+      },
+      {
+        id:'FM10', marks:6, type:'short', section:'Maths — Otono Airways',
+        prompt:'Premium Economy has 63 seats on the A380. If 90% are occupied, how many passengers is that to the nearest whole number?',
+        rubric:'56.7 rounds to 57.',
+        keywords:[['57']]
+      }
+    ],
+    higher: [
+      {
+        id:'HM1', marks:8, type:'short', section:'Maths — Otono Airways',
+        prompt:'An Otono Airways Boeing 777 premium configuration has Otono One = 2 suites (each carries 2 passengers), First = x, Business = 5x + 2, Premium Economy = 3x + 2, Economy = 10x + 6. Total passengers = 242. Form the equation, solve for x, and find the number of Business seats.',
+        rubric:'4 + x + (5x+2) + (3x+2) + (10x+6) = 242, so 19x + 14 = 242, x = 12, Business = 62.',
+        keywords:[['19x','19 x'],['x = 12','x=12'],['62']]
+      },
+      {
+        id:'HM2', marks:7, type:'short', section:'Maths — Otono Airways',
+        prompt:'An A380 has 4 Otono One, 16 First, 72 Business, 63 Premium Economy and 318 Economy seats. Loads are 100%, 100%, 85%, 90% and 92% respectively. Calculate the total passengers on board and the overall load factor percentage to 1 decimal place.',
+        rubric:'4 + 16 + 61 + 57 + 293 = 431, load factor ≈ 90.4%.',
+        keywords:[['431'],['90.4','90.3','90.35']]
+      },
+      {
+        id:'HM3', marks:8, type:'short', section:'Maths — Otono Airways',
+        prompt:'Use the revenue model R = 400E + 900P + 1200B + 3000F + 6000O. If E=280, P=50, B=60, F=12 and O=4, find total revenue. Then state the loss if Economy falls by 10% while all other cabins stay the same.',
+        rubric:'Revenue = 289000. New Economy = 252. New revenue = 277800. Loss = 11200.',
+        keywords:[['289000','289,000'],['277800','277,800'],['11200','11,200']]
+      },
+      {
+        id:'HM4', marks:6, type:'short', section:'Maths — Otono Airways',
+        prompt:'Use N = 19(1.08)^t for A380 fleet growth. Find the fleet size after 5 years to the nearest whole aircraft and state after how many years it first exceeds 30 aircraft.',
+        rubric:'About 28 after 5 years; first exceeds 30 after about 7 years.',
+        keywords:[['28'],['7']]
+      },
+      {
+        id:'HM5', marks:6, type:'short', section:'Maths — Otono Airways',
+        prompt:'Weekly A380 schedule: New York 21, Hong Kong 14, Sydney via Hong Kong 7, Singapore 10, Tokyo 4, Bangkok 7, Dubai 21. Verify the total and find the percentage of flights that are to New York.',
+        rubric:'Total = 84. New York = 21/84 = 25%.',
+        keywords:[['84'],['25%','25']]
+      },
+      {
+        id:'HM6', marks:8, type:'short', section:'Maths — Otono Airways',
+        prompt:'A route earns £400 from each Economy passenger, £900 from each Premium Economy passenger, £1200 from each Business passenger, £3000 from each First passenger and £6000 from each Otono One passenger. Compare two flights: Flight A has 280E, 50P, 60B, 12F, 4O. Flight B has 300E, 45P, 55B, 10F, 2O. Which earns more revenue and by how much?',
+        rubric:'A = 289000, B = 248500, difference = 40500; Flight A earns more.',
+        keywords:[['289000','289,000'],['248500','248,500'],['40500','40,500'],['flight a']]
+      }
+    ]
+  },
+  mfl: {
+    foundation: {
+      french: [
+        { id:'FF1', marks:6, type:'mcq', section:'French', prompt:'Choose the best English meaning of “Bien que Red perde souvent, il continue parce qu’il aime progresser.”', options:['Although Red often loses, he continues because he likes improving.','Because Red always wins, he wants to stop.','Red loses once and never races again.','Although Red is perfect, he refuses to continue.'], answerIndex:0 },
+        { id:'FF2', marks:6, type:'short', section:'French', prompt:'Translate into English: “Les règles contradictoires peuvent frustrer les élèves, mais elles les obligent parfois à réfléchir.”', rubric:'Contradictory rules can frustrate students, but they sometimes force them to think.', keywords:[['contradictory'],['frustrate'],['students'],['force','oblige'],['think']] },
+        { id:'FF3', marks:8, type:'short', section:'French', prompt:'Write one short sentence in French about progress and one about Otono Airways. Include at least one justified opinion.', rubric:'Auto-mark checks for reasonable French and at least two sentences with topic words.', keywords:[['progres','ameliorer','mieux'],['otono airways','avion','vol'],['je pense','a mon avis','car','parce que']] }
+      ],
+      spanish: [
+        { id:'FS1', marks:6, type:'mcq', section:'Spanish', prompt:'Choose the best English meaning of “Aunque Red pierde muchas veces, sigue porque quiere mejorar.”', options:['Although Red loses many times, he continues because he wants to improve.','Red never loses because he is perfect.','Red stops immediately after one race.','Red dislikes progress and competition.'], answerIndex:0 },
+        { id:'FS2', marks:6, type:'short', section:'Spanish', prompt:'Translate into English: “Las reglas contradictorias pueden frustrar a los alumnos, pero a veces les obligan a pensar.”', rubric:'Contradictory rules can frustrate students, but sometimes they force them to think.', keywords:[['contradictory'],['frustrate'],['students'],['force'],['think']] },
+        { id:'FS3', marks:8, type:'short', section:'Spanish', prompt:'Write one short sentence in Spanish about progress and one about Otono Airways. Include at least one justified opinion.', rubric:'Auto-mark checks topic words and justified opinion.', keywords:[['progreso','mejorar'],['otono airways','avion','vuelo'],['pienso','creo','porque']] }
+      ],
+      both: [
+        { id:'FB1', marks:10, type:'short', section:'French + Spanish', prompt:'Translate into English both sentences: “Bien que Red perde souvent, il continue.” and “Aunque OWing gana a menudo, sigue trabajando duro.”', rubric:'Although Red often loses, he continues. Although OWing often wins, he keeps working hard.', keywords:[['although'],['red'],['continues'],['owing'],['wins'],['working hard','works hard']] },
+        { id:'FB2', marks:10, type:'short', section:'French + Spanish', prompt:'Write one short sentence in French and one in Spanish about progress, effort or racing.', rubric:'Auto-mark checks presence of both languages and topic words.', keywords:[['progres','ameliorer','course','effort'],['progreso','mejorar','carrera','esfuerzo']] }
+      ]
+    },
+    higher: {
+      french: [
+        { id:'HF1', marks:10, type:'short', section:'French', prompt:'Translate into English: “Bien que les règles soient parfois contradictoires, Red préfère progresser plutôt que d’être parfait.”', rubric:'Although the rules are sometimes contradictory, Red prefers to improve/progress rather than be perfect.', keywords:[['although'],['rules'],['contradictory'],['red'],['prefers'],['progress','improve'],['rather than'],['perfect']] },
+        { id:'HF2', marks:5, type:'multi', section:'French', prompt:'Select all correct English meanings.', options:['cependant = however','pourtant = yet / however','réussir = to succeed','contradictoire = comfortable','améliorer = to improve'], correct:[0,1,2,4], scoring:'all-or-nothing' },
+        { id:'HF3', marks:10, type:'short', section:'French', prompt:'Write 70–90 words in French on “perfection vs progress” in an Otono context. Include a justified opinion, a contrast, one past reference and one future idea.', rubric:'Keyword auto-mark only; clear topic coverage needed.', keywords:[['je pense','a mon avis'],['cependant','pourtant','mais'],['avant','hier','dans le passe','j ai'],['a l avenir','je vais','plus tard'],['progres','parfait','perfection']] }
+      ],
+      spanish: [
+        { id:'HS1', marks:10, type:'short', section:'Spanish', prompt:'Translate into English: “Aunque las reglas sean a veces contradictorias, Red prefiere mejorar en lugar de ser perfecto.”', rubric:'Although the rules are sometimes contradictory, Red prefers to improve rather than be perfect.', keywords:[['although'],['rules'],['contradictory'],['red'],['prefers'],['improve'],['rather than'],['perfect']] },
+        { id:'HS2', marks:5, type:'multi', section:'Spanish', prompt:'Select all correct English meanings.', options:['sin embargo = however','lograr = to achieve','mejorar = to improve','contradictorio = cheerful','aunque = although'], correct:[0,1,2,4], scoring:'all-or-nothing' },
+        { id:'HS3', marks:10, type:'short', section:'Spanish', prompt:'Write 70–90 words in Spanish on “perfección contra progreso” in an Otono context. Include a justified opinion, a contrast, one past reference and one future idea.', rubric:'Keyword auto-mark only; clear topic coverage needed.', keywords:[['pienso','creo','en mi opinion'],['sin embargo','pero'],['antes','ayer','en el pasado','fui','he'],['en el futuro','voy a','mas tarde'],['progreso','perfecto','perfeccion']] }
+      ],
+      both: [
+        { id:'HB1', marks:15, type:'short', section:'French + Spanish', prompt:'Translate into English both sentences: “Bien que la progression soit plus lente, elle reste utile.” and “Aunque la perfección parezca atractiva, el progreso suele ser más realista.”', rubric:'Both sentences should be translated accurately.', keywords:[['although'],['progression','progress'],['slower','more slowly'],['useful'],['perfection'],['attractive'],['progress'],['realistic']] },
+        { id:'HB2', marks:10, type:'short', section:'French + Spanish', prompt:'Write one 35–45 word mini-paragraph in French and one in Spanish about effort, racing or Otono Airways.', rubric:'Auto-mark checks both languages and topic words.', keywords:[['french','francais','progres','course','otono airways'],['spanish','espanol','progreso','carrera','otono airways']] }
+      ]
+    }
+  },
+  bonus: {
+    foundation: {
+      id:'FBONUS', marks:1, type:'short', section:'Hidden Bonus',
+      prompt:'Bonus: name the flagship Otono Airways route number pair correctly.',
+      rubric:'OT116/117.',
+      keywords:[['ot116','116'],['117']]
+    },
+    higher: {
+      id:'HBONUS', marks:1, type:'short', section:'Hidden Bonus',
+      prompt:'Bonus: give the exact flight number pair of the London–Hong Kong–Sydney flagship service.',
+      rubric:'OT116/117.',
+      keywords:[['ot116','116'],['117']]
+    }
+  }
+};
+
+const STORE_KEY = 'otono_inkredible_results_v1';
+function loadResults(){ try { return JSON.parse(localStorage.getItem(STORE_KEY) || '[]'); } catch(e){ return []; } }
+function saveResults(list){ localStorage.setItem(STORE_KEY, JSON.stringify(list)); }
+function addResult(attempt){ const list = loadResults(); list.unshift(attempt); saveResults(list); }
+
+let state = {
+  mode:'home', timer:null, remainingSec:0, startedAt:null,
+  centreNo:'50749', candidateNo:null, candSurname:'', candForenames:'',
+  tier:'higher', language:'french', selection:null, answers:{}, mcqCorrectValue:{}, submitted:false
+};
+
+function setBadge(text, cls='badge'){ const b=$('#statusBadge'); b.className=cls; b.textContent=text; }
+function setCentre(no){ state.centreNo = String(no); $('#centreNo').value=state.centreNo; $('#centreTop').textContent=state.centreNo; }
+$('#btnEditCentre').addEventListener('click', ()=>{
+  const val = prompt('Enter centre number (digits only):', state.centreNo);
+  if(val===null) return;
+  const clean = String(val).replace(/\D/g,'').slice(0,10);
+  if(clean.length < 5){ alert('Centre number must be at least 5 digits.'); return; }
+  setCentre(clean);
+});
+$('#btnResetCentre').addEventListener('click', ()=>setCentre('50749'));
+
+const digitIds = ['#candD1','#candD2','#candD3','#candD4'];
+function getCandidateNoFromSquares(){
+  const d = digitIds.map(id => ($(id).value||'').trim());
+  if(d.some(x => x.length !== 1 || !/^\d$/.test(x))) return '';
+  return d.join('');
+}
+function focusDigit(i){ const el = $(digitIds[i]); if(el) el.focus(); }
+function wireDigitSquares(){
+  digitIds.forEach((id, idx)=>{
+    const el = $(id);
+    el.addEventListener('input', ()=>{ el.value=(el.value||'').replace(/\D/g,'').slice(0,1); if(el.value && idx<digitIds.length-1) focusDigit(idx+1); });
+    el.addEventListener('keydown', (e)=>{
+      if(e.key==='Backspace' && !el.value && idx>0) focusDigit(idx-1);
+      if(e.key==='ArrowLeft' && idx>0){ e.preventDefault(); focusDigit(idx-1); }
+      if(e.key==='ArrowRight' && idx<digitIds.length-1){ e.preventDefault(); focusDigit(idx+1); }
+    });
+    el.addEventListener('paste', (e)=>{
+      e.preventDefault();
+      const txt = (e.clipboardData || window.clipboardData).getData('text') || '';
+      const digits = txt.replace(/\D/g,'').slice(0,4).split('');
+      digits.forEach((ch,j)=>{ const t=$(digitIds[j]); if(t) t.value=ch; });
+    });
+  });
+}
+wireDigitSquares();
+
+function getTargets(tier){ return tier === 'foundation' ? FOUNDATION_TARGETS : HIGHER_TARGETS; }
+
+function selectKnowledge(tier){
+  const pool = shuffle(BANK.knowledge[tier]);
+  const target = getTargets(tier).knowledge;
+  const picked = [];
+  let marks = 0;
+  for(const q of pool){
+    if(marks + q.marks <= target){ picked.push(q); marks += q.marks; }
+    if(marks === target) break;
+  }
+  return picked;
+}
+function selectMaths(tier){
+  const pool = shuffle(BANK.maths[tier]);
+  const target = getTargets(tier).maths;
+  const picked = [];
+  let marks = 0;
+  for(const q of pool){
+    if(marks + q.marks <= target){ picked.push(q); marks += q.marks; }
+    if(marks === target) break;
+  }
+  return picked;
+}
+function selectMFL(tier, language){
+  const target = getTargets(tier).mfl;
+  let pool = [];
+  if(language === 'both'){
+    pool = shuffle(BANK.mfl[tier].both);
+  } else {
+    pool = shuffle(BANK.mfl[tier][language]);
+  }
+  const picked = [];
+  let marks = 0;
+  for(const q of pool){
+    if(marks + q.marks <= target){ picked.push(q); marks += q.marks; }
+    if(marks === target) break;
+  }
+  return picked;
+}
+function generateSelection(tier, language){
+  const knowledge = selectKnowledge(tier);
+  const maths = selectMaths(tier);
+  const mfl = selectMFL(tier, language);
+  const bonus = BANK.bonus[tier];
+  return { knowledge, maths, mfl, bonus };
+}
+function selectionSummary(sel){
+  return [
+    `Knowledge: ${sel.knowledge.map(q=>q.id).join(', ')}`,
+    `Maths: ${sel.maths.map(q=>q.id).join(', ')}`,
+    `MFL: ${sel.mfl.map(q=>q.id).join(', ')}`,
+    `Bonus: ${sel.bonus.id}`
+  ].join(' • ');
+}
+
+function renderHome(){
+  $('#homeBody').classList.remove('hide');
+  $('#testBody').classList.add('hide');
+  $('#resultsBody').classList.add('hide');
+  $('#sideBody').classList.remove('hide');
+  $('#sideTitle').textContent='Grading guide';
+  $('#sideMeta').textContent='Otono grades, GCSE estimate, and stored results.';
+  setBadge('Ready','badge');
+  $('#timerText').textContent='--:--';
+}
+function renderResults(){
+  $('#homeBody').classList.add('hide');
+  $('#testBody').classList.add('hide');
+  $('#sideBody').classList.add('hide');
+  $('#resultsBody').classList.remove('hide');
+  setBadge('Results','badge');
+  $('#sideTitle').textContent='Saved results';
+  $('#sideMeta').textContent='Stored per candidate in this browser.';
+  drawResults();
+}
+
+function stopTimer(){ if(state.timer){ clearInterval(state.timer); state.timer=null; } }
+function startTimer(minutes){
+  stopTimer();
+  state.remainingSec = Math.max(1, Math.floor(minutes*60));
+  state.startedAt = Date.now();
+  const tick = ()=>{
+    if(state.submitted) return;
+    const m = Math.floor(state.remainingSec/60), s=state.remainingSec%60;
+    $('#timerText').textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    state.remainingSec--;
+    if(state.remainingSec < 0){
+      stopTimer();
+      if($('#autoSubmit').value==='yes') submitPaper(true);
+      else alert('Time is up. You can still submit manually.');
+    }
+  };
+  tick(); state.timer = setInterval(tick,1000);
+}
+
+function renderQuestion(q){
+  if(q.type === 'mcq') return renderChoice(q, q.options.map((t,i)=>({text:t, isCorrect:i===q.answerIndex})));
+  if(q.type === 'tfnm') return renderChoice(q, [
+    {text:'True', isCorrect:q.correct==='True'},
+    {text:'False', isCorrect:q.correct==='False'},
+    {text:'Not mentioned', isCorrect:q.correct==='Not mentioned'}
+  ]);
+  if(q.type === 'multi') return renderMultiChoice(q);
+  if(q.type === 'matching') return renderMatching(q);
+  return `<textarea id="ans_${q.id}" placeholder="Write your answer here..."></textarea>`;
+}
+
+function renderChoice(q, optionObjects){
+  const shuffled = shuffle(optionObjects);
+  const correctIndex = shuffled.findIndex(o => o.isCorrect);
+  state.mcqCorrectValue[q.id] = String(correctIndex);
+  return `<div class="opts">${shuffled.map((opt,idx)=>`
+    <label class="opt"><input type="radio" name="ans_${q.id}" value="${idx}" />
+      <div><strong>${OPTION_LABELS[idx]}.</strong> ${escapeHtml(opt.text)}</div>
+    </label>`).join('')}</div>`;
+}
+function renderMultiChoice(q){
+  return `<div class="opts">${q.options.map((opt,idx)=>`
+    <label class="opt"><input type="checkbox" name="ans_${q.id}" value="${idx}" />
+      <div><strong>${OPTION_LABELS[idx]}.</strong> ${escapeHtml(opt)}</div>
+    </label>`).join('')}</div>`;
+}
+function renderMatching(q){
+  return `
+    ${q.intro ? `<div class="small" style="margin-bottom:8px">${escapeHtml(q.intro)}</div>` : ''}
+    <div class="note" style="margin-bottom:10px">${q.options.map(o => `<strong>${o[0]}</strong>) ${escapeHtml(o[1])}`).join('<br/>')}</div>
+    ${q.items.map((item,idx)=>`
+      <div class="row" style="margin-top:8px">
+        <div style="flex:2 1 220px"><input type="text" value="${escapeHtml(item)}" disabled /></div>
+        <div style="flex:1 1 120px"><input type="text" id="ans_${q.id}_${idx}" maxlength="1" placeholder="Letter" /></div>
+      </div>`).join('')}
+  `;
+}
+
+function sectionBlock(title, questions, targetMarks){
+  const wrap = document.createElement('div');
+  wrap.className='card';
+  wrap.style.marginTop='14px';
+  wrap.innerHTML = `<div class="hd"><div><h2>${escapeHtml(title)}</h2><div class="meta">Random bank selection • Target marks: <strong>${targetMarks}</strong></div></div></div><div class="bd"><div class="qs"></div></div>`;
+  const qs = wrap.querySelector('.qs');
+  const list = $('#shuffleMode').value === 'shuffleAll' ? shuffle(questions) : questions.slice();
+  list.forEach(q=>{
+    const qWrap = document.createElement('div');
+    qWrap.className='q';
+    qWrap.dataset.qid=q.id;
+    qWrap.innerHTML = `<h3>${escapeHtml(q.prompt)} <span class="badge">${q.marks} marks</span><span class="badge sectionTag">${escapeHtml(q.section)}</span></h3>${renderQuestion(q)}${q.rubric ? `<div class="small" style="margin-top:8px">Auto-marked with keywords.</div>` : ''}`;
+    qs.appendChild(qWrap);
+  });
+  return wrap;
+}
+
+function bindInputs(){
+  $$('input[type="radio"]').forEach(r => r.addEventListener('change', ()=>{ state.answers[r.name.replace('ans_','')] = r.value; }));
+  $$('textarea').forEach(t => t.addEventListener('input', ()=>{ state.answers[t.id.replace('ans_','')] = t.value; }));
+  $$('input[type="checkbox"]').forEach(c => c.addEventListener('change', ()=>{
+    const name = c.name.replace('ans_','');
+    const vals = $$(`input[name="ans_${name}"]:checked`).map(x=>x.value).sort();
+    state.answers[name] = vals;
+  }));
+  $$('.q input[type="text"]').forEach(inp => inp.addEventListener('input', ()=>{ state.answers[inp.id.replace('ans_','')] = inp.value; }));
+}
+
+function renderTest(){
+  $('#homeBody').classList.add('hide');
+  $('#testBody').classList.remove('hide');
+  $('#resultsBody').classList.add('hide');
+  $('#sideBody').classList.remove('hide');
+  const candNameLine = [state.candSurname, state.candForenames].filter(Boolean).join(', ');
+  $('#kpiCandidate').textContent = `${state.candidateNo}${candNameLine ? ' • ' + candNameLine : ''}`;
+  $('#kpiTier').textContent = state.tier === 'foundation' ? 'Foundation' : 'Higher';
+  $('#kpiLang').textContent = state.language[0].toUpperCase()+state.language.slice(1);
+  $('#kpiMax').textContent = getTargets(state.tier).total;
+  const paper = $('#paper');
+  paper.innerHTML = '';
+  state.mcqCorrectValue = {};
+
+  paper.appendChild(sectionBlock('Section A — Otono Knowledge', state.selection.knowledge, getTargets(state.tier).knowledge));
+  paper.appendChild(sectionBlock('Section B — Maths (Otono Airways)', state.selection.maths, getTargets(state.tier).maths));
+  paper.appendChild(sectionBlock('Section C — MFL', state.selection.mfl, getTargets(state.tier).mfl));
+
+  const bonusCard = document.createElement('div');
+  bonusCard.className='card'; bonusCard.style.marginTop='14px';
+  bonusCard.innerHTML = `<div class="hd"><div><h2>Hidden route bonus</h2><div class="meta">This question is present but only matters if the tier maximum is exceeded by 1 mark.</div></div><span class="badge">+1</span></div><div class="bd"><div class="q"><h3>${escapeHtml(state.selection.bonus.prompt)} <span class="badge">1 mark</span></h3>${renderQuestion(state.selection.bonus)}</div></div>`;
+  paper.appendChild(bonusCard);
+
+  bindInputs();
+  startTimer(parseInt($('#timeAllowed').value,10));
+  state.submitted=false;
+  $('#markingBox').classList.add('hide'); $('#markingBox').innerHTML='';
+  setBadge('In progress','badge warn');
+}
+
+function markChoice(qid, chosenValue, marks){
+  const ok = String(chosenValue ?? '') === String(state.mcqCorrectValue[qid]);
+  return { score: ok ? marks : 0, max: marks, detail: ok ? 'Correct.' : 'Incorrect.' };
+}
+function markMulti(q, chosenVals){
+  const picked = (Array.isArray(chosenVals) ? chosenVals : []).map(Number).sort((a,b)=>a-b);
+  const correct = q.correct.slice().sort((a,b)=>a-b);
+  const ok = JSON.stringify(picked) === JSON.stringify(correct);
+  return { score: ok ? q.marks : 0, max:q.marks, detail: ok ? 'All correct options selected.' : 'Selection incorrect.' };
+}
+function markMatching(q){
+  let hits = 0;
+  q.items.forEach((item, idx)=>{
+    const ans = (state.answers[`${q.id}_${idx}`] || '').trim().toUpperCase();
+    const want = (q.answerMap[item] || '').trim().toUpperCase();
+    if(ans === want) hits++;
+  });
+  const score = Math.round((hits / q.items.length) * q.marks * 2) / 2;
+  return { score, max:q.marks, detail:`Matched ${hits}/${q.items.length}.` };
+}
+function markShortAnswer(q, userText){
+  const t = norm(userText);
+  if(!t) return { score:0, max:q.marks, detail:'Blank.' };
+  const groups = q.keywords || [];
+  if(groups.length===0){
+    if(q.answers){
+      const ok = q.answers.some(a => t === norm(a) || t.includes(norm(a)));
+      return { score: ok ? q.marks : 0, max:q.marks, detail: ok ? 'Accepted answer.' : 'Answer not matched.' };
+    }
+    return { score:0, max:q.marks, detail:'No keyword rubric set.' };
+  }
+  let hits = 0;
+  groups.forEach(group => {
+    const found = group.some(k => t.includes(norm(k)) || tokenOverlap(t, k) >= 0.7);
+    if(found) hits++;
+  });
+  const score = Math.round((hits / groups.length) * q.marks * 2) / 2;
+  return { score, max:q.marks, detail:`Keyword groups matched: ${hits}/${groups.length}.` };
+}
+function markNumeric(q, userText){
+  const t = norm(userText);
+  const ok = (q.answers || []).some(a => t === norm(a));
+  return { score: ok ? q.marks : 0, max:q.marks, detail: ok ? 'Correct number.' : 'Number incorrect.' };
+}
+
+function computeTotal(){
+  const sections = ['knowledge','maths','mfl'];
+  let total = 0;
+  const breakdown = [];
+  sections.forEach(sec => {
+    state.selection[sec].forEach(q => {
+      let res;
+      if(q.type === 'mcq' || q.type === 'tfnm') res = markChoice(q.id, state.answers[q.id], q.marks);
+      else if(q.type === 'multi') res = markMulti(q, state.answers[q.id]);
+      else if(q.type === 'matching') res = markMatching(q);
+      else if(q.type === 'numeric') res = markNumeric(q, state.answers[q.id], q.marks);
+      else res = markShortAnswer(q, state.answers[q.id]);
+      total += res.score;
+      breakdown.push({ qid:q.id, prompt:q.prompt, score:res.score, max:res.max, detail:res.detail, section:q.section });
+    });
+  });
+  const bq = state.selection.bonus;
+  const bRes = bq.type === 'short' ? markShortAnswer(bq, state.answers[bq.id]) : markNumeric(bq, state.answers[bq.id]);
+  const baseMax = getTargets(state.tier).total;
+  const withBonus = total + bRes.score;
+  const allowBonus = state.tier === 'foundation' ? withBonus === 76 : withBonus === 101;
+  if(allowBonus){
+    total = withBonus;
+    breakdown.push({ qid:bq.id, prompt:bq.prompt, score:bRes.score, max:bRes.max, detail:'Hidden bonus unlocked.', section:'Hidden Bonus' });
+  }
+  return { total, max:baseMax, breakdown };
+}
+
+function submitPaper(fromAutoTimer=false){
+  if(state.submitted) return;
+  const { total, max, breakdown } = computeTotal();
+  state.submitted = true; stopTimer();
+  const outcome = pmg(total, state.tier);
+  const letter = otonoLetter(total, max);
+  const gcse = gcseEstimate(total > max ? max : total, max);
+  const [badgeCls, badgeText] = badgeForScore(total, state.tier);
+
+  const attempt = {
+    paper:'Otono Team Inkredible Test', centre:state.centreNo, candidateNo:String(state.candidateNo),
+    candidateSurname:state.candSurname || '', candidateForenames:state.candForenames || '',
+    submittedAt:nowISO(), tier:state.tier, language:state.language, timeAllowedMin:parseInt($('#timeAllowed').value,10),
+    selection:{ knowledge: state.selection.knowledge.map(q=>q.id), maths: state.selection.maths.map(q=>q.id), mfl: state.selection.mfl.map(q=>q.id), bonus: state.selection.bonus.id },
+    score:total, maxScore:max, otonoGrade:letter, gcseEstimated:gcse, outcome, breakdown
+  };
+  addResult(attempt);
+
+  const box = $('#markingBox');
+  box.classList.remove('hide');
+  box.innerHTML = `
+    <div class="card">
+      <div class="hd">
+        <div><h2>✅ Marked${fromAutoTimer ? ' (auto-submitted)' : ''}</h2><div class="meta">Saved to Results • Tier ${escapeHtml(state.tier)} • Candidate ${escapeHtml(String(state.candidateNo))}</div></div>
+        <span class="${badgeCls}">${escapeHtml(badgeText)}</span>
+      </div>
+      <div class="bd">
+        <div class="kpi">
+          <div class="box"><div class="t">Score</div><div class="v">${attempt.score} / ${attempt.maxScore}</div></div>
+          <div class="box"><div class="t">Otono grade</div><div class="v">${escapeHtml(attempt.otonoGrade)}</div></div>
+          <div class="box"><div class="t">GCSE estimate</div><div class="v">${escapeHtml(String(attempt.gcseEstimated))}</div></div>
+          <div class="box"><div class="t">Outcome</div><div class="v">${escapeHtml(attempt.outcome)}</div></div>
+        </div>
+        <div class="divider"></div>
+        <div class="note"><strong>Marking notes</strong><br/>MCQ and checkbox questions are exact. Written answers use keywords, so different correct wording may sometimes score lower than a human marker would give.</div>
+        <div class="divider"></div>
+        <button class="btn" id="btnShowBreakdown">Show question breakdown</button>
+        <div id="breakdown" class="hide" style="margin-top:12px"></div>
+      </div>
+    </div>`;
+
+  $('#btnShowBreakdown').addEventListener('click', ()=>{
+    const bd = $('#breakdown'); bd.classList.toggle('hide');
+    if(!bd.classList.contains('hide')){
+      bd.innerHTML = breakdown.map(b => `
+        <div class="attempt">
+          <div class="top"><div><strong>${escapeHtml(b.qid)}</strong> • ${escapeHtml(b.section)}</div><div><span class="badge">${b.score} / ${b.max}</span></div></div>
+          <div class="meta"><div><strong>Prompt:</strong> ${escapeHtml(b.prompt)}</div><div><strong>Marker:</strong> ${escapeHtml(b.detail)}</div></div>
+        </div>`).join('');
+    }
+  });
+  setBadge('Submitted','badge good');
+}
+
+function drawResults(){
+  const listEl = $('#resultsList');
+  const all = loadResults();
+  const filter = ($('#filterCandidate').value||'').replace(/\D/g,'').slice(0,4);
+  const filtered = filter ? all.filter(a => String(a.candidateNo) === filter) : all;
+  if(filtered.length===0){ listEl.innerHTML = `<div class="note">No stored attempts${filter ? ' for this candidate' : ''} yet.</div>`; return; }
+  listEl.innerHTML = filtered.map(a => {
+    const [cls,txt] = badgeForScore(a.score, a.tier);
+    const nameLine = [a.candidateSurname,a.candidateForenames].filter(Boolean).join(', ');
+    return `<div class="attempt"><div class="top"><div><strong>${escapeHtml(a.candidateNo)}</strong>${nameLine ? ' • ' + escapeHtml(nameLine) : ''} <span class="badge">${escapeHtml(a.tier)}</span> <span class="badge">${escapeHtml(a.language)}</span></div><div class="${cls}">${escapeHtml(txt)} • ${escapeHtml(String(a.score))}/${escapeHtml(String(a.maxScore))}</div></div><div class="meta"><div><strong>Date:</strong> ${escapeHtml(new Date(a.submittedAt).toLocaleString())}</div><div><strong>Selection:</strong> K ${escapeHtml(a.selection.knowledge.join(', '))} • M ${escapeHtml(a.selection.maths.join(', '))} • L ${escapeHtml(a.selection.mfl.join(', '))}</div><div><strong>Grades:</strong> Otono ${escapeHtml(a.otonoGrade)} • GCSE ${escapeHtml(String(a.gcseEstimated))} • ${escapeHtml(a.outcome)}</div></div></div>`;
+  }).join('');
+}
+function exportResults(){ $('#exportText').textContent = JSON.stringify(loadResults(), null, 2); $('#exportBox').classList.remove('hide'); }
+function clearResults(){ if(!confirm('Clear all stored Inkredible results on this browser?')) return; localStorage.removeItem(STORE_KEY); drawResults(); $('#exportBox').classList.add('hide'); }
+
+$('#btnHome').addEventListener('click', ()=>{ state.mode='home'; renderHome(); });
+$('#btnResults').addEventListener('click', ()=>{ state.mode='results'; renderResults(); });
+$('#btnPreview').addEventListener('click', ()=>{
+  const c = getCandidateNoFromSquares();
+  if(!c){ alert('Enter a candidate number first.'); return; }
+  const tier = $('#tierSelect').value, lang = $('#langSelect').value;
+  const sel = generateSelection(tier, lang);
+  const box = $('#previewBox'); box.classList.remove('hide');
+  box.innerHTML = `<strong>Preview only:</strong><br/>${escapeHtml(selectionSummary(sel))}`;
+});
+$('#btnStart').addEventListener('click', ()=>{
+  const c = getCandidateNoFromSquares();
+  if(!c){ alert('Candidate number is required.'); focusDigit(0); return; }
+  state.candidateNo = c;
+  state.candSurname = ($('#candSurname').value||'').trim();
+  state.candForenames = ($('#candForenames').value||'').trim();
+  state.tier = $('#tierSelect').value;
+  state.language = $('#langSelect').value;
+  state.selection = generateSelection(state.tier, state.language);
+  state.answers = {};
+  renderTest();
+});
+$('#btnSubmit').addEventListener('click', ()=>submitPaper(false));
+$('#btnReset').addEventListener('click', ()=>{
+  if(!confirm('Reset this paper and generate a new random test?')) return;
+  stopTimer(); state.answers={}; state.submitted=false; state.selection = generateSelection(state.tier, state.language); renderTest();
+});
+$('#filterCandidate').addEventListener('input', e=>{ e.target.value=e.target.value.replace(/\D/g,'').slice(0,4); drawResults(); });
+$('#tabAll').addEventListener('click', ()=>{ $('#tabAll').classList.add('active'); $('#tabCandidate').classList.remove('active'); $('#filterCandidate').value=''; drawResults(); });
+$('#tabCandidate').addEventListener('click', ()=>{ $('#tabCandidate').classList.add('active'); $('#tabAll').classList.remove('active'); $('#filterCandidate').focus(); });
+$('#btnExport').addEventListener('click', exportResults);
+$('#btnClear').addEventListener('click', clearResults);
+
+setCentre('50749');
+renderHome();
+</script>
+</body>
+</html>
