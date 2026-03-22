@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Otono Airways Fleet — Full Detailed Interactive Page</title>
+<style>
+  :root{
+    --bg1:#180622;
+    --bg2:#4c0d33;
+    --panel:rgba(21,12,33,.88);
+    --panel2:rgba(31,18,47,.95);
+    --line:rgba(255,255,255,.09);
+    --text:#f6efff;
+    --muted:#d0c0ea;
+    --accent:#bc2cff;
+    --accent2:#ff4f9c;
+    --good:#8dffd0;
+    --warn:#ffd86d;
+    --danger:#ff8ca9;
+    --shadow:0 24px 60px rgba(0,0,0,.33);
+    --radius:24px;
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color:var(--text);
+    background:
+      radial-gradient(circle at top left, rgba(188,44,255,.18), transparent 30%),
+      radial-gradient(circle at bottom right, rgba(255,79,156,.15), transparent 28%),
+      linear-gradient(180deg, var(--bg1), var(--bg2) 55%, #12051a 100%);
+    line-height:1.6;
+  }
+
+  .wrap{width:min(1320px, calc(100% - 28px)); margin:auto}
+  a{text-decoration:none;color:inherit}
+  h1,h2,h3,h4,p{margin-top:0}
+
+  .hero{
+    padding:34px 0 28px;
+    border-bottom:1px solid var(--line);
+    position:relative;
+    overflow:hidden;
+  }
+
+  .hero::after{
+    content:"";
+    position:absolute;
+    right:-100px; top:-80px;
+    width:360px; height:360px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(255,255,255,.11), transparent 68%);
+    pointer-events:none;
+  }
+
+  .nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:14px;
+    flex-wrap:wrap;
+    margin-bottom:30px;
+  }
+
+  .brand{
+    font-size:1.15rem;
+    font-weight:900;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+  }
+  .brand span{color:#ffb0e5}
+
+  .chips{display:flex;gap:10px;flex-wrap:wrap}
+  .chip{
+    padding:10px 14px;
+    border-radius:999px;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.04);
+    color:var(--muted);
+    font-size:.94rem;
+    transition:.2s ease;
+  }
+  .chip:hover{transform:translateY(-1px); color:var(--text); border-color:rgba(255,255,255,.18)}
+
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.05fr .95fr;
+    gap:20px;
+    align-items:stretch;
+  }
+
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    color:#ff9fd7;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    font-size:.82rem;
+    margin-bottom:12px;
+  }
+  .eyebrow::before{content:""; width:34px; height:1px; background:currentColor; opacity:.75}
+
+  h1{
+    font-size:clamp(2.4rem, 5vw, 5rem);
+    line-height:.95;
+    letter-spacing:-.04em;
+    margin-bottom:14px;
+  }
+
+  .lead{color:var(--muted); max-width:78ch; font-size:1.03rem}
+
+  .stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+    margin-top:24px;
+  }
+
+  .panel,.card,.stat,.timeline-card,.mini,.route-card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+  }
+
+  .stat{padding:18px}
+  .stat strong{display:block; font-size:1.6rem; margin-bottom:5px}
+  .stat span{color:var(--muted); font-size:.94rem}
+
+  .hero-card{
+    padding:22px;
+    background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+    overflow:hidden;
+  }
+
+  .hero-card svg{display:block; width:100%; height:auto; filter:drop-shadow(0 20px 34px rgba(0,0,0,.35))}
+  .note{margin-top:16px; padding:14px 16px; border-radius:18px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); color:var(--muted)}
+
+  main{padding:26px 0 70px}
+  section{margin:28px 0 0}
+
+  .section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    gap:16px;
+    flex-wrap:wrap;
+    margin-bottom:18px;
+  }
+  .section-head h2{font-size:clamp(1.55rem,3vw,2.5rem); letter-spacing:-.03em; margin-bottom:0}
+  .section-head p{margin:0; max-width:72ch; color:var(--muted)}
+
+  .grid{display:grid; grid-template-columns:repeat(12,1fr); gap:18px}
+  .card,.timeline-card,.route-card{padding:22px}
+  .span-12{grid-column:span 12}
+  .span-8{grid-column:span 8}
+  .span-6{grid-column:span 6}
+  .span-4{grid-column:span 4}
+
+  .badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:7px 11px;
+    border-radius:999px;
+    font-size:.8rem;
+    font-weight:800;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    margin-bottom:12px;
+    border:1px solid rgba(255,255,255,.08);
+  }
+  .current{background:rgba(188,44,255,.16); color:#efb4ff}
+  .future{background:rgba(141,255,208,.14); color:var(--good)}
+  .legend{background:rgba(255,216,109,.15); color:var(--warn)}
+  .archived{background:rgba(255,255,255,.08); color:#e9dffc}
+  .retired{background:rgba(255,140,169,.16); color:#ffc2d2}
+
+  .desc{color:var(--muted); margin-bottom:16px}
+  .spec-grid{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-bottom:16px}
+  .mini{padding:13px 14px; background:var(--panel2)}
+  .mini small{display:block; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; margin-bottom:4px}
+  .mini strong{font-size:1.02rem}
+
+  .cols{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+  ul.clean{list-style:none; padding:0; margin:0; display:grid; gap:10px}
+  ul.clean li{padding:12px 14px; border-radius:16px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.07)}
+
+  table{width:100%; border-collapse:collapse; overflow:hidden; border-radius:18px; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.03)}
+  th,td{padding:14px 12px; text-align:left; vertical-align:top; border-bottom:1px solid rgba(255,255,255,.07)}
+  th{font-size:.85rem; letter-spacing:.08em; text-transform:uppercase; color:#ffbce9; background:rgba(255,255,255,.04)}
+  tr:last-child td{border-bottom:none}
+  td{color:#f1e9ff}
+
+  .route-picker{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:18px}
+  .route-btn{
+    border:none;
+    border-radius:999px;
+    padding:10px 14px;
+    background:rgba(255,255,255,.05);
+    color:var(--text);
+    border:1px solid rgba(255,255,255,.08);
+    cursor:pointer;
+    font:inherit;
+    transition:.2s ease;
+  }
+  .route-btn:hover,.route-btn.active{background:linear-gradient(90deg, rgba(188,44,255,.26), rgba(255,79,156,.22)); transform:translateY(-1px)}
+
+  .route-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:18px}
+  .route-card h3{margin-bottom:8px}
+  .route-meta{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin:14px 0}
+  .route-meta .mini{box-shadow:none}
+
+  .aircraft-tag{display:inline-flex; padding:7px 10px; border-radius:999px; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.08); margin:0 8px 8px 0; font-size:.92rem}
+
+  .timeline-wrap{margin-top:10px}
+  .timeline-controls{display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:14px}
+  .timeline-bar{
+    position:relative;
+    height:14px;
+    border-radius:999px;
+    background:rgba(255,255,255,.06);
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,.08);
+    margin:16px 0 20px;
+  }
+  .timeline-fill{
+    position:absolute;
+    inset:0 auto 0 0;
+    width:0%;
+    background:linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius:999px;
+    transition:width .9s ease;
+  }
+  .timeline-stops{display:grid; grid-template-columns:repeat(7,1fr); gap:10px}
+  .stop{
+    padding:14px;
+    border-radius:18px;
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.08);
+    opacity:.45;
+    transform:translateY(6px);
+    transition:all .45s ease;
+  }
+  .stop.active{opacity:1; transform:none; background:linear-gradient(180deg, rgba(188,44,255,.16), rgba(255,79,156,.08))}
+  .stop .year{font-size:1.05rem; font-weight:800; margin-bottom:6px}
+  .stop p{margin:0; color:var(--muted); font-size:.94rem}
+
+  .legend-key{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+  .legend-key span{padding:8px 10px; border-radius:999px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); font-size:.9rem}
+
+  .foot{margin-top:16px; color:var(--muted); font-size:.93rem}
+
+  @media (max-width:1080px){
+    .hero-grid,.route-grid,.cols{grid-template-columns:1fr}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .span-8,.span-6,.span-4{grid-column:span 12}
+    .spec-grid{grid-template-columns:repeat(2,1fr)}
+    .timeline-stops{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (max-width:640px){
+    .wrap{width:min(1320px, calc(100% - 18px))}
+    .stats,.spec-grid,.route-meta,.timeline-stops{grid-template-columns:1fr}
+    .card,.timeline-card,.route-card,.hero-card{padding:18px}
+    th,td{padding:11px 10px}
+  }
+</style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <div class="nav">
+        <div class="brand">Otono <span>Airways</span></div>
+        <div class="chips">
+          <a class="chip" href="#current">Current Fleet</a>
+          <a class="chip" href="#future">Future Fleet</a>
+          <a class="chip" href="#routes">Sample Route Assignment</a>
+          <a class="chip" href="#legend">Legend Fleet</a>
+          <a class="chip" href="#archived">Archived Fleet</a>
+          <a class="chip" href="#retired">Retired Fleet</a>
+          <a class="chip" href="#timeline">Retirement Timeline</a>
+        </div>
+      </div>
+
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">Official Fleet System</div>
+          <h1>The full detailed Otono Airways fleet</h1>
+          <p class="lead">
+            Otono Airways is a premium-focused airline with a very deliberate fleet philosophy. It loves aircraft that feel grand, capable, and worthy of a major international brand: Airbus A380, Boeing 777, Airbus A350, Boeing 787, and Airbus A320 families. It has never operated the Airbus A330 or Boeing 737. Its widebody product guarantees 34 inches of legroom, while narrowbodies guarantee 32 inches. The A380 defines the airline’s prestige image, the Boeing 777 family anchors the current backbone, the Airbus A350 and Boeing 787 families shape the present and future, and the next replacement wave is expected to centre on the Boeing 777-9 and Airbus A350-2000.
+          </p>
+
+          <div class="stats">
+            <div class="stat"><strong>109+</strong><span>Current active aircraft families and listed units before legend / archived categories</span></div>
+            <div class="stat"><strong>34 in</strong><span>Guaranteed widebody legroom standard across Otono Airways</span></div>
+            <div class="stat"><strong>32 in</strong><span>Guaranteed narrowbody legroom standard</span></div>
+            <div class="stat"><strong>~2037</strong><span>Expected A380 service life horizon</span></div>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <svg viewBox="0 0 900 300" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M112 160C145 156 225 151 317 145C434 137 563 132 637 132C685 132 714 137 731 147L850 145C882 145 897 156 897 167C897 178 882 188 850 188L731 186C714 197 685 202 637 202C563 202 434 197 317 189C225 183 145 177 112 173L71 205H18L54 167L18 129H71L112 160Z" fill="#FBF6FF"/>
+            <path d="M261 123L170 42H230L351 121L261 123Z" fill="#E9D6FF"/>
+            <path d="M351 212L230 291H170L261 212L351 212Z" fill="#E9D6FF"/>
+            <path d="M645 133L693 86H744L719 133H645Z" fill="#E9D6FF"/>
+            <path d="M645 201H719L744 247H693L645 201Z" fill="#E9D6FF"/>
+            <circle cx="780" cy="166" r="7" fill="#1b0630"/>
+            <circle cx="804" cy="166" r="7" fill="#1b0630"/>
+            <circle cx="828" cy="166" r="7" fill="#1b0630"/>
+          </svg>
+          <div class="note">
+            Otono Airways believes a fleet should feel intentional. The airline rejects cramped seating, rejects aircraft families it dislikes, and prefers a layered system where the A380 handles prestige and scale, the 777 family handles powerful long-haul backbone work, the A350 family handles efficient modern long-haul expansion, and the 787 family adds flexibility across different route strengths.
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section>
+      <div class="section-head">
+        <div><h2>Global cabin standards</h2></div>
+        <p>Before looking at aircraft individually, these are the minimum comfort rules that define the Otono Airways brand.</p>
+      </div>
+      <div class="grid">
+        <article class="card span-6">
+          <div class="badge current">Widebody Standard</div>
+          <h3>34 inches legroom guaranteed</h3>
+          <p class="desc">Every widebody in Otono Airways service follows the same philosophy: long-haul should not feel punishing. Whether a passenger boards an A380, Boeing 777, Airbus A350, or Boeing 787, the airline guarantees at least 34 inches of legroom in Economy. This is one of the clearest differences between Otono Airways and airlines that chase tighter seat density.</p>
+        </article>
+        <article class="card span-6">
+          <div class="badge current">Narrowbody Standard</div>
+          <h3>32 inches legroom guaranteed</h3>
+          <p class="desc">Narrowbodies are slightly denser, but still noticeably more generous than many competitors. The Airbus A320 family follows a 32-inch legroom standard, which keeps the short-haul and regional product comfortable while still being commercially sensible.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="current">
+      <div class="section-head">
+        <div><h2>Current fleet</h2></div>
+        <p>The current fleet is the true operating heart of Otono Airways. It combines prestige aircraft, backbone widebodies, future-facing long-haul types already in service, and the narrowbody family used for shorter sectors.</p>
+      </div>
+
+      <div class="grid">
+        <article class="card span-12">
+          <div class="badge current">Flagship</div>
+          <h3>Airbus A380 — 19 units</h3>
+          <p class="desc">The Airbus A380 is the signature aircraft of Otono Airways and the most public expression of the airline’s ambition. It is used where scale, image, and passenger experience matter all at once. Otono Airways does not treat the A380 as a rare novelty. It treats it as a proper flagship: a serious aircraft for trunk routes, prestige-heavy markets, and missions where capacity and onboard experience both need to stand out. Even as newer aircraft arrive, the A380 remains central to the airline’s identity and is expected to stay in service until around 2037.</p>
+          <div class="spec-grid">
+            <div class="mini"><small>Units</small><strong>19 aircraft</strong></div>
+            <div class="mini"><small>Capacity</small><strong>477 passengers</strong></div>
+            <div class="mini"><small>Legroom</small><strong>34–35 in Economy</strong></div>
+            <div class="mini"><small>Expected service</small><strong>Until around 2037</strong></div>
+          </div>
+          <div class="cols">
+            <ul class="clean">
+              <li><strong>Cabin composition:</strong> 4 Otono One suites carrying 8 passengers, 16 First, 72 Business, 63 Premium Economy, and 318 Economy.</li>
+              <li><strong>Upper deck features:</strong> Otono One, First, Premium Economy, 108 Economy seats, onboard lounge, and two showers.</li>
+              <li><strong>Access rules:</strong> showers are only for Otono One and First, while the lounge is open to all passengers including Economy.</li>
+            </ul>
+            <ul class="clean">
+              <li><strong>Main purpose:</strong> flagship long-haul and ultra-high-demand routes where Otono Airways wants to dominate both prestige and capacity.</li>
+              <li><strong>Brand value:</strong> this aircraft is a major reason Otono Airways feels larger, grander, and more luxurious than many competitors.</li>
+              <li><strong>Long-term future:</strong> retirement will happen gradually, not instantly, with service expected to continue to roughly 2037.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="card span-12">
+          <div class="badge current">Long-Haul Backbone</div>
+          <h3>Boeing 777 fleet — 22 units</h3>
+          <p class="desc">The Boeing 777 fleet is the current backbone of Otono Airways long-haul flying. If the A380 is the showpiece, the 777 is the powerful network workhorse. It covers routes too important for smaller widebodies yet not always requiring A380 scale. Otono Airways also uses two distinct 777 layouts, letting the airline balance premium-heavy markets with more standard long-haul demand.</p>
+          <div class="spec-grid">
+            <div class="mini"><small>Units</small><strong>22 aircraft</strong></div>
+            <div class="mini"><small>Layouts</small><strong>Premium + Standard</strong></div>
+            <div class="mini"><small>Legroom</small><strong>34–35 in Economy</strong></div>
+            <div class="mini"><small>Future</small><strong>To be replaced by 777-9</strong></div>
+          </div>
+          <div class="cols">
+            <ul class="clean">
+              <li><strong>Premium configuration:</strong> 7 aircraft with 2 Otono One suites, 12 First, 62 Business, 38 Premium Economy, 126 Economy, plus lounge and 2 showers.</li>
+              <li><strong>Standard configuration:</strong> 15 aircraft with 12 First, 66 Business, 48 Premium Economy, 157 Economy, and no Otono One or showers.</li>
+              <li><strong>Shared standard:</strong> all widebodies still keep the Otono Airways 34-inch minimum philosophy, with Economy far less cramped than many rivals.</li>
+            </ul>
+            <ul class="clean">
+              <li><strong>Operational role:</strong> premium long-haul backbone, medium-to-high demand intercontinental routes, and flexible coverage where A380 size is not always needed.</li>
+              <li><strong>Strategic strength:</strong> a powerful middle ground between the largest A380 operation and the newer A350 / 787 fleets.</li>
+              <li><strong>Long-term direction:</strong> the older 777 generation gradually gives way to the Boeing 777-9.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="card span-6">
+          <div class="badge current">Current A350 Fleet</div>
+          <h3>Airbus A350-900 — 24 units</h3>
+          <p class="desc">The Airbus A350-900 is a major current aircraft type, not a future-only plan. It handles efficient long-haul flying with excellent range and a modern passenger feel, but it is not the aircraft assigned to the longest London–Australia nonstop missions. Instead, it covers a broad middle ground: major intercontinental routes that need modern range, strong economics, and premium appeal without requiring the most extreme ultra-long-haul specialisation.</p>
+          <div class="spec-grid">
+            <div class="mini"><small>Units</small><strong>24 aircraft</strong></div>
+            <div class="mini"><small>Role</small><strong>Flexible long-haul core</strong></div>
+            <div class="mini"><small>Legroom</small><strong>34 in minimum</strong></div>
+            <div class="mini"><small>ULR role</small><strong>Not for London–Australia nonstop</strong></div>
+          </div>
+          <ul class="clean">
+            <li>Used for efficient long-haul missions where Otono Airways wants excellent range without overcommitting capacity.</li>
+            <li>Bridges the gap between huge flagships and smaller long-haul types.</li>
+            <li>Likely remains one of the most important aircraft families throughout the 2030s.</li>
+          </ul>
+        </article>
+
+        <article class="card span-6">
+          <div class="badge current">Current A350 Fleet</div>
+          <h3>Airbus A350-1000ULR — 9 units</h3>
+          <p class="desc">The Airbus A350-1000ULR is the ultra-long-haul specialist of Otono Airways. It is intended for very long nonstop missions, especially London to Australia sectors in the 17 to 22 hour range. This is not simply a larger A350-900. Within Otono Airways strategy, it is a more specialised aircraft with a more demanding mission profile and an even stronger comfort expectation because passengers remain onboard for extremely long periods.</p>
+          <div class="spec-grid">
+            <div class="mini"><small>Units</small><strong>9 aircraft</strong></div>
+            <div class="mini"><small>Role</small><strong>Ultra-long-haul specialist</strong></div>
+            <div class="mini"><small>Typical mission</small><strong>17–22 hours nonstop</strong></div>
+            <div class="mini"><small>Use case</small><strong>London–Australia nonstop</strong></div>
+          </div>
+          <ul class="clean">
+            <li>Used on the most demanding nonstop missions in the network.</li>
+            <li>Expected to deliver a more specialised long-range experience than the A350-900.</li>
+            <li>Acts as one of the clearest symbols of Otono Airways’ ultra-long-haul ambition.</li>
+          </ul>
+        </article>
+
+        <article class="card span-4">
+          <div class="badge current">Current 787 Fleet</div>
+          <h3>Boeing 787-8 — 6 units</h3>
+          <p class="desc">The Boeing 787-8 is the smallest Dreamliner in the Otono Airways fleet. It exists for markets where widebody comfort and long range are valuable but demand is not strong enough for a larger aircraft. This gives the airline a way to keep premium long-haul service without flooding a route with unnecessary seats.</p>
+          <div class="spec-grid">
+            <div class="mini"><small>Units</small><strong>6 aircraft</strong></div>
+            <div class="mini"><small>Role</small><strong>Thinner long-haul routes</strong></div>
+            <div class="mini"><small>Legroom</small><strong>34 in minimum</strong></div>
+            <div class="mini"><small>Strength</small><strong>Right-sized widebody</strong></div>
+          </div>
+        </article>
+
+        <article class="card span-4">
+          <div class="badge current">Current 787 Fleet</div>
+          <h3>Boeing 787-9 — 17 units</h3>
+          <p class="desc">The Boeing 787-9 is the most versatile Dreamliner at Otono Airways. It sits in a very useful middle zone: big enough for serious long-haul work, efficient enough for network expansion, and premium enough for high-value routes that do not need 777 or A380 size.</p>
+          <div class="spec-grid">
+            <div class="mini"><small>Units</small><strong>17 aircraft</strong></div>
+            <div class="mini"><small>Role</small><strong>Balanced long-haul core</strong></div>
+            <div class="mini"><small>Legroom</small><strong>34 in minimum</strong></div>
+            <div class="mini"><small>Strength</small><strong>Versatility</strong></div>
+          </div>
+        </article>
+
+        <article class="card span-4">
+          <div class="badge current">Current 787 Fleet</div>
+          <h3>Boeing 787-10 — 12 units</h3>
+          <p class="desc">The Boeing 787-10 is the higher-capacity Dreamliner. Otono Airways uses it where demand is stronger than a 787-9 can comfortably absorb, but where the airline still prefers Dreamliner economics and cabin feel over moving up to a much larger aircraft.</p>
+          <div class="spec-grid">
+            <div class="mini"><small>Units</small><strong>12 aircraft</strong></div>
+            <div class="mini"><small>Role</small><strong>Higher-capacity Dreamliner</strong></div>
+            <div class="mini"><small>Legroom</small><strong>34 in minimum</strong></div>
+            <div class="mini"><small>Strength</small><strong>Efficient growth</strong></div>
+          </div>
+        </article>
+
+        <article class="card span-12">
+          <div class="badge current">Current Narrowbody Fleet</div>
+          <h3>Airbus A320 family — narrowbody operations</h3>
+          <p class="desc">The Airbus A320 family is the narrowbody arm of Otono Airways. It supports short-haul and regional networks and provides the airline’s main European and medium-short sector capacity. While it is not as glamorous as the widebody fleet, it still follows the Otono Airways comfort philosophy and avoids the harsh density standards common elsewhere.</p>
+          <div class="spec-grid">
+            <div class="mini"><small>Role</small><strong>Short-haul / Regional</strong></div>
+            <div class="mini"><small>Legroom</small><strong>32 in minimum</strong></div>
+            <div class="mini"><small>Function</small><strong>Network feeder and regional backbone</strong></div>
+            <div class="mini"><small>Status</small><strong>Current narrowbody family</strong></div>
+          </div>
+          <ul class="clean">
+            <li>Main use on European, regional, and shorter premium business routes.</li>
+            <li>Acts as the narrowbody foundation feeding long-haul hubs.</li>
+            <li>Preferred over the Boeing 737, which Otono Airways has never operated.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="future">
+      <div class="section-head">
+        <div><h2>Future fleet</h2></div>
+        <p>The future replacement direction is selective rather than chaotic. Otono Airways does not want endless fleet sprawl; it wants a focused next generation built around obvious successors.</p>
+      </div>
+      <div class="grid">
+        <article class="card span-6">
+          <div class="badge future">Future Replacement</div>
+          <h3>Boeing 777-9</h3>
+          <p class="desc">The Boeing 777-9 is the planned successor to the current Boeing 777-300ER generation. It preserves the large-capacity premium long-haul model that Otono Airways values, while bringing a newer airframe and better efficiency. This is the natural evolution of the airline’s current 777 backbone.</p>
+          <ul class="clean">
+            <li>Expected to replace older 777 long-haul work gradually.</li>
+            <li>Maintains strong premium-heavy capacity.</li>
+            <li>Useful on major intercontinental routes where the airline needs size without always going to A380 scale.</li>
+          </ul>
+        </article>
+        <article class="card span-6">
+          <div class="badge future">Future Replacement</div>
+          <h3>Airbus A350-2000</h3>
+          <p class="desc">The Airbus A350-2000 represents the next leap in Otono Airways thinking: a future flagship twin-engine aircraft that can potentially absorb some missions now associated with very large aircraft, while still fitting the A350 family philosophy. In the 2030s, it may become one of the most important strategic aircraft in the airline.</p>
+          <ul class="clean">
+            <li>Likely to take some of the most premium and longest future missions.</li>
+            <li>May partially absorb some prestige work as the A380 fleet ages.</li>
+            <li>Fits naturally beside the A350-900 and A350-1000ULR rather than replacing the family identity.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="routes">
+      <div class="section-head">
+        <div><h2>Sample route assignment system</h2></div>
+        <p>This is a sample planning tool showing how different aircraft can be assigned to different route types. It is not a live operations system, but it demonstrates the fleet logic clearly.</p>
+      </div>
+
+      <div class="card span-12">
+        <div class="route-picker" id="routePicker"></div>
+        <div class="route-grid">
+          <article class="route-card">
+            <div class="badge current">Selected route</div>
+            <h3 id="routeTitle">Loading route…</h3>
+            <p class="desc" id="routeSummary"></p>
+            <div class="route-meta" id="routeMeta"></div>
+            <h4>Recommended aircraft</h4>
+            <div id="routeAircraft"></div>
+          </article>
+
+          <article class="route-card">
+            <div class="badge future">Assignment reasoning</div>
+            <h3>Why this assignment makes sense</h3>
+            <ul class="clean" id="routeReasons"></ul>
+          </article>
+        </div>
+      </div>
+
+      <div class="card span-12">
+        <table>
+          <thead>
+            <tr>
+              <th>Sample route</th>
+              <th>Route type</th>
+              <th>Primary aircraft</th>
+              <th>Backup aircraft</th>
+              <th>Main reason</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>London – Hong Kong – Sydney</td>
+              <td>Flagship ultra-high-demand</td>
+              <td>Airbus A380</td>
+              <td>Boeing 777 premium layout</td>
+              <td>Prestige, volume, premium demand</td>
+            </tr>
+            <tr>
+              <td>London – Sydney nonstop</td>
+              <td>Ultra-long-haul nonstop</td>
+              <td>Airbus A350-1000ULR</td>
+              <td>Future Airbus A350-2000</td>
+              <td>17–22 hour specialist mission</td>
+            </tr>
+            <tr>
+              <td>London – New York</td>
+              <td>Major premium trunk route</td>
+              <td>Airbus A380 / Boeing 777</td>
+              <td>Boeing 787-10</td>
+              <td>Strong premium and business demand</td>
+            </tr>
+            <tr>
+              <td>London – Dubai</td>
+              <td>High-demand long-haul</td>
+              <td>Airbus A380</td>
+              <td>Boeing 777</td>
+              <td>High volume and premium visibility</td>
+            </tr>
+            <tr>
+              <td>London – Singapore</td>
+              <td>Long-haul mixed-demand</td>
+              <td>Boeing 777 / Airbus A350-900</td>
+              <td>Boeing 787-9</td>
+              <td>Needs flexibility in capacity</td>
+            </tr>
+            <tr>
+              <td>London – Secondary North America</td>
+              <td>Thinner premium long-haul</td>
+              <td>Boeing 787-8</td>
+              <td>Boeing 787-9</td>
+              <td>Right-sized widebody economics</td>
+            </tr>
+            <tr>
+              <td>London – European capitals</td>
+              <td>Short-haul / regional</td>
+              <td>Airbus A320 family</td>
+              <td>Higher-frequency A320 family</td>
+              <td>Regional feed and business traffic</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="legend">
+      <div class="section-head">
+        <div><h2>Legend fleet</h2></div>
+        <p>Legend fleet aircraft are not ordinary frontline units. They are retained for private hires, emergency extra service when needed, or occasional ferry flights.</p>
+      </div>
+      <div class="grid">
+        <article class="card span-6">
+          <div class="badge legend">Legend Fleet</div>
+          <h3>Boeing 747</h3>
+          <p class="desc">The legend 747s represent grandeur, ceremony, nostalgia, and special-purpose prestige. They are not normal daily network tools anymore, but they still matter in the story and image of Otono Airways.</p>
+          <ul class="clean">
+            <li>Can be used for private hires.</li>
+            <li>May appear in emergency extra service.</li>
+            <li>Sometimes used for ferry or specialist movements.</li>
+          </ul>
+        </article>
+        <article class="card span-6">
+          <div class="badge legend">Legend Fleet</div>
+          <h3>Airbus A340</h3>
+          <p class="desc">The legend A340s survive because operations still see some value in them for unusual situations. They are no longer part of the main future strategy, but they have not vanished completely from the airline’s wider world.</p>
+          <ul class="clean">
+            <li>Useful when unusual extra capacity is needed fast.</li>
+            <li>Can support special flights or private work.</li>
+            <li>Part of the airline’s historic long-haul aura.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="archived">
+      <div class="section-head">
+        <div><h2>Archived fleet</h2></div>
+        <p>Archived aircraft are no longer active in the normal fleet picture, but are not necessarily fully retired from existence in lore or historical records.</p>
+      </div>
+      <div class="grid">
+        <article class="card span-4">
+          <div class="badge archived">Archived</div>
+          <h3>Older Boeing 747s</h3>
+          <p class="desc">These are older 747s outside the actively kept legend fleet group. They belong more to archive status than to meaningful ongoing operations.</p>
+        </article>
+        <article class="card span-4">
+          <div class="badge archived">Archived</div>
+          <h3>One archived Airbus A380</h3>
+          <p class="desc">A special case within the fleet story: one A380 has already moved into archive status, separate from the active 19-aircraft A380 flagship fleet.</p>
+        </article>
+        <article class="card span-4">
+          <div class="badge archived">Archived</div>
+          <h3>Airbus A318</h3>
+          <p class="desc">The Airbus A318 sits in archive status rather than in the current or future vision of Otono Airways.</p>
+        </article>
+        <article class="card span-6">
+          <div class="badge archived">Never Operated</div>
+          <h3>Airbus A330 family</h3>
+          <p class="desc">Otono Airways has never operated the Airbus A330. It is not merely absent by accident; it is an aircraft family the airline actively dislikes and does not consider part of its desired identity.</p>
+        </article>
+        <article class="card span-6">
+          <div class="badge archived">Never Operated</div>
+          <h3>Boeing 737 family</h3>
+          <p class="desc">Otono Airways has also never operated the Boeing 737. Like the A330, it is excluded from the airline’s serious fleet image and long-term identity.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="retired">
+      <div class="section-head">
+        <div><h2>Retired fleet</h2></div>
+        <p>These aircraft are treated as properly retired rather than simply archived.</p>
+      </div>
+      <div class="grid">
+        <article class="card span-4">
+          <div class="badge retired">Retired</div>
+          <h3>Airbus A310</h3>
+          <p class="desc">A fully retired aircraft family from an earlier Otono Airways era.</p>
+        </article>
+        <article class="card span-4">
+          <div class="badge retired">Retired</div>
+          <h3>Most Airbus A340s</h3>
+          <p class="desc">Most A340s are retired, with only select aircraft surviving in legend-fleet type roles.</p>
+        </article>
+        <article class="card span-4">
+          <div class="badge retired">Retired</div>
+          <h3>Older Boeing 747s</h3>
+          <p class="desc">Many older 747s are fully retired, separate from the very small number preserved in legend status.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div><h2>Fleet summary table</h2></div>
+        <p>A compact overview of the aircraft groups described above.</p>
+      </div>
+      <div class="card span-12">
+        <table>
+          <thead>
+            <tr>
+              <th>Aircraft</th>
+              <th>Units / status</th>
+              <th>Category</th>
+              <th>Main role</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Airbus A380</td><td>19 active + 1 archived</td><td>Current / Archived</td><td>Flagship ultra-high-capacity long-haul</td><td>Expected to stay until around 2037</td></tr>
+            <tr><td>Boeing 777 fleet</td><td>22</td><td>Current</td><td>Long-haul backbone</td><td>To be replaced by 777-9 over time</td></tr>
+            <tr><td>Airbus A350-900</td><td>24</td><td>Current</td><td>Flexible long-haul core</td><td>Not the Australia nonstop specialist</td></tr>
+            <tr><td>Airbus A350-1000ULR</td><td>9</td><td>Current</td><td>Ultra-long-haul specialist</td><td>London–Australia nonstop missions</td></tr>
+            <tr><td>Boeing 787-8</td><td>6</td><td>Current</td><td>Thinner long-haul widebody</td><td>Right-sized premium long-haul</td></tr>
+            <tr><td>Boeing 787-9</td><td>17</td><td>Current</td><td>Balanced long-haul core</td><td>Highly versatile Dreamliner</td></tr>
+            <tr><td>Boeing 787-10</td><td>12</td><td>Current</td><td>Higher-capacity Dreamliner</td><td>Efficient growth on denser routes</td></tr>
+            <tr><td>Airbus A320 family</td><td>Current family</td><td>Current</td><td>Short-haul / regional</td><td>32-inch legroom standard</td></tr>
+            <tr><td>Boeing 777-9</td><td>Future</td><td>Future</td><td>777 replacement backbone</td><td>Next major 777 successor</td></tr>
+            <tr><td>Airbus A350-2000</td><td>Future</td><td>Future</td><td>Next-generation flagship twin</td><td>Important 2030s aircraft</td></tr>
+            <tr><td>Boeing 747</td><td>Legend status</td><td>Legend</td><td>Private hire / emergency / ferry</td><td>Not normal frontline use</td></tr>
+            <tr><td>Airbus A340</td><td>Legend remnants + most retired</td><td>Legend / Retired</td><td>Special extra service</td><td>Most already retired</td></tr>
+            <tr><td>Airbus A318</td><td>Archived</td><td>Archived</td><td>None</td><td>No longer part of core identity</td></tr>
+            <tr><td>Airbus A310</td><td>Retired</td><td>Retired</td><td>None</td><td>Fully retired type</td></tr>
+            <tr><td>Airbus A330 family</td><td>Never operated</td><td>Rejected</td><td>None</td><td>Otono Airways dislikes it</td></tr>
+            <tr><td>Boeing 737 family</td><td>Never operated</td><td>Rejected</td><td>None</td><td>Also never operated</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="timeline">
+      <div class="section-head">
+        <div><h2>Retirement timeline animation</h2></div>
+        <p>This animated timeline shows a sample fleet transition path from the later 2020s into the late 2030s, especially the gradual replacement of older widebody work.</p>
+      </div>
+
+      <div class="timeline-card span-12">
+        <div class="timeline-controls">
+          <div>
+            <div class="badge future">Animated timeline</div>
+            <h3 style="margin:0">Fleet transition from now into the 2030s</h3>
+          </div>
+          <div>
+            <button class="route-btn" id="playTimeline">Play animation</button>
+            <button class="route-btn" id="resetTimeline">Reset</button>
+          </div>
+        </div>
+
+        <div class="timeline-wrap">
+          <div class="timeline-bar"><div class="timeline-fill" id="timelineFill"></div></div>
+          <div class="timeline-stops" id="timelineStops">
+            <div class="stop" data-step="1"><div class="year">2026</div><p>Current A380, 777, A350, 787, and A320 families define the fleet.</p></div>
+            <div class="stop" data-step="2"><div class="year">2028</div><p>Preparation for 777-9 replacement era strengthens, while current A350 and 787 families continue expanding roles.</p></div>
+            <div class="stop" data-step="3"><div class="year">2030</div><p>Older 777 work begins to be displaced gradually as future replacements arrive.</p></div>
+            <div class="stop" data-step="4"><div class="year">2032</div><p>A350-2000 era begins to matter more in strategic planning for high-prestige and longest routes.</p></div>
+            <div class="stop" data-step="5"><div class="year">2034</div><p>777-300ER retirement wave becomes more visible; A350 and 787 families dominate more of the active widebody network.</p></div>
+            <div class="stop" data-step="6"><div class="year">2037</div><p>A380 service reaches its expected horizon, with gradual retirement or replacement accelerating.</p></div>
+            <div class="stop" data-step="7"><div class="year">Late 2030s</div><p>The fleet is more focused around A350, 787, 777-9, and any remaining prestige A380 / legend roles.</p></div>
+          </div>
+        </div>
+
+        <div class="legend-key">
+          <span>🟣 Current strength</span>
+          <span>🟢 Future replacement</span>
+          <span>🟡 Legend / special use</span>
+          <span>🔴 Retirement pressure</span>
+        </div>
+      </div>
+    </section>
+
+    <p class="foot">This page is designed as a detailed Otono Airways fleet presentation with an interactive sample route assignment system and a simple built-in retirement timeline animation, all aligned with the fleet rules you set.</p>
+  </main>
+
+<script>
+  const ROUTES = [
+    {
+      name: 'London – Hong Kong – Sydney',
+      summary: 'One of the most flagship-style routes in the network. It combines prestige, long stage lengths, premium demand, and strong total passenger volume.',
+      meta: [
+        ['Route type', 'Flagship long-haul via hub'],
+        ['Demand level', 'Very high'],
+        ['Primary aircraft', 'Airbus A380'],
+        ['Backup aircraft', 'Boeing 777 premium layout']
+      ],
+      aircraft: ['Airbus A380', 'Boeing 777 premium layout'],
+      reasons: [
+        'The A380 fits the prestige and scale expected on one of the airline’s most symbolic routes.',
+        'Strong premium demand supports First, Otono One, lounge, and shower features.',
+        'Passenger volume is high enough to justify a very large aircraft.',
+        'A premium-layout 777 works as a lower-capacity backup without losing too much brand strength.'
+      ]
+    },
+    {
+      name: 'London – Sydney nonstop',
+      summary: 'This is an ultra-long-haul nonstop mission rather than a normal long-haul route. It needs a specialist aircraft built for 17–22 hour endurance.',
+      meta: [
+        ['Route type', 'Ultra-long-haul nonstop'],
+        ['Demand level', 'High but endurance-led'],
+        ['Primary aircraft', 'Airbus A350-1000ULR'],
+        ['Backup aircraft', 'Future Airbus A350-2000']
+      ],
+      aircraft: ['Airbus A350-1000ULR', 'Airbus A350-2000'],
+      reasons: [
+        'The A350-1000ULR exists specifically for extreme missions like London–Australia nonstop.',
+        'The A350-900 is not intended for this role in Otono Airways planning.',
+        'Passenger comfort and operational efficiency both matter more than raw seat count here.',
+        'The future A350-2000 is a logical successor for this kind of mission in the 2030s.'
+      ]
+    },
+    {
+      name: 'London – New York',
+      summary: 'A major business and prestige trunk route with strong premium demand and frequent service potential.',
+      meta: [
+        ['Route type', 'Major premium trunk'],
+        ['Demand level', 'Very high'],
+        ['Primary aircraft', 'Airbus A380 / Boeing 777'],
+        ['Backup aircraft', 'Boeing 787-10']
+      ],
+      aircraft: ['Airbus A380', 'Boeing 777 fleet', 'Boeing 787-10'],
+      reasons: [
+        'The route supports high premium density, especially on strong business days.',
+        'An A380 works where Otono Airways wants maximum visibility and capacity.',
+        'The 777 fits the route when large widebody capacity is needed without always using the largest aircraft.',
+        'A 787-10 can work on lower-demand frequencies while keeping a modern premium product.'
+      ]
+    },
+    {
+      name: 'London – Singapore',
+      summary: 'A strong long-haul market that can justify multiple aircraft types depending on season, schedule timing, and premium demand.',
+      meta: [
+        ['Route type', 'Flexible long-haul'],
+        ['Demand level', 'High but variable'],
+        ['Primary aircraft', 'Boeing 777 / Airbus A350-900'],
+        ['Backup aircraft', 'Boeing 787-9']
+      ],
+      aircraft: ['Boeing 777 fleet', 'Airbus A350-900', 'Boeing 787-9'],
+      reasons: [
+        'A 777 works where stronger premium and total capacity are needed.',
+        'The A350-900 is ideal when efficiency matters more and full 777 scale is unnecessary.',
+        'The 787-9 offers a balanced fallback for route timings or frequencies that do not need larger aircraft.',
+        'This kind of route benefits from capacity flexibility more than a one-size-fits-all assignment.'
+      ]
+    },
+    {
+      name: 'London – Secondary North America',
+      summary: 'These are thinner premium long-haul markets where the airline still wants a widebody feel without oversupplying seats.',
+      meta: [
+        ['Route type', 'Thinner premium long-haul'],
+        ['Demand level', 'Moderate'],
+        ['Primary aircraft', 'Boeing 787-8'],
+        ['Backup aircraft', 'Boeing 787-9']
+      ],
+      aircraft: ['Boeing 787-8', 'Boeing 787-9'],
+      reasons: [
+        'The 787-8 is right-sized for routes that are important but not huge.',
+        'It preserves the premium long-haul experience without forcing too much capacity.',
+        'The 787-9 can substitute when demand grows or operational flexibility is needed.',
+        'Using a 777 or A380 here would often be excessive.'
+      ]
+    },
+    {
+      name: 'London – European capitals',
+      summary: 'Short-haul and regional services are narrower, more frequent, and designed to feed the long-haul network while also serving business traffic.',
+      meta: [
+        ['Route type', 'Short-haul / regional'],
+        ['Demand level', 'Frequent'],
+        ['Primary aircraft', 'Airbus A320 family'],
+        ['Backup aircraft', 'Airbus A320 family high-frequency allocation']
+      ],
+      aircraft: ['Airbus A320 family'],
+      reasons: [
+        'This is the exact job narrowbodies are meant to do in the Otono Airways system.',
+        'The A320 family supports regional feed into long-haul hubs.',
+        'The 32-inch standard keeps short-haul comfort respectable.',
+        'Otono Airways prefers this family rather than ever relying on the Boeing 737.'
+      ]
+    }
+  ];
+
+  const routePicker = document.getElementById('routePicker');
+  const routeTitle = document.getElementById('routeTitle');
+  const routeSummary = document.getElementById('routeSummary');
+  const routeMeta = document.getElementById('routeMeta');
+  const routeAircraft = document.getElementById('routeAircraft');
+  const routeReasons = document.getElementById('routeReasons');
+
+  function renderRoute(index){
+    const data = ROUTES[index];
+    routeTitle.textContent = data.name;
+    routeSummary.textContent = data.summary;
+
+    routeMeta.innerHTML = data.meta.map(([k,v]) => `
+      <div class="mini"><small>${k}</small><strong>${v}</strong></div>
+    `).join('');
+
+    routeAircraft.innerHTML = data.aircraft.map(a => `<span class="aircraft-tag">${a}</span>`).join('');
+    routeReasons.innerHTML = data.reasons.map(r => `<li>${r}</li>`).join('');
+
+    document.querySelectorAll('.route-btn[data-route]').forEach((btn, i) => {
+      btn.classList.toggle('active', i === index);
+    });
+  }
+
+  ROUTES.forEach((route, index) => {
+    const btn = document.createElement('button');
+    btn.className = 'route-btn';
+    btn.dataset.route = index;
+    btn.textContent = route.name;
+    btn.addEventListener('click', () => renderRoute(index));
+    routePicker.appendChild(btn);
+  });
+  renderRoute(0);
+
+  const fill = document.getElementById('timelineFill');
+  const stops = Array.from(document.querySelectorAll('.stop'));
+  const playBtn = document.getElementById('playTimeline');
+  const resetBtn = document.getElementById('resetTimeline');
+  let timelineTimer = null;
+  let currentStep = 0;
+
+  function applyTimeline(step){
+    currentStep = step;
+    const pct = (step / stops.length) * 100;
+    fill.style.width = pct + '%';
+    stops.forEach((stop, i) => stop.classList.toggle('active', i < step));
+  }
+
+  function resetTimeline(){
+    clearInterval(timelineTimer);
+    timelineTimer = null;
+    applyTimeline(0);
+  }
+
+  function playTimeline(){
+    clearInterval(timelineTimer);
+    applyTimeline(0);
+    let step = 0;
+    timelineTimer = setInterval(() => {
+      step += 1;
+      applyTimeline(step);
+      if(step >= stops.length){
+        clearInterval(timelineTimer);
+        timelineTimer = null;
+      }
+    }, 900);
+  }
+
+  playBtn.addEventListener('click', playTimeline);
+  resetBtn.addEventListener('click', resetTimeline);
+</script>
+</body>
+</html>

@@ -1,0 +1,861 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>🧬 GCSE Bioenergetics Quiz</title>
+  <style>
+    :root{
+      --bg1:#1b1035;
+      --bg2:#6d134d;
+      --card:#130f22ee;
+      --card2:#1b1630ee;
+      --text:#f6f0ff;
+      --muted:#cbb8e8;
+      --line:rgba(255,255,255,.12);
+      --accent:#a855f7;
+      --accent2:#f43f8c;
+      --good:#22c55e;
+      --warn:#f59e0b;
+      --bad:#ef4444;
+      --shadow:0 18px 50px rgba(0,0,0,.35);
+      --radius:20px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter,Segoe UI,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(168,85,247,.25), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(244,63,140,.18), transparent 28%),
+        linear-gradient(135deg,var(--bg1),var(--bg2));
+      min-height:100vh;
+    }
+
+    .wrap{max-width:1180px;margin:0 auto;padding:24px}
+
+    .hero,.panel,.question,.resultCard{
+      background:linear-gradient(180deg,var(--card),var(--card2));
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+
+    .hero{padding:24px 24px 18px;margin-bottom:18px}
+    h1{margin:0 0 10px;font-size:clamp(1.8rem,3vw,2.7rem)}
+    h2{margin:0 0 12px;font-size:1.2rem}
+    h3{margin:0 0 10px;font-size:1rem}
+    p{line-height:1.55}
+    .muted{color:var(--muted)}
+    .tiny{font-size:.92rem;color:var(--muted)}
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(12,1fr);
+      gap:16px;
+    }
+    .col-4{grid-column:span 4}
+    .col-8{grid-column:span 8}
+    .col-12{grid-column:span 12}
+
+    @media (max-width: 920px){
+      .col-4,.col-8{grid-column:span 12}
+    }
+
+    .panel{padding:18px}
+    label{display:block;font-weight:700;margin:10px 0 6px}
+    input[type="text"], input[type="number"], select{
+      width:100%;padding:12px 14px;border-radius:14px;border:1px solid var(--line);
+      background:#0f0c1acc;color:var(--text);outline:none;
+    }
+    input::placeholder{color:#a996c5}
+
+    .btnRow{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+    button{
+      border:0;border-radius:14px;padding:12px 16px;font-weight:800;cursor:pointer;
+      color:white;background:linear-gradient(135deg,var(--accent),var(--accent2));
+      box-shadow:0 10px 25px rgba(0,0,0,.24);
+    }
+    button.secondary{background:#241d3e;border:1px solid var(--line)}
+    button.good{background:linear-gradient(135deg,#16a34a,#22c55e)}
+    button.warn{background:linear-gradient(135deg,#d97706,#f59e0b)}
+
+    .pillbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .pill{
+      border:1px solid var(--line);
+      padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.04);
+      color:var(--muted);font-size:.92rem
+    }
+
+    .question{padding:18px;margin-bottom:14px}
+    .qTop{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:10px}
+    .qNum{font-weight:900;color:#f0d3ff}
+    .tag{font-size:.83rem;padding:6px 10px;border-radius:999px;background:rgba(168,85,247,.16);border:1px solid rgba(168,85,247,.35)}
+    .answers{display:grid;gap:10px;margin-top:12px}
+    .option{
+      display:flex;gap:10px;align-items:flex-start;padding:12px 13px;border-radius:14px;
+      background:rgba(255,255,255,.03);border:1px solid var(--line)
+    }
+    .option input{margin-top:3px}
+    .option.correct{border-color:rgba(34,197,94,.7);background:rgba(34,197,94,.12)}
+    .option.incorrect{border-color:rgba(239,68,68,.7);background:rgba(239,68,68,.12)}
+    .explanation{
+      margin-top:12px;padding:12px 13px;border-radius:14px;background:rgba(255,255,255,.04);
+      border-left:4px solid var(--accent);display:none
+    }
+    .show{display:block}
+
+    .topStats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+    @media (max-width:760px){.topStats{grid-template-columns:repeat(2,1fr)}}
+    .stat{padding:14px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid var(--line)}
+    .stat .big{font-size:1.4rem;font-weight:900;margin-top:4px}
+
+    .hidden{display:none!important}
+    .resultsGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    @media (max-width:820px){.resultsGrid{grid-template-columns:1fr}}
+    .resultCard{padding:18px}
+
+    .scoreRing{
+      width:132px;height:132px;border-radius:50%;display:grid;place-items:center;margin:10px auto 14px;
+      background:conic-gradient(var(--accent) calc(var(--p)*1%), rgba(255,255,255,.08) 0);
+      position:relative;
+    }
+    .scoreRing::before{
+      content:"";position:absolute;inset:12px;border-radius:50%;background:#130f22;
+      border:1px solid var(--line)
+    }
+    .scoreRing span{position:relative;z-index:1;font-size:1.5rem;font-weight:900}
+
+    .footerNote{margin-top:14px;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid var(--line)}
+    .split{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>🧬 GCSE Bioenergetics Quiz</h1>
+      <p class="muted">A self-marking HTML quiz for GCSE Biology. Candidates can choose <strong>Combined Science</strong> or <strong>Triple Science</strong>, so the quiz changes depth automatically.</p>
+      <div class="pillbar">
+        <div class="pill">Photosynthesis</div>
+        <div class="pill">Respiration</div>
+        <div class="pill">Exercise</div>
+        <div class="pill">Metabolism</div>
+        <div class="pill">Triple-only detail included</div>
+      </div>
+    </section>
+
+    <div class="grid" id="setupView">
+      <section class="panel col-4">
+        <h2>Candidate setup</h2>
+
+        <label for="centreNumber">Centre number</label>
+        <input id="centreNumber" type="text" value="50749" maxlength="10" />
+
+        <label for="candidateNumber">Candidate number</label>
+        <input id="candidateNumber" type="number" placeholder="Enter 4 digits" min="1" max="9999" />
+
+        <label for="candidateName">Candidate name (optional)</label>
+        <input id="candidateName" type="text" placeholder="Forename Surname" />
+
+        <label for="tierSelect">Course</label>
+        <select id="tierSelect">
+          <option value="combined">Combined Science</option>
+          <option value="triple">Triple Science</option>
+        </select>
+
+        <label for="questionCount">Number of questions</label>
+        <select id="questionCount">
+          <option value="10">10 questions</option>
+          <option value="15" selected>15 questions</option>
+          <option value="20">20 questions</option>
+        </select>
+
+        <div class="btnRow">
+          <button id="startBtn">Start quiz</button>
+          <button class="secondary" id="previewBtn" type="button">Preview topics</button>
+        </div>
+
+        <div class="footerNote tiny">
+          Combined Science uses core GCSE bioenergetics knowledge. Triple Science includes extra depth such as limiting factors in more detail, inverse square law context, and glucose conversion/storage ideas with greater precision.
+        </div>
+      </section>
+
+      <section class="panel col-8">
+        <h2>What this quiz covers</h2>
+        <div class="topStats">
+          <div class="stat"><div class="tiny">Mode</div><div class="big" id="statMode">Combined Science</div></div>
+          <div class="stat"><div class="tiny">Default questions</div><div class="big">15</div></div>
+          <div class="stat"><div class="tiny">Question style</div><div class="big">Multiple choice</div></div>
+          <div class="stat"><div class="tiny">Marking</div><div class="big">Instant</div></div>
+        </div>
+        <div id="previewBox">
+          <h3>Topic preview</h3>
+          <p class="muted">Use the selector on the left to swap between Combined Science and Triple Science depth.</p>
+          <ul id="topicList" class="muted"></ul>
+        </div>
+      </section>
+    </div>
+
+    <section id="quizView" class="hidden">
+      <div class="panel" style="margin-bottom:16px;">
+        <div class="split">
+          <div>
+            <h2 style="margin-bottom:6px;">Quiz in progress</h2>
+            <div class="tiny" id="candidateLine"></div>
+          </div>
+          <div class="pillbar">
+            <div class="pill" id="modePill">Mode: Combined</div>
+            <div class="pill" id="countPill">Questions: 15</div>
+          </div>
+        </div>
+        <div class="btnRow">
+          <button class="good" id="markBtn">Mark quiz</button>
+          <button class="secondary" id="resetBtn">Back to setup</button>
+        </div>
+      </div>
+      <div id="questionsHost"></div>
+    </section>
+
+    <section id="resultsView" class="hidden">
+      <div class="resultsGrid">
+        <div class="resultCard">
+          <h2>Final score</h2>
+          <div class="scoreRing" id="scoreRing" style="--p:0;"><span id="scorePercent">0%</span></div>
+          <p><strong id="scoreLine">0 / 0</strong></p>
+          <p class="muted" id="gradeLine">Grade estimate: —</p>
+        </div>
+        <div class="resultCard">
+          <h2>Candidate details</h2>
+          <p id="resultCandidate"></p>
+          <p id="resultMode"></p>
+          <p id="resultDate"></p>
+        </div>
+        <div class="resultCard">
+          <h2>Performance summary</h2>
+          <p id="summaryLine"></p>
+          <div class="footerNote tiny">This grade estimate is only a simple quiz estimate, not an official GCSE boundary.</div>
+        </div>
+      </div>
+      <div class="btnRow" style="margin-top:16px;">
+        <button id="retryBtn">Try another quiz</button>
+        <button class="secondary" id="reviewBtn">Review answers</button>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const QUESTION_BANK = {
+      combined: [
+        {
+          topic: 'Photosynthesis',
+          q: 'What is the word equation for photosynthesis?',
+          options: [
+            'glucose + oxygen → carbon dioxide + water',
+            'carbon dioxide + water → glucose + oxygen',
+            'carbon dioxide + oxygen → glucose + water',
+            'water + oxygen → carbon dioxide + glucose'
+          ],
+          answer: 1,
+          explanation: 'Photosynthesis uses carbon dioxide and water to make glucose and oxygen.'
+        },
+        {
+          topic: 'Photosynthesis',
+          q: 'Which organelle in plant cells contains chlorophyll?',
+          options: ['nucleus', 'mitochondrion', 'chloroplast', 'ribosome'],
+          answer: 2,
+          explanation: 'Chloroplasts contain chlorophyll, which absorbs light energy.'
+        },
+        {
+          topic: 'Photosynthesis',
+          q: 'Which factor is NOT a limiting factor of photosynthesis?',
+          options: ['light intensity', 'carbon dioxide concentration', 'temperature', 'blood flow'],
+          answer: 3,
+          explanation: 'Blood flow is not a plant photosynthesis factor. Light, carbon dioxide and temperature are major limiting factors.'
+        },
+        {
+          topic: 'Photosynthesis',
+          q: 'Why is glucose important in plants?',
+          options: [
+            'It is only a waste product',
+            'It can be used in respiration',
+            'It replaces chlorophyll',
+            'It stops mineral uptake'
+          ],
+          answer: 1,
+          explanation: 'Plants use glucose in respiration and also for making other substances.'
+        },
+        {
+          topic: 'Photosynthesis',
+          q: 'A farmer increases the carbon dioxide concentration in a greenhouse. What is the main purpose?',
+          options: [
+            'to slow photosynthesis',
+            'to reduce respiration completely',
+            'to increase the rate of photosynthesis',
+            'to remove chlorophyll'
+          ],
+          answer: 2,
+          explanation: 'Extra carbon dioxide can increase the rate of photosynthesis if CO₂ is the limiting factor.'
+        },
+        {
+          topic: 'Respiration',
+          q: 'Which statement describes aerobic respiration?',
+          options: [
+            'It releases less energy and does not use oxygen',
+            'It uses oxygen and releases energy from glucose',
+            'It only happens in plants',
+            'It makes lactic acid in muscles'
+          ],
+          answer: 1,
+          explanation: 'Aerobic respiration uses oxygen to release energy from glucose.'
+        },
+        {
+          topic: 'Respiration',
+          q: 'Where does aerobic respiration mainly occur in cells?',
+          options: ['chloroplasts', 'cell membrane', 'mitochondria', 'vacuoles'],
+          answer: 2,
+          explanation: 'Aerobic respiration mainly occurs in the mitochondria.'
+        },
+        {
+          topic: 'Respiration',
+          q: 'Which process occurs when muscles do not get enough oxygen during vigorous exercise?',
+          options: ['photosynthesis', 'anaerobic respiration', 'transpiration', 'diffusion only'],
+          answer: 1,
+          explanation: 'If oxygen supply is insufficient, muscles carry out anaerobic respiration.'
+        },
+        {
+          topic: 'Respiration',
+          q: 'What is made in human anaerobic respiration?',
+          options: ['ethanol and carbon dioxide', 'lactic acid', 'oxygen', 'chlorophyll'],
+          answer: 1,
+          explanation: 'In humans, anaerobic respiration produces lactic acid.'
+        },
+        {
+          topic: 'Exercise',
+          q: 'What is oxygen debt?',
+          options: [
+            'the oxygen needed to break down excess lactic acid after exercise',
+            'the oxygen lost by plants at night',
+            'the lack of carbon dioxide in muscles',
+            'the oxygen used in photosynthesis only'
+          ],
+          answer: 0,
+          explanation: 'Oxygen debt is the extra oxygen required after exercise to remove lactic acid.'
+        },
+        {
+          topic: 'Exercise',
+          q: 'Which of the following usually increases during exercise?',
+          options: ['heart rate', 'leaf area', 'chlorophyll content', 'starch storage in leaves'],
+          answer: 0,
+          explanation: 'Heart rate increases to deliver more oxygen and glucose to muscles.'
+        },
+        {
+          topic: 'Exercise',
+          q: 'Why does breathing rate increase during exercise?',
+          options: [
+            'to increase water uptake by roots',
+            'to supply more oxygen and remove more carbon dioxide',
+            'to stop muscle contraction',
+            'to lower enzyme activity'
+          ],
+          answer: 1,
+          explanation: 'Breathing rate rises to provide more oxygen for respiration and remove carbon dioxide.'
+        },
+        {
+          topic: 'Metabolism',
+          q: 'Which best describes metabolism?',
+          options: [
+            'all the chemical reactions in a cell or body',
+            'movement of substances in the blood only',
+            'digestion in the stomach only',
+            'gas exchange in the lungs only'
+          ],
+          answer: 0,
+          explanation: 'Metabolism means the sum of all the chemical reactions in an organism.'
+        },
+        {
+          topic: 'Metabolism',
+          q: 'Which substance can be made from glucose in plants for storage?',
+          options: ['starch', 'urea', 'lactic acid', 'haemoglobin'],
+          answer: 0,
+          explanation: 'Plants convert glucose into starch for storage.'
+        },
+        {
+          topic: 'Metabolism',
+          q: 'Which of these is a metabolic reaction?',
+          options: [
+            'converting glucose into cellulose',
+            'reflecting light from a leaf',
+            'water evaporating from a puddle',
+            'a pencil melting'
+          ],
+          answer: 0,
+          explanation: 'Building cellulose from glucose is part of metabolism in plants.'
+        },
+        {
+          topic: 'Required practical',
+          q: 'In the pondweed practical, the rate of photosynthesis is often estimated by counting...',
+          options: ['root hairs', 'bubbles of gas produced', 'number of petals', 'worms in the soil'],
+          answer: 1,
+          explanation: 'Students often count oxygen bubbles as an estimate of photosynthesis rate.'
+        },
+        {
+          topic: 'Required practical',
+          q: 'In a photosynthesis practical, what is one reason to keep temperature constant?',
+          options: [
+            'so temperature does not become a changing variable',
+            'so the plant cannot respire',
+            'so carbon dioxide is removed completely',
+            'so the chlorophyll dissolves'
+          ],
+          answer: 0,
+          explanation: 'Keeping temperature constant makes the test fair because temperature also affects photosynthesis.'
+        },
+        {
+          topic: 'Exercise',
+          q: 'Which substances are delivered to muscles in greater amounts during exercise?',
+          options: [
+            'oxygen and glucose',
+            'starch and iodine',
+            'chlorophyll and water vapour',
+            'lactic acid and urea'
+          ],
+          answer: 0,
+          explanation: 'Muscles need more oxygen and glucose for increased respiration.'
+        },
+        {
+          topic: 'Respiration',
+          q: 'Which gas is produced in aerobic respiration?',
+          options: ['carbon dioxide', 'nitrogen', 'hydrogen', 'helium'],
+          answer: 0,
+          explanation: 'Aerobic respiration produces carbon dioxide and water.'
+        },
+        {
+          topic: 'Photosynthesis',
+          q: 'Why is chlorophyll important?',
+          options: [
+            'It absorbs light energy for photosynthesis',
+            'It absorbs oxygen for respiration',
+            'It stores protein in seeds',
+            'It pumps blood around the plant'
+          ],
+          answer: 0,
+          explanation: 'Chlorophyll absorbs light energy used in photosynthesis.'
+        }
+      ],
+      triple: [
+        {
+          topic: 'Photosynthesis',
+          q: 'Which statement best explains a limiting factor in photosynthesis?',
+          options: [
+            'It is the factor in shortest supply that directly limits the rate',
+            'It is always temperature only',
+            'It is the factor that never changes',
+            'It is any substance found in soil'
+          ],
+          answer: 0,
+          explanation: 'A limiting factor is the one in shortest supply which stops the rate increasing further.'
+        },
+        {
+          topic: 'Photosynthesis',
+          q: 'At very high light intensities, the rate of photosynthesis may stop increasing because...',
+          options: [
+            'the plant has run out of chloroplasts completely',
+            'another factor becomes limiting',
+            'respiration has stopped forever',
+            'oxygen becomes the only reactant'
+          ],
+          answer: 1,
+          explanation: 'Once one factor is no longer limiting, another factor may limit the rate instead.'
+        },
+        {
+          topic: 'Photosynthesis',
+          q: 'Which use of glucose is correctly matched?',
+          options: [
+            'making nitrate ions',
+            'making cellulose for cell walls',
+            'making chlorophyll without minerals',
+            'making oxygen for storage'
+          ],
+          answer: 1,
+          explanation: 'Plants can convert glucose into cellulose for strengthening cell walls.'
+        },
+        {
+          topic: 'Photosynthesis',
+          q: 'Why can light intensity be expressed using the inverse square law in practical work?',
+          options: [
+            'because intensity falls as distance from the lamp increases',
+            'because temperature doubles every second',
+            'because photosynthesis only works in square leaves',
+            'because bubbles always rise in pairs'
+          ],
+          answer: 0,
+          explanation: 'As distance from a lamp increases, light intensity decreases following the inverse square relationship.'
+        },
+        {
+          topic: 'Photosynthesis',
+          q: 'Which pair are both raw materials for photosynthesis?',
+          options: ['glucose and oxygen', 'carbon dioxide and water', 'water and oxygen', 'glucose and water'],
+          answer: 1,
+          explanation: 'Carbon dioxide and water are the raw materials in photosynthesis.'
+        },
+        {
+          topic: 'Respiration',
+          q: 'Which word equation is correct for aerobic respiration?',
+          options: [
+            'glucose + oxygen → carbon dioxide + water',
+            'carbon dioxide + water → glucose + oxygen',
+            'glucose → lactic acid + oxygen',
+            'oxygen + water → glucose + carbon dioxide'
+          ],
+          answer: 0,
+          explanation: 'That is the word equation for aerobic respiration.'
+        },
+        {
+          topic: 'Respiration',
+          q: 'Why is aerobic respiration more efficient than anaerobic respiration?',
+          options: [
+            'It releases more energy per glucose molecule',
+            'It does not use enzymes',
+            'It only occurs in muscles',
+            'It removes the need for blood flow'
+          ],
+          answer: 0,
+          explanation: 'Aerobic respiration releases much more energy from each glucose molecule.'
+        },
+        {
+          topic: 'Respiration',
+          q: 'Which statement about anaerobic respiration in yeast is correct?',
+          options: [
+            'it produces lactic acid only',
+            'it produces ethanol and carbon dioxide',
+            'it requires chlorophyll',
+            'it takes place only in leaves'
+          ],
+          answer: 1,
+          explanation: 'In yeast, anaerobic respiration produces ethanol and carbon dioxide.'
+        },
+        {
+          topic: 'Exercise',
+          q: 'What happens to blood flow to muscles during vigorous exercise?',
+          options: [
+            'it decreases sharply',
+            'it stays exactly the same',
+            'it increases to supply more oxygen and glucose',
+            'it stops to prevent overheating'
+          ],
+          answer: 2,
+          explanation: 'More blood is directed to muscles to support increased respiration.'
+        },
+        {
+          topic: 'Exercise',
+          q: 'What causes muscle fatigue associated with anaerobic respiration?',
+          options: ['oxygen gas dissolving in bone', 'lactic acid build-up', 'too much starch in blood', 'lack of chlorophyll'],
+          answer: 1,
+          explanation: 'Lactic acid build-up contributes to muscle fatigue.'
+        },
+        {
+          topic: 'Metabolism',
+          q: 'Which is NOT an example of a metabolic reaction?',
+          options: [
+            'conversion of glucose to starch',
+            'formation of lipids from glycerol and fatty acids',
+            'movement of a football through the air',
+            'respiration'
+          ],
+          answer: 2,
+          explanation: 'A moving football is not a chemical reaction, so it is not metabolism.'
+        },
+        {
+          topic: 'Metabolism',
+          q: 'Which two substances join to form lipids in metabolic reactions?',
+          options: ['amino acids and glucose', 'glycerol and fatty acids', 'carbon dioxide and water', 'oxygen and lactic acid'],
+          answer: 1,
+          explanation: 'Lipids are formed from glycerol and fatty acids.'
+        },
+        {
+          topic: 'Metabolism',
+          q: 'Why are nitrate ions needed by plants?',
+          options: [
+            'to make proteins from amino acids',
+            'to increase oxygen debt',
+            'to make glucose directly from soil',
+            'to stop photosynthesis'
+          ],
+          answer: 0,
+          explanation: 'Plants use nitrate ions to make amino acids and then proteins.'
+        },
+        {
+          topic: 'Required practical',
+          q: 'In the pondweed practical, which variable is commonly changed to investigate photosynthesis rate?',
+          options: ['lamp distance', 'leaf colour only', 'type of beaker only', 'amount of soil'],
+          answer: 0,
+          explanation: 'Changing lamp distance changes light intensity, allowing the rate to be investigated.'
+        },
+        {
+          topic: 'Required practical',
+          q: 'Why might counting bubbles in pondweed be an imperfect measure?',
+          options: [
+            'bubble size may vary',
+            'oxygen is never produced',
+            'pondweed does not photosynthesise',
+            'carbon dioxide always escapes as a solid'
+          ],
+          answer: 0,
+          explanation: 'Bubble size can vary, so counting bubbles is only an estimate of oxygen production.'
+        },
+        {
+          topic: 'Photosynthesis',
+          q: 'Plants can convert glucose into which insoluble substance for storage?',
+          options: ['starch', 'protein', 'lactic acid', 'carbon dioxide'],
+          answer: 0,
+          explanation: 'Glucose can be converted into starch for storage.'
+        },
+        {
+          topic: 'Photosynthesis',
+          q: 'Which mineral ion is needed to make chlorophyll?',
+          options: ['magnesium ions', 'sodium ions', 'chloride ions only', 'iron ions only'],
+          answer: 0,
+          explanation: 'Magnesium ions are needed to make chlorophyll.'
+        },
+        {
+          topic: 'Respiration',
+          q: 'Which process occurs continuously in living cells?',
+          options: ['respiration', 'photosynthesis only at all times', 'transpiration only in animals', 'diffusion of ink only'],
+          answer: 0,
+          explanation: 'Respiration happens continuously in living cells to release energy.'
+        },
+        {
+          topic: 'Exercise',
+          q: 'Why does body temperature increase during exercise?',
+          options: [
+            'because respiration reactions transfer energy and some is released as heat',
+            'because chlorophyll absorbs sunlight in muscles',
+            'because glucose stops being used',
+            'because blood circulation ends'
+          ],
+          answer: 0,
+          explanation: 'Respiration transfers energy and also releases heat, warming the body.'
+        },
+        {
+          topic: 'Metabolism',
+          q: 'Which description of metabolism is most accurate?',
+          options: [
+            'the sum of all enzyme-controlled reactions in a cell or organism',
+            'breathing only',
+            'digestion only',
+            'movement only'
+          ],
+          answer: 0,
+          explanation: 'Metabolism includes all the enzyme-controlled chemical reactions in a cell or body.'
+        }
+      ]
+    };
+
+    const TOPIC_PREVIEW = {
+      combined: [
+        'Photosynthesis equation and chlorophyll',
+        'Limiting factors: light intensity, carbon dioxide, temperature',
+        'Uses of glucose in plants',
+        'Aerobic and anaerobic respiration',
+        'Effects of exercise on the body',
+        'Oxygen debt and lactic acid',
+        'Metabolism basics',
+        'Pondweed photosynthesis practical'
+      ],
+      triple: [
+        'Everything from Combined Science',
+        'Greater detail on limiting factors and rate curves',
+        'Inverse square law and light intensity in practicals',
+        'More precise glucose conversion and storage uses',
+        'Yeast anaerobic respiration',
+        'Mineral ions such as magnesium and nitrate ions',
+        'Stronger metabolism detail',
+        'Evaluation of practical methods'
+      ]
+    };
+
+    const state = {
+      questions: [],
+      mode: 'combined',
+      marked: false,
+      score: 0
+    };
+
+    const $ = sel => document.querySelector(sel);
+    const topicList = $('#topicList');
+    const tierSelect = $('#tierSelect');
+
+    function shuffle(arr){
+      const copy = [...arr];
+      for(let i=copy.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [copy[i],copy[j]] = [copy[j],copy[i]];
+      }
+      return copy;
+    }
+
+    function updatePreview(){
+      const mode = tierSelect.value;
+      $('#statMode').textContent = mode === 'combined' ? 'Combined Science' : 'Triple Science';
+      topicList.innerHTML = TOPIC_PREVIEW[mode].map(item => `<li>${item}</li>`).join('');
+    }
+
+    function validateCandidate(){
+      const cand = $('#candidateNumber').value.trim();
+      if(!cand) return 'Please enter a candidate number.';
+      if(!/^\d{1,4}$/.test(cand)) return 'Candidate number must be 1 to 4 digits.';
+      return '';
+    }
+
+    function startQuiz(){
+      const error = validateCandidate();
+      if(error){
+        alert(error);
+        return;
+      }
+
+      state.mode = $('#tierSelect').value;
+      const count = Number($('#questionCount').value);
+      state.questions = shuffle(QUESTION_BANK[state.mode]).slice(0, count);
+      state.marked = false;
+      state.score = 0;
+
+      $('#setupView').classList.add('hidden');
+      $('#resultsView').classList.add('hidden');
+      $('#quizView').classList.remove('hidden');
+
+      const name = $('#candidateName').value.trim() || 'Unnamed candidate';
+      const centre = $('#centreNumber').value.trim() || '50749';
+      const cand = $('#candidateNumber').value.trim().padStart(4,'0');
+      $('#candidateLine').textContent = `${name} • Centre ${centre} • Candidate ${cand}`;
+      $('#modePill').textContent = `Mode: ${state.mode === 'combined' ? 'Combined Science' : 'Triple Science'}`;
+      $('#countPill').textContent = `Questions: ${count}`;
+
+      renderQuestions();
+    }
+
+    function renderQuestions(){
+      const host = $('#questionsHost');
+      host.innerHTML = '';
+      state.questions.forEach((item, index) => {
+        const options = item.options.map((opt, i) => `
+          <label class="option" data-opt="${i}">
+            <input type="radio" name="q${index}" value="${i}" />
+            <span>${opt}</span>
+          </label>
+        `).join('');
+
+        host.insertAdjacentHTML('beforeend', `
+          <article class="question" id="question-${index}">
+            <div class="qTop">
+              <div>
+                <div class="qNum">Question ${index + 1}</div>
+                <div class="tiny">Choose one answer.</div>
+              </div>
+              <div class="tag">${item.topic}</div>
+            </div>
+            <div><strong>${item.q}</strong></div>
+            <div class="answers">${options}</div>
+            <div class="explanation" id="exp-${index}"></div>
+          </article>
+        `);
+      });
+    }
+
+    function markQuiz(){
+      let score = 0;
+
+      state.questions.forEach((item, index) => {
+        const chosen = document.querySelector(`input[name="q${index}"]:checked`);
+        const labels = [...document.querySelectorAll(`#question-${index} .option`)];
+        labels.forEach(label => {
+          label.classList.remove('correct','incorrect');
+        });
+
+        labels[item.answer].classList.add('correct');
+
+        if(chosen){
+          const chosenIndex = Number(chosen.value);
+          if(chosenIndex === item.answer){
+            score++;
+          } else {
+            labels[chosenIndex].classList.add('incorrect');
+          }
+        }
+
+        const exp = document.querySelector(`#exp-${index}`);
+        exp.innerHTML = `<strong>Answer:</strong> ${item.options[item.answer]}<br><strong>Why:</strong> ${item.explanation}`;
+        exp.classList.add('show');
+      });
+
+      state.score = score;
+      state.marked = true;
+      showResults();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function gradeEstimate(percent){
+      if(percent >= 90) return 'Grade 9 estimate';
+      if(percent >= 82) return 'Grade 8 estimate';
+      if(percent >= 74) return 'Grade 7 estimate';
+      if(percent >= 66) return 'Grade 6 estimate';
+      if(percent >= 58) return 'Grade 5 estimate';
+      if(percent >= 48) return 'Grade 4 estimate';
+      if(percent >= 38) return 'Grade 3 estimate';
+      if(percent >= 28) return 'Grade 2 estimate';
+      return 'Grade 1 estimate';
+    }
+
+    function performanceText(percent){
+      if(percent >= 85) return 'Excellent knowledge across this bioenergetics topic. 🌟';
+      if(percent >= 70) return 'Strong understanding with a few gaps to tidy up. 👍';
+      if(percent >= 50) return 'A fair attempt, but some key facts need revising. 📘';
+      return 'This topic needs a proper revision round, especially the core definitions and processes. ✍️';
+    }
+
+    function showResults(){
+      const total = state.questions.length;
+      const percent = Math.round((state.score / total) * 100);
+      $('#resultsView').classList.remove('hidden');
+      $('#scoreRing').style.setProperty('--p', percent);
+      $('#scorePercent').textContent = `${percent}%`;
+      $('#scoreLine').textContent = `${state.score} / ${total}`;
+      $('#gradeLine').textContent = gradeEstimate(percent);
+
+      const name = $('#candidateName').value.trim() || 'Unnamed candidate';
+      const centre = $('#centreNumber').value.trim() || '50749';
+      const cand = $('#candidateNumber').value.trim().padStart(4,'0');
+      $('#resultCandidate').innerHTML = `<strong>${name}</strong><br>Centre ${centre}<br>Candidate ${cand}`;
+      $('#resultMode').innerHTML = `<strong>Course:</strong> ${state.mode === 'combined' ? 'Combined Science' : 'Triple Science'}`;
+      $('#resultDate').innerHTML = `<strong>Completed:</strong> ${new Date().toLocaleString()}`;
+      $('#summaryLine').textContent = performanceText(percent);
+    }
+
+    function resetAll(){
+      $('#quizView').classList.add('hidden');
+      $('#resultsView').classList.add('hidden');
+      $('#setupView').classList.remove('hidden');
+      $('#questionsHost').innerHTML = '';
+      state.questions = [];
+      state.marked = false;
+      state.score = 0;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    $('#startBtn').addEventListener('click', startQuiz);
+    $('#markBtn').addEventListener('click', markQuiz);
+    $('#resetBtn').addEventListener('click', resetAll);
+    $('#retryBtn').addEventListener('click', resetAll);
+    $('#reviewBtn').addEventListener('click', () => {
+      $('#quizView').scrollIntoView({ behavior: 'smooth' });
+    });
+    $('#previewBtn').addEventListener('click', updatePreview);
+    tierSelect.addEventListener('change', updatePreview);
+
+    updatePreview();
+  </script>
+</body>
+</html>
