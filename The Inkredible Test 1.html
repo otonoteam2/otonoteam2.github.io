@@ -469,7 +469,7 @@ const BANK = {
         id:'FK6', marks:5, type:'short', section:'Otono Knowledge',
         prompt:'Name two things that make the A380 special in Otono Airways service.',
         rubric:'Could mention lounge, showers, upper-deck premium cabins, high capacity, flagship role.',
-        keywords:[['lounge','salon'],['showers','douches'],['upper deck','pont superieur'],['high capacity','477'],['flagship','vaisseau amiral']]
+        keywords:[['lounge','salon'],['showers','douches'],['upper deck','pont superieur'],['high capacity','456'],['flagship','vaisseau amiral']]
       },
       {
         id:'FK7', marks:5, type:'tfnm', section:'Otono Knowledge',
@@ -497,7 +497,13 @@ const BANK = {
       {
         id:'HK2', marks:8, type:'multi', section:'Otono Knowledge',
         prompt:'Select all true statements about the Otono Airways fleet and cabins.',
-        options:['A380 upper deck includes Otono One, First, Premium Economy and some Economy seats.','Every 777 standard configuration has Otono One suites.','Showers are exclusive to Otono One and First passengers.','All Otono Airways aircraft have exactly the same total seat count.','Economy across Otono Airways is advertised with 34–35 inch legroom.'],
+        options:[
+          'A380 upper deck includes Otono One, First, Business, some Economy seats, the lounge and showers.',
+          'Every 777 standard configuration has Otono One suites.',
+          'Showers are exclusive to Otono One and First passengers.',
+          'All Otono Airways aircraft have exactly the same total seat count.',
+          'Economy across Otono Airways is advertised with 34–35 inch legroom.'
+        ],
         correct:[0,2,4], scoring:'all-or-nothing'
       },
       {
@@ -521,17 +527,18 @@ const BANK = {
       {
         id:'HK6', marks:8, type:'mcq', section:'Otono Knowledge',
         prompt:'Which statement is most accurate?',
-        options:['The 777 premium configuration carries 242 passengers.','The 777 premium configuration carries 477 passengers.','The A380 carries 242 passengers.','The standard 777 has no First Class.'],
+        options:['The 777 premium configuration carries 242 passengers.','The 777 premium configuration carries 456 passengers.','The A380 carries 242 passengers.','The standard 777 has no First Class.'],
         answerIndex:0
       }
     ]
   },
+
   maths: {
     foundation: [
       {
         id:'FM1', marks:6, type:'numeric', section:'Maths — Otono Airways',
-        prompt:'An Otono Airways A380 has 318 Economy seats. If 92% are filled, how many Economy passengers are on board? Round to the nearest whole passenger.',
-        answers:['293']
+        prompt:'An Otono Airways A380 has 260 Economy seats. If 92% are filled, how many Economy passengers are on board? Round to the nearest whole passenger.',
+        answers:['239']
       },
       {
         id:'FM2', marks:6, type:'short', section:'Maths — Otono Airways',
@@ -583,11 +590,12 @@ const BANK = {
       },
       {
         id:'FM10', marks:6, type:'short', section:'Maths — Otono Airways',
-        prompt:'Premium Economy has 63 seats on the A380. If 90% are occupied, how many passengers is that to the nearest whole number?',
-        rubric:'56.7 rounds to 57.',
-        keywords:[['57']]
+        prompt:'Premium Economy has 84 seats on the A380. If 90% are occupied, how many passengers is that to the nearest whole number?',
+        rubric:'75.6 rounds to 76.',
+        keywords:[['76']]
       }
     ],
+
     higher: [
       {
         id:'HM1', marks:8, type:'short', section:'Maths — Otono Airways',
@@ -597,9 +605,9 @@ const BANK = {
       },
       {
         id:'HM2', marks:7, type:'short', section:'Maths — Otono Airways',
-        prompt:'An A380 has 4 Otono One, 16 First, 72 Business, 63 Premium Economy and 318 Economy seats. Loads are 100%, 100%, 85%, 90% and 92% respectively. Calculate the total passengers on board and the overall load factor percentage to 1 decimal place.',
-        rubric:'4 + 16 + 61 + 57 + 293 = 431, load factor ≈ 90.4%.',
-        keywords:[['431'],['90.4','90.3','90.35']]
+        prompt:'An A380 has 8 Otono One seats, 12 First, 92 Business, 84 Premium Economy and 260 Economy seats. Loads are 100%, 100%, 85%, 90% and 92% respectively. Calculate the total passengers on board and the overall load factor percentage to 1 decimal place.',
+        rubric:'8 + 12 + 78.2 + 75.6 + 239.2 = 413. Overall load factor = 413/456 × 100 ≈ 90.6%.',
+        keywords:[['413'],['90.6','90.57','90.5']]
       },
       {
         id:'HM3', marks:8, type:'short', section:'Maths — Otono Airways',
@@ -627,6 +635,7 @@ const BANK = {
       }
     ]
   },
+
   mfl: {
     foundation: {
       french: [
@@ -661,6 +670,7 @@ const BANK = {
       ]
     }
   },
+
   bonus: {
     foundation: {
       id:'FBONUS', marks:1, type:'short', section:'Hidden Bonus',
