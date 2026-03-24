@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Simple French Reading Practice</title>
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f4f0ff;
+      color: #222;
+    }
+    .wrap{
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .card{
+      background: white;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    h1,h2,h3{
+      margin-top: 0;
+    }
+    .btn{
+      padding: 10px 14px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #6a00cc;
+      color: white;
+      font-weight: bold;
+      margin-right: 8px;
+    }
+    .btn:hover{
+      opacity: 0.9;
+    }
+    input[type="text"], textarea, select{
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      margin-bottom: 12px;
+      border: 1px solid #bbb;
+      border-radius: 8px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+    textarea{
+      min-height: 80px;
+      resize: vertical;
+    }
+    .question{
+      margin-top: 14px;
+      padding: 12px;
+      background: #f8f6ff;
+      border-radius: 10px;
+    }
+    .result-box{
+      padding: 12px;
+      border-radius: 10px;
+      background: #eef9f0;
+      margin-top: 12px;
+    }
+    .small{
+      font-size: 13px;
+      color: #555;
+    }
+    .hidden{
+      display: none;
+    }
+    .badge{
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #eee;
+      font-weight: bold;
+      margin-left: 8px;
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <h1>🇫🇷 Simple French Reading Practice</h1>
+    <p class="small">
+      Simpler version: 2 random passages + 1 translation.  
+      Pass / Merit / Distinction is based on percentage.
+    </p>
+
+    <label>Candidate number</label>
+    <input type="text" id="candidateNo" placeholder="e.g. 1105">
+
+    <label>Name (optional)</label>
+    <input type="text" id="candidateName" placeholder="Your name">
+
+    <button class="btn" id="startBtn">Start Paper</button>
+    <button class="btn" id="newBtn">New Random Paper</button>
+  </div>
+
+  <div id="paperArea" class="hidden"></div>
+  <div id="resultArea" class="hidden"></div>
+</div>
+
+<script>
+/* -----------------------------
+   SIMPLE DATA
+----------------------------- */
+
+const passages = [
+  {
+    id: 1,
+    title: "School rules",
+    text: "À l’école, Red aime les règles simples. Il arrive à l’heure, il apporte son crayon et il lit toujours les consignes avant un examen. Selon lui, cela aide à éviter des erreurs inutiles.",
+    questions: [
+      {
+        type: "mcq",
+        prompt: "What does Red bring?",
+        options: ["A calculator", "A pencil", "A ruler"],
+        answer: "A black pen",
+        marks: 2
+      },
+      {
+        type: "truefalse",
+        prompt: "Red reads the instructions before an exam.",
+        answer: "True",
+        marks: 2
+      },
+      {
+        type: "short",
+        prompt: "Give one reason why Red likes simple rules.",
+        keywords: ["avoid errors", "avoids errors", "avoid mistakes", "éviter des erreurs"],
+        marks: 2
+      }
+    ]
+  },
+  {
+    id: 2,
+    title: "Free time",
+    text: "Le week-end, Jessica joue souvent du piano chez elle. Elle trouve cette activité relaxante, surtout après une semaine difficile à l’école. Parfois, elle joue aussi pour ses amis.",
+    questions: [
+      {
+        type: "mcq",
+        prompt: "Where does Jessica usually play piano?",
+        options: ["At school", "At home", "In a park"],
+        answer: "At home",
+        marks: 2
+      },
+      {
+        type: "truefalse",
+        prompt: "Jessica thinks playing piano is relaxing.",
+        answer: "True",
+        marks: 2
+      },
+      {
+        type: "short",
+        prompt: "Who does she sometimes play for?",
+        keywords: ["friends", "ses amis"],
+        marks: 2
+      }
+    ]
+  },
+  {
+    id: 3,
+    title: "Travel",
+    text: "Quand il voyage, OWing préfère les vols calmes et bien organisés. Il aime avoir assez d’espace pour s’asseoir confortablement. Pour lui, le confort est important, mais le prix compte aussi.",
+    questions: [
+      {
+        type: "mcq",
+        prompt: "What kind of flights does OWing prefer?",
+        options: ["Noisy flights", "Calm and organised flights", "Very short flights"],
+        answer: "Calm and organised flights",
+        marks: 2
+      },
+      {
+        type: "truefalse",
+        prompt: "OWing only cares about comfort.",
+        answer: "False",
+        marks: 2
+      },
+      {
+        type: "short",
+        prompt: "Give one thing that matters to OWing when travelling.",
+        keywords: ["comfort", "price", "confort", "prix", "space", "espace"],
+        marks: 2
+      }
+    ]
+  },
+  {
+    id: 4,
+    title: "Exam stress",
+    text: "Avant un contrôle, Thomas est parfois stressé. Il a peur d’oublier des informations importantes. Pour se calmer, il respire lentement et commence par les questions les plus faciles.",
+    questions: [
+      {
+        type: "mcq",
+        prompt: "Why is Thomas stressed?",
+        options: ["He forgot his bag", "He fears forgetting important information", "He dislikes French food"],
+        answer: "He fears forgetting important information",
+        marks: 2
+      },
+      {
+        type: "truefalse",
+        prompt: "Thomas starts with the hardest questions first.",
+        answer: "False",
+        marks: 2
+      },
+      {
+        type: "short",
+        prompt: "How does Thomas calm himself?",
+        keywords: ["breathes slowly", "respire lentement", "breathe slowly"],
+        marks: 2
+      }
+    ]
+  }
+];
+
+const translations = [
+  {
+    text: "I like reading the instructions because it helps me avoid mistakes.",
+    keywords: [
+      ["j'aime", "je aime", "j aime"],
+      ["lire", "lis", "reading"],
+      ["les consignes", "instructions"],
+      ["parce que"],
+      ["éviter", "avoid"],
+      ["erreurs", "mistakes"]
+    ]
+  },
+  {
+    text: "At school, I study French and I often revise in the library.",
+    keywords: [
+      ["à l'école", "a l'ecole", "a l ecole"],
+      ["j'étudie", "j etudie", "étudie", "etudie"],
+      ["français", "francais"],
+      ["souvent"],
+      ["révise", "revise", "réviser", "reviser"],
+      ["bibliothèque", "bibliotheque"]
+    ]
+  }
+];
+
+/* -----------------------------
+   APP STATE
+----------------------------- */
+
+let currentPaper = null;
+
+/* -----------------------------
+   HELPERS
+----------------------------- */
+
+function shuffle(array) {
+  const copy = [...array];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
+function normalise(text) {
+  return (text || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim();
+}
+
+function getPercentage(score, maxScore) {
+  return Math.round((score / maxScore) * 100);
+}
+
+function getPMD(percent) {
+  if (percent >= 90) return "Distinction";
+  if (percent >= 80) return "Merit";
+  if (percent >= 66) return "Pass";
+  return "Fail";
+}
+
+/* -----------------------------
+   PAPER GENERATION
+----------------------------- */
+
+function generatePaper() {
+  const chosenPassages = shuffle(passages).slice(0, 2);
+  const chosenTranslation = shuffle(translations)[0];
+  return {
+    passages: chosenPassages,
+    translation: chosenTranslation
+  };
+}
+
+/* -----------------------------
+   RENDER
+----------------------------- */
+
+function renderPaper() {
+  const paperArea = document.getElementById("paperArea");
+  paperArea.classList.remove("hidden");
+
+  let html = "";
+
+  currentPaper.passages.forEach((passage, pIndex) => {
+    html += `
+      <div class="card">
+        <h2>Passage ${pIndex + 1}: ${passage.title}</h2>
+        <p>${passage.text}</p>
+    `;
+
+    passage.questions.forEach((q, qIndex) => {
+      const inputName = `p${pIndex}_q${qIndex}`;
+
+      html += `<div class="question">`;
+      html += `<h3>${q.prompt} <span class="badge">${q.marks} marks</span></h3>`;
+
+      if (q.type === "mcq") {
+        q.options.forEach(option => {
+          html += `
+            <label>
+              <input type="radio" name="${inputName}" value="${option}">
+              ${option}
+            </label><br>
+          `;
+        });
+      } else if (q.type === "truefalse") {
+        html += `
+          <label><input type="radio" name="${inputName}" value="True"> True</label><br>
+          <label><input type="radio" name="${inputName}" value="False"> False</label>
+        `;
+      } else if (q.type === "short") {
+        html += `<textarea id="${inputName}" placeholder="Write your answer here"></textarea>`;
+      }
+
+      html += `</div>`;
+    });
+
+    html += `</div>`;
+  });
+
+  html += `
+    <div class="card">
+      <h2>Translation</h2>
+      <p>Translate into French:</p>
+      <p><strong>${currentPaper.translation.text}</strong></p>
+      <textarea id="translationAnswer" placeholder="Write your French translation here"></textarea>
+    </div>
+
+    <div class="card">
+      <button class="btn" onclick="markPaper()">Submit and Mark</button>
+    </div>
+  `;
+
+  paperArea.innerHTML = html;
+}
+
+/* -----------------------------
+   MARKING
+----------------------------- */
+
+function markPaper() {
+  let totalScore = 0;
+  let maxScore = 0;
+  let feedback = "";
+
+  currentPaper.passages.forEach((passage, pIndex) => {
+    feedback += `<div class="card"><h2>${passage.title}</h2>`;
+
+    passage.questions.forEach((q, qIndex) => {
+      const inputName = `p${pIndex}_q${qIndex}`;
+      maxScore += q.marks;
+      let score = 0;
+
+      if (q.type === "mcq" || q.type === "truefalse") {
+        const selected = document.querySelector(`input[name="${inputName}"]:checked`);
+        if (selected && selected.value === q.answer) {
+          score = q.marks;
+        }
+      }
+
+      if (q.type === "short") {
+        const answer = normalise(document.getElementById(inputName).value);
+        const found = q.keywords.some(word => answer.includes(normalise(word)));
+        if (found) {
+          score = q.marks;
+        }
+      }
+
+      totalScore += score;
+      feedback += `<p><strong>${q.prompt}</strong><br>Score: ${score}/${q.marks}</p>`;
+    });
+
+    feedback += `</div>`;
+  });
+
+  // Translation
+  const translationAnswer = normalise(document.getElementById("translationAnswer").value);
+  let translationScore = 0;
+  const translationMax = 8;
+  maxScore += translationMax;
+
+  currentPaper.translation.keywords.forEach(group => {
+    const matched = group.some(item => translationAnswer.includes(normalise(item)));
+    if (matched) {
+      translationScore += 1;
+    }
+  });
+
+  // scale to 8
+  translationScore = Math.round((translationScore / currentPaper.translation.keywords.length) * translationMax);
+  totalScore += translationScore;
+
+  feedback += `
+    <div class="card">
+      <h2>Translation</h2>
+      <p>Score: ${translationScore}/${translationMax}</p>
+    </div>
+  `;
+
+  const percent = getPercentage(totalScore, maxScore);
+  const pmd = getPMD(percent);
+
+  const resultArea = document.getElementById("resultArea");
+  resultArea.classList.remove("hidden");
+  resultArea.innerHTML = `
+    <div class="card result-box">
+      <h2>Final Result</h2>
+      <p><strong>Candidate:</strong> ${document.getElementById("candidateNo").value || "Unknown"}</p>
+      <p><strong>Name:</strong> ${document.getElementById("candidateName").value || "Not given"}</p>
+      <p><strong>Total score:</strong> ${totalScore}/${maxScore}</p>
+      <p><strong>Percentage:</strong> ${percent}%</p>
+      <p><strong>Result:</strong> ${pmd}</p>
+    </div>
+    ${feedback}
+  `;
+}
+
+/* -----------------------------
+   BUTTONS
+----------------------------- */
+
+function startPaper() {
+  const candidateNo = document.getElementById("candidateNo").value.trim();
+  if (!candidateNo) {
+    alert("Candidate number is required");
+    return;
+  }
+
+  currentPaper = generatePaper();
+  document.getElementById("resultArea").classList.add("hidden");
+  document.getElementById("resultArea").innerHTML = "";
+  renderPaper();
+}
+
+document.getElementById("startBtn").addEventListener("click", startPaper);
+document.getElementById("newBtn").addEventListener("click", () => {
+  currentPaper = generatePaper();
+  document.getElementById("resultArea").classList.add("hidden");
+  document.getElementById("resultArea").innerHTML = "";
+  renderPaper();
+});
+</script>
+</body>
+</html>
