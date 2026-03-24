@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Otono MFL Department GCSE Leaderboard 2026</title>
+  <style>
+    :root{
+      --bg1:#12061d;
+      --bg2:#2a0d44;
+      --bg3:#4c156f;
+      --card:rgba(18,12,34,.78);
+      --card-strong:rgba(28,18,50,.92);
+      --line:rgba(255,255,255,.12);
+      --text:#f7f2ff;
+      --muted:#cdb7f6;
+      --gold:#ffd86b;
+      --silver:#dce6ff;
+      --bronze:#ffb47c;
+      --good:#6dffb7;
+      --shadow:0 18px 45px rgba(0,0,0,.35);
+      --radius:24px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      min-height:100vh;
+      font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(185,90,255,.22), transparent 30%),
+        radial-gradient(circle at top right, rgba(86,182,255,.18), transparent 26%),
+        linear-gradient(135deg,var(--bg1),var(--bg2) 48%,var(--bg3));
+      padding:28px;
+    }
+
+    .wrap{
+      width:min(1200px,100%);
+      margin:0 auto;
+    }
+
+    .hero{
+      position:relative;
+      overflow:hidden;
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      border:1px solid var(--line);
+      border-radius:32px;
+      box-shadow:var(--shadow);
+      padding:30px 30px 22px;
+      backdrop-filter: blur(12px);
+    }
+
+    .hero::before,
+    .hero::after{
+      content:"";
+      position:absolute;
+      border-radius:999px;
+      filter:blur(18px);
+      opacity:.45;
+      pointer-events:none;
+    }
+    .hero::before{
+      width:240px;height:240px;
+      right:-50px;top:-70px;
+      background:conic-gradient(from 90deg,#ff4fd8,#ffd94f,#6dffb7,#67c6ff,#b66dff,#ff4fd8);
+    }
+    .hero::after{
+      width:180px;height:180px;
+      left:-60px;bottom:-50px;
+      background:radial-gradient(circle, rgba(255,216,107,.8), rgba(255,216,107,0));
+    }
+
+    .kicker{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding:8px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.07);
+      color:#fff4c7;
+      font-weight:700;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      font-size:.78rem;
+    }
+
+    h1{
+      margin:16px 0 8px;
+      font-size:clamp(2rem,5vw,3.35rem);
+      line-height:1.02;
+      letter-spacing:-.03em;
+    }
+
+    .sub{
+      margin:0;
+      color:var(--muted);
+      font-size:1rem;
+      max-width:780px;
+      line-height:1.55;
+    }
+
+    .meta{
+      margin-top:16px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .pill{
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.1);
+      color:var(--text);
+      padding:10px 14px;
+      border-radius:14px;
+      font-weight:600;
+      font-size:.95rem;
+    }
+
+    .grid{
+      margin-top:22px;
+      display:grid;
+      grid-template-columns:repeat(5,minmax(0,1fr));
+      gap:14px;
+    }
+
+    .podium{
+      background:linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.04));
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:18px;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .podium small{
+      display:block;
+      color:var(--muted);
+      font-weight:700;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      margin-bottom:10px;
+    }
+
+    .rankBadge{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:40px;height:40px;
+      border-radius:50%;
+      font-weight:900;
+      margin-bottom:10px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.08);
+    }
+
+    .first .rankBadge{background:linear-gradient(135deg,#fff2b6,#ffd86b 60%,#c99800); color:#2d1a00}
+    .second .rankBadge{background:linear-gradient(135deg,#ffffff,#dce6ff 60%,#9cb2db); color:#1d2942}
+    .third .rankBadge{background:linear-gradient(135deg,#ffe2cb,#ffb47c 60%,#bb6a2a); color:#3b1700}
+
+    .candidate{
+      font-size:1.6rem;
+      font-weight:900;
+      letter-spacing:.04em;
+      display:inline-block;
+    }
+
+    .score{
+      margin-top:8px;
+      font-size:1.2rem;
+      font-weight:800;
+      color:var(--good);
+    }
+
+    .rainbow-glint{
+      background:linear-gradient(90deg,
+        #ff70e1 0%,
+        #ffd86b 18%,
+        #8cffc4 36%,
+        #77d6ff 56%,
+        #c48cff 76%,
+        #ff70e1 100%);
+      background-size:220% auto;
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+      animation:glint 3.2s linear infinite;
+      text-shadow:0 0 18px rgba(255,255,255,.12);
+    }
+
+    @keyframes glint{
+      0%{background-position:0% center}
+      100%{background-position:220% center}
+    }
+
+    .board{
+      margin-top:22px;
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:28px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .boardHead{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      padding:20px 22px;
+      background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+      border-bottom:1px solid var(--line);
+    }
+
+    .boardHead h2{
+      margin:0;
+      font-size:1.25rem;
+      letter-spacing:-.02em;
+    }
+
+    .boardHead .right{
+      color:var(--muted);
+      font-weight:700;
+      text-align:right;
+      font-size:.95rem;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+    }
+
+    thead th{
+      text-align:left;
+      padding:14px 18px;
+      color:#f7e9b0;
+      font-size:.84rem;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      background:rgba(255,255,255,.03);
+      border-bottom:1px solid var(--line);
+    }
+
+    tbody td{
+      padding:16px 18px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      font-size:1rem;
+    }
+
+    tbody tr{
+      transition:transform .18s ease, background .18s ease;
+    }
+    tbody tr:hover{
+      background:rgba(255,255,255,.04);
+      transform:translateY(-1px);
+    }
+
+    tbody tr.top5{
+      background:linear-gradient(90deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+    }
+
+    .rank{
+      font-weight:900;
+      width:84px;
+    }
+
+    .rank.gold{color:var(--gold)}
+    .rank.silver{color:var(--silver)}
+    .rank.bronze{color:var(--bronze)}
+
+    .num{
+      font-weight:900;
+      letter-spacing:.08em;
+      font-variant-numeric:tabular-nums;
+    }
+
+    .mean{
+      font-weight:900;
+      color:var(--good);
+      font-variant-numeric:tabular-nums;
+    }
+
+    .foot{
+      margin-top:16px;
+      color:var(--muted);
+      font-size:.92rem;
+      line-height:1.55;
+      padding:0 4px;
+    }
+
+    @media (max-width: 980px){
+      .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+
+    @media (max-width: 640px){
+      body{padding:14px}
+      .hero{padding:22px 18px 18px}
+      .grid{grid-template-columns:1fr}
+      .boardHead{flex-direction:column;align-items:flex-start}
+      thead th:nth-child(3), tbody td:nth-child(3){text-align:right}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="kicker">🏆 Otono MFL Department • GCSE 2026</div>
+      <h1>Fancy Leaderboard</h1>
+      <p class="sub">
+        Ranked by <strong>cleaned mean score</strong>. Every candidate is included. Obvious scam-style low entries were removed only where appropriate.
+      </p>
+      <div class="meta">
+        <div class="pill">Last update: <strong>24th March 2026</strong></div>
+        <div class="pill">Names removed</div>
+        <div class="pill">Top 5 = rainbow glint</div>
+      </div>
+    </section>
+
+    <section class="grid" aria-label="Top five candidates">
+      <article class="podium first">
+        <small>1st place</small>
+        <div class="rankBadge">1</div>
+        <div class="candidate rainbow-glint">0000</div>
+        <div class="score">97.00%</div>
+      </article>
+      <article class="podium second">
+        <small>2nd place</small>
+        <div class="rankBadge">2</div>
+        <div class="candidate rainbow-glint">1121</div>
+        <div class="score">95.67%</div>
+      </article>
+      <article class="podium third">
+        <small>3rd place</small>
+        <div class="rankBadge">3</div>
+        <div class="candidate rainbow-glint">1157</div>
+        <div class="score">95.56%</div>
+      </article>
+      <article class="podium">
+        <small>4th place</small>
+        <div class="rankBadge">4</div>
+        <div class="candidate rainbow-glint">9932</div>
+        <div class="score">92.25%</div>
+      </article>
+      <article class="podium">
+        <small>5th place</small>
+        <div class="rankBadge">5</div>
+        <div class="candidate rainbow-glint">1127</div>
+        <div class="score">92.00%</div>
+      </article>
+    </section>
+
+    <section class="board">
+      <div class="boardHead">
+        <h2>All candidates</h2>
+        <div class="right">Ordered by cleaned mean score<br>Percentages shown for fair comparison across papers</div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Candidate</th>
+            <th>Mean</th>
+            <th>Reward</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="top5">
+            <td class="rank gold">#1</td>
+            <td class="num rainbow-glint">0000</td>
+            <td class="mean">97.00%</td>
+            <td>£100</td>
+          </tr>
+          <tr class="top5">
+            <td class="rank silver">#2</td>
+            <td class="num rainbow-glint">1121</td>
+            <td class="mean">95.67%</td>
+            <td>£50</td>
+          </tr>
+          <tr class="top5">
+            <td class="rank bronze">#3</td>
+            <td class="num rainbow-glint">1157</td>
+            <td class="mean">95.56%</td>
+            <td>£30</td>
+          </tr>
+          <tr class="top5">
+            <td class="rank">#4</td>
+            <td class="num rainbow-glint">9932</td>
+            <td class="mean">92.25%</td>
+            <td>£20</td>
+          </tr>
+          <tr class="top5">
+            <td class="rank">#5</td>
+            <td class="num rainbow-glint">1127</td>
+            <td class="mean">92.00%</td>
+            <td>£10</td>
+          </tr>
+          <tr>
+            <td class="rank">#6</td>
+            <td class="num">1367</td>
+            <td class="mean">88.00%</td>
+            <td>£5</td>
+          </tr>
+          <tr>
+            <td class="rank">#7</td>
+            <td class="num">8044</td>
+            <td class="mean">87.50%</td>
+            <td>£5</td>
+          </tr>
+          <tr>
+            <td class="rank">#8</td>
+            <td class="num">4755</td>
+            <td class="mean">84.47%</td>
+            <td>£3</td>
+          </tr>
+          <tr>
+            <td class="rank">#9</td>
+            <td class="num">1151</td>
+            <td class="mean">83.40%</td>
+            <td>£3</td>
+          </tr>
+          <tr>
+            <td class="rank">#10</td>
+            <td class="num">1152</td>
+            <td class="mean">79.59%</td>
+            <td>£3</td>
+          </tr>
+          <tr>
+            <td class="rank">#11</td>
+            <td class="num">1212</td>
+            <td class="mean">77.00%</td>
+            <td>£3</td>
+          </tr>
+          <tr>
+            <td class="rank">#12</td>
+            <td class="num">1155</td>
+            <td class="mean">76.30%</td>
+            <td>£3</td>
+          </tr>
+          <tr>
+            <td class="rank">#13</td>
+            <td class="num">1124</td>
+            <td class="mean">73.00%</td>
+            <td>£3</td>
+          </tr>
+          <tr>
+            <td class="rank">#14</td>
+            <td class="num">1220</td>
+            <td class="mean">72.51%</td>
+            <td>£3</td>
+          </tr>
+          <tr>
+            <td class="rank">#15</td>
+            <td class="num">0025</td>
+            <td class="mean">72.00%</td>
+            <td>£1</td>
+          </tr>
+          <tr>
+            <td class="rank">#16</td>
+            <td class="num">1149</td>
+            <td class="mean">71.04%</td>
+            <td>£1</td>
+          </tr>
+          <tr>
+            <td class="rank">#17</td>
+            <td class="num">1162</td>
+            <td class="mean">64.50%</td>
+            <td>£1</td>
+          </tr>
+          <tr>
+            <td class="rank">#18</td>
+            <td class="num">1119</td>
+            <td class="mean">53.00%</td>
+            <td>£1</td>
+          </tr>
+          <tr>
+            <td class="rank">#19</td>
+            <td class="num">1234</td>
+            <td class="mean">48.00%</td>
+            <td>£1</td>
+          </tr>
+          <tr>
+            <td class="rank">#20</td>
+            <td class="num">2255</td>
+            <td class="mean">24.76%</td>
+            <td>£1</td>
+          </tr>
+          <tr>
+            <td class="rank">#21</td>
+            <td class="num">2240</td>
+            <td class="mean">12.40%</td>
+            <td>£1</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <p class="foot">
+      This board uses candidate numbers only. It does not show names or attempt counts. The ranking is based on cleaned mean score rather than highest score.
+    </p>
+  </div>
+</body>
+</html>
