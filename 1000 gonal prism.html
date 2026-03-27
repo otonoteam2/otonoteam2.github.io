@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>100-gonal Prism vs 1000-gonal Prism vs Circle</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f6fb;
+      color: #222;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 20px;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    p {
+      max-width: 900px;
+      text-align: center;
+      line-height: 1.5;
+      margin-bottom: 25px;
+    }
+
+    canvas {
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>100-gonal Prism vs 1000-gonal Prism vs Circle</h1>
+  <p>
+    This diagram shows the <b>top view</b> of a 100-gonal prism, a 1000-gonal prism,
+    and a true circle. A 1000-gon is so close to a circle that it looks almost perfectly smooth.
+  </p>
+
+  <canvas id="diagram" width="1200" height="450"></canvas>
+
+  <script>
+    const canvas = document.getElementById("diagram");
+    const ctx = canvas.getContext("2d");
+
+    function drawPolygon(cx, cy, radius, sides, color, label) {
+      ctx.beginPath();
+      for (let i = 0; i <= sides; i++) {
+        const angle = (i / sides) * Math.PI * 2 - Math.PI / 2;
+        const x = cx + radius * Math.cos(angle);
+        const y = cy + radius * Math.sin(angle);
+
+        if (i === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+      }
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 3;
+      ctx.stroke();
+
+      ctx.fillStyle = "#222";
+      ctx.font = "22px Arial";
+      ctx.textAlign = "center";
+      ctx.fillText(label, cx, cy + radius + 40);
+    }
+
+    function drawCircle(cx, cy, radius, color, label) {
+      ctx.beginPath();
+      ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 3;
+      ctx.stroke();
+
+      ctx.fillStyle = "#222";
+      ctx.font = "22px Arial";
+      ctx.textAlign = "center";
+      ctx.fillText(label, cx, cy + radius + 40);
+    }
+
+    function drawPrismHint(cx, cy, radius, depthX, depthY, sides, color) {
+      // Front polygon
+      const front = [];
+      for (let i = 0; i < sides; i++) {
+        const angle = (i / sides) * Math.PI * 2 - Math.PI / 2;
+        front.push({
+          x: cx + radius * Math.cos(angle),
+          y: cy + radius * Math.sin(angle)
+        });
+      }
+
+      // Back polygon
+      const back = front.map(p => ({
+        x: p.x + depthX,
+        y: p.y + depthY
+      }));
+
+      // Back face
+      ctx.beginPath();
+      back.forEach((p, i) => {
+        if (i === 0) ctx.moveTo(p.x, p.y);
+        else ctx.lineTo(p.x, p.y);
+      });
+      ctx.closePath();
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1.5;
+      ctx.globalAlpha = 0.35;
+      ctx.stroke();
+
+      // Connect some matching vertices
+      for (let i = 0; i < sides; i += Math.max(1, Math.floor(sides / 12))) {
+        ctx.beginPath();
+        ctx.moveTo(front[i].x, front[i].y);
+        ctx.lineTo(back[i].x, back[i].y);
+        ctx.stroke();
+      }
+
+      ctx.globalAlpha = 1;
+    }
+
+    // Background guide line
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Title row
+    ctx.fillStyle = "#111";
+    ctx.font = "bold 24px Arial";
+    ctx.textAlign = "center";
+    ctx.fillText("Top view comparison", canvas.width / 2, 40);
+
+    // 100-gonal prism
+    drawPrismHint(200, 200, 100, 25, -20, 100, "#888");
+    drawPolygon(200, 200, 100, 100, "#2563eb", "100-gonal prism");
+
+    // 1000-gonal prism
+    drawPrismHint(600, 200, 100, 25, -20, 1000, "#888");
+    drawPolygon(600, 200, 100, 1000, "#16a34a", "1000-gonal prism");
+
+    // Circle
+    drawCircle(1000, 200, 100, "#dc2626", "Circle");
+
+    // Small notes
+    ctx.fillStyle = "#444";
+    ctx.font = "18px Arial";
+    ctx.fillText("Slightly faceted", 200, 370);
+    ctx.fillText("Almost perfectly smooth", 600, 370);
+    ctx.fillText("Perfectly smooth", 1000, 370);
+  </script>
+</body>
+</html>
