@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🟣 Otono Circle Theorem Papers</title>
+  <style>
+    :root {
+      --bg1: #16051f;
+      --bg2: #3a0c57;
+      --panel: rgba(19, 10, 35, 0.9);
+      --panel-2: rgba(33, 16, 56, 0.95);
+      --text: #f7f1ff;
+      --muted: #cfbaf8;
+      --accent: #bb5cff;
+      --accent-2: #ff5bbd;
+      --good: #4dffad;
+      --warn: #ffd166;
+      --bad: #ff6b8a;
+      --line: rgba(255,255,255,0.12);
+      --shadow: 0 16px 45px rgba(0,0,0,0.35);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(255,91,189,0.16), transparent 25%),
+        radial-gradient(circle at top left, rgba(187,92,255,0.22), transparent 30%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      min-height: 100vh;
+    }
+
+    .wrap {
+      width: min(1150px, calc(100% - 28px));
+      margin: 24px auto 60px;
+    }
+
+    .hero,
+    .card,
+    .question,
+    .result-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero {
+      padding: 26px;
+      margin-bottom: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -70px -70px auto;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,91,189,0.25), transparent 70%);
+      pointer-events: none;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.55;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      padding: 20px;
+    }
+
+    .info { grid-column: span 4; }
+    .candidate { grid-column: span 8; }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .stat {
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 12px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.1rem;
+      margin-bottom: 5px;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 7px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 13px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.08);
+      color: var(--text);
+      outline: none;
+      font-size: 1rem;
+    }
+
+    input::placeholder { color: #cdb8ee; }
+
+    .candidate-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .paper {
+      margin-top: 20px;
+      padding: 22px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+    }
+
+    .paper-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .paper-badge {
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      color: white;
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+
+    .question-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .question {
+      padding: 16px;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .question-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+
+    .marks {
+      white-space: nowrap;
+      color: var(--warn);
+      font-weight: 700;
+    }
+
+    .qtext {
+      line-height: 1.6;
+      margin-bottom: 12px;
+      color: #f7f3ff;
+    }
+
+    .options {
+      display: grid;
+      gap: 8px;
+    }
+
+    .opt {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+    }
+
+    .opt input { transform: scale(1.1); }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 14px;
+      padding: 13px 18px;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    button:hover { transform: translateY(-1px); }
+
+    .primary {
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      color: white;
+    }
+
+    .secondary {
+      background: rgba(255,255,255,0.12);
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .result-card {
+      margin-top: 22px;
+      padding: 22px;
+      display: none;
+    }
+
+    .score-big {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 900;
+      margin: 8px 0 2px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 14px 0;
+    }
+
+    .pill {
+      padding: 9px 13px;
+      border-radius: 999px;
+      font-weight: 800;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.06);
+    }
+
+    .pass { color: var(--good); }
+    .merit { color: var(--warn); }
+    .dist { color: #ffb3ff; }
+    .bad { color: var(--bad); }
+
+    .breakdown {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .break {
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+
+    .footer-note {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 900px) {
+      .info, .candidate { grid-column: span 12; }
+      .candidate-grid, .breakdown { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>🟣 Otono Circle Theorem Papers</h1>
+      <p class="subtitle">
+        Complete both papers. Each paper is worth <strong>80 marks</strong>, so the total is <strong>160 marks</strong>.<br>
+        Candidate number is required. Candidate name is optional. Clayton scored <strong>160/160 (100%)</strong>.
+      </p>
+    </section>
+
+    <div class="grid">
+      <section class="card info">
+        <h2>📘 Assessment Rules</h2>
+        <div class="stat-grid">
+          <div class="stat"><strong>Pass</strong><span>66%</span></div>
+          <div class="stat"><strong>Merit</strong><span>80%</span></div>
+          <div class="stat"><strong>Distinction</strong><span>90%</span></div>
+          <div class="stat"><strong>Full marks</strong><span>160</span></div>
+        </div>
+        <p class="footer-note">
+          Topics include angles at the centre, angles in the same segment, cyclic quadrilaterals, tangents, radii, alternate segment theorem, and perpendicular radius properties.
+        </p>
+      </section>
+
+      <section class="card candidate">
+        <h2>🪪 Candidate Details</h2>
+        <div class="candidate-grid">
+          <div>
+            <label for="candidateNumber">Candidate number <span style="color:var(--bad)">*</span></label>
+            <input id="candidateNumber" type="number" inputmode="numeric" placeholder="Enter candidate number" required />
+          </div>
+          <div>
+            <label for="candidateName">Candidate name (optional)</label>
+            <input id="candidateName" type="text" placeholder="Enter candidate name" />
+          </div>
+        </div>
+
+        <div id="papers"></div>
+
+        <div class="actions">
+          <button class="primary" id="markBtn">✅ Mark both papers</button>
+          <button class="secondary" id="resetBtn">↺ Reset</button>
+        </div>
+
+        <section class="result-card" id="resultCard">
+          <h2>📊 Result</h2>
+          <div id="resultHeader"></div>
+          <div class="pill-row" id="awardRow"></div>
+          <div class="breakdown" id="breakdown"></div>
+          <p class="footer-note" id="comparison"></p>
+        </section>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const papers = [
+      {
+        title: "Paper 1",
+        marks: 80,
+        questions: [
+          {
+            marks: 8,
+            type: "mcq",
+            text: "In a circle, the angle at the centre standing on the same arc is...",
+            options: [
+              "equal to the angle at the circumference",
+              "half the angle at the circumference",
+              "double the angle at the circumference",
+              "90° more than the angle at the circumference"
+            ],
+            answer: 2
+          },
+          {
+            marks: 8,
+            type: "mcq",
+            text: "Angle AOB is 124°, where O is the centre. What is the angle at the circumference on the same arc?",
+            options: ["62°", "124°", "56°", "248°"],
+            answer: 0
+          },
+          {
+            marks: 8,
+            type: "mcq",
+            text: "Angles subtended by the same chord at the circumference are...",
+            options: ["supplementary", "equal", "double", "always 90°"],
+            answer: 1
+          },
+          {
+            marks: 8,
+            type: "mcq",
+            text: "Opposite angles in a cyclic quadrilateral always add up to...",
+            options: ["90°", "180°", "270°", "360°"],
+            answer: 1
+          },
+          {
+            marks: 8,
+            type: "mcq",
+            text: "A tangent to a circle is perpendicular to the radius at the point of contact. The angle between the tangent and the radius is therefore...",
+            options: ["45°", "60°", "90°", "180°"],
+            answer: 2
+          },
+          {
+            marks: 8,
+            type: "mcq",
+            text: "If two tangents are drawn from the same external point to a circle, their lengths are...",
+            options: ["always different", "equal", "in ratio 2:1", "dependent on the diameter only"],
+            answer: 1
+          },
+          {
+            marks: 8,
+            type: "mcq",
+            text: "The angle between a tangent and a chord through the point of contact is equal to the angle...",
+            options: ["at the centre", "in the opposite segment", "in a semicircle", "between two radii"],
+            answer: 1
+          },
+          {
+            marks: 8,
+            type: "mcq",
+            text: "An angle subtended by a diameter at the circumference is...",
+            options: ["45°", "60°", "90°", "120°"],
+            answer: 2
+          },
+          {
+            marks: 8,
+            type: "mcq",
+            text: "If one angle in a cyclic quadrilateral is 113°, the opposite angle is...",
+            options: ["67°", "113°", "77°", "47°"],
+            answer: 0
+          },
+          {
+            marks: 8,
+            type: "mcq",
+            text: "If the angle between a tangent and chord AB is 38°, then the angle in the alternate segment standing on chord AB is...",
+            options: ["19°", "38°", "52°", "76°"],
+            answer: 1
+          }
+        ]
+      },
+      {
+        title: "Paper 2",
+        marks: 80,
+        questions: [
+          {
+            marks: 8,
+            type: "mcq",
+            text: "The angle at the centre standing on the same arc as a 41° angle at the circumference is...",
+            options: ["20.5°", "41°", "82°", "139°"],
+            answer: 2
+          },
+          {
+            marks: 8,
+            type: "mcq",
+            text: "In a cyclic quadrilateral, one angle is 96°. The opposite angle is...",
+            options: ["84°", "96°", "74°", "264°"],
+            answer: 0
+          },
+          {
+            marks: 8,
+            type: "mcq",
+            text: "If the angle between tangent PT and chord TQ is 72°, the angle in the opposite segment is...",
+            options: ["18°", "36°", "72°", "108°"],
+            answer: 2
+          },
+          {
+            marks: 8,
+            type: "mcq",
+            text: "A radius joins the centre to the point where a tangent touches the circle. Which statement is true?",
+            options: [
+              "The radius is parallel to the tangent",
+              "The radius is perpendicular to the tangent",
+              "The radius bisects the tangent",
+              "The radius is equal to the tangent"
+            ],
+            answer: 1
+          },
+          {
+            marks: 8,
+            type: "mcq",
+            text: "Angles in the same segment are formed by looking at the same...",
+            options: ["diameter", "radius", "chord", "sector area only"],
+            answer: 2
+          },
+          {
+            marks: 8,
+            type: "mcq",
+            text: "If angle subtended by chord AB at the centre is 150°, then the angle subtended by AB at the circumference on the same arc is...",
+            options: ["30°", "60°", "75°", "150°"],
+            answer: 2
+          },
+          {
+            marks: 8,
+            type: "mcq",
+            text: "Which one is always true in a circle?",
+            options: [
+              "All quadrilaterals are cyclic",
+              "The angle in a semicircle is 90°",
+              "Every chord is a diameter",
+              "Tangents pass through the centre"
+            ],
+            answer: 1
+          },
+          {
+            marks: 8,
+            type: "mcq",
+            text: "A point outside the circle has two tangents touching the circle at A and B. If PA = 12 cm, then PB =...",
+            options: ["6 cm", "12 cm", "24 cm", "cannot be determined"],
+            answer: 1
+          },
+          {
+            marks: 8,
+            type: "mcq",
+            text: "An angle in the same segment as angle X is also 53°. What circle theorem is this showing?",
+            options: [
+              "Cyclic quadrilateral theorem",
+              "Alternate segment theorem",
+              "Angles in the same segment are equal",
+              "Angle at centre is double"
+            ],
+            answer: 2
+          },
+          {
+            marks: 8,
+            type: "mcq",
+            text: "A diameter creates an angle of 90° at the circumference. If another angle in the same triangle is 34°, the third angle is...",
+            options: ["56°", "66°", "90°", "124°"],
+            answer: 0
+          }
+        ]
+      }
+    ];
+
+    const papersContainer = document.getElementById("papers");
+
+    function renderPapers() {
+      papersContainer.innerHTML = papers.map((paper, pIndex) => `
+        <section class="paper">
+          <div class="paper-header">
+            <h3>${paper.title}</h3>
+            <div class="paper-badge">${paper.marks} marks</div>
+          </div>
+          <div class="question-list">
+            ${paper.questions.map((q, qIndex) => `
+              <div class="question">
+                <div class="question-top">
+                  <strong>Question ${qIndex + 1}</strong>
+                  <span class="marks">[${q.marks} marks]</span>
+                </div>
+                <div class="qtext">${q.text}</div>
+                <div class="options">
+                  ${q.options.map((opt, oIndex) => `
+                    <label class="opt">
+                      <input type="radio" name="paper${pIndex}_q${qIndex}" value="${oIndex}">
+                      <span>${opt}</span>
+                    </label>
+                  `).join("")}
+                </div>
+              </div>
+            `).join("")}
+          </div>
+        </section>
+      `).join("");
+    }
+
+    function getGradeLabel(percent) {
+      if (percent >= 90) return { label: "Distinction", className: "dist" };
+      if (percent >= 80) return { label: "Merit", className: "merit" };
+      if (percent >= 66) return { label: "Pass", className: "pass" };
+      return { label: "Fail", className: "bad" };
+    }
+
+    function markPapers() {
+      const candidateNumber = document.getElementById("candidateNumber").value.trim();
+      const candidateName = document.getElementById("candidateName").value.trim();
+
+      if (!candidateNumber) {
+        alert("Candidate number is required.");
+        document.getElementById("candidateNumber").focus();
+        return;
+      }
+
+      let total = 0;
+      const paperScores = [];
+
+      papers.forEach((paper, pIndex) => {
+        let paperScore = 0;
+        paper.questions.forEach((q, qIndex) => {
+          const chosen = document.querySelector(`input[name="paper${pIndex}_q${qIndex}"]:checked`);
+          if (chosen && Number(chosen.value) === q.answer) {
+            paperScore += q.marks;
+          }
+        });
+        paperScores.push(paperScore);
+        total += paperScore;
+      });
+
+      const percent = (total / 160) * 100;
+      const grade = getGradeLabel(percent);
+      const resultCard = document.getElementById("resultCard");
+      const resultHeader = document.getElementById("resultHeader");
+      const awardRow = document.getElementById("awardRow");
+      const breakdown = document.getElementById("breakdown");
+      const comparison = document.getElementById("comparison");
+
+      resultHeader.innerHTML = `
+        <div class="small">Candidate number: <strong>${candidateNumber}</strong>${candidateName ? ` • Candidate name: <strong>${candidateName}</strong>` : ""}</div>
+        <div class="score-big">${total}/160</div>
+        <div class="small">Percentage: <strong>${percent.toFixed(1)}%</strong></div>
+      `;
+
+      awardRow.innerHTML = `
+        <div class="pill ${grade.className}">${grade.label}</div>
+        <div class="pill">Paper 1: ${paperScores[0]}/80</div>
+        <div class="pill">Paper 2: ${paperScores[1]}/80</div>
+      `;
+
+      const claytonGap = 160 - total;
+      breakdown.innerHTML = `
+        <div class="break"><strong>Pass line</strong><br><span class="small">105.6/160 → effectively 106 marks needed</span></div>
+        <div class="break"><strong>Merit line</strong><br><span class="small">128/160 marks needed</span></div>
+        <div class="break"><strong>Distinction line</strong><br><span class="small">144/160 marks needed</span></div>
+      `;
+
+      comparison.innerHTML = claytonGap === 0
+        ? `🏆 Incredible — you matched Clayton with <strong>160/160 (100%)</strong>.`
+        : `Clayton scored <strong>160/160</strong>. You are <strong>${claytonGap}</strong> mark${claytonGap === 1 ? "" : "s"} behind Clayton.`;
+
+      resultCard.style.display = "block";
+      resultCard.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function resetAll() {
+      document.getElementById("candidateNumber").value = "";
+      document.getElementById("candidateName").value = "";
+      document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+      document.getElementById("resultCard").style.display = "none";
+    }
+
+    document.getElementById("markBtn").addEventListener("click", markPapers);
+    document.getElementById("resetBtn").addEventListener("click", resetAll);
+
+    renderPapers();
+  </script>
+</body>
+</html>
