@@ -1,0 +1,2069 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>🟣 Otono Geography — Paper 1 • Physical Geography • Random Practice</title>
+  <style>
+    :root{
+      --bg1:#2b0a3d; --bg2:#7a0036;
+      --card:#0f0b18cc; --card2:#120c22e6;
+      --text:#f4efff; --muted:#c9b9ff;
+      --accent:#b000ff; --accent2:#ff1b6a;
+      --good:#19ff9a; --warn:#ffd166; --bad:#ff4d6d;
+      --line:rgba(255,255,255,.12);
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:var(--sans); color:var(--text);
+      background:
+        radial-gradient(1000px 700px at 15% 10%, rgba(176,0,255,.22), transparent 60%),
+        radial-gradient(900px 650px at 80% 20%, rgba(255,27,106,.18), transparent 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+    }
+    .wrap{max-width:1180px; margin:0 auto; padding:22px;}
+    .topbar{
+      display:flex; gap:14px; align-items:center; justify-content:space-between;
+      padding:14px 16px; border:1px solid var(--line); border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      box-shadow:var(--shadow);
+      position:sticky; top:14px; z-index:20; backdrop-filter: blur(10px);
+    }
+    .brand{display:flex; flex-direction:column; gap:2px}
+    .brand h1{margin:0; font-size:16px; letter-spacing:.3px}
+    .brand .sub{font-size:12px; color:var(--muted)}
+    .pill{
+      padding:8px 10px; border-radius:999px; border:1px solid var(--line);
+      background:rgba(0,0,0,.25); font-family:var(--mono); font-size:12px;
+      display:flex; gap:10px; align-items:center;
+    }
+    .pill strong{color:#fff}
+    .btn{
+      border:1px solid var(--line); background:rgba(0,0,0,.25);
+      color:var(--text); padding:10px 12px; border-radius:14px; cursor:pointer;
+      transition:.15s transform, .15s background, .15s border;
+      font-weight:600;
+    }
+    .btn:hover{transform:translateY(-1px); background:rgba(0,0,0,.33); border-color:rgba(255,255,255,.22)}
+    .btn.primary{
+      background:linear-gradient(135deg, rgba(176,0,255,.55), rgba(255,27,106,.45));
+      border-color:rgba(255,255,255,.22);
+    }
+    .btn.danger{background:rgba(255,77,109,.18); border-color:rgba(255,77,109,.35)}
+    .grid{display:grid; grid-template-columns: 1.18fr .82fr; gap:16px; margin-top:16px;}
+    @media (max-width: 980px){ .grid{grid-template-columns:1fr} .topbar{position:static} }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .card .hd{
+      padding:14px 16px; border-bottom:1px solid var(--line);
+      display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
+      background:linear-gradient(180deg, rgba(255,255,255,.06), transparent);
+    }
+    .card .hd h2{margin:0; font-size:14px}
+    .card .hd .meta{font-size:12px; color:var(--muted); line-height:1.25}
+    .card .bd{padding:16px}
+    label{display:block; font-size:12px; color:var(--muted); margin:10px 0 6px}
+    input[type="text"], input[type="number"], textarea, select{
+      width:100%; border:1px solid var(--line); background:rgba(0,0,0,.25);
+      color:var(--text); padding:10px 12px; border-radius:14px; outline:none;
+      font-family:var(--sans);
+    }
+    textarea{min-height:90px; resize:vertical}
+
+    .row{display:flex; gap:10px; flex-wrap:wrap}
+    .row > div{flex:1 1 180px}
+
+    .note{
+      font-size:12px; color:var(--muted); line-height:1.4;
+      padding:10px 12px; border-radius:14px; border:1px dashed rgba(255,255,255,.18);
+      background:rgba(0,0,0,.18);
+    }
+    .badge{
+      font-family:var(--mono); font-size:12px; padding:6px 10px; border-radius:999px;
+      border:1px solid var(--line); background:rgba(0,0,0,.20);
+      display:inline-flex; align-items:center; gap:6px;
+    }
+    .badge.good{border-color:rgba(25,255,154,.35); background:rgba(25,255,154,.12)}
+    .badge.warn{border-color:rgba(255,209,102,.35); background:rgba(255,209,102,.12)}
+    .badge.bad{border-color:rgba(255,77,109,.35); background:rgba(255,77,109,.12)}
+    .divider{height:1px; background:var(--line); margin:14px 0}
+    .sourceBox{
+      padding:12px 14px; border:1px solid var(--line); border-radius:16px;
+      background:rgba(0,0,0,.22); line-height:1.55;
+    }
+    .q{
+      margin-top:14px; padding:12px 14px; border:1px solid var(--line);
+      border-radius:16px; background:rgba(0,0,0,.20);
+    }
+    .q h3{margin:0 0 8px; font-size:13px}
+    .opts{display:grid; gap:8px; margin-top:8px}
+    .opt{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:10px 10px; border-radius:14px; border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+      cursor:pointer;
+    }
+    .opt input{margin-top:3px}
+    .kpi{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
+    @media (max-width: 980px){ .kpi{grid-template-columns:repeat(2,1fr)} }
+    .kpi .box{
+      border:1px solid var(--line); border-radius:16px; padding:10px 12px;
+      background:rgba(0,0,0,.22);
+    }
+    .kpi .box .t{font-size:12px; color:var(--muted)}
+    .kpi .box .v{font-size:18px; font-weight:800; margin-top:4px}
+    .small{font-size:12px; color:var(--muted)}
+    .tabs{display:flex; gap:8px; flex-wrap:wrap}
+    .tab{padding:10px 12px; border-radius:14px; border:1px solid var(--line); background:rgba(0,0,0,.22); cursor:pointer; font-weight:700}
+    .tab.active{background:linear-gradient(135deg, rgba(176,0,255,.35), rgba(255,27,106,.22)); border-color:rgba(255,255,255,.22)}
+    .resultsList{display:grid; gap:10px}
+    .attempt{
+      border:1px solid var(--line); border-radius:16px; padding:12px 14px;
+      background:rgba(0,0,0,.20);
+    }
+    .attempt .top{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap}
+    .attempt .top strong{font-family:var(--mono)}
+    .attempt .meta{font-size:12px; color:var(--muted); margin-top:6px; line-height:1.4}
+    .copy{font-family:var(--mono); font-size:12px; white-space:pre-wrap; word-break:break-word}
+    .hide{display:none !important}
+
+    .digitRow{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
+    .digitRow .digit{
+      width:52px; text-align:center; font-family:var(--mono);
+      font-size:18px; font-weight:900; padding:12px 0;
+      border-radius:14px; border:1px solid var(--line);
+      background:rgba(0,0,0,.25); color:var(--text);
+      outline:none;
+    }
+    .digitRow .hint{font-size:12px; color:var(--muted)}
+    .miniRow{display:flex; gap:10px; flex-wrap:wrap; align-items:flex-end}
+    .miniRow > *{flex:1 1 160px}
+
+    .essayGrid{display:grid; gap:8px; margin-top:8px}
+    .essayGrid .part{
+      border:1px solid rgba(255,255,255,.1); border-radius:14px; padding:10px;
+      background:rgba(255,255,255,.03);
+    }
+    .essayGrid .part h4{
+      margin:0 0 8px; font-size:12px; color:#fff;
+      display:flex; align-items:center; justify-content:space-between; gap:8px;
+    }
+    .essayGrid .part textarea{min-height:72px}
+    .mathGrid{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+    @media (max-width:700px){ .mathGrid{grid-template-columns:1fr} }
+
+    .sectionBanner{
+      padding:10px 12px; border-radius:14px; margin-top:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background:linear-gradient(135deg, rgba(176,0,255,.18), rgba(255,27,106,.12));
+      font-weight:800;
+    }
+    .warnText{color:#fff3c1}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <h1>🟣 Otono Geography — Paper 1 • Physical Geography • Random Practice</h1>
+        <div class="sub">
+          Auto marking • 100 marks total • Q1 + Q2 + Q6 compulsory • Best two of Q3/4/5 counted • Centre:
+          <strong id="centreTop">50749</strong>
+        </div>
+      </div>
+      <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end">
+        <div class="pill">
+          <span>⏱️ Timer:</span>
+          <strong id="timerText">--:--</strong>
+        </div>
+        <button class="btn" id="btnResults">Results</button>
+        <button class="btn primary" id="btnHome">Test</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card" id="panelHome">
+        <div class="hd">
+          <div>
+            <h2>Candidate setup</h2>
+            <div class="meta">No atlas • No internet • No maps in this version • Auto-marking for written answers uses keywords and structure checks (not perfect).</div>
+          </div>
+          <span class="badge" id="statusBadge">Ready</span>
+        </div>
+
+        <div class="bd" id="homeBody">
+          <div class="miniRow">
+            <div>
+              <label>Centre number</label>
+              <input type="text" id="centreNo" value="50749" disabled />
+              <div class="small" style="margin-top:6px">
+                Default is <strong>50749</strong>. You can change it (optional) with the button.
+              </div>
+            </div>
+            <div style="display:flex; gap:10px; align-items:flex-end; flex-wrap:wrap">
+              <button class="btn" id="btnEditCentre">Customise centre</button>
+              <button class="btn" id="btnResetCentre">Reset centre</button>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div>
+            <label>Candidate number (required, 4 digits)</label>
+            <div class="digitRow" aria-label="Candidate number 4 digits">
+              <input class="digit" id="candD1" inputmode="numeric" maxlength="1" />
+              <input class="digit" id="candD2" inputmode="numeric" maxlength="1" />
+              <input class="digit" id="candD3" inputmode="numeric" maxlength="1" />
+              <input class="digit" id="candD4" inputmode="numeric" maxlength="1" />
+              <span class="hint">Digits only • auto-advance</span>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top:6px">
+            <div>
+              <label>Candidate surname (optional)</label>
+              <input type="text" id="candSurname" placeholder="Surname" />
+            </div>
+            <div>
+              <label>Candidate forename(s) (optional)</label>
+              <input type="text" id="candForenames" placeholder="Forename(s)" />
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>How the random paper works:</strong><br/>
+            • The system builds <strong>one full 100-mark physical geography paper</strong> from a bank.<br/>
+            • <strong>Section A = 35</strong>, <strong>Section B = 25</strong>, <strong>Section C = 20</strong>, <strong>Section D = 20</strong>.<br/>
+            • <strong>Only two 12-mark questions exist</strong>: one in Section A and one in Section B.<br/>
+            • <strong>Every multiple choice question is 1 mark.</strong><br/>
+            • Section C shows <strong>Q3 Coasts</strong>, <strong>Q4 Rivers</strong>, <strong>Q5 Glaciation</strong>, but only your <strong>best two</strong> are counted.<br/>
+            • 12-mark essays force the structure: <strong>Introduction, Paragraph 1, Paragraph 2, Paragraph 3 (optional), Conclusion</strong>.<br/>
+            • 8-mark essays use structured point boxes.<br/>
+            • Your attempts are stored on this browser using <strong>localStorage</strong>.
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="row">
+            <div>
+              <label>Time allowed</label>
+              <select id="timeAllowed">
+                <option value="90" selected>90 minutes (recommended)</option>
+                <option value="75">75 minutes</option>
+                <option value="105">105 minutes</option>
+                <option value="135">135 minutes (maximum support)</option>
+              </select>
+            </div>
+            <div>
+              <label>Question order</label>
+              <select id="shuffleMode">
+                <option value="shuffleAll" selected>Shuffle sub-questions where possible</option>
+                <option value="keepOrder">Keep normal order</option>
+              </select>
+            </div>
+            <div>
+              <label>On timer end</label>
+              <select id="autoSubmit">
+                <option value="yes" selected>Auto-submit</option>
+                <option value="no">Do not auto-submit</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap">
+            <button class="btn primary" id="btnStart">Start Random Paper</button>
+            <button class="btn" id="btnPreview">Preview Selection</button>
+          </div>
+
+          <div id="previewBox" class="note hide" style="margin-top:12px"></div>
+        </div>
+
+        <div class="bd hide" id="testBody">
+          <div class="kpi">
+            <div class="box"><div class="t">Candidate</div><div class="v" id="kpiCandidate">—</div></div>
+            <div class="box"><div class="t">Hazards</div><div class="v" id="kpiA">—</div></div>
+            <div class="box"><div class="t">Living world</div><div class="v" id="kpiB">—</div></div>
+            <div class="box"><div class="t">Max score</div><div class="v">100</div></div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>Instructions reminder:</strong>
+            Answer Question 1, Question 2 and Question 6. In Section C, only your best two of Questions 3, 4 and 5 are counted. No maps in this version. For 12-mark answers, use the structure boxes properly.
+          </div>
+
+          <div id="paper"></div>
+
+          <div class="divider"></div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap">
+            <button class="btn primary" id="btnSubmit">Submit & Auto-Mark</button>
+            <button class="btn" id="btnReset">Reset (new random paper)</button>
+          </div>
+
+          <div id="markingBox" class="hide" style="margin-top:14px"></div>
+        </div>
+      </div>
+
+      <div class="card" id="panelSide">
+        <div class="hd">
+          <div>
+            <h2 id="sideTitle">Otono grading</h2>
+            <div class="meta" id="sideMeta">Score → Otono grade + GCSE estimate + Pass/Merit/Distinction.</div>
+          </div>
+        </div>
+
+        <div class="bd" id="sideBody">
+          <div class="note">
+            <strong>Pass/Merit/Distinction</strong><br/>
+            PASS: 66+<br/>
+            MERIT: 80+<br/>
+            DISTINCTION: 90+<br/>
+          </div>
+          <div class="divider"></div>
+          <div class="note">
+            <strong>Otono grades (A–H + secret S)</strong><br/>
+            S: 101+ (secret)<br/>
+            A*: 95–100<br/>
+            A: 90–94<br/>
+            B: 80–89<br/>
+            C: 70–79<br/>
+            D: 66–69<br/>
+            E: 55–65<br/>
+            F: 45–54<br/>
+            G: 30–44<br/>
+            H: 15–29<br/>
+            U: 0–14
+          </div>
+          <div class="divider"></div>
+          <div class="note">
+            <strong>GCSE 9–1 estimate (simple mapping)</strong><br/>
+            9: 88–100 • 8: 80–87 • 7: 72–79 • 6: 64–71 • 5: 54–63<br/>
+            4: 44–53 • 3: 40–43 • 2: 30–39 • 1: 20–29 • U: 0–19
+          </div>
+          <div class="divider"></div>
+          <div class="note">
+            <strong>Marking notes</strong><br/>
+            • MCQ and maths final answers are exact.<br/>
+            • Short answers are keyword-based.<br/>
+            • 8-mark answers look for developed points.<br/>
+            • 12-mark answers also check whether the structure boxes were actually used.
+          </div>
+          <div class="divider"></div>
+          <div class="small">
+            Tip: results are stored locally on this browser only. If site data is cleared, they disappear.
+          </div>
+        </div>
+
+        <div class="bd hide" id="resultsBody">
+          <div class="tabs">
+            <div class="tab active" id="tabAll">All attempts</div>
+            <div class="tab" id="tabCandidate">By candidate</div>
+          </div>
+
+          <div class="row" style="margin-top:10px">
+            <div>
+              <label>Filter candidate number (4 digits)</label>
+              <input type="text" id="filterCandidate" placeholder="e.g. 1105" inputmode="numeric" />
+            </div>
+            <div>
+              <label>Actions</label>
+              <div style="display:flex; gap:10px; flex-wrap:wrap">
+                <button class="btn" id="btnExport">Export JSON</button>
+                <button class="btn danger" id="btnClear">Clear stored results</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+          <div class="resultsList" id="resultsList"></div>
+
+          <div id="exportBox" class="note hide" style="margin-top:12px">
+            <div><strong>Exported JSON</strong> (copy/save it):</div>
+            <div class="divider"></div>
+            <div class="copy" id="exportText"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* =====================================================
+   OTONO GEOGRAPHY BANK
+   Paper 1 Physical Geography
+   Total = 100
+   Q1 = 35
+   Q2 = 25
+   Q3/Q4/Q5 = 10 each, best two counted
+   Q6 = 20
+   MCQ = 1 mark each
+   12-markers only in A + B
+===================================================== */
+
+const SECTION_A_BANK = {
+  mcq: [
+    {
+      id:"a_mcq_1", type:"mcq", marks:1,
+      prompt:"Which hazard is a tectonic hazard?",
+      options:["Typhoon Haiyan","Somerset Levels flooding","Nepal earthquake","UK 2022 heatwave"],
+      answerIndex:2
+    },
+    {
+      id:"a_mcq_2", type:"mcq", marks:1,
+      prompt:"Which event was a tropical storm hazard?",
+      options:["Chile earthquake","Typhoon Haiyan","UK 2022 heatwave","Somerset Levels flooding"],
+      answerIndex:1
+    },
+    {
+      id:"a_mcq_3", type:"mcq", marks:1,
+      prompt:"Which event is the bonus UK weather hazard in this paper?",
+      options:["Nepal earthquake","Typhoon Haiyan","UK 2022 heatwave","Chile earthquake"],
+      answerIndex:2
+    }
+  ],
+  short4: [
+    {
+      id:"a_short4_1", type:"short", marks:4,
+      prompt:"Give two differences between the Chile earthquake and the Nepal earthquake.",
+      rubric:"Any two developed differences such as development level, scale of deaths, building quality, preparedness, speed of response, or level of damage.",
+      keywords:[
+        ["chile etait plus developpe","chile was more developed","higher income","more developed country"],
+        ["nepal etait moins developpe","nepal was less developed","lower income"],
+        ["les batiments au chili etaient plus solides","building quality better in chile","stricter building standards"],
+        ["au nepal les batiments etaient plus vulnerables","weaker buildings in nepal"],
+        ["la reponse au chili etait plus rapide","faster response in chile"],
+        ["au nepal le sauvetage etait plus difficile","harder rescue in nepal"],
+        ["plus de morts au nepal","higher death toll in nepal"],
+        ["moins de morts au chili","lower death toll in chile"]
+      ]
+    },
+    {
+      id:"a_short4_2", type:"short", marks:4,
+      prompt:"Give two reasons why some earthquake impacts were worse in Nepal than in Chile.",
+      rubric:"Any two such as poverty, building quality, remoteness, landslides, limited infrastructure, slower rescue.",
+      keywords:[
+        ["pauvrete","poverty"],
+        ["batiments faibles","weak buildings","poorer building quality"],
+        ["zones montagneuses isolees","remote mountainous areas","remoteness"],
+        ["glissements de terrain","landslides"],
+        ["infrastructures limitees","limited infrastructure"],
+        ["secours plus lents","slower rescue","slower response"]
+      ]
+    }
+  ],
+  maths5: [
+    {
+      id:"a_math_1", type:"maths", marks:5,
+      prompt:"The official maximum temperature in one place rose from 34°C to 40°C during the UK 2022 heatwave. Calculate the temperature increase as a percentage of the original temperature.",
+      answer:"17.6",
+      tolerance:0.2,
+      workingHint:"Use: increase ÷ original × 100",
+      unit:"%"
+    },
+    {
+      id:"a_math_2", type:"maths", marks:5,
+      prompt:"A river level rose from 2.5 metres to 4.0 metres during flooding. Calculate the percentage increase.",
+      answer:"60",
+      tolerance:0.2,
+      workingHint:"Use: increase ÷ original × 100",
+      unit:"%"
+    },
+    {
+      id:"a_math_3", type:"maths", marks:5,
+      prompt:"An area recorded 120 mm of rain one day and 210 mm the next day during a storm period. Calculate the increase in rainfall as a percentage of the first day.",
+      answer:"75",
+      tolerance:0.2,
+      workingHint:"Use: increase ÷ original × 100",
+      unit:"%"
+    }
+  ],
+  essay8: [
+    {
+      id:"a_8_1", type:"essay8", marks:8,
+      prompt:"Explain why the impacts of Typhoon Haiyan were so serious.",
+      rubric:"Develop 3 detailed points or 4 clear points. Focus on factors such as storm surge, wind, heavy rain, poverty, weak buildings, and scale of exposure.",
+      keywords:[
+        ["storm surge","onde de tempete","huge sea level rise"],
+        ["vents tres forts","very strong winds","powerful winds"],
+        ["fortes pluies","heavy rainfall"],
+        ["maisons faibles","weak buildings","poor housing"],
+        ["pauvrete","poverty"],
+        ["beaucoup de personnes exposees","many people exposed","high population exposure"],
+        ["inondations","flooding"],
+        ["infrastructure endommagee","damaged infrastructure"]
+      ]
+    },
+    {
+      id:"a_8_2", type:"essay8", marks:8,
+      prompt:"Explain why the Somerset Levels floods became a major problem.",
+      rubric:"Develop 3 detailed points or 4 clear points. Use physical and human causes.",
+      keywords:[
+        ["pluies longues et fortes","prolonged heavy rainfall"],
+        ["sol sature","saturated ground"],
+        ["basslands","low lying land","land is low lying"],
+        ["drainage limite","limited drainage"],
+        ["rivers and channels not carrying enough water","rivers could not carry enough water"],
+        ["high tides","marees hautes"],
+        ["human management issues","dredging debate","management problems"],
+        ["flood water remained for a long time","water stayed for weeks"]
+      ]
+    },
+    {
+      id:"a_8_3", type:"essay8", marks:8,
+      prompt:"Explain why the UK 2022 heatwave created serious problems.",
+      rubric:"Develop 3 detailed points or 4 clear points. You may include transport, health, water, fires and infrastructure.",
+      keywords:[
+        ["temperatures tres elevees","extreme temperatures"],
+        ["health problems","heat illness","deaths","vulnerable people"],
+        ["wildfires","fires"],
+        ["transport disruption","rails","roads","infrastructure damage"],
+        ["water shortages","dry conditions"],
+        ["drought","very dry weather"],
+        ["pressure on services","emergency services"],
+        ["houses and buildings overheating","overheating"]
+      ]
+    }
+  ],
+  short5: [
+    {
+      id:"a_short5_1", type:"short", marks:5,
+      prompt:"Suggest two immediate responses to a major tropical storm such as Typhoon Haiyan.",
+      rubric:"Any two developed immediate responses such as aid, rescue, shelter, food, water, field hospitals, emergency evacuation.",
+      keywords:[
+        ["food","nourriture","aid"],
+        ["clean water","eau propre","water"],
+        ["temporary shelter","shelter","abri"],
+        ["search and rescue","rescue","sauvetage"],
+        ["field hospital","medical aid","medical help"],
+        ["evacuation","evacuer"]
+      ]
+    },
+    {
+      id:"a_short5_2", type:"short", marks:5,
+      prompt:"Suggest two long-term responses after a major earthquake.",
+      rubric:"Any two developed long-term responses such as rebuilding, education, stricter building design, road repair, economic support.",
+      keywords:[
+        ["rebuild homes","reconstruction","rebuilding"],
+        ["stricter building standards","better building design"],
+        ["road or bridge repair","repair infrastructure"],
+        ["education and training","public education"],
+        ["financial support","economic support"],
+        ["planning for future events","preparedness"]
+      ]
+    }
+  ],
+  essay12: [
+    {
+      id:"a_12_1", type:"essay12", marks:12,
+      prompt:"‘Weather hazards now create a bigger challenge in the UK than tectonic hazards create worldwide.’ To what extent do you agree?",
+      rubric:"Use the full structure. You should refer to hazards such as the Somerset Levels floods and the UK 2022 heatwave, and you may compare with earthquakes if useful.",
+      keywords:[
+        ["weather hazards","floods","heatwave","extreme weather"],
+        ["uk challenge","damage","people","infrastructure","services"],
+        ["tectonic hazards","earthquakes","worldwide"],
+        ["comparison","however","on the other hand","although"],
+        ["judgement","to some extent","overall","i agree","i disagree"],
+        ["case study detail","somerset","heatwave","chile","nepal"]
+      ]
+    },
+    {
+      id:"a_12_2", type:"essay12", marks:12,
+      prompt:"‘Human factors are more important than physical factors in explaining the damage caused by natural hazards.’ To what extent do you agree?",
+      rubric:"Use the full structure and support your answer with named examples from this section.",
+      keywords:[
+        ["human factors","poverty","preparedness","building quality","planning"],
+        ["physical factors","magnitude","rainfall","wind speed","storm surge"],
+        ["named examples","chile","nepal","haiyan","somerset","heatwave"],
+        ["comparison","however","although"],
+        ["judgement","overall","to a large extent","to some extent"],
+        ["developed explanation","damage","impacts"]
+      ]
+    }
+  ]
+};
+
+const SECTION_B_BANK = {
+  mcq: [
+    {
+      id:"b_mcq_1", type:"mcq", marks:1,
+      prompt:"Which place in this section is a cold environment?",
+      options:["Malaysia","Svalbard","Somerset Levels","Lyme Regis"],
+      answerIndex:1
+    },
+    {
+      id:"b_mcq_2", type:"mcq", marks:1,
+      prompt:"Which place in this section is a tropical rainforest case study?",
+      options:["Nepal","Svalbard","Malaysia","Banbury"],
+      answerIndex:2
+    }
+  ],
+  short3: [
+    {
+      id:"b_short3_1", type:"short", marks:3,
+      prompt:"Give one cause of deforestation in Malaysia and one consequence.",
+      rubric:"Cause examples: logging, road building, commercial farming, mineral extraction, settlement. Consequences: habitat loss, soil erosion, river pollution, climate effects, biodiversity decline.",
+      keywords:[
+        ["logging","bois","abattage"],
+        ["road building","roads","routes"],
+        ["commercial farming","oil palm","plantation"],
+        ["mineral extraction","mining"],
+        ["habitat loss","loss of habitat"],
+        ["soil erosion","erosion"],
+        ["river pollution","pollution"],
+        ["biodiversity loss","species decline","loss of species"]
+      ]
+    },
+    {
+      id:"b_short3_2", type:"short", marks:3,
+      prompt:"Give one economic opportunity in Svalbard and one challenge linked to it.",
+      rubric:"Opportunities: mining, tourism, research, energy. Challenges: remoteness, fragile environment, extreme cold, limited infrastructure.",
+      keywords:[
+        ["tourism","tourisme"],
+        ["research","recherche"],
+        ["mining","charbon","coal"],
+        ["energy","energie"],
+        ["remote","remoteness","isolement"],
+        ["fragile environment","fragile"],
+        ["cold","extreme cold"],
+        ["limited infrastructure","infrastructure limitee"]
+      ]
+    }
+  ],
+  maths4: [
+    {
+      id:"b_math_1", type:"maths", marks:4,
+      prompt:"The average winter temperature in Svalbard is -12°C and the average summer temperature is 6°C. Calculate the temperature difference.",
+      answer:"18",
+      tolerance:0.1,
+      workingHint:"Find the distance between -12 and 6.",
+      unit:"°C"
+    },
+    {
+      id:"b_math_2", type:"maths", marks:4,
+      prompt:"A Svalbard tourist total rises from 50,000 to 68,000. Calculate the increase as a percentage of the original figure.",
+      answer:"36",
+      tolerance:0.2,
+      workingHint:"Use: increase ÷ original × 100",
+      unit:"%"
+    },
+    {
+      id:"b_math_3", type:"maths", marks:4,
+      prompt:"A protected forest area rises from 2400 km² to 3000 km². Calculate the percentage increase.",
+      answer:"25",
+      tolerance:0.2,
+      workingHint:"Use: increase ÷ original × 100",
+      unit:"%"
+    }
+  ],
+  short4: [
+    {
+      id:"b_short4_1", type:"short", marks:4,
+      prompt:"Explain one reason why development in Svalbard must be managed carefully.",
+      rubric:"Examples: fragile environment, slow recovery rates, permafrost, wildlife disturbance, pollution risk, harsh climate.",
+      keywords:[
+        ["fragile environment","fragile ecosystem"],
+        ["slow recovery","slow to recover"],
+        ["permafrost"],
+        ["wildlife disturbance","animals"],
+        ["pollution risk","pollution"],
+        ["harsh climate","cold"]
+      ]
+    },
+    {
+      id:"b_short4_2", type:"short", marks:4,
+      prompt:"Explain one reason why tropical rainforests are valuable.",
+      rubric:"Examples: biodiversity, climate regulation, carbon store, resources, medicines, ecotourism.",
+      keywords:[
+        ["biodiversity","many species"],
+        ["carbon store","stores carbon"],
+        ["climate regulation","climate"],
+        ["resources","wood","food","materials"],
+        ["medicines"],
+        ["ecotourism","tourism"]
+      ]
+    }
+  ],
+  essay12: [
+    {
+      id:"b_12_1", type:"essay12", marks:12,
+      prompt:"‘Economic development in Svalbard should continue, but only under tight control.’ To what extent do you agree?",
+      rubric:"Use the full structure. Paragraph 3 is optional but helps for top marks. Svalbard should be central.",
+      keywords:[
+        ["economic development","tourism","research","mining","jobs","income"],
+        ["tight control","management","rules","protection","limits"],
+        ["fragile environment","wildlife","pollution","permafrost"],
+        ["balanced argument","however","although"],
+        ["judgement","overall","to a large extent","to some extent"],
+        ["named place","svalbard"]
+      ]
+    },
+    {
+      id:"b_12_2", type:"essay12", marks:12,
+      prompt:"‘Cold environments are more useful when carefully developed than when left almost untouched.’ To what extent do you agree?",
+      rubric:"Use the full structure. You may compare briefly with rainforest protection, but Svalbard should appear clearly.",
+      keywords:[
+        ["cold environments","svalbard"],
+        ["carefully developed","managed tourism","research","economic opportunities"],
+        ["untouched","protection","conservation"],
+        ["fragile environment","damage","slow recovery"],
+        ["balanced argument","however","although"],
+        ["judgement","overall","to some extent","to a large extent"]
+      ]
+    }
+  ]
+};
+
+const SECTION_C_BANK = {
+  q3: {
+    title:"Question 3 — Coasts — Lyme Regis",
+    marks:10,
+    mcq: [
+      {
+        id:"c3_mcq_1", type:"mcq", marks:1,
+        prompt:"Which process directly removes material from the coast?",
+        options:["Erosion","Condensation","Evaporation","Photosynthesis"],
+        answerIndex:0
+      },
+      {
+        id:"c3_mcq_2", type:"mcq", marks:1,
+        prompt:"Which coastal hazard is especially linked to unstable cliffs?",
+        options:["Mass movement","Freeze-thaw in mountain peaks only","River capture","Volcanic eruption"],
+        answerIndex:0
+      }
+    ],
+    essay8: [
+      {
+        id:"c3_8_1", type:"essay8", marks:8,
+        prompt:"Explain why coastal management is needed at Lyme Regis.",
+        rubric:"Develop 3 detailed points or 4 clear points. You may refer to erosion, landslides, homes, roads, tourism and protection methods.",
+        keywords:[
+          ["erosion","coastal erosion"],
+          ["landslides","mass movement","cliff collapse"],
+          ["homes and buildings at risk","property at risk"],
+          ["roads or infrastructure at risk","roads"],
+          ["tourism needs protection","tourism"],
+          ["sea walls","rock armour","drainage","management methods"],
+          ["protect people","safety"],
+          ["protect the local economy","economy"]
+        ]
+      },
+      {
+        id:"c3_8_2", type:"essay8", marks:8,
+        prompt:"Explain why cliffs around Lyme Regis can be difficult to manage.",
+        rubric:"Develop 3 detailed points or 4 clear points.",
+        keywords:[
+          ["soft rock","weak rock"],
+          ["rainwater","saturation","water"],
+          ["mass movement","landslides","slumping"],
+          ["coastal erosion at the base","wave attack"],
+          ["cost","expensive"],
+          ["need to protect roads or homes","property"],
+          ["tourism pressure","visitors"],
+          ["not every area can be protected the same way","limits of management"]
+        ]
+      }
+    ]
+  },
+  q4: {
+    title:"Question 4 — Rivers — River Tees and Banbury",
+    marks:10,
+    mcq: [
+      {
+        id:"c4_mcq_1", type:"mcq", marks:1,
+        prompt:"Which landform is commonly found in the upper course of a river?",
+        options:["Waterfall","Delta","Estuary","Sand dune"],
+        answerIndex:0
+      },
+      {
+        id:"c4_mcq_2", type:"mcq", marks:1,
+        prompt:"Which place in this question is the flood management case study?",
+        options:["River Tees","Banbury","Malaysia","Svalbard"],
+        answerIndex:1
+      }
+    ],
+    essay8: [
+      {
+        id:"c4_8_1", type:"essay8", marks:8,
+        prompt:"Explain why flood management was needed in Banbury.",
+        rubric:"Develop 3 detailed points or 4 clear points.",
+        keywords:[
+          ["flood risk","flooding"],
+          ["river overflow","river discharge"],
+          ["homes and businesses at risk","property"],
+          ["transport disruption","roads","rail"],
+          ["economic losses","economy"],
+          ["previous floods","history of flooding"],
+          ["protect people","safety"],
+          ["management such as storage or embankments","management"]
+        ]
+      },
+      {
+        id:"c4_8_2", type:"essay8", marks:8,
+        prompt:"Explain how river processes create features along the River Tees.",
+        rubric:"Develop 3 detailed points or 4 clear points.",
+        keywords:[
+          ["erosion","vertical erosion","hydraulic action","abrasion"],
+          ["waterfall","high force"],
+          ["gorge"],
+          ["meander","lateral erosion","deposition"],
+          ["floodplain"],
+          ["changing river energy downstream","upper to lower course"],
+          ["transportation"],
+          ["deposition"]
+        ]
+      }
+    ]
+  },
+  q5: {
+    title:"Question 5 — Glaciation — The Lake District and Snowdonia",
+    marks:10,
+    mcq: [
+      {
+        id:"c5_mcq_1", type:"mcq", marks:1,
+        prompt:"Which is a glacial landform?",
+        options:["Corrie","Levee","Spit","Delta"],
+        answerIndex:0
+      },
+      {
+        id:"c5_mcq_2", type:"mcq", marks:1,
+        prompt:"Which process can help shape a corrie?",
+        options:["Plucking and abrasion","Longshore drift only","Hydraulic action only in rivers","Evaporation"],
+        answerIndex:0
+      }
+    ],
+    essay8: [
+      {
+        id:"c5_8_1", type:"essay8", marks:8,
+        prompt:"Explain why glaciated upland areas such as the Lake District or Snowdonia attract visitors.",
+        rubric:"Develop 3 detailed points or 4 clear points.",
+        keywords:[
+          ["scenery","dramatic scenery","views"],
+          ["walking","hiking","climbing"],
+          ["lakes","mountains"],
+          ["tourism facilities","accommodation","cafes"],
+          ["outdoor activities"],
+          ["named upland area","lake district","snowdonia"],
+          ["economic opportunities"],
+          ["transport or access"]
+        ]
+      },
+      {
+        id:"c5_8_2", type:"essay8", marks:8,
+        prompt:"Explain how glacial processes helped create upland landscapes in the UK.",
+        rubric:"Develop 3 detailed points or 4 clear points.",
+        keywords:[
+          ["abrasion"],
+          ["plucking"],
+          ["freeze thaw","weathering"],
+          ["corrie"],
+          ["arete"],
+          ["u shaped valley"],
+          ["truncated spurs"],
+          ["erosion by ice"]
+        ]
+      }
+    ]
+  }
+};
+
+const SECTION_D_BANK = {
+  mcq: [
+    {
+      id:"d_mcq_1", type:"mcq", marks:1,
+      prompt:"Which site is usually most at risk of river flooding?",
+      options:["Floodplain","Steep hilltop","Dry ridge","High plateau"],
+      answerIndex:0
+    },
+    {
+      id:"d_mcq_2", type:"mcq", marks:1,
+      prompt:"Which physical factor can increase flood risk most directly?",
+      options:["Prolonged heavy rainfall","A new paint colour","A wider pavement only","A longer school day"],
+      answerIndex:0
+    }
+  ],
+  short4: [
+    {
+      id:"d_short4_1", type:"short", marks:4,
+      prompt:"Give one physical risk and one human risk the Otono Team should consider before choosing a site near a river.",
+      rubric:"Physical examples: flooding, erosion, saturated ground, steep slopes. Human examples: road access, building cost, evacuation, damage to homes or services.",
+      keywords:[
+        ["flooding","flood risk"],
+        ["erosion","river erosion"],
+        ["saturated ground","waterlogged ground"],
+        ["steep slope","slope"],
+        ["road access","access"],
+        ["building cost","cost"],
+        ["evacuation","evacuation route"],
+        ["damage to homes","damage to buildings","services"]
+      ]
+    },
+    {
+      id:"d_short4_2", type:"short", marks:4,
+      prompt:"Explain one reason why building on a floodplain may still attract people.",
+      rubric:"Examples: flat land, easier construction, transport links, near settlements, fertile land, space.",
+      keywords:[
+        ["flat land","flat"],
+        ["easier to build","construction easier"],
+        ["transport links","roads"],
+        ["near settlements","near town"],
+        ["fertile land","fertile soils"],
+        ["space"]
+      ]
+    }
+  ],
+  maths6: [
+    {
+      id:"d_math_1", type:"maths", marks:6,
+      prompt:"Site A gets 520 mm of rain per year and Site B gets 845 mm. Calculate the difference and then calculate how much higher Site B is as a percentage of Site A.",
+      answer:"325|62.5",
+      tolerance:0.3,
+      workingHint:"Two answers needed: difference first, then percentage increase compared with Site A.",
+      unit:"mm / %"
+    },
+    {
+      id:"d_math_2", type:"maths", marks:6,
+      prompt:"A project site is 1.8 km from the nearest main road. Another possible site is 3.0 km away. Calculate the difference and then the percentage by which the farther site exceeds the nearer one.",
+      answer:"1.2|66.7",
+      tolerance:0.3,
+      workingHint:"Two answers needed: difference first, then percentage increase compared with 1.8 km.",
+      unit:"km / %"
+    }
+  ],
+  essay8: [
+    {
+      id:"d_8_1", type:"essay8", marks:8,
+      prompt:"The Otono Team must choose between a cheaper low-lying site and a safer higher site. Explain which is better and why.",
+      rubric:"Develop 3 detailed points or 4 clear points. Use physical and human factors.",
+      keywords:[
+        ["safer higher site","higher land","less flood risk"],
+        ["low lying site","floodplain","greater risk"],
+        ["cost","cheaper","more expensive"],
+        ["long term damage","future damage","repair cost"],
+        ["access","roads","services"],
+        ["safety of people","safety"],
+        ["balanced choice","however"],
+        ["clear judgement","better overall"]
+      ]
+    },
+    {
+      id:"d_8_2", type:"essay8", marks:8,
+      prompt:"Explain why a site decision should use both physical geography and human geography.",
+      rubric:"Develop 3 detailed points or 4 clear points.",
+      keywords:[
+        ["physical factors","flooding","erosion","rainfall","slope"],
+        ["human factors","roads","cost","services","people"],
+        ["one alone is not enough","both needed"],
+        ["safer planning","planning"],
+        ["economic reasons","economy","cost"],
+        ["long term success","future"],
+        ["risk reduction","reduce risk"],
+        ["balanced decision"]
+      ]
+    }
+  ]
+};
+
+/* =====================================================
+   UTILITIES
+===================================================== */
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+function nowISO(){ return new Date().toISOString(); }
+
+function norm(s){
+  return (s ?? "")
+    .toString()
+    .toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .replace(/[^a-z0-9.\-\s]/g," ")
+    .replace(/\s+/g," ")
+    .trim();
+}
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+function pickRandom(arr, n){ return shuffle(arr).slice(0, n); }
+function pickOne(arr){ return shuffle(arr)[0]; }
+function escapeHtml(str){
+  return (str ?? "").toString()
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+function otonoLetterGrade(score){
+  if(score >= 101) return "S";
+  if(score >= 95) return "A*";
+  if(score >= 90) return "A";
+  if(score >= 80) return "B";
+  if(score >= 70) return "C";
+  if(score >= 66) return "D";
+  if(score >= 55) return "E";
+  if(score >= 45) return "F";
+  if(score >= 30) return "G";
+  if(score >= 15) return "H";
+  return "U";
+}
+function passMeritDistinction(score){
+  if(score >= 90) return "DISTINCTION";
+  if(score >= 80) return "MERIT";
+  if(score >= 66) return "PASS";
+  return "FAIL";
+}
+function gcseEstimate(score){
+  if(score >= 88) return 9;
+  if(score >= 80) return 8;
+  if(score >= 72) return 7;
+  if(score >= 64) return 6;
+  if(score >= 54) return 5;
+  if(score >= 44) return 4;
+  if(score >= 40) return 3;
+  if(score >= 30) return 2;
+  if(score >= 20) return 1;
+  return "U";
+}
+function badgeForScore(score){
+  if(score >= 101) return ["badge good","🏆 SECRET SCORE"];
+  if(score >= 90) return ["badge good","🏆 Excellent"];
+  if(score >= 80) return ["badge good","⭐ Très bien"];
+  if(score >= 66) return ["badge warn","✅ OK"];
+  return ["badge bad","❌ Mal"];
+}
+
+/* =====================================================
+   LOCAL STORAGE
+===================================================== */
+const STORE_KEY = "otonoGeographyPaper1_results_v1";
+
+function loadResults(){
+  try{ return JSON.parse(localStorage.getItem(STORE_KEY) || "[]"); }
+  catch(e){ return []; }
+}
+function saveResults(list){ localStorage.setItem(STORE_KEY, JSON.stringify(list)); }
+function addResult(attempt){
+  const list = loadResults();
+  list.unshift(attempt);
+  saveResults(list);
+}
+
+/* =====================================================
+   APP STATE
+===================================================== */
+let state = {
+  mode: "home",
+  timer: null,
+  remainingSec: 0,
+  startedAt: null,
+  centreNo: "50749",
+  candidateNo: null,
+  candSurname: "",
+  candForenames: "",
+  selection: null,
+  answers: {},
+  mcqCorrectValue: {},
+  submitted: false
+};
+
+/* =====================================================
+   CENTRE + CANDIDATE
+===================================================== */
+function setCentre(no){
+  state.centreNo = String(no);
+  $("#centreNo").value = state.centreNo;
+  $("#centreTop").textContent = state.centreNo;
+}
+$("#btnEditCentre").addEventListener("click", () => {
+  const val = prompt("Enter centre number (digits only, e.g. 50749):", state.centreNo);
+  if(val === null) return;
+  const clean = String(val).replace(/\D/g,"").slice(0, 10);
+  if(clean.length < 5){
+    alert("Centre number must be digits only (at least 5 digits).");
+    return;
+  }
+  setCentre(clean);
+});
+$("#btnResetCentre").addEventListener("click", () => setCentre("50749"));
+
+const digitIds = ["#candD1","#candD2","#candD3","#candD4"];
+function getCandidateNoFromSquares(){
+  const d = digitIds.map(id => ($(id).value || "").trim());
+  if(d.some(x => x.length !== 1 || !/^\d$/.test(x))) return "";
+  return d.join("");
+}
+function focusDigit(i){
+  const el = $(digitIds[i]);
+  if(el) el.focus();
+}
+function wireDigitSquares(){
+  digitIds.forEach((id, idx) => {
+    const el = $(id);
+    el.addEventListener("input", () => {
+      el.value = (el.value || "").replace(/\D/g,"").slice(0,1);
+      if(el.value && idx < digitIds.length-1) focusDigit(idx+1);
+    });
+    el.addEventListener("keydown", (e) => {
+      if(e.key === "Backspace" && !el.value && idx > 0) focusDigit(idx-1);
+      if(e.key === "ArrowLeft" && idx > 0){ e.preventDefault(); focusDigit(idx-1); }
+      if(e.key === "ArrowRight" && idx < digitIds.length-1){ e.preventDefault(); focusDigit(idx+1); }
+    });
+    el.addEventListener("paste", (e) => {
+      e.preventDefault();
+      const txt = (e.clipboardData || window.clipboardData).getData("text") || "";
+      const digits = txt.replace(/\D/g,"").slice(0,4).split("");
+      digits.forEach((ch, j) => {
+        const target = $(digitIds[j]);
+        if(target) target.value = ch;
+      });
+      const joined = getCandidateNoFromSquares();
+      if(joined.length === 4) focusDigit(3);
+    });
+  });
+}
+wireDigitSquares();
+
+/* =====================================================
+   GENERATE FULL PAPER
+===================================================== */
+function generateSelection(){
+  return {
+    sectionA: {
+      mcq: pickOne(SECTION_A_BANK.mcq),
+      short4: pickOne(SECTION_A_BANK.short4),
+      maths5: pickOne(SECTION_A_BANK.maths5),
+      essay8: pickOne(SECTION_A_BANK.essay8),
+      short5: pickOne(SECTION_A_BANK.short5),
+      essay12: pickOne(SECTION_A_BANK.essay12)
+    },
+    sectionB: {
+      mcq: pickOne(SECTION_B_BANK.mcq),
+      short3: pickOne(SECTION_B_BANK.short3),
+      maths4: pickOne(SECTION_B_BANK.maths4),
+      short4: pickOne(SECTION_B_BANK.short4),
+      essay12: pickOne(SECTION_B_BANK.essay12)
+    },
+    sectionC: {
+      q3: {
+        title: SECTION_C_BANK.q3.title,
+        mcq: pickOne(SECTION_C_BANK.q3.mcq),
+        essay8: pickOne(SECTION_C_BANK.q3.essay8)
+      },
+      q4: {
+        title: SECTION_C_BANK.q4.title,
+        mcq: pickOne(SECTION_C_BANK.q4.mcq),
+        essay8: pickOne(SECTION_C_BANK.q4.essay8)
+      },
+      q5: {
+        title: SECTION_C_BANK.q5.title,
+        mcq: pickOne(SECTION_C_BANK.q5.mcq),
+        essay8: pickOne(SECTION_C_BANK.q5.essay8)
+      }
+    },
+    sectionD: {
+      mcq: pickOne(SECTION_D_BANK.mcq),
+      short4: pickOne(SECTION_D_BANK.short4),
+      maths6: pickOne(SECTION_D_BANK.maths6),
+      essay8: pickOne(SECTION_D_BANK.essay8)
+    }
+  };
+}
+function selectionSummary(sel){
+  return [
+    `A: ${sel.sectionA.mcq.id}, ${sel.sectionA.short4.id}, ${sel.sectionA.maths5.id}, ${sel.sectionA.essay8.id}, ${sel.sectionA.short5.id}, ${sel.sectionA.essay12.id}`,
+    `B: ${sel.sectionB.mcq.id}, ${sel.sectionB.short3.id}, ${sel.sectionB.maths4.id}, ${sel.sectionB.short4.id}, ${sel.sectionB.essay12.id}`,
+    `C: ${sel.sectionC.q3.mcq.id}/${sel.sectionC.q3.essay8.id} • ${sel.sectionC.q4.mcq.id}/${sel.sectionC.q4.essay8.id} • ${sel.sectionC.q5.mcq.id}/${sel.sectionC.q5.essay8.id}`,
+    `D: ${sel.sectionD.mcq.id}, ${sel.sectionD.short4.id}, ${sel.sectionD.maths6.id}, ${sel.sectionD.essay8.id}`
+  ].join("<br/>");
+}
+
+/* =====================================================
+   RENDER
+===================================================== */
+function setBadge(text, cls="badge"){
+  const b = $("#statusBadge");
+  b.className = cls;
+  b.textContent = text;
+}
+function renderHome(){
+  $("#homeBody").classList.remove("hide");
+  $("#testBody").classList.add("hide");
+  $("#resultsBody").classList.add("hide");
+  $("#sideTitle").textContent = "Otono grading";
+  $("#sideMeta").textContent = "Score → Otono grade + GCSE estimate + Pass/Merit/Distinction.";
+  $("#sideBody").classList.remove("hide");
+  setBadge("Ready","badge");
+  $("#timerText").textContent = "--:--";
+}
+function renderResults(){
+  $("#homeBody").classList.add("hide");
+  $("#testBody").classList.add("hide");
+  $("#sideBody").classList.add("hide");
+  $("#resultsBody").classList.remove("hide");
+  $("#sideTitle").textContent = "Saved results";
+  $("#sideMeta").textContent = "Stored per candidate in this browser (localStorage).";
+  setBadge("Results","badge");
+  $("#timerText").textContent = "--:--";
+  drawResults();
+}
+function stopTimer(){
+  if(state.timer){
+    clearInterval(state.timer);
+    state.timer = null;
+  }
+}
+function startTimer(minutes){
+  stopTimer();
+  state.remainingSec = Math.max(1, Math.floor(minutes*60));
+  state.startedAt = Date.now();
+  const tick = () => {
+    if(state.submitted) return;
+    const m = Math.floor(state.remainingSec/60);
+    const s = state.remainingSec%60;
+    $("#timerText").textContent = `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+    state.remainingSec--;
+    if(state.remainingSec < 0){
+      stopTimer();
+      const auto = $("#autoSubmit").value === "yes";
+      if(auto) submitPaper(true);
+      else alert("Time is up. You can still submit manually.");
+    }
+  };
+  tick();
+  state.timer = setInterval(tick, 1000);
+}
+
+function renderTest(){
+  $("#homeBody").classList.add("hide");
+  $("#testBody").classList.remove("hide");
+  $("#resultsBody").classList.add("hide");
+  $("#sideBody").classList.remove("hide");
+
+  const candNameLine = [
+    state.candSurname ? state.candSurname : "",
+    state.candForenames ? state.candForenames : ""
+  ].filter(Boolean).join(", ");
+
+  const cand = `${state.candidateNo}${candNameLine ? " • " + candNameLine : ""}`;
+  $("#kpiCandidate").textContent = cand;
+  $("#kpiA").textContent = "Q1 = 35";
+  $("#kpiB").textContent = "Q2 = 25";
+
+  const paper = $("#paper");
+  paper.innerHTML = "";
+  state.mcqCorrectValue = {};
+
+  const head = document.createElement("div");
+  head.className = "note";
+  head.innerHTML = `<strong>Selected content</strong><br/>${selectionSummary(state.selection)}`;
+  paper.appendChild(head);
+
+  paper.appendChild(renderSectionA(state.selection.sectionA));
+  paper.appendChild(renderSectionB(state.selection.sectionB));
+  paper.appendChild(renderSectionC(state.selection.sectionC));
+  paper.appendChild(renderSectionD(state.selection.sectionD));
+
+  bindInputs();
+
+  const mins = parseInt($("#timeAllowed").value,10);
+  startTimer(mins);
+  state.submitted = false;
+
+  $("#markingBox").classList.add("hide");
+  $("#markingBox").innerHTML = "";
+  setBadge("In progress","badge warn");
+}
+
+/* =====================================================
+   QUESTION RENDERING
+===================================================== */
+function renderChoice(q, optionObjects){
+  const name = `ans_${q.id}`;
+  const shuffled = shuffle(optionObjects);
+  const correctIndex = shuffled.findIndex(o => o.isCorrect);
+  state.mcqCorrectValue[q.id] = String(correctIndex);
+
+  return `
+    <div class="opts">
+      ${shuffled.map((opt, idx) => `
+        <label class="opt">
+          <input type="radio" name="${name}" value="${idx}" />
+          <div><div><strong>${String.fromCharCode(65+idx)}.</strong> ${escapeHtml(opt.text)}</div></div>
+        </label>
+      `).join("")}
+    </div>
+  `;
+}
+
+function renderQuestion(q){
+  if(q.type === "mcq"){
+    const opts = q.options.map((text, idx) => ({ text, isCorrect: idx === q.answerIndex }));
+    return renderChoice(q, opts);
+  }
+  if(q.type === "short"){
+    return `<textarea id="ans_${q.id}" placeholder="Write your answer here..."></textarea>`;
+  }
+  if(q.type === "maths"){
+    return `
+      <div class="mathGrid">
+        <div>
+          <label>Working</label>
+          <textarea id="ans_${q.id}_work" placeholder="${escapeHtml(q.workingHint || "Show working here...")}"></textarea>
+        </div>
+        <div>
+          <label>Final answer${q.unit ? ` (${escapeHtml(q.unit)})` : ""}</label>
+          <textarea id="ans_${q.id}" placeholder="Type the final answer here..."></textarea>
+        </div>
+      </div>
+    `;
+  }
+  if(q.type === "essay8"){
+    return `
+      <div class="essayGrid">
+        <div class="part">
+          <h4><span>Point 1</span><span class="badge">developed</span></h4>
+          <textarea id="ans_${q.id}_p1" placeholder="First developed point..."></textarea>
+        </div>
+        <div class="part">
+          <h4><span>Point 2</span><span class="badge">developed</span></h4>
+          <textarea id="ans_${q.id}_p2" placeholder="Second developed point..."></textarea>
+        </div>
+        <div class="part">
+          <h4><span>Point 3</span><span class="badge">developed</span></h4>
+          <textarea id="ans_${q.id}_p3" placeholder="Third developed point..."></textarea>
+        </div>
+        <div class="part">
+          <h4><span>Point 4</span><span class="badge warn">optional extra</span></h4>
+          <textarea id="ans_${q.id}_p4" placeholder="Optional extra point..."></textarea>
+        </div>
+      </div>
+    `;
+  }
+  if(q.type === "essay12"){
+    return `
+      <div class="essayGrid">
+        <div class="part">
+          <h4><span>Introduction</span><span class="badge">required</span></h4>
+          <textarea id="ans_${q.id}_intro" placeholder="Introduce your overall line of argument..."></textarea>
+        </div>
+        <div class="part">
+          <h4><span>Paragraph 1</span><span class="badge">required</span></h4>
+          <textarea id="ans_${q.id}_p1" placeholder="First developed paragraph..."></textarea>
+        </div>
+        <div class="part">
+          <h4><span>Paragraph 2</span><span class="badge">required</span></h4>
+          <textarea id="ans_${q.id}_p2" placeholder="Second developed paragraph..."></textarea>
+        </div>
+        <div class="part">
+          <h4><span>Paragraph 3</span><span class="badge warn">optional but useful</span></h4>
+          <textarea id="ans_${q.id}_p3" placeholder="Optional extra paragraph for higher marks..."></textarea>
+        </div>
+        <div class="part">
+          <h4><span>Conclusion</span><span class="badge">required</span></h4>
+          <textarea id="ans_${q.id}_conc" placeholder="Clear final judgement..."></textarea>
+        </div>
+      </div>
+      <div class="small warnText" style="margin-top:8px">
+        This 12-marker is structure-checked. If you ignore the boxes, the mark will drop.
+      </div>
+    `;
+  }
+  return `<textarea id="ans_${q.id}" placeholder="Write your answer here..."></textarea>`;
+}
+
+function renderQuestionCard(q){
+  const markTag = `<span class="badge" title="Marks for this question">${q.marks} marks</span>`;
+  let instruction = "Auto-mark uses keywords.";
+  if(q.type === "mcq") instruction = "Select one option.";
+  if(q.type === "maths") instruction = "Enter the final answer clearly. Working box is for you and is not auto-marked directly.";
+  if(q.type === "essay8") instruction = "Use 3 developed points or 4 clear points.";
+  if(q.type === "essay12") instruction = "Use the required structure boxes. Paragraph 3 is optional.";
+  const wrap = document.createElement("div");
+  wrap.className = "q";
+  wrap.dataset.qid = q.id;
+  wrap.innerHTML = `
+    <h3>${escapeHtml(q.prompt)} ${markTag}</h3>
+    ${renderQuestion(q)}
+    <div class="small" style="margin-top:8px">${escapeHtml(instruction)}</div>
+  `;
+  return wrap;
+}
+
+function maybeShuffleQuestionCards(cards){
+  return $("#shuffleMode").value === "shuffleAll" ? shuffle(cards) : cards;
+}
+
+function renderSectionA(sel){
+  const card = document.createElement("div");
+  card.className = "card";
+  card.style.marginTop = "14px";
+  card.innerHTML = `
+    <div class="hd">
+      <div>
+        <h2>Section A — The Challenge of Natural Hazards</h2>
+        <div class="meta">Question 1 • 35 marks • Chile • Nepal • Typhoon Haiyan • Somerset Levels • UK 2022 heatwave</div>
+      </div>
+      <span class="badge">Q1 = 35</span>
+    </div>
+    <div class="bd">
+      <div class="note"><strong>You must answer Question 1.</strong> This section contains the first and only Section A 12-marker.</div>
+      <div class="qs"></div>
+    </div>
+  `;
+  const qs = card.querySelector(".qs");
+  const cards = [
+    renderQuestionCard(sel.mcq),
+    renderQuestionCard(sel.short4),
+    renderQuestionCard(sel.maths5),
+    renderQuestionCard(sel.essay8),
+    renderQuestionCard(sel.short5),
+    renderQuestionCard(sel.essay12)
+  ];
+  maybeShuffleQuestionCards(cards).forEach(c => qs.appendChild(c));
+  return card;
+}
+
+function renderSectionB(sel){
+  const card = document.createElement("div");
+  card.className = "card";
+  card.style.marginTop = "14px";
+  card.innerHTML = `
+    <div class="hd">
+      <div>
+        <h2>Section B — The Living World</h2>
+        <div class="meta">Question 2 • 25 marks • Malaysia tropical rainforest • Svalbard (appears heavily)</div>
+      </div>
+      <span class="badge">Q2 = 25</span>
+    </div>
+    <div class="bd">
+      <div class="note"><strong>You must answer Question 2.</strong> This section contains the second and final 12-marker.</div>
+      <div class="qs"></div>
+    </div>
+  `;
+  const qs = card.querySelector(".qs");
+  const cards = [
+    renderQuestionCard(sel.mcq),
+    renderQuestionCard(sel.short3),
+    renderQuestionCard(sel.maths4),
+    renderQuestionCard(sel.short4),
+    renderQuestionCard(sel.essay12)
+  ];
+  maybeShuffleQuestionCards(cards).forEach(c => qs.appendChild(c));
+  return card;
+}
+
+function renderSectionC(sel){
+  const card = document.createElement("div");
+  card.className = "card";
+  card.style.marginTop = "14px";
+  card.innerHTML = `
+    <div class="hd">
+      <div>
+        <h2>Section C — Physical Landscapes in the UK</h2>
+        <div class="meta">Questions 3, 4 and 5 • 10 marks each • best two counted automatically</div>
+      </div>
+      <span class="badge">Best 2 × 10</span>
+    </div>
+    <div class="bd">
+      <div class="note">
+        Answering all three is allowed in this HTML version, but <strong>only your best two Section C scores</strong> will count towards the total.
+      </div>
+      <div class="sectionBanner">Question 3 — Coasts — 10 marks</div>
+      <div class="qWrap3"></div>
+      <div class="sectionBanner">Question 4 — Rivers — 10 marks</div>
+      <div class="qWrap4"></div>
+      <div class="sectionBanner">Question 5 — Glaciation — 10 marks</div>
+      <div class="qWrap5"></div>
+    </div>
+  `;
+
+  [
+    { wrap: card.querySelector(".qWrap3"), data: sel.q3 },
+    { wrap: card.querySelector(".qWrap4"), data: sel.q4 },
+    { wrap: card.querySelector(".qWrap5"), data: sel.q5 }
+  ].forEach(({wrap, data}) => {
+    const intro = document.createElement("div");
+    intro.className = "note";
+    intro.style.marginTop = "12px";
+    intro.innerHTML = `<strong>${escapeHtml(data.title)}</strong><br/>1-mark multiple choice + 8-mark structured answer + 1 automatic accuracy mark from the same question bundle = 10 total.`;
+    wrap.appendChild(intro);
+
+    // We need 10 marks total with MCQ=1 and essay8=8, so add hidden/checkable 1-mark mini short.
+    const autoExtra = {
+      id: data.mcq.id + "_extra",
+      type:"short",
+      marks:1,
+      prompt:"State one relevant geographical term linked to this topic.",
+      rubric:"One valid term linked to the topic.",
+      keywords: data.title.toLowerCase().includes("coasts")
+        ? [["erosion"],["cliff"],["wave"],["landslide"],["lyme regis"]]
+        : data.title.toLowerCase().includes("rivers")
+        ? [["river"],["flood"],["banbury"],["meander"],["waterfall"],["tees"]]
+        : [["glacier"],["corrie"],["arete"],["u shaped valley"],["snowdonia"],["lake district"]]
+    };
+
+    const qcards = [
+      renderQuestionCard(data.mcq),
+      renderQuestionCard(autoExtra),
+      renderQuestionCard(data.essay8)
+    ];
+    maybeShuffleQuestionCards(qcards).forEach(c => wrap.appendChild(c));
+  });
+
+  return card;
+}
+
+function renderSectionD(sel){
+  const card = document.createElement("div");
+  card.className = "card";
+  card.style.marginTop = "14px";
+  card.innerHTML = `
+    <div class="hd">
+      <div>
+        <h2>Section D — Otono Team Geography</h2>
+        <div class="meta">Question 6 • 20 marks • physical + human decision-making • no maps</div>
+      </div>
+      <span class="badge">Q6 = 20</span>
+    </div>
+    <div class="bd">
+      <div class="note"><strong>You must answer Question 6.</strong> This section contains no 12-marker.</div>
+      <div class="qs"></div>
+    </div>
+  `;
+  const qs = card.querySelector(".qs");
+  const cards = [
+    renderQuestionCard(sel.mcq),
+    renderQuestionCard(sel.short4),
+    renderQuestionCard(sel.maths6),
+    renderQuestionCard(sel.essay8)
+  ];
+  maybeShuffleQuestionCards(cards).forEach(c => qs.appendChild(c));
+  return card;
+}
+
+function bindInputs(){
+  $$("input[type='radio']").forEach(r => {
+    r.addEventListener("change", () => {
+      const qid = r.name.replace("ans_","");
+      state.answers[qid] = r.value;
+    });
+  });
+  $$("textarea").forEach(t => {
+    t.addEventListener("input", () => {
+      const id = t.id.replace("ans_","");
+      state.answers[id] = t.value;
+    });
+  });
+}
+
+/* =====================================================
+   MARKING
+===================================================== */
+function tokenOverlap(text, phrase){
+  const textTokens = new Set(norm(text).split(" ").filter(Boolean));
+  const phraseTokens = norm(phrase).split(" ").filter(Boolean);
+  const matched = phraseTokens.filter(tok => textTokens.has(tok)).length;
+  return phraseTokens.length ? matched / phraseTokens.length : 0;
+}
+function expectedDetailCount(marks){
+  if(marks === 1) return 1;
+  if(marks === 3) return 2;
+  if(marks === 4) return 2;
+  if(marks === 5) return 2;
+  if(marks === 6) return 3;
+  if(marks === 8) return 4;
+  return null;
+}
+function gatherEssay8(qid){
+  return ["p1","p2","p3","p4"].map(part => state.answers[`${qid}_${part}`] || "").join(" ");
+}
+function gatherEssay12(qid){
+  return ["intro","p1","p2","p3","conc"].map(part => state.answers[`${qid}_${part}`] || "").join(" ");
+}
+function markChoice(qid, chosenValue, marks){
+  const correctValue = state.mcqCorrectValue[qid];
+  const ok = String(chosenValue ?? "") === String(correctValue);
+  return {
+    score: ok ? marks : 0,
+    max: marks,
+    detail: ok ? "Correct." : "Incorrect."
+  };
+}
+function markShortAnswer(q, userText){
+  const t = norm(userText);
+  if(!t) return {score:0, max:q.marks, detail:"Blank."};
+
+  const groups = q.keywords || [];
+  if(groups.length === 0) return {score:0, max:q.marks, detail:"No keyword rubric set."};
+
+  let hits = 0;
+  let matchedGroups = [];
+  groups.forEach((group, i) => {
+    const found = group.some(k => {
+      const nk = norm(k);
+      return t.includes(nk) || tokenOverlap(t, k) >= 0.7;
+    });
+    if(found){
+      hits++;
+      matchedGroups.push(i+1);
+    }
+  });
+
+  const expected = Math.min(expectedDetailCount(q.marks) || groups.length, groups.length);
+  const countedHits = Math.min(hits, expected);
+  const per = q.marks / expected;
+  const raw = countedHits * per;
+  const score = Math.max(0, Math.min(q.marks, Math.round(raw * 2) / 2));
+  let detail = `Keyword groups matched: ${hits}/${groups.length}; counted: ${countedHits}/${expected}.`;
+  if(matchedGroups.length) detail += ` Matched groups: ${matchedGroups.join(", ")}.`;
+  if(q.rubric) detail += ` Expected: ${q.rubric}`;
+  return {score, max:q.marks, detail};
+}
+function markMaths(q, userText){
+  const t = norm(userText).replace(",", ".");
+  if(!t) return {score:0, max:q.marks, detail:"Blank."};
+
+  // handle dual-answer maths with |
+  if(String(q.answer).includes("|")){
+    const nums = (t.match(/-?\d+(\.\d+)?/g) || []).map(Number);
+    if(nums.length < 2) return {score:0, max:q.marks, detail:"Need two numerical answers."};
+    const expected = String(q.answer).split("|").map(Number);
+    const tol = q.tolerance ?? 0.2;
+    let correct = 0;
+    for(let i=0;i<2;i++){
+      if(Math.abs(nums[i] - expected[i]) <= tol) correct++;
+    }
+    const score = correct === 2 ? q.marks : correct === 1 ? Math.max(1, q.marks/2) : 0;
+    return {
+      score,
+      max:q.marks,
+      detail:`Detected answers: ${nums.slice(0,2).join(", ")}. Expected: ${expected.join(", ")} ± ${tol}.`
+    };
+  }
+
+  const numMatch = t.match(/-?\d+(\.\d+)?/);
+  if(!numMatch) return {score:0, max:q.marks, detail:"No valid number detected."};
+  const num = Number(numMatch[0]);
+  const expected = Number(q.answer);
+  const tol = q.tolerance ?? 0.2;
+  const ok = Math.abs(num - expected) <= tol;
+  return {
+    score: ok ? q.marks : 0,
+    max:q.marks,
+    detail:`Detected answer: ${num}. Expected: ${expected} ± ${tol}.`
+  };
+}
+function markEssay8(q){
+  const text = gatherEssay8(q.id);
+  const result = markShortAnswer(q, text);
+
+  const nonBlankParts = ["p1","p2","p3","p4"].filter(p => norm(state.answers[`${q.id}_${p}`] || "")).length;
+  let structureBoost = 0;
+  if(nonBlankParts >= 3) structureBoost = 0.5;
+  if(nonBlankParts >= 4) structureBoost = 1;
+  const score = Math.min(q.marks, result.score + structureBoost);
+  return {
+    score,
+    max:q.marks,
+    detail:`${result.detail} Structured points used: ${nonBlankParts}/4.`
+  };
+}
+function markEssay12(q){
+  const fullText = gatherEssay12(q.id);
+  const result = markShortAnswer(q, fullText);
+
+  const intro = norm(state.answers[`${q.id}_intro`] || "");
+  const p1 = norm(state.answers[`${q.id}_p1`] || "");
+  const p2 = norm(state.answers[`${q.id}_p2`] || "");
+  const p3 = norm(state.answers[`${q.id}_p3`] || "");
+  const conc = norm(state.answers[`${q.id}_conc`] || "");
+
+  const requiredUsed = [intro,p1,p2,conc].filter(Boolean).length;
+  const optionalUsed = p3 ? 1 : 0;
+
+  let structureScore = 0;
+  if(requiredUsed === 4) structureScore = 2;
+  else if(requiredUsed === 3) structureScore = 1;
+  if(optionalUsed) structureScore += 0.5;
+
+  const finalScore = Math.min(q.marks, result.score + structureScore);
+  return {
+    score: finalScore,
+    max:q.marks,
+    detail:`${result.detail} Required structure boxes used: ${requiredUsed}/4. Paragraph 3 used: ${optionalUsed ? "yes" : "no"}.`
+  };
+}
+function markByType(q){
+  if(q.type === "mcq") return markChoice(q.id, state.answers[q.id], q.marks);
+  if(q.type === "short") return markShortAnswer(q, state.answers[q.id] || "");
+  if(q.type === "maths") return markMaths(q, state.answers[q.id] || "");
+  if(q.type === "essay8") return markEssay8(q);
+  if(q.type === "essay12") return markEssay12(q);
+  return {score:0, max:q.marks, detail:"Unknown question type."};
+}
+
+function computeTotal(){
+  let total = 0;
+  let breakdown = [];
+
+  function markAndPush(q, sectionLabel){
+    const res = markByType(q);
+    breakdown.push({
+      qid:q.id,
+      section:sectionLabel,
+      type:q.type,
+      prompt:q.prompt,
+      score:res.score,
+      max:res.max,
+      detail:res.detail
+    });
+    return res.score;
+  }
+
+  // Section A
+  const a = state.selection.sectionA;
+  total += markAndPush(a.mcq, "A");
+  total += markAndPush(a.short4, "A");
+  total += markAndPush(a.maths5, "A");
+  total += markAndPush(a.essay8, "A");
+  total += markAndPush(a.short5, "A");
+  total += markAndPush(a.essay12, "A");
+
+  // Section B
+  const b = state.selection.sectionB;
+  total += markAndPush(b.mcq, "B");
+  total += markAndPush(b.short3, "B");
+  total += markAndPush(b.maths4, "B");
+  total += markAndPush(b.short4, "B");
+  total += markAndPush(b.essay12, "B");
+
+  // Section C - mark all 3, count best 2
+  const c = state.selection.sectionC;
+  const cQuestions = [
+    [c.q3.mcq, {id:c.q3.mcq.id+"_extra", type:"short", marks:1, prompt:"State one relevant geographical term linked to this topic.", keywords:[["erosion"],["cliff"],["wave"],["landslide"],["lyme regis"]]}, c.q3.essay8, "Q3"],
+    [c.q4.mcq, {id:c.q4.mcq.id+"_extra", type:"short", marks:1, prompt:"State one relevant geographical term linked to this topic.", keywords:[["river"],["flood"],["banbury"],["meander"],["waterfall"],["tees"]]}, c.q4.essay8, "Q4"],
+    [c.q5.mcq, {id:c.q5.mcq.id+"_extra", type:"short", marks:1, prompt:"State one relevant geographical term linked to this topic.", keywords:[["glacier"],["corrie"],["arete"],["u shaped valley"],["snowdonia"],["lake district"]]}, c.q5.essay8, "Q5"]
+  ];
+
+  const cTotals = [];
+  cQuestions.forEach(([qA, qB, qC, qLabel]) => {
+    const sub1 = markByType(qA);
+    const sub2 = markByType(qB);
+    const sub3 = markByType(qC);
+    breakdown.push({qid:qA.id, section:"C", type:qA.type, prompt:qA.prompt, score:sub1.score, max:sub1.max, detail:`${qLabel} • ${sub1.detail}`});
+    breakdown.push({qid:qB.id, section:"C", type:qB.type, prompt:qB.prompt, score:sub2.score, max:sub2.max, detail:`${qLabel} • ${sub2.detail}`});
+    breakdown.push({qid:qC.id, section:"C", type:qC.type, prompt:qC.prompt, score:sub3.score, max:sub3.max, detail:`${qLabel} • ${sub3.detail}`});
+    cTotals.push({label:qLabel, total:sub1.score + sub2.score + sub3.score, max:10});
+  });
+
+  const bestTwo = cTotals.sort((x,y) => y.total - x.total).slice(0,2);
+  total += bestTwo.reduce((sum, x) => sum + x.total, 0);
+
+  breakdown.push({
+    qid:"sectionC_best_two",
+    section:"C",
+    type:"section_total",
+    prompt:"Best two Section C questions counted",
+    score:bestTwo.reduce((sum, x) => sum + x.total, 0),
+    max:20,
+    detail:`Counted: ${bestTwo.map(x => `${x.label} (${x.total}/10)`).join(" + ")}`
+  });
+
+  // Section D
+  const d = state.selection.sectionD;
+  total += markAndPush(d.mcq, "D");
+  total += markAndPush(d.short4, "D");
+  total += markAndPush(d.maths6, "D");
+  total += markAndPush(d.essay8, "D");
+
+  const totalRounded = Math.round(total*10)/10;
+
+  // Secret S unlock: perfect 100 + Svalbard 12 marker + all required 12-marker structure boxes used
+  let finalTotal = totalRounded;
+  const a12 = state.selection.sectionA.essay12;
+  const b12 = state.selection.sectionB.essay12;
+  const unlockS =
+    finalTotal === 100 &&
+    norm(b12.prompt).includes("svalbard") &&
+    norm(state.answers[`${a12.id}_intro`] || "") &&
+    norm(state.answers[`${a12.id}_p1`] || "") &&
+    norm(state.answers[`${a12.id}_p2`] || "") &&
+    norm(state.answers[`${a12.id}_conc`] || "") &&
+    norm(state.answers[`${b12.id}_intro`] || "") &&
+    norm(state.answers[`${b12.id}_p1`] || "") &&
+    norm(state.answers[`${b12.id}_p2`] || "") &&
+    norm(state.answers[`${b12.id}_conc`] || "");
+
+  if(unlockS){
+    finalTotal = 101;
+    breakdown.push({
+      qid:"bonus_s",
+      section:"BONUS",
+      type:"bonus",
+      prompt:"Secret bonus: perfect paper + proper 12-marker structure + Svalbard 12-marker",
+      score:1,
+      max:1,
+      detail:"Unlocked Grade S bonus (+1)."
+    });
+  }
+
+  return { total: finalTotal, max: 100, breakdown };
+}
+
+/* =====================================================
+   SUBMIT + SAVE
+===================================================== */
+function submitPaper(fromAutoTimer=false){
+  if(state.submitted) return;
+
+  const { total, max, breakdown } = computeTotal();
+  state.submitted = true;
+  stopTimer();
+
+  const letter = otonoLetterGrade(total);
+  const pmd = passMeritDistinction(total);
+  const gcse = gcseEstimate(total);
+  const [badgeCls, badgeText] = badgeForScore(total);
+
+  const attempt = {
+    paper: "Otono Geography Paper 1 — Physical Geography",
+    centre: state.centreNo,
+    candidateNo: String(state.candidateNo),
+    candidateSurname: state.candSurname || "",
+    candidateForenames: state.candForenames || "",
+    submittedAt: nowISO(),
+    timeAllowedMin: parseInt($("#timeAllowed").value,10),
+    score: total,
+    maxScore: max,
+    otonoGrade: letter,
+    gcseEstimated: gcse,
+    outcome: pmd,
+    selection: {
+      sectionA: Object.values(state.selection.sectionA).map(x=>x.id),
+      sectionB: Object.values(state.selection.sectionB).map(x=>x.id),
+      sectionC: {
+        q3:[state.selection.sectionC.q3.mcq.id, state.selection.sectionC.q3.essay8.id],
+        q4:[state.selection.sectionC.q4.mcq.id, state.selection.sectionC.q4.essay8.id],
+        q5:[state.selection.sectionC.q5.mcq.id, state.selection.sectionC.q5.essay8.id]
+      },
+      sectionD: Object.values(state.selection.sectionD).map(x=>x.id)
+    },
+    breakdown
+  };
+  addResult(attempt);
+
+  const nameLine = [attempt.candidateSurname, attempt.candidateForenames].filter(Boolean).join(", ");
+
+  const box = $("#markingBox");
+  box.classList.remove("hide");
+  box.className = "";
+  box.innerHTML = `
+    <div class="card">
+      <div class="hd">
+        <div>
+          <h2>✅ Marked${fromAutoTimer ? " (auto-submitted)" : ""}</h2>
+          <div class="meta">Saved to Results • Centre ${escapeHtml(attempt.centre)} • Candidate ${escapeHtml(attempt.candidateNo)}${nameLine ? " • " + escapeHtml(nameLine) : ""}</div>
+        </div>
+        <span class="${badgeCls}">${escapeHtml(badgeText)}</span>
+      </div>
+      <div class="bd">
+        <div class="kpi">
+          <div class="box"><div class="t">Score</div><div class="v">${attempt.score} / ${attempt.maxScore}</div></div>
+          <div class="box"><div class="t">Otono grade</div><div class="v">${escapeHtml(attempt.otonoGrade)}</div></div>
+          <div class="box"><div class="t">GCSE estimate</div><div class="v">${escapeHtml(String(attempt.gcseEstimated))}</div></div>
+          <div class="box"><div class="t">Outcome</div><div class="v">${escapeHtml(attempt.outcome)}</div></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="note">
+          <strong>Marking notes</strong><br/>
+          • MCQ and maths are exact.<br/>
+          • Short answers are keyword-based.<br/>
+          • 8-mark responses are keyword-based plus a small structure bonus for using the point boxes.<br/>
+          • 12-mark responses are keyword-based plus structure checks. Paragraph 3 was optional.
+        </div>
+
+        <div class="divider"></div>
+
+        <button class="btn" id="btnShowBreakdown">Show question breakdown</button>
+        <div id="breakdown" class="hide" style="margin-top:12px"></div>
+      </div>
+    </div>
+  `;
+
+  $("#btnShowBreakdown").addEventListener("click", () => {
+    const bd = $("#breakdown");
+    bd.classList.toggle("hide");
+    if(!bd.classList.contains("hide")){
+      bd.innerHTML = breakdown.map(b => `
+        <div class="attempt">
+          <div class="top">
+            <div><strong>${escapeHtml(b.qid)}</strong> • ${escapeHtml(String(b.section))} • ${escapeHtml(String(b.type))}</div>
+            <div><span class="badge">${b.score} / ${b.max}</span></div>
+          </div>
+          <div class="meta">
+            <div><strong>Prompt:</strong> ${escapeHtml(b.prompt)}</div>
+            <div><strong>Marker:</strong> ${escapeHtml(b.detail)}</div>
+          </div>
+        </div>
+      `).join("");
+    }
+  });
+
+  setBadge("Submitted","badge good");
+}
+
+/* =====================================================
+   RESULTS UI
+===================================================== */
+function drawResults(){
+  const listEl = $("#resultsList");
+  const all = loadResults();
+  const filter = ($("#filterCandidate").value || "").replace(/\D/g,"").slice(0,4);
+
+  const filtered = filter ? all.filter(a => String(a.candidateNo) === String(filter)) : all;
+
+  if(filtered.length === 0){
+    listEl.innerHTML = `<div class="note">No stored attempts${filter ? " for this candidate" : ""} yet.</div>`;
+    return;
+  }
+
+  listEl.innerHTML = filtered.map(a => {
+    const [cls, txt] = badgeForScore(a.score);
+    const nameLine = [a.candidateSurname, a.candidateForenames].filter(Boolean).join(", ");
+    return `
+      <div class="attempt">
+        <div class="top">
+          <div>
+            <strong>${escapeHtml(a.candidateNo)}</strong>${nameLine ? " • " + escapeHtml(nameLine) : ""}
+            <span class="badge" style="margin-left:8px">Centre ${escapeHtml(a.centre)}</span>
+          </div>
+          <div class="${cls}">${escapeHtml(txt)} • ${escapeHtml(String(a.score))}/100</div>
+        </div>
+        <div class="meta">
+          <div><strong>Date:</strong> ${escapeHtml(new Date(a.submittedAt).toLocaleString())}</div>
+          <div><strong>Grades:</strong> Otono ${escapeHtml(a.otonoGrade)} • GCSE ${escapeHtml(String(a.gcseEstimated))} • ${escapeHtml(a.outcome)}</div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+function exportResults(){
+  const all = loadResults();
+  $("#exportText").textContent = JSON.stringify(all, null, 2);
+  $("#exportBox").classList.remove("hide");
+}
+function clearResults(){
+  if(!confirm("Clear ALL stored Otono Geography results on this browser?")) return;
+  localStorage.removeItem(STORE_KEY);
+  drawResults();
+  $("#exportBox").classList.add("hide");
+}
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+$("#btnHome").addEventListener("click", () => {
+  state.mode = "home";
+  renderHome();
+});
+$("#btnResults").addEventListener("click", () => {
+  state.mode = "results";
+  renderResults();
+});
+$("#btnPreview").addEventListener("click", () => {
+  const c = getCandidateNoFromSquares();
+  if(!c){
+    alert("Enter a candidate number first.");
+    return;
+  }
+  const sel = generateSelection();
+  const box = $("#previewBox");
+  box.classList.remove("hide");
+  box.innerHTML = `<strong>Preview (not started):</strong><br/>${selectionSummary(sel)}`;
+});
+$("#btnStart").addEventListener("click", () => {
+  const c = getCandidateNoFromSquares();
+  if(!c){
+    alert("Candidate number is required.");
+    focusDigit(0);
+    return;
+  }
+  state.candidateNo = c;
+  state.candSurname = ($("#candSurname").value || "").trim();
+  state.candForenames = ($("#candForenames").value || "").trim();
+  state.selection = generateSelection();
+  state.answers = {};
+  renderTest();
+});
+$("#btnSubmit").addEventListener("click", () => submitPaper(false));
+$("#btnReset").addEventListener("click", () => {
+  if(!confirm("Reset this paper and generate a NEW random paper? Your current answers will be lost.")) return;
+  stopTimer();
+  state.answers = {};
+  state.submitted = false;
+  state.selection = generateSelection();
+  renderTest();
+});
+
+$("#filterCandidate").addEventListener("input", (e) => {
+  e.target.value = e.target.value.replace(/\D/g,"").slice(0,4);
+  drawResults();
+});
+$("#tabAll").addEventListener("click", () => {
+  $("#tabAll").classList.add("active");
+  $("#tabCandidate").classList.remove("active");
+  $("#filterCandidate").value = "";
+  drawResults();
+});
+$("#tabCandidate").addEventListener("click", () => {
+  $("#tabCandidate").classList.add("active");
+  $("#tabAll").classList.remove("active");
+  $("#filterCandidate").focus();
+});
+$("#btnExport").addEventListener("click", exportResults);
+$("#btnClear").addEventListener("click", clearResults);
+
+/* =====================================================
+   INIT
+===================================================== */
+setCentre("50749");
+renderHome();
+
+/* =====================================================
+   ANTI-CHEAT / SOURCE PROTECTION
+===================================================== */
+const disabledKeys = ["u", "I"];
+const showAlert = e => {
+  e.preventDefault();
+  return alert("Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!");
+};
+document.addEventListener("contextmenu", e => { showAlert(e); });
+document.addEventListener("keydown", e => {
+  if ((e.ctrlKey && disabledKeys.includes(e.key)) || e.key === "F12") {
+    showAlert(e);
+  }
+});
+</script>
+</body>
+</html>
