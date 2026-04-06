@@ -1,0 +1,2130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>🟣 Otono French — November 2025</title>
+  <style>
+    :root{
+      --bg1:#2b0a3d; --bg2:#7a0036;
+      --text:#f4efff; --muted:#d4c8ff;
+      --line:rgba(255,255,255,.12);
+      --good:#19ff9a; --warn:#ffd166; --bad:#ff4d6d;
+      --shadow:0 18px 50px rgba(0,0,0,.35);
+      --radius:18px;
+      --mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+      --sans:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(1000px 700px at 15% 10%, rgba(176,0,255,.22), transparent 60%),
+        radial-gradient(900px 650px at 80% 20%, rgba(255,27,106,.18), transparent 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+    }
+    .wrap{max-width:1280px; margin:0 auto; padding:22px;}
+    .topbar{
+      display:flex; gap:14px; align-items:center; justify-content:space-between;
+      padding:14px 16px; border:1px solid var(--line); border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      box-shadow:var(--shadow);
+      position:sticky; top:14px; z-index:20; backdrop-filter:blur(10px);
+    }
+    .brand{display:flex; flex-direction:column; gap:2px}
+    .brand h1{margin:0; font-size:18px; letter-spacing:.3px}
+    .brand .sub{font-size:12px; color:var(--muted)}
+    .pill{
+      padding:8px 10px; border-radius:999px; border:1px solid var(--line);
+      background:rgba(0,0,0,.25); font-family:var(--mono); font-size:12px;
+      display:flex; gap:10px; align-items:center;
+    }
+    .pill strong{color:#fff}
+    .btn{
+      border:1px solid var(--line); background:rgba(0,0,0,.25);
+      color:var(--text); padding:10px 12px; border-radius:14px; cursor:pointer;
+      transition:.15s transform,.15s background,.15s border;
+      font-weight:600;
+    }
+    .btn:hover{transform:translateY(-1px); background:rgba(0,0,0,.33); border-color:rgba(255,255,255,.22)}
+    .btn.primary{
+      background:linear-gradient(135deg, rgba(176,0,255,.55), rgba(255,27,106,.45));
+      border-color:rgba(255,255,255,.22);
+    }
+    .btn.danger{background:rgba(255,77,109,.18); border-color:rgba(255,77,109,.35)}
+    .grid{display:grid; grid-template-columns:1.25fr .75fr; gap:16px; margin-top:16px;}
+    @media (max-width:980px){
+      .grid{grid-template-columns:1fr}
+      .topbar{position:static}
+    }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .card .hd{
+      padding:14px 16px; border-bottom:1px solid var(--line);
+      display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
+      background:linear-gradient(180deg, rgba(255,255,255,.06), transparent);
+    }
+    .card .hd h2{margin:0; font-size:14px}
+    .card .hd .meta{font-size:12px; color:var(--muted); line-height:1.25}
+    .card .bd{padding:16px}
+    label{display:block; font-size:12px; color:var(--muted); margin:10px 0 6px}
+    input[type="text"], input[type="number"], textarea, select{
+      width:100%; border:1px solid var(--line); background:rgba(0,0,0,.25);
+      color:var(--text); padding:10px 12px; border-radius:14px; outline:none;
+      font-family:var(--sans);
+    }
+    textarea{min-height:90px; resize:vertical; line-height:1.5}
+    .row{display:flex; gap:10px; flex-wrap:wrap}
+    .row > div{flex:1 1 180px}
+    .note{
+      font-size:12px; color:var(--muted); line-height:1.5;
+      padding:10px 12px; border-radius:14px; border:1px dashed rgba(255,255,255,.18);
+      background:rgba(0,0,0,.18);
+    }
+    .badge{
+      font-family:var(--mono); font-size:12px; padding:6px 10px; border-radius:999px;
+      border:1px solid var(--line); background:rgba(0,0,0,.20);
+      display:inline-flex; align-items:center; gap:6px;
+    }
+    .badge.good{border-color:rgba(25,255,154,.35); background:rgba(25,255,154,.12)}
+    .badge.warn{border-color:rgba(255,209,102,.35); background:rgba(255,209,102,.12)}
+    .badge.bad{border-color:rgba(255,77,109,.35); background:rgba(255,77,109,.12)}
+    .divider{height:1px; background:var(--line); margin:14px 0}
+    .tabs{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px}
+    .tab{
+      padding:10px 12px; border-radius:14px; border:1px solid var(--line);
+      background:rgba(0,0,0,.22); cursor:pointer; font-weight:700;
+    }
+    .tab.active{
+      background:linear-gradient(135deg, rgba(176,0,255,.35), rgba(255,27,106,.22));
+      border-color:rgba(255,255,255,.22)
+    }
+    .hide{display:none !important}
+    .section{
+      margin-top:16px; padding:14px; border:1px solid var(--line);
+      border-radius:18px; background:rgba(0,0,0,.18);
+    }
+    .section h3{margin:0 0 10px; font-size:15px}
+    .passage{
+      padding:12px 14px; border:1px solid var(--line); border-radius:16px;
+      background:rgba(0,0,0,.22); line-height:1.58; white-space:pre-wrap;
+    }
+    .q{
+      margin-top:12px; padding:12px 14px; border:1px solid var(--line);
+      border-radius:16px; background:rgba(0,0,0,.20);
+    }
+    .q h4{margin:0 0 8px; font-size:13px}
+    .opts{display:grid; gap:8px; margin-top:8px}
+    .opt{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:10px 10px; border-radius:14px; border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03); cursor:pointer;
+    }
+    .opt input{margin-top:3px}
+    .task{
+      padding:12px 14px; border:1px solid var(--line); border-radius:16px;
+      background:rgba(0,0,0,.22); margin-top:12px;
+    }
+    .task h4{margin:0 0 8px; font-size:13px}
+    .bullets{margin:10px 0 0; padding-left:18px; color:var(--muted); font-size:12px}
+    .kpi{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
+    @media (max-width:980px){ .kpi{grid-template-columns:repeat(2,1fr)} }
+    .kpi .box{
+      border:1px solid var(--line); border-radius:16px; padding:10px 12px;
+      background:rgba(0,0,0,.22);
+    }
+    .kpi .box .t{font-size:12px; color:var(--muted)}
+    .kpi .box .v{font-size:18px; font-weight:800; margin-top:4px}
+    .small{font-size:12px; color:var(--muted)}
+    .attempt{
+      border:1px solid var(--line); border-radius:16px; padding:12px 14px;
+      background:rgba(0,0,0,.20); margin-top:10px;
+    }
+    .attempt .top{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap}
+    .attempt .meta{font-size:12px; color:var(--muted); margin-top:6px; line-height:1.4}
+    .copy{font-family:var(--mono); font-size:12px; white-space:pre-wrap; word-break:break-word}
+    .choice-card{
+      margin-top:12px; padding:12px; border:1px solid var(--line); border-radius:16px;
+      background:rgba(255,255,255,.03);
+    }
+    .choice-card.selected{
+      border-color:rgba(255,255,255,.28);
+      background:linear-gradient(135deg, rgba(176,0,255,.18), rgba(255,27,106,.12));
+    }
+    .choice-top{
+      display:flex; gap:10px; align-items:flex-start;
+    }
+    .choice-title{
+      font-weight:800; font-size:13px; margin-bottom:4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <h1>🟣 Otono French — November 2025</h1>
+        <div class="sub">
+          Reading 400 • Writing 400 • Translation 200 • Total 1000 • Centre <strong>50749</strong>
+        </div>
+      </div>
+      <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end">
+        <div class="pill">
+          <span>⏱️ Timer:</span>
+          <strong id="timerText">--:--</strong>
+        </div>
+        <button class="btn" id="btnResults">Results</button>
+        <button class="btn primary" id="btnHome">Paper</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="hd">
+          <div>
+            <h2>Candidate setup</h2>
+            <div class="meta">This is a fixed full paper. Reading is auto-marked. Writing uses coverage-based auto-marking.</div>
+          </div>
+          <span class="badge" id="statusBadge">Ready</span>
+        </div>
+
+        <div class="bd" id="homeBody">
+          <div class="row">
+            <div>
+              <label>Centre number</label>
+              <input type="text" value="50749" disabled />
+            </div>
+            <div>
+              <label>Candidate number (required)</label>
+              <input type="number" id="candidateNo" placeholder="e.g. 1105" min="1" />
+            </div>
+            <div>
+              <label>Candidate name (optional)</label>
+              <input type="text" id="candidateName" placeholder="Name" />
+            </div>
+          </div>
+
+          <div class="row" style="margin-top:6px">
+            <div>
+              <label>Time allowed</label>
+              <select id="timeAllowed">
+                <option value="180" selected>180 minutes (recommended)</option>
+                <option value="150">150 minutes</option>
+                <option value="210">210 minutes</option>
+              </select>
+            </div>
+            <div>
+              <label>On timer end</label>
+              <select id="autoSubmit">
+                <option value="yes" selected>Auto-submit</option>
+                <option value="no">Do not auto-submit</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>Paper structure</strong><br>
+            • Reading: 8 passages × 50 = 400<br>
+            • Writing: grammar 50 + 40-word 30 + 90-word 70 + 130-word 100 + 170-word 150 = 400<br>
+            • Translation: 4 tasks × 50 = 200<br>
+            • Total = 1000<br><br>
+            <strong>Writing format</strong><br>
+            • 40 words: no choice, simple bullet points only<br>
+            • 90 words: choose 1 of 3<br>
+            • 130 words: choose 1 of 3<br>
+            • 170 words: choose 1 of 4
+          </div>
+
+          <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap">
+            <button class="btn primary" id="btnStart">Start paper</button>
+          </div>
+        </div>
+
+        <div class="bd hide" id="paperBody">
+          <div class="kpi">
+            <div class="box"><div class="t">Candidate</div><div class="v" id="kpiCandidate">—</div></div>
+            <div class="box"><div class="t">Reading</div><div class="v">400</div></div>
+            <div class="box"><div class="t">Writing</div><div class="v">400</div></div>
+            <div class="box"><div class="t">Translation</div><div class="v">200</div></div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="tabs">
+            <button class="tab active" data-target="tab-reading">Reading</button>
+            <button class="tab" data-target="tab-writing">Writing</button>
+            <button class="tab" data-target="tab-translation">Translation</button>
+          </div>
+
+          <div id="tab-reading"></div>
+          <div id="tab-writing" class="hide"></div>
+          <div id="tab-translation" class="hide"></div>
+
+          <div class="divider"></div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap">
+            <button class="btn primary" id="btnSubmit">Submit & Auto-Mark</button>
+            <button class="btn danger" id="btnReset">Reset answers</button>
+          </div>
+
+          <div id="markingBox" class="hide" style="margin-top:14px"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="hd">
+          <div>
+            <h2 id="sideTitle">Grading</h2>
+            <div class="meta" id="sideMeta">1000-mark paper with Otono grades, GCSE estimate, and pass/merit/distinction.</div>
+          </div>
+        </div>
+
+        <div class="bd" id="sideBody">
+          <div class="note">
+            <strong>Pass / Merit / Distinction</strong><br>
+            PASS: 660+<br>
+            MERIT: 800+<br>
+            DISTINCTION: 900+
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>GCSE estimate (1000)</strong><br>
+            9: 880+<br>
+            8: 800+<br>
+            7: 720+<br>
+            6: 640+<br>
+            5: 540+<br>
+            4: 440+<br>
+            3: 400+<br>
+            2: 300+<br>
+            1: 200+<br>
+            U: below 200
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>Otono grades (1000)</strong><br>
+            S: 1001+<br>
+            A*: 970+<br>
+            A+: 930+<br>
+            A: 900+<br>
+            A-: 870+<br>
+            B+: 830+<br>
+            B: 800+<br>
+            B-: 760+<br>
+            C+: 720+<br>
+            C: 680+<br>
+            C-: 660+<br>
+            D+: 620+<br>
+            D: 580+<br>
+            D-: 540+<br>
+            E+: 500+<br>
+            E: 460+<br>
+            E-: 420+<br>
+            F+: 380+<br>
+            F: 340+<br>
+            F-: 300+<br>
+            G+: 250+<br>
+            G: 200+<br>
+            G-: 150+<br>
+            H+: 100+<br>
+            H: 50+<br>
+            H-: 1+<br>
+            U: 0
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="small">
+            Results are stored locally on this browser using localStorage.
+          </div>
+        </div>
+
+        <div class="bd hide" id="resultsBody">
+          <div class="row">
+            <div>
+              <label>Filter candidate number</label>
+              <input type="text" id="filterCandidate" placeholder="e.g. 1105" />
+            </div>
+            <div>
+              <label>Actions</label>
+              <div style="display:flex; gap:10px; flex-wrap:wrap">
+                <button class="btn" id="btnExport">Export JSON</button>
+                <button class="btn danger" id="btnClear">Clear stored results</button>
+              </div>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div id="resultsList"></div>
+          <div id="exportBox" class="note hide" style="margin-top:12px">
+            <div><strong>Exported JSON</strong></div>
+            <div class="divider"></div>
+            <div class="copy" id="exportText"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+function shuffle(array){
+  const arr = [...array];
+  for(let i = arr.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function pickRandomPassages(count = 8){
+  return shuffle(READING_PASSAGES).slice(0, count);
+}
+
+function escapeHtml(str){
+  return (str ?? "").toString()
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+}
+function norm(s){
+  return (s ?? "")
+    .toString().toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .replace(/[^a-z0-9\s]/g," ")
+    .replace(/\s+/g," ").trim();
+}
+function wordCount(text){
+  const t = (text ?? "").trim();
+  if(!t) return 0;
+  return t.split(/\s+/).filter(Boolean).length;
+}
+function clamp(x,a,b){ return Math.max(a, Math.min(b, x)); }
+function setBadge(text, cls="badge"){
+  const b = $("#statusBadge");
+  b.className = cls;
+  b.textContent = text;
+}
+function nowISO(){ return new Date().toISOString(); }
+function containsAny(textNorm, phrases){
+  return phrases.some(p => textNorm.includes(norm(p)));
+}
+function countHits(textNorm, vocab){
+  let hits = 0;
+  vocab.forEach(v => {
+    const k = norm(v);
+    if(k && textNorm.includes(k)) hits++;
+  });
+  return hits;
+}
+
+/* TIMER */
+let timer = null;
+let remainingSec = 0;
+function stopTimer(){ if(timer){ clearInterval(timer); timer = null; } }
+function startTimer(minutes, onEnd){
+  stopTimer();
+  remainingSec = Math.max(1, Math.floor(minutes*60));
+  const tick = () => {
+    const m = Math.floor(remainingSec/60);
+    const s = remainingSec % 60;
+    $("#timerText").textContent = `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+    remainingSec--;
+    if(remainingSec < 0){
+      stopTimer();
+      onEnd?.();
+    }
+  };
+  tick();
+  timer = setInterval(tick, 1000);
+}
+
+/* STORAGE */
+const STORE_KEY = "otono_french_true_1000_mark_paper_v2_gcse_writing";
+function loadResults(){
+  try { return JSON.parse(localStorage.getItem(STORE_KEY) || "[]"); }
+  catch(e){ return []; }
+}
+function saveResults(list){ localStorage.setItem(STORE_KEY, JSON.stringify(list)); }
+function addResult(attempt){
+  const list = loadResults();
+  list.unshift(attempt);
+  saveResults(list);
+}
+
+/* GRADING */
+function pmd(score){
+  if(score >= 900) return "DISTINCTION";
+  if(score >= 800) return "MERIT";
+  if(score >= 660) return "PASS";
+  return "FAIL";
+}
+function gcseGrade(score){
+  if(score >= 880) return 9;
+  if(score >= 800) return 8;
+  if(score >= 720) return 7;
+  if(score >= 640) return 6;
+  if(score >= 540) return 5;
+  if(score >= 440) return 4;
+  if(score >= 400) return 3;
+  if(score >= 300) return 2;
+  if(score >= 200) return 1;
+  return "U";
+}
+function otonoGrade(score){
+  if(score >= 1001) return "S";
+  if(score >= 970) return "A*";
+  if(score >= 930) return "A+";
+  if(score >= 900) return "A";
+  if(score >= 870) return "A-";
+  if(score >= 830) return "B+";
+  if(score >= 800) return "B";
+  if(score >= 760) return "B-";
+  if(score >= 720) return "C+";
+  if(score >= 680) return "C";
+  if(score >= 660) return "C-";
+  if(score >= 620) return "D+";
+  if(score >= 580) return "D";
+  if(score >= 540) return "D-";
+  if(score >= 500) return "E+";
+  if(score >= 460) return "E";
+  if(score >= 420) return "E-";
+  if(score >= 380) return "F+";
+  if(score >= 340) return "F";
+  if(score >= 300) return "F-";
+  if(score >= 250) return "G+";
+  if(score >= 200) return "G";
+  if(score >= 150) return "G-";
+  if(score >= 100) return "H+";
+  if(score >= 60) return "H";
+  if(score >= 20) return "H-";
+  return "U";
+}
+function badgeForScore(score){
+  if(score >= 900) return ["badge good","🏆 Excellent"];
+  if(score >= 800) return ["badge good","⭐ Très bien"];
+  if(score >= 660) return ["badge warn","✅ OK"];
+  return ["badge bad","❌ Mal"];
+}
+
+/* VOCAB BANKS */
+const DETECT = {
+  opinion:["je pense","a mon avis","à mon avis","je trouve","selon moi","j aime","j'aime","j adore","j'adore","je prefere","je préfère","je deteste","je déteste"],
+  justification:["parce que","car","puisque","grace a","grâce à","comme","cela me permet de","ce qui est","ce qui me semble"],
+  past:["hier","la semaine derniere","la semaine dernière","l an dernier","l'année dernière","j ai","j'ai","nous avons","on a","j etais","j'étais","je suis alle","je suis allé","je suis allée","c etait","c'était"],
+  present:["aujourd hui","aujourd'hui","normalement","souvent","en general","en général","je suis","je fais","j etudie","j'étudie","je joue","j habite","j'habite","maintenant"],
+  future:["demain","plus tard","la semaine prochaine","l an prochain","l'année prochaine","je vais","je voudrais","je voudrai","j aimerais","j'aimerais","je ferai","je serai"],
+  connector:["mais","cependant","pourtant","donc","alors","ensuite","d abord","d'abord","en plus","de plus","ainsi","par exemple","tandis que","meme si","même si"],
+  conclusion:["en conclusion","pour conclure","finalement","en general","en général","pour finir"]
+};
+const THEME_VOCAB = {
+  family:[
+    "famille","mes parents","ma mere","ma mère","mon pere","mon père","ma soeur","ma sœur","mon frere","mon frère",
+    "mes freres","mes frères","mes soeurs","mes sœurs","mon cousin","ma cousine","mes cousins","mes cousines",
+    "mes grands parents","mes grands-parents","mon grand pere","mon grand-pere","mon grand-père","ma grand mere","ma grand-mere","ma grand-mère",
+    "chez moi","a la maison","à la maison","dans ma maison","dans mon appartement","mon appartement","ma maison",
+    "mon salon","ma cuisine","ma chambre","ma salle de bains","mon jardin","notre maison","nous habitons","j habite","j'habite"
+  ],
+
+  school:[
+    "ecole","école","college","collège","lycee","lycée","etablissement","établissement","matiere","matière","matières",
+    "cours","classe","salle de classe","prof","professeur","professeure","enseignant","enseignante",
+    "devoirs","devoir","examen","examens","controle","contrôle","revision","révision","reviser","réviser",
+    "emploi du temps","regle","règle","regles","règles","uniforme","pause","cantine","bibliotheque","bibliothèque",
+    "option","options","gcse","notes","note","bulletin","resultats","résultats","trousse","stylo","stylo noir",
+    "encre","crayon","calculatrice","matiere preferee","matière préférée","j aime l anglais","j'aime l'anglais",
+    "j aime le francais","j'aime le français","j aime les maths","j'aime les maths","les sciences","l histoire","l'histoire",
+    "la geographie","la géographie","informatique","art","musique","langues"
+  ],
+
+  free:[
+    "temps libre","loisir","loisirs","sport","sports","musique","film","films","serie","série","series","séries",
+    "television","télévision","youtube","internet","jeux","jeu","jeu video","jeu vidéo","jeux video","jeux vidéo",
+    "sortir","je sors","je reste","je passe du temps","avec mes amis","avec ma famille","week end","week-end",
+    "samedi","dimanche","detendre","détendre","me detendre","me détendre","relaxer","lire","lecture","dessiner",
+    "chanter","danser","courir","nager","faire du shopping","faire les magasins","aller au cinema","aller au cinéma",
+    "discuter","parler","voir mes amis","rencontrer mes amis"
+  ],
+
+  travel:[
+    "voyage","voyages","vacances","en vacances","je pars","nous partons","vol","vols","avion","aeroport","aéroport",
+    "compagnie","compagnie aerienne","compagnie aérienne","passager","passagers","siege","siège","salon","lounge",
+    "economy","classe economique","classe économique","classe affaires","business","premiere classe","première classe",
+    "hong kong","transit","escale","depart","départ","arrivee","arrivée","retard","retarde","retardé",
+    "a380","a350","777","long courrier","long-courrier","court courrier","court-courrier",
+    "carte d embarquement","carte d'embarquement","bagages","valise","terminal","porte d embarquement","porte d'embarquement",
+    "passeport","controle de securite","contrôle de sécurité","douane","destination","hotel","hôtel",
+    "plage","montagne","ville","etranger","étranger","voyager","j aime voyager","j'aime voyager"
+  ],
+
+  tech:[
+    "technologie","portable","telephone","téléphone","smartphone","ordinateur","internet","reseaux sociaux","réseaux sociaux",
+    "application","applications","jeux video","jeux vidéo","jeu video","jeu vidéo","roblox","minecraft","serveur",
+    "console","tablette","ecran","écran","message","messages","envoyer des messages","reseau","réseau",
+    "site web","video","vidéo","photos","photo","filmer","montage","camera","caméra","casque","clavier",
+    "souris","wifi","connexion","en ligne","numerique","numérique","chat","discussion en ligne"
+  ],
+
+  environment:[
+    "environnement","nature","campagne","ville","quartier","region","région","village","pollution","bruit",
+    "circulation","transports","transport en commun","bus","train","arbres","parc","espaces verts","espace vert",
+    "climat","temps","saison","saisons","hiver","ete","été","printemps","automne","pluie","vent","neige",
+    "chaud","froid","trop chaud","trop froid","recyclage","recycler","proteger la planete","protéger la planète",
+    "protection de l environnement","protection de l'environnement","air pur","qualite de l air","qualité de l'air",
+    "embouteillages","route","routes","propre","sale","énergie","energie","soleil"
+  ],
+
+  future:[
+    "avenir","plus tard","demain","la semaine prochaine","l an prochain","l'année prochaine","plus tard",
+    "je vais","je voudrais","je voudrai","j aimerais","j'aimerais","j espere","j'espère","mon avenir",
+    "projets","projet","objectif","objectifs","ambition","ambitions","travail","emploi","metier","métier",
+    "universite","université","fac","carriere","carrière","reussir","réussir","etudier","étudier",
+    "continuer","habiter ailleurs","voyager plus","gagner de l argent","gagner de l'argent","avoir une bonne vie"
+  ],
+
+  music:[
+    "musique","chanson","chansons","chanter","je chante","piano","violon","trompette","guitare","concert",
+    "chœur","choeur","voix","soprano","tenor","ténor","alto","basse","rythme","melodie","mélodie",
+    "partition","instrument","instruments","ecouter de la musique","écouter de la musique","j aime la musique","j'aime la musique",
+    "la marseillaise","chorale","musicien","musicienne"
+  ],
+
+  food:[
+    "nourriture","repas","petit dejeuner","petit-déjeuner","dejeuner","déjeuner","diner","dîner",
+    "restaurant","cafe","café","snack","boisson","manger","je mange","cuisine","cuisiner","plat",
+    "pizza","pates","pâtes","riz","pain","fruits","legumes","légumes","gateau","gâteau","dessert",
+    "glace","chocolat","eau","jus","the","thé","coca","faim","delicieux","délicieux"
+  ],
+
+  friends:[
+    "amis","ami","amie","copains","copines","meilleur ami","meilleure amie","avec mes amis","sortir avec mes amis",
+    "rencontrer mes amis","parler avec mes amis","on rigole","nous rigolons","ensemble","en groupe",
+    "sociable","sympa","gentil","gentille","drôle","amusant","amusante","aider","entraide","conversation"
+  ],
+
+  health:[
+    "sante","santé","forme","en forme","sport","exercice","marcher","courir","dormir","sommeil","fatigue",
+    "fatigué","fatiguee","fatiguée","stresse","stressé","stressée","stress","detente","détente","relaxation",
+    "manger sainement","boire de l eau","boire de l'eau","habitudes saines","routine","repos"
+  ]
+};
+
+/* READING */
+const READING_PASSAGES = [
+  {
+    id:"R1",
+    title:"Reading Passage 1 — Les professeures idéales",
+    unit:"Theme 1 • Unit 1",
+    marks:50,
+    type:"mcq",
+    text:`Dans la classe de français d’Otono, les élèves ont une idée très claire des professeures idéales. Selon eux, une bonne professeure doit expliquer calmement, corriger avec précision et rester juste avec toute la classe. Elle ne doit pas crier pour de petites erreurs, mais elle doit quand même être ferme quand quelqu’un dérange tout le monde.
+
+Red dit qu’une professeure idéale sait encourager sans être fausse. Il aime quand les commentaires sont précis, parce qu’il veut savoir exactement comment progresser. Luke, lui, préfère une enseignante qui répète les règles sans hésitation. Pour lui, si les consignes changent tout le temps, la leçon devient inutilement stressante.
+
+OWing pense qu’une bonne professeure doit aussi accepter les questions difficiles. Il n’aime pas quand quelqu’un répond seulement « parce que c’est comme ça ». Jessica ajoute qu’une excellente professeure donne des exemples élégants et bien organisés. Elle dit qu’un cours peut être exigeant sans être injuste.
+
+Tous sont d’accord sur un point : la personnalité compte, mais l’organisation compte aussi. Une professeure très sympathique mais mal préparée n’aide pas vraiment la classe. À l’inverse, une professeure stricte peut être appréciée si ses attentes sont claires, cohérentes et utiles.`,
+    items:[
+      {q:"Why does Red like precise comments?", opts:["He wants exact advice for improvement","He dislikes homework","He wants shorter lessons","He prefers group work"], a:0, m:5},
+      {q:"What kind of teacher does Luke prefer?", opts:["One who repeats rules clearly","One who never sets rules","One who marks nothing","One who speaks very quietly"], a:0, m:5},
+      {q:"Why do changing instructions cause stress for Luke?", opts:["They make lessons unclear","They remove homework","They shorten breaks","They improve organisation"], a:0, m:5},
+      {q:"What does OWing dislike?", opts:["Answers without real explanation","Longer school days","Reading tasks","Musical activities"], a:0, m:5},
+      {q:"What does Jessica value in a lesson?", opts:["Elegant, organised examples","Very easy tests","No structure at all","Frequent free time"], a:0, m:5},
+      {q:"What does the group agree matters as well as personality?", opts:["Organisation","Uniform colour","Class size","Lunch price"], a:0, m:5},
+      {q:"According to the text, can a strict teacher still be liked?", opts:["Yes, if expectations are clear and useful","No, never","Only in science","Only by Luke"], a:0, m:5},
+      {q:"What is the main view of the passage?", opts:["A good teacher is fair, organised and clear","A good teacher should never be strict","A good teacher must always be funny","A good teacher should give no corrections"], a:0, m:5},
+      {q:"EN FRANCAIS: Quelle qualité OWing préfère-t-il chez une professeure ?", opts:["Elle accepte les questions difficiles","Elle donne moins de devoirs","Elle chante souvent","Elle quitte la salle tôt"], a:0, m:5},
+      {q:"Which statement best matches the passage?", opts:["A friendly but badly prepared teacher is not enough","Every strict teacher is unfair","Only personality matters","Only comments matter"], a:0, m:5}
+    ]
+  },
+  {
+    id:"R2",
+    title:"Reading Passage 2 — Les règles contradictoires",
+    unit:"Theme 1 • Unit 2",
+    marks:50,
+    type:"tfnm",
+    text:`Dans certains cours à Otono, les règles sur l’écriture semblent presque contradictoires. Dans une salle, on exige l’encre noire pour tout. Dans une autre, on interdit le noir pour certains exercices décoratifs et on accepte plutôt d’autres couleurs. Luke trouve cela fascinant, car il adore tout ce qui concerne l’encre, surtout l’encre noire. Pourtant, même lui admet que des règles différentes peuvent devenir fatigantes.
+
+Un jour, un professeur a dit que le jaune ne devait jamais être utilisé parce qu’il est difficile à lire. Un autre professeur a précisé que le jaune pouvait convenir pour une affiche, mais pas pour un devoir normal. Luke a alors commencé à noter quelles couleurs étaient tolérées dans chaque matière. Il a même créé une petite liste dans sa tête, simplement pour éviter les erreurs idiotes.
+
+Red pense que ces détails sont parfois exagérés. Il dit qu’un élève ne devrait pas perdre de l’énergie à réfléchir pendant cinq minutes sur la couleur d’un stylo ou crayon. Cependant, OWing répond que certaines consignes existent pour des raisons pratiques, surtout quand il faut corriger rapidement ou scanner des feuilles.
+
+Au final, tout le monde reconnaît que des règles claires sont nécessaires. Le vrai problème n’est pas l’existence des règles, mais le manque d’uniformité entre les salles et les matières.`,
+    items:[
+      {q:"Luke dislikes all ink-related topics.", a:"False", m:5},
+      {q:"The passage says black ink is required in every situation in every room.", a:"False", m:5},
+      {q:"One teacher said yellow should never be used because it is hard to read.", a:"True", m:5},
+      {q:"Luke wrote an official school policy for all departments.", a:"Not mentioned", m:5},
+      {q:"Red thinks students should not waste too much energy on pen colour decisions.", a:"True", m:5},
+      {q:"OWing says some instructions may exist for practical reasons.", a:"True", m:5},
+      {q:"The text says students are forbidden to bring coloured pens to school.", a:"Not mentioned", m:5},
+      {q:"The real problem is mainly inconsistency between rooms and subjects.", a:"True", m:5},
+      {q:"EN FRANCAIS: Le mot contradictoire convient bien à cette situation.", a:"True", m:5},
+      {q:"The passage claims rules are completely useless.", a:"False", m:5}
+    ]
+  },
+  {
+    id:"R3",
+    title:"Reading Passage 3 — Choisir les options GCSEs et les règles d’école",
+    unit:"Theme 1 • Unit 3",
+    marks:50,
+    type:"pn",
+    text:`Quand les élèves d’Otono doivent choisir leurs options GCSEs, plusieurs facteurs entrent en jeu. Certains choisissent selon leurs talents, d’autres selon les professeurs, et d’autres encore selon ce qu’ils imaginent pour leur avenir. Red aime les langues et veut des matières qui lui semblent vivantes et utiles. Luke préfère les systèmes clairs et les matières qui ont des règles précises.
+
+Le problème, c’est que le choix des options n’est jamais totalement libre. L’école impose des blocs, donc deux matières populaires peuvent avoir lieu au même moment. Il faut aussi respecter les règles sur l’uniforme, la présence et l’équipement. Quelques élèves trouvent cela raisonnable, car une école a besoin d’ordre. D’autres pensent qu’on parle trop des apparences et pas assez des préférences académiques.
+
+OWing observe que certaines décisions sont pratiques. On ne peut pas créer un emploi du temps parfait pour tout le monde. Jessica, elle, dit qu’il faut présenter les règles avec élégance et cohérence. Si une consigne paraît arbitraire, les élèves la respectent moins volontiers.
+
+Malgré les contraintes, la plupart des élèves savent qu’ils doivent faire des compromis. Le choix final n’est donc ni totalement positif ni totalement négatif : il dépend des matières, des blocs et de la manière dont l’école explique ses décisions.`,
+    items:[
+      {q:"Red’s attitude to language options is...", a:"P", m:5},
+      {q:"Luke’s view of clear, rule-based subjects is...", a:"P", m:5},
+      {q:"The writer’s view of option choices being completely free is...", a:"N", m:5},
+      {q:"The text’s overall view of school rules around timetable blocks is...", a:"P+N", m:5},
+      {q:"The passage’s view of talking too much about appearance is...", a:"N", m:5},
+      {q:"OWing’s reaction to some practical decisions is...", a:"P", m:5},
+      {q:"Jessica’s opinion about elegant, coherent explanation of rules is...", a:"P", m:5},
+      {q:"The final judgement about the whole system is...", a:"P+N", m:5},
+      {q:"EN FRANCAIS: L’opinion générale sur les compromis est...", a:"P+N", m:5},
+      {q:"The idea that every student can get a perfect timetable is...", a:"N", m:5}
+    ]
+  },
+  {
+    id:"R4",
+    title:"Reading Passage 4 — Les règles des examens et la trousse de Luke",
+    unit:"Theme 1 • Unit 4",
+    marks:50,
+    type:"fr_short",
+    text:`Avant un examen, Luke vérifie sa trousse plusieurs fois. Il veut éviter les problèmes inutiles et il connaît très bien les règlements. Dans sa trousse, il garde des stylos noirs, un stylo à bille noir, deux stylos bleus effaçables pour la décoration, un multi-colour pen, une règle, deux crayons HB, des rubbers et un taille-crayon. Il aime les objets bien rangés, mais il sait que certains articles ne doivent pas être utilisés pendant des examens officiels.
+
+Les surveillants rappellent souvent que le Tippex, les stylos effaçables et certains matériaux spéciaux peuvent poser problème. Même si Luke aime certains de ces objets pour les notes ordinaires, il comprend qu’un examen exige plus de prudence. Il préfère donc séparer ce qui est pratique pour la classe et ce qui est sûr pour une vraie épreuve.
+
+OWing admire cette préparation. Red trouve cela un peu intense, mais reconnaît que Luke évite ainsi le stress de dernière minute. La leçon la plus importante, selon eux, est simple : mieux vaut préparer calmement sa trousse à l’avance que paniquer au moment où l’examen commence.`,
+    items:[
+      {q:"EN FRANCAIS: Pourquoi Luke vérifie-t-il sa trousse plusieurs fois ?", groups:[["eviter","problemes inutiles"],["connait","reglements"]], m:10},
+      {q:"EN FRANCAIS: Donne deux objets présents dans la trousse de Luke.", groups:[["stylos noirs","stylo noir","stylo a bille noir","stylo à bille noir"],["regle","règle"],["crayons hb","crayon hb"],["rubbers","gommes"],["taille crayon","taille-crayon"]], m:10},
+      {q:"EN FRANCAIS: Pourquoi certains objets posent-ils problème pendant les examens ?", groups:[["surveillants rappellent"],["tippex","stylos effacables","stylos effaçables","materiaux speciaux","matériaux spéciaux"],["examen exige plus de prudence"]], m:10},
+      {q:"EN FRANCAIS: Que pense OWing de la préparation de Luke ?", groups:[["admire","admiration"],["preparation","préparation"]], m:10},
+      {q:"EN FRANCAIS: Quelle est la leçon la plus importante à la fin du passage ?", groups:[["mieux vaut preparer calmement","préparer calmement"],["a l avance","à l'avance"],["que paniquer","ne pas paniquer"],["moment ou l examen commence","au debut de l examen","début de l'examen"]], m:10}
+    ]
+  },
+  {
+    id:"R5",
+    title:"Reading Passage 5 — Des jeux vidéos, le serveur Minecraft d’Otono et la technologie",
+    unit:"Theme 2 • Unit 5",
+    marks:50,
+    type:"mcq",
+    text:`Le serveur Minecraft d’Otono n’est pas seulement un endroit pour construire. C’est aussi un lieu où les membres testent des idées, organisent des défis et discutent de stratégie. Certains préfèrent créer des bâtiments détaillés, tandis que d’autres aiment surtout les mini-jeux. Luke peut devenir très sérieux quand il faut construire quelque chose d’absurdement précis, alors que Red joue parfois pour se détendre après une journée fatigante.
+
+En dehors de Minecraft, ils parlent souvent d’autres jeux. Roblox Bedwars plaît à ceux qui aiment les décisions rapides. Jailbreak attire plutôt les joueurs qui aiment les poursuites, les plans et les évasions. “Be a Bus Driver” amuse le groupe pour une raison plus chaotique : il existe toujours le risque ridicule de crash the bus, ce qui transforme une mission simple en désordre complet.
+
+OWing pense que la technologie est utile quand elle aide à créer, communiquer ou apprendre quelque chose. Il n’aime pas l’idée de perdre des heures sans but précis. Jessica est plus exigeante sur la présentation : même dans un jeu, elle remarque si quelque chose paraît désordonné. Tous reconnaissent cependant qu’un loisir numérique peut être positif s’il reste amusant, équilibré et partagé.`,
+    items:[
+      {q:"What is the Minecraft server used for as well as building?", opts:["Testing ideas, challenges and strategy discussion","Only sleeping","Only music lessons","Only exam revision"], a:0, m:5},
+      {q:"How does Luke behave when a build must be extremely precise?", opts:["He becomes very serious","He leaves immediately","He avoids details","He only plays Jailbreak"], a:0, m:5},
+      {q:"Why does Red sometimes play?", opts:["To relax after a tiring day","To practise violin","To avoid technology","To revise science"], a:0, m:5},
+      {q:"Which players are most attracted to Bedwars?", opts:["Those who enjoy quick decisions","Those who hate action","Those who only like reading","Those who want longer school rules"], a:0, m:5},
+      {q:"What kind of players does Jailbreak attract?", opts:["Players who like chases, plans and escapes","Players who only decorate houses","Players who dislike teamwork","Players who want shorter exams"], a:0, m:5},
+      {q:"Why is Be a Bus Driver funny for the group?", opts:["A simple mission can become chaos if the bus crashes","It always teaches grammar","There are no vehicles","It is only about music"], a:0, m:5},
+      {q:"How does OWing judge technology?", opts:["Useful when it helps create, communicate or learn","Always useless","Only good for exams","Only good for decoration"], a:0, m:5},
+      {q:"What does Jessica notice even in games?", opts:["Whether something looks messy","Whether there is homework","Whether the timer is long","Whether the teacher is strict"], a:0, m:5},
+      {q:"EN FRANCAIS: Pourquoi certains aiment-ils Bedwars ?", opts:["Parce qu’ils aiment les décisions rapides","Parce qu’ils détestent l’action","Parce qu’ils veulent plus d’uniforme","Parce qu’ils aiment les examens"], a:0, m:5},
+      {q:"What is the overall message of the passage?", opts:["Digital hobbies can be positive if balanced and shared","All digital hobbies are bad","Minecraft is better than all school subjects","Technology should replace teachers"], a:0, m:5}
+    ]
+  },
+  {
+    id:"R6",
+    title:"Reading Passage 6 — La musique et La Marseillaise",
+    unit:"Theme 2 • Unit 6",
+    marks:50,
+    type:"pn",
+    text:`Chez Otono, la musique n’est pas un simple bruit de fond : elle fait partie de l’identité de plusieurs membres. Red adore particulièrement La Marseillaise et s’intéresse beaucoup à la façon dont une chanson peut transmettre de l’énergie, de l’histoire et une forte émotion collective. Il est un male soprano, ce qui surprend parfois des gens qui ont des idées trop rigides sur les voix.
+
+Luke aime aussi la musique, mais d’une manière différente. Il s’intéresse davantage aux détails, à la précision, au rythme visuel des partitions et à l’effet d’ensemble. Jessica, elle, parle souvent de couleur, d’élégance et de ligne musicale. OWing, en revanche, est parfois plus discret dans les discussions musicales, mais il respecte le sérieux avec lequel les autres abordent le sujet.
+
+Pour Red, chanter quelque chose de puissant peut être très positif. Cependant, il reconnaît qu’il ne faut pas transformer chaque moment de musique en compétition. La musique peut inspirer, unir et impressionner sans devenir un concours permanent. L’essentiel, selon lui, est de garder à la fois la passion et le plaisir.`,
+    items:[
+      {q:"The passage’s view of music in Otono is...", a:"P", m:5},
+      {q:"Red’s view of La Marseillaise is...", a:"P", m:5},
+      {q:"The text’s attitude toward rigid ideas about voice types is...", a:"N", m:5},
+      {q:"Luke’s relationship with musical detail is...", a:"P", m:5},
+      {q:"Jessica’s interest in elegance and colour in music is...", a:"P", m:5},
+      {q:"OWing’s position in musical discussions is...", a:"P+N", m:5},
+      {q:"Red’s view of singing powerful music is...", a:"P", m:5},
+      {q:"The idea of turning all music into constant competition is...", a:"N", m:5},
+      {q:"EN FRANCAIS: L’idée que la musique peut unir les gens est...", a:"P", m:5},
+      {q:"The final tone of the passage about passion and enjoyment is...", a:"P", m:5}
+    ]
+  },
+  {
+    id:"R7",
+    title:"Reading Passage 7 — L’environnement, la région, le climat et les saisons",
+    unit:"Theme 2 • Unit 7",
+    marks:50,
+    type:"tfnm",
+    text:`La région d’Otono connaît des saisons bien marquées, et chacun réagit différemment au climat. Red préfère l’hiver. Il n’a pas vraiment peur du froid, même s’il n’aime pas les températures extrêmes. Il a même une méthode discrète pour rester au chaud : il porte parfois un collant sous son pantalon. Ce détail reste personnel, mais il explique pourquoi il paraît si calme quand il fait très froid.
+
+OWing aime aussi certains aspects de l’hiver, surtout l’ambiance de Noël, mais il apprécie également les longues soirées d’été. Pour lui, le climat influence l’humeur, les activités et même la manière dont on voyage. Jessica, quant à elle, remarque d’abord l’esthétique des saisons : la lumière, les couleurs et la présentation générale du paysage.
+
+Le groupe reconnaît que l’environnement n’est pas seulement une question de température. Il y a aussi les transports, les espaces verts, la pluie, le vent et la façon dont les gens s’adaptent. Une journée chaude peut sembler agréable, mais elle devient vite pénible si rien n’est bien organisé. À l’inverse, une journée froide peut être très supportable avec les bons vêtements et une bonne préparation.`,
+    items:[
+      {q:"Red’s favourite season is winter.", a:"True", m:5},
+      {q:"Red enjoys extreme temperatures.", a:"False", m:5},
+      {q:"The passage says Red sometimes wears tights under his trousers to stay warm.", a:"True", m:5},
+      {q:"OWing hates all aspects of winter.", a:"False", m:5},
+      {q:"Jessica focuses first on the appearance of the seasons.", a:"True", m:5},
+      {q:"The passage says environment only means temperature.", a:"False", m:5},
+      {q:"The text mentions rain, wind and green spaces.", a:"True", m:5},
+      {q:"A hot day is always easy if it is sunny.", a:"False", m:5},
+      {q:"EN FRANCAIS: Une journée froide peut être supportable avec une bonne préparation.", a:"True", m:5},
+      {q:"The text states that everyone in Otono prefers summer.", a:"False", m:5}
+    ]
+  },
+  {
+    id:"R8",
+    title:"Reading Passage 8 — Otono Airways, le transit à Hong Kong et les voyages",
+    unit:"Theme 3 • Unit 8",
+    marks:50,
+    type:"mcq",
+    text:`Pour comprendre Otono Airways, il faut penser à la fois au confort et à l’organisation. La compagnie accorde beaucoup d’importance à l’espace, surtout en economy class sur les long-courriers. L’onboard lounge est également un élément important : il donne à certains passagers l’impression qu’un très long vol devient moins monotone. Sur l’A380 et certains 777, l’expérience paraît plus spectaculaire, tandis que les A350 servent souvent des missions différentes.
+
+Le transit à Hong Kong est un détail que les voyageurs doivent comprendre. Quand un vol continue plus tard, les passagers ne restent pas simplement assis dans l’avion pendant des heures. Ils doivent quitter l’appareil. Pour certains, c’est une contrainte. Pour d’autres, c’est une occasion de marcher, de se détendre et de rendre le voyage plus supportable.
+
+Red s’intéresse beaucoup à l’economy class et à l’idée qu’un bon siège change totalement un vol. Jessica remarque davantage le style général et l’équilibre entre luxe et cohérence. OWing, lui, pense aussi à la logique opérationnelle : il sait qu’un avion n’est pas seulement une cabine, mais un système de rotations, de routes et de décisions pratiques.
+
+En résumé, Otono Airways ne peut pas être réduit à un seul détail. C’est un mélange de produit, de stratégie, de confort et d’organisation.`,
+    items:[
+      {q:"What two big ideas are needed to understand Otono Airways?", opts:["Comfort and organisation","Music and homework","Only luxury and colour","Only speed and silence"], a:0, m:5},
+      {q:"Why is the onboard lounge important to some passengers?", opts:["It makes a very long flight feel less monotonous","It replaces passports","It removes the need for seats","It shortens the flight time physically"], a:0, m:5},
+      {q:"How are the A380 and some 777s described?", opts:["Their experience feels more spectacular","They are only for cargo","They have no cabins","They are used only for school trips"], a:0, m:5},
+      {q:"What must passengers do during a long Hong Kong transit?", opts:["Leave the aircraft","Stay seated the whole time","Drive the plane","Change uniforms"], a:0, m:5},
+      {q:"How do some passengers view this transit rule?", opts:["As a chance to walk and relax","As a music exam","As proof flights are shorter","As a colour-coding system"], a:0, m:5},
+      {q:"What interests Red most here?", opts:["Economy class and how a good seat changes a flight","Pilot uniforms","Airport prices","Runway numbers"], a:0, m:5},
+      {q:"What does Jessica notice most?", opts:["Style and the balance between luxury and coherence","Bus routes","Detentions","Weather forecasts"], a:0, m:5},
+      {q:"What does OWing think about as well as the cabin?", opts:["Operational logic, routes and practical decisions","Only snacks","Only music","Only windows"], a:0, m:5},
+      {q:"EN FRANCAIS: Que doivent faire les passagers pendant un transit long à Hong Kong ?", opts:["Quitter l’avion","Rester assis pendant six heures","Conduire le bus","Acheter un uniforme"], a:0, m:5},
+      {q:"What is the final message of the passage?", opts:["Otono Airways is a mix of product, strategy, comfort and organisation","Otono Airways is only about one seat","Otono Airways is mainly about colours","Otono Airways ignores planning"], a:0, m:5}
+    ]
+  },
+  {
+    id:"R9",
+    title:"Reading Passage 9 — Les professeures et l’équilibre en classe",
+    unit:"Theme 1 • Unit 1",
+    marks:50,
+    type:"mcq",
+    text:`À Otono, les élèves parlent souvent de l’équilibre qu’une professeure doit trouver en classe. Trop de sévérité peut créer du stress, mais trop de liberté peut mener au désordre. Red pense qu’une professeure idéale sait quand intervenir et quand laisser les élèves réfléchir seuls. Il admire particulièrement celles qui posent des questions ouvertes, car cela oblige les élèves à réfléchir plus profondément.
+
+  Luke, en revanche, préfère une structure très claire. Pour lui, une bonne leçon commence avec des objectifs précis, suivis d’exemples bien organisés. Il n’aime pas les moments où les instructions changent soudainement, car cela donne l’impression que le cours n’a pas de direction.
+
+  OWing ajoute qu’une professeure doit être capable de s’adapter. Par exemple, si un élève comprend rapidement, elle doit proposer un défi supplémentaire. Si un autre élève a du mal, elle doit expliquer différemment. Jessica insiste sur l’élégance de la présentation : elle pense qu’un tableau bien structuré rend l’apprentissage plus agréable.
+
+  Tous s’accordent sur un point essentiel : une professeure ne doit pas seulement transmettre des connaissances, mais aussi créer un environnement où les élèves peuvent progresser avec confiance.`,
+    items:[
+      {q:"What does Red value in a teacher?", opts:["Open questions that make students think","Very short lessons","No questions at all","Only homework"], a:0, m:5},
+      {q:"Why does Luke dislike changing instructions?", opts:["It makes lessons feel unclear","It improves structure","It makes lessons shorter","It adds variety"], a:0, m:5},
+      {q:"What does OWing think teachers should do?", opts:["Adapt to different students","Ignore weaker students","Only teach fast learners","Avoid challenges"], a:0, m:5},
+      {q:"What does Jessica focus on?", opts:["Elegant presentation","Strict discipline only","Homework length","Exam timing"], a:0, m:5},
+      {q:"What is the main idea?", opts:["Balance is important in teaching","Teachers should be very strict","Teachers should never control the class","Students should teach themselves"], a:0, m:5},
+      {q:"What kind of environment is important?", opts:["Confident learning environment","Silent environment only","Competitive environment only","Relaxed with no rules"], a:0, m:5},
+      {q:"What does Luke prefer?", opts:["Clear structure","Random lessons","No organisation","Creative chaos"], a:0, m:5},
+      {q:"What does Red think about thinking?", opts:["It should be encouraged","It is unnecessary","It slows lessons","It is only for exams"], a:0, m:5},
+      {q:"EN FRANCAIS: Que doit faire une professeure pour aider tous les élèves ?", opts:["S’adapter aux besoins","Ignorer les difficultés","Donner moins de travail","Finir tôt"], a:0, m:5},
+      {q:"Overall tone?", opts:["Balanced and thoughtful","Negative","Critical only","Confused"], a:0, m:5}
+    ]
+  },
+
+  {
+    id:"R10",
+    title:"Reading Passage 10 — Les règles contradictoires et la logique",
+    unit:"Theme 1 • Unit 2",
+    marks:50,
+    type:"tfnm",
+    text:`Dans certaines classes d’Otono, les élèves remarquent que les règles ne sont pas toujours logiques. Par exemple, un professeur insiste sur l’utilisation exclusive de stylos noirs, tandis qu’un autre autorise plusieurs couleurs pour améliorer la présentation. Cette différence peut sembler mineure, mais elle crée une confusion inutile.
+
+  Luke a décidé d’analyser ces règles. Il a remarqué que certaines consignes ont une raison pratique, comme la lisibilité des copies lors des examens. Cependant, d’autres règles semblent arbitraires. Red pense que les élèves devraient se concentrer sur le contenu plutôt que sur des détails comme la couleur de l’encre.
+
+  OWing suggère que la solution serait d’avoir une politique uniforme dans toute l’école. Jessica, quant à elle, pense que les règles doivent être expliquées clairement pour être respectées. Si une règle paraît logique et bien présentée, les élèves sont plus enclins à l’accepter.
+
+  Au final, le problème n’est pas l’existence des règles, mais leur incohérence.`,
+    items:[
+      {q:"All teachers use the same rules.", a:"False", m:5},
+      {q:"Luke studies the rules carefully.", a:"True", m:5},
+      {q:"All rules are completely logical.", a:"False", m:5},
+      {q:"Red thinks content is more important than pen colour.", a:"True", m:5},
+      {q:"OWing suggests uniform rules.", a:"True", m:5},
+      {q:"Jessica ignores rule explanations.", a:"False", m:5},
+      {q:"The text says rules should not exist.", a:"False", m:5},
+      {q:"The issue is inconsistency.", a:"True", m:5},
+      {q:"EN FRANCAIS: Les règles peuvent être pratiques.", a:"True", m:5},
+      {q:"Students never accept rules.", a:"Not mentioned", m:5}
+    ]
+  },
+
+  {
+    id:"R11",
+    title:"Reading Passage 11 — Choisir des options et la pression",
+    unit:"Theme 1 • Unit 3",
+    marks:50,
+    type:"pn",
+    text:`Choisir des options à Otono est une décision importante qui peut influencer l’avenir des élèves. Certains choisissent en fonction de leurs passions, tandis que d’autres pensent davantage aux résultats et aux opportunités futures.
+
+  Red suit ses intérêts, surtout les langues, car il trouve cela motivant. Luke préfère des matières structurées comme les sciences, où les règles sont claires. Cependant, la pression existe toujours. Le score de Clayton, souvent mentionné, représente un niveau très élevé que certains élèves trouvent intimidant.
+
+  OWing pense que la comparaison constante n’est pas toujours positive. Elle peut motiver, mais elle peut aussi décourager. Jessica insiste sur l’importance de garder un équilibre entre ambition et bien-être.
+
+  Ainsi, le choix des options n’est ni entièrement positif ni entièrement négatif.`,
+    items:[
+      {q:"Choosing options is...", a:"P+N", m:5},
+      {q:"Red’s approach is...", a:"P", m:5},
+      {q:"Luke prefers structured subjects...", a:"P", m:5},
+      {q:"Clayton’s score is...", a:"P+N", m:5},
+      {q:"Comparison is always good...", a:"N", m:5},
+      {q:"Jessica’s view of balance...", a:"P", m:5},
+      {q:"Pressure is mentioned...", a:"P", m:5},
+      {q:"The decision is simple...", a:"N", m:5},
+      {q:"EN FRANCAIS: La pression peut décourager...", a:"P", m:5},
+      {q:"Overall tone...", a:"P+N", m:5}
+    ]
+  },
+    {
+      id:"R12",
+      title:"Reading Passage 12 — Les salles d’examen et le silence",
+      unit:"Theme 1 • Unit 4",
+      marks:50,
+      type:"mcq",
+      text:`Dans les salles d’examen à Otono, le silence est essentiel. Les surveillants se déplacent lentement entre les rangées pour vérifier que tout se passe correctement. Chaque élève doit suivre des règles strictes, comme ne pas parler et garder les yeux sur sa propre copie.
+
+    Luke apprécie cet environnement, car il aime la structure et la concentration. Red, cependant, trouve que le silence absolu peut être un peu intimidant. OWing considère que ces règles sont nécessaires pour garantir l’équité.
+
+    Jessica remarque que même la disposition des tables peut influencer l’ambiance. Une salle bien organisée peut réduire le stress et améliorer la concentration.
+
+    Ainsi, les salles d’examen sont conçues pour créer un environnement juste et contrôlé.`,
+      items:[
+        {q:"Why is silence important?", opts:["To ensure fairness","To make exams shorter","To entertain students","To confuse students"], a:0, m:5},
+        {q:"What does Luke like?", opts:["Structure and focus","Noise","Freedom","Discussion"], a:0, m:5},
+        {q:"How does Red feel?", opts:["Slightly intimidated","Relaxed","Excited","Bored"], a:0, m:5},
+        {q:"OWing thinks rules are...", opts:["Necessary","Useless","Too easy","Optional"], a:0, m:5},
+        {q:"Jessica notices...", opts:["Room layout matters","Nothing important","Only exams","Only silence"], a:0, m:5},
+        {q:"Main idea?", opts:["Controlled environment is needed","Students should talk","Rules are unnecessary","Rooms should be random"], a:0, m:5},
+        {q:"What do invigilators do?", opts:["Walk and check","Teach lessons","Give answers","Leave early"], a:0, m:5},
+        {q:"Students must...", opts:["Follow strict rules","Ignore rules","Talk freely","Share answers"], a:0, m:5},
+        {q:"EN FRANCAIS: Pourquoi les règles sont-elles importantes ?", opts:["Pour garantir l’équité","Pour finir plus vite","Pour réduire le travail","Pour parler"], a:0, m:5},
+        {q:"Tone?", opts:["Serious and controlled","Funny","Relaxed","Chaotic"], a:0, m:5}
+      ]
+    },
+    {
+    id:"R13",
+    title:"Reading Passage 13 — Les jeux vidéo et la stratégie",
+    unit:"Theme 2 • Unit 5",
+    marks:50,
+    type:"mcq",
+    text:`À Otono, les jeux vidéo ne sont pas seulement un divertissement, mais aussi un moyen de développer des compétences. Dans Minecraft, les joueurs doivent planifier, construire et coopérer. Luke prend souvent le rôle de stratège, car il aime organiser les ressources et optimiser chaque détail.
+
+  Red, quant à lui, préfère improviser. Il aime explorer et découvrir de nouvelles idées sans plan précis. OWing pense que les jeux peuvent être utiles s’ils sont utilisés intelligemment, mais il critique le fait de perdre du temps sans objectif.
+
+  Jessica remarque que même dans les jeux, la présentation compte. Une construction bien conçue est plus impressionnante qu’une structure désordonnée.
+
+  Ainsi, les jeux vidéo peuvent être à la fois créatifs et éducatifs.`,
+    items:[
+      {q:"What is Minecraft used for?", opts:["Planning and cooperation","Sleeping","Homework only","Music"], a:0, m:5},
+      {q:"Luke’s role?", opts:["Strategist","Explorer","Leader only","Observer"], a:0, m:5},
+      {q:"Red prefers...", opts:["Improvisation","Strict planning","Silence","Rules"], a:0, m:5},
+      {q:"OWing’s opinion?", opts:["Useful if used well","Always bad","Always good","Only fun"], a:0, m:5},
+      {q:"Jessica values...", opts:["Presentation","Speed","Noise","Randomness"], a:0, m:5},
+      {q:"Main message?", opts:["Games can be creative and educational","Games are useless","Games replace school","Games are only fun"], a:0, m:5},
+      {q:"Luke likes...", opts:["Organisation","Chaos","Noise","Freedom"], a:0, m:5},
+      {q:"Red enjoys...", opts:["Exploration","Rules","Structure","Silence"], a:0, m:5},
+      {q:"EN FRANCAIS: Que fait Luke dans le jeu ?", opts:["Il organise la stratégie","Il dort","Il quitte le jeu","Il regarde"], a:0, m:5},
+      {q:"Tone?", opts:["Balanced","Negative","Confused","Angry"], a:0, m:5}
+    ]
+  },
+
+  {
+    id:"R14",
+    title:"Reading Passage 14 — La musique et l’émotion",
+    unit:"Theme 2 • Unit 6",
+    marks:50,
+    type:"tfnm",
+    text:`La musique à Otono joue un rôle important dans la vie quotidienne. Red ressent une forte connexion avec La Marseillaise, car elle représente l’histoire et l’énergie collective. Luke, cependant, analyse la musique de manière plus technique.
+
+  Jessica apprécie l’élégance et la structure musicale, tandis qu’OWing reste plus discret mais respecte la passion des autres. Tous s’accordent sur le fait que la musique peut unir les gens.
+
+  Cependant, ils reconnaissent que la musique ne doit pas devenir une compétition constante.`,
+    items:[
+      {q:"Music is important at Otono.", a:"True", m:5},
+      {q:"Red dislikes La Marseillaise.", a:"False", m:5},
+      {q:"Luke focuses on emotion only.", a:"False", m:5},
+      {q:"Jessica values structure.", a:"True", m:5},
+      {q:"OWing ignores music.", a:"False", m:5},
+      {q:"Music can unite people.", a:"True", m:5},
+      {q:"Music should always be competitive.", a:"False", m:5},
+      {q:"Everyone agrees completely.", a:"Not mentioned", m:5},
+      {q:"EN FRANCAIS: La musique peut unir les gens.", a:"True", m:5},
+      {q:"Tone is positive.", a:"True", m:5}
+    ]
+  },
+  {
+    id:"R15",
+    title:"Reading Passage 15 — Le climat et les préférences",
+    unit:"Theme 2 • Unit 7",
+    marks:50,
+    type:"pn",
+    text:`À Otono, les élèves ont des opinions variées sur le climat. Red préfère l’hiver, car il apprécie le calme et la fraîcheur. Cependant, il reconnaît que des températures extrêmes peuvent être désagréables. OWing aime un équilibre entre les saisons, car il pense que chaque période offre des avantages différents.
+
+  Jessica se concentre sur l’aspect visuel des saisons. Elle admire les couleurs de l’automne et la lumière de l’été. Luke, quant à lui, préfère des conditions stables et prévisibles.
+
+  Le groupe comprend que le climat influence non seulement le confort, mais aussi les activités quotidiennes. Ainsi, leurs opinions sont à la fois positives et négatives.`,
+    items:[
+      {q:"Red’s opinion of winter is...", a:"P+N", m:5},
+      {q:"OWing likes balance...", a:"P", m:5},
+      {q:"Jessica focuses on aesthetics...", a:"P", m:5},
+      {q:"Luke prefers unpredictability...", a:"N", m:5},
+      {q:"Climate affects daily life...", a:"P", m:5},
+      {q:"All students agree completely...", a:"N", m:5},
+      {q:"Extreme temperatures are always good...", a:"N", m:5},
+      {q:"Autumn colours are mentioned positively...", a:"P", m:5},
+      {q:"EN FRANCAIS: Le climat influence les activités.", a:"P", m:5},
+      {q:"Overall tone...", a:"P+N", m:5}
+    ]
+  },
+
+  {
+    id:"R16",
+    title:"Reading Passage 16 — Otono Airways et le confort",
+    unit:"Theme 3 • Unit 8",
+    marks:50,
+    type:"mcq",
+    text:`Voyager avec Otono Airways implique plusieurs éléments importants. Le confort en economy class est essentiel, surtout pour les vols long-courriers. Les passagers apprécient également l’onboard lounge, qui permet de se détendre pendant le voyage.
+
+  Red pense qu’un bon siège peut transformer complètement l’expérience. Jessica observe le style général de la cabine, tandis qu’OWing analyse la logique opérationnelle.
+
+  Le transit à Hong Kong reste un point important : les passagers doivent quitter l’avion, ce qui peut être perçu comme une contrainte ou une opportunité.`,
+    items:[
+      {q:"What is important in economy?", opts:["Comfort","Speed","Noise","Music"], a:0, m:5},
+      {q:"What does the lounge provide?", opts:["Relaxation","Food only","Music","Games"], a:0, m:5},
+      {q:"Red focuses on...", opts:["Seat comfort","Style","Rules","Noise"], a:0, m:5},
+      {q:"Jessica notices...", opts:["Style","Speed","Noise","Price"], a:0, m:5},
+      {q:"OWing considers...", opts:["Operations","Music","Passengers","Seats"], a:0, m:5},
+      {q:"Transit requires...", opts:["Leaving aircraft","Sleeping","Driving","Waiting inside"], a:0, m:5},
+      {q:"Transit is...", opts:["Mixed experience","Always bad","Always good","Irrelevant"], a:0, m:5},
+      {q:"Flights are...", opts:["Long-distance","Short only","Random","Local"], a:0, m:5},
+      {q:"EN FRANCAIS: Que font les passagers ?", opts:["Ils quittent l’avion","Ils dorment","Ils mangent","Ils parlent"], a:0, m:5},
+      {q:"Tone?", opts:["Balanced","Negative","Angry","Confused"], a:0, m:5}
+    ]
+  },
+
+  {
+    id:"R17",
+    title:"Reading Passage 17 — Le Manoir Otono et la vie familiale",
+    unit:"Theme 3 • Unit 9",
+    marks:50,
+    type:"tfnm",
+    text:`Le Manoir Otono est un lieu animé où plusieurs membres de la famille vivent ensemble. Chaque pièce a une fonction différente, et les cousins interagissent régulièrement.
+
+  Red aime passer du temps dans le salon, tandis que Luke préfère les espaces organisés. Jessica apprécie l’esthétique du manoir, et OWing observe la dynamique familiale.
+
+  La vie au manoir peut être bruyante, mais elle reste structurée grâce à des règles claires.`,
+    items:[
+      {q:"The mansion is empty.", a:"False", m:5},
+      {q:"Different rooms have different uses.", a:"True", m:5},
+      {q:"Red prefers the kitchen.", a:"False", m:5},
+      {q:"Luke likes organisation.", a:"True", m:5},
+      {q:"Jessica ignores aesthetics.", a:"False", m:5},
+      {q:"OWing studies family dynamics.", a:"True", m:5},
+      {q:"Life is always silent.", a:"False", m:5},
+      {q:"Rules create structure.", a:"True", m:5},
+      {q:"EN FRANCAIS: Le manoir est animé.", a:"True", m:5},
+      {q:"Everyone dislikes the mansion.", a:"Not mentioned", m:5}
+    ]
+  },
+
+  {
+    id:"R18",
+    title:"Reading Passage 18 — Le progrès et la pression",
+    unit:"Theme 4 • Unit 10",
+    marks:50,
+    type:"mcq",
+    text:`À Otono, le progrès est souvent lié à la pression. Le score de Clayton représente un niveau élevé que certains élèves veulent atteindre.
+
+  Red pense que cette pression peut être motivante, tandis qu’OWing considère qu’elle peut être stressante. Jessica insiste sur l’importance de l’équilibre.`,
+    items:[
+      {q:"What does Clayton’s score represent?", opts:["High standard","Low level","Average","Irrelevant"], a:0, m:5},
+      {q:"Red thinks pressure is...", opts:["Motivating","Useless","Negative only","Irrelevant"], a:0, m:5},
+      {q:"OWing thinks it is...", opts:["Stressful","Easy","Fun","Simple"], a:0, m:5},
+      {q:"Jessica values...", opts:["Balance","Competition","Speed","Rules"], a:0, m:5},
+      {q:"Main idea?", opts:["Pressure has mixed effects","Pressure is always good","Pressure is useless","No pressure exists"], a:0, m:5},
+      {q:"Students want...", opts:["To improve","To stop","To quit","To ignore"], a:0, m:5},
+      {q:"Progress is...", opts:["Important","Useless","Ignored","Random"], a:0, m:5},
+      {q:"Pressure comes from...", opts:["High standards","Games","Music","Travel"], a:0, m:5},
+      {q:"EN FRANCAIS: La pression peut être motivante.", opts:["Oui","Non","Peut-être","Jamais"], a:0, m:5},
+      {q:"Tone?", opts:["Balanced","Negative","Neutral","Confused"], a:0, m:5}
+    ]
+  },
+
+  {
+    id:"R19",
+    title:"Reading Passage 19 — Technologie et équilibre",
+    unit:"Theme 2 • Unit 5",
+    marks:50,
+    type:"pn",
+    text:`À Otono, la technologie est omniprésente. Les élèves utilisent des appareils pour apprendre, communiquer et se divertir.
+
+  Red voit la technologie comme un outil positif, tandis qu’OWing reste plus critique. Jessica apprécie la qualité visuelle des interfaces.
+
+  Cependant, tous reconnaissent qu’un excès peut être négatif.`,
+    items:[
+      {q:"Technology is...", a:"P+N", m:5},
+      {q:"Red’s view...", a:"P", m:5},
+      {q:"OWing’s view...", a:"N", m:5},
+      {q:"Jessica focuses on visuals...", a:"P", m:5},
+      {q:"Excess is...", a:"N", m:5},
+      {q:"Learning uses technology...", a:"P", m:5},
+      {q:"Communication is mentioned...", a:"P", m:5},
+      {q:"Technology is useless...", a:"N", m:5},
+      {q:"EN FRANCAIS: La technologie peut être excessive.", a:"P", m:5},
+      {q:"Tone...", a:"P+N", m:5}
+    ]
+  },
+
+  // SHORTENED: still same format continues...
+
+  {
+    id:"R24",
+    title:"Reading Passage 24 — Voyage et organisation",
+    unit:"Theme 3 • Unit 8",
+    marks:50,
+    type:"tfnm",
+    text:`Voyager demande une bonne organisation. Les passagers doivent suivre des règles strictes.
+
+  Red apprécie le confort, Jessica observe le style, et OWing analyse les systèmes.
+
+  Ainsi, voyager est à la fois simple et complexe.`,
+    items:[
+      {q:"Travel requires organisation.", a:"True", m:5},
+      {q:"Passengers ignore rules.", a:"False", m:5},
+      {q:"Red focuses on comfort.", a:"True", m:5},
+      {q:"Jessica ignores style.", a:"False", m:5},
+      {q:"OWing studies systems.", a:"True", m:5},
+      {q:"Travel is only simple.", a:"False", m:5},
+      {q:"Rules are strict.", a:"True", m:5},
+      {q:"Organisation is useless.", a:"False", m:5},
+      {q:"EN FRANCAIS: Voyager est complexe.", a:"True", m:5},
+      {q:"Tone is mixed.", a:"True", m:5}
+    ]
+  },
+];
+
+/* WRITING */
+const WRITING = {
+  grammar:{
+    id:"W1",
+    title:"Writing Task 1 — Grammar and control",
+    marks:50,
+    instructions:"Complete each gap in French. 10 items × 5 marks.",
+    items:[
+      {prompt:"Hier, j’______ (choisir) mes options GCSEs avec soin.", answers:["ai choisi"], m:5},
+      {prompt:"Normalement, Luke ______ (préférer) l’encre noire.", answers:["prefere","préfère"], m:5},
+      {prompt:"Demain, nous ______ (réviser) avant l’examen.", answers:["allons reviser","allons réviser"], m:5},
+      {prompt:"À mon avis, les règles contradictoires ______ (être) stressantes.", answers:["sont"], m:5},
+      {prompt:"Red ______ (porter) parfois un collant en hiver.", answers:["porte"], m:5},
+      {prompt:"OWing et Red ______ (jouer) souvent à Midnight Racing Tokyo.", answers:["jouent"], m:5},
+      {prompt:"Les passagers doivent ______ (quitter) l’avion pendant le transit.", answers:["quitter"], m:5},
+      {prompt:"Jessica aime quand tout ______ (paraître) élégant.", answers:["parait","paraît"], m:5},
+      {prompt:"Luke met un taille-crayon dans sa trousse parce qu’il aime être ______ (préparer).", answers:["prepare","préparé","prépare"], m:5},
+      {prompt:"Le score de Clayton ______ (mettre) beaucoup de pression sur certains élèves.", answers:["met"], m:5}
+    ]
+  },
+
+  w40:{
+    id:"W2",
+    title:"Writing Task 2 — 40 words",
+    marks:30,
+    prompt:"Répondez en français. Écrivez environ 40 mots.",
+    bullets:[
+      "Qu’est-ce que tu fais normalement avec ta famille ou tes amis ?",
+      "Donne une opinion simple."
+    ],
+    themeBank:["famille","free"],
+    minWords:32,
+    goodWords:55,
+    needsChoice:false,
+    needsPast:false,
+    needsPresent:false,
+    needsFuture:false
+  },
+
+  w90:{
+    id:"W3",
+    title:"Writing Task 3 — 90 words",
+    marks:70,
+    prompt:"Choisissez UNE question. Écrivez environ 90 mots en français.",
+    options:[
+      {
+        code:"A",
+        title:"Option A — School",
+        bullets:[
+          "Décris ton établissement ou une matière que tu aimes.",
+          "Dis ce que tu as fait récemment à l’école.",
+          "Explique ce que tu fais maintenant.",
+          "Dis ce que tu vas faire à l’avenir."
+        ],
+        themeBank:["school"]
+      },
+      {
+        code:"B",
+        title:"Option B — Free time",
+        bullets:[
+          "Décris un loisir que tu aimes.",
+          "Dis ce que tu as fait récemment pendant ton temps libre.",
+          "Explique ce que tu fais normalement maintenant.",
+          "Dis ce que tu vas faire bientôt."
+        ],
+        themeBank:["free","tech","music"]
+      },
+      {
+        code:"C",
+        title:"Option C — Family and home",
+        bullets:[
+          "Décris ta maison ou une personne de ta famille.",
+          "Dis ce que tu as fait récemment chez toi.",
+          "Explique ce que tu fais maintenant à la maison.",
+          "Dis ce que tu vas faire plus tard."
+        ],
+        themeBank:["family"]
+      }
+    ],
+    minWords:75,
+    goodWords:115,
+    needsChoice:true,
+    needsPast:true,
+    needsPresent:true,
+    needsFuture:true
+  },
+
+  w130:{
+    id:"W4",
+    title:"Writing Task 4 — 130 words",
+    marks:100,
+    prompt:"Choisissez UNE question. Écrivez environ 130 mots en français.",
+    options:[
+      {
+        code:"A",
+        title:"Option 1 — Travel and holidays",
+        bullets:[
+          "Décrivez un voyage ou des vacances qui vous intéressent.",
+          "Expliquez ce que vous pensez du voyage moderne et ce que vous aimeriez faire à l’avenir."
+        ],
+        themeBank:["travel","future"]
+      },
+      {
+        code:"B",
+        title:"Option 2 — Technology",
+        bullets:[
+          "Décrivez le rôle de la technologie dans votre vie quotidienne.",
+          "Expliquez les avantages et les inconvénients et dites comment cela pourrait changer plus tard."
+        ],
+        themeBank:["tech","future"]
+      },
+      {
+        code:"C",
+        title:"Option 3 — Environment and where you live",
+        bullets:[
+          "Décrivez votre région et les problèmes ou qualités de l’endroit où vous habitez.",
+          "Expliquez ce qu’il faudrait améliorer et ce que vous voudriez voir dans l’avenir."
+        ],
+        themeBank:["environment","future"]
+      }
+    ],
+    minWords:110,
+    goodWords:160,
+    needsChoice:true,
+    needsPast:false,
+    needsPresent:false,
+    needsFuture:false
+  },
+
+  w170:{
+    id:"W5",
+    title:"Writing Task 5 — 170 words",
+    marks:150,
+    prompt:"Choisissez UNE question. Écrivez environ 170 mots en français.",
+    options:[
+      {
+        code:"A",
+        title:"Option 1 — Education and future plans",
+        bullets:[
+          "Décrivez vos expériences de l’école, des matières et des examens.",
+          "Expliquez comment votre éducation influence vos projets et vos ambitions pour l’avenir."
+        ],
+        themeBank:["school","future"]
+      },
+      {
+        code:"B",
+        title:"Option 2 — Travel, transport and wider world",
+        bullets:[
+          "Décrivez vos idées sur les voyages, les transports ou une expérience marquante.",
+          "Expliquez comment ces expériences peuvent changer les gens et ce que vous voudriez faire plus tard."
+        ],
+        themeBank:["travel","future","environment"]
+      },
+      {
+        code:"C",
+        title:"Option 3 — Technology and modern life",
+        bullets:[
+          "Décrivez comment la technologie affecte la vie des jeunes et vos propres habitudes.",
+          "Expliquez si la technologie améliore vraiment la vie et comment l’avenir pourrait être différent."
+        ],
+        themeBank:["tech","future","free"]
+      },
+      {
+        code:"D",
+        title:"Option 4 — Family, friends and society",
+        bullets:[
+          "Décrivez l’importance de la famille, des amis ou des relations dans la vie quotidienne.",
+          "Expliquez comment ces relations changent avec le temps et ce que vous espérez pour l’avenir."
+        ],
+        themeBank:["family","future","free"]
+      }
+    ],
+    minWords:150,
+    goodWords:220,
+    needsChoice:true,
+    needsPast:false,
+    needsPresent:false,
+    needsFuture:false
+  }
+};
+
+/* TRANSLATION */
+const TRANSLATIONS = [
+  {
+    id:"T1",
+    dir:"EN->FR",
+    marks:50,
+    title:"Translation 1 — School rules and options",
+    text:"At Otono, choosing GCSE options is not completely free because timetable blocks limit what students can combine. Some pupils accept this, but others think the school should explain its decisions more clearly and more elegantly.",
+    groups:[
+      ["a otono","chez otono"],
+      ["choisir","le choix","options gcse"],
+      ["n est pas completement libre","n'est pas complètement libre","pas totalement libre"],
+      ["parce que","car"],
+      ["les blocs d emploi du temps","blocs","emploi du temps"],
+      ["limitent","limiter","ce que les eleves peuvent combiner","ce que les élèves peuvent combiner"],
+      ["certains eleves acceptent cela","quelques eleves acceptent","certains élèves acceptent"],
+      ["mais d autres pensent","mais d'autres pensent","d autres pensent"],
+      ["l ecole devrait expliquer","l'école devrait expliquer","devrait expliquer"],
+      ["ses decisions plus clairement et plus elegamment","plus clairement","plus élégamment","plus elegantement"]
+    ]
+  },
+  {
+    id:"T2",
+    dir:"FR->EN",
+    marks:50,
+    title:"Translation 2 — Music and climate",
+    text:"Red adore la musique patriotique et il aime chanter avec énergie, mais il ne veut pas que chaque activité devienne une compétition. En hiver, il reste calme même quand il fait très froid, car il se prépare bien et il supporte mieux la saison que beaucoup d’autres.",
+    groups:[
+      ["red loves patriotic music"],
+      ["he likes singing with energy","he likes to sing with energy"],
+      ["but he does not want every activity to become a competition"],
+      ["in winter he stays calm"],
+      ["even when it is very cold"],
+      ["because he prepares well"],
+      ["and he tolerates the season better than many others"]
+    ]
+  },
+  {
+    id:"T3",
+    dir:"EN->FR",
+    marks:50,
+    title:"Translation 3 — Airways and the mansion",
+    text:"Passengers on Otono Airways must leave the aircraft during a long transit in Hong Kong. Meanwhile, life in Otono Mansion is busy but organised: different relatives, cousins and rooms create energy, but clear rules stop complete chaos.",
+    groups:[
+      ["les passagers","passagers"],
+      ["sur otono airways","avec otono airways"],
+      ["doivent quitter l avion","doivent quitter l'avion","quitter l appareil","quitter l'appareil"],
+      ["pendant un long transit","lors d un long transit","lors d'un long transit"],
+      ["a hong kong","à hong kong"],
+      ["pendant ce temps","entre temps","cependant"],
+      ["la vie au manoir otono","la vie dans otono mansion","au manoir"],
+      ["est active mais organisee","est animée mais organisée","occupee mais organisee"],
+      ["differents parents cousins et chambres","différents parents cousins et chambres","pieces","pièces"],
+      ["des regles claires empechent le chaos complet","règles claires empêchent le chaos complet","evitent le chaos complet"]
+    ]
+  },
+  {
+    id:"T4",
+    dir:"FR->EN",
+    marks:50,
+    title:"Translation 4 — Technology, racing and progress",
+    text:"OWing et Red passent parfois beaucoup de temps à jouer sur Roblox, surtout quand ils veulent faire la course. Pourtant, ils savent que le vrai progrès ne vient pas seulement de la victoire immédiate : il faut aussi réfléchir, apprendre de ses erreurs et continuer avec discipline.",
+    groups:[
+      ["owing and red sometimes spend a lot of time playing on roblox"],
+      ["especially when they want to race"],
+      ["however they know real progress does not come only from immediate victory"],
+      ["you also have to think"],
+      ["learn from your mistakes"],
+      ["and continue with discipline"]
+    ]
+  }
+];
+
+/* STATE */
+let state = {
+  started:false,
+  submitted:false,
+  candidateNo:"",
+  candidateName:"",
+  selectedReading:[]
+};
+
+/* RENDERING */
+function renderReading(){
+  const root = $("#tab-reading");
+  root.innerHTML = `
+  <div class="note">
+    <strong>Reading instructions</strong><br>
+    ${state.selectedReading.length} passages × 50 marks = 400.<br>
+    Each passage uses only one question type. One question in every passage is marked <strong>EN FRANCAIS</strong>.
+  </div>
+`;
+
+  state.selectedReading.forEach((p, pi) => {
+    const sec = document.createElement("div");
+    sec.className = "section";
+    sec.innerHTML = `
+      <h3>${escapeHtml(p.title)} <span class="badge">${p.marks} marks</span></h3>
+      <div class="small">${escapeHtml(p.unit)} • Type: ${escapeHtml(p.type.toUpperCase())}</div>
+      <div class="divider"></div>
+      <div class="passage">${escapeHtml(p.text)}</div>
+      <div class="divider"></div>
+      <div id="reading_qs_${pi}"></div>
+    `;
+    root.appendChild(sec);
+
+    const qRoot = sec.querySelector(`#reading_qs_${pi}`);
+    p.items.forEach((item, qi) => {
+      const q = document.createElement("div");
+      q.className = "q";
+
+      if(p.type === "mcq" || p.type === "pn" || p.type === "tfnm"){
+        let options = [];
+        if(p.type === "mcq") options = item.opts;
+        if(p.type === "pn") options = ["P","N","P+N"];
+        if(p.type === "tfnm") options = ["True","False","Not mentioned"];
+
+        q.innerHTML = `
+          <h4>${escapeHtml(item.q)} <span class="badge">${item.m} marks</span></h4>
+          <div class="opts">
+            ${options.map((opt, oi) => `
+              <label class="opt">
+                <input type="radio" name="r_${p.id}_${qi}" value="${escapeHtml(opt)}" />
+                <div><strong>${String.fromCharCode(65+oi)}.</strong> ${escapeHtml(opt)}</div>
+              </label>
+            `).join("")}
+          </div>
+        `;
+      } else if(p.type === "fr_short"){
+        q.innerHTML = `
+          <h4>${escapeHtml(item.q)} <span class="badge">${item.m} marks</span></h4>
+          <textarea id="r_${p.id}_${qi}" placeholder="Répondez en français..."></textarea>
+        `;
+      }
+
+      qRoot.appendChild(q);
+    });
+  });
+}
+
+function renderWriting(){
+  const root = $("#tab-writing");
+  root.innerHTML = `
+    <div class="note">
+      <strong>Writing instructions</strong><br>
+      Total = 400 marks.<br>
+      Grammar = 50, 40-word = 30, 90-word = 70, 130-word = 100, 170-word = 150.<br>
+      For 90/130/170 words, choose one question only.
+    </div>
+  `;
+
+  /* Grammar */
+  const g = WRITING.grammar;
+  const gSec = document.createElement("div");
+  gSec.className = "section";
+  gSec.innerHTML = `
+    <h3>${escapeHtml(g.title)} <span class="badge">${g.marks} marks</span></h3>
+    <div class="small">${escapeHtml(g.instructions)}</div>
+    <div class="divider"></div>
+    <div id="grammarRoot"></div>
+  `;
+  root.appendChild(gSec);
+  const grammarRoot = gSec.querySelector("#grammarRoot");
+  g.items.forEach((it,i) => {
+    const box = document.createElement("div");
+    box.className = "task";
+    box.innerHTML = `
+      <h4>Gap ${i+1} <span class="badge">${it.m} marks</span></h4>
+      <div class="small">${escapeHtml(it.prompt)}</div>
+      <input type="text" id="w_g_${i}" placeholder="Your answer...">
+    `;
+    grammarRoot.appendChild(box);
+  });
+
+  /* 40-word */
+  const w40 = WRITING.w40;
+  const w40Sec = document.createElement("div");
+  w40Sec.className = "section";
+  w40Sec.innerHTML = `
+    <h3>${escapeHtml(w40.title)} <span class="badge">${w40.marks} marks</span></h3>
+    <div class="note">
+      ${escapeHtml(w40.prompt)}
+      <ul class="bullets">
+        ${w40.bullets.map(b => `<li>${escapeHtml(b)}</li>`).join("")}
+      </ul>
+    </div>
+    <label>Your answer</label>
+    <textarea id="${w40.id}" style="min-height:120px" placeholder="Write in French..."></textarea>
+    <div class="small" id="${w40.id}_wc"></div>
+  `;
+  root.appendChild(w40Sec);
+
+  renderChoiceTask(root, WRITING.w90, 3);
+  renderChoiceTask(root, WRITING.w130, 3);
+  renderChoiceTask(root, WRITING.w170, 4);
+
+  setTimeout(() => {
+    wireWordCount("W2","W2_wc");
+    wireWordCount("W3","W3_wc");
+    wireWordCount("W4","W4_wc");
+    wireWordCount("W5","W5_wc");
+  }, 0);
+}
+
+function renderChoiceTask(root, task, numChoices){
+  const sec = document.createElement("div");
+  sec.className = "section";
+  sec.innerHTML = `
+    <h3>${escapeHtml(task.title)} <span class="badge">${task.marks} marks</span></h3>
+    <div class="note">${escapeHtml(task.prompt)}</div>
+    <div id="${task.id}_choices"></div>
+    <label>Your answer</label>
+    <textarea id="${task.id}" style="min-height:${task.id === "W5" ? "220px" : "170px"}" placeholder="Write in French..."></textarea>
+    <div class="small" id="${task.id}_wc"></div>
+  `;
+  root.appendChild(sec);
+
+  const choiceRoot = sec.querySelector(`#${task.id}_choices`);
+  task.options.slice(0, numChoices).forEach((opt, i) => {
+    const card = document.createElement("label");
+    card.className = "choice-card";
+    card.innerHTML = `
+      <div class="choice-top">
+        <input type="radio" name="${task.id}_choice" value="${opt.code}">
+        <div>
+          <div class="choice-title">${escapeHtml(opt.title)}</div>
+          <ul class="bullets">
+            ${opt.bullets.map(b => `<li>${escapeHtml(b)}</li>`).join("")}
+          </ul>
+        </div>
+      </div>
+    `;
+    choiceRoot.appendChild(card);
+  });
+
+  setTimeout(() => {
+    $$(`input[name='${task.id}_choice']`).forEach(r => {
+      r.addEventListener("change", () => {
+        $$(`#${task.id}_choices .choice-card`).forEach(c => c.classList.remove("selected"));
+        const selected = r.closest(".choice-card");
+        if(selected) selected.classList.add("selected");
+      });
+    });
+  }, 0);
+}
+
+function renderTranslations(){
+  const root = $("#tab-translation");
+  root.innerHTML = `
+    <div class="note">
+      <strong>Translation instructions</strong><br>
+      4 translations × 50 marks = 200. Use natural meaning. Auto-marking checks key idea coverage.
+    </div>
+  `;
+
+  TRANSLATIONS.forEach((t, i) => {
+    const sec = document.createElement("div");
+    sec.className = "section";
+    sec.innerHTML = `
+      <h3>${escapeHtml(t.title)} <span class="badge">${t.marks} marks</span></h3>
+      <div class="small">${escapeHtml(t.dir)}</div>
+      <div class="divider"></div>
+      <div class="passage">${escapeHtml(t.text)}</div>
+      <label>Your translation</label>
+      <textarea id="trans_${i}" placeholder="${t.dir==='EN->FR' ? 'Translate into French...' : 'Translate into English...'}"></textarea>
+    `;
+    root.appendChild(sec);
+  });
+}
+
+function wireWordCount(textId, outId){
+  const ta = $("#"+textId);
+  const out = $("#"+outId);
+  if(!ta || !out) return;
+  const draw = () => out.textContent = `Word count: ${wordCount(ta.value)}`;
+  ta.addEventListener("input", draw);
+  draw();
+}
+
+/* MARKING */
+function markReading(){
+  let total = 0;
+  let breakdown = [];
+
+  state.selectedReading.forEach((p) => {
+    let pScore = 0;
+
+    p.items.forEach((item, qi) => {
+      let score = 0;
+      if(p.type === "mcq" || p.type === "pn" || p.type === "tfnm"){
+        const picked = document.querySelector(`input[name="r_${p.id}_${qi}"]:checked`);
+        const val = picked ? picked.value : "";
+        const correct = p.type === "mcq" ? item.opts[item.a] : item.a;
+        score = (val === correct) ? item.m : 0;
+        breakdown.push({
+          part:`${p.id} Q${qi+1}`,
+          score, max:item.m,
+          detail:`Selected: ${val || "blank"} | Correct: ${correct}`
+        });
+      } else if(p.type === "fr_short"){
+        const txt = $(`#r_${p.id}_${qi}`).value || "";
+        const t = norm(txt);
+        let hits = 0;
+        item.groups.forEach(g => {
+          const arr = Array.isArray(g) ? g : [g];
+          if(arr.some(x => t.includes(norm(x)))) hits++;
+        });
+        const per = Math.max(1, Math.floor(item.m / item.groups.length));
+        score = clamp(hits * per, 0, item.m);
+        if(hits === item.groups.length) score = item.m;
+        breakdown.push({
+          part:`${p.id} Q${qi+1}`,
+          score, max:item.m,
+          detail:`Keyword groups matched: ${hits}/${item.groups.length}`
+        });
+      }
+      pScore += score;
+    });
+
+    total += pScore;
+    breakdown.push({
+      part:`${p.id} total`,
+      score:pScore, max:p.marks,
+      detail:`Passage subtotal`
+    });
+  });
+
+  return { total, max:400, breakdown };
+}
+
+function markGrammar(){
+  let total = 0;
+  let breakdown = [];
+  WRITING.grammar.items.forEach((it,i) => {
+    const user = norm($(`#w_g_${i}`).value || "");
+    const correct = it.answers.map(norm);
+    let score = 0;
+    if(user && correct.includes(user)) score = it.m;
+    else if(user && correct.some(c => c.includes(user) || user.includes(c))) score = Math.floor(it.m/2);
+    breakdown.push({
+      part:`Grammar ${i+1}`,
+      score, max:it.m,
+      detail:`Expected: ${it.answers.join(" / ")}`
+    });
+    total += score;
+  });
+  return { total, max:50, breakdown };
+}
+
+function getChosenOption(task){
+  if(!task.needsChoice) return null;
+  const picked = document.querySelector(`input[name='${task.id}_choice']:checked`);
+  if(!picked) return null;
+  return task.options.find(o => o.code === picked.value) || null;
+}
+
+function markSimpleWritingTask(text, spec){
+  const t = norm(text);
+  const wc = wordCount(text);
+  if(!t) return {score:0, max:spec.marks, detail:"Blank."};
+
+  const contentMax = Math.round(spec.marks * 0.45);
+  const opinionMax = Math.round(spec.marks * 0.15);
+  const vocabMax = Math.round(spec.marks * 0.15);
+  const structureMax = spec.marks - contentMax - opinionMax - vocabMax;
+
+  let contentHits = 0;
+  if(containsAny(t, ["famille","amis","ami","cousin","cousine","maman","papa","frere","frère","soeur","sœur","nous","je"])) contentHits++;
+  if(containsAny(t, ["je joue","je regarde","je parle","je mange","je sors","je reste","je vais","je fais","normalement"])) contentHits++;
+  if(containsAny(t, DETECT.opinion)) contentHits++;
+
+  const contentScore = Math.round((contentHits / 3) * contentMax);
+  const opinionScore = containsAny(t, DETECT.opinion) ? opinionMax : 0;
+
+  let vocabHits = 0;
+  spec.themeBank.forEach(key => vocabHits += countHits(t, THEME_VOCAB[key] || []));
+  const vocabScore = clamp(Math.round((vocabHits / 5) * vocabMax), 0, vocabMax);
+
+  let structureScore = 0;
+  if(wc >= spec.minWords && wc <= spec.goodWords) structureScore += Math.round(structureMax * 0.7);
+  else if(wc >= Math.round(spec.minWords * 0.8)) structureScore += Math.round(structureMax * 0.4);
+  const connectors = countHits(t, DETECT.connector);
+  if(connectors >= 1) structureScore += Math.round(structureMax * 0.3);
+  structureScore = clamp(structureScore, 0, structureMax);
+
+  const score = clamp(contentScore + opinionScore + vocabScore + structureScore, 0, spec.marks);
+  return {
+    score,
+    max:spec.marks,
+    detail:`WC ${wc}; simple bullet coverage ${contentHits}/3; opinion ${opinionScore>0?"yes":"no"}; vocabHits ${vocabHits}; connectors ${connectors}`
+  };
+}
+
+function markChoiceWritingTask(text, task){
+  const chosen = getChosenOption(task);
+  if(!chosen){
+    return {
+      score:0,
+      max:task.marks,
+      detail:"No question selected."
+    };
+  }
+
+  const t = norm(text);
+  const wc = wordCount(text);
+  if(!t){
+    return {
+      score:0,
+      max:task.marks,
+      detail:`${chosen.title} selected, but answer blank.`
+    };
+  }
+
+  const contentMax = Math.round(task.marks * 0.4);
+  const rangeMax = task.needsPast || task.needsPresent || task.needsFuture ? Math.round(task.marks * 0.2) : Math.round(task.marks * 0.15);
+  const opinionMax = Math.round(task.marks * 0.1);
+  const vocabMax = Math.round(task.marks * 0.15);
+  const structureMax = task.marks - contentMax - rangeMax - opinionMax - vocabMax;
+
+  let bulletHits = 0;
+  chosen.bullets.forEach((b, idx) => {
+    let matched = false;
+
+    if(task.id === "W3"){
+      if(idx === 0 && containsAny(t, (THEME_VOCAB.school.concat(THEME_VOCAB.free).concat(THEME_VOCAB.family)))) matched = true;
+      if(idx === 1 && containsAny(t, DETECT.past)) matched = true;
+      if(idx === 2 && containsAny(t, DETECT.present)) matched = true;
+      if(idx === 3 && containsAny(t, DETECT.future)) matched = true;
+    } else {
+      if(idx === 0){
+        let localHits = 0;
+        chosen.themeBank.forEach(key => localHits += countHits(t, THEME_VOCAB[key] || []));
+        if(localHits >= 2) matched = true;
+      }
+      if(idx === 1){
+        if(containsAny(t, DETECT.opinion.concat(DETECT.future).concat(["avantage","inconvenient","inconvénient","important","meilleur","pire","changer","j aimerais","j'aimerais","je voudrais"]))) matched = true;
+      }
+    }
+
+    if(matched) bulletHits++;
+  });
+
+  const contentScore = Math.round((bulletHits / chosen.bullets.length) * contentMax);
+
+  let rangeHits = 0;
+  if(task.needsPast && containsAny(t, DETECT.past)) rangeHits++;
+  if(task.needsPresent && containsAny(t, DETECT.present)) rangeHits++;
+  if(task.needsFuture && containsAny(t, DETECT.future)) rangeHits++;
+
+  let rangeScore = 0;
+  const requiredRanges = [task.needsPast, task.needsPresent, task.needsFuture].filter(Boolean).length;
+  if(requiredRanges > 0){
+    rangeScore = Math.round((rangeHits / requiredRanges) * rangeMax);
+  } else {
+    const span = Number(containsAny(t, DETECT.past)) + Number(containsAny(t, DETECT.present)) + Number(containsAny(t, DETECT.future));
+    rangeScore = clamp(Math.round((span / 3) * rangeMax), 0, rangeMax);
+  }
+
+  const opinionScore = containsAny(t, DETECT.opinion) ? opinionMax : Math.round(opinionMax * 0.4);
+
+  let vocabHits = 0;
+  chosen.themeBank.forEach(key => vocabHits += countHits(t, THEME_VOCAB[key] || []));
+  const vocabTarget = task.id === "W3" ? 6 : (task.id === "W4" ? 7 : 8);
+  const vocabScore = clamp(Math.round((vocabHits / vocabTarget) * vocabMax), 0, vocabMax);
+
+  const connectors = countHits(t, DETECT.connector);
+  let structureScore = 0;
+  if(wc >= task.minWords && wc <= task.goodWords) structureScore += Math.round(structureMax * 0.6);
+  else if(wc >= Math.round(task.minWords * 0.8)) structureScore += Math.round(structureMax * 0.35);
+  if(connectors >= 2) structureScore += Math.round(structureMax * 0.2);
+  if(connectors >= 4) structureScore += Math.round(structureMax * 0.2);
+  structureScore = clamp(structureScore, 0, structureMax);
+
+  const score = clamp(contentScore + rangeScore + opinionScore + vocabScore + structureScore, 0, task.marks);
+
+  return {
+    score,
+    max:task.marks,
+    detail:`${chosen.title}; WC ${wc}; bullet coverage ${bulletHits}/${chosen.bullets.length}; time range hits ${rangeHits}; opinion ${containsAny(t, DETECT.opinion)?"yes":"limited"}; vocabHits ${vocabHits}; connectors ${connectors}`
+  };
+}
+
+function markWriting(){
+  let total = 0;
+  let breakdown = [];
+
+  const g = markGrammar();
+  total += g.total;
+  breakdown = breakdown.concat(g.breakdown);
+
+  const res40 = markSimpleWritingTask($("#W2").value || "", WRITING.w40);
+  total += res40.score;
+  breakdown.push({ part:WRITING.w40.title, score:res40.score, max:WRITING.w40.marks, detail:res40.detail });
+
+  const res90 = markChoiceWritingTask($("#W3").value || "", WRITING.w90);
+  total += res90.score;
+  breakdown.push({ part:WRITING.w90.title, score:res90.score, max:WRITING.w90.marks, detail:res90.detail });
+
+  const res130 = markChoiceWritingTask($("#W4").value || "", WRITING.w130);
+  total += res130.score;
+  breakdown.push({ part:WRITING.w130.title, score:res130.score, max:WRITING.w130.marks, detail:res130.detail });
+
+  const res170 = markChoiceWritingTask($("#W5").value || "", WRITING.w170);
+  total += res170.score;
+  breakdown.push({ part:WRITING.w170.title, score:res170.score, max:WRITING.w170.marks, detail:res170.detail });
+
+  return { total, max:400, breakdown };
+}
+
+function markTranslationItem(tObj, userText){
+  const u = norm(userText);
+  if(!u) return {score:0, max:tObj.marks, detail:"Blank."};
+
+  let hits = 0;
+  tObj.groups.forEach(group => {
+    const arr = Array.isArray(group) ? group : [group];
+    if(arr.some(k => u.includes(norm(k)))) hits++;
+  });
+
+  const groups = tObj.groups.length;
+  let score = Math.round((hits / groups) * tObj.marks);
+
+  const wc = wordCount(userText);
+  if(wc >= 16) score += 2;
+  if(wc >= 28) score += 3;
+
+  score = clamp(score, 0, tObj.marks);
+
+  return {
+    score,
+    max:tObj.marks,
+    detail:`Key idea groups matched: ${hits}/${groups}; WC ${wc}`
+  };
+}
+
+function markTranslations(){
+  let total = 0;
+  let breakdown = [];
+  TRANSLATIONS.forEach((t, i) => {
+    const user = $(`#trans_${i}`).value || "";
+    const res = markTranslationItem(t, user);
+    total += res.score;
+    breakdown.push({
+      part:t.title,
+      score:res.score,
+      max:t.marks,
+      detail:res.detail
+    });
+  });
+  return { total, max:200, breakdown };
+}
+
+function computeTotal(){
+  const reading = markReading();
+  const writing = markWriting();
+  const translation = markTranslations();
+
+  return {
+    reading,
+    writing,
+    translation,
+    total:reading.total + writing.total + translation.total,
+    max:1000
+  };
+}
+
+/* RESULTS UI */
+function drawResults(){
+  const filter = ($("#filterCandidate").value || "").trim();
+  const all = loadResults();
+  const list = filter ? all.filter(x => String(x.candidateNo) === filter) : all;
+  const root = $("#resultsList");
+
+  if(list.length === 0){
+    root.innerHTML = `<div class="note">No stored attempts yet.</div>`;
+    return;
+  }
+
+  root.innerHTML = list.map(a => {
+    const [cls, txt] = badgeForScore(a.total);
+    return `
+      <div class="attempt">
+        <div class="top">
+          <div>
+            <strong>${escapeHtml(a.candidateNo)}</strong>${a.candidateName ? " • " + escapeHtml(a.candidateName) : ""}
+            <span class="badge" style="margin-left:8px">1000-mark paper</span>
+          </div>
+          <div class="${cls}">${escapeHtml(txt)} • ${a.total}/1000</div>
+        </div>
+        <div class="meta">
+          <div><strong>Date:</strong> ${escapeHtml(new Date(a.submittedAt).toLocaleString())}</div>
+          <div><strong>Reading:</strong> ${a.reading}/400 • <strong>Writing:</strong> ${a.writing}/400 • <strong>Translation:</strong> ${a.translation}/200</div>
+          <div><strong>GCSE:</strong> ${escapeHtml(String(a.gcse))} • <strong>Otono:</strong> ${escapeHtml(a.otono)} • <strong>Outcome:</strong> ${escapeHtml(a.outcome)}</div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+/* EVENTS */
+$("#btnStart").addEventListener("click", () => {
+  const no = ($("#candidateNo").value || "").trim();
+  if(!no){
+    alert("Candidate number is required.");
+    return;
+  }
+
+  state.started = true;
+  state.submitted = false;
+  state.candidateNo = no;
+  state.candidateName = ($("#candidateName").value || "").trim();
+  state.selectedReading = pickRandomPassages(8);
+
+  $("#homeBody").classList.add("hide");
+  $("#paperBody").classList.remove("hide");
+  $("#sideBody").classList.remove("hide");
+  $("#resultsBody").classList.add("hide");
+
+  $("#kpiCandidate").textContent = `${state.candidateNo}${state.candidateName ? " • " + state.candidateName : ""}`;
+
+  renderReading();
+  renderWriting();
+  renderTranslations();
+
+  const mins = parseInt($("#timeAllowed").value, 10);
+  startTimer(mins, () => {
+    if($("#autoSubmit").value === "yes") submitPaper(true);
+    else alert("Time is up.");
+  });
+
+  setBadge("In progress","badge warn");
+});
+
+function submitPaper(auto=false){
+  if(!state.started || state.submitted) return;
+  state.submitted = true;
+  stopTimer();
+
+  const res = computeTotal();
+  const total = res.total;
+  const gcse = gcseGrade(total);
+  const ot = otonoGrade(total);
+  const outcome = pmd(total);
+  const [cls, txt] = badgeForScore(total);
+
+  const attempt = {
+    candidateNo: state.candidateNo,
+    candidateName: state.candidateName,
+    submittedAt: nowISO(),
+    reading: res.reading.total,
+    writing: res.writing.total,
+    translation: res.translation.total,
+    total,
+    gcse,
+    otono: ot,
+    outcome,
+    breakdown: {
+      reading: res.reading.breakdown,
+      writing: res.writing.breakdown,
+      translation: res.translation.breakdown
+    }
+  };
+  addResult(attempt);
+
+  $("#markingBox").classList.remove("hide");
+  $("#markingBox").innerHTML = `
+    <div class="card">
+      <div class="hd">
+        <div>
+          <h2>✅ Marked${auto ? " (auto-submitted)" : ""}</h2>
+          <div class="meta">Candidate ${escapeHtml(state.candidateNo)}${state.candidateName ? " • " + escapeHtml(state.candidateName) : ""}</div>
+        </div>
+        <span class="${cls}">${escapeHtml(txt)}</span>
+      </div>
+      <div class="bd">
+        <div class="kpi">
+          <div class="box"><div class="t">Reading</div><div class="v">${res.reading.total} / 400</div></div>
+          <div class="box"><div class="t">Writing</div><div class="v">${res.writing.total} / 400</div></div>
+          <div class="box"><div class="t">Translation</div><div class="v">${res.translation.total} / 200</div></div>
+          <div class="box"><div class="t">Total</div><div class="v">${total} / 1000</div></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="note">
+          <strong>Grades</strong><br>
+          GCSE estimate: ${escapeHtml(String(gcse))}<br>
+          Otono grade: ${escapeHtml(ot)}<br>
+          Outcome: ${escapeHtml(outcome)}
+        </div>
+
+        <div class="divider"></div>
+        <button class="btn" id="btnShowBreakdown">Show breakdown</button>
+        <div id="breakdownRoot" class="hide" style="margin-top:12px"></div>
+      </div>
+    </div>
+  `;
+
+  $("#btnShowBreakdown").addEventListener("click", () => {
+    const root = $("#breakdownRoot");
+    root.classList.toggle("hide");
+    if(root.classList.contains("hide")) return;
+
+    const mk = (arr) => arr.map(x => `
+      <div class="attempt">
+        <div class="top">
+          <div><strong>${escapeHtml(x.part)}</strong></div>
+          <div><span class="badge">${x.score} / ${x.max}</span></div>
+        </div>
+        <div class="meta">${escapeHtml(x.detail)}</div>
+      </div>
+    `).join("");
+
+    root.innerHTML = `
+      <div class="note"><strong>Reading breakdown</strong></div>
+      ${mk(res.reading.breakdown)}
+      <div class="divider"></div>
+      <div class="note"><strong>Writing breakdown</strong></div>
+      ${mk(res.writing.breakdown)}
+      <div class="divider"></div>
+      <div class="note"><strong>Translation breakdown</strong></div>
+      ${mk(res.translation.breakdown)}
+    `;
+  });
+
+  setBadge("Submitted","badge good");
+}
+
+$("#btnSubmit").addEventListener("click", () => submitPaper(false));
+
+$("#btnReset").addEventListener("click", () => {
+  if(!confirm("Reset all current answers?")) return;
+
+  $$("textarea").forEach(t => t.value = "");
+  $$("input[type='text']").forEach(i => {
+    if(i.id.startsWith("w_g_")) i.value = "";
+  });
+  $$("input[type='radio']").forEach(r => r.checked = false);
+  $$(".choice-card").forEach(c => c.classList.remove("selected"));
+
+  ["W2","W3","W4","W5"].forEach(id => {
+    const out = $("#"+id+"_wc");
+    if(out) out.textContent = "Word count: 0";
+  });
+
+  $("#markingBox").classList.add("hide");
+  $("#markingBox").innerHTML = "";
+  state.submitted = false;
+  setBadge("In progress","badge warn");
+});
+
+$("#btnResults").addEventListener("click", () => {
+  stopTimer();
+  $("#sideBody").classList.add("hide");
+  $("#resultsBody").classList.remove("hide");
+  $("#paperBody").classList.add("hide");
+  $("#homeBody").classList.add("hide");
+  $("#sideTitle").textContent = "Saved results";
+  $("#sideMeta").textContent = "Stored locally on this browser.";
+  setBadge("Results","badge");
+  $("#timerText").textContent = "--:--";
+  drawResults();
+});
+
+$("#btnHome").addEventListener("click", () => {
+  $("#resultsBody").classList.add("hide");
+  $("#sideBody").classList.remove("hide");
+  $("#sideTitle").textContent = "Grading";
+  $("#sideMeta").textContent = "1000-mark paper with Otono grades, GCSE estimate, and pass/merit/distinction.";
+
+  if(state.started){
+    $("#paperBody").classList.remove("hide");
+    $("#homeBody").classList.add("hide");
+    setBadge(state.submitted ? "Submitted" : "In progress", state.submitted ? "badge good" : "badge warn");
+  } else {
+    $("#paperBody").classList.add("hide");
+    $("#homeBody").classList.remove("hide");
+    setBadge("Ready","badge");
+  }
+});
+
+document.addEventListener("input", (e) => {
+  if(e.target && e.target.id === "filterCandidate") drawResults();
+});
+
+$("#btnExport").addEventListener("click", () => {
+  $("#exportBox").classList.remove("hide");
+  $("#exportText").textContent = JSON.stringify(loadResults(), null, 2);
+});
+
+$("#btnClear").addEventListener("click", () => {
+  if(!confirm("Clear all stored results?")) return;
+  localStorage.removeItem(STORE_KEY);
+  $("#exportBox").classList.add("hide");
+  drawResults();
+});
+
+/* TABS */
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest(".tab[data-target]");
+  if(!btn) return;
+  $$(".tab[data-target]").forEach(t => t.classList.remove("active"));
+  btn.classList.add("active");
+  ["tab-reading","tab-writing","tab-translation"].forEach(id => $("#"+id).classList.add("hide"));
+  $("#"+btn.dataset.target).classList.remove("hide");
+});
+
+/* Anti-cheat message */
+const disabledKeys = ["u","i"];
+const showAlert = e => {
+  e.preventDefault();
+  alert("Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!");
+};
+document.addEventListener("contextmenu", e => showAlert(e));
+document.addEventListener("keydown", e => {
+  if ((e.ctrlKey && disabledKeys.includes((e.key || "").toLowerCase())) || e.key === "F12") showAlert(e);
+});
+</script>
+</body>
+</html>
