@@ -457,10 +457,10 @@ function badgeForScore(score){
    SAME STRUCTURE, SAME MARKS
 ========================================================= */
 const THEME_VOCAB = {
-  t1: ["ecole","école","college","collège","cours","classe","professeur","examen","examens","regle","règle","consigne","stylo","encre","invigilateur","option","gcse","maths","sciences","uniforme","cantine","bibliotheque","bibliothèque"],
-  t2: ["loisirs","temps","libre","week end","week-end","jeu","jeux","gaming","minecraft","roblox","musique","piano","violon","trompette","sport","natation","region","région","ville","maison","appartement","parc"],
-  t3: ["otono","airways","avion","a380","cabine","siege","siège","classe","economique","économique","business","first","lounge","salon","aéroport","bagages","embarquement","mansion","manoir","pieces","pièces","residence","résidence"],
-  t4: ["clayton","score","parfait","160","maths","en avance","pression","comparaison","jalousie","admire","admiration","reputation","réputation","objectif","progres","progrès","stress"]
+  t1: ["ecole","école","college","cours","classe","professeur","examen","examens","regle","règle","consigne","stylo","encre","noire","jaune","invigilateur","option","gcse","maths","sciences","monsieur","barley"],
+  t2: ["loisirs","temps","libre","jeu","jeux","gaming","minecraft","roblox","serveur","course","vitesse","musique","piano","violon","trompette","region","région","maison","piece","pièce","penthouses","quartier"],
+  t3: ["otono","airways","avion","a380","cabine","siege","siège","classe","economique","économique","business","first","lounge","salon","mansion","manoir","pieces","pièces","residence","résidence","hong","kong"],
+  t4: ["clayton","score","parfait","160","sur","maths","avance","en avance","pression","jalousie","admire","admiration","excessif","reputation","réputation","jordan","salish","nidal","famous","vidéo","equipe","matthew"]
 };
 
 const DETECT = {
@@ -734,7 +734,7 @@ const PROMPTS_70 = {
     }
   ],
   t4: [
-    { code:"T4-C", title:"Theme 4: Perfect scores — helpful or harmful?", bullets:[
+    { code:"T4-D", title:"Theme 4: Perfect scores — helpful or harmful?", bullets:[
         "Describe what people say about perfect scores.",
         "Past example of pressure/comparison.",
         "How you feel now.",
@@ -750,8 +750,27 @@ const PROMPTS_70 = {
           [...DETECT.opinion]
         ]
       }
-    }
-  ]
+    },
+  {
+  code:"T4-E",
+  title:"Theme 4: A famous creator and teamwork",
+  bullets:[
+    "Describe a famous creator or team. (e.g. Jordan Matter, Salish, Nidal)",
+    "Say what they do now.",
+    "Mention a past video or project.",
+    "Give your opinion and a future idea."
+  ],
+  required:{
+    wordTarget:70, wordMin:60, wordMax:200,
+    must:{ past:true, present:true, future:true, opinion:true },
+    bulletVocab:[
+      ["jordan","salish","nidal","matthew","beem","video","vidéo","projet","équipe","equipe"],
+      ["maintenant","souvent","normalement","ils font","il fait"],
+      ["hier","la semaine dernière","j'ai","j ai","j'ai vu","j ai vu","j'ai regardé","j ai regardé"],
+      [...DETECT.opinion]
+    ]
+  }
+}
 };
 
 /* 110-word prompts — NEW */
@@ -770,7 +789,24 @@ const PROMPTS_110 = {
         ],
         themeKey:["t1"]
       }
+    },
+    {
+    code:"H1-4",
+    title:"Theme 1: Exams and pressure",
+    bullets:[
+      "Describe your experience of exams (past and present).",
+      "Explain your opinion and how you will improve in the future."
+    ],
+    required:{
+      wordTarget:110, wordMin:95, wordMax:500,
+      must:{ opinion:true, past:true, future:true },
+      bulletVocab:[
+        ["examen","stress","pression","réviser","révision","notes","résultat"],
+        [...DETECT.opinion]
+      ],
+      themeKey:["t1"]
     }
+  }
   ],
   t2: [
     { code:"H2-3", title:"Theme 2: Online vs offline time", bullets:[
@@ -786,7 +822,24 @@ const PROMPTS_110 = {
         ],
         themeKey:["t2"]
       }
+    },
+    {
+    code:"H2-4",
+    title:"Theme 2: Free time and lifestyle",
+    bullets:[
+      "Describe how you spend your free time and how this has changed.",
+      "Explain your opinion and your future plans."
+    ],
+    required:{
+      wordTarget:110, wordMin:95, wordMax:500,
+      must:{ opinion:true, past:true, future:true },
+      bulletVocab:[
+        ["temps libre","loisirs","jeux","sport","musique","internet","amis"],
+        [...DETECT.opinion]
+      ],
+      themeKey:["t2"]
     }
+  }
   ],
   t3: [
     { code:"H3-3", title:"Theme 3: Travel — comfort vs price", bullets:[
@@ -802,10 +855,27 @@ const PROMPTS_110 = {
         ],
         themeKey:["t3"]
       }
+    },
+    {
+    code:"H3-4",
+    title:"Theme 3: Experiences and events",
+    bullets:[
+      "Describe an experience or event and how it affected you.",
+      "Explain your opinion and what you will do in the future."
+    ],
+    required:{
+      wordTarget:110, wordMin:95, wordMax:500,
+      must:{ opinion:true, past:true, future:true },
+      bulletVocab:[
+        ["voyage","avion","aéroport","vol","retard","bagages","cabine"],
+        [...DETECT.opinion]
+      ],
+      themeKey:["t3"]
     }
+  }
   ],
   t4: [
-    { code:"H4-2", title:"Theme 4: Progress over perfection", bullets:[
+    { code:"H4-3", title:"Theme 4: Perfection vs progress", bullets:[
         "Explain why progress matters more than perfection.",
         "Use a past example and a future plan; give a developed opinion."
       ],
@@ -818,7 +888,24 @@ const PROMPTS_110 = {
         ],
         themeKey:["t4"]
       }
+    },
+    {
+    code:"H4-4",
+    title:"Theme 4: Fame and success",
+    bullets:[
+      "Describe a famous person or team and what they do.",
+      "Explain your opinion and your future ideas or goals."
+    ],
+    required:{
+      wordTarget:110, wordMin:95, wordMax:500,
+      must:{ opinion:true, past:true, future:true },
+      bulletVocab:[
+        ["jordan","salish","nidal","matthew","beem","vidéo","video","équipe","succès","travail"],
+        [...DETECT.opinion]
+      ],
+      themeKey:["t4"]
     }
+  }
   ]
 };
 

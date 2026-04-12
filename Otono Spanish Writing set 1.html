@@ -763,7 +763,27 @@ const PROMPTS_70 = {
         ],
         themeKey:["t4"]
       }
+    },
+    {
+    code:"T4-C",
+    title:"Theme 4: Famous celebrities",
+    bullets:[
+      "Describe a famous person or team (e.g. Jordan Matter, Salish, Nidal).",
+      "Say what they do now.",
+      "Mention something that happened in the past.",
+      "Give your opinion and a future plan."
+    ],
+    required:{
+      wordTarget:70, wordMin:60, wordMax:200,
+      must:{ past:true, present:true, future:true, opinion:true },
+      bulletVocab:[
+        ["jordan","salish","nidal","famous","vidéo","equipe"],
+        ["ahora","normalmente","hoy"],
+        ["ayer","antes","la semana pasada"],
+        ["creo","pienso","me gusta","no me gusta"]
+      ]
     }
+  }
   ]
 };
 
@@ -845,7 +865,24 @@ const PROMPTS_110 = {
         ],
         themeKey:["t4"]
       }
+    },
+    {
+    code:"H4-2",
+    title:"Theme 4: Fame and success",
+    bullets:[
+      "Describe a famous person or team and explain their success.",
+      "Explain your opinion and your future ideas or goals."
+    ],
+    required:{
+      wordTarget:110, wordMin:95, wordMax:500,
+      must:{ opinion:true, past:true, future:true },
+      bulletVocab:[
+        ["jordan","salish","nidal","famous","vidéo","equipe"],
+        ["creo","pienso","me gusta","no me gusta"]
+      ],
+      themeKey:["t4"]
     }
+  }
   ]
 };
 

@@ -460,7 +460,7 @@ const THEME_VOCAB = {
   t1: ["ecole","école","college","cours","classe","professeur","examen","examens","regle","règle","consigne","stylo","encre","noire","jaune","invigilateur","option","gcse","maths","sciences","monsieur","barley"],
   t2: ["loisirs","temps","libre","jeu","jeux","gaming","minecraft","roblox","serveur","course","vitesse","musique","piano","violon","trompette","region","région","maison","piece","pièce","penthouses","quartier"],
   t3: ["otono","airways","avion","a380","cabine","siege","siège","classe","economique","économique","business","first","lounge","salon","mansion","manoir","pieces","pièces","residence","résidence","hong","kong"],
-  t4: ["clayton","score","parfait","160","sur","maths","avance","en avance","pression","jalousie","admire","admiration","excessif","reputation","réputation"]
+  t4: ["clayton","score","parfait","160","sur","maths","avance","en avance","pression","jalousie","admire","admiration","excessif","reputation","réputation","jordan","salish","nidal","famous","vidéo","equipe"]
 };
 
 const DETECT = {
@@ -779,7 +779,27 @@ const PROMPTS_70 = {
           [...DETECT.opinion]
         ]
       }
+    },
+    {
+    code:"T4-C",
+    title:"Theme 4: Famous celebrities",
+    bullets:[
+      "Describe a Jordan Matter, Salish, Nidal or Beem team and what they do.",
+      "Say what they do now.",
+      "Mention something that happened in the past.",
+      "Give your opinion and a future plan."
+    ],
+    required:{
+      wordTarget:70, wordMin:60, wordMax:200,
+      must:{ past:true, present:true, future:true, opinion:true },
+      bulletVocab:[
+        ["jordan","salish","nidal","video","vidéo","equipe","équipe","famous"],
+        ["maintenant","souvent","aujourd'hui"],
+        ["hier","avant","la semaine dernière","j'ai","j ai"],
+        ["je pense","à mon avis","j'aime","je n'aime pas"]
+      ]
     }
+  }
   ]
 };
 
@@ -888,7 +908,24 @@ const PROMPTS_110 = {
         ],
         themeKey:["t4"]
       }
+    },
+    {
+    code:"H4-2",
+    title:"Theme 4: Fame and success",
+    bullets:[
+      "Describe a Jordan Matter, Salish, Nidal or Beem team and what they do.",
+      "Explain your opinion and your future ideas or goals."
+    ],
+    required:{
+      wordTarget:110, wordMin:95, wordMax:500,
+      must:{ opinion:true, past:true, future:true },
+      bulletVocab:[
+        ["jordan","salish","nidal","video","vidéo","equipe","équipe","famous"],
+        ["je pense","à mon avis","j'aime","je n'aime pas"]
+      ],
+      themeKey:["t4"]
     }
+  }
   ]
 };
 
