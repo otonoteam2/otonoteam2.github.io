@@ -796,7 +796,7 @@ const PROMPTS_70 = {
         ["jordan","salish","nidal","video","vidéo","equipe","équipe","famous"],
         ["maintenant","souvent","aujourd'hui"],
         ["hier","avant","la semaine dernière","j'ai","j ai"],
-        ["je pense","à mon avis","j'aime","je n'aime pas"]
+        [...DETECT.opinion]
       ]
     }
   }
@@ -921,7 +921,7 @@ const PROMPTS_110 = {
       must:{ opinion:true, past:true, future:true },
       bulletVocab:[
         ["jordan","salish","nidal","video","vidéo","equipe","équipe","famous"],
-        ["je pense","à mon avis","j'aime","je n'aime pas"]
+        [...DETECT.opinion]
       ],
       themeKey:["t4"]
     }

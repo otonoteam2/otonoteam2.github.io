@@ -746,7 +746,7 @@ const PROMPTS_70 = {
     }
   ],
   t4: [
-    { code:"T4-A", title:"Tema 4: Clayton y el 160/160 (solo higher)", bullets:[
+    { code:"T4-A", title:"Tema 4: Clayton y el 160/160", bullets:[
         "Explain what happened (the score).",
         "Describe at least two reactions.",
         "Mention pressure/comparison.",
@@ -768,7 +768,7 @@ const PROMPTS_70 = {
     code:"T4-C",
     title:"Theme 4: Famous celebrities",
     bullets:[
-      "Describe a famous person or team (e.g. Jordan Matter, Salish, Nidal).",
+      "Describe a Jordan Matter, Salish, Nidal or Beem team and what they do.",
       "Say what they do now.",
       "Mention something that happened in the past.",
       "Give your opinion and a future plan."
@@ -780,7 +780,7 @@ const PROMPTS_70 = {
         ["jordan","salish","nidal","famous","vidéo","equipe"],
         ["ahora","normalmente","hoy"],
         ["ayer","antes","la semana pasada"],
-        ["creo","pienso","me gusta","no me gusta"]
+        [...DETECT.opinion]
       ]
     }
   }
@@ -870,7 +870,7 @@ const PROMPTS_110 = {
     code:"H4-2",
     title:"Theme 4: Fame and success",
     bullets:[
-      "Describe a famous person or team and explain their success.",
+      "Describe a Jordan Matter, Salish, Nidal or Beem team and what they do.",
       "Explain your opinion and your future ideas or goals."
     ],
     required:{
@@ -878,7 +878,7 @@ const PROMPTS_110 = {
       must:{ opinion:true, past:true, future:true },
       bulletVocab:[
         ["jordan","salish","nidal","famous","vidéo","equipe"],
-        ["creo","pienso","me gusta","no me gusta"]
+        [...DETECT.opinion]
       ],
       themeKey:["t4"]
     }
