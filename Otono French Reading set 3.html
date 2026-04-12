@@ -1,0 +1,3168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>🟣 Otono French — Reading (SAM) • Sample set 3 (SECURED) </title>
+  <style>
+    :root{
+      --bg1:#2b0a3d; --bg2:#7a0036;
+      --card:#0f0b18cc; --card2:#120c22e6;
+      --text:#f4efff; --muted:#c9b9ff;
+      --accent:#b000ff; --accent2:#ff1b6a;
+      --good:#19ff9a; --warn:#ffd166; --bad:#ff4d6d;
+      --line:rgba(255,255,255,.12);
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:var(--sans); color:var(--text);
+      background:
+        radial-gradient(1000px 700px at 15% 10%, rgba(176,0,255,.22), transparent 60%),
+        radial-gradient(900px 650px at 80% 20%, rgba(255,27,106,.18), transparent 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+    }
+    .wrap{max-width:1100px; margin:0 auto; padding:22px;}
+    .topbar{
+      display:flex; gap:14px; align-items:center; justify-content:space-between;
+      padding:14px 16px; border:1px solid var(--line); border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      box-shadow:var(--shadow);
+      position:sticky; top:14px; z-index:20; backdrop-filter: blur(10px);
+    }
+    .brand{display:flex; flex-direction:column; gap:2px}
+    .brand h1{margin:0; font-size:16px; letter-spacing:.3px}
+    .brand .sub{font-size:12px; color:var(--muted)}
+    .pill{
+      padding:8px 10px; border-radius:999px; border:1px solid var(--line);
+      background:rgba(0,0,0,.25); font-family:var(--mono); font-size:12px;
+      display:flex; gap:10px; align-items:center;
+    }
+    .pill strong{color:#fff}
+    .btn{
+      border:1px solid var(--line); background:rgba(0,0,0,.25);
+      color:var(--text); padding:10px 12px; border-radius:14px; cursor:pointer;
+      transition:.15s transform, .15s background, .15s border;
+      font-weight:600;
+    }
+    .btn:hover{transform:translateY(-1px); background:rgba(0,0,0,.33); border-color:rgba(255,255,255,.22)}
+    .btn.primary{
+      background:linear-gradient(135deg, rgba(176,0,255,.55), rgba(255,27,106,.45));
+      border-color:rgba(255,255,255,.22);
+    }
+    .btn.danger{background:rgba(255,77,109,.18); border-color:rgba(255,77,109,.35)}
+    .grid{display:grid; grid-template-columns: 1.1fr .9fr; gap:16px; margin-top:16px;}
+    @media (max-width: 980px){ .grid{grid-template-columns:1fr} .topbar{position:static} }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .card .hd{
+      padding:14px 16px; border-bottom:1px solid var(--line);
+      display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
+      background:linear-gradient(180deg, rgba(255,255,255,.06), transparent);
+    }
+    .card .hd h2{margin:0; font-size:14px}
+    .card .hd .meta{font-size:12px; color:var(--muted); line-height:1.25}
+    .card .bd{padding:16px}
+    label{display:block; font-size:12px; color:var(--muted); margin:10px 0 6px}
+
+    input[type="text"], input[type="number"], textarea, select{
+      width:100%; border:1px solid var(--line); background:rgba(0,0,0,.25);
+      color:var(--text); padding:10px 12px; border-radius:14px; outline:none;
+      font-family:var(--sans);
+    }
+    textarea{min-height:90px; resize:vertical}
+
+    .row{display:flex; gap:10px; flex-wrap:wrap}
+    .row > div{flex:1 1 180px}
+
+    .note{
+      font-size:12px; color:var(--muted); line-height:1.4;
+      padding:10px 12px; border-radius:14px; border:1px dashed rgba(255,255,255,.18);
+      background:rgba(0,0,0,.18);
+    }
+    .badge{
+      font-family:var(--mono); font-size:12px; padding:6px 10px; border-radius:999px;
+      border:1px solid var(--line); background:rgba(0,0,0,.20);
+      display:inline-flex; align-items:center; gap:6px;
+    }
+    .badge.good{border-color:rgba(25,255,154,.35); background:rgba(25,255,154,.12)}
+    .badge.warn{border-color:rgba(255,209,102,.35); background:rgba(255,209,102,.12)}
+    .badge.bad{border-color:rgba(255,77,109,.35); background:rgba(255,77,109,.12)}
+    .divider{height:1px; background:var(--line); margin:14px 0}
+    .passage{
+      padding:12px 14px; border:1px solid var(--line); border-radius:16px;
+      background:rgba(0,0,0,.22); line-height:1.5;
+    }
+    .q{
+      margin-top:14px; padding:12px 14px; border:1px solid var(--line);
+      border-radius:16px; background:rgba(0,0,0,.20);
+    }
+    .q h3{margin:0 0 8px; font-size:13px}
+    .opts{display:grid; gap:8px; margin-top:8px}
+    .opt{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:10px 10px; border-radius:14px; border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+      cursor:pointer;
+    }
+    .opt input{margin-top:3px}
+    .kpi{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
+    @media (max-width: 980px){ .kpi{grid-template-columns:repeat(2,1fr)} }
+    .kpi .box{
+      border:1px solid var(--line); border-radius:16px; padding:10px 12px;
+      background:rgba(0,0,0,.22);
+    }
+    .kpi .box .t{font-size:12px; color:var(--muted)}
+    .kpi .box .v{font-size:18px; font-weight:800; margin-top:4px}
+    .small{font-size:12px; color:var(--muted)}
+    .tabs{display:flex; gap:8px; flex-wrap:wrap}
+    .tab{padding:10px 12px; border-radius:14px; border:1px solid var(--line); background:rgba(0,0,0,.22); cursor:pointer; font-weight:700}
+    .tab.active{background:linear-gradient(135deg, rgba(176,0,255,.35), rgba(255,27,106,.22)); border-color:rgba(255,255,255,.22)}
+    .resultsList{display:grid; gap:10px}
+    .attempt{
+      border:1px solid var(--line); border-radius:16px; padding:12px 14px;
+      background:rgba(0,0,0,.20);
+    }
+    .attempt .top{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap}
+    .attempt .top strong{font-family:var(--mono)}
+    .attempt .meta{font-size:12px; color:var(--muted); margin-top:6px; line-height:1.4}
+    .copy{font-family:var(--mono); font-size:12px; white-space:pre-wrap; word-break:break-word}
+    .hide{display:none !important}
+
+    /* Candidate number 4 squares */
+    .digitRow{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
+    .digitRow .digit{
+      width:52px; text-align:center; font-family:var(--mono);
+      font-size:18px; font-weight:900; padding:12px 0;
+      border-radius:14px; border:1px solid var(--line);
+      background:rgba(0,0,0,.25); color:var(--text);
+      outline:none;
+    }
+    .digitRow .hint{font-size:12px; color:var(--muted)}
+    .miniRow{display:flex; gap:10px; flex-wrap:wrap; align-items:flex-end}
+    .miniRow > *{flex:1 1 160px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <h1>🟣 Otono French — Paper 3 • Reading • Sample Assessment Material • Sample set 3 (SECURED) </h1>
+        <div class="sub">
+          Auto marking • 4 random passages × 20 + 1 translation × 20 = 100 • Centre:
+          <strong id="centreTop">50749</strong>
+        </div>
+      </div>
+      <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end">
+        <div class="pill">
+          <span>⏱️ Timer:</span>
+          <strong id="timerText">--:--</strong>
+        </div>
+        <button class="btn" id="btnResults">Results</button>
+        <button class="btn primary" id="btnHome">Test</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- Left: main -->
+      <div class="card" id="panelHome">
+        <div class="hd">
+          <div>
+            <h2>Candidate setup</h2>
+            <div class="meta">No dictionary • No translator • Answer from the text • Auto marking for written answers uses keywords (not perfect).</div>
+          </div>
+          <span class="badge" id="statusBadge">Ready</span>
+        </div>
+
+        <div class="bd" id="homeBody">
+          <div class="miniRow">
+            <div>
+              <label>Centre number</label>
+              <input type="text" id="centreNo" value="50749" disabled />
+              <div class="small" style="margin-top:6px">
+                Default is <strong>50749</strong>. You can change it (optional) with the button.
+              </div>
+            </div>
+            <div style="display:flex; gap:10px; align-items:flex-end; flex-wrap:wrap">
+              <button class="btn" id="btnEditCentre">Customise centre</button>
+              <button class="btn" id="btnResetCentre">Reset centre</button>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div>
+            <label>Candidate number (required, 4 digits)</label>
+            <div class="digitRow" aria-label="Candidate number 4 digits">
+              <input class="digit" id="candD1" inputmode="numeric" maxlength="1" />
+              <input class="digit" id="candD2" inputmode="numeric" maxlength="1" />
+              <input class="digit" id="candD3" inputmode="numeric" maxlength="1" />
+              <input class="digit" id="candD4" inputmode="numeric" maxlength="1" />
+              <span class="hint">Digits only • auto-advance</span>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top:6px">
+            <div>
+              <label>Candidate surname (optional)</label>
+              <input type="text" id="candSurname" placeholder="Surname" />
+            </div>
+            <div>
+              <label>Candidate forename(s) (optional)</label>
+              <input type="text" id="candForenames" placeholder="Forename(s)" />
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>How the random paper works (SAM set 3):</strong><br/>
+            • The system selects <strong>4 random passages</strong> (each worth <strong>20</strong>) and <strong>1 random translation</strong> (worth <strong>20</strong>).<br/>
+            • You’ll get a mix of <strong>MCQ</strong>, <strong>P/N/P+N</strong>, <strong>True/False/Not mentioned</strong>, and <strong>written answers</strong>.<br/>
+            • Some passages include <strong>questions answered in French</strong> (you must answer in French).<br/>
+            • Written + translation answers are marked by <strong>keyword coverage</strong> (so write clear, direct answers).<br/>
+            • Your attempt is saved to this browser using <strong>localStorage</strong>.
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="row">
+            <div>
+              <label>Time allowed</label>
+              <select id="timeAllowed">
+                <option value="75" selected>75 minutes (recommended)</option>
+                <option value="60">60 minutes</option>
+                <option value="45">45 minutes</option>
+              </select>
+            </div>
+            <div>
+              <label>Question order</label>
+              <select id="shuffleMode">
+                <option value="shuffleAll">Shuffle questions (harder)</option>
+                <option value="keepOrder" selected>Keep original order</option>
+              </select>
+            </div>
+            <div>
+              <label>On timer end</label>
+              <select id="autoSubmit">
+                <option value="yes" selected>Auto-submit</option>
+                <option value="no">Do not auto-submit</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap">
+            <button class="btn primary" id="btnStart">Start Random Paper</button>
+            <button class="btn" id="btnPreview">Preview Random Selection</button>
+          </div>
+
+          <div id="previewBox" class="note hide" style="margin-top:12px"></div>
+        </div>
+
+        <!-- Test body -->
+        <div class="bd hide" id="testBody">
+          <div class="kpi">
+            <div class="box"><div class="t">Candidate</div><div class="v" id="kpiCandidate">—</div></div>
+            <div class="box"><div class="t">Selected passages</div><div class="v" id="kpiPassages">—</div></div>
+            <div class="box"><div class="t">Translation</div><div class="v" id="kpiTranslation">—</div></div>
+            <div class="box"><div class="t">Max score</div><div class="v">100</div></div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>Instructions reminder:</strong>
+            No dictionary. Do not copy from outside. Base answers on the passage. For written answers, include the key idea(s) clearly.
+          </div>
+
+          <div id="paper"></div>
+
+          <div class="divider"></div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap">
+            <button class="btn primary" id="btnSubmit">Submit & Auto-Mark</button>
+            <button class="btn" id="btnReset">Reset (new random paper)</button>
+          </div>
+
+          <div id="markingBox" class="hide" style="margin-top:14px"></div>
+        </div>
+      </div>
+
+      <!-- Right: results / help -->
+      <div class="card" id="panelSide">
+        <div class="hd">
+          <div>
+            <h2 id="sideTitle">Otono grading</h2>
+            <div class="meta" id="sideMeta">Score → Otono grade + GCSE estimate + Pass/Merit/Distinction.</div>
+          </div>
+        </div>
+
+        <div class="bd" id="sideBody">
+          <div class="note">
+            <strong>Pass/Merit/Distinction</strong><br/>
+            PASS: 66+<br/>
+            MERIT: 80+<br/>
+            DISTINCTION: 90+<br/>
+          </div>
+          <div class="divider"></div>
+          <div class="note">
+            <strong>Otono grades (A–H + secret S)</strong><br/>
+            S: 101+ (secret)<br/>
+            A*: 95–100<br/>
+            A: 90–94<br/>
+            B: 80–89<br/>
+            C: 70–79<br/>
+            D: 66–69<br/>
+            E: 55–65<br/>
+            F: 45–54<br/>
+            G: 30–44<br/>
+            H: 15–29<br/>
+            U: 0–14
+          </div>
+          <div class="divider"></div>
+          <div class="note">
+            <strong>GCSE 9–1 estimate (simple mapping)</strong><br/>
+            9: 90–100 • 8: 80–89 • 7: 70–79 • 6: 60–69 • 5: 50–59<br/>
+            4: 40–49 • 3: 30–39 • 2: 20–29 • 1: 10–19 • U: 0–9
+          </div>
+          <div class="divider"></div>
+          <div class="small">
+            Tip: results are stored locally on this device/browser only. If you clear site data, they disappear.
+          </div>
+        </div>
+
+        <!-- Results panel -->
+        <div class="bd hide" id="resultsBody">
+          <div class="tabs">
+            <div class="tab active" id="tabAll">All attempts</div>
+            <div class="tab" id="tabCandidate">By candidate</div>
+          </div>
+
+          <div class="row" style="margin-top:10px">
+            <div>
+              <label>Filter candidate number (4 digits)</label>
+              <input type="text" id="filterCandidate" placeholder="e.g. 1105" inputmode="numeric" />
+            </div>
+            <div>
+              <label>Actions</label>
+              <div style="display:flex; gap:10px; flex-wrap:wrap">
+                <button class="btn" id="btnExport">Export JSON</button>
+                <button class="btn danger" id="btnClear">Clear stored results</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+          <div class="resultsList" id="resultsList"></div>
+
+          <div id="exportBox" class="note hide" style="margin-top:12px">
+            <div><strong>Exported JSON</strong> (copy/save it):</div>
+            <div class="divider"></div>
+            <div class="copy" id="exportText"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* -----------------------------
+   OTONO BANK (STRAIGHTFORWARD TEXT, SIMILAR LENGTH)
+   Each passage total = 20 marks
+--------------------------------*/
+
+// ✅ UPDATED: P/N/P+N questions restored + each passage now totals 20 marks
+// ✅ NOT every passage has 6 questions anymore (some have 5, some 7)
+// ✅ ALL questions + rubrics are in ENGLISH (only prompts marked “En français” require French answers)
+
+const PASSAGES = [
+  {
+    id: 1,
+    title: "Passage 1 — Monsieur Barley et les consignes simples",
+    theme: "Theme 1 — School",
+    unit: "Unit 1 (Teachers)",
+    text: `Monsieur Barley est professeur de sciences à l’école Otono. Il parle calmement et il aime les règles simples. Dans sa salle, tout doit être prêt avant le cours. Les cahiers sont ouverts, les tables sont propres et le matériel est à sa place. Red remarque aussi un détail amusant : sa ceinture est marron, presque toujours la même.
+
+Avant un contrôle, Monsieur Barley répète les mêmes conseils. Il faut lire la question jusqu’au bout, souligner les mots importants et donner le bon nombre de détails. Si la question demande deux raisons, il faut écrire deux raisons. Si elle demande une justification, un seul mot ne suffit pas.
+
+Red trouve cette méthode utile. Elle n’est pas compliquée, mais elle évite beaucoup d’erreurs simples. Grâce à cette habitude, il se sent plus calme avant les évaluations et il répond de façon plus précise.`,
+    questions: [
+      {
+        id: "p1q1",
+        type: "mcq",
+        marks: 2,
+        prompt: "(E) What subject does Monsieur Barley teach?",
+        options: ["Science", "Music", "French", "PE"],
+        answerIndex: 0
+      },
+      {
+        id: "p1q2",
+        type: "short",
+        marks: 4,
+        prompt: "(E) Give TWO classroom details mentioned.",
+        rubric: "Any two: notebooks open; tables clean; equipment in the right place; simple rules; calm speaking; brown belt.",
+        keywords: [
+          ["cahiers", "ouverts", "open"],
+          ["tables", "propres", "clean"],
+          ["matériel", "place", "right place"],
+          ["règles", "simples", "simple"],
+          ["calmement", "calm"],
+          ["ceinture", "marron", "brown belt"]
+        ]
+      },
+      {
+        id: "p1q3",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) Monsieur Barley gives students science homework every weekend. (True / False / Not mentioned)",
+        correct: "Not mentioned"
+      },
+      {
+        id: "p1q4",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) Monsieur Barley’s method is presented as… (P / N / P+N)",
+        answer: "P"
+      },
+      {
+        id: "p1q5",
+        type: "fr_short",
+        marks: 4,
+        prompt: "(M) En français : Que doit faire un élève avant de répondre ? Donne DEUX actions.",
+        rubric: "Any TWO: lire la question jusqu’au bout; souligner les mots importants; donner le bon nombre de détails.",
+        keywords: [
+          ["lire", "question", "jusqu’au bout"],
+          ["souligner", "mots", "importants"],
+          ["bon nombre", "détails"]
+        ]
+      },
+      {
+        id: "p1q6",
+        type: "short",
+        marks: 6,
+        prompt: "(H) Explain ONE way this method helps Red.",
+        rubric: "It helps him avoid simple mistakes / feel calmer / answer more precisely because he reads fully and gives the required detail.",
+        keywords: [
+          ["évite", "erreurs", "avoid", "mistakes"],
+          ["calme", "calmer"],
+          ["précise", "precise"],
+          ["lit", "question"],
+          ["détails", "required"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id: 2,
+    title: "Passage 2 — Madame Munn, quatre-vingts et soixante-dix-neuf",
+    theme: "Theme 1 — School",
+    unit: "Unit 4 (Exam results)",
+    text: `Après un entraînement de maths, Madame Munn annonce les résultats à voix haute. Les élèves attendent en silence. Dans cette classe, un nombre est devenu célèbre : quatre-vingts. Pour Red, c’est un grand objectif. Quand il obtient quatre-vingts, il a une vue très positive du résultat. Mais quand il voit soixante-dix-neuf, il devient extrêmement négatif, parce qu’il pense être tout près sans y arriver.
+
+Ce jour-là, Madame Munn lit aussi un autre résultat qui fait sourire la classe : « Emmanuel, soixante-dix-huit ». Cette phrase est presque devenue célèbre elle aussi. Red aime bien Emmanuel, mais il pense encore au nombre 80. Il dit qu’un 80 montre que le travail a vraiment payé.
+
+Madame Munn rappelle pourtant une idée importante : un bon résultat reste un bon résultat. Elle veut que les élèves progressent, pas qu’ils dramatisent. Red comprend le message, mais il garde son obsession pour quatre-vingts.`,
+    questions: [
+      {
+        id: "p2q1",
+        type: "mcq",
+        marks: 2,
+        prompt: "(E) Which number has become famous in the class?",
+        options: ["60", "78", "79", "80"],
+        answerIndex: 3
+      },
+      {
+        id: "p2q2",
+        type: "short",
+        marks: 2,
+        prompt: "(E) What exact result does Madame Munn read out for Emmanuel?",
+        rubric: "Seventy-eight / 78.",
+        keywords: [
+          ["78"],
+          ["seventy-eight"],
+          ["soixante-dix-huit"]
+        ]
+      },
+      {
+        id: "p2q3",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) Emmanuel is angry after hearing his result. (True / False / Not mentioned)",
+        correct: "Not mentioned"
+      },
+      {
+        id: "p2q4",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) Red’s feelings about 79 are… (P / N / P+N)",
+        answer: "N"
+      },
+      {
+        id: "p2q5",
+        type: "select_true",
+        marks: 4,
+        prompt: "(E) Select THREE statements that are true.",
+        statements: [
+          "Madame Munn announces results quietly to one student only.",
+          "Red sees 80 in a very positive way.",
+          "The class laughs because Emmanuel failed badly.",
+          "Red becomes extremely negative about 79.",
+          "Madame Munn says progress is more important than drama."
+        ],
+        correctIndices: [1, 3, 4],
+        minSelect: 2
+      },
+      {
+        id: "p2q6",
+        type: "fr_short",
+        marks: 4,
+        prompt: "(M) En français : Pourquoi Red aime-t-il le nombre 80 ? Donne DEUX idées.",
+        rubric: "Any TWO: c’est un grand objectif; cela montre que le travail a payé; c’est un nombre célèbre dans la classe; il pense que c’est une vraie réussite.",
+        keywords: [
+          ["grand", "objectif"],
+          ["travail", "payé"],
+          ["célèbre", "classe"],
+          ["vraie", "réussite"]
+        ]
+      },
+      {
+        id: "p2q7",
+        type: "short",
+        marks: 4,
+        prompt: "(H) What is Madame Munn’s main message about results?",
+        rubric: "That a good result is still good and students should focus on progress, not overdramatise marks.",
+        keywords: [
+          ["bon résultat", "good result"],
+          ["progresser", "progress"],
+          ["dramatisent", "dramatise"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id: 3,
+    title: "Passage 3 — Les règles contradictoires et l’encre",
+    theme: "Theme 1 — School",
+    unit: "Unit 2 (Contradictory rules)",
+    text: `Avant les examens, les élèves parlent souvent de l’encre. En maths, on demande presque toujours de répondre en encre noire, car les copies sont scannées. Luke aime cette règle, parce qu’elle est simple. Pour lui, noir veut dire noir, et il n’y a rien à discuter.
+
+Mais dans d’autres matières, les règles peuvent sembler contradictoires. Sur certains documents, on demande d’éviter une couleur précise ou de suivre une consigne spéciale. Luke trouve cela frustrant, surtout quand il pense à son idée absurde d’utiliser de l’encre jaune. Red, lui, reste plus calme.
+
+Selon Red, la solution est claire. Il faut oublier les rumeurs et lire la consigne écrite sur la feuille. Même si les règles changent d’une matière à l’autre, la consigne officielle reste la plus importante.`,
+    questions: [
+      {
+        id: "p3q1",
+        type: "mcq",
+        marks: 2,
+        prompt: "(E) Why is black ink used in maths?",
+        options: ["Because it is cheaper", "Because the papers are scanned", "Because students like it", "Because it is faster"],
+        answerIndex: 1
+      },
+      {
+        id: "p3q2",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) All subjects use exactly the same ink rules. (True / False / Not mentioned)",
+        correct: "False"
+      },
+      {
+        id: "p3q3",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) The contradictory rules are presented as… (P / N / P+N)",
+        answer: "N"
+      },
+      {
+        id: "p3q4",
+        type: "short",
+        marks: 4,
+        prompt: "(E) Give TWO reasons why students feel confused.",
+        rubric: "Any two: rules change between subjects; some colours/inks must be avoided; there may be a special instruction; rumours create confusion.",
+        keywords: [
+          ["changent", "matière", "change", "subjects"],
+          ["éviter", "couleur", "avoid"],
+          ["consigne", "spéciale", "special"],
+          ["rumeurs", "confusion"]
+        ]
+      },
+      {
+        id: "p3q5",
+        type: "gap_fill_en",
+        marks: 4,
+        prompt: "(E) Complete the English summary with words from the passage.",
+        summary: "In maths, students usually use black ____ because papers are scanned. In other subjects, rules may seem ____. Red says the written ____ is the most important thing.",
+        answers: ["ink", "contradictory", "instruction"]
+      },
+      {
+        id: "p3q6",
+        type: "fr_short",
+        marks: 4,
+        prompt: "(M) En français : Quelle est la solution de Red ?",
+        rubric: "Il faut lire la consigne écrite sur la feuille et ignorer les rumeurs.",
+        keywords: [
+          ["lire", "consigne", "écrite"],
+          ["feuille"],
+          ["ignorer", "rumeurs"]
+        ]
+      },
+      {
+        id: "p3q7",
+        type: "short",
+        marks: 2,
+        prompt: "(E) Who likes the simple black-ink rule?",
+        rubric: "Luke.",
+        keywords: [
+          ["luke"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id: 4,
+    title: "Passage 4 — Les règles du collège",
+    theme: "Theme 1 — School",
+    unit: "Unit 3 (School rules)",
+    text: `Au collège Otono, il y a des règles simples pour aider les élèves à travailler. Les téléphones doivent rester hors de vue pendant les cours. Les élèves doivent arriver à l’heure et écouter quand un professeur parle. Dans les couloirs, on demande aussi de marcher calmement.
+
+Beaucoup d’élèves trouvent ces règles raisonnables. Elles évitent le bruit et les retards. Cependant, certains pensent que la règle sur le téléphone est stricte, surtout pendant les pauses courtes. Red comprend les deux points de vue, mais il préfère une salle calme.
+
+Pour lui, une bonne règle n’a pas besoin d’être compliquée. Elle doit être claire et facile à suivre. Quand tout le monde connaît les limites, la journée se passe souvent mieux.`,
+    questions: [
+      {
+        id: "p4q1",
+        type: "mcq",
+        marks: 2,
+        prompt: "(E) What must students do in the corridors?",
+        options: ["Run", "Walk calmly", "Talk loudly", "Use phones"],
+        answerIndex: 1
+      },
+      {
+        id: "p4q2",
+        type: "short",
+        marks: 4,
+        prompt: "(E) Give TWO school rules mentioned.",
+        rubric: "Any two: phones out of sight; arrive on time; listen to the teacher; walk calmly in corridors.",
+        keywords: [
+          ["téléphones", "hors de vue"],
+          ["à l’heure", "on time"],
+          ["écouter", "professeur"],
+          ["marcher", "calmement"]
+        ]
+      },
+      {
+        id: "p4q3",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) The school rules were introduced this year. (True / False / Not mentioned)",
+        correct: "Not mentioned"
+      },
+      {
+        id: "p4q4",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) The overall view of the rules is… (P / N / P+N)",
+        answer: "P+N"
+      },
+      {
+        id: "p4q5",
+        type: "select_true",
+        marks: 4,
+        prompt: "(E) Select THREE statements that are true.",
+        statements: [
+          "The rules are designed to help students work.",
+          "Red hates quiet classrooms.",
+          "Some students find the phone rule strict.",
+          "Students are told to run in the corridors.",
+          "Red thinks rules should be clear."
+        ],
+        correctIndices: [0, 2, 4],
+        minSelect: 2
+      },
+      {
+        id: "p4q6",
+        type: "fr_short",
+        marks: 4,
+        prompt: "(M) En français : Comment doit être une bonne règle selon Red ? Donne DEUX idées.",
+        rubric: "Claire et facile à suivre.",
+        keywords: [
+          ["claire"],
+          ["facile", "suivre"]
+        ]
+      },
+      {
+        id: "p4q7",
+        type: "short",
+        marks: 2,
+        prompt: "(E) Why do many students find the rules reasonable? Give ONE reason.",
+        rubric: "Because they reduce noise / avoid lateness / help lessons go better.",
+        keywords: [
+          ["bruit", "noise"],
+          ["retards", "lateness"],
+          ["mieux", "better"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id: 5,
+    title: "Passage 5 — Thomas choisit le français",
+    theme: "Theme 1 — School",
+    unit: "Unit 4 (Choosing GCSE options)",
+    text: `Choisir ses options GCSE n’est pas facile pour tous les élèves. Certains savent déjà quoi prendre, mais d’autres hésitent. Thomas pense au français. Il aime la matière et il aime aussi entendre la langue, mais il se demande s’il sera assez fort à l’examen.
+
+Il parle avec des amis et avec des professeurs. Peu à peu, il comprend qu’il n’est pas le seul à avoir des doutes. D’autres élèves aiment aussi une matière sans être totalement sûrs d’eux. Cette idée le rassure.
+
+Finalement, Thomas choisit le français. Pour lui, ce choix est logique. Il préfère prendre une matière qu’il aime vraiment plutôt qu’une matière choisie seulement parce qu’elle semble plus simple.`,
+    questions: [
+      {
+        id: "p5q1",
+        type: "mcq_reason",
+        marks: 4,
+        prompt: "(E) Why does Thomas finally choose French?",
+        options: [
+          "Because his friends force him",
+          "Because he really likes the subject",
+          "Because it is the easiest subject",
+          "Because the school chooses for him"
+        ],
+        answerIndex: 1,
+        reasonPrompt: "(E) Choose the best reason.",
+        reasonOptions: [
+          "He wants a subject he genuinely likes.",
+          "He wants to avoid all exams.",
+          "He dislikes hearing French.",
+          "He is already perfect at everything."
+        ],
+        reasonAnswerIndex: 0
+      },
+      {
+        id: "p5q2",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) Thomas is completely confident from the start. (True / False / Not mentioned)",
+        correct: "False"
+      },
+      {
+        id: "p5q3",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) Thomas’s feelings about French are… (P / N / P+N)",
+        answer: "P+N"
+      },
+      {
+        id: "p5q4",
+        type: "short",
+        marks: 4,
+        prompt: "(E) Give TWO things that help Thomas.",
+        rubric: "Any two: talking with friends; talking with teachers; realising others also have doubts; feeling reassured.",
+        keywords: [
+          ["amis", "friends"],
+          ["professeurs", "teachers"],
+          ["doutes", "others", "doubts"],
+          ["rassure", "reassured"]
+        ]
+      },
+      {
+        id: "p5q5",
+        type: "fr_short",
+        marks: 4,
+        prompt: "(M) En français : Pourquoi ce choix est-il logique pour Thomas ?",
+        rubric: "Parce qu’il aime vraiment le français et il préfère choisir une matière qu’il aime.",
+        keywords: [
+          ["aime", "vraiment", "français"],
+          ["préfère", "matière", "aime"]
+        ]
+      },
+      {
+        id: "p5q6",
+        type: "short",
+        marks: 4,
+        prompt: "(H) What is the main message of this passage about choosing options?",
+        rubric: "That liking a subject matters and having doubts is normal when choosing options.",
+        keywords: [
+          ["aimer", "subject matters"],
+          ["doutes", "normal"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id: 6,
+    title: "Passage 6 — Red, OWing, Luke et Jessica à bord d’Otono Airways",
+    theme: "Theme 3 — Otono Team",
+    unit: "Unit 8 (Otono Airways)",
+    text: `Red, OWing, Luke et Jessica voyagent ensemble avec Otono Airways. Dès qu’ils entrent dans l’avion, ils remarquent des choses différentes. Red regarde l’ambiance générale et le confort. OWing observe l’organisation du vol. Luke pense tout de suite aux détails pratiques, comme l’espace et les règles. Jessica fait attention au style de la cabine.
+
+Pendant le vol, leurs opinions restent assez simples. Red aime le confort et dit que le voyage est agréable. OWing apprécie l’efficacité du service. Luke aime l’idée d’un système clair, même quand il y a des règles précises à suivre. Jessica trouve que la cabine donne une impression élégante.
+
+À la fin, les quatre ont une opinion positive, même s’ils ne regardent pas exactement les mêmes détails. Ensemble, ils montrent qu’un bon vol peut plaire pour plusieurs raisons différentes.`,
+    questions: [
+      {
+        id: "p6q1",
+        type: "mcq",
+        marks: 2,
+        prompt: "(E) How many Otono Team members are mentioned travelling together?",
+        options: ["Two", "Three", "Four", "Five"],
+        answerIndex: 2
+      },
+      {
+        id: "p6q2",
+        type: "short",
+        marks: 4,
+        prompt: "(E) Give TWO things Red and OWing notice.",
+        rubric: "Red: atmosphere / comfort. OWing: organisation / efficiency of service.",
+        keywords: [
+          ["red", "ambiance", "atmosphere"],
+          ["red", "confort", "comfort"],
+          ["owing", "organisation"],
+          ["owing", "efficacité", "service"]
+        ]
+      },
+      {
+        id: "p6q3",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) Jessica dislikes the style of the cabin. (True / False / Not mentioned)",
+        correct: "False"
+      },
+      {
+        id: "p6q4",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) The overall view of the flight is… (P / N / P+N)",
+        answer: "P"
+      },
+      {
+        id: "p6q5",
+        type: "gap_fill_en",
+        marks: 4,
+        prompt: "(E) Complete the English summary.",
+        summary: "Red likes the ____ of the flight. OWing notices the ____. Luke likes a clear ____, and Jessica likes the ____ of the cabin.",
+        answers: ["comfort", "organisation", "system", "style"]
+      },
+      {
+        id: "p6q6",
+        type: "fr_short",
+        marks: 4,
+        prompt: "(M) En français : Pourquoi les quatre ont-ils une opinion positive ? Donne DEUX idées.",
+        rubric: "Any TWO: le vol est confortable; le service est efficace; le système est clair; la cabine est élégante.",
+        keywords: [
+          ["confortable"],
+          ["service", "efficace"],
+          ["système", "clair"],
+          ["cabine", "élégante"]
+        ]
+      },
+      {
+        id: "p6q7",
+        type: "short",
+        marks: 2,
+        prompt: "(E) What does this passage show about a good flight?",
+        rubric: "That different people can like it for different reasons.",
+        keywords: [
+          ["différentes", "raisons", "different reasons"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id: 7,
+    title: "Passage 7 — Le serveur communautaire",
+    theme: "Theme 2 — Free time",
+    unit: "Unit 5 (Community Minecraft server and Roblox)",
+    text: `Sur le serveur communautaire Otono, les joueurs aiment construire, parler et préparer de nouveaux projets. Certains préfèrent Minecraft parce qu’ils peuvent créer de grands bâtiments. D’autres aiment aussi Roblox, car les mini-jeux y sont rapides et faciles à partager avec des amis.
+
+Sur ce serveur, la coopération est importante. Une personne peut chercher les matériaux, une autre peut construire, et une autre peut vérifier les détails. Quand tout le monde connaît son rôle, le projet avance plus vite et il y a moins de problèmes.
+
+Mais le serveur doit aussi rester agréable. Les modérateurs demandent aux joueurs d’être polis et de ne pas détruire le travail des autres. Sans ces règles, la communauté deviendrait vite pénible.`,
+    questions: [
+      {
+        id: "p7q1",
+        type: "mcq",
+        marks: 2,
+        prompt: "(E) Why do some players like Roblox?",
+        options: ["Because the mini-games are quick and easy to share", "Because it is quieter", "Because it has no rules", "Because it is only for building houses"],
+        answerIndex: 0
+      },
+      {
+        id: "p7q2",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) The server is busiest on Saturday evenings. (True / False / Not mentioned)",
+        correct: "Not mentioned"
+      },
+      {
+        id: "p7q3",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) Teamwork on the server is presented as… (P / N / P+N)",
+        answer: "P"
+      },
+      {
+        id: "p7q4",
+        type: "select_true",
+        marks: 4,
+        prompt: "(E) Select TWO statements that are true.",
+        statements: [
+          "Players only build alone.",
+          "Different players can have different roles.",
+          "Moderators want players to destroy builds.",
+          "Good behaviour matters on the server.",
+          "Minecraft is mentioned because of fast mini-games only."
+        ],
+        correctIndices: [1, 3],
+        minSelect: 2
+      },
+      {
+        id: "p7q5",
+        type: "fr_short",
+        marks: 4,
+        prompt: "(M) En français : Pourquoi la coopération aide-t-elle le projet ? Donne DEUX idées.",
+        rubric: "Any TWO: chacun a un rôle; le projet avance plus vite; il y a moins de problèmes; quelqu’un peut vérifier les détails.",
+        keywords: [
+          ["chacun", "rôle"],
+          ["plus vite"],
+          ["moins", "problèmes"],
+          ["vérifier", "détails"]
+        ]
+      },
+      {
+        id: "p7q6",
+        type: "short",
+        marks: 6,
+        prompt: "(H) Why are the moderators’ rules necessary?",
+        rubric: "Because they keep the community pleasant, encourage politeness, and stop players from ruining others’ work.",
+        keywords: [
+          ["agréable", "pleasant"],
+          ["polis", "polite"],
+          ["ne pas détruire", "not destroy"],
+          ["travail", "autres"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id: 8,
+    title: "Passage 8 — La musique à l’école",
+    theme: "Theme 2 — Free time",
+    unit: "Unit 6 (Music)",
+    text: `À l’école Otono, certains élèves aiment beaucoup la musique. Pour eux, ce n’est pas seulement un bruit de fond. Une bonne chanson peut changer l’humeur, donner de l’énergie ou aider à se concentrer. Les goûts restent pourtant très différents.
+
+Jessica aime les morceaux bien organisés. Red préfère les musiques qui ont du caractère. D’autres élèves choisissent des chansons calmes pour réviser. Ainsi, la musique joue un rôle différent selon la personne.
+
+Les professeurs disent souvent qu’il faut savoir quand écouter et quand travailler en silence. La musique peut être utile, mais seulement si elle ne devient pas une distraction.`,
+    questions: [
+      {
+        id: "p8q1",
+        type: "mcq_reason",
+        marks: 4,
+        prompt: "(E) Why can music be useful for some students?",
+        options: [
+          "Because it always removes all work",
+          "Because it can change mood or help concentration",
+          "Because every teacher allows it in tests",
+          "Because all songs are silent"
+        ],
+        answerIndex: 1,
+        reasonPrompt: "(E) Choose the best reason.",
+        reasonOptions: [
+          "The passage says music can give energy or help focus.",
+          "The passage says music replaces revision.",
+          "The passage says all students like the same songs.",
+          "The passage says silence is impossible."
+        ],
+        reasonAnswerIndex: 0
+      },
+      {
+        id: "p8q2",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) All students have the same taste in music. (True / False / Not mentioned)",
+        correct: "False"
+      },
+      {
+        id: "p8q3",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) The passage’s view of music is… (P / N / P+N)",
+        answer: "P+N"
+      },
+      {
+        id: "p8q4",
+        type: "short",
+        marks: 4,
+        prompt: "(E) Give TWO different ways music is used or liked in the passage.",
+        rubric: "Any two: changes mood; gives energy; helps concentration; Jessica likes organised pieces; Red likes music with character; some prefer calm music for revision.",
+        keywords: [
+          ["humeur", "mood"],
+          ["énergie", "energy"],
+          ["concentrer", "concentration"],
+          ["jessica", "organisés"],
+          ["red", "caractère"],
+          ["calmes", "réviser"]
+        ]
+      },
+      {
+        id: "p8q5",
+        type: "fr_short",
+        marks: 4,
+        prompt: "(M) En français : Quelle est l’idée des professeurs ?",
+        rubric: "Il faut savoir quand écouter de la musique et quand travailler en silence.",
+        keywords: [
+          ["savoir", "quand", "écouter"],
+          ["travailler", "silence"]
+        ]
+      },
+      {
+        id: "p8q6",
+        type: "short",
+        marks: 4,
+        prompt: "(H) What is the warning at the end of the passage?",
+        rubric: "Music is only useful if it does not become a distraction.",
+        keywords: [
+          ["utile", "useful"],
+          ["ne", "distraction"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id: 9,
+    title: "Passage 9 — Ma région en hiver",
+    theme: "Theme 2 — Your region",
+    unit: "Unit 7 (Your region)",
+    text: `La région autour de Bath et de Bristol n’est pas toujours spectaculaire en hiver, mais Red l’aime bien. Les rues peuvent être grises et le vent peut être froid, pourtant il trouve l’ambiance agréable. Il aime surtout les journées courtes, les lumières de la ville et l’idée de rentrer au chaud après être sorti.
+
+Red dit aussi qu’il n’a presque jamais peur du froid. Pour rester discret, il porte parfois un collant sous son pantalon. C’est son secret pour rester à l’aise pendant l’hiver. Il ne le dit pas aux autres, mais pour lui, c’est pratique.
+
+Dans cette région, l’hiver n’est pas extrême, mais il peut être humide. Red pense que ce climat convient assez bien à sa saison préférée. Il ne veut pas de températures trop élevées ; il préfère l’air froid et calme.`,
+    questions: [
+      {
+        id: "p9q1",
+        type: "mcq",
+        marks: 2,
+        prompt: "(E) Which season is described in the passage?",
+        options: ["Spring", "Summer", "Autumn", "Winter"],
+        answerIndex: 3
+      },
+      {
+        id: "p9q2",
+        type: "short",
+        marks: 4,
+        prompt: "(E) Give TWO things Red likes about the region in winter.",
+        rubric: "Any two: short days; city lights; coming back into the warm; cold calm air; pleasant atmosphere.",
+        keywords: [
+          ["journées", "courtes", "short days"],
+          ["lumières", "lights"],
+          ["rentrer", "chaud", "warm"],
+          ["air", "froid", "cold air"],
+          ["ambiance", "agréable"]
+        ]
+      },
+      {
+        id: "p9q3",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) Red tells everyone openly about his winter secret. (True / False / Not mentioned)",
+        correct: "False"
+      },
+      {
+        id: "p9q4",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) Red’s view of winter in his region is… (P / N / P+N)",
+        answer: "P"
+      },
+      {
+        id: "p9q5",
+        type: "gap_fill_en",
+        marks: 4,
+        prompt: "(E) Complete the English summary.",
+        summary: "Red likes winter near Bath and Bristol. To stay comfortable, he sometimes wears ____ under his trousers. He prefers cold air and does not want temperatures that are too ____.",
+        answers: ["tights", "high"]
+      },
+      {
+        id: "p9q6",
+        type: "fr_short",
+        marks: 4,
+        prompt: "(M) En français : Pourquoi Red porte-t-il un collant ?",
+        rubric: "Pour rester à l’aise et avoir chaud en hiver.",
+        keywords: [
+          ["rester", "à l’aise"],
+          ["avoir", "chaud"],
+          ["hiver"]
+        ]
+      },
+      {
+        id: "p9q7",
+        type: "short",
+        marks: 2,
+        prompt: "(E) What kind of climate does the passage describe in winter?",
+        rubric: "Cold/cool and damp, but not extreme.",
+        keywords: [
+          ["froid", "cold"],
+          ["humide", "damp"],
+          ["pas", "extrême", "not extreme"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id: 10,
+    title: "Passage 10 — Otono Mansion et la vie quotidienne",
+    theme: "Theme 3 — Otono Team",
+    unit: "Unit 9 (Otono Mansion)",
+    text: `Otono Mansion est une très grande maison avec plus de quatre-vingt-dix pièces. Dans un lieu aussi vaste, l’organisation est essentielle. Sans règles simples, les habitants perdraient du temps et les invités ne sauraient pas où aller.
+
+Chaque espace a un rôle. Certaines pièces sont calmes et utiles pour travailler. D’autres servent à se reposer ou à recevoir des visiteurs. Red aime particulièrement les endroits silencieux avec une table claire et une bonne lumière.
+
+Pour lui, l’organisation de la maison n’est pas seulement pratique. Elle rend aussi la vie plus agréable. Quand chacun respecte le rôle des pièces, il y a moins de chaos.`,
+    questions: [
+      {
+        id: "p10q1",
+        type: "mcq",
+        marks: 2,
+        prompt: "(E) Roughly how many rooms does Otono Mansion have?",
+        options: ["Over 90", "About 20", "Exactly 50", "Under 10"],
+        answerIndex: 0
+      },
+      {
+        id: "p10q2",
+        type: "short",
+        marks: 4,
+        prompt: "(E) Give TWO reasons why organisation matters in the mansion.",
+        rubric: "Any two: saves time; helps guests know where to go; reduces chaos; makes life more pleasant.",
+        keywords: [
+          ["temps", "save time"],
+          ["invités", "where to go"],
+          ["chaos"],
+          ["agréable", "pleasant"]
+        ]
+      },
+      {
+        id: "p10q3",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) The passage presents organisation in the mansion as… (P / N / P+N)",
+        answer: "P"
+      },
+      {
+        id: "p10q4",
+        type: "fr_short",
+        marks: 4,
+        prompt: "(M) En français : Quel type d’endroit Red préfère-t-il pour travailler ? Donne DEUX détails.",
+        rubric: "Any TWO: un endroit silencieux; une table claire; une bonne lumière.",
+        keywords: [
+          ["silencieux", "calme"],
+          ["table", "claire"],
+          ["bonne", "lumière"]
+        ]
+      },
+      {
+        id: "p10q5",
+        type: "short",
+        marks: 8,
+        prompt: "(H) Explain why respecting the role of each room helps daily life in the mansion.",
+        rubric: "It keeps spaces organised, reduces confusion and chaos, helps people know where to go, and makes living together easier and more pleasant.",
+        keywords: [
+          ["organisé", "organised"],
+          ["confusion"],
+          ["chaos"],
+          ["savoir", "où aller"],
+          ["vivre ensemble", "easier"],
+          ["agréable", "pleasant"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id: 11,
+    title: "Passage 11 — Perfection ou progrès ?",
+    theme: "Theme 4 — Results",
+    unit: "Unit 10 (Perfection vs Progress)",
+    text: `À l’école, certains élèves parlent souvent de la perfection. Ils admirent les notes très hautes et les résultats exacts. Clayton, avec son score parfait en maths, représente cette idée pour beaucoup de personnes. Elles pensent que viser la perfection donne une direction claire.
+
+D’autres élèves préfèrent parler de progrès. Pour eux, il est plus utile de comparer son niveau actuel avec son niveau d’avant. Red comprend les deux idées, mais il préfère le progrès dans la plupart des cas. Selon lui, tout le monde ne peut pas être parfait tous les jours, mais tout le monde peut avancer.
+
+Le débat reste simple : faut-il viser le score parfait ou une amélioration régulière ? Pour Red, le progrès est souvent plus réaliste et moins dangereux pour la confiance.`,
+    questions: [
+      {
+        id: "p11q1",
+        type: "mcq_reason",
+        marks: 4,
+        prompt: "(E) Which idea does Red usually prefer?",
+        options: ["Perfection only", "Progress", "Luck", "No goals"],
+        answerIndex: 1,
+        reasonPrompt: "(E) Choose the best reason.",
+        reasonOptions: [
+          "Because progress is often more realistic for everyone.",
+          "Because he thinks scores do not matter at all.",
+          "Because he hates improvement.",
+          "Because he never thinks about confidence."
+        ],
+        reasonAnswerIndex: 0
+      },
+      {
+        id: "p11q2",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) Clayton is linked to the idea of perfection in the passage. (True / False / Not mentioned)",
+        correct: "True"
+      },
+      {
+        id: "p11q3",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) The passage’s overall view of perfection is… (P / N / P+N)",
+        answer: "P+N"
+      },
+      {
+        id: "p11q4",
+        type: "select_true",
+        marks: 4,
+        prompt: "(E) Select THREE statements that are true.",
+        statements: [
+          "Some students admire exact, very high scores.",
+          "Red always chooses perfection over progress.",
+          "Progress means comparing yourself with your earlier level.",
+          "The passage says nobody can ever improve.",
+          "Red thinks progress can protect confidence."
+        ],
+        correctIndices: [0, 2, 4],
+        minSelect: 2
+      },
+      {
+        id: "p11q5",
+        type: "fr_short",
+        marks: 4,
+        prompt: "(M) En français : Pourquoi Red préfère-t-il souvent le progrès ? Donne DEUX idées.",
+        rubric: "Any TWO: c’est plus réaliste; tout le monde peut avancer; c’est moins dangereux pour la confiance.",
+        keywords: [
+          ["plus", "réaliste"],
+          ["tout le monde", "avancer"],
+          ["moins dangereux", "confiance"]
+        ]
+      },
+      {
+        id: "p11q6",
+        type: "short",
+        marks: 4,
+        prompt: "(H) What is the main debate in the passage?",
+        rubric: "Whether students should aim for perfect scores or for regular improvement/progress.",
+        keywords: [
+          ["score", "parfait"],
+          ["amélioration", "régulière"],
+          ["progrès"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id: 12,
+    title: "Passage 12 — Les YouTubeurs célèbres",
+    theme: "Theme 4 — Influence",
+    unit: "Unit 11 (Famous YouTubers)",
+    text: `Beaucoup de jeunes regardent des YouTubeurs célèbres comme Matthew Beem, Jordan Matter, Salish ou Nidal. Ils aiment leur énergie, leurs idées rapides et leurs vidéos faciles à partager. Ces créateurs donnent souvent envie de faire quelque chose de nouveau.
+
+Cependant, tout n’est pas toujours simple. Certaines vidéos paraissent faciles, mais elles demandent beaucoup de préparation. Si un spectateur oublie ce détail, il peut penser qu’il doit réussir tout de suite. Cela peut créer une pression inutile.
+
+Red pense qu’il faut garder une bonne distance. On peut admirer un créateur et apprendre de ses idées, mais il ne faut pas se comparer à lui à chaque minute.`,
+    questions: [
+      {
+        id: "p12q1",
+        type: "mcq",
+        marks: 2,
+        prompt: "(E) What do many young viewers like about these YouTubers?",
+        options: ["Their energy and ideas", "Their silence", "Their school uniforms", "Their dislike of videos"],
+        answerIndex: 0
+      },
+      {
+        id: "p12q2",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) The passage says famous videos always take no preparation. (True / False / Not mentioned)",
+        correct: "False"
+      },
+      {
+        id: "p12q3",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) The passage’s view of famous YouTubers is… (P / N / P+N)",
+        answer: "P+N"
+      },
+      {
+        id: "p12q4",
+        type: "short",
+        marks: 4,
+        prompt: "(E) Give TWO possible effects of watching these creators.",
+        rubric: "Any two: they inspire new ideas; make viewers want to create; may create pressure; may make success look easy.",
+        keywords: [
+          ["nouveau", "new ideas"],
+          ["envie", "create"],
+          ["pression", "pressure"],
+          ["facile", "easy"]
+        ]
+      },
+      {
+        id: "p12q5",
+        type: "fr_short",
+        marks: 4,
+        prompt: "(M) En français : Quelle est l’idée de Red ?",
+        rubric: "On peut admirer un créateur et apprendre de lui, mais il ne faut pas se comparer à lui tout le temps.",
+        keywords: [
+          ["admirer"],
+          ["apprendre"],
+          ["ne faut pas", "se comparer"],
+          ["tout le temps"]
+        ]
+      },
+      {
+        id: "p12q6",
+        type: "short",
+        marks: 6,
+        prompt: "(H) Why does Red think viewers should keep some distance?",
+        rubric: "Because creators can inspire people, but comparing yourself constantly can create pressure and unrealistic expectations.",
+        keywords: [
+          ["inspirer", "inspire"],
+          ["comparer", "constantly compare"],
+          ["pression", "pressure"],
+          ["irréaliste", "unrealistic"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id: 13,
+    title: "Passage 13 — Le Mans et les jeux de course",
+    theme: "Theme 4 — Racing",
+    unit: "Unit 12 (Le Mans Race)",
+    text: `OWing aime beaucoup les voitures et s’intéresse à la course du Mans. Il aime surtout l’idée d’une longue épreuve où la régularité compte autant que la vitesse. Pour lui, gagner ne dépend pas seulement d’un moment spectaculaire ; il faut aussi rester précis pendant très longtemps.
+
+Red joue souvent à des jeux de course avec lui. Il aime l’énergie des départs et les grandes lignes droites, mais il fait encore des erreurs dans les virages. OWing lui rappelle souvent qu’il faut freiner au bon moment.
+
+Les deux cousins aiment ce monde pour des raisons proches. Ils aiment la vitesse, mais ils comprennent aussi que le contrôle reste essentiel. C’est pour cela que le Mans les intéresse autant.`,
+    questions: [
+      {
+        id: "p13q1",
+        type: "mcq",
+        marks: 2,
+        prompt: "(E) What does OWing especially like about Le Mans?",
+        options: ["Only the colours of the cars", "The long race where regularity matters", "The short break between lessons", "The absence of speed"],
+        answerIndex: 1
+      },
+      {
+        id: "p13q2",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) Red is already perfect in corners. (True / False / Not mentioned)",
+        correct: "False"
+      },
+      {
+        id: "p13q3",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) The passage’s view of racing is… (P / N / P+N)",
+        answer: "P"
+      },
+      {
+        id: "p13q4",
+        type: "gap_fill_en",
+        marks: 4,
+        prompt: "(E) Complete the English summary.",
+        summary: "OWing likes Le Mans because it is a long race where ____ matters as well as speed. Red still makes mistakes in the ____. Both cousins know that ____ is essential.",
+        answers: ["regularity", "corners", "control"]
+      },
+      {
+        id: "p13q5",
+        type: "fr_short",
+        marks: 4,
+        prompt: "(M) En français : Pourquoi OWing rappelle-t-il à Red de freiner au bon moment ?",
+        rubric: "Parce que le contrôle et la précision sont importants dans les virages.",
+        keywords: [
+          ["contrôle"],
+          ["précision"],
+          ["virages"]
+        ]
+      },
+      {
+        id: "p13q6",
+        type: "short",
+        marks: 6,
+        prompt: "(H) Explain why Le Mans interests both cousins.",
+        rubric: "Because they love speed, cars and racing, but they also value control, precision and consistency over a long event.",
+        keywords: [
+          ["vitesse", "speed"],
+          ["voitures", "cars"],
+          ["contrôle"],
+          ["précision"],
+          ["régularité", "consistency"],
+          ["longue", "épreuve"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id: 14,
+    title: "Passage 14 — Red et La Marseillaise",
+    theme: "Theme 2 — Music and identity",
+    unit: "Unit 6 (La Marseillaise)",
+    text: `Red aime beaucoup La Marseillaise. Pour lui, ce n’est pas seulement un hymne célèbre. Il entend dans cette musique de l’énergie, de la force et une vraie identité. Quand il l’écoute, il a l’impression qu’elle veut dire quelque chose d’important.
+
+Comme Red est un soprano, il remarque aussi des détails musicaux. Il pense à la hauteur des notes, à la ligne mélodique et à l’effet produit quand on chante avec conviction. Il ne s’intéresse pas seulement aux paroles ; il regarde aussi la manière de chanter.
+
+Red sait que tout le monde ne réagit pas pareil. Certaines personnes aiment beaucoup cette musique, alors que d’autres la trouvent trop intense. Pourtant, lui garde une opinion très positive : pour lui, La Marseillaise reste impressionnante et profondément française.`,
+    questions: [
+      {
+        id: "p14q1",
+        type: "mcq",
+        marks: 2,
+        prompt: "(E) Why does Red like La Marseillaise?",
+        options: ["Because it feels empty", "Because it feels powerful and meaningful", "Because it is very quiet", "Because it has no identity"],
+        answerIndex: 1
+      },
+      {
+        id: "p14q2",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) The passage says Red is a soprano. (True / False / Not mentioned)",
+        correct: "True"
+      },
+      {
+        id: "p14q3",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) Red’s overall opinion of La Marseillaise is… (P / N / P+N)",
+        answer: "P"
+      },
+      {
+        id: "p14q4",
+        type: "select_true",
+        marks: 4,
+        prompt: "(E) Select TWO statements that are true.",
+        statements: [
+          "Red only cares about the words.",
+          "Red notices musical details because of his voice.",
+          "Some people find the anthem too intense.",
+          "Red thinks the anthem is not French enough.",
+          "Everyone reacts to it in exactly the same way."
+        ],
+        correctIndices: [1, 2],
+        minSelect: 2
+      },
+      {
+        id: "p14q5",
+        type: "fr_short",
+        marks: 4,
+        prompt: "(M) En français : Quels détails musicaux Red remarque-t-il ? Donne DEUX exemples.",
+        rubric: "Any TWO: la hauteur des notes; la ligne mélodique; l’effet produit; la manière de chanter.",
+        keywords: [
+          ["hauteur", "notes"],
+          ["ligne", "mélodique"],
+          ["effet", "produit"],
+          ["manière", "chanter"]
+        ]
+      },
+      {
+        id: "p14q6",
+        type: "short",
+        marks: 2,
+        prompt: "(E) What criticism do some people have of La Marseillaise?",
+        rubric: "They find it too intense.",
+        keywords: [
+          ["trop", "intense"]
+        ]
+      },
+      {
+        id: "p14q7",
+        type: "short",
+        marks: 4,
+        prompt: "(H) How does Red respond to different opinions about the anthem?",
+        rubric: "He understands that people react differently, but he keeps his own very positive opinion.",
+        keywords: [
+          ["réagissent", "différemment"],
+          ["garde", "opinion", "positive"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id: 15,
+    title: "Passage 15 — Le règlement du vol",
+    theme: "Theme 3 — Otono Team",
+    unit: "Unit 8 (Flights and rules)",
+    text: `Avant le départ, l’équipage d’Otono Airways rappelle quelques règles simples. Les passagers doivent ranger leurs bagages correctement, écouter les annonces de sécurité et respecter les moments où il faut rester assis. La plupart des gens trouvent cela normal.
+
+Luke aime ces consignes parce qu’elles sont claires. Red les accepte aussi, car il pense qu’un vol agréable dépend d’un bon équilibre entre confort et discipline. OWing regarde surtout l’efficacité de l’organisation. Jessica, elle, apprécie quand les règles sont expliquées avec calme et politesse.
+
+À bord, ces petites règles rendent le voyage plus simple pour tout le monde. Elles ne sont pas là pour compliquer la vie des passagers, mais pour aider le vol à bien se passer.`,
+    questions: [
+      {
+        id: "p15q1",
+        type: "mcq_reason",
+        marks: 4,
+        prompt: "(E) Why does Luke like the flight rules?",
+        options: ["Because they are clear", "Because there are no rules", "Because they are confusing", "Because he can ignore them"],
+        answerIndex: 0,
+        reasonPrompt: "(E) Choose the best reason.",
+        reasonOptions: [
+          "The passage says he likes clear instructions.",
+          "The passage says he wants total chaos.",
+          "The passage says he hates organisation.",
+          "The passage says he never listens."
+        ],
+        reasonAnswerIndex: 0
+      },
+      {
+        id: "p15q2",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) The crew gives safety announcements before departure. (True / False / Not mentioned)",
+        correct: "True"
+      },
+      {
+        id: "p15q3",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) The rules on the flight are presented as… (P / N / P+N)",
+        answer: "P"
+      },
+      {
+        id: "p15q4",
+        type: "short",
+        marks: 4,
+        prompt: "(E) Give TWO rules mentioned.",
+        rubric: "Any two: put bags away properly; listen to safety announcements; stay seated when required.",
+        keywords: [
+          ["bagages", "ranger"],
+          ["annonces", "sécurité"],
+          ["rester", "assis"]
+        ]
+      },
+      {
+        id: "p15q5",
+        type: "fr_short",
+        marks: 4,
+        prompt: "(M) En français : Pourquoi Red accepte-t-il ces règles ?",
+        rubric: "Parce qu’il pense qu’un vol agréable dépend d’un équilibre entre confort et discipline.",
+        keywords: [
+          ["vol", "agréable"],
+          ["équilibre"],
+          ["confort"],
+          ["discipline"]
+        ]
+      },
+      {
+        id: "p15q6",
+        type: "short",
+        marks: 4,
+        prompt: "(H) What is the main purpose of these rules?",
+        rubric: "To help the flight go smoothly and make the journey simpler for everyone.",
+        keywords: [
+          ["aider", "vol"],
+          ["bien", "se passer"],
+          ["simple", "tout le monde"]
+        ]
+      }
+    ]
+  },
+
+   {
+    id: 16,
+    title: "Passage 16 — L’amitié entre Salish et Nidal",
+    theme: "Theme 4 — Influence",
+    unit: "Unit 11 (Salish and Nidal)",
+    text: `Beaucoup de jeunes aiment regarder l’amitié entre Salish et Nidal. Red l’aime particulièrement, parce qu’il trouve leur relation sincère, énergique et touchante. Ce qu’il préfère, ce sont les surprises entre eux. Par exemple, il aime voir les moments où Nidal surprend Salish pour son anniversaire, ou quand une réunion devient plus émouvante que prévu. Pour Red, ce ne sont pas seulement des vidéos drôles ; ce sont aussi des moments qui semblent importants pour eux.
+
+Red sait aussi qu’en réalité, leur amitié n’est pas toujours simple à cause de la distance et des déplacements. Ils ne vivent pas toujours près l’un de l’autre et ils n’ont pas toujours une vie quotidienne normale ensemble. Pourtant, cela rend leurs retrouvailles encore plus fortes. Quand ils se revoient après un certain temps, l’énergie semble plus réelle. Red pense que cette distance explique aussi pourquoi les surprises ont autant d’effet.
+
+Un autre moment qui a marqué Red, c’est la façon dont Salish soutient Nidal après son accident. Quand une amitié reste visible aussi dans un moment difficile, Red la trouve encore plus impressionnante. Selon lui, beaucoup de créateurs peuvent faire des vidéos amusantes, mais il est plus rare de montrer un lien qui paraît solide à la fois dans les bons moments et dans les moments compliqués.
+
+Pour cette raison, Red voit leur amitié de façon très positive. Il aime l’humour, bien sûr, mais il aime surtout la fidélité, le soutien et les surprises. À ses yeux, cela donne à leurs vidéos une valeur différente. Elles ne reposent pas seulement sur l’idée de faire du bruit ou de créer un choc ; elles reposent aussi sur une relation que les spectateurs aiment suivre.`,
+    questions: [
+      {
+        id: "p16q1",
+        type: "mcq",
+        marks: 2,
+        prompt: "(E) Why does Red especially like Salish and Nidal’s friendship?",
+        options: [
+          "Because it seems sincere and touching",
+          "Because it is always quiet",
+          "Because they never surprise each other",
+          "Because he dislikes emotional videos"
+        ],
+        answerIndex: 0
+      },
+      {
+        id: "p16q2",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) The passage says Salish and Nidal always live very near each other. (True / False / Not mentioned)",
+        correct: "False"
+      },
+      {
+        id: "p16q3",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) Red’s overall view of their friendship is… (P / N / P+N)",
+        answer: "P"
+      },
+      {
+        id: "p16q4",
+        type: "select_true",
+        marks: 4,
+        prompt: "(E) Select TWO statements that are true.",
+        statements: [
+          "Red dislikes the surprises in their videos.",
+          "Distance can make their reunions feel stronger.",
+          "Red thinks their videos only work because they are loud.",
+          "Salish’s support after Nidal’s accident matters to Red.",
+          "The passage says their friendship is completely fake."
+        ],
+        correctIndices: [1, 3],
+        minSelect: 2
+      },
+      {
+        id: "p16q5",
+        type: "fr_short",
+        marks: 4,
+        prompt: "(M) En français : Pourquoi les surprises sont-elles importantes pour Red ? Donne DEUX idées.",
+        rubric: "Any TWO: elles sont touchantes; elles rendent les retrouvailles plus fortes; elles montrent une vraie relation; elles créent des moments importants.",
+        keywords: [
+          ["touchantes", "émouvantes"],
+          ["retrouvailles", "plus fortes"],
+          ["vraie", "relation"],
+          ["moments", "importants"]
+        ]
+      },
+      {
+        id: "p16q6",
+        type: "short",
+        marks: 6,
+        prompt: "(H) Explain why Red thinks this friendship has ‘a different value’ from many other creator friendships.",
+        rubric: "Because he sees humour and surprises, but also loyalty, support in difficult moments, and a bond that seems stronger than simple entertainment.",
+        keywords: [
+          ["humour"],
+          ["surprises"],
+          ["fidélité", "loyalty"],
+          ["soutien", "support"],
+          ["moments", "difficiles"],
+          ["simple", "entertainment", "divertissement"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id: 17,
+    title: "Passage 17 — Matthew Beem et les records incroyables",
+    theme: "Theme 4 — Influence",
+    unit: "Unit 11 (Matthew Beem)",
+    text: `Matthew Beem aime les idées énormes. Dans ses vidéos, il essaie souvent de construire quelque chose d’extrême, de battre un record ou de faire un défi qui semble presque impossible. Ce style attire beaucoup de spectateurs, parce qu’il donne l’impression que tout peut arriver.
+
+Mais Matthew ne travaille pas seul. Son équipe joue un rôle très important. Dans ce genre de projet, une personne peut préparer le lieu, une autre peut organiser le matériel, et une autre peut vérifier que tout fonctionne au bon moment. Red trouve cela intéressant, car les vidéos donnent une image spectaculaire, mais derrière cette image il y a beaucoup de travail réel.
+
+Pour Red, l’idée principale est simple : une vidéo folle paraît parfois spontanée, mais elle demande souvent de la préparation, de l’énergie et une équipe efficace. C’est pour cela qu’il respecte ce type de contenu, même quand le défi lui paraît complètement absurde.`,
+    questions: [
+      {
+        id: "p17q1",
+        type: "mcq_reason",
+        marks: 4,
+        prompt: "(E) Why do Matthew Beem’s videos attract many viewers?",
+        options: [
+          "Because they feel huge and unpredictable",
+          "Because nothing happens in them",
+          "Because they avoid all challenges",
+          "Because he never uses a team"
+        ],
+        answerIndex: 0,
+        reasonPrompt: "(E) Choose the best reason.",
+        reasonOptions: [
+          "The passage says they make viewers feel that anything can happen.",
+          "The passage says they are always quiet and ordinary.",
+          "The passage says he refuses extreme ideas.",
+          "The passage says viewers dislike records."
+        ],
+        reasonAnswerIndex: 0
+      },
+      {
+        id: "p17q2",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) Matthew Beem works completely alone in every project. (True / False / Not mentioned)",
+        correct: "False"
+      },
+      {
+        id: "p17q3",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) The passage’s overall view of Matthew Beem’s content is… (P / N / P+N)",
+        answer: "P"
+      },
+      {
+        id: "p17q4",
+        type: "gap_fill_en",
+        marks: 4,
+        prompt: "(E) Complete the English summary.",
+        summary: "Matthew Beem often attempts huge ____ or record-style projects. Red thinks the videos look spectacular, but behind them there is a lot of real ____ and an effective ____.",
+        answers: ["challenges", "work", "team"]
+      },
+      {
+        id: "p17q5",
+        type: "fr_short",
+        marks: 4,
+        prompt: "(M) En français : Pourquoi l’équipe est-elle importante ? Donne DEUX idées.",
+        rubric: "Any TWO: elle prépare le lieu; elle organise le matériel; elle vérifie que tout marche; elle aide au bon moment.",
+        keywords: [
+          ["prépare", "lieu"],
+          ["organise", "matériel"],
+          ["vérifie", "marche"],
+          ["aide", "bon moment"]
+        ]
+      },
+      {
+        id: "p17q6",
+        type: "short",
+        marks: 4,
+        prompt: "(H) Why does Red respect this kind of content?",
+        rubric: "Because it combines huge ideas with real preparation, energy and teamwork.",
+        keywords: [
+          ["grandes", "idées"],
+          ["préparation"],
+          ["énergie"],
+          ["équipe", "teamwork"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id: 18,
+    title: "Passage 18 — Supergrade : ambition, règles et progrès",
+    theme: "Theme 4 — Mixed challenge",
+    unit: "Unit 12 (Supergrade passage)",
+    text: `À Otono, plusieurs idées reviennent souvent : les règles claires, le progrès régulier et l’ambition. Monsieur Barley aime les consignes simples. Red pense souvent aux résultats, surtout au nombre 80. OWing préfère la précision, tandis que Luke aime les systèmes très clairs.
+
+Ces idées semblent parfois différentes, mais elles vont bien ensemble. Une règle claire aide à éviter les erreurs. Le progrès régulier aide à garder la confiance. L’ambition pousse les élèves à essayer d’aller plus loin. Sans équilibre, pourtant, une bonne idée peut devenir un problème. Trop de pression fatigue ; trop peu d’effort ralentit tout.
+
+Pour réussir, il faut donc combiner plusieurs qualités. Il faut être ambitieux sans devenir obsédé, organisé sans devenir rigide, et positif sans oublier la réalité. Cette combinaison n’est pas parfaite tous les jours, mais elle donne une direction solide.`,
+    questions: [
+      {
+        id: "p18q1",
+        type: "mcq_reason",
+        marks: 4,
+        prompt: "(E) What is the main idea of the passage?",
+        options: [
+          "Only ambition matters",
+          "Different qualities must be combined",
+          "Rules are always useless",
+          "Pressure is always good"
+        ],
+        answerIndex: 1,
+        reasonPrompt: "(E) Choose the best reason.",
+        reasonOptions: [
+          "The passage explains that ambition, rules and progress work best together.",
+          "The passage says students should ignore all balance.",
+          "The passage focuses only on one person.",
+          "The passage says perfection is easy every day."
+        ],
+        reasonAnswerIndex: 0
+      },
+      {
+        id: "p18q2",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) The passage says too much pressure can become a problem. (True / False / Not mentioned)",
+        correct: "True"
+      },
+      {
+        id: "p18q3",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) The passage’s view of ambition is… (P / N / P+N)",
+        answer: "P+N"
+      },
+      {
+        id: "p18q4",
+        type: "select_true",
+        marks: 4,
+        prompt: "(E) Select THREE statements that are true.",
+        statements: [
+          "Monsieur Barley likes simple instructions.",
+          "Red never thinks about results.",
+          "Regular progress can help confidence.",
+          "Too little effort makes everything faster.",
+          "Balance is important in the passage."
+        ],
+        correctIndices: [0, 2, 4],
+        minSelect: 2
+      },
+      {
+        id: "p18q5",
+        type: "gap_fill_en",
+        marks: 4,
+        prompt: "(E) Complete the English summary.",
+        summary: "Clear rules help students avoid ____. Regular progress protects ____. Too much pressure causes ____, but a good combination gives a strong ____.",
+        answers: ["mistakes", "confidence", "fatigue", "direction"]
+      },
+      {
+        id: "p18q6",
+        type: "fr_short",
+        marks: 4,
+        prompt: "(M) En français : Quelles qualités faut-il combiner pour réussir ? Donne DEUX idées.",
+        rubric: "Any TWO: l’ambition; l’organisation; le progrès régulier; une attitude positive; un bon équilibre.",
+        keywords: [
+          ["ambition"],
+          ["organisation"],
+          ["progrès", "régulier"],
+          ["positive", "attitude"],
+          ["équilibre"]
+        ]
+      },
+      {
+        id: "p18q7",
+        type: "short",
+        marks: 4,
+        prompt: "(H) What warning does the passage give about good ideas?",
+        rubric: "That even good ideas can become problems if there is no balance, for example too much pressure or too little effort.",
+        keywords: [
+          ["pas", "équilibre"],
+          ["pression"],
+          ["trop peu", "effort"],
+          ["problème"]
+        ]
+      }
+    ]
+  },
+  {
+    id: 19,
+    title: "Passage 19 — D’autres YouTubeurs et l’effet des grandes idées",
+    theme: "Theme 4 — Influence",
+    unit: "Unit 11 (Famous YouTubers extended)",
+    text: `Quand Red regarde des YouTubeurs célèbres, il ne pense pas seulement au nombre de vues. Il observe surtout le type d’idée qu’ils proposent. Chez certains créateurs, l’idée la plus forte est la vitesse : tout va très vite, les surprises arrivent sans arrêt et les spectateurs n’ont presque pas le temps de réfléchir. Chez d’autres, l’idée principale est l’émotion ou la relation entre les personnes.
+
+Red pense que ce mélange explique le succès de beaucoup de chaînes. Une bonne vidéo doit souvent avoir une idée simple, mais forte. Elle doit être facile à comprendre dès le début. Ensuite, il faut garder l’attention du public avec un défi, une surprise, ou un moment inattendu.
+
+Cependant, Red sait qu’il y a aussi un danger. Si un créateur cherche toujours quelque chose de plus grand, il peut oublier la qualité du lien avec le public. Pour lui, les meilleures vidéos ne sont pas seulement énormes ; elles donnent aussi une raison de rester jusqu’à la fin.`,
+    questions: [
+      {
+        id: "p19q1",
+        type: "mcq",
+        marks: 2,
+        prompt: "(E) What does Red mainly observe in famous YouTubers?",
+        options: [
+          "Only the number of views",
+          "The kind of idea behind the video",
+          "Only the music used",
+          "Only the camera brand"
+        ],
+        answerIndex: 1
+      },
+      {
+        id: "p19q2",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) Red thinks a good video should be difficult to understand at the start. (True / False / Not mentioned)",
+        correct: "False"
+      },
+      {
+        id: "p19q3",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) Red’s view of ‘bigger and bigger’ content is… (P / N / P+N)",
+        answer: "P+N"
+      },
+      {
+        id: "p19q4",
+        type: "select_true",
+        marks: 4,
+        prompt: "(E) Select TWO statements that are true.",
+        statements: [
+          "Some creators focus on speed and constant surprises.",
+          "Red only cares about view counts.",
+          "A strong video idea should be clear early on.",
+          "Red thinks surprise can never help a video.",
+          "The public should always leave quickly."
+        ],
+        correctIndices: [0, 2],
+        minSelect: 2
+      },
+      {
+        id: "p19q5",
+        type: "fr_short",
+        marks: 4,
+        prompt: "(M) En français : Qu’est-ce qui aide une vidéo à garder l’attention du public ? Donne DEUX idées.",
+        rubric: "Any TWO: un défi; une surprise; un moment inattendu; une idée forte et simple.",
+        keywords: [
+          ["défi"],
+          ["surprise"],
+          ["moment", "inattendu"],
+          ["idée", "forte"],
+          ["simple"]
+        ]
+      },
+      {
+        id: "p19q6",
+        type: "short",
+        marks: 6,
+        prompt: "(H) What danger does Red see when creators always try to go bigger?",
+        rubric: "They may forget the quality of the connection with the audience and focus only on bigger ideas.",
+        keywords: [
+          ["oublier", "qualité"],
+          ["lien", "public"],
+          ["plus grand", "bigger ideas"]
+        ]
+      }
+    ]
+  },
+
+  {
+    id: 20,
+    title: "Passage 20 — La classe économique d’Otono Airways",
+    theme: "Theme 3 — Otono Team",
+    unit: "Unit 8 (Otono Airways economy class)",
+    text: `Sur Otono Airways, la classe économique est un sujet important. Beaucoup de passagers aiment l’espace, l’organisation de la cabine et l’idée que le voyage doit rester confortable même sans billet premium. Red aime particulièrement cette idée. Pour lui, une bonne classe économique doit être agréable du début à la fin, et non pas seulement acceptable.
+
+Luke, lui, a parfois des idées beaucoup plus extrêmes. Il a déjà voulu mettre cent dix sièges en classe affaires sur certains projets, ce qui fait rire les autres. Pourtant, même lui sait que l’économie reste essentielle. Sans une bonne cabine économique, une compagnie ne peut pas plaire à beaucoup de voyageurs.
+
+OWing regarde surtout l’équilibre général : assez d’espace, des règles claires et un service logique. Jessica remarque davantage le style et l’impression donnée par la cabine. Ensemble, ils pensent qu’une bonne économie ne doit pas ressembler à une punition. Elle doit être simple, cohérente et bien pensée.`,
+    questions: [
+      {
+        id: "p20q1",
+        type: "mcq_reason",
+        marks: 4,
+        prompt: "(E) Why is economy class important on Otono Airways?",
+        options: [
+          "Because it helps the airline appeal to many travellers",
+          "Because nobody notices premium cabins",
+          "Because Luke hates business class",
+          "Because style is the only thing that matters"
+        ],
+        answerIndex: 0,
+        reasonPrompt: "(E) Choose the best reason.",
+        reasonOptions: [
+          "The passage says the airline must please many travellers, not just premium ones.",
+          "The passage says economy does not matter at all.",
+          "The passage says only Luke flies.",
+          "The passage says business class should disappear forever."
+        ],
+        reasonAnswerIndex: 0
+      },
+      {
+        id: "p20q2",
+        type: "tfnm",
+        marks: 2,
+        prompt: "(E) Luke once wanted 110 business-class seats in a project. (True / False / Not mentioned)",
+        correct: "True"
+      },
+      {
+        id: "p20q3",
+        type: "pn",
+        marks: 2,
+        prompt: "(E) The overall view of Otono Airways economy class is… (P / N / P+N)",
+        answer: "P"
+      },
+      {
+        id: "p20q4",
+        type: "gap_fill_en",
+        marks: 4,
+        prompt: "(E) Complete the English summary.",
+        summary: "Red wants economy class to feel ____. Luke once wanted ____ business seats, but even he knows economy is ____. OWing values balance, and Jessica notices the ____ of the cabin.",
+        answers: ["comfortable", "110", "essential", "style"]
+      },
+      {
+        id: "p20q5",
+        type: "fr_short",
+        marks: 4,
+        prompt: "(M) En français : Que regarde OWing dans une bonne classe économique ? Donne DEUX idées.",
+        rubric: "Any TWO: assez d’espace; des règles claires; un service logique; un bon équilibre général.",
+        keywords: [
+          ["assez", "espace"],
+          ["règles", "claires"],
+          ["service", "logique"],
+          ["équilibre"]
+        ]
+      },
+      {
+        id: "p20q6",
+        type: "short",
+        marks: 4,
+        prompt: "(H) What does the passage mean by saying economy should not feel like ‘a punishment’?",
+        rubric: "It should be comfortable, sensible and well designed, not something passengers simply have to endure.",
+        keywords: [
+          ["comfortable", "confortable"],
+          ["sensible", "bien pensée"],
+          ["not endure", "pas une punition"]
+        ]
+      }
+    ]
+  },
+];
+
+/* -----------------------------
+   TRANSLATIONS (LONGER + STRICT KEY IDEAS)
+   Each translation = 20 marks
+   Marking: 5 idea-groups × 4 marks = 20
+--------------------------------*/
+
+const TRANSLATIONS = [
+  {
+    id: "T1",
+    title: "Translation — Mr Barley’s advice",
+    theme: "Theme 1 — School",
+    text: "Mr Barley says that simple rules can help students succeed. Before a test, he tells us to read the question to the end and to give the exact number of details. According to him, a calm and clear method can prevent many avoidable mistakes.",
+    keyIdeas: [
+      ["monsieur barley dit", "mr barley says", "monsieur barley explique"],
+      ["des regles simples", "règles simples", "simple rules"],
+      ["aider les eleves a reussir", "aider les élèves à réussir", "help students succeed"],
+      ["avant un controle", "avant un test", "before a test"],
+      ["lire la question jusqu au bout", "lire la question jusqu’au bout", "read the question to the end"],
+      ["donner le nombre exact de details", "nombre exact de détails", "exact number of details"],
+      ["une methode calme et claire", "méthode calme et claire", "calm and clear method"],
+      ["eviter des erreurs evitables", "éviter des erreurs évitables", "prevent avoidable mistakes"]
+    ],
+    sampleAnswer:
+      "Monsieur Barley dit que des règles simples peuvent aider les élèves à réussir. Avant un contrôle, il nous dit de lire la question jusqu’au bout et de donner le nombre exact de détails. Selon lui, une méthode calme et claire peut éviter beaucoup d’erreurs évitables."
+  },
+
+  {
+    id: "T2",
+    title: "Translation — La Marseillaise",
+    theme: "Theme 2 — Music and identity",
+    text: "Red loves La Marseillaise because he finds it powerful and full of character. As a soprano, he also notices the melody and the effect of the voice. Even if some people think the anthem is too intense, Red keeps a very positive opinion of it.",
+    keyIdeas: [
+      ["red adore la marseillaise", "red aime la marseillaise", "red loves la marseillaise"],
+      ["puissante", "powerful"],
+      ["pleine de caractere", "pleine de caractère", "full of character"],
+      ["comme soprano", "en tant que soprano", "as a soprano"],
+      ["il remarque la melodie", "il remarque la mélodie", "notices the melody"],
+      ["l effet de la voix", "l’effet de la voix", "effect of the voice"],
+      ["certaines personnes pensent", "some people think"],
+      ["trop intense", "too intense"],
+      ["garde une opinion tres positive", "garde une opinion très positive", "keeps a very positive opinion"]
+    ],
+    sampleAnswer:
+      "Red adore La Marseillaise parce qu’il la trouve puissante et pleine de caractère. Comme soprano, il remarque aussi la mélodie et l’effet de la voix. Même si certaines personnes pensent que l’hymne est trop intense, Red garde une opinion très positive."
+  },
+
+  {
+    id: "T3",
+    title: "Translation — Famous YouTubers",
+    theme: "Theme 4 — Influence",
+    text: "Many young people enjoy watching famous YouTubers because their videos are energetic and easy to share. However, Red thinks that viewers should not compare themselves too much with creators online. For him, a good video needs strong ideas, but it should also feel genuine.",
+    keyIdeas: [
+      ["beaucoup de jeunes", "many young people"],
+      ["aiment regarder", "enjoy watching"],
+      ["des youtubeurs celebres", "des youtubeurs célèbres", "famous youtubers"],
+      ["videos energiques", "vidéos énergiques", "energetic videos"],
+      ["faciles a partager", "faciles à partager", "easy to share"],
+      ["ne devraient pas trop se comparer", "should not compare themselves too much", "ne pas trop se comparer"],
+      ["aux createurs en ligne", "aux créateurs en ligne", "with creators online"],
+      ["une bonne video a besoin d idees fortes", "une bonne vidéo a besoin d’idées fortes", "good video needs strong ideas"],
+      ["elle doit aussi sembler sincere", "elle doit aussi sembler sincère", "should also feel genuine"]
+    ],
+    sampleAnswer:
+      "Beaucoup de jeunes aiment regarder des YouTubeurs célèbres parce que leurs vidéos sont énergiques et faciles à partager. Cependant, Red pense que les spectateurs ne devraient pas trop se comparer aux créateurs en ligne. Pour lui, une bonne vidéo a besoin d’idées fortes, mais elle doit aussi sembler sincère."
+  },
+
+  {
+    id: "T4",
+    title: "Translation — OWing and Otono Airways",
+    theme: "Theme 3 — Otono Team",
+    text: "When OWing travels with Otono Airways, he pays attention to the organisation of the flight and the logic of the service. He believes that a good journey must be comfortable, clear and efficient. For him, even economy class should feel well designed from beginning to end.",
+    keyIdeas: [
+      ["quand owing voyage avec otono airways", "when owing travels with otono airways", "owing voyage avec otono airways"],
+      ["il fait attention a l organisation du vol", "il fait attention à l’organisation du vol", "pays attention to the organisation of the flight"],
+      ["la logique du service", "logic of the service"],
+      ["un bon voyage doit etre confortable", "un bon voyage doit être confortable", "good journey must be comfortable"],
+      ["clair", "clear"],
+      ["efficace", "efficient"],
+      ["meme la classe economique", "même la classe économique", "even economy class"],
+      ["bien pensee du debut a la fin", "bien pensée du début à la fin", "well designed from beginning to end"]
+    ],
+    sampleAnswer:
+      "Quand OWing voyage avec Otono Airways, il fait attention à l’organisation du vol et à la logique du service. Il pense qu’un bon voyage doit être confortable, clair et efficace. Pour lui, même la classe économique doit être bien pensée du début à la fin."
+  },
+
+  {
+    id: "T5",
+    title: "Translation — Clayton’s GCSE maths result",
+    theme: "Theme 4 — Results",
+    text: "Clayton took his GCSE maths exam early and got a perfect score. Some students admired his result, but others felt discouraged when they compared themselves with him. Clayton says that his success came from regular work, careful correction of mistakes and strong discipline.",
+    keyIdeas: [
+      ["clayton a passe son examen de maths gcse en avance", "clayton a passé son examen de maths gcse en avance", "clayton took his gcse maths exam early"],
+      ["il a obtenu un score parfait", "note parfaite", "perfect score"],
+      ["certains eleves ont admire son resultat", "certains élèves ont admiré son résultat", "some students admired his result"],
+      ["d autres se sont sentis decourages", "d’autres se sont sentis découragés", "others felt discouraged"],
+      ["ils se comparaient a lui", "ils se comparaient à lui", "compared themselves with him"],
+      ["son succes venait du travail regulier", "son succès venait du travail régulier", "success came from regular work"],
+      ["la correction attentive des erreurs", "careful correction of mistakes", "corriger les erreurs"],
+      ["une discipline forte", "strong discipline"]
+    ],
+    sampleAnswer:
+      "Clayton a passé son examen de maths GCSE en avance et il a obtenu une note parfaite. Certains élèves ont admiré son résultat, mais d’autres se sont sentis découragés quand ils se comparaient à lui. Clayton dit que son succès venait du travail régulier, de la correction attentive des erreurs et d’une discipline forte."
+  },
+];
+
+/* -----------------------------
+   Utilities
+--------------------------------*/
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+function nowISO(){ return new Date().toISOString(); }
+
+function norm(s){
+  return (s ?? "")
+    .toString()
+    .toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .replace(/[^a-z0-9\s]/g," ")
+    .replace(/\s+/g," ")
+    .trim();
+}
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function hasPassage(selection, id){
+  return !!selection?.passages?.some(p => p.id === id);
+}
+
+function pickRandom(arr, n){
+  return shuffle(arr).slice(0, n);
+}
+
+function escapeHtml(str){
+  return (str ?? "").toString()
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+function otonoLetterGrade(score){
+  if(score >= 101) return "S";
+  if(score >= 95) return "A*";
+  if(score >= 90) return "A";
+  if(score >= 80) return "B";
+  if(score >= 70) return "C";
+  if(score >= 66) return "D";
+  if(score >= 55) return "E";
+  if(score >= 45) return "F";
+  if(score >= 30) return "G";
+  if(score >= 15) return "H";
+  return "U";
+}
+
+function passMeritDistinction(score){
+  if(score >= 90) return "DISTINCTION";
+  if(score >= 80) return "MERIT";
+  if(score >= 66) return "PASS";
+  return "FAIL";
+}
+
+function gcseEstimate(score){
+  if(score >= 90) return 9;
+  if(score >= 80) return 8;
+  if(score >= 70) return 7;
+  if(score >= 60) return 6;
+  if(score >= 50) return 5;
+  if(score >= 40) return 4;
+  if(score >= 30) return 3;
+  if(score >= 20) return 2;
+  if(score >= 10) return 1;
+  return "U";
+}
+
+function badgeForScore(score){
+  if(score >= 101) return ["badge good","🏆 SECRET SCORE"];
+  if(score >= 90) return ["badge good","🏆 Excellent"];
+  if(score >= 80) return ["badge good","⭐ Très bien"];
+  if(score >= 66) return ["badge warn","✅ OK"];
+  return ["badge bad","❌ Mal"];
+}
+
+/* -----------------------------
+   Local storage
+--------------------------------*/
+const STORE_KEY = "otonoFrenchReadingSAM_set3_results_v2";
+
+function loadResults(){
+  try{ return JSON.parse(localStorage.getItem(STORE_KEY) || "[]"); }
+  catch(e){ return []; }
+}
+function saveResults(list){
+  localStorage.setItem(STORE_KEY, JSON.stringify(list));
+}
+function addResult(attempt){
+  const list = loadResults();
+  list.unshift(attempt);
+  saveResults(list);
+}
+
+/* -----------------------------
+   App state
+--------------------------------*/
+let state = {
+  mode: "home",
+  timer: null,
+  remainingSec: 0,
+  startedAt: null,
+
+  centreNo: "50749",
+
+  candidateNo: null,         // 4 digits
+  candSurname: "",
+  candForenames: "",
+
+  selection: null,
+  answers: {},               // qid -> user answer (string)
+  mcqCorrectValue: {},       // qid -> correct radio value after shuffling
+  submitted: false
+};
+
+/* -----------------------------
+   Centre number controls
+--------------------------------*/
+function setCentre(no){
+  state.centreNo = String(no);
+  $("#centreNo").value = state.centreNo;
+  $("#centreTop").textContent = state.centreNo;
+}
+
+$("#btnEditCentre").addEventListener("click", () => {
+  const val = prompt("Enter centre number (digits only, e.g. 50749):", state.centreNo);
+  if(val === null) return;
+  const clean = String(val).replace(/\D/g,"").slice(0, 10);
+  if(clean.length < 5){
+    alert("Centre number must be digits only (at least 5 digits).");
+    return;
+  }
+  setCentre(clean);
+});
+
+$("#btnResetCentre").addEventListener("click", () => setCentre("50749"));
+
+/* -----------------------------
+   Candidate number 4 squares
+--------------------------------*/
+const digitIds = ["#candD1","#candD2","#candD3","#candD4"];
+
+function getCandidateNoFromSquares(){
+  const d = digitIds.map(id => ($(id).value || "").trim());
+  if(d.some(x => x.length !== 1 || !/^\d$/.test(x))) return "";
+  return d.join("");
+}
+
+function focusDigit(i){
+  const el = $(digitIds[i]);
+  if(el) el.focus();
+}
+
+function wireDigitSquares(){
+  digitIds.forEach((id, idx) => {
+    const el = $(id);
+
+    el.addEventListener("input", () => {
+      // keep digits only
+      el.value = (el.value || "").replace(/\D/g,"").slice(0,1);
+      if(el.value && idx < digitIds.length-1) focusDigit(idx+1);
+    });
+
+    el.addEventListener("keydown", (e) => {
+      if(e.key === "Backspace" && !el.value && idx > 0){
+        focusDigit(idx-1);
+      }
+      if(e.key === "ArrowLeft" && idx > 0){
+        e.preventDefault(); focusDigit(idx-1);
+      }
+      if(e.key === "ArrowRight" && idx < digitIds.length-1){
+        e.preventDefault(); focusDigit(idx+1);
+      }
+    });
+
+    el.addEventListener("paste", (e) => {
+      e.preventDefault();
+      const txt = (e.clipboardData || window.clipboardData).getData("text") || "";
+      const digits = txt.replace(/\D/g,"").slice(0,4).split("");
+      digits.forEach((ch, j) => {
+        const target = $(digitIds[j]);
+        if(target) target.value = ch;
+      });
+      // focus next empty
+      const joined = getCandidateNoFromSquares();
+      if(joined.length === 4) focusDigit(3);
+      else{
+        const firstEmpty = digitIds.findIndex(did => !$(did).value);
+        if(firstEmpty >= 0) focusDigit(firstEmpty);
+      }
+    });
+  });
+}
+wireDigitSquares();
+
+/* -----------------------------
+   Build paper (4 passages + 1 translation)
+--------------------------------*/
+function generateSelection(){
+  const passages = pickRandom(PASSAGES, 4);
+  const translation = pickRandom(TRANSLATIONS, 1)[0];
+  return { passages, translation };
+}
+function selectionSummary(sel){
+  const p = sel.passages.map(x=>`#${x.id}`).join(", ");
+  return `Passages: ${p} • Translation: ${sel.translation.id}`;
+}
+
+/* -----------------------------
+   Rendering
+--------------------------------*/
+function setBadge(text, cls="badge"){
+  const b = $("#statusBadge");
+  b.className = cls;
+  b.textContent = text;
+}
+
+function renderHome(){
+  $("#homeBody").classList.remove("hide");
+  $("#testBody").classList.add("hide");
+  $("#resultsBody").classList.add("hide");
+  $("#sideTitle").textContent = "Otono grading";
+  $("#sideMeta").textContent = "Score → Otono grade + GCSE estimate + Pass/Merit/Distinction.";
+  $("#sideBody").classList.remove("hide");
+  setBadge("Ready","badge");
+  $("#timerText").textContent = "--:--";
+}
+
+function renderResults(){
+  $("#homeBody").classList.add("hide");
+  $("#testBody").classList.add("hide");
+  $("#sideBody").classList.add("hide");
+  $("#resultsBody").classList.remove("hide");
+  $("#sideTitle").textContent = "Saved results";
+  $("#sideMeta").textContent = "Stored per candidate in this browser (localStorage).";
+  setBadge("Results","badge");
+  $("#timerText").textContent = "--:--";
+  drawResults();
+}
+
+function stopTimer(){
+  if(state.timer){
+    clearInterval(state.timer);
+    state.timer = null;
+  }
+}
+
+function startTimer(minutes){
+  stopTimer();
+  state.remainingSec = Math.max(1, Math.floor(minutes*60));
+  state.startedAt = Date.now();
+
+  const tick = () => {
+    if(state.submitted) return;
+    const m = Math.floor(state.remainingSec/60);
+    const s = state.remainingSec%60;
+    $("#timerText").textContent = `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+    state.remainingSec--;
+    if(state.remainingSec < 0){
+      stopTimer();
+      const auto = $("#autoSubmit").value === "yes";
+      if(auto) submitPaper(true);
+      else alert("Time is up. You can still submit manually.");
+    }
+  };
+
+  tick();
+  state.timer = setInterval(tick, 1000);
+}
+
+function renderTest(){
+  $("#homeBody").classList.add("hide");
+  $("#testBody").classList.remove("hide");
+  $("#resultsBody").classList.add("hide");
+  $("#sideBody").classList.remove("hide");
+
+  const candNameLine = [
+    state.candSurname ? state.candSurname : "",
+    state.candForenames ? state.candForenames : ""
+  ].filter(Boolean).join(", ");
+
+  const cand = `${state.candidateNo}${candNameLine ? " • " + candNameLine : ""}`;
+  $("#kpiCandidate").textContent = cand;
+  $("#kpiPassages").textContent = state.selection.passages.map(p=>`#${p.id}`).join(" ");
+  $("#kpiTranslation").textContent = state.selection.translation.id;
+
+  const shuffleMode = $("#shuffleMode").value;
+  const paper = $("#paper");
+  paper.innerHTML = "";
+
+  // reset per-paper MCQ mapping
+  state.mcqCorrectValue = {};
+
+  const sel = state.selection;
+  const themes = sel.passages.map(p => `${p.title} (${p.theme}, ${p.unit})`);
+  const head = document.createElement("div");
+  head.className = "note";
+  head.innerHTML = `<strong>Selected content</strong><br/>` +
+    themes.map(t => `• ${escapeHtml(t)}`).join("<br/>") +
+    `<br/>• ${escapeHtml(sel.translation.title)} (${escapeHtml(sel.translation.theme)})`;
+  paper.appendChild(head);
+
+  let allBlocks = [];
+
+  sel.passages.forEach(p => {
+    const block = document.createElement("div");
+    block.className = "card";
+    block.style.marginTop = "14px";
+
+    block.innerHTML = `
+      <div class="hd">
+        <div>
+          <h2>${escapeHtml(p.title)}</h2>
+          <div class="meta">${escapeHtml(p.theme)} • ${escapeHtml(p.unit)} • <strong>20 marks</strong></div>
+        </div>
+        <span class="badge">${escapeHtml("#"+p.id)}</span>
+      </div>
+      <div class="bd">
+        <div class="passage">${escapeHtml(p.text).replace(/\n/g,"<br/>")}</div>
+        <div class="divider"></div>
+        <div class="small">MCQ/choice options are always shuffled. Written answers are auto-marked using keyword coverage.</div>
+        <div class="qs"></div>
+      </div>
+    `;
+
+    const qs = block.querySelector(".qs");
+    let qsList = p.questions.slice();
+    if(shuffleMode === "shuffleAll") qsList = shuffle(qsList);
+
+    qsList.forEach(q => {
+      const qWrap = document.createElement("div");
+      qWrap.className = "q";
+      qWrap.dataset.qid = q.id;
+
+      const markTag = `<span class="badge" title="Marks for this question">${q.marks} marks</span>`;
+      const instruction = (q.type === "fr_short")
+        ? "Answer in French. Auto-mark uses keywords."
+        : (["mcq","pn","tfnm"].includes(q.type) ? "Select one option." : "Auto-mark uses keywords. Write concise, direct answers.");
+
+      qWrap.innerHTML = `
+        <h3>${escapeHtml(q.prompt)} ${markTag}</h3>
+        ${renderQuestion(q)}
+        <div class="small" style="margin-top:8px">${escapeHtml(instruction)}</div>
+      `;
+      qs.appendChild(qWrap);
+    });
+
+    allBlocks.push(block);
+  });
+
+  // Translation block
+  const t = sel.translation;
+  const tBlock = document.createElement("div");
+  tBlock.className = "card";
+  tBlock.style.marginTop = "14px";
+  tBlock.innerHTML = `
+    <div class="hd">
+      <div>
+        <h2>${escapeHtml(t.title)}</h2>
+        <div class="meta">${escapeHtml(t.theme)} • <strong>20 marks</strong></div>
+      </div>
+      <span class="badge">TRANSLATION</span>
+    </div>
+    <div class="bd">
+      <div class="passage">${escapeHtml(t.text)}</div>
+      <div class="divider"></div>
+      <div class="q" data-qid="translation">
+        <h3>Translate into French (write naturally). <span class="badge">20 marks</span></h3>
+        <textarea id="ans_translation" placeholder="Type your French translation here..."></textarea>
+        <div class="small" style="margin-top:8px">Auto-mark checks key ideas. It’s strict: include the meaning clearly.</div>
+      </div>
+    </div>
+  `;
+  allBlocks.push(tBlock);
+
+  allBlocks.forEach(b => paper.appendChild(b));
+
+  bindInputs();
+
+  const mins = parseInt($("#timeAllowed").value,10);
+  startTimer(mins);
+  state.submitted = false;
+
+  $("#markingBox").classList.add("hide");
+  $("#markingBox").innerHTML = "";
+  setBadge("In progress","badge warn");
+}
+
+function renderQuestion(q){
+  if(q.type === "mcq"){
+    const opts = q.options.map((text, idx) => ({ text, isCorrect: idx === q.answerIndex }));
+    return renderChoice(q, opts);
+  }
+
+  if(q.type === "mcq_reason"){
+    const mainQ = {
+      id: q.id,
+      options: q.options,
+      answerIndex: q.answerIndex
+    };
+
+    const reasonQ = {
+      id: q.id + "_reason",
+      options: q.reasonOptions,
+      answerIndex: q.reasonAnswerIndex
+    };
+
+    const mainOpts = mainQ.options.map((text, idx) => ({
+      text,
+      isCorrect: idx === mainQ.answerIndex
+    }));
+
+    const reasonOpts = reasonQ.options.map((text, idx) => ({
+      text,
+      isCorrect: idx === reasonQ.answerIndex
+    }));
+
+    return `
+      <div>
+        ${renderChoice(mainQ, mainOpts)}
+      </div>
+      <div style="margin-top:12px">
+        <div class="small" style="margin-bottom:6px"><strong>${escapeHtml(q.reasonPrompt)}</strong></div>
+        ${renderChoice(reasonQ, reasonOpts)}
+      </div>
+    `;
+  }
+
+  if(q.type === "pn"){
+    const key = q.correct ?? q.answer;
+    const opts = [
+      { text:"P", isCorrect: key === "P" },
+      { text:"N", isCorrect: key === "N" },
+      { text:"P+N", isCorrect: key === "P+N" }
+    ];
+    return renderChoice(q, opts);
+  }
+
+  if(q.type === "tfnm"){
+    const opts = [
+      { text:"True", isCorrect: q.correct === "True" },
+      { text:"False", isCorrect: q.correct === "False" },
+      { text:"Not mentioned", isCorrect: q.correct === "Not mentioned" }
+    ];
+    return renderChoice(q, opts);
+  }
+
+  if(q.type === "select_true"){
+    return renderSelectTrue(q);
+  }
+
+  if(q.type === "gap_fill_en"){
+    return renderGapFill(q);
+  }
+
+  // short / fr_short remain unchanged
+  return `<textarea id="ans_${q.id}" placeholder="${q.type === "fr_short" ? "Réponds en français..." : "Write your answer here..."}"></textarea>`;
+}
+
+function renderChoice(q, optionObjects){
+  const name = `ans_${q.id}`;
+
+  // ALWAYS shuffle choice options
+  const shuffled = shuffle(optionObjects);
+
+  // store which radio value is correct after shuffle
+  // value = index in shuffled array
+  const correctIndex = shuffled.findIndex(o => o.isCorrect);
+  state.mcqCorrectValue[q.id] = String(correctIndex);
+
+  return `
+    <div class="opts">
+      ${shuffled.map((opt, idx) => `
+        <label class="opt">
+          <input type="radio" name="${name}" value="${idx}" />
+          <div><div><strong>${String.fromCharCode(65+idx)}.</strong> ${escapeHtml(opt.text)}</div></div>
+        </label>
+      `).join("")}
+    </div>
+  `;
+}
+
+function renderSelectTrue(q){
+  return `
+    <div class="opts">
+      ${q.statements.map((text, idx) => `
+        <label class="opt">
+          <input type="checkbox" name="ans_${q.id}" value="${idx}" />
+          <div><strong>${String.fromCharCode(65+idx)}.</strong> ${escapeHtml(text)}</div>
+        </label>
+      `).join("")}
+    </div>
+  `;
+}
+
+function renderGapFill(q){
+  const blanks = q.answers.map((_, i) => `
+    <div>
+      <label>Blank ${i + 1}</label>
+      <input type="text" id="ans_${q.id}_${i}" placeholder="Type answer for blank ${i + 1}" />
+    </div>
+  `).join("");
+
+  return `
+    <div class="note" style="margin-bottom:10px">
+      ${escapeHtml(q.summary)}
+    </div>
+    <div class="row">
+      ${blanks}
+    </div>
+  `;
+}
+
+function bindInputs(){
+  // radio buttons
+  $$("input[type='radio']").forEach(r => {
+    r.addEventListener("change", () => {
+      const qid = r.name.replace("ans_","");
+      state.answers[qid] = r.value;
+    });
+  });
+
+  // textareas (short, fr_short, translation)
+  $$("textarea").forEach(t => {
+    t.addEventListener("input", () => {
+      const id = t.id.replace("ans_","");
+      state.answers[id] = t.value;
+    });
+  });
+
+  // checkboxes (select_true)
+  $$("input[type='checkbox']").forEach(c => {
+    c.addEventListener("change", () => {
+      const qid = c.name.replace("ans_","");
+      const selected = $$(`input[name="ans_${qid}"]:checked`).map(x => x.value);
+      state.answers[qid] = selected;
+    });
+  });
+
+  // gap fill inputs
+  $$("input[id^='ans_']").forEach(inp => {
+    if(inp.type === "radio" || inp.type === "checkbox") return;
+    if(inp.classList.contains("digit")) return;
+    if(inp.id === "ans_translation") return;
+    if(inp.tagName.toLowerCase() !== "input") return;
+
+    inp.addEventListener("input", () => {
+      const match = inp.id.match(/^ans_(.+)_(\d+)$/);
+      if(!match) return;
+
+      const qid = match[1];
+      const idx = Number(match[2]);
+
+      if(!Array.isArray(state.answers[qid])) state.answers[qid] = [];
+      state.answers[qid][idx] = inp.value;
+    });
+  });
+}
+
+/* -----------------------------
+   Auto marking
+--------------------------------*/
+function markMcqReason(q){
+  const main = markChoice(q.id, state.answers[q.id], q.marks / 2);
+  const reason = markChoice(q.id + "_reason", state.answers[q.id + "_reason"], q.marks / 2);
+
+  return {
+    score: main.score + reason.score,
+    max: q.marks,
+    detail: `Main answer: ${main.detail} Reason: ${reason.detail}`
+  };
+}
+
+function markSelectTrue(q, userAnswer){
+  const chosen = Array.isArray(userAnswer) ? userAnswer.map(Number) : [];
+  const correct = q.correctIndices || [];
+  const totalCorrect = correct.length;
+
+  const correctSet = new Set(correct);
+
+  const correctChosen = chosen.filter(x => correctSet.has(x)).length;
+  const wrongChosen = chosen.filter(x => !correctSet.has(x)).length;
+
+  // softer penalty (half mark per wrong instead of full)
+  let raw = correctChosen - (0.5 * wrongChosen);
+  raw = Math.max(0, raw);
+
+  const score = Math.round((raw / totalCorrect) * q.marks);
+
+  return {
+    score,
+    max: q.marks,
+    detail: `Correct selected: ${correctChosen}; wrong selected: ${wrongChosen}.`
+  };
+}
+
+function markGapFill(q, userAnswer){
+  const user = Array.isArray(userAnswer) ? userAnswer : [];
+  const expected = q.answers || [];
+
+  let hits = 0;
+
+  for(let i = 0; i < expected.length; i++){
+    const u = norm(user[i] || "");
+    const e = norm(expected[i] || "");
+    if(u && u === e) hits++;
+  }
+
+  const raw = (hits / expected.length) * q.marks;
+  const score = Math.round(raw * 2) / 2;
+
+  return {
+    score,
+    max: q.marks,
+    detail: `Correct blanks: ${hits}/${expected.length}.`
+  };
+}
+
+function tokenOverlap(text, phrase){
+  const textTokens = new Set(norm(text).split(" ").filter(Boolean));
+  const phraseTokens = norm(phrase).split(" ").filter(Boolean);
+  const matched = phraseTokens.filter(tok => textTokens.has(tok)).length;
+  return phraseTokens.length ? matched / phraseTokens.length : 0;
+}
+
+function expectedDetailCount(marks){
+  if(marks === 2) return 1;
+  if(marks === 4) return 2;
+  if(marks === 6) return 3;
+  if(marks === 8) return 4;
+  return null;
+}
+
+function markShortAnswer(q, userText){
+  const t = norm(userText);
+  if(!t) return {score:0, max:q.marks, detail:"Blank answer."};
+
+  const groups = q.keywords || [];
+  if(groups.length === 0) return {score:0, max:q.marks, detail:"No keyword rubric set."};
+
+  let hits = 0;
+  let matchedGroups = [];
+
+  groups.forEach((group, i) => {
+    const found = group.some(k => {
+      const nk = norm(k);
+      return t.includes(nk) || tokenOverlap(t, k) >= 0.7;
+    });
+    if(found){
+      hits++;
+      matchedGroups.push(i + 1);
+    }
+  });
+
+  const expected = expectedDetailCount(q.marks) || groups.length;
+  const countedHits = Math.min(hits, expected);
+  const per = q.marks / expected;
+  const raw = countedHits * per;
+  const score = Math.max(0, Math.min(q.marks, Math.round(raw * 2) / 2));
+
+  let detail = `Keyword groups matched: ${hits}/${groups.length}; counted: ${countedHits}/${expected}.`;
+  if(matchedGroups.length) detail += ` Matched groups: ${matchedGroups.join(", ")}.`;
+  if(q.rubric) detail += ` Expected: ${q.rubric}`;
+
+  return {score, max:q.marks, detail};
+}
+
+function markChoice(qid, chosenValue, marks){
+  const correctValue = state.mcqCorrectValue[qid];
+  const ok = String(chosenValue ?? "") === String(correctValue);
+  return {
+    score: ok ? marks : 0,
+    max: marks,
+    detail: ok ? "Correct." : "Incorrect."
+  };
+}
+
+function markTranslation(tObj, userText){
+  const t = norm(userText);
+  if(!t) return {score:0, max:20, detail:"Blank translation."};
+
+  let hits = 0;
+  const ideas = tObj.keyIdeas || [];
+  ideas.forEach(group => {
+    const ok = group.some(k => t.includes(norm(k)));
+    if(ok) hits++;
+  });
+
+  // 5 ideas × 4 marks
+  const score = Math.min(20, hits * 4);
+  const detail = `Key ideas matched: ${hits}/${ideas.length}. (4 marks each)`;
+  return {score, max:20, detail};
+}
+
+function computeTotal(){
+  let total = 0;
+  let breakdown = [];
+
+  state.selection.passages.forEach(p => {
+    p.questions.forEach(q => {
+      const ans = state.answers[q.id];
+      let res;
+
+      if(["mcq","pn","tfnm"].includes(q.type)){
+          res = markChoice(q.id, ans, q.marks);
+        }else if(q.type === "mcq_reason"){
+          res = markMcqReason(q);
+        }else if(q.type === "select_true"){
+          res = markSelectTrue(q, ans);
+        }else if(q.type === "gap_fill_en"){
+          res = markGapFill(q, ans);
+        }else{
+          res = markShortAnswer(q, ans);
+        }
+
+      total += res.score;
+      breakdown.push({
+        qid: q.id,
+        passageId: p.id,
+        type: q.type,
+        prompt: q.prompt,
+        score: res.score,
+        max: res.max,
+        detail: res.detail
+      });
+    });
+  });
+
+  const tAns = state.answers["translation"] ?? $("#ans_translation")?.value ?? "";
+  const tRes = markTranslation(state.selection.translation, tAns);
+  total += tRes.score;
+  breakdown.push({
+    qid: "translation",
+    passageId: "translation",
+    type: "translation",
+    prompt: "Translate into French",
+    score: tRes.score,
+    max: tRes.max,
+    detail: tRes.detail
+  });
+
+   const totalRounded = Math.round(total*10)/10;
+
+  // ✅ Secret S unlock: perfect paper + Passage 18 selected = +1 bonus
+  let finalTotal = totalRounded;
+  const unlockS = (finalTotal === 100) && hasPassage(state.selection, 18);
+
+  if(unlockS){
+    finalTotal = 101;
+    breakdown.push({
+      qid: "bonus_s",
+      passageId: 18,
+      type: "bonus",
+      prompt: "Secret bonus: perfect paper + Passage 18 selected",
+      score: 1,
+      max: 1,
+      detail: "Unlocked Grade S bonus (+1)."
+    });
+  }
+
+  // keep 'max' as 100 (base marks), bonus sits on top
+  return { total: finalTotal, max: 100, breakdown };
+}
+
+/* -----------------------------
+   Submission + saving
+--------------------------------*/
+function submitPaper(fromAutoTimer=false){
+  if(state.submitted) return;
+
+let { total, max, breakdown } = computeTotal();
+
+// Secret S bonus: only if perfect 100 AND Passage 18 selected
+const unlockS = (total === 100) && hasPassage(state.selection, 18);
+if (unlockS) {
+  total = 101;
+  breakdown.push({
+    qid: "bonus_s",
+    passageId: 18,
+    type: "bonus",
+    prompt: "Secret bonus: perfect paper + Passage 18 selected",
+    score: 1,
+    max: 1,
+    detail: "Unlocked Grade S bonus (+1)."
+  });
+}
+
+  state.submitted = true;
+  stopTimer();
+
+  const letter = otonoLetterGrade(total);
+  const pmd = passMeritDistinction(total);
+  const gcse = gcseEstimate(total);
+  const [badgeCls, badgeText] = badgeForScore(total);
+
+  const attempt = {
+    paper: "Otono French Reading (SAM) • Sample set 3",
+    centre: state.centreNo,
+    candidateNo: String(state.candidateNo),
+    candidateSurname: state.candSurname || "",
+    candidateForenames: state.candForenames || "",
+    submittedAt: nowISO(),
+    timeAllowedMin: parseInt($("#timeAllowed").value,10),
+    selectedPassages: state.selection.passages.map(p=>p.id),
+    selectedTranslation: state.selection.translation.id,
+    score: total,
+    maxScore: max,
+    otonoGrade: letter,
+    gcseEstimated: gcse,
+    outcome: pmd,
+    breakdown
+  };
+  addResult(attempt);
+
+  const nameLine = [attempt.candidateSurname, attempt.candidateForenames].filter(Boolean).join(", ");
+
+  const box = $("#markingBox");
+  box.classList.remove("hide");
+  box.className = "";
+  box.innerHTML = `
+    <div class="card">
+      <div class="hd">
+        <div>
+          <h2>✅ Marked${fromAutoTimer ? " (auto-submitted)" : ""}</h2>
+          <div class="meta">Saved to Results • Centre ${escapeHtml(attempt.centre)} • Candidate ${escapeHtml(attempt.candidateNo)}${nameLine ? " • " + escapeHtml(nameLine) : ""}</div>
+        </div>
+        <span class="${badgeCls}">${escapeHtml(badgeText)}</span>
+      </div>
+      <div class="bd">
+        <div class="kpi">
+          <div class="box"><div class="t">Score</div><div class="v">${attempt.score} / ${attempt.maxScore}</div></div>
+          <div class="box"><div class="t">Otono grade</div><div class="v">${escapeHtml(attempt.otonoGrade)}</div></div>
+          <div class="box"><div class="t">GCSE estimate</div><div class="v">${escapeHtml(String(attempt.gcseEstimated))}</div></div>
+          <div class="box"><div class="t">Outcome</div><div class="v">${escapeHtml(attempt.outcome)}</div></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="note">
+          <strong>Marking notes</strong><br/>
+          • MCQ / P-N / TFNM are exact (options are shuffled).<br/>
+          • Written + translation are keyword-based. If you used very different wording, it may under-mark.
+        </div>
+
+        <div class="divider"></div>
+
+        <button class="btn" id="btnShowBreakdown">Show question breakdown</button>
+        <div id="breakdown" class="hide" style="margin-top:12px"></div>
+
+        <div class="divider"></div>
+
+        <div class="note">
+          <strong>Translation model answer (for reference)</strong><br/>
+          ${escapeHtml(state.selection.translation.sampleAnswer)}
+        </div>
+      </div>
+    </div>
+  `;
+
+  $("#btnShowBreakdown").addEventListener("click", () => {
+    const bd = $("#breakdown");
+    bd.classList.toggle("hide");
+    if(!bd.classList.contains("hide")){
+      bd.innerHTML = breakdown.map(b => `
+        <div class="attempt">
+          <div class="top">
+            <div><strong>${escapeHtml(b.qid)}</strong> • ${escapeHtml(String(b.type))}</div>
+            <div><span class="badge">${b.score} / ${b.max}</span></div>
+          </div>
+          <div class="meta">
+            <div><strong>Prompt:</strong> ${escapeHtml(b.prompt)}</div>
+            <div><strong>Marker:</strong> ${escapeHtml(b.detail)}</div>
+          </div>
+        </div>
+      `).join("");
+    }
+  });
+
+  setBadge("Submitted","badge good");
+}
+
+/* -----------------------------
+   Results UI
+--------------------------------*/
+function drawResults(){
+  const listEl = $("#resultsList");
+  const all = loadResults();
+  const filter = ($("#filterCandidate").value || "").replace(/\D/g,"").slice(0,4);
+
+  const filtered = filter ? all.filter(a => String(a.candidateNo) === String(filter)) : all;
+
+  if(filtered.length === 0){
+    listEl.innerHTML = `<div class="note">No stored attempts${filter ? " for this candidate" : ""} yet.</div>`;
+    return;
+  }
+
+  listEl.innerHTML = filtered.map(a => {
+    const [cls, txt] = badgeForScore(a.score);
+    const nameLine = [a.candidateSurname, a.candidateForenames].filter(Boolean).join(", ");
+    return `
+      <div class="attempt">
+        <div class="top">
+          <div>
+            <strong>${escapeHtml(a.candidateNo)}</strong>${nameLine ? " • " + escapeHtml(nameLine) : ""}
+            <span class="badge" style="margin-left:8px">Centre ${escapeHtml(a.centre)}</span>
+          </div>
+          <div class="${cls}">${escapeHtml(txt)} • ${escapeHtml(String(a.score))}/100</div>
+        </div>
+        <div class="meta">
+          <div><strong>Date:</strong> ${escapeHtml(new Date(a.submittedAt).toLocaleString())}</div>
+          <div><strong>Selection:</strong> Passages ${escapeHtml(a.selectedPassages.join(", "))} • Translation ${escapeHtml(a.selectedTranslation)}</div>
+          <div><strong>Grades:</strong> Otono ${escapeHtml(a.otonoGrade)} • GCSE ${escapeHtml(String(a.gcseEstimated))} • ${escapeHtml(a.outcome)}</div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function exportResults(){
+  const all = loadResults();
+  $("#exportText").textContent = JSON.stringify(all, null, 2);
+  $("#exportBox").classList.remove("hide");
+}
+
+function clearResults(){
+  if(!confirm("Clear ALL stored Otono French results on this browser?")) return;
+  localStorage.removeItem(STORE_KEY);
+  drawResults();
+  $("#exportBox").classList.add("hide");
+}
+
+/* -----------------------------
+   Buttons / navigation
+--------------------------------*/
+$("#btnHome").addEventListener("click", () => {
+  state.mode = "home";
+  renderHome();
+});
+
+$("#btnResults").addEventListener("click", () => {
+  state.mode = "results";
+  renderResults();
+});
+
+$("#btnPreview").addEventListener("click", () => {
+  const c = getCandidateNoFromSquares();
+  if(!c){
+    alert("Enter a candidate number first.");
+    return;
+  }
+  const sel = generateSelection();
+  const box = $("#previewBox");
+  box.classList.remove("hide");
+  box.innerHTML = `<strong>Preview (not started):</strong><br/>${escapeHtml(selectionSummary(sel))}<br/>` +
+    sel.passages.map(p => `• ${escapeHtml(p.title)} (${escapeHtml(p.theme)})`).join("<br/>") +
+    `<br/>• ${escapeHtml(sel.translation.title)} (${escapeHtml(sel.translation.theme)})`;
+});
+
+$("#btnStart").addEventListener("click", () => {
+  const c = getCandidateNoFromSquares();
+  if(!c){
+    alert("Candidate number is required.");
+    focusDigit(0);
+    return;
+  }
+
+  state.candidateNo = c;
+  state.candSurname = ($("#candSurname").value || "").trim();
+  state.candForenames = ($("#candForenames").value || "").trim();
+
+  state.selection = generateSelection();
+  state.answers = {};
+  renderTest();
+});
+
+$("#btnSubmit").addEventListener("click", () => submitPaper(false));
+
+$("#btnReset").addEventListener("click", () => {
+  if(!confirm("Reset this paper and generate a NEW random test? Your current answers will be lost.")) return;
+  stopTimer();
+  state.answers = {};
+  state.submitted = false;
+  state.selection = generateSelection();
+  renderTest();
+});
+
+/* Results filters & tabs */
+$("#filterCandidate").addEventListener("input", (e) => {
+  e.target.value = e.target.value.replace(/\D/g,"").slice(0,4);
+  drawResults();
+});
+
+$("#tabAll").addEventListener("click", () => {
+  $("#tabAll").classList.add("active");
+  $("#tabCandidate").classList.remove("active");
+  $("#filterCandidate").value = "";
+  drawResults();
+});
+
+$("#tabCandidate").addEventListener("click", () => {
+  $("#tabCandidate").classList.add("active");
+  $("#tabAll").classList.remove("active");
+  $("#filterCandidate").focus();
+});
+
+$("#btnExport").addEventListener("click", exportResults);
+$("#btnClear").addEventListener("click", clearResults);
+
+/* Initial */
+setCentre("50749");
+renderHome();
+
+/* -----------------------------
+   Anti-cheat / source protection
+   (as requested)
+--------------------------------*/
+const disabledKeys = ["u", "I"];
+const showAlert = e => {
+  e.preventDefault();
+  return alert("Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!");
+};
+document.addEventListener("contextmenu", e => { showAlert(e); });
+document.addEventListener("keydown", e => {
+  if ((e.ctrlKey && disabledKeys.includes(e.key)) || e.key === "F12") {
+    showAlert(e);
+  }
+});
+</script>
+
+</body>
+</html>
