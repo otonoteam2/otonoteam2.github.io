@@ -735,7 +735,10 @@ const PROMPTS_70 = {
     }
   ],
   t4: [
-    { code:"T4-C", title:"Theme 4: Perfect scores — helpful or harmful?", bullets:[
+    {
+      code:"T4-C",
+      title:"Theme 4: Perfect scores — helpful or harmful?",
+      bullets:[
         "Describe what people say about perfect scores.",
         "Past example of pressure/comparison.",
         "How you feel now.",
@@ -749,6 +752,26 @@ const PROMPTS_70 = {
           ["presión","presion","comparación","comparacion","celos","admiración","admiracion","estrés","estres"],
           ["ayer","antes","la semana pasada","fui","hice","me sentí","me senti"],
           [...DETECT.opinion]
+        ]
+      }
+    },
+    {
+      code:"T4-D",
+      title:"Theme 4: Famous Celebrities",
+      bullets:[
+        "Describe a Jordan Matter, Salish, Nidal or Beem team and what they do.",
+        "Say what they do now.",
+        "Mention something that happened in the past.",
+        "Give your opinion and a future plan."
+      ],
+      required:{
+        wordTarget:70, wordMin:60, wordMax:200,
+        must:{ past:true, present:true, future:true, opinion:true },
+        bulletVocab:[
+          ["jordan","salish","nidal","famous","vidéo","equipe"],
+          ["ahora","normalmente","hoy"],
+          ["ayer","antes","la semana pasada"],
+          ["creo","pienso","me gusta","no me gusta"]
         ]
       }
     }
@@ -771,7 +794,24 @@ const PROMPTS_110 = {
         ],
         themeKey:["t1"]
       }
+    },
+    {
+    code:"H1-4",
+    title:"Theme 1: Exams and pressure",
+    bullets:[
+      "Describe your experience of exams (past and present).",
+      "Explain your opinion and how you will improve in the future."
+    ],
+    required:{
+      wordTarget:110, wordMin:95, wordMax:500,
+      must:{ opinion:true, past:true, future:true },
+      bulletVocab:[
+        ["maths","score","pression"],
+        ["creo","pienso","me gusta","no me gusta"]
+      ],
+      themeKey:["t1"]
     }
+  }
   ],
   t2: [
     { code:"H2-3", title:"Theme 2: Online vs offline time", bullets:[
@@ -787,10 +827,30 @@ const PROMPTS_110 = {
         ],
         themeKey:["t2"]
       }
+    },
+    {
+    code:"H2-4",
+    title:"Theme 2: Free time and lifestyle",
+    bullets:[
+      "Describe how you spend your free time and how this has changed.",
+      "Explain your opinion and your future plans."
+    ],
+    required:{
+      wordTarget:110, wordMin:95, wordMax:500,
+      must:{ opinion:true, past:true, future:true },
+      bulletVocab:[
+        ["vidéo","famous"],
+        ["creo","pienso","me gusta","no me gusta"]
+      ],
+      themeKey:["t2"]
     }
+  }
   ],
   t3: [
-    { code:"H3-3", title:"Theme 3: Travel — comfort vs price", bullets:[
+    {
+      code:"H3-3",
+      title:"Theme 3: Travel — comfort vs price",
+      bullets:[
         "Discuss what matters most when travelling (comfort, price, organisation).",
         "Give your opinion with a comparison and future travel plans."
       ],
@@ -803,10 +863,27 @@ const PROMPTS_110 = {
         ],
         themeKey:["t3"]
       }
+    },
+    {
+      code:"H3-4",
+      title:"Theme 3: Experiences and events",
+      bullets:[
+        "Describe an experience or event and how it affected you.",
+        "Explain your opinion and what you will do in the future."
+      ],
+      required:{
+        wordTarget:110, wordMin:95, wordMax:500,
+        must:{ opinion:true, past:true, future:true },
+        bulletVocab:[
+          ["equipe","vidéo"],
+          ["creo","pienso","me gusta","no me gusta"]
+        ],
+        themeKey:["t3"]
+      }
     }
   ],
   t4: [
-    { code:"H4-2", title:"Theme 4: Progress over perfection", bullets:[
+    { code:"H4-3", title:"Theme 4: Progress over perfection", bullets:[
         "Explain why progress matters more than perfection.",
         "Use a past example and a future plan; give a developed opinion."
       ],
@@ -819,7 +896,24 @@ const PROMPTS_110 = {
         ],
         themeKey:["t4"]
       }
+    },
+    {
+    code:"H4-4",
+    title:"Theme 4: Fame and success",
+    bullets:[
+      "Describe a Jordan Matter, Salish, Nidal or Beem team and what they do.",
+      "Explain your opinion and your future ideas or goals."
+    ],
+    required:{
+      wordTarget:110, wordMin:95, wordMax:500,
+      must:{ opinion:true, past:true, future:true },
+      bulletVocab:[
+        ["jordan","salish","nidal","famous","vidéo","equipe"],
+        ["creo","pienso","me gusta","no me gusta"]
+      ],
+      themeKey:["t4"]
     }
+  }
   ]
 };
 

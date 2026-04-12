@@ -733,8 +733,11 @@ const PROMPTS_70 = {
       }
     }
   ],
-  t4: [
-    { code:"T4-D", title:"Theme 4: Perfect scores — helpful or harmful?", bullets:[
+   t4: [
+    {
+      code:"T4-D",
+      title:"Theme 4: Perfect scores — helpful or harmful?",
+      bullets:[
         "Describe what people say about perfect scores.",
         "Past example of pressure/comparison.",
         "How you feel now.",
@@ -751,26 +754,27 @@ const PROMPTS_70 = {
         ]
       }
     },
-  {
-  code:"T4-E",
-  title:"Theme 4: A famous creator and teamwork",
-  bullets:[
-    "Describe a famous creator or team. (e.g. Jordan Matter, Salish, Nidal)",
-    "Say what they do now.",
-    "Mention a past video or project.",
-    "Give your opinion and a future idea."
-  ],
-  required:{
-    wordTarget:70, wordMin:60, wordMax:200,
-    must:{ past:true, present:true, future:true, opinion:true },
-    bulletVocab:[
-      ["jordan","salish","nidal","matthew","beem","video","vidéo","projet","équipe","equipe"],
-      ["maintenant","souvent","normalement","ils font","il fait"],
-      ["hier","la semaine dernière","j'ai","j ai","j'ai vu","j ai vu","j'ai regardé","j ai regardé"],
-      [...DETECT.opinion]
-    ]
-  }
-}
+    {
+      code:"T4-E",
+      title:"Theme 4: A famous creator and teamwork",
+      bullets:[
+        "Describe a Jordan Matter, Salish, Nidal or Beem team.",
+        "Say what they do now.",
+        "Mention a past video or project.",
+        "Give your opinion and a future idea."
+      ],
+      required:{
+        wordTarget:70, wordMin:60, wordMax:200,
+        must:{ past:true, present:true, future:true, opinion:true },
+        bulletVocab:[
+          ["jordan","salish","nidal","matthew","beem","video","vidéo","projet","équipe","equipe"],
+          ["maintenant","souvent","normalement","ils font","il fait"],
+          ["hier","la semaine dernière","j'ai","j ai","j'ai vu","j ai vu","j'ai regardé","j ai regardé"],
+          [...DETECT.opinion]
+        ]
+      }
+    }
+  ]
 };
 
 /* 110-word prompts — NEW */
@@ -893,7 +897,7 @@ const PROMPTS_110 = {
     code:"H4-4",
     title:"Theme 4: Fame and success",
     bullets:[
-      "Describe a famous person or team and what they do.",
+      "Describe a Jordan Matter, Salish, Nidal or Beem team and what they do.",
       "Explain your opinion and your future ideas or goals."
     ],
     required:{
