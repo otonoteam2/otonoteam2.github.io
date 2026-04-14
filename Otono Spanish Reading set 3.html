@@ -410,12 +410,12 @@ Red encuentra útil este método. No es complicado, pero evita muchos errores si
         prompt: "(E) Give TWO classroom details mentioned.",
         rubric: "Any two: notebooks open; tables clean; equipment in the right place; simple rules; calm speaking; brown belt.",
         keywords: [
-          ["cuadernos", "abiertos", "open"],
-          ["mesas", "limpias", "clean"],
-          ["material", "sitio", "right place"],
-          ["reglas", "simples", "simple"],
-          ["calma", "calm"],
-          ["cinturón", "marrón", "brown belt"]
+          ["cuadernos", "abiertos", "notebooks open", "open notebooks"],
+          ["mesas", "limpias", "tables clean", "clean tables"],
+          ["material", "sitio", "right place", "equipment in the right place", "equipment in place"],
+          ["reglas", "simples", "simple rules"],
+          ["calma", "calm", "speaks calmly", "calm speaking"],
+          ["cinturón", "marrón", "brown belt", "belt is brown"]
         ]
       },
       {
@@ -451,11 +451,11 @@ Red encuentra útil este método. No es complicado, pero evita muchos errores si
         prompt: "(H) Explain ONE way this method helps Red.",
         rubric: "It helps him avoid simple mistakes / feel calmer / answer more precisely because he reads fully and gives the required detail.",
         keywords: [
-          ["evita", "errores", "avoid", "mistakes"],
-          ["tranquilo", "calmer"],
-          ["precisa", "precise"],
-          ["lee", "pregunta"],
-          ["detalles", "required"]
+          ["evita", "errores", "avoid mistakes", "avoids mistakes", "prevent mistakes", "prevents errors", "avoid errors"],
+          ["tranquilo", "calmer", "more relaxed", "less stressed", "feel calmer", "feel more relaxed"],
+          ["precisa", "precise", "more precise", "more accurate", "accurate"],
+          ["lee", "pregunta", "reads the question", "read the question fully", "reads fully"],
+          ["detalles", "required", "required details", "right number of details", "correct number of details"]
         ]
       }
     ]
@@ -487,9 +487,7 @@ Sin embargo, la señora Munn recuerda una idea importante: un buen resultado sig
         prompt: "(E) What exact result does Madame Munn read out for Emmanuel?",
         rubric: "Seventy-eight / 78.",
         keywords: [
-          ["78"],
-          ["seventy-eight"],
-          ["setenta y ocho"]
+          ["78", "seventy-eight", "setenta y ocho"]
         ]
       },
       {
@@ -524,7 +522,7 @@ Sin embargo, la señora Munn recuerda una idea importante: un buen resultado sig
       {
         id: "p2q6",
         type: "es_short",
-        marks: 4,
+        marks: 8,
         prompt: "(M) En español : ¿Por qué le gusta a Red el número 80? Da DOS ideas.",
         rubric: "Any TWO: es un gran objetivo; demuestra que el trabajo ha valido la pena; es un número famoso en la clase; piensa que es un verdadero éxito.",
         keywords: [
@@ -534,18 +532,6 @@ Sin embargo, la señora Munn recuerda una idea importante: un buen resultado sig
           ["verdadero", "éxito"]
         ]
       },
-      {
-        id: "p2q7",
-        type: "short",
-        marks: 4,
-        prompt: "(H) What is Madame Munn’s main message about results?",
-        rubric: "That a good result is still good and students should focus on progress, not overdramatise marks.",
-        keywords: [
-          ["buen resultado", "good result"],
-          ["progresar", "progress"],
-          ["dramaticen", "dramatise"]
-        ]
-      }
     ]
   },
 
@@ -589,10 +575,10 @@ Según Red, la solución es clara. Hay que olvidar los rumores y leer la instruc
         prompt: "(E) Give TWO reasons why students feel confused.",
         rubric: "Any two: rules change between subjects; some colours/inks must be avoided; there may be a special instruction; rumours create confusion.",
         keywords: [
-          ["cambian", "asignatura", "change", "subjects"],
-          ["evitar", "color", "avoid"],
-          ["instrucción", "especial", "special"],
-          ["rumores", "confusión"]
+          ["cambian", "asignatura", "change", "different", "subjects", "vary"],
+          ["evitar", "color", "colour", "colors", "avoid colours", "certain colours"],
+          ["instrucción", "especial", "instruction", "specific", "rule"],
+          ["rumores", "confusión", "confuse", "unclear", "mixed messages"]
         ]
       },
       {
@@ -654,10 +640,10 @@ Para él, una buena norma no necesita ser complicada. Debe ser clara y fácil de
         prompt: "(E) Give TWO school rules mentioned.",
         rubric: "Any two: phones out of sight; arrive on time; listen to the teacher; walk calmly in corridors.",
         keywords: [
-          ["teléfonos", "fuera de la vista"],
-          ["a tiempo", "on time"],
-          ["escuchar", "profesor"],
-          ["caminar", "con calma"]
+          ["teléfonos", "fuera de la vista", "phones out of sight", "keep phones out of sight", "phones must stay out of sight"],
+          ["a tiempo", "on time", "arrive on time", "be on time"],
+          ["escuchar", "profesor", "listen to the teacher", "listen when a teacher speaks"],
+          ["caminar", "con calma", "walk calmly", "walk quietly in corridors", "walk calmly in the corridors"]
         ]
       },
       {
@@ -707,9 +693,9 @@ Para él, una buena norma no necesita ser complicada. Debe ser clara y fácil de
         prompt: "(E) Why do many students find the rules reasonable? Give ONE reason.",
         rubric: "Because they reduce noise / avoid lateness / help lessons go better.",
         keywords: [
-          ["ruido", "noise"],
-          ["retrasos", "lateness"],
-          ["mejor", "better"]
+          ["ruido", "noise", "less noise", "reduce noise", "quieter", "calmer"],
+          ["retrasos", "lateness", "late", "on time", "avoid lateness"],
+          ["mejor", "better", "run better", "go better", "smooth", "organised"]
         ]
       }
     ]
@@ -717,20 +703,20 @@ Para él, una buena norma no necesita ser complicada. Debe ser clara y fácil de
 
   {
     id: 5,
-    title: "Passage 5 — Tomás elige español",
+    title: "Passage 5 — Thomás elige francés",
     theme: "Theme 1 — School",
     unit: "Unit 4 (Choosing GCSE options)",
-    text: `Elegir las opciones de GCSE no es fácil para todos los alumnos. Algunos ya saben qué escoger, pero otros dudan. Tomás piensa en el español. Le gusta la asignatura y también le gusta oír la lengua, pero se pregunta si será lo bastante bueno en el examen.
+    text: `Elegir las opciones de GCSE no es fácil para todos los alumnos. Algunos ya saben qué escoger, pero otros dudan. Thomás piensa en el francés. Le gusta la asignatura y también le gusta oír la lengua, pero se pregunta si será lo bastante bueno en el examen.
 
 Habla con amigos y con profesores. Poco a poco, comprende que no es el único que tiene dudas. A otros alumnos también les gusta una asignatura sin sentirse totalmente seguros. Esta idea le tranquiliza.
 
-Al final, Tomás elige español. Para él, esta elección es lógica. Prefiere escoger una asignatura que realmente le gusta antes que una asignatura elegida solo porque parece más fácil.`,
+Al final, Thomás elige francés. Para él, esta elección es lógica. Prefiere escoger una asignatura que realmente le gusta antes que una asignatura elegida solo porque parece más fácil.`,
     questions: [
       {
         id: "p5q1",
         type: "mcq_reason",
         marks: 4,
-        prompt: "(E) Why does Thomas finally choose Spanish?",
+        prompt: "(E) Why does Thomas finally choose French?",
         options: [
           "Because his friends force him",
           "Because he really likes the subject",
@@ -742,7 +728,7 @@ Al final, Tomás elige español. Para él, esta elección es lógica. Prefiere e
         reasonOptions: [
           "He wants a subject he genuinely likes.",
           "He wants to avoid all exams.",
-          "He dislikes hearing Spanish.",
+          "He dislikes hearing French.",
           "He is already perfect at everything."
         ],
         reasonAnswerIndex: 0
@@ -758,7 +744,7 @@ Al final, Tomás elige español. Para él, esta elección es lógica. Prefiere e
         id: "p5q3",
         type: "pn",
         marks: 2,
-        prompt: "(E) Thomas’s feelings about Spanish are… (P / N / P+N)",
+        prompt: "(E) Thomas’s feelings about French are… (P / N / P+N)",
         answer: "P+N"
       },
       {
@@ -768,34 +754,23 @@ Al final, Tomás elige español. Para él, esta elección es lógica. Prefiere e
         prompt: "(E) Give TWO things that help Thomas.",
         rubric: "Any two: talking with friends; talking with teachers; realising others also have doubts; feeling reassured.",
         keywords: [
-          ["amigos", "friends"],
-          ["profesores", "teachers"],
-          ["dudas", "others", "doubts"],
-          ["tranquiliza", "reassured"]
+          ["amigos", "friends", "talk", "talking", "discuss"],
+          ["profesores", "teachers", "advice", "guidance"],
+          ["dudas", "others", "not alone", "others unsure"],
+          ["tranquiliza", "reassured", "confidence", "feels better", "less worried"]
         ]
       },
       {
         id: "p5q5",
         type: "es_short",
-        marks: 4,
-        prompt: "(M) En español : ¿Por qué es lógica esta elección para Tomás?",
-        rubric: "Porque le gusta de verdad el español y prefiere elegir una asignatura que le gusta.",
+        marks: 8,
+        prompt: "(M) En español : ¿Por qué es lógica esta elección para Thomás?",
+        rubric: "Porque le gusta de verdad el francés y prefiere elegir una asignatura que le gusta.",
         keywords: [
-          ["gusta", "verdad", "español"],
+          ["gusta", "verdad", "francés"],
           ["prefiere", "asignatura", "gusta"]
         ]
       },
-      {
-        id: "p5q6",
-        type: "short",
-        marks: 4,
-        prompt: "(H) What is the main message of this passage about choosing options?",
-        rubric: "That liking a subject matters and having doubts is normal when choosing options.",
-        keywords: [
-          ["gustar", "subject matters"],
-          ["dudas", "normal"]
-        ]
-      }
     ]
   },
 
@@ -825,10 +800,10 @@ Al final, los cuatro tienen una opinión positiva, aunque no se fijan exactament
         prompt: "(E) Give TWO things Red and OWing notice.",
         rubric: "Red: atmosphere / comfort. OWing: organisation / efficiency of service.",
         keywords: [
-          ["red", "ambiente", "atmosphere"],
-          ["red", "comodidad", "comfort"],
-          ["owing", "organización"],
-          ["owing", "eficacia", "service"]
+          ["red", "ambiente", "atmosphere", "feeling"],
+          ["red", "comodidad", "comfort", "comfortable"],
+          ["owing", "organización", "organisation", "structure"],
+          ["owing", "eficacia", "efficient", "efficiency", "service"]
         ]
       },
       {
@@ -873,7 +848,7 @@ Al final, los cuatro tienen una opinión positiva, aunque no se fijan exactament
         prompt: "(E) What does this passage show about a good flight?",
         rubric: "That different people can like it for different reasons.",
         keywords: [
-          ["diferentes", "razones", "different reasons"]
+          ["diferentes", "razones", "different reasons", "different people like it for different reasons", "people like it for different reasons"]
         ]
       }
     ]
@@ -947,10 +922,10 @@ Pero el servidor también debe seguir siendo agradable. Los moderadores piden a 
         prompt: "(H) Why are the moderators’ rules necessary?",
         rubric: "Because they keep the community pleasant, encourage politeness, and stop players from ruining others’ work.",
         keywords: [
-          ["agradable", "pleasant"],
-          ["educados", "polite"],
-          ["no destruir", "not destroy"],
-          ["trabajo", "demás"]
+          ["agradable", "pleasant", "nice", "friendly"],
+          ["educados", "polite", "respect", "respectful"],
+          ["no destruir", "protect", "stop destroying", "not ruin"],
+          ["trabajo", "demás", "others work", "people's work"]
         ]
       }
     ]
@@ -1005,16 +980,16 @@ Los profesores dicen a menudo que hay que saber cuándo escuchar música y cuán
       {
         id: "p8q4",
         type: "short",
-        marks: 4,
+        marks: 8,
         prompt: "(E) Give TWO different ways music is used or liked in the passage.",
         rubric: "Any two: changes mood; gives energy; helps concentration; Jessica likes organised pieces; Red likes music with character; some prefer calm music for revision.",
         keywords: [
-          ["humor", "mood"],
-          ["energía", "energy"],
-          ["concentrarse", "concentration"],
-          ["jessica", "organizadas"],
-          ["red", "carácter"],
-          ["tranquilas", "repasar"]
+          ["humor", "mood", "changes mood", "affects mood"],
+          ["energía", "energy", "motivates"],
+          ["concentrarse", "focus", "concentration", "helps focus"],
+          ["jessica", "organizadas", "structured", "organised music"],
+          ["red", "carácter", "style", "strong"],
+          ["tranquilas", "calm", "quiet", "revision", "study"]
         ]
       },
       {
@@ -1028,17 +1003,6 @@ Los profesores dicen a menudo que hay que saber cuándo escuchar música y cuán
           ["trabajar", "silencio"]
         ]
       },
-      {
-        id: "p8q6",
-        type: "short",
-        marks: 4,
-        prompt: "(H) What is the warning at the end of the passage?",
-        rubric: "Music is only useful if it does not become a distraction.",
-        keywords: [
-          ["útil"],
-          ["no", "distracción"]
-        ]
-      }
     ]
   },
 
@@ -1068,11 +1032,11 @@ En esta región, el invierno no es extremo, pero puede ser húmedo. Red piensa q
         prompt: "(E) Give TWO things Red likes about the region in winter.",
         rubric: "Any two: short days; city lights; coming back into the warm; cold calm air; pleasant atmosphere.",
         keywords: [
-          ["días", "cortos", "short days"],
-          ["luces", "lights"],
-          ["volver", "calor", "warm"],
-          ["aire", "frío", "cold air"],
-          ["ambiente", "agradable"]
+          ["cortos", "short days"],
+          ["luces", "lights", "city lights"],
+          ["calor", "warm", "warm inside"],
+          ["aire", "frío", "cold air", "cool air"],
+          ["ambiente", "agradable", "nice", "pleasant"]
         ]
       },
       {
@@ -1116,9 +1080,9 @@ En esta región, el invierno no es extremo, pero puede ser húmedo. Red piensa q
         prompt: "(E) What kind of climate does the passage describe in winter?",
         rubric: "Cold/cool and damp, but not extreme.",
         keywords: [
-          ["frío", "cold"],
-          ["húmedo", "damp"],
-          ["no", "extremo", "not extreme"]
+          ["frío", "cold", "cool"],
+          ["húmedo", "damp", "wet"],
+          ["no", "extremo", "not extreme", "isn't extreme", "not too extreme"]
         ]
       }
     ]
@@ -1150,10 +1114,10 @@ Para él, la organización de la casa no es solo práctica. También hace la vid
         prompt: "(E) Give TWO reasons why organisation matters in the mansion.",
         rubric: "Any two: saves time; helps guests know where to go; reduces chaos; makes life more pleasant.",
         keywords: [
-          ["tiempo", "save time"],
-          ["invitados", "where to go"],
-          ["caos"],
-          ["agradable", "pleasant"]
+          ["tiempo", "save time", "faster", "efficient"],
+          ["invitados", "guests", "where to go", "direction"],
+          ["caos", "less chaos", "organised"],
+          ["agradable", "pleasant", "better life", "easier"]
         ]
       },
       {
@@ -1182,12 +1146,12 @@ Para él, la organización de la casa no es solo práctica. También hace la vid
         prompt: "(H) Explain why respecting the role of each room helps daily life in the mansion.",
         rubric: "It keeps spaces organised, reduces confusion and chaos, helps people know where to go, and makes living together easier and more pleasant.",
         keywords: [
-          ["organizado", "organised"],
-          ["confusión"],
-          ["caos"],
-          ["saber", "adónde ir"],
-          ["vivir juntos", "easier"],
-          ["agradable", "pleasant"]
+          ["organizado", "organised", "structure"],
+          ["confusión", "less confusion"],
+          ["caos", "less chaos"],
+          ["adónde ir", "where to go"],
+          ["vivir", "easier", "live together"],
+          ["agradable", "pleasant", "better"]
         ]
       }
     ]
@@ -1268,9 +1232,9 @@ El debate sigue siendo sencillo: ¿hay que aspirar a la nota perfecta o a una me
         prompt: "(H) What is the main debate in the passage?",
         rubric: "Whether students should aim for perfect scores or for regular improvement/progress.",
         keywords: [
-          ["nota", "perfecta"],
-          ["mejora", "regular"],
-          ["progreso"]
+          ["perfecta", "perfection", "perfect score"],
+          ["progreso", "progress", "improvement"],
+          ["mejora", "improve", "develop"]
         ]
       }
     ]
@@ -1316,10 +1280,10 @@ Red piensa que hay que mantener cierta distancia. Se puede admirar a un creador 
         prompt: "(E) Give TWO possible effects of watching these creators.",
         rubric: "Any two: they inspire new ideas; make viewers want to create; may create pressure; may make success look easy.",
         keywords: [
-          ["nuevo", "new ideas"],
-          ["ganas", "create"],
-          ["presión", "pressure"],
-          ["fácil", "easy"]
+          ["nuevo", "ideas", "inspire", "ideas"],
+          ["ganas", "want", "motivate", "create"],
+          ["presión", "pressure", "stress"],
+          ["fácil", "easy", "seems easy", "looks easy"]
         ]
       },
       {
@@ -1343,9 +1307,9 @@ Red piensa que hay que mantener cierta distancia. Se puede admirar a un creador 
         rubric: "Because creators can inspire people, but comparing yourself constantly can create pressure and unrealistic expectations.",
         keywords: [
           ["inspirar", "inspire"],
-          ["compararse", "constantly compare"],
+          ["compararse", "compare"],
           ["presión", "pressure"],
-          ["irrealista", "unrealistic"]
+          ["irrealista", "unrealistic", "expectations"]
         ]
       }
     ]
@@ -1414,9 +1378,9 @@ A los dos primos les gusta este mundo por razones parecidas. Les gusta la veloci
           ["velocidad", "speed"],
           ["coches", "cars"],
           ["control"],
-          ["precisión"],
+          ["precisión", "accuracy"],
           ["regularidad", "consistency"],
-          ["larga", "prueba"]
+          ["larga", "long race"]
         ]
       }
     ]
@@ -1490,7 +1454,7 @@ Red sabe que no todo el mundo reacciona igual. A algunas personas les gusta much
         prompt: "(E) What criticism do some people have of La Marseillaise?",
         rubric: "They find it too intense.",
         keywords: [
-          ["demasiado", "intensa"]
+          ["demasiado", "intensa", "too intense", "overly intense", "very intense"]
         ]
       },
       {
@@ -1500,8 +1464,9 @@ Red sabe que no todo el mundo reacciona igual. A algunas personas les gusta much
         prompt: "(H) How does Red respond to different opinions about the anthem?",
         rubric: "He understands that people react differently, but he keeps his own very positive opinion.",
         keywords: [
-          ["reaccionan", "diferente"],
-          ["mantiene", "opinión", "positiva"]
+          ["diferente", "different"],
+          ["opinión", "view"],
+          ["positiva", "positive"]
         ]
       }
     ]
@@ -1555,9 +1520,9 @@ A bordo, estas pequeñas normas hacen el viaje más sencillo para todo el mundo.
         prompt: "(E) Give TWO rules mentioned.",
         rubric: "Any two: put bags away properly; listen to safety announcements; stay seated when required.",
         keywords: [
-          ["equipaje", "guardar"],
-          ["anuncios", "seguridad"],
-          ["permanecer", "sentados"]
+          ["equipaje", "guardar", "put bags away", "store luggage properly", "put luggage away properly"],
+          ["anuncios", "seguridad", "listen to safety announcements", "safety announcements"],
+          ["permanecer", "sentados", "stay seated", "remain seated when required", "be seated when told"]
         ]
       },
       {
@@ -1580,9 +1545,10 @@ A bordo, estas pequeñas normas hacen el viaje más sencillo para todo el mundo.
         prompt: "(H) What is the main purpose of these rules?",
         rubric: "To help the flight go smoothly and make the journey simpler for everyone.",
         keywords: [
-          ["ayudar", "vuelo"],
-          ["vaya", "bien"],
-          ["sencillo", "todo el mundo"]
+          ["ayudar", "help"],
+          ["bien", "smooth", "run well"],
+          ["sencillo", "easier", "simple"],
+          ["todo el mundo", "everyone"]
         ]
       }
     ]
@@ -1664,13 +1630,13 @@ A bordo, estas pequeñas normas hacen el viaje más sencillo para todo el mundo.
         prompt: "(H) Explain why Red thinks this friendship has ‘a different value’ from many other creator friendships.",
         rubric: "Because it combines entertainment with genuine loyalty, long-distance effort, emotional support, and a relationship that remains strong even in difficult situations.",
         keywords: [
-          ["humour"],
-          ["surprises"],
-          ["loyalty", "lealtad"],
-          ["distance", "avión"],
-          ["support", "apoyo"],
-          ["moments", "difficult"],
-          ["real", "authentic"]
+          ["humor", "entertainment"],
+          ["sorpresas", "surprise"],
+          ["lealtad", "loyalty"],
+          ["distancia", "viaje", "effort"],
+          ["apoyo", "support"],
+          ["difíciles", "hard", "difficult"],
+          ["real", "auténtica", "genuine"]
         ]
       }
     ]
@@ -1750,11 +1716,11 @@ Para Red, la idea principal es sencilla: un vídeo loco a veces parece espontán
       prompt: "(H) Why does Red respect this kind of content?",
       rubric: "Because it combines huge ideas with real preparation, energy and teamwork.",
       keywords: [
-        ["grandes", "ideas"],
-        ["preparación"],
-        ["energía"],
-        ["equipo", "teamwork"]
-      ]
+          ["grandes", "ideas", "big ideas"],
+          ["preparación"],
+          ["energía"],
+          ["equipo", "team", "teamwork"]
+        ]
     }
   ]
 },
@@ -1849,11 +1815,11 @@ Para tener éxito, hay que combinar varias cualidades. Hay que ser ambicioso sin
       prompt: "(H) What warning does the passage give about good ideas?",
       rubric: "That even good ideas can become problems if there is no balance, for example too much pressure or too little effort.",
       keywords: [
-        ["no", "equilibrio"],
-        ["presión"],
-        ["muy poco", "esfuerzo"],
-        ["problema"]
-      ]
+          ["equilibrio", "balance"],
+          ["presión", "too much pressure"],
+          ["esfuerzo", "too little effort"],
+          ["problema"]
+        ]
     }
   ]
 },
@@ -1932,9 +1898,10 @@ Sin embargo, Red también sabe que existe un peligro. Si un creador siempre busc
       prompt: "(H) What danger does Red see when creators always try to go bigger?",
       rubric: "They may forget the quality of the connection with the audience and focus only on bigger ideas.",
       keywords: [
-        ["olvidar", "calidad"],
-        ["vínculo", "público"],
-        ["más grande", "bigger ideas"]
+        ["olvidar", "ignore"],
+        ["calidad"],
+        ["vínculo", "relación", "connection"],
+        ["más grande", "bigger"]
       ]
     }
   ]
@@ -2014,9 +1981,11 @@ OWing se fija sobre todo en el equilibrio general: suficiente espacio, normas cl
       prompt: "(H) What does the passage mean by saying economy should not feel like ‘a punishment’?",
       rubric: "It should be comfortable, sensible and well designed, not something passengers simply have to endure.",
       keywords: [
-        ["comfortable", "cómoda"],
-        ["sensible", "bien pensada"],
-        ["not endure", "no un castigo"]
+        ["cómoda", "comfortable"],
+        ["lógica", "reasonable", "sensible"],
+        ["bien pensada", "well designed"],
+        ["no castigo", "not a punishment"],
+        ["no sufrir", "not endure"]
       ]
     }
   ]
