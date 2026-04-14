@@ -227,7 +227,7 @@
             <strong>How the random paper works (SAM set 3):</strong><br/>
             • The system selects <strong>4 random passages</strong> (each worth <strong>20</strong>) and <strong>1 random translation</strong> (worth <strong>20</strong>).<br/>
             • You’ll get a mix of <strong>MCQ</strong>, <strong>P/N/P+N</strong>, <strong>True/False/Not mentioned</strong>, and <strong>written answers</strong>.<br/>
-            • Some passages include <strong>questions answered in French</strong> (you must answer in French).<br/>
+            • Some passages include <strong>questions answered in Spanish</strong> (you must answer in Spanish).<br/>
             • Written + translation answers are marked by <strong>keyword coverage</strong> (so write clear, direct answers).<br/>
             • Your attempt is saved to this browser using <strong>localStorage</strong>.
           </div>
@@ -2474,7 +2474,7 @@ function renderTest(){
 
       const markTag = `<span class="badge" title="Marks for this question">${q.marks} marks</span>`;
       const instruction = (q.type === "es_short")
-        ? "Answer in French. Auto-mark uses keywords."
+        ? "Answer in Spanish. Auto-mark uses keywords."
         : (["mcq","pn","tfnm"].includes(q.type) ? "Select one option." : "Auto-mark uses keywords. Write concise, direct answers.");
 
       qWrap.innerHTML = `
@@ -2594,7 +2594,7 @@ function renderQuestion(q){
   }
 
   // short / es_short remain unchanged
-  return `<textarea id="ans_${q.id}" placeholder="${q.type === "es_short" ? "Réponds en français..." : "Write your answer here..."}"></textarea>`;
+  return `<textarea id="ans_${q.id}" placeholder="${q.type === "es_short" ? "Responde en español..." : "Write your answer here..."}"></textarea>`;
 }
 
 function renderChoice(q, optionObjects){
