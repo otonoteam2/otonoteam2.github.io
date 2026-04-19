@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Otono GCSE Biology Paper 1 MCQ Set</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #111;
+      background: linear-gradient(135deg, #8b0000 0%, #c1126b 35%, #7b2cbf 70%, #4c1d95 100%);
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.97);
+      border: 3px solid #1f1f1f;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.28);
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .topbar {
+      background: linear-gradient(90deg, #9d0208 0%, #c1126b 45%, #7b2cbf 100%);
+      color: white;
+      padding: 22px 28px;
+      border-bottom: 3px solid #111;
+    }
+
+    .topbar h1 {
+      margin: 0;
+      font-size: 1.95rem;
+      letter-spacing: 0.3px;
+    }
+
+    .topbar p {
+      margin: 10px 0 0;
+      font-size: 1rem;
+    }
+
+    .content {
+      padding: 26px;
+    }
+
+    .warning-box,
+    .info-box,
+    .result-box {
+      border: 2px solid #222;
+      padding: 16px;
+      margin-bottom: 18px;
+      border-radius: 12px;
+    }
+
+    .warning-box {
+      background: #fff0f2;
+      border-color: #9d0208;
+    }
+
+    .info-box {
+      background: #f7f4ff;
+      border-color: #7b2cbf;
+    }
+
+    .evil-box {
+      background: linear-gradient(135deg, #fff4f4, #f8f1ff);
+      border: 2px dashed #7b2cbf;
+      padding: 16px;
+      margin-bottom: 18px;
+      border-radius: 12px;
+      font-weight: bold;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 11px;
+      border: 2px solid #444;
+      border-radius: 10px;
+      font-size: 1rem;
+      background: white;
+    }
+
+    .readonly {
+      background: #ececec;
+    }
+
+    .exam-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.98);
+      z-index: 10;
+      border-bottom: 2px solid #222;
+      padding-bottom: 12px;
+      margin-bottom: 18px;
+    }
+
+    .timer {
+      font-size: 1.5rem;
+      font-weight: bold;
+      padding: 12px 18px;
+      border: 3px solid #222;
+      background: #fff3cd;
+      min-width: 190px;
+      text-align: center;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    .timer.red {
+      background: #ffe0e0;
+      color: #8b0000;
+      border-color: #8b0000;
+      animation: pulse 0.9s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+      100% { transform: scale(1); }
+    }
+
+    .progress {
+      font-weight: bold;
+      font-size: 1rem;
+      margin-top: 6px;
+    }
+
+    .question {
+      border: 2px solid #222;
+      padding: 18px;
+      margin-bottom: 18px;
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+    }
+
+    .question h3 {
+      margin-top: 0;
+      font-size: 1.08rem;
+      color: #5a189a;
+    }
+
+    .options {
+      margin-top: 12px;
+    }
+
+    .option {
+      display: block;
+      margin: 8px 0;
+      padding: 11px 12px;
+      border: 1px solid #999;
+      border-radius: 10px;
+      background: #fafafa;
+      cursor: pointer;
+      transition: 0.15s ease;
+    }
+
+    .option:hover {
+      background: #f3ebff;
+      border-color: #7b2cbf;
+    }
+
+    .option input {
+      margin-right: 10px;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 12px 18px;
+      font-size: 1rem;
+      font-weight: bold;
+      border: 2px solid #222;
+      border-radius: 12px;
+      background: linear-gradient(90deg, #9d0208, #7b2cbf);
+      color: white;
+      cursor: pointer;
+      transition: 0.15s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.06);
+    }
+
+    button.secondary {
+      background: white;
+      color: #111;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .result-box h2 {
+      margin-top: 0;
+      color: #5a189a;
+    }
+
+    .band {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .footer-note {
+      margin-top: 20px;
+      font-size: 0.95rem;
+      color: #333;
+    }
+
+    .small {
+      font-size: 0.92rem;
+      color: #333;
+    }
+
+    .score-highlight {
+      font-size: 1.55rem;
+      font-weight: bold;
+    }
+
+    .danger-text {
+      color: #9d0208;
+      font-weight: bold;
+    }
+
+    @media (max-width: 700px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="topbar">
+      <h1>Otono GCSE Biology Paper 1 — Multiple Choice Set</h1>
+      <p>Pressure Edition • Otono red-purple gradient • Finish what you can before time destroys you</p>
+    </div>
+
+    <div class="content">
+      <section id="setupSection">
+        <div class="warning-box">
+          <strong>IMPORTANT:</strong> This paper is designed to be intentionally harsh.
+          There are <strong>40 questions</strong>, and the default time is only <strong>15 minutes</strong>.
+          Many candidates will not finish.
+        </div>
+
+        <div class="evil-box">
+          Default setting: <strong>15 minutes</strong> 😈  
+          Candidates may choose a different time, but the paper is designed to feel pressured.
+        </div>
+
+        <div class="info-box">
+          <p><strong>Award thresholds:</strong></p>
+          <p>Pass = 66% • Merit = 80% • Distinction = 90%</p>
+          <p class="small">
+            On a 40-question paper, that means:
+            Pass = 27 correct,
+            Merit = 32 correct,
+            Distinction = 36 correct.
+          </p>
+        </div>
+
+        <div class="grid">
+          <div>
+            <label for="centreNumber">Centre Number</label>
+            <input id="centreNumber" type="text" class="readonly" value="50749" readonly />
+          </div>
+          <div>
+            <label for="candidateNumber">Candidate Number (required)</label>
+            <input id="candidateNumber" type="text" placeholder="Example: 0123, 1487, 5021" maxlength="6" />
+          </div>
+          <div>
+            <label for="surname">Candidate Surname (optional)</label>
+            <input id="surname" type="text" placeholder="Optional" />
+          </div>
+          <div>
+            <label for="forenames">Candidate Forename(s) (optional)</label>
+            <input id="forenames" type="text" placeholder="Optional" />
+          </div>
+          <div>
+            <label for="timeSelect">Time allowed</label>
+            <select id="timeSelect">
+              <option value="15" selected>15 minutes (default pressure)</option>
+              <option value="10">10 minutes (evil)</option>
+              <option value="12">12 minutes</option>
+              <option value="18">18 minutes</option>
+              <option value="20">20 minutes</option>
+              <option value="25">25 minutes</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="info-box" style="margin-top:18px;">
+          <p><strong>Instructions:</strong></p>
+          <ul>
+            <li>Answer as many questions as you can before time runs out.</li>
+            <li>Choose one answer for each question.</li>
+            <li><span class="danger-text">Unanswered questions count as incorrect.</span></li>
+            <li>The paper will submit automatically at 0:00.</li>
+          </ul>
+        </div>
+
+        <div class="btn-row">
+          <button onclick="startExam()">Start Exam</button>
+        </div>
+      </section>
+
+      <section id="examSection" class="hidden">
+        <div class="exam-header">
+          <div>
+            <div><strong>Centre Number:</strong> 50749</div>
+            <div><strong>Candidate Number:</strong> <span id="displayCandidateNumber"></span></div>
+            <div><strong>Time Allowed:</strong> <span id="displayTimeAllowed"></span> minutes</div>
+            <div class="progress">Answered: <span id="answeredCount">0</span> / 40</div>
+          </div>
+          <div id="timer" class="timer">15:00</div>
+        </div>
+
+        <form id="examForm"></form>
+
+        <div class="btn-row">
+          <button type="button" onclick="submitExam()">Submit Now</button>
+        </div>
+
+        <p class="footer-note">
+          This is an Otono pressure set. The timer is not your friend.
+        </p>
+      </section>
+
+      <section id="resultSection" class="hidden">
+        <div class="result-box">
+          <h2>Result</h2>
+          <p><strong>Centre Number:</strong> 50749</p>
+          <p><strong>Candidate Number:</strong> <span id="resultCandidateNumber"></span></p>
+          <p><strong>Name:</strong> <span id="resultName"></span></p>
+          <p><strong>Time Allowed:</strong> <span id="resultTimeAllowed"></span> minutes</p>
+          <p class="score-highlight">Score: <span id="scoreText"></span></p>
+          <p>Percentage: <strong><span id="percentageText"></span>%</strong></p>
+          <p class="band">Award: <span id="awardText"></span></p>
+          <p>Questions answered: <strong><span id="answeredFinal"></span></strong> / 40</p>
+          <p>Unanswered questions count as incorrect.</p>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        q: "Which structure controls the movement of substances into and out of a cell?",
+        options: ["Nucleus", "Cell membrane", "Cytoplasm", "Ribosome"],
+        answer: 1
+      },
+      {
+        q: "Which organelle is the site of aerobic respiration in eukaryotic cells?",
+        options: ["Chloroplast", "Mitochondrion", "Vacuole", "Plasmid"],
+        answer: 1
+      },
+      {
+        q: "Which type of cell contains chloroplasts?",
+        options: ["Bacterial cell", "Animal cell", "Plant cell", "Fungal cell"],
+        answer: 2
+      },
+      {
+        q: "Diffusion is the movement of particles from:",
+        options: [
+          "A low concentration to a high concentration",
+          "A high concentration to a low concentration",
+          "A region with no particles to a region with particles",
+          "A dilute solution to a concentrated solution only through a membrane"
+        ],
+        answer: 1
+      },
+      {
+        q: "What is produced during mitosis?",
+        options: [
+          "Four genetically different cells",
+          "Two genetically identical cells",
+          "Two genetically different cells",
+          "Four genetically identical cells"
+        ],
+        answer: 1
+      },
+      {
+        q: "Which microscope usually gives the highest magnification and resolution?",
+        options: ["Hand lens", "Optical microscope", "Electron microscope", "Magnifying glass"],
+        answer: 2
+      },
+      {
+        q: "Which statement about stem cells is correct?",
+        options: [
+          "They can only be found in plants",
+          "They can differentiate into different cell types",
+          "They are fully specialised",
+          "They are only used for digestion"
+        ],
+        answer: 1
+      },
+      {
+        q: "In the human body, where are stem cells found in adults?",
+        options: ["Bone marrow", "Pancreas only", "Kidney only", "Skin only"],
+        answer: 0
+      },
+      {
+        q: "Which substance is moved by osmosis?",
+        options: ["Glucose", "Water", "Oxygen", "Starch"],
+        answer: 1
+      },
+      {
+        q: "A student calculates magnification using image size ÷ actual size. If the image is 20 mm and the actual size is 0.5 mm, what is the magnification?",
+        options: ["10", "20", "40", "80"],
+        answer: 2
+      },
+      {
+        q: "What is a tissue?",
+        options: [
+          "A group of organs working together",
+          "A group of similar cells working together",
+          "A single specialised cell",
+          "A system of different organisms"
+        ],
+        answer: 1
+      },
+      {
+        q: "Which organ is responsible for pumping blood around the body?",
+        options: ["Lung", "Heart", "Liver", "Kidney"],
+        answer: 1
+      },
+      {
+        q: "Which blood vessel carries blood away from the heart?",
+        options: ["Vein", "Capillary", "Artery", "Valve"],
+        answer: 2
+      },
+      {
+        q: "Which component of blood helps fight pathogens?",
+        options: ["Red blood cells", "Platelets", "Plasma", "White blood cells"],
+        answer: 3
+      },
+      {
+        q: "Coronary heart disease is caused by:",
+        options: [
+          "Damage to the alveoli",
+          "Blockage of coronary arteries",
+          "Too many white blood cells",
+          "An increase in oxygen diffusion"
+        ],
+        answer: 1
+      },
+      {
+        q: "Which part of the digestive system absorbs digested food molecules into the blood?",
+        options: ["Stomach", "Large intestine", "Small intestine", "Oesophagus"],
+        answer: 2
+      },
+      {
+        q: "Enzymes are best described as:",
+        options: [
+          "Lipids that store energy",
+          "Catalysts made of proteins",
+          "Sugars used for respiration",
+          "Hormones that dissolve food"
+        ],
+        answer: 1
+      },
+      {
+        q: "Amylase breaks down:",
+        options: ["Proteins into amino acids", "Lipids into fatty acids and glycerol", "Starch into sugars", "Sugars into starch"],
+        answer: 2
+      },
+      {
+        q: "Protease enzymes break down proteins into:",
+        options: ["Fatty acids", "Amino acids", "Glucose", "Glycerol"],
+        answer: 1
+      },
+      {
+        q: "Bile helps digestion by:",
+        options: [
+          "Breaking proteins into amino acids",
+          "Neutralising stomach acid and emulsifying fats",
+          "Killing red blood cells",
+          "Producing insulin"
+        ],
+        answer: 1
+      },
+      {
+        q: "Which type of pathogen is the smallest?",
+        options: ["Fungus", "Bacterium", "Virus", "Protist"],
+        answer: 2
+      },
+      {
+        q: "Measles is caused by a:",
+        options: ["Bacterium", "Virus", "Fungus", "Protist"],
+        answer: 1
+      },
+      {
+        q: "Salmonella food poisoning is usually spread by:",
+        options: [
+          "Drinking polluted water from ponds only",
+          "Eating contaminated food",
+          "Breathing in fungal spores",
+          "Mosquito bites"
+        ],
+        answer: 1
+      },
+      {
+        q: "How can bacterial diseases be treated?",
+        options: ["Antibiotics", "Painkillers", "Vaccines only after infection", "Insulin"],
+        answer: 0
+      },
+      {
+        q: "Why do antibiotics not kill viruses?",
+        options: [
+          "Viruses are too large",
+          "Viruses live inside cells and do not have the same structures as bacteria",
+          "Viruses contain chlorophyll",
+          "Viruses are made of blood"
+        ],
+        answer: 1
+      },
+      {
+        q: "A vaccine works by:",
+        options: [
+          "Killing pathogens directly with acid",
+          "Causing the body to produce antibodies against a harmless form of the pathogen",
+          "Cooling the body",
+          "Producing red blood cells"
+        ],
+        answer: 1
+      },
+      {
+        q: "What is the main function of white blood cells?",
+        options: ["Carry oxygen", "Produce hormones", "Defend against pathogens", "Clot blood"],
+        answer: 2
+      },
+      {
+        q: "Plants can be infected by Tobacco Mosaic Virus. One effect is:",
+        options: [
+          "Roots become longer",
+          "Leaves become discoloured, reducing photosynthesis",
+          "Flowers turn blue only",
+          "Fruit becomes sweeter"
+        ],
+        answer: 1
+      },
+      {
+        q: "Rose black spot is caused by a:",
+        options: ["Virus", "Bacterium", "Fungus", "Protist"],
+        answer: 2
+      },
+      {
+        q: "The process by which green plants make food is called:",
+        options: ["Respiration", "Photosynthesis", "Transpiration", "Digestion"],
+        answer: 1
+      },
+      {
+        q: "Which equation represents photosynthesis?",
+        options: [
+          "Glucose + oxygen → carbon dioxide + water",
+          "Carbon dioxide + water → glucose + oxygen",
+          "Water + oxygen → carbon dioxide + glucose",
+          "Glucose → carbon dioxide only"
+        ],
+        answer: 1
+      },
+      {
+        q: "Which factor is not a limiting factor of photosynthesis?",
+        options: ["Light intensity", "Carbon dioxide concentration", "Temperature", "Number of chromosomes"],
+        answer: 3
+      },
+      {
+        q: "Plants store glucose as:",
+        options: ["Protein", "Glycogen", "Starch", "Cellulose only"],
+        answer: 2
+      },
+      {
+        q: "Aerobic respiration releases energy from glucose using:",
+        options: ["Nitrogen", "Oxygen", "Carbon dioxide", "Minerals"],
+        answer: 1
+      },
+      {
+        q: "Which equation represents aerobic respiration?",
+        options: [
+          "Glucose + oxygen → carbon dioxide + water",
+          "Carbon dioxide + water → glucose + oxygen",
+          "Glucose → lactic acid only",
+          "Oxygen + water → glucose"
+        ],
+        answer: 0
+      },
+      {
+        q: "Anaerobic respiration in muscle cells produces:",
+        options: ["Ethanol and carbon dioxide", "Lactic acid", "Only water", "Only oxygen"],
+        answer: 1
+      },
+      {
+        q: "One effect of regular exercise is:",
+        options: [
+          "Reduced efficiency of the cardiovascular system",
+          "Increased resting heart rate forever",
+          "Improved stamina",
+          "No change in muscle tone"
+        ],
+        answer: 2
+      },
+      {
+        q: "Which hormone helps control blood glucose concentration?",
+        options: ["Adrenaline", "Insulin", "Oestrogen", "Thyroxine"],
+        answer: 1
+      },
+      {
+        q: "What is the function of xylem tissue in plants?",
+        options: [
+          "Transport sugars around the plant",
+          "Transport water and mineral ions from roots to leaves",
+          "Carry oxygen to root hair cells",
+          "Produce pollen"
+        ],
+        answer: 1
+      },
+      {
+        q: "Phloem tissue transports:",
+        options: [
+          "Water only",
+          "Mineral ions only",
+          "Dissolved sugars around the plant",
+          "Carbon dioxide into roots"
+        ],
+        answer: 2
+      }
+    ];
+
+    let timeLeft = 15 * 60;
+    let timerInterval = null;
+    let examStarted = false;
+    let chosenMinutes = 15;
+
+    function startExam() {
+      const candidateNumber = document.getElementById("candidateNumber").value.trim();
+      const selectedTime = parseInt(document.getElementById("timeSelect").value, 10);
+
+      if (!candidateNumber) {
+        alert("Candidate number is required before starting.");
+        return;
+      }
+
+      chosenMinutes = selectedTime;
+      timeLeft = chosenMinutes * 60;
+
+      document.getElementById("displayCandidateNumber").textContent = candidateNumber;
+      document.getElementById("displayTimeAllowed").textContent = chosenMinutes;
+      document.getElementById("timer").textContent =
+        `${String(chosenMinutes).padStart(2, "0")}:00`;
+
+      document.getElementById("setupSection").classList.add("hidden");
+      document.getElementById("examSection").classList.remove("hidden");
+
+      renderQuestions();
+      updateAnsweredCount();
+      examStarted = true;
+      startTimer();
+      window.scrollTo(0, 0);
+    }
+
+    function renderQuestions() {
+      const form = document.getElementById("examForm");
+      form.innerHTML = "";
+
+      questions.forEach((item, index) => {
+        const block = document.createElement("div");
+        block.className = "question";
+
+        let optionsHTML = "";
+        item.options.forEach((opt, i) => {
+          optionsHTML += `
+            <label class="option">
+              <input type="radio" name="q${index}" value="${i}" onchange="updateAnsweredCount()" />
+              ${opt}
+            </label>
+          `;
+        });
+
+        block.innerHTML = `
+          <h3>Question ${index + 1}</h3>
+          <p>${item.q}</p>
+          <div class="options">${optionsHTML}</div>
+        `;
+
+        form.appendChild(block);
+      });
+    }
+
+    function updateAnsweredCount() {
+      let answered = 0;
+      questions.forEach((_, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        if (selected) answered++;
+      });
+      document.getElementById("answeredCount").textContent = answered;
+    }
+
+    function startTimer() {
+      const timer = document.getElementById("timer");
+
+      timerInterval = setInterval(() => {
+        timeLeft--;
+
+        const mins = Math.floor(timeLeft / 60);
+        const secs = timeLeft % 60;
+        timer.textContent = `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
+
+        if (timeLeft <= Math.min(300, Math.floor(chosenMinutes * 60 * 0.33))) {
+          timer.classList.add("red");
+        }
+
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          alert("Time is up. Your paper will now be submitted automatically.");
+          submitExam();
+        }
+      }, 1000);
+    }
+
+    function submitExam() {
+      if (!examStarted) return;
+
+      clearInterval(timerInterval);
+
+      let score = 0;
+      let answered = 0;
+
+      questions.forEach((item, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        if (selected) {
+          answered++;
+          if (parseInt(selected.value, 10) === item.answer) {
+            score++;
+          }
+        }
+      });
+
+      const total = questions.length;
+      const percentage = (score / total) * 100;
+
+      let award = "Below Pass";
+      if (percentage >= 90) {
+        award = "Distinction";
+      } else if (percentage >= 80) {
+        award = "Merit";
+      } else if (percentage >= 66) {
+        award = "Pass";
+      }
+
+      const candidateNumber = document.getElementById("candidateNumber").value.trim();
+      const surname = document.getElementById("surname").value.trim();
+      const forenames = document.getElementById("forenames").value.trim();
+      const fullName = `${forenames} ${surname}`.trim() || "Not provided";
+
+      document.getElementById("examSection").classList.add("hidden");
+      document.getElementById("resultSection").classList.remove("hidden");
+
+      document.getElementById("resultCandidateNumber").textContent = candidateNumber;
+      document.getElementById("resultName").textContent = fullName;
+      document.getElementById("resultTimeAllowed").textContent = chosenMinutes;
+      document.getElementById("scoreText").textContent = `${score} / ${total}`;
+      document.getElementById("percentageText").textContent = percentage.toFixed(1);
+      document.getElementById("awardText").textContent = award;
+      document.getElementById("answeredFinal").textContent = answered;
+
+      window.scrollTo(0, 0);
+    }
+  </script>
+</body>
+</html>

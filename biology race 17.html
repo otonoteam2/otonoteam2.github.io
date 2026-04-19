@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Otono GCSE Biology Paper 1 - Auto-Marked 4 and 6 Markers</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #111;
+      background: linear-gradient(135deg, #8b0000 0%, #c1126b 35%, #7b2cbf 70%, #4c1d95 100%);
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.97);
+      border: 3px solid #1f1f1f;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.28);
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .topbar {
+      background: linear-gradient(90deg, #9d0208 0%, #c1126b 45%, #7b2cbf 100%);
+      color: white;
+      padding: 22px 28px;
+      border-bottom: 3px solid #111;
+    }
+
+    .topbar h1 {
+      margin: 0;
+      font-size: 1.95rem;
+    }
+
+    .topbar p {
+      margin: 10px 0 0;
+      font-size: 1rem;
+    }
+
+    .content {
+      padding: 26px;
+    }
+
+    .warning-box,
+    .info-box,
+    .result-box {
+      border: 2px solid #222;
+      padding: 16px;
+      margin-bottom: 18px;
+      border-radius: 12px;
+    }
+
+    .warning-box {
+      background: #fff0f2;
+      border-color: #9d0208;
+    }
+
+    .info-box {
+      background: #f7f4ff;
+      border-color: #7b2cbf;
+    }
+
+    .evil-box {
+      background: linear-gradient(135deg, #fff4f4, #f8f1ff);
+      border: 2px dashed #7b2cbf;
+      padding: 16px;
+      margin-bottom: 18px;
+      border-radius: 12px;
+      font-weight: bold;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 11px;
+      border: 2px solid #444;
+      border-radius: 10px;
+      font-size: 1rem;
+      background: white;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 160px;
+      line-height: 1.45;
+    }
+
+    .readonly {
+      background: #ececec;
+    }
+
+    .exam-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.98);
+      z-index: 10;
+      border-bottom: 2px solid #222;
+      padding-bottom: 12px;
+      margin-bottom: 18px;
+    }
+
+    .timer {
+      font-size: 1.5rem;
+      font-weight: bold;
+      padding: 12px 18px;
+      border: 3px solid #222;
+      background: #fff3cd;
+      min-width: 190px;
+      text-align: center;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    .timer.red {
+      background: #ffe0e0;
+      color: #8b0000;
+      border-color: #8b0000;
+      animation: pulse 0.9s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+      100% { transform: scale(1); }
+    }
+
+    .progress {
+      font-weight: bold;
+      font-size: 1rem;
+      margin-top: 6px;
+    }
+
+    .question {
+      border: 2px solid #222;
+      padding: 18px;
+      margin-bottom: 18px;
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+    }
+
+    .question h3 {
+      margin-top: 0;
+      font-size: 1.08rem;
+      color: #5a189a;
+    }
+
+    .mark-tag {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 999px;
+      color: white;
+      font-weight: bold;
+      font-size: 0.9rem;
+      margin-left: 8px;
+    }
+
+    .tag4 {
+      background: #c1121f;
+    }
+
+    .tag6 {
+      background: #7b2cbf;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 12px 18px;
+      font-size: 1rem;
+      font-weight: bold;
+      border: 2px solid #222;
+      border-radius: 12px;
+      background: linear-gradient(90deg, #9d0208, #7b2cbf);
+      color: white;
+      cursor: pointer;
+      transition: 0.15s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.06);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .result-box h2 {
+      margin-top: 0;
+      color: #5a189a;
+    }
+
+    .score-highlight {
+      font-size: 1.55rem;
+      font-weight: bold;
+    }
+
+    .band {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .small {
+      font-size: 0.92rem;
+      color: #333;
+    }
+
+    .danger-text {
+      color: #9d0208;
+      font-weight: bold;
+    }
+
+    .breakdown {
+      margin-top: 18px;
+      border-top: 2px solid #ddd;
+      padding-top: 16px;
+    }
+
+    .breakdown-item {
+      background: #faf7ff;
+      border: 1px solid #d9c8ff;
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+
+    .matched {
+      color: #166534;
+      font-weight: bold;
+    }
+
+    .missed {
+      color: #9d0208;
+      font-weight: bold;
+    }
+
+    ul {
+      margin-top: 8px;
+    }
+
+    @media (max-width: 700px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="topbar">
+      <h1>Otono GCSE Biology Paper 1 — Auto-Marked 4 and 6 Markers</h1>
+      <p>Pressure Edition • 4×4 markers + 4×6 markers • Total = 40 marks</p>
+    </div>
+
+    <div class="content">
+      <section id="setupSection">
+        <div class="warning-box">
+          <strong>IMPORTANT:</strong> This paper is intentionally pressured.
+          There are <strong>8 written questions</strong> for a total of <strong>40 marks</strong>.
+          Default time is <strong>15 minutes</strong>.
+        </div>
+
+        <div class="evil-box">
+          Auto-marking checks for scientific ideas and keyword groups 😈  
+          It is fast, but not as smart as a real examiner.
+        </div>
+
+        <div class="info-box">
+          <p><strong>Award thresholds:</strong></p>
+          <p>Pass = 66% • Merit = 80% • Distinction = 90%</p>
+          <p class="small">
+            On a 40-mark paper:
+            Pass = 27 marks,
+            Merit = 32 marks,
+            Distinction = 36 marks.
+          </p>
+        </div>
+
+        <div class="grid">
+          <div>
+            <label for="centreNumber">Centre Number</label>
+            <input id="centreNumber" type="text" class="readonly" value="50749" readonly />
+          </div>
+          <div>
+            <label for="candidateNumber">Candidate Number (required)</label>
+            <input id="candidateNumber" type="text" placeholder="Example: 0123, 1487, 5021" maxlength="6" />
+          </div>
+          <div>
+            <label for="surname">Candidate Surname (optional)</label>
+            <input id="surname" type="text" placeholder="Optional" />
+          </div>
+          <div>
+            <label for="forenames">Candidate Forename(s) (optional)</label>
+            <input id="forenames" type="text" placeholder="Optional" />
+          </div>
+          <div>
+            <label for="timeSelect">Time allowed</label>
+            <select id="timeSelect">
+              <option value="15" selected>15 minutes (default pressure)</option>
+              <option value="10">10 minutes (evil)</option>
+              <option value="12">12 minutes</option>
+              <option value="18">18 minutes</option>
+              <option value="20">20 minutes</option>
+              <option value="25">25 minutes</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="info-box" style="margin-top:18px;">
+          <p><strong>Instructions:</strong></p>
+          <ul>
+            <li>Type your answers in full sentences or clear bullet points.</li>
+            <li>Use scientific vocabulary where possible.</li>
+            <li>The timer starts when you press <strong>Start Exam</strong>.</li>
+            <li><span class="danger-text">The paper auto-submits at 0:00.</span></li>
+            <li>Auto-marking uses concept matching, so vague answers may lose marks.</li>
+          </ul>
+        </div>
+
+        <div class="btn-row">
+          <button onclick="startExam()">Start Exam</button>
+        </div>
+      </section>
+
+      <section id="examSection" class="hidden">
+        <div class="exam-header">
+          <div>
+            <div><strong>Centre Number:</strong> 50749</div>
+            <div><strong>Candidate Number:</strong> <span id="displayCandidateNumber"></span></div>
+            <div><strong>Time Allowed:</strong> <span id="displayTimeAllowed"></span> minutes</div>
+            <div class="progress">Answered: <span id="answeredCount">0</span> / 8</div>
+          </div>
+          <div id="timer" class="timer">15:00</div>
+        </div>
+
+        <form id="examForm">
+          <div class="question">
+            <h3>Question 1 <span class="mark-tag tag4">4 marks</span></h3>
+            <p>Describe <strong>four differences</strong> between animal cells and plant cells.</p>
+            <textarea id="q1" oninput="updateAnsweredCount()"></textarea>
+          </div>
+
+          <div class="question">
+            <h3>Question 2 <span class="mark-tag tag4">4 marks</span></h3>
+            <p>Explain how <strong>diffusion</strong> takes place in the human body. Use an example in your answer.</p>
+            <textarea id="q2" oninput="updateAnsweredCount()"></textarea>
+          </div>
+
+          <div class="question">
+            <h3>Question 3 <span class="mark-tag tag4">4 marks</span></h3>
+            <p>Explain why enzymes are important in digestion.</p>
+            <textarea id="q3" oninput="updateAnsweredCount()"></textarea>
+          </div>
+
+          <div class="question">
+            <h3>Question 4 <span class="mark-tag tag4">4 marks</span></h3>
+            <p>Describe how the human body protects itself against pathogens.</p>
+            <textarea id="q4" oninput="updateAnsweredCount()"></textarea>
+          </div>
+
+          <div class="question">
+            <h3>Question 5 <span class="mark-tag tag6">6 marks</span></h3>
+            <p>Explain how the structure of the leaf is adapted for photosynthesis.</p>
+            <textarea id="q5" oninput="updateAnsweredCount()"></textarea>
+          </div>
+
+          <div class="question">
+            <h3>Question 6 <span class="mark-tag tag6">6 marks</span></h3>
+            <p>A student investigates the effect of <strong>light intensity</strong> on the rate of photosynthesis in pondweed.  
+            Explain how the student could carry out this investigation and make it a fair test.</p>
+            <textarea id="q6" oninput="updateAnsweredCount()"></textarea>
+          </div>
+
+          <div class="question">
+            <h3>Question 7 <span class="mark-tag tag6">6 marks</span></h3>
+            <p>Compare <strong>aerobic respiration</strong> and <strong>anaerobic respiration</strong> in humans.</p>
+            <textarea id="q7" oninput="updateAnsweredCount()"></textarea>
+          </div>
+
+          <div class="question">
+            <h3>Question 8 <span class="mark-tag tag6">6 marks</span></h3>
+            <p>Explain how substances are transported through a plant by <strong>xylem</strong> and <strong>phloem</strong>.</p>
+            <textarea id="q8" oninput="updateAnsweredCount()"></textarea>
+          </div>
+        </form>
+
+        <div class="btn-row">
+          <button type="button" onclick="submitExam()">Submit Now</button>
+        </div>
+      </section>
+
+      <section id="resultSection" class="hidden">
+        <div class="result-box">
+          <h2>Auto-Marked Result</h2>
+          <p><strong>Centre Number:</strong> 50749</p>
+          <p><strong>Candidate Number:</strong> <span id="resultCandidateNumber"></span></p>
+          <p><strong>Name:</strong> <span id="resultName"></span></p>
+          <p><strong>Time Allowed:</strong> <span id="resultTimeAllowed"></span> minutes</p>
+          <p class="score-highlight">Score: <span id="scoreText"></span></p>
+          <p>Percentage: <strong><span id="percentageText"></span>%</strong></p>
+          <p class="band">Award: <span id="awardText"></span></p>
+          <p>Questions attempted: <strong><span id="answeredFinal"></span></strong> / 8</p>
+          <p class="small">
+            This mark is generated automatically by concept matching. It is useful for fast practice, but a human marker may award slightly differently.
+          </p>
+
+          <div id="breakdown" class="breakdown"></div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    let timeLeft = 15 * 60;
+    let timerInterval = null;
+    let examStarted = false;
+    let chosenMinutes = 15;
+
+    const markSchemes = [
+      {
+        max: 4,
+        title: "Question 1",
+        points: [
+          { label: "Plant cells have a cell wall; animal cells do not", patterns: ["cell wall"] },
+          { label: "Plant cells have chloroplasts; animal cells do not", patterns: ["chloroplast"] },
+          { label: "Plant cells have a large permanent vacuole", patterns: ["large vacuole", "permanent vacuole", "large permanent vacuole"] },
+          { label: "Plant cells usually have a more regular / rectangular shape", patterns: ["regular shape", "rectangular", "box shape", "fixed shape"] }
+        ]
+      },
+      {
+        max: 4,
+        title: "Question 2",
+        points: [
+          { label: "Diffusion is movement from high concentration to low concentration", patterns: ["high concentration", "low concentration"] },
+          { label: "Diffusion is passive / does not need energy", patterns: ["no energy", "does not need energy", "passive"] },
+          { label: "Correct human example such as alveoli / lungs / oxygen into blood", patterns: ["alveoli", "lungs", "oxygen", "blood"] },
+          { label: "Can mention carbon dioxide diffusing out", patterns: ["carbon dioxide", "diffuse out", "into alveoli"] }
+        ]
+      },
+      {
+        max: 4,
+        title: "Question 3",
+        points: [
+          { label: "Enzymes are biological catalysts", patterns: ["biological catalyst", "catalyst"] },
+          { label: "They speed up digestion / chemical reactions", patterns: ["speed up", "faster", "increase rate"] },
+          { label: "They break large insoluble molecules into smaller soluble molecules", patterns: ["large", "small", "soluble", "insoluble"] },
+          { label: "Examples such as amylase / protease / lipase", patterns: ["amylase", "protease", "lipase"] }
+        ]
+      },
+      {
+        max: 4,
+        title: "Question 4",
+        points: [
+          { label: "White blood cells engulf pathogens", patterns: ["engulf", "phagocytosis", "eat pathogens"] },
+          { label: "White blood cells produce antibodies", patterns: ["antibodies"] },
+          { label: "White blood cells produce antitoxins", patterns: ["antitoxins"] },
+          { label: "Physical barriers such as skin / clotting / scabs", patterns: ["skin", "scab", "clotting", "blood clot"] }
+        ]
+      },
+      {
+        max: 6,
+        title: "Question 5",
+        points: [
+          { label: "Broad leaf gives large surface area", patterns: ["large surface area", "broad"] },
+          { label: "Thin leaf gives short diffusion path", patterns: ["thin", "short diffusion", "short distance"] },
+          { label: "Transparent upper epidermis lets light through", patterns: ["transparent", "upper epidermis", "light through"] },
+          { label: "Palisade layer near top contains many chloroplasts", patterns: ["palisade", "many chloroplast", "top of leaf"] },
+          { label: "Stomata allow gas exchange", patterns: ["stomata", "gas exchange"] },
+          { label: "Air spaces in spongy mesophyll help diffusion", patterns: ["air spaces", "spongy mesophyll", "diffusion of carbon dioxide"] }
+        ]
+      },
+      {
+        max: 6,
+        title: "Question 6",
+        points: [
+          { label: "Use pondweed in sodium hydrogencarbonate solution / carbon dioxide source", patterns: ["sodium hydrogencarbonate", "hydrogencarbonate", "carbon dioxide"] },
+          { label: "Change light intensity by changing distance from lamp", patterns: ["distance from lamp", "light intensity", "lamp"] },
+          { label: "Measure oxygen production / bubbles / gas volume", patterns: ["bubbles", "oxygen", "gas syringe", "volume of gas"] },
+          { label: "Repeat and calculate a mean", patterns: ["repeat", "mean", "average"] },
+          { label: "Keep temperature constant", patterns: ["temperature constant", "same temperature"] },
+          { label: "Keep other variables constant, e.g. pondweed length/type", patterns: ["same length", "same pondweed", "same type", "control variable", "fair test"] }
+        ]
+      },
+      {
+        max: 6,
+        title: "Question 7",
+        points: [
+          { label: "Both release energy from glucose", patterns: ["release energy", "glucose"] },
+          { label: "Aerobic respiration uses oxygen", patterns: ["aerobic", "oxygen"] },
+          { label: "Anaerobic respiration does not use oxygen", patterns: ["anaerobic", "no oxygen", "without oxygen"] },
+          { label: "Aerobic produces carbon dioxide and water", patterns: ["carbon dioxide", "water"] },
+          { label: "Anaerobic in humans produces lactic acid", patterns: ["lactic acid"] },
+          { label: "Aerobic releases more energy than anaerobic", patterns: ["more energy", "less energy"] }
+        ]
+      },
+      {
+        max: 6,
+        title: "Question 8",
+        points: [
+          { label: "Xylem transports water", patterns: ["xylem", "water"] },
+          { label: "Xylem transports mineral ions", patterns: ["mineral ions", "minerals"] },
+          { label: "Xylem transport is upwards from roots to leaves", patterns: ["roots to leaves", "upwards only", "one direction"] },
+          { label: "Phloem transports dissolved sugars / food", patterns: ["phloem", "sugars", "dissolved sugars", "food"] },
+          { label: "This movement is called translocation", patterns: ["translocation"] },
+          { label: "Phloem can move both up and down / to where needed or stored", patterns: ["both directions", "up and down", "stored", "where needed"] }
+        ]
+      }
+    ];
+
+    function normalise(text) {
+      return text
+        .toLowerCase()
+        .replace(/[^\w\s]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    function matchesPoint(answer, patterns) {
+      const text = normalise(answer);
+      return patterns.some(pattern => text.includes(pattern.toLowerCase()));
+    }
+
+    function markAnswer(answer, scheme) {
+      let score = 0;
+      let matched = [];
+      let missed = [];
+
+      scheme.points.forEach(point => {
+        if (matchesPoint(answer, point.patterns)) {
+          score++;
+          matched.push(point.label);
+        } else {
+          missed.push(point.label);
+        }
+      });
+
+      if (score > scheme.max) score = scheme.max;
+
+      return { score, matched, missed };
+    }
+
+    function startExam() {
+      const candidateNumber = document.getElementById("candidateNumber").value.trim();
+      const selectedTime = parseInt(document.getElementById("timeSelect").value, 10);
+
+      if (!candidateNumber) {
+        alert("Candidate number is required before starting.");
+        return;
+      }
+
+      chosenMinutes = selectedTime;
+      timeLeft = chosenMinutes * 60;
+
+      document.getElementById("displayCandidateNumber").textContent = candidateNumber;
+      document.getElementById("displayTimeAllowed").textContent = chosenMinutes;
+      document.getElementById("timer").textContent = `${String(chosenMinutes).padStart(2, "0")}:00`;
+
+      document.getElementById("setupSection").classList.add("hidden");
+      document.getElementById("examSection").classList.remove("hidden");
+
+      updateAnsweredCount();
+      examStarted = true;
+      startTimer();
+      window.scrollTo(0, 0);
+    }
+
+    function updateAnsweredCount() {
+      let answered = 0;
+      for (let i = 1; i <= 8; i++) {
+        const val = document.getElementById(`q${i}`).value.trim();
+        if (val.length > 0) answered++;
+      }
+      document.getElementById("answeredCount").textContent = answered;
+    }
+
+    function startTimer() {
+      const timer = document.getElementById("timer");
+
+      timerInterval = setInterval(() => {
+        timeLeft--;
+
+        const mins = Math.floor(timeLeft / 60);
+        const secs = timeLeft % 60;
+        timer.textContent = `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
+
+        if (timeLeft <= Math.min(300, Math.floor(chosenMinutes * 60 * 0.33))) {
+          timer.classList.add("red");
+        }
+
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          alert("Time is up. Your paper will now be submitted automatically.");
+          submitExam();
+        }
+      }, 1000);
+    }
+
+    function submitExam() {
+      if (!examStarted) return;
+
+      clearInterval(timerInterval);
+
+      for (let i = 1; i <= 8; i++) {
+        document.getElementById(`q${i}`).disabled = true;
+      }
+
+      let totalScore = 0;
+      let answered = 0;
+      let breakdownHTML = "";
+
+      for (let i = 1; i <= 8; i++) {
+        const answer = document.getElementById(`q${i}`).value.trim();
+        if (answer.length > 0) answered++;
+
+        const result = markAnswer(answer, markSchemes[i - 1]);
+        totalScore += result.score;
+
+        breakdownHTML += `
+          <div class="breakdown-item">
+            <strong>${markSchemes[i - 1].title}</strong> — ${result.score} / ${markSchemes[i - 1].max}
+            <div class="small" style="margin-top:8px;"><strong>Matched ideas:</strong></div>
+            <ul>
+              ${result.matched.length ? result.matched.map(item => `<li class="matched">${item}</li>`).join("") : `<li class="missed">No key idea securely detected</li>`}
+            </ul>
+            <div class="small"><strong>Missed ideas:</strong></div>
+            <ul>
+              ${result.missed.length ? result.missed.map(item => `<li class="missed">${item}</li>`).join("") : `<li class="matched">All detected</li>`}
+            </ul>
+          </div>
+        `;
+      }
+
+      const percentage = (totalScore / 40) * 100;
+      let award = "Below Pass";
+
+      if (percentage >= 90) {
+        award = "Distinction";
+      } else if (percentage >= 80) {
+        award = "Merit";
+      } else if (percentage >= 66) {
+        award = "Pass";
+      }
+
+      const candidateNumber = document.getElementById("candidateNumber").value.trim();
+      const surname = document.getElementById("surname").value.trim();
+      const forenames = document.getElementById("forenames").value.trim();
+      const fullName = `${forenames} ${surname}`.trim() || "Not provided";
+
+      document.getElementById("examSection").classList.add("hidden");
+      document.getElementById("resultSection").classList.remove("hidden");
+
+      document.getElementById("resultCandidateNumber").textContent = candidateNumber;
+      document.getElementById("resultName").textContent = fullName;
+      document.getElementById("resultTimeAllowed").textContent = chosenMinutes;
+      document.getElementById("scoreText").textContent = `${totalScore} / 40`;
+      document.getElementById("percentageText").textContent = percentage.toFixed(1);
+      document.getElementById("awardText").textContent = award;
+      document.getElementById("answeredFinal").textContent = answered;
+      document.getElementById("breakdown").innerHTML = breakdownHTML;
+
+      window.scrollTo(0, 0);
+    }
+  </script>
+</body>
+</html>

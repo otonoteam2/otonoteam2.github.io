@@ -1,0 +1,973 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>🟣 Otono Biology Test Program</title>
+  <style>
+    :root{
+      --bg1:#16092c; --bg2:#05334f;
+      --card:#0f0b18cc; --card2:#120c22e6;
+      --text:#f4efff; --muted:#c9d7ff;
+      --accent:#9b5cff; --accent2:#00c2ff;
+      --good:#19ff9a; --warn:#ffd166; --bad:#ff4d6d;
+      --line:rgba(255,255,255,.12);
+      --shadow:0 18px 50px rgba(0,0,0,.35);
+      --radius:18px;
+      --mono:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans:ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:var(--sans); color:var(--text);
+      background:
+        radial-gradient(1000px 700px at 15% 10%, rgba(155,92,255,.22), transparent 60%),
+        radial-gradient(900px 650px at 80% 20%, rgba(0,194,255,.18), transparent 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+    }
+
+    .wrap{max-width:1150px; margin:0 auto; padding:22px;}
+    .topbar{
+      display:flex; gap:14px; align-items:center; justify-content:space-between;
+      padding:14px 16px; border:1px solid var(--line); border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      box-shadow:var(--shadow);
+      position:sticky; top:14px; z-index:20; backdrop-filter: blur(10px);
+    }
+    .brand{display:flex; flex-direction:column; gap:2px}
+    .brand h1{margin:0; font-size:16px; letter-spacing:.3px}
+    .brand .sub{font-size:12px; color:var(--muted)}
+    .pill{
+      padding:8px 10px; border-radius:999px; border:1px solid var(--line);
+      background:rgba(0,0,0,.25); font-family:var(--mono); font-size:12px;
+      display:flex; gap:10px; align-items:center;
+    }
+    .pill strong{color:#fff}
+    .btn{
+      border:1px solid var(--line); background:rgba(0,0,0,.25);
+      color:var(--text); padding:10px 12px; border-radius:14px; cursor:pointer;
+      transition:.15s transform, .15s background, .15s border;
+      font-weight:700;
+    }
+    .btn:hover{transform:translateY(-1px); background:rgba(0,0,0,.33); border-color:rgba(255,255,255,.22)}
+    .btn.primary{
+      background:linear-gradient(135deg, rgba(155,92,255,.55), rgba(0,194,255,.45));
+      border-color:rgba(255,255,255,.22);
+    }
+    .btn.danger{background:rgba(255,77,109,.18); border-color:rgba(255,77,109,.35)}
+    .grid{display:grid; grid-template-columns: 1.15fr .85fr; gap:16px; margin-top:16px;}
+    @media (max-width: 980px){ .grid{grid-template-columns:1fr} .topbar{position:static} }
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .card .hd{
+      padding:14px 16px; border-bottom:1px solid var(--line);
+      display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
+      background:linear-gradient(180deg, rgba(255,255,255,.06), transparent);
+    }
+    .card .hd h2{margin:0; font-size:14px}
+    .card .hd .meta{font-size:12px; color:var(--muted); line-height:1.25}
+    .card .bd{padding:16px}
+    label{display:block; font-size:12px; color:var(--muted); margin:10px 0 6px}
+    input[type="text"], input[type="number"], textarea, select{
+      width:100%; border:1px solid var(--line); background:rgba(0,0,0,.25);
+      color:var(--text); padding:10px 12px; border-radius:14px; outline:none;
+      font-family:var(--sans);
+    }
+    textarea{min-height:90px; resize:vertical; line-height:1.5}
+    .row{display:flex; gap:10px; flex-wrap:wrap}
+    .row > div{flex:1 1 180px}
+    .note{
+      font-size:12px; color:var(--muted); line-height:1.5;
+      padding:10px 12px; border-radius:14px; border:1px dashed rgba(255,255,255,.18);
+      background:rgba(0,0,0,.18);
+    }
+    .badge{
+      font-family:var(--mono); font-size:12px; padding:6px 10px; border-radius:999px;
+      border:1px solid var(--line); background:rgba(0,0,0,.20);
+      display:inline-flex; align-items:center; gap:6px;
+    }
+    .badge.good{border-color:rgba(25,255,154,.35); background:rgba(25,255,154,.12)}
+    .badge.warn{border-color:rgba(255,209,102,.35); background:rgba(255,209,102,.12)}
+    .badge.bad{border-color:rgba(255,77,109,.35); background:rgba(255,77,109,.12)}
+    .divider{height:1px; background:var(--line); margin:14px 0}
+    .task{
+      padding:12px 14px; border:1px solid var(--line); border-radius:16px;
+      background:rgba(0,0,0,.22);
+      margin-bottom:12px;
+    }
+    .task h3{margin:0 0 8px; font-size:14px}
+    .bullets{margin:10px 0 0; padding-left:18px; color:var(--muted); font-size:12px}
+    .kpi{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
+    @media (max-width: 980px){ .kpi{grid-template-columns:repeat(2,1fr)} }
+    .kpi .box{
+      border:1px solid var(--line); border-radius:16px; padding:10px 12px;
+      background:rgba(0,0,0,.22);
+    }
+    .kpi .box .t{font-size:12px; color:var(--muted)}
+    .kpi .box .v{font-size:18px; font-weight:800; margin-top:4px}
+    .small{font-size:12px; color:var(--muted)}
+    .tabs{display:flex; gap:8px; flex-wrap:wrap}
+    .tab{padding:10px 12px; border-radius:14px; border:1px solid var(--line); background:rgba(0,0,0,.22); cursor:pointer; font-weight:700}
+    .tab.active{background:linear-gradient(135deg, rgba(155,92,255,.35), rgba(0,194,255,.22)); border-color:rgba(255,255,255,.22)}
+    .resultsList{display:grid; gap:10px}
+    .attempt{
+      border:1px solid var(--line); border-radius:16px; padding:12px 14px;
+      background:rgba(0,0,0,.20);
+    }
+    .attempt .top{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap}
+    .attempt .top strong{font-family:var(--mono)}
+    .attempt .meta{font-size:12px; color:var(--muted); margin-top:6px; line-height:1.5}
+    .copy{font-family:var(--mono); font-size:12px; white-space:pre-wrap; word-break:break-word}
+    .hide{display:none !important}
+    .mcChoice{
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.03);
+      padding:10px 12px; border-radius:14px; margin-top:8px;
+    }
+    .topicGrid{
+      display:grid; grid-template-columns:repeat(2,1fr); gap:10px;
+    }
+    @media (max-width:700px){ .topicGrid{grid-template-columns:1fr} }
+    .topicItem{
+      border:1px solid var(--line); border-radius:14px; padding:10px 12px;
+      background:rgba(0,0,0,.20);
+    }
+    .questionMeta{
+      font-size:12px; color:var(--muted); margin-bottom:8px;
+    }
+    .answerResult{
+      margin-top:10px; padding:8px 10px; border-radius:12px; font-size:12px;
+      border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04);
+    }
+    .correct{border-color:rgba(25,255,154,.35); background:rgba(25,255,154,.10)}
+    .incorrect{border-color:rgba(255,77,109,.35); background:rgba(255,77,109,.10)}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <h1>🟣 Otono Biology Test Program</h1>
+        <div class="sub">Randomised topics • Auto marking • Local saved results • GCSE-style biology practice</div>
+      </div>
+      <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end">
+        <div class="pill">
+          <span>⏱️ Timer:</span>
+          <strong id="timerText">--:--</strong>
+        </div>
+        <button class="btn" id="btnResults">Results</button>
+        <button class="btn primary" id="btnHome">Test</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="hd">
+          <div>
+            <h2>Candidate setup</h2>
+            <div class="meta">Choose biology topics, number of questions, and start a randomised test.</div>
+          </div>
+          <span class="badge" id="statusBadge">Ready</span>
+        </div>
+
+        <div class="bd" id="homeBody">
+          <div class="row">
+            <div>
+              <label>Candidate number</label>
+              <input type="number" id="candidateNo" placeholder="e.g. 1105" min="1" />
+            </div>
+            <div>
+              <label>Candidate name (optional)</label>
+              <input type="text" id="candidateName" placeholder="Name" />
+            </div>
+            <div>
+              <label>Time allowed</label>
+              <select id="timeAllowed">
+                <option value="10">10 minutes</option>
+                <option value="15" selected>15 minutes</option>
+                <option value="20">20 minutes</option>
+                <option value="30">30 minutes</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <label>Select topics</label>
+          <div class="topicGrid">
+            <label class="topicItem"><input type="checkbox" class="topicPick" value="B1" checked /> <strong>B1: Cell biology</strong><br><span class="small">Cells, microscopy, transport, mitosis</span></label>
+            <label class="topicItem"><input type="checkbox" class="topicPick" value="B2" checked /> <strong>B2: Organisation</strong><br><span class="small">Digestive system, enzymes, circulation</span></label>
+            <label class="topicItem"><input type="checkbox" class="topicPick" value="B3" checked /> <strong>B3: Infection and disease</strong><br><span class="small">Pathogens, immunity, treatments</span></label>
+            <label class="topicItem"><input type="checkbox" class="topicPick" value="B4" checked /> <strong>B4: Bioenergetics</strong><br><span class="small">Photosynthesis, respiration, exercise</span></label>
+          </div>
+
+          <div class="row" style="margin-top:10px">
+            <div>
+              <label>Questions in test</label>
+              <select id="questionCount">
+                <option value="8">8 questions</option>
+                <option value="10" selected>10 questions</option>
+                <option value="12">12 questions</option>
+                <option value="15">15 questions</option>
+              </select>
+            </div>
+            <div>
+              <label>Question types</label>
+              <select id="mode">
+                <option value="mixed" selected>Mixed</option>
+                <option value="mcq">Multiple choice only</option>
+                <option value="short">Short answer only</option>
+              </select>
+            </div>
+            <div>
+              <label>On timer end</label>
+              <select id="autoSubmit">
+                <option value="yes" selected>Auto-submit</option>
+                <option value="no">Do not auto-submit</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>How it works:</strong><br>
+            • The test is built randomly from the topics selected.<br>
+            • Multiple choice questions are marked exactly.<br>
+            • Short answers are marked using keyword matching.<br>
+            • Results are saved in your browser using localStorage.
+          </div>
+
+          <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap">
+            <button class="btn" id="btnPreview">Preview selection</button>
+            <button class="btn primary" id="btnStart">Start biology test</button>
+          </div>
+
+          <div id="previewBox" class="note hide" style="margin-top:12px"></div>
+        </div>
+
+        <div class="bd hide" id="testBody">
+          <div class="kpi">
+            <div class="box"><div class="t">Candidate</div><div class="v" id="kpiCandidate">—</div></div>
+            <div class="box"><div class="t">Topics</div><div class="v" id="kpiTopics">—</div></div>
+            <div class="box"><div class="t">Questions</div><div class="v" id="kpiQuestions">—</div></div>
+            <div class="box"><div class="t">Max score</div><div class="v" id="kpiMax">—</div></div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note" id="paperInfo"></div>
+
+          <div id="paper"></div>
+
+          <div class="divider"></div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap">
+            <button class="btn primary" id="btnSubmit">Submit & Auto-Mark</button>
+            <button class="btn" id="btnReset">Reset (new random test)</button>
+          </div>
+
+          <div id="markingBox" class="hide" style="margin-top:14px"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="hd">
+          <div>
+            <h2 id="sideTitle">Program info</h2>
+            <div class="meta" id="sideMeta">Biology topics B1–B4 with randomised testing.</div>
+          </div>
+        </div>
+
+        <div class="bd" id="sideBody">
+          <div class="note">
+            <strong>Included topics</strong><br>
+            B1: Cell biology<br>
+            B2: Organisation<br>
+            B3: Infection and disease<br>
+            B4: Bioenergetics
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>Scoring bands</strong><br>
+            90–100% = Excellent<br>
+            75–89% = Strong<br>
+            50–74% = Secure<br>
+            30–49% = Developing<br>
+            Below 30% = Needs review
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="small">
+            Results are saved locally on this browser.
+          </div>
+        </div>
+
+        <div class="bd hide" id="resultsBody">
+          <div class="tabs">
+            <div class="tab active" id="tabAll">All attempts</div>
+            <div class="tab" id="tabCandidate">By candidate</div>
+          </div>
+
+          <div class="row" style="margin-top:10px">
+            <div>
+              <label>Filter candidate number</label>
+              <input type="number" id="filterCandidate" placeholder="e.g. 1105" min="1" />
+            </div>
+            <div>
+              <label>Actions</label>
+              <div style="display:flex; gap:10px; flex-wrap:wrap">
+                <button class="btn" id="btnExport">Export JSON</button>
+                <button class="btn danger" id="btnClear">Clear stored results</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+          <div class="resultsList" id="resultsList"></div>
+
+          <div id="exportBox" class="note hide" style="margin-top:12px">
+            <div><strong>Exported JSON</strong></div>
+            <div class="divider"></div>
+            <div class="copy" id="exportText"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+function escapeHtml(str){
+  return (str ?? "").toString()
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+}
+function nowISO(){ return new Date().toISOString(); }
+function norm(s){
+  return (s ?? "")
+    .toString().toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .replace(/[^a-z0-9\s]/g," ")
+    .replace(/\s+/g," ").trim();
+}
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+function pickRandom(arr, n){ return shuffle(arr).slice(0,n); }
+function setBadge(text, cls="badge"){ const b=$("#statusBadge"); b.className=cls; b.textContent=text; }
+function clamp(x,a,b){ return Math.max(a, Math.min(b, x)); }
+
+let timer = null;
+let remainingSec = 0;
+function stopTimer(){ if(timer){ clearInterval(timer); timer=null; } }
+function startTimer(minutes, onEnd){
+  stopTimer();
+  remainingSec = Math.max(1, Math.floor(minutes*60));
+  const tick = () => {
+    const m = Math.floor(remainingSec/60);
+    const s = remainingSec%60;
+    $("#timerText").textContent = `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+    remainingSec--;
+    if(remainingSec < 0){
+      stopTimer();
+      onEnd?.();
+    }
+  };
+  tick();
+  timer = setInterval(tick, 1000);
+}
+
+const STORE_KEY = "otono_biology_results_v1";
+function loadResults(){
+  try{ return JSON.parse(localStorage.getItem(STORE_KEY) || "[]"); }
+  catch(e){ return []; }
+}
+function saveResults(list){ localStorage.setItem(STORE_KEY, JSON.stringify(list)); }
+function addResult(attempt){
+  const list = loadResults();
+  list.unshift(attempt);
+  saveResults(list);
+}
+
+function bandFromPercent(p){
+  if(p >= 90) return "Excellent";
+  if(p >= 75) return "Strong";
+  if(p >= 50) return "Secure";
+  if(p >= 30) return "Developing";
+  return "Needs review";
+}
+function badgeForPercent(p){
+  if(p >= 90) return ["badge good","🏆 Excellent"];
+  if(p >= 75) return ["badge good","⭐ Strong"];
+  if(p >= 50) return ["badge warn","✅ Secure"];
+  if(p >= 30) return ["badge warn","🧠 Developing"];
+  return ["badge bad","❌ Needs review"];
+}
+
+const QUESTION_BANK = [
+  // B1 Cell biology
+  {
+    id:"B1-1", topic:"B1", type:"mcq", marks:1,
+    question:"Which structure controls the activities of the cell?",
+    choices:["Cell membrane","Nucleus","Cytoplasm","Ribosome"],
+    answer:"Nucleus",
+    explanation:"The nucleus contains genetic material and controls cell activities."
+  },
+  {
+    id:"B1-2", topic:"B1", type:"mcq", marks:1,
+    question:"What is the function of mitochondria?",
+    choices:["Protein synthesis","Site of respiration","Controls substances entering the cell","Contains chlorophyll"],
+    answer:"Site of respiration",
+    explanation:"Mitochondria are where aerobic respiration happens."
+  },
+  {
+    id:"B1-3", topic:"B1", type:"short", marks:2,
+    question:"Name two structures found in plant cells but not animal cells.",
+    keywords:[["cell wall"],["chloroplast","chloroplasts"],["permanent vacuole","large vacuole","vacuole"]],
+    need:2,
+    explanation:"Valid answers include cell wall, chloroplasts, and permanent vacuole."
+  },
+  {
+    id:"B1-4", topic:"B1", type:"mcq", marks:1,
+    question:"Diffusion is the movement of particles from an area of...",
+    choices:["Low concentration to high concentration","High concentration to low concentration","Equal concentration to zero concentration","Pressure to no pressure"],
+    answer:"High concentration to low concentration",
+    explanation:"Diffusion moves particles down a concentration gradient."
+  },
+  {
+    id:"B1-5", topic:"B1", type:"short", marks:2,
+    question:"What is osmosis?",
+    keywords:[["movement"],["water"],["partially permeable membrane","semi permeable membrane"]],
+    need:3,
+    explanation:"Osmosis is the movement of water through a partially permeable membrane."
+  },
+  {
+    id:"B1-6", topic:"B1", type:"mcq", marks:1,
+    question:"Which microscope has the highest magnification and resolution?",
+    choices:["Hand lens","Light microscope","Electron microscope","Magnifying glass"],
+    answer:"Electron microscope",
+    explanation:"Electron microscopes have much greater magnification and resolution."
+  },
+
+  // B2 Organisation
+  {
+    id:"B2-1", topic:"B2", type:"mcq", marks:1,
+    question:"What is the function of enzymes?",
+    choices:["Destroy oxygen","Speed up chemical reactions","Carry blood","Store energy"],
+    answer:"Speed up chemical reactions",
+    explanation:"Enzymes are biological catalysts."
+  },
+  {
+    id:"B2-2", topic:"B2", type:"mcq", marks:1,
+    question:"Where does most digestion and absorption of food take place?",
+    choices:["Stomach","Liver","Small intestine","Large intestine"],
+    answer:"Small intestine",
+    explanation:"The small intestine is adapted for digestion and absorption."
+  },
+  {
+    id:"B2-3", topic:"B2", type:"short", marks:2,
+    question:"Name two blood vessels.",
+    keywords:[["artery","arteries"],["vein","veins"],["capillary","capillaries"]],
+    need:2,
+    explanation:"Blood vessels include arteries, veins, and capillaries."
+  },
+  {
+    id:"B2-4", topic:"B2", type:"mcq", marks:1,
+    question:"Which blood vessel carries blood away from the heart?",
+    choices:["Vein","Artery","Capillary","Valve"],
+    answer:"Artery",
+    explanation:"Arteries carry blood away from the heart."
+  },
+  {
+    id:"B2-5", topic:"B2", type:"short", marks:2,
+    question:"Give two factors that can increase the risk of cardiovascular disease.",
+    keywords:[["smoking"],["poor diet","unhealthy diet","high fat diet"],["lack of exercise","inactivity"],["obesity","overweight"],["alcohol"],["stress"]],
+    need:2,
+    explanation:"Examples include smoking, poor diet, lack of exercise, obesity, alcohol, and stress."
+  },
+  {
+    id:"B2-6", topic:"B2", type:"mcq", marks:1,
+    question:"Which organ produces bile?",
+    choices:["Pancreas","Stomach","Liver","Small intestine"],
+    answer:"Liver",
+    explanation:"The liver produces bile, which helps neutralise stomach acid and emulsify fats."
+  },
+
+  // B3 Infection and disease
+  {
+    id:"B3-1", topic:"B3", type:"mcq", marks:1,
+    question:"What is a pathogen?",
+    choices:["A white blood cell","A disease-causing microorganism","A type of medicine","A damaged organ"],
+    answer:"A disease-causing microorganism",
+    explanation:"Pathogens are microorganisms that cause infectious disease."
+  },
+  {
+    id:"B3-2", topic:"B3", type:"mcq", marks:1,
+    question:"Which of these is caused by a virus?",
+    choices:["Salmonella","Measles","Athlete’s foot","Malaria"],
+    answer:"Measles",
+    explanation:"Measles is a viral disease."
+  },
+  {
+    id:"B3-3", topic:"B3", type:"short", marks:2,
+    question:"Give two ways pathogens can spread.",
+    keywords:[["air","droplets","coughing","sneezing"],["water"],["food"],["direct contact","touch"],["vector","mosquito"]],
+    need:2,
+    explanation:"Pathogens can spread through air, water, food, direct contact, or vectors."
+  },
+  {
+    id:"B3-4", topic:"B3", type:"mcq", marks:1,
+    question:"What do antibiotics treat?",
+    choices:["Viral infections","Bacterial infections","All diseases","Fungal infections only"],
+    answer:"Bacterial infections",
+    explanation:"Antibiotics kill bacteria or stop them reproducing."
+  },
+  {
+    id:"B3-5", topic:"B3", type:"short", marks:2,
+    question:"How do vaccinations help protect people?",
+    keywords:[["immune response","immune system"],["antibodies"],["memory cells","memory"]],
+    need:2,
+    explanation:"Vaccines trigger an immune response so memory cells can respond faster later."
+  },
+  {
+    id:"B3-6", topic:"B3", type:"mcq", marks:1,
+    question:"Who discovered penicillin?",
+    choices:["Louis Pasteur","Edward Jenner","Alexander Fleming","Charles Darwin"],
+    answer:"Alexander Fleming",
+    explanation:"Alexander Fleming discovered penicillin."
+  },
+
+  // B4 Bioenergetics
+  {
+    id:"B4-1", topic:"B4", type:"mcq", marks:1,
+    question:"Photosynthesis takes place in...",
+    choices:["Mitochondria","Nucleus","Chloroplasts","Ribosomes"],
+    answer:"Chloroplasts",
+    explanation:"Chloroplasts contain chlorophyll and are the site of photosynthesis."
+  },
+  {
+    id:"B4-2", topic:"B4", type:"mcq", marks:1,
+    question:"Which gas is used in photosynthesis?",
+    choices:["Oxygen","Nitrogen","Carbon dioxide","Hydrogen"],
+    answer:"Carbon dioxide",
+    explanation:"Plants use carbon dioxide and water to make glucose and oxygen."
+  },
+  {
+    id:"B4-3", topic:"B4", type:"short", marks:2,
+    question:"Name two factors that affect the rate of photosynthesis.",
+    keywords:[["light","light intensity"],["carbon dioxide","co2"],["temperature"],["chlorophyll"]],
+    need:2,
+    explanation:"Common factors are light intensity, carbon dioxide concentration, and temperature."
+  },
+  {
+    id:"B4-4", topic:"B4", type:"mcq", marks:1,
+    question:"Aerobic respiration requires...",
+    choices:["Only glucose","Only oxygen","Glucose and oxygen","Chlorophyll and water"],
+    answer:"Glucose and oxygen",
+    explanation:"Aerobic respiration releases energy from glucose using oxygen."
+  },
+  {
+    id:"B4-5", topic:"B4", type:"short", marks:2,
+    question:"What happens to breathing rate during exercise, and why?",
+    keywords:[["increase","increases","goes up","faster"],["more oxygen","oxygen"],["respiration","energy"]],
+    need:2,
+    explanation:"Breathing rate increases to supply more oxygen for respiration and energy release."
+  },
+  {
+    id:"B4-6", topic:"B4", type:"mcq", marks:1,
+    question:"What is one product of anaerobic respiration in muscles?",
+    choices:["Carbon dioxide","Lactic acid","Water","Glucose"],
+    answer:"Lactic acid",
+    explanation:"Anaerobic respiration in muscles produces lactic acid."
+  }
+];
+
+let state = {
+  mode:"home",
+  submitted:false,
+  candidateNo:null,
+  candidateName:"",
+  paper:null
+};
+
+function getSelectedTopics(){
+  return $$(".topicPick:checked").map(x => x.value);
+}
+
+function generatePaper(){
+  const topics = getSelectedTopics();
+  const mode = $("#mode").value;
+  const count = parseInt($("#questionCount").value,10);
+
+  let pool = QUESTION_BANK.filter(q => topics.includes(q.topic));
+  if(mode === "mcq") pool = pool.filter(q => q.type === "mcq");
+  if(mode === "short") pool = pool.filter(q => q.type === "short");
+
+  if(pool.length === 0) return null;
+  const questions = pickRandom(pool, Math.min(count, pool.length));
+  const maxMarks = questions.reduce((a,b)=>a+b.marks,0);
+
+  return {
+    topics,
+    mode,
+    questions,
+    maxMarks
+  };
+}
+
+function renderHome(){
+  $("#homeBody").classList.remove("hide");
+  $("#testBody").classList.add("hide");
+  $("#resultsBody").classList.add("hide");
+  $("#sideBody").classList.remove("hide");
+  $("#sideTitle").textContent = "Program info";
+  $("#sideMeta").textContent = "Biology topics B1–B4 with randomised testing.";
+  $("#timerText").textContent = "--:--";
+  setBadge("Ready","badge");
+}
+
+function renderTest(){
+  $("#homeBody").classList.add("hide");
+  $("#testBody").classList.remove("hide");
+  $("#resultsBody").classList.add("hide");
+  $("#sideBody").classList.remove("hide");
+
+  const cand = `${state.candidateNo}${state.candidateName ? " • "+state.candidateName : ""}`;
+  $("#kpiCandidate").textContent = cand;
+  $("#kpiTopics").textContent = state.paper.topics.join(", ");
+  $("#kpiQuestions").textContent = state.paper.questions.length;
+  $("#kpiMax").textContent = state.paper.maxMarks;
+
+  const mins = parseInt($("#timeAllowed").value,10);
+  const auto = $("#autoSubmit").value === "yes";
+  $("#paperInfo").innerHTML = `
+    <strong>Instructions:</strong> Answer all questions. Multiple choice = 1 mark. Short answers = keyword based auto-marking.
+    <br><strong>Topics:</strong> ${escapeHtml(state.paper.topics.join(", "))} • <strong>Mode:</strong> ${escapeHtml(state.paper.mode)} • <strong>Time:</strong> ${mins} min • <strong>Auto-submit:</strong> ${auto ? "ON" : "OFF"}
+  `;
+
+  const paperDiv = $("#paper");
+  paperDiv.innerHTML = "";
+  $("#markingBox").classList.add("hide");
+  $("#markingBox").innerHTML = "";
+  state.submitted = false;
+
+  state.paper.questions.forEach((q, i) => {
+    paperDiv.appendChild(renderQuestion(q, i));
+  });
+
+  startTimer(mins, () => {
+    if($("#autoSubmit").value==="yes") submitPaper(true);
+    else alert("Time is up. You can still submit manually.");
+  });
+
+  setBadge("In progress","badge warn");
+}
+
+function renderQuestion(q, i){
+  const wrap = document.createElement("div");
+  wrap.className = "task";
+
+  let html = `
+    <h3>Question ${i+1}</h3>
+    <div class="questionMeta">Topic: <strong>${escapeHtml(q.topic)}</strong> • Type: <strong>${escapeHtml(q.type.toUpperCase())}</strong> • Marks: <strong>${q.marks}</strong></div>
+    <div>${escapeHtml(q.question)}</div>
+  `;
+
+  if(q.type === "mcq"){
+    html += `<div style="margin-top:10px">` + q.choices.map((choice, idx) => `
+      <label class="mcChoice" style="display:flex; gap:10px; align-items:flex-start; cursor:pointer">
+        <input type="radio" name="q_${i}" value="${escapeHtml(choice)}" ${idx===0 ? "" : ""}/>
+        <div>${escapeHtml(choice)}</div>
+      </label>
+    `).join("") + `</div>`;
+  } else {
+    html += `
+      <label>Your answer</label>
+      <textarea id="q_${i}" placeholder="Type your answer here..."></textarea>
+    `;
+  }
+
+  wrap.innerHTML = html;
+  return wrap;
+}
+
+function markShortAnswer(userText, q){
+  const t = norm(userText);
+  if(!t) return {score:0, max:q.marks, detail:"Blank.", matched:0};
+
+  let matched = 0;
+  q.keywords.forEach(group => {
+    if(group.some(k => t.includes(norm(k)))) matched++;
+  });
+
+  let score = 0;
+  if(q.need === 3){
+    if(matched >= 3) score = 2;
+    else if(matched >= 2) score = 1;
+  } else if(q.need === 2){
+    if(matched >= 2) score = 2;
+    else if(matched >= 1) score = 1;
+  } else {
+    score = clamp(matched, 0, q.marks);
+  }
+
+  return {
+    score,
+    max:q.marks,
+    detail:`Matched ${matched} keyword group(s). ${q.explanation}`,
+    matched
+  };
+}
+
+function computeTotal(){
+  let total = 0;
+  const breakdown = [];
+
+  state.paper.questions.forEach((q, i) => {
+    if(q.type === "mcq"){
+      const chosen = $(`input[name="q_${i}"]:checked`)?.value || "";
+      const ok = chosen === q.answer;
+      const score = ok ? q.marks : 0;
+      total += score;
+      breakdown.push({
+        part:`Question ${i+1} (${q.topic})`,
+        score,
+        max:q.marks,
+        detail:`Your answer: ${chosen || "none"} • Correct: ${q.answer}. ${q.explanation}`
+      });
+    } else {
+      const ans = $(`#q_${i}`).value;
+      const res = markShortAnswer(ans, q);
+      total += res.score;
+      breakdown.push({
+        part:`Question ${i+1} (${q.topic})`,
+        score:res.score,
+        max:res.max,
+        detail:res.detail
+      });
+    }
+  });
+
+  return {
+    total,
+    max: state.paper.maxMarks,
+    percent: Math.round((total / state.paper.maxMarks) * 100),
+    breakdown
+  };
+}
+
+function submitPaper(fromAuto=false){
+  if(state.submitted) return;
+  state.submitted = true;
+  stopTimer();
+
+  const res = computeTotal();
+  const band = bandFromPercent(res.percent);
+  const [cls, txt] = badgeForPercent(res.percent);
+
+  const attempt = {
+    candidateNo:String(state.candidateNo),
+    candidateName:state.candidateName || "",
+    submittedAt: nowISO(),
+    topics: state.paper.topics,
+    mode: state.paper.mode,
+    questionCount: state.paper.questions.length,
+    maxScore: res.max,
+    score: res.total,
+    percent: res.percent,
+    band,
+    breakdown: res.breakdown
+  };
+  addResult(attempt);
+
+  const box = $("#markingBox");
+  box.classList.remove("hide");
+  box.innerHTML = `
+    <div class="card">
+      <div class="hd">
+        <div>
+          <h2 style="margin:0;font-size:14px">✅ Marked${fromAuto ? " (auto-submitted)" : ""}</h2>
+          <div class="meta">Saved to Results • Candidate ${escapeHtml(attempt.candidateNo)}</div>
+        </div>
+        <span class="${cls}">${escapeHtml(txt)}</span>
+      </div>
+      <div class="bd">
+        <div class="kpi">
+          <div class="box"><div class="t">Score</div><div class="v">${attempt.score} / ${attempt.maxScore}</div></div>
+          <div class="box"><div class="t">Percent</div><div class="v">${attempt.percent}%</div></div>
+          <div class="box"><div class="t">Band</div><div class="v">${escapeHtml(attempt.band)}</div></div>
+          <div class="box"><div class="t">Topics</div><div class="v">${escapeHtml(attempt.topics.join(","))}</div></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <button class="btn" id="btnShowBreakdown">Show breakdown</button>
+        <div id="bdList" class="hide" style="margin-top:12px"></div>
+      </div>
+    </div>
+  `;
+
+  $("#btnShowBreakdown").addEventListener("click", ()=>{
+    const d = $("#bdList");
+    d.classList.toggle("hide");
+    if(!d.classList.contains("hide")){
+      d.innerHTML = res.breakdown.map(b=>`
+        <div class="attempt">
+          <div class="top">
+            <div><strong>${escapeHtml(b.part)}</strong></div>
+            <div><span class="badge">${b.score} / ${b.max}</span></div>
+          </div>
+          <div class="meta">${escapeHtml(b.detail)}</div>
+        </div>
+      `).join("");
+    }
+  });
+
+  setBadge("Submitted","badge good");
+}
+
+function drawResults(){
+  const listEl = $("#resultsList");
+  const all = loadResults();
+  const filter = ($("#filterCandidate").value || "").trim();
+  const filtered = filter ? all.filter(a => String(a.candidateNo) === String(filter)) : all;
+
+  if(filtered.length === 0){
+    listEl.innerHTML = `<div class="note">No stored attempts${filter ? " for this candidate" : ""}.</div>`;
+    return;
+  }
+
+  listEl.innerHTML = filtered.map(a=>{
+    const [cls, txt] = badgeForPercent(a.percent);
+    return `
+      <div class="attempt">
+        <div class="top">
+          <div>
+            <strong>${escapeHtml(a.candidateNo)}</strong>${a.candidateName ? " • " + escapeHtml(a.candidateName) : ""}
+            <span class="badge" style="margin-left:8px">${escapeHtml(a.mode.toUpperCase())}</span>
+          </div>
+          <div class="${cls}">${escapeHtml(txt)} • ${escapeHtml(String(a.score))}/${escapeHtml(String(a.maxScore))}</div>
+        </div>
+        <div class="meta">
+          <div><strong>Date:</strong> ${escapeHtml(new Date(a.submittedAt).toLocaleString())}</div>
+          <div><strong>Percent:</strong> ${escapeHtml(String(a.percent))}% • <strong>Band:</strong> ${escapeHtml(a.band)}</div>
+          <div><strong>Topics:</strong> ${escapeHtml(a.topics.join(", "))} • <strong>Questions:</strong> ${escapeHtml(String(a.questionCount))}</div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function exportResults(){
+  const all = loadResults();
+  $("#exportText").textContent = JSON.stringify(all, null, 2);
+  $("#exportBox").classList.remove("hide");
+}
+
+function clearResults(){
+  if(!confirm("Clear ALL stored Biology results on this browser?")) return;
+  localStorage.removeItem(STORE_KEY);
+  $("#exportBox").classList.add("hide");
+  drawResults();
+}
+
+$("#btnHome").addEventListener("click", ()=>{
+  state.mode="home";
+  renderHome();
+});
+
+$("#btnResults").addEventListener("click", ()=>{
+  state.mode="results";
+  $("#sideBody").classList.add("hide");
+  $("#resultsBody").classList.remove("hide");
+  $("#sideTitle").textContent = "Saved results";
+  $("#sideMeta").textContent = "Stored in this browser (localStorage).";
+  setBadge("Results","badge");
+  stopTimer();
+  $("#timerText").textContent="--:--";
+  drawResults();
+});
+
+$("#tabAll").addEventListener("click", ()=>{
+  $("#tabAll").classList.add("active");
+  $("#tabCandidate").classList.remove("active");
+  $("#filterCandidate").value="";
+  drawResults();
+});
+$("#tabCandidate").addEventListener("click", ()=>{
+  $("#tabCandidate").classList.add("active");
+  $("#tabAll").classList.remove("active");
+  $("#filterCandidate").focus();
+});
+$("#filterCandidate").addEventListener("input", drawResults);
+$("#btnExport").addEventListener("click", exportResults);
+$("#btnClear").addEventListener("click", clearResults);
+
+$("#btnPreview").addEventListener("click", ()=>{
+  const c = ($("#candidateNo").value || "").trim();
+  if(!c){ alert("Enter a candidate number first."); return; }
+
+  const topics = getSelectedTopics();
+  if(topics.length === 0){ alert("Select at least one topic."); return; }
+
+  const paper = generatePaper();
+  if(!paper){ alert("No questions available for that selection."); return; }
+
+  const box = $("#previewBox");
+  box.classList.remove("hide");
+  box.innerHTML = `
+    <strong>Preview (not started)</strong><br>
+    Topics: <strong>${escapeHtml(paper.topics.join(", "))}</strong><br>
+    Mode: <strong>${escapeHtml(paper.mode)}</strong><br>
+    Questions: <strong>${paper.questions.length}</strong><br>
+    Max score: <strong>${paper.maxMarks}</strong><br>
+    Question IDs: <strong>${paper.questions.map(q=>escapeHtml(q.id)).join(", ")}</strong>
+  `;
+});
+
+$("#btnStart").addEventListener("click", ()=>{
+  const c = ($("#candidateNo").value || "").trim();
+  if(!c){ alert("Candidate number is required."); return; }
+
+  const topics = getSelectedTopics();
+  if(topics.length === 0){ alert("Select at least one topic."); return; }
+
+  state.candidateNo = c;
+  state.candidateName = ($("#candidateName").value || "").trim();
+  state.paper = generatePaper();
+
+  if(!state.paper){ alert("No questions available for that selection."); return; }
+  renderTest();
+});
+
+$("#btnReset").addEventListener("click", ()=>{
+  if(!confirm("Reset and generate a NEW random biology test?")) return;
+  stopTimer();
+  state.paper = generatePaper();
+  if(!state.paper){ alert("No questions available for that selection."); return; }
+  renderTest();
+});
+
+$("#btnSubmit").addEventListener("click", ()=>submitPaper(false));
+
+renderHome();
+</script>
+</body>
+</html>
