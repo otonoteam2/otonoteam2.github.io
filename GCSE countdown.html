@@ -1,0 +1,364 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Otono GCSE Exam Countdown 2026</title>
+  <style>
+    :root{
+      --red:#ff2d55;
+      --purple:#6d28d9;
+      --deep:#120018;
+      --card:rgba(255,255,255,.12);
+      --glass:rgba(255,255,255,.16);
+      --text:#fff7ff;
+      --muted:#e9d5ff;
+      --gold:#ffd166;
+      --cyan:#7dd3fc;
+      --green:#86efac;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:Inter,Segoe UI,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 15% 20%, rgba(255,45,85,.38), transparent 28%),
+        radial-gradient(circle at 80% 10%, rgba(109,40,217,.45), transparent 32%),
+        radial-gradient(circle at 65% 85%, rgba(125,211,252,.20), transparent 30%),
+        linear-gradient(135deg,#1a001f 0%,#39005e 42%,#8b003f 100%);
+      overflow-x:hidden;
+    }
+    .wrap{max-width:1200px;margin:auto;padding:28px 18px 50px}
+    header{
+      border:1px solid rgba(255,255,255,.22);
+      background:linear-gradient(135deg,rgba(255,255,255,.18),rgba(255,255,255,.06));
+      border-radius:28px;
+      padding:26px;
+      box-shadow:0 24px 80px rgba(0,0,0,.35);
+      backdrop-filter:blur(16px);
+      position:relative;
+      overflow:hidden;
+    }
+    header:before{
+      content:"";
+      position:absolute;
+      inset:-80px;
+      background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.18),transparent 65%);
+      animation:shine 5s linear infinite;
+    }
+    @keyframes shine{from{transform:translateX(-55%)}to{transform:translateX(55%)}}
+    .top{position:relative;z-index:1}
+    h1{font-size:clamp(2.1rem,5vw,4.4rem);line-height:.95;margin:0 0 12px;font-weight:900;letter-spacing:-.06em}
+    .subtitle{font-size:1.05rem;color:var(--muted);max-width:850px}
+    .badge-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+    .badge{
+      border:1px solid rgba(255,255,255,.22);
+      background:rgba(255,255,255,.10);
+      padding:8px 12px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:.92rem;
+    }
+    .hero{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:18px;
+      margin-top:22px;
+    }
+    @media(max-width:850px){.hero{grid-template-columns:1fr}}
+    .next-card,.panel{
+      background:var(--card);
+      border:1px solid rgba(255,255,255,.20);
+      border-radius:26px;
+      padding:22px;
+      box-shadow:0 18px 50px rgba(0,0,0,.25);
+      backdrop-filter:blur(14px);
+    }
+    .label{color:var(--gold);font-weight:900;text-transform:uppercase;letter-spacing:.12em;font-size:.82rem}
+    .next-title{font-size:clamp(1.7rem,4vw,3rem);font-weight:900;margin:8px 0}
+    .meta{color:var(--muted);font-size:1.05rem}
+    .countdown{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:10px;
+      margin-top:18px;
+    }
+    .box{
+      text-align:center;
+      background:rgba(0,0,0,.25);
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:20px;
+      padding:16px 8px;
+    }
+    .num{font-size:clamp(1.7rem,4vw,3rem);font-weight:950}
+    .unit{color:var(--muted);font-size:.84rem;font-weight:800;text-transform:uppercase}
+    .controls{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin:20px 0 14px;
+      align-items:center;
+    }
+    select,input{
+      border:1px solid rgba(255,255,255,.24);
+      background:rgba(255,255,255,.12);
+      color:white;
+      padding:12px 14px;
+      border-radius:15px;
+      outline:none;
+      font-weight:700;
+    }
+    option{color:#16001e}
+    input::placeholder{color:#e9d5ff}
+    .exam-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:14px;
+      margin-top:14px;
+    }
+    .exam{
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.10);
+      border-radius:22px;
+      padding:17px;
+      transition:.18s ease;
+    }
+    .exam:hover{transform:translateY(-3px);background:rgba(255,255,255,.15)}
+    .exam.done{opacity:.45;filter:grayscale(.35)}
+    .exam.next{outline:2px solid var(--gold);box-shadow:0 0 24px rgba(255,209,102,.28)}
+    .subject{font-weight:950;font-size:1.15rem}
+    .paper{color:var(--muted);margin:4px 0 10px}
+    .pillrow{display:flex;gap:7px;flex-wrap:wrap}
+    .pill{font-size:.78rem;padding:6px 8px;border-radius:999px;background:rgba(0,0,0,.24);border:1px solid rgba(255,255,255,.13);font-weight:800}
+    .mini-countdown{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:7px;
+      margin:12px 0 10px;
+    }
+    .mini-box{
+      text-align:center;
+      background:rgba(0,0,0,.24);
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:14px;
+      padding:8px 4px;
+    }
+    .mini-num{font-size:1.15rem;font-weight:950}
+    .mini-unit{font-size:.62rem;color:var(--muted);font-weight:900;text-transform:uppercase}
+    .priority{background:rgba(255,209,102,.18)}
+    .science{background:rgba(134,239,172,.16)}
+    .lang{background:rgba(125,211,252,.16)}
+    .footer{
+      margin-top:22px;
+      color:#f5e7ff;
+      opacity:.9;
+      font-size:.92rem;
+      text-align:center;
+    }
+    .otono{
+      font-weight:950;
+      background:linear-gradient(90deg,#fff,#ffd166,#fff);
+      -webkit-background-clip:text;
+      color:transparent;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="top">
+        <h1><span class="otono">OTONO</span> GCSE Countdown ✈️</h1>
+        <p class="subtitle">
+          Shows a main next-exam countdown and a separate days/hours/minutes/seconds countdown for every common GCSE exam, using 09:00 for AM exams and 13:00 for PM exams.
+          Includes common school subjects only: English, Maths, Triple Science, Combined Science: Trilogy, Combined Science: Synergy, Geography, History, RE,
+          French, German, Spanish, and Music.
+        </p>
+        <div class="badge-row">
+          <span class="badge">Centre: 50749</span>
+          <span class="badge">AM = 09:00</span>
+          <span class="badge">PM = 13:00</span>
+          <span class="badge">No more fear of countdowns</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="next-card">
+        <div class="label">Next exam</div>
+        <div id="nextTitle" class="next-title">Loading...</div>
+        <div id="nextMeta" class="meta"></div>
+        <div class="countdown">
+          <div class="box"><div id="days" class="num">--</div><div class="unit">Days</div></div>
+          <div class="box"><div id="hours" class="num">--</div><div class="unit">Hours</div></div>
+          <div class="box"><div id="mins" class="num">--</div><div class="unit">Mins</div></div>
+          <div class="box"><div id="secs" class="num">--</div><div class="unit">Secs</div></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="label">Filter</div>
+        <div class="controls">
+          <select id="subjectFilter">
+            <option value="all">All common subjects</option>
+          </select>
+          <select id="statusFilter">
+            <option value="upcoming">Upcoming only</option>
+            <option value="all">All exams</option>
+          </select>
+          <input id="searchBox" placeholder="Search paper..." />
+        </div>
+        <p class="meta">Tip: choose your subject to make the next countdown jump to that exam.</p>
+      </div>
+    </section>
+
+    <main id="examGrid" class="exam-grid"></main>
+
+    <p class="footer">
+      Built in Otono red + purple style. Check your school’s final timetable for room, seat, and exact school arrangements.
+    </p>
+  </div>
+
+<script>
+const exams = [
+  {subject:"German", paper:"Listening + Reading", date:"2026-05-07", time:"13:00", board:"AQA", group:"Languages"},
+  {subject:"English Literature", paper:"Paper 1: Shakespeare and 19th-century novel", date:"2026-05-11", time:"09:00", board:"AQA", group:"English"},
+  {subject:"RE", paper:"Religious Studies A/B Paper 1", date:"2026-05-12", time:"09:00", board:"AQA", group:"RE"},
+  {subject:"Combined Science: Trilogy", paper:"Biology Paper 1", date:"2026-05-12", time:"13:00", board:"AQA", group:"Science"},
+  {subject:"Combined Science: Synergy", paper:"Life and environmental sciences Paper 1", date:"2026-05-12", time:"13:00", board:"AQA", group:"Science"},
+  {subject:"Triple Science", paper:"Biology Paper 1", date:"2026-05-12", time:"13:00", board:"AQA", group:"Science"},
+  {subject:"Geography", paper:"Paper 1: Living with the physical environment", date:"2026-05-13", time:"09:00", board:"AQA", group:"Geography"},
+  {subject:"Maths", paper:"Paper 1: Non-calculator", date:"2026-05-14", time:"09:00", board:"Edexcel", group:"Maths"},
+  {subject:"German", paper:"Writing", date:"2026-05-14", time:"13:00", board:"AQA", group:"Languages"},
+  {subject:"History", paper:"Paper 1: Understanding the modern world", date:"2026-05-15", time:"09:00", board:"AQA", group:"History"},
+  {subject:"Combined Science: Trilogy", paper:"Chemistry Paper 1", date:"2026-05-18", time:"09:00", board:"AQA", group:"Science"},
+  {subject:"Triple Science", paper:"Chemistry Paper 1", date:"2026-05-18", time:"09:00", board:"AQA", group:"Science"},
+  {subject:"English Literature", paper:"Paper 2: Modern texts and poetry", date:"2026-05-19", time:"09:00", board:"AQA", group:"English"},
+  {subject:"French", paper:"Listening + Reading", date:"2026-05-20", time:"09:00", board:"AQA", group:"Languages"},
+  {subject:"RE", paper:"Religious Studies Paper 2 / Short Course", date:"2026-05-20", time:"13:00", board:"AQA", group:"RE"},
+  {subject:"English Language", paper:"Paper 1: Explorations in creative reading and writing", date:"2026-05-21", time:"09:00", board:"AQA", group:"English"},
+  {subject:"Combined Science: Trilogy", paper:"Physics Paper 1", date:"2026-06-02", time:"09:00", board:"AQA", group:"Science"},
+  {subject:"Combined Science: Synergy", paper:"Life and environmental sciences Paper 2", date:"2026-06-02", time:"09:00", board:"AQA", group:"Science"},
+  {subject:"Triple Science", paper:"Physics Paper 1", date:"2026-06-02", time:"09:00", board:"AQA", group:"Science"},
+  {subject:"Maths", paper:"Paper 2: Calculator", date:"2026-06-03", time:"09:00", board:"Edexcel", group:"Maths"},
+  {subject:"Geography", paper:"Paper 2: Challenges in the human environment", date:"2026-06-03", time:"13:00", board:"AQA", group:"Geography"},
+  {subject:"History", paper:"Paper 2: Shaping the nation", date:"2026-06-04", time:"09:00", board:"AQA", group:"History"},
+  {subject:"French", paper:"Writing", date:"2026-06-04", time:"13:00", board:"AQA", group:"Languages"},
+  {subject:"English Language", paper:"Paper 2: Writers' viewpoints and perspectives", date:"2026-06-05", time:"09:00", board:"AQA", group:"English"},
+  {subject:"Music", paper:"Understanding music", date:"2026-06-05", time:"13:00", board:"AQA", group:"Music"},
+  {subject:"Combined Science: Trilogy", paper:"Biology Paper 2", date:"2026-06-08", time:"09:00", board:"AQA", group:"Science"},
+  {subject:"Combined Science: Synergy", paper:"Physical sciences Paper 3", date:"2026-06-08", time:"09:00", board:"AQA", group:"Science"},
+  {subject:"Triple Science", paper:"Biology Paper 2", date:"2026-06-08", time:"09:00", board:"AQA", group:"Science"},
+  {subject:"Spanish", paper:"Listening + Reading", date:"2026-06-09", time:"09:00", board:"AQA", group:"Languages"},
+  {subject:"Maths", paper:"Paper 3: Calculator", date:"2026-06-10", time:"09:00", board:"Edexcel", group:"Maths"},
+  {subject:"Geography", paper:"Paper 3: Geographical applications", date:"2026-06-11", time:"09:00", board:"AQA", group:"Geography"},
+  {subject:"Combined Science: Trilogy", paper:"Chemistry Paper 2", date:"2026-06-12", time:"09:00", board:"AQA", group:"Science"},
+  {subject:"Combined Science: Synergy", paper:"Physical sciences Paper 4", date:"2026-06-12", time:"09:00", board:"AQA", group:"Science"},
+  {subject:"Triple Science", paper:"Chemistry Paper 2", date:"2026-06-12", time:"09:00", board:"AQA", group:"Science"},
+  {subject:"Combined Science: Trilogy", paper:"Physics Paper 2", date:"2026-06-15", time:"09:00", board:"AQA", group:"Science"},
+  {subject:"Triple Science", paper:"Physics Paper 2", date:"2026-06-15", time:"09:00", board:"AQA", group:"Science"},
+  {subject:"Spanish", paper:"Writing", date:"2026-06-16", time:"09:00", board:"AQA", group:"Languages"}
+].map(e => ({...e, start:new Date(`${e.date}T${e.time}:00`)})).sort((a,b)=>a.start-b.start);
+
+const subjectFilter = document.getElementById("subjectFilter");
+const statusFilter = document.getElementById("statusFilter");
+const searchBox = document.getElementById("searchBox");
+const grid = document.getElementById("examGrid");
+
+[...new Set(exams.map(e=>e.subject))].sort().forEach(s=>{
+  const opt=document.createElement("option");
+  opt.value=s; opt.textContent=s;
+  subjectFilter.appendChild(opt);
+});
+
+function fmtDate(d){
+  return d.toLocaleString("en-GB",{weekday:"long",day:"numeric",month:"long",year:"numeric",hour:"2-digit",minute:"2-digit"});
+}
+function getFiltered(){
+  const now = new Date();
+  const subj = subjectFilter.value;
+  const status = statusFilter.value;
+  const q = searchBox.value.toLowerCase().trim();
+  return exams.filter(e =>
+    (subj==="all" || e.subject===subj) &&
+    (status==="all" || e.start>=now) &&
+    (!q || (e.subject+" "+e.paper+" "+e.board+" "+e.group).toLowerCase().includes(q))
+  );
+}
+function nextExam(){
+  const now = new Date();
+  const filtered = getFiltered().filter(e=>e.start>=now);
+  return filtered[0] || exams.find(e=>e.start>=now) || exams[exams.length-1];
+}
+function updateCountdown(){
+  const e = nextExam();
+  const now = new Date();
+  let diff = e.start-now;
+  if(diff < 0) diff = 0;
+  const days = Math.floor(diff/86400000);
+  const hours = Math.floor(diff%86400000/3600000);
+  const mins = Math.floor(diff%3600000/60000);
+  const secs = Math.floor(diff%60000/1000);
+  document.getElementById("nextTitle").textContent = `${e.subject}: ${e.paper}`;
+  document.getElementById("nextMeta").textContent = `${fmtDate(e.start)} • ${e.board} • ${e.time==="09:00"?"AM exam":"PM exam"}`;
+  document.getElementById("days").textContent = days;
+  document.getElementById("hours").textContent = String(hours).padStart(2,"0");
+  document.getElementById("mins").textContent = String(mins).padStart(2,"0");
+  document.getElementById("secs").textContent = String(secs).padStart(2,"0");
+  render();
+}
+function splitTime(ms){
+  if(ms < 0) ms = 0;
+  return {
+    days: Math.floor(ms/86400000),
+    hours: Math.floor(ms%86400000/3600000),
+    mins: Math.floor(ms%3600000/60000),
+    secs: Math.floor(ms%60000/1000)
+  };
+}
+
+function render(){
+  const now = new Date();
+  const next = nextExam();
+  grid.innerHTML="";
+  getFiltered().forEach(e=>{
+    const card=document.createElement("article");
+    card.className="exam";
+    if(e.start < now) card.classList.add("done");
+    if(e===next) card.classList.add("next");
+
+    const t = splitTime(e.start-now);
+    const statusText = e.start >= now ? "Countdown" : "Completed";
+    const scienceClass = e.group==="Science" ? " science" : "";
+    const langClass = e.group==="Languages" ? " lang" : "";
+    const priority = (e.subject.startsWith("Combined Science") || ["English Language","Maths"].includes(e.subject)) ? " priority" : "";
+
+    card.innerHTML = `
+      <div class="subject">${e.subject}</div>
+      <div class="paper">${e.paper}</div>
+
+      <div class="mini-countdown" aria-label="Countdown to ${e.subject} ${e.paper}">
+        <div class="mini-box"><div class="mini-num">${t.days}</div><div class="mini-unit">Days</div></div>
+        <div class="mini-box"><div class="mini-num">${String(t.hours).padStart(2,"0")}</div><div class="mini-unit">Hours</div></div>
+        <div class="mini-box"><div class="mini-num">${String(t.mins).padStart(2,"0")}</div><div class="mini-unit">Mins</div></div>
+        <div class="mini-box"><div class="mini-num">${String(t.secs).padStart(2,"0")}</div><div class="mini-unit">Secs</div></div>
+      </div>
+
+      <div class="pillrow">
+        <span class="pill${priority}">${statusText}</span>
+        <span class="pill${scienceClass}${langClass}">${e.group}</span>
+        <span class="pill">${fmtDate(e.start)}</span>
+        <span class="pill">${e.board}</span>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+[subjectFilter,statusFilter,searchBox].forEach(el=>el.addEventListener("input",updateCountdown));
+updateCountdown();
+setInterval(updateCountdown,1000);
+</script>
+</body>
+</html>
