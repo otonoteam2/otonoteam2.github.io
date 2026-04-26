@@ -201,6 +201,11 @@
       <div class="panel">
         <div class="label">Filter</div>
         <div class="controls">
+          <label style="display:flex;align-items:center;gap:8px;margin-left:6px;">
+            <input type="checkbox" id="extraTimeToggle"/>
+            <span style="font-weight:800;">+25% extra time</span>
+          </label>
+
           <select id="subjectFilter">
             <option value="all">All common subjects</option>
           </select>
@@ -262,6 +267,54 @@ const exams = [
   {subject:"Spanish", paper:"Writing", date:"2026-06-16", time:"09:00", board:"AQA", group:"Languages"}
 ].map(e => ({...e, start:new Date(`${e.date}T${e.time}:00`)})).sort((a,b)=>a.start-b.start);
 
+// --- Duration map (minutes) based on AQA/Edexcel specs ---
+const DURATION_MIN = {
+  "English Literature|Paper 1: Shakespeare and 19th-century novel": 105,
+  "English Literature|Paper 2: Modern texts and poetry": 135,
+  "English Language|Paper 1: Explorations in creative reading and writing": 105,
+  "English Language|Paper 2: Writers' viewpoints and perspectives": 105,
+  "Maths|Paper 1: Non-calculator": 90,
+  "Maths|Paper 2: Calculator": 90,
+  "Maths|Paper 3: Calculator": 90,
+  "Geography|Paper 1: Living with the physical environment": 90,
+  "Geography|Paper 2: Challenges in the human environment": 90,
+  "Geography|Paper 3: Geographical applications": 90,
+  "History|Paper 1: Understanding the modern world": 120,
+  "History|Paper 2: Shaping the nation": 120,
+  "RE|Religious Studies A/B Paper 1": 105,
+  "RE|Religious Studies Paper 2 / Short Course": 105,
+  "French|Listening + Reading": 80,  // approx combined display
+  "French|Writing": 75,
+  "Spanish|Listening + Reading": 80,
+  "Spanish|Writing": 75,
+  "German|Listening + Reading": 80,
+  "German|Writing": 70,
+  "Music|Understanding music": 90,
+
+  // Trilogy
+  "Combined Science: Trilogy|Biology Paper 1": 75,
+  "Combined Science: Trilogy|Chemistry Paper 1": 75,
+  "Combined Science: Trilogy|Physics Paper 1": 75,
+  "Combined Science: Trilogy|Biology Paper 2": 75,
+  "Combined Science: Trilogy|Chemistry Paper 2": 75,
+  "Combined Science: Trilogy|Physics Paper 2": 75,
+
+  // Synergy
+  "Combined Science: Synergy|Life and environmental sciences Paper 1": 105,
+  "Combined Science: Synergy|Life and environmental sciences Paper 2": 105,
+  "Combined Science: Synergy|Physical sciences Paper 3": 105,
+  "Combined Science: Synergy|Physical sciences Paper 4": 105,
+
+  // Triple
+  "Triple Science|Biology Paper 1": 105,
+  "Triple Science|Chemistry Paper 1": 105,
+  "Triple Science|Physics Paper 1": 105,
+  "Triple Science|Biology Paper 2": 105,
+  "Triple Science|Chemistry Paper 2": 105,
+  "Triple Science|Physics Paper 2": 105,
+};
+
+
 const subjectFilter = document.getElementById("subjectFilter");
 const statusFilter = document.getElementById("statusFilter");
 const searchBox = document.getElementById("searchBox");
@@ -319,6 +372,17 @@ function splitTime(ms){
   };
 }
 
+
+function getDuration(e){
+  const key = `${e.subject}|${e.paper}`;
+  let mins = DURATION_MIN[key] || 90;
+  const extra = document.getElementById("extraTimeToggle")?.checked;
+  if(extra) mins = Math.round(mins * 1.25);
+  const h = Math.floor(mins/60);
+  const m = mins%60;
+  return `${h>0? h+"h ":""}${m}m`;
+}
+
 function render(){
   const now = new Date();
   const next = nextExam();
@@ -350,13 +414,14 @@ function render(){
         <span class="pill${priority}">${statusText}</span>
         <span class="pill${scienceClass}${langClass}">${e.group}</span>
         <span class="pill">${fmtDate(e.start)}</span>
-        <span class="pill">${e.board}</span>
+        <span class="pill">${e.board}</span>\n        <span class="pill">⏱ ${getDuration(e)}</span>
       </div>`;
     grid.appendChild(card);
   });
 }
 
 [subjectFilter,statusFilter,searchBox].forEach(el=>el.addEventListener("input",updateCountdown));
+document.getElementById('extraTimeToggle').addEventListener('change', updateCountdown);
 updateCountdown();
 setInterval(updateCountdown,1000);
 </script>
