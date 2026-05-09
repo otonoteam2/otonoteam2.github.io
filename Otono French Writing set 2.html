@@ -1263,23 +1263,31 @@ function markHigherTranslation(user, keyIdeas){
     const alts = Array.isArray(group) ? group : [group];
     if(alts.some(k => t.includes(norm(k)))) ideaHits++;
   });
+
+  // 10/10 max, even if the task has more than 10 key idea groups
   const ideas = clamp(ideaHits, 0, 10);
 
   let markerHits = 0;
-  FRENCH_MARKERS.forEach(m => { if(t.includes(norm(m))) markerHits++; });
-  const markerScore = clamp(Math.round((markerHits/12)*6), 0, 6);
+  FRENCH_MARKERS.forEach(m => { 
+    if(t.includes(norm(m))) markerHits++; 
+  });
 
-  const connScore = clamp(countHits(t, CONNECTORS) >= 1 ? 2 : 0, 0, 2);
+  const markerScore = clamp(Math.round((markerHits / 12) * 6), 0, 6);
+  const connScore = countHits(t, CONNECTORS) >= 1 ? 2 : 0;
 
   let lenScore = 0;
   if(wc >= 18 && wc <= 55) lenScore = 2;
   else if(wc >= 12 && wc <= 75) lenScore = 1;
 
   const quality = clamp(markerScore + connScore + lenScore, 0, 10);
+  const score = clamp(ideas + quality, 0, 20);
 
-  const score = ideas + quality;
-  const detail = `Ideas: ${ideas}/10 (hits ${ideaHits}/10). Quality: ${quality}/10 (markers ${markerScore}/6, connectors ${connScore}/2, length ${lenScore}/2, WC ${wc}).`;
-  return {score, max:20, detail, parts:{ideas, quality}};
+  const detail =
+    `Ideas: ${ideas}/10 (hits ${ideaHits}/${keyIdeas.length}, capped at 10). ` +
+    `Quality: ${quality}/10 (markers ${markerScore}/6 from ${markerHits} marker hits, ` +
+    `connectors ${connScore}/2, length ${lenScore}/2, WC ${wc}).`;
+
+  return {score, max:20, detail, parts:{ideas, quality, ideaHits, totalIdeas:keyIdeas.length}};
 }
 
 function markFoundationTranslationSentence(user, keys){

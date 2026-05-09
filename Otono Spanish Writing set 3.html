@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>🟣 Otono French — Paper 4 (Writing, Randomised, Auto Marking) — Sample Set 3 (SECURED)</title>
+  <title>🟣 Otono Spanish — Paper 4 (Writing, Randomised, Auto Marking) — Sample Set 3 (SECURED)</title>
   <style>
     :root{
       --bg1:#2b0a3d; --bg2:#7a0036;
@@ -143,7 +143,7 @@
   <div class="wrap">
     <div class="topbar">
       <div class="brand">
-        <h1>🟣 Otono French — Paper 4 • Writing • Sample set 3 (SECURED)</h1>
+        <h1>🟣 Otono Spanish — Paper 4 • Writing • Sample set 3 (SECURED)</h1>
         <div class="sub">Auto marking (structure + relevance) • Centre defaults to <strong>50749</strong> • Pass/Merit/Distinction is independent of 9–1</div>
       </div>
       <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end">
@@ -398,7 +398,7 @@ function startTimer(minutes, onEnd){
   timer = setInterval(tick, 1000);
 }
 
-const STORE_KEY = "otonoFrenchWritingResults_v3_set3_fixed100";
+const STORE_KEY = "otonoSpanishWritingResults_v3_set3_fixed100";
 function loadResults(){
   try{ return JSON.parse(localStorage.getItem(STORE_KEY) || "[]"); }
   catch(e){ return []; }
@@ -462,32 +462,36 @@ function badgeForScore(score){
 }
 
 const THEME_VOCAB = {
-  t1:["ecole","école","college","cours","classe","professeur","examen","examens","regle","règle","consigne","stylo","encre","noire","maths","mrs","munn","mr","young","pencil","crayon"],
-  t2:["loisirs","temps","libre","jeu","jeux","gaming","minecraft","roblox","musique","piano","violon","trompette","region","région","maison","quartier","chez","moi"],
-  t3:["otono","airways","avion","a380","cabine","siege","siège","classe","economique","économique","business","first","premium","lounge","salon","confort","efficacite","efficacité"],
-  t4:["jordan","matter","salish","nidal","youtube","video","vidéo","fameux","celebre","célèbre","clayton","perfection","progres","progress","le","mans","course","pilotage","vitesse"]
+  t1:["escuela","colegio","instituto","curso","clase","profesor","profesora","examen","examenes","exámenes","regla","norma","instruccion","instrucción","boligrafo","bolígrafo","tinta","negra","matematicas","matemáticas","mrs","munn","mr","young","lapiz","lápiz"],
+  t2:["ocio","tiempo","libre","juego","juegos","gaming","minecraft","roblox","musica","música","piano","violin","violín","trompeta","region","región","casa","barrio","en","mi"],
+  t3:["otono","airways","avion","avión","a380","cabina","asiento","clase","economica","económica","business","first","premium","lounge","salon","salón","comodidad","eficacia","eficiencia"],
+  t4:["jordan","matter","salish","nidal","youtube","video","vídeo","famoso","celebre","célebre","clayton","perfeccion","perfección","progreso","le","mans","carrera","pilotaje","velocidad"]
 };
+
 const DETECT = {
-  opinion:["je pense","a mon avis","à mon avis","selon moi","je trouve","j aime","j'aime","je deteste","je déteste","c est","c'est","j adore","j'adore","je prefere","je préfère"],
-  past:["j ai","j'ai","hier","la semaine derniere","la semaine dernière","l annee derniere","l'année dernière","j etais","j'étais","on a","nous avons","j avais","j'avais","je suis alle","je suis allé","je suis allée"],
-  present:["je suis","je fais","j etudie","j'étudie","aujourd hui","aujourd'hui","en general","en général","normalement","souvent","maintenant"],
-  future:["je vais","demain","bientot","bientôt","la semaine prochaine","l an prochain","l'an prochain","je ferai","je serai","je voudrai","je voudrais","plus tard"]
+  opinion:["pienso que","en mi opinion","en mi opinión","segun yo","según yo","creo que","me parece","me gusta","no me gusta","odio","detesto","es","me encanta","prefiero"],
+  past:["he","ayer","la semana pasada","el año pasado","estaba","estuve","fuimos","hemos","tenia","tenía","fui","he ido"],
+  present:["soy","estoy","hago","estudio","hoy","en general","normalmente","a menudo","ahora"],
+  future:["voy a","mañana","pronto","la semana que viene","el año que viene","haré","hare","seré","sere","quisiera","me gustaría","me gustaria","más tarde","mas tarde"]
 };
-const FRENCH_MARKERS = ["je","j ai","j'ai","nous","vous","il","elle","on","mon","ma","mes","un","une","des","du","de la","au","aux","dans","avec","sans","pour","contre","chez","aujourd hui","aujourd'hui","hier","demain","plus tard","la semaine prochaine","l an prochain","l'an prochain","a mon avis","à mon avis","je pense","je trouve","ce qui","ce que","ce dont","dont","afin de","lorsque","par exemple","en general","en général"];
-const CONNECTORS = ["parce que","cependant","pourtant","donc","alors","ensuite","d abord","d'abord","en plus","de plus","par contre","tandis que","mais","car","puisque","lorsque","ainsi","ainsi que","afin de","pour que","meme si","même si","par exemple","en general","en général","en revanche","au contraire","par conséquent","c est a dire","c'est a dire","c'est-à-dire"];
-const RANGE_MARKERS = ["qui","que","dont","si","quand","pendant que","afin de","pour que","meme si","même si","comme","par exemple","ce qui","ce que","ce dont","bien que","avant de","apres","après","apres avoir","après avoir","afin que","de sorte que","tandis que","alors que","ne pas","jamais","plus","rien"];
+
+const Spanish_MARKERS = ["yo","he","nosotros","vosotros","usted","él","el","ella","mi","mis","un","una","unos","unas","del","de la","al","a los","en","con","sin","para","contra","en casa de","hoy","ayer","mañana","más tarde","mas tarde","la semana que viene","el año que viene","en mi opinion","en mi opinión","pienso que","creo que","me parece","lo que","lo cual","cuyo","cuya","con el fin de","cuando","por ejemplo","en general"];
+
+const CONNECTORS = ["porque","sin embargo","no obstante","por lo tanto","entonces","luego","primero","además","ademas","por otra parte","mientras que","pero","ya que","puesto que","cuando","así","asi","así como","asi como","con el fin de","para que","aunque","por ejemplo","en general","en cambio","al contrario","por consiguiente","es decir"];
+
+const RANGE_MARKERS = ["que","quien","cuyo","cuya","si","cuando","mientras","con el fin de","para que","aunque","como","por ejemplo","lo que","lo cual","a pesar de que","antes de","despues","después","despues de haber","después de haber","de modo que","mientras que","no","nunca","más","mas","nada"];
 
 const FOUNDATION_TRANSLATION_POOL = [
-  { en:"Mrs Munn is strict, but her exam instructions are clear.", frKeys:[["madame munn","mrs munn"],["est stricte","stricte"],["mais"],["ses consignes","les consignes"],["claires","claire"]] },
-  { en:"At school, Mr Young prefers black ink for important work.", frKeys:[["a l ecole","à l'école","à l’école"],["monsieur young","mr young"],["prefere","préfère"],["encre noire","noire"],["travail important","devoir important","travail sérieux","travail serieux"]] },
-  { en:"I like Otono Airways because the cabins feel calm and organised.", frKeys:[["j aime","j'aime"],["otono airways"],["parce que"],["les cabines"],["calmes","calme","organisées","organisees","organisée"]] },
-  { en:"Even in economy class, the service is efficient and comfortable.", frKeys:[["meme en classe economique","même en classe économique","en classe économique"],["le service"],["est efficace","efficace"],["et"],["confortable","le confort"]] },
-  { en:"Salish and Nidal often make energetic videos together.", frKeys:[["salish"],["et"],["nidal"],["font","realisent","créent","creent"],["videos","vidéos","energiques","énergiques"]] },
-  { en:"In my free time, I play games and listen to music.", frKeys:[["dans mon temps libre","pendant mon temps libre"],["je joue"],["aux jeux","a des jeux","à des jeux"],["et"],["j écoute de la musique","j'ecoute de la musique","j’écoute de la musique"]] },
-  { en:"Clayton got a perfect score, which created pressure for others.", frKeys:[["clayton"],["a eu","a obtenu"],["un score parfait","la note parfaite","160 sur 160"],["ce qui"],["a cree de la pression","a créé de la pression","de la pression"]] },
-  { en:"Last year, I watched a video about Le Mans and speed.", frKeys:[["l annee derniere","l'année dernière"],["j ai regarde","j'ai regardé","j ai regardé"],["une video","une vidéo"],["sur le mans"],["la vitesse"]] },
-  { en:"Our region is quieter than the city, so I work well there.", frKeys:[["notre region","notre région","ma région","ma region"],["est plus calme"],["que la ville"],["donc","alors"],["j y travaille bien","j'y travaille bien"]] },
-  { en:"Otono Mansion is large, but I still prefer the aircraft theme.", frKeys:[["otono mansion","le manoir otono","otono manoir"],["est grand","est grande"],["mais"],["je prefere","je préfère"],["le theme de l avion","le thème de l'avion","le thème de l’avion","l'avion"]] }
+  { en:"Mrs Munn is strict, but her exam instructions are clear.", frKeys:[["señora munn","mrs munn"],["es estricta","estricta"],["pero"],["sus instrucciones","las instrucciones"],["claras","clara"]] },
+  { en:"At school, Mr Young prefers black ink for important work.", frKeys:[["en la escuela","en el colegio","en el instituto"],["señor young","mr young"],["prefiere"],["tinta negra","negra"],["trabajo importante","deber importante","trabajo serio"]] },
+  { en:"I like Otono Airways because the cabins feel calm and organised.", frKeys:[["me gusta"],["otono airways"],["porque"],["las cabinas"],["tranquilas","calmas","organizadas","organizada"]] },
+  { en:"Even in economy class, the service is efficient and comfortable.", frKeys:[["incluso en clase economica","incluso en clase económica","en clase económica"],["el servicio"],["es eficiente","es eficaz","eficiente","eficaz"],["y"],["comodo","cómodo","comodidad"]] },
+  { en:"Salish and Nidal often make energetic videos together.", frKeys:[["salish"],["y"],["nidal"],["hacen","realizan","crean"],["videos","vídeos","energéticos","energicas","enérgicas"]] },
+  { en:"In my free time, I play games and listen to music.", frKeys:[["en mi tiempo libre"],["juego"],["a juegos","videojuegos"],["y"],["escucho musica","escucho música"]] },
+  { en:"Clayton got a perfect score, which created pressure for others.", frKeys:[["clayton"],["tuvo","obtuvo","sacó","saco"],["una puntuacion perfecta","una puntuación perfecta","la nota perfecta","160 sobre 160"],["lo que"],["creó presión","creo presión","creó mucha presión","presión"]] },
+  { en:"Last year, I watched a video about Le Mans and speed.", frKeys:[["el año pasado"],["vi","he visto"],["un video","un vídeo"],["sobre le mans"],["la velocidad"]] },
+  { en:"Our region is quieter than the city, so I work well there.", frKeys:[["nuestra region","nuestra región","mi región","mi region"],["es más tranquila","es mas tranquila"],["que la ciudad"],["por lo tanto","entonces"],["trabajo bien allí","trabajo bien alli"]] },
+  { en:"Otono Mansion is large, but I still prefer the aircraft theme.", frKeys:[["otono mansion","la mansión otono","la mansion otono"],["es grande"],["pero"],["prefiero"],["el tema del avion","el tema del avión","el avión","el avion"]] }
 ];
 
 const HIGHER_TRANSLATION_POOL = [
@@ -495,81 +499,40 @@ const HIGHER_TRANSLATION_POOL = [
     id:"HT-5",
     en:`Mrs Munn and Mr Young made an agreement before the exam season began. They decided that if any papers were written in pencil, the work would not be marked. Mrs Munn believes that clear rules reduce confusion, while Mr Young argues that candidates must take responsibility for their own choices. Although some students think this policy is severe, both teachers insist that consistency matters more than excuses.`,
     keyIdeas:[
-      ["madame munn","mrs munn"],
-      ["monsieur young","mr young"],
-      ["ont fait un accord","se sont mis d accord","ont conclu un accord","ont convenu","ont passe un accord","sont parvenus a un accord"],
-      ["avant la saison des examens","avant les examens","avant la periode des examens","avant les epreuves","avant la session d examens"],
-      ["ils ont decide","elles ont decide","ils avaient decide"],
-      ["si des copies etaient ecrites au crayon","si les copies etaient ecrites au crayon","si les eleves utilisaient un crayon","si les papiers etaient ecrits au crayon"],
-      ["le travail ne serait pas corrige","les copies ne seraient pas corrigees","ne serait pas marque","ne serait pas note","ne serait pas evalue","les copies ne seraient pas notees"],
-      ["madame munn croit","madame munn pense","mrs munn pense","selon madame munn"],
-      ["des regles claires reduisent la confusion","les regles claires reduisent la confusion","des consignes claires evitent la confusion","les regles precises evitent les erreurs"],
-      ["tandis que","alors que","cependant","pourtant"],
-      ["monsieur young soutient","monsieur young affirme","mr young dit","selon monsieur young"],
-      ["les candidats doivent prendre leurs responsabilites","les eleves doivent etre responsables","ils doivent assumer leurs choix","les candidats doivent accepter leurs decisions"],
-      ["bien que","meme si","malgre le fait que"],
-      ["certains eleves trouvent cette politique severe","quelques eleves pensent que cette politique est severe","certains trouvent cette regle injuste","des eleves pensent que cette politique est trop stricte"],
-      ["les deux professeurs insistent","ils insistent tous les deux","les deux enseignants insistent","les deux professeurs affirment"],
-      ["la coherence compte plus que les excuses","la constance est plus importante que les excuses","la coherence importe plus que les excuses","il est plus important d etre coherent que de trouver des excuses","la regularite est plus importante que les excuses"]
+      ["señora munn","mrs munn"],["y","con"],["señor young","mr young"],["hicieron un acuerdo","llegaron a un acuerdo","se pusieron de acuerdo"],["antes de la temporada de examenes","antes de la temporada de exámenes","antes de los exámenes"],["decidieron"],["si algunos trabajos estaban escritos a lapiz","si algunos trabajos estaban escritos a lápiz","si los examenes estaban escritos a lapiz"],["el trabajo no sería corregido","el trabajo no seria corregido","no sería calificado","no seria evaluado"],["la señora munn cree","mrs munn cree","la señora munn piensa"],["las reglas claras reducen la confusion","las reglas claras reducen la confusión","las instrucciones claras reducen la confusión"],["mientras que"],["el señor young sostiene","el señor young afirma","mr young dice"],["los candidatos deben asumir la responsabilidad","los alumnos deben ser responsables","deben responsabilizarse de sus decisiones"],["aunque"],["algunos alumnos piensan que esta política es severa","algunos estudiantes creen que esta norma es severa","esta regla es severa"],["los dos profesores insisten","ambos profesores insisten"],["la coherencia importa más que las excusas","la coherencia importa mas que las excusas","la constancia es más importante que las excusas"]
     ]
   },
   {
     id:"HT-6",
     en:`Travelling with Otono Airways feels like a perfectly controlled system. Every detail is planned to guarantee comfort and efficiency, even in economy class, where passengers still notice the calm atmosphere, the careful organisation and the serious attention given to legroom. Because the service is designed so precisely, travellers often feel less stressed, more confident and surprisingly impressed by how smoothly the whole experience works from boarding to landing.`,
     keyIdeas:[
-      ["voyager avec otono airways","avec otono airways","lorsqu on voyage avec otono airways","quand on voyage avec otono airways"],
-      ["donne l impression d un systeme parfaitement controle","donne l impression d un système parfaitement contrôlé","semble etre un systeme parfaitement controle","ressemble a un systeme parfaitement controle"],
-      ["chaque detail est planifie","chaque détail est planifié","tout est planifie","tout est planifié","chaque detail est pense","chaque détail est pensé"],
-      ["garantir le confort et l efficacite","garantir le confort et l efficacité","assurer le confort et l efficacite","assurer le confort et l efficacité"],
-      ["classe economique","classe économique"],
-      ["atmosphere calme","atmosphère calme","ambiance calme"],
-      ["organisation soigneuse","organisation soignee","organisation soignée","organisation tres soignee","organisation très soignée"],
-      ["espace pour les jambes","legroom","place pour les jambes"],
-      ["service est concu avec precision","service est conçu avec précision","service est concu si precisement","service est conçu si précisément","service est concu avec tant de precision"],
-      ["moins stresses","moins stressés","moins stresse","moins stressé"],
-      ["plus confiants","davantage en confiance","plus confiantes"],
-      ["impressionnes par la fluidite","impressionnés par la fluidité","fluidite de l experience","fluidité de l expérience","fluidite de toute l experience"],
-      ["embarquement a l atterrissage","embarquement à l atterrissage","de l embarquement a l atterrissage","de l embarquement à l atterrissage","du debut a la fin"]
+      ["viajar con otono airways","con otono airways","cuando se viaja con otono airways"],["parece un sistema perfectamente controlado","da la impresión de un sistema perfectamente controlado"],["cada detalle está planificado","cada detalle esta planificado","todo está planificado"],["para garantizar la comodidad y la eficiencia","con el fin de garantizar la comodidad y la eficacia"],["incluso en clase económica","incluso en clase economica","en clase económica"],["los pasajeros notan un ambiente tranquilo","los viajeros notan una atmósfera tranquila"],["una organización cuidadosa","una organización muy cuidada"],["una atención seria al espacio para las piernas","mucha atención al espacio para las piernas","legroom"],["como el servicio está diseñado con precisión","porque el servicio está diseñado con tanta precisión"],["los viajeros se sienten menos estresados","los pasajeros están menos estresados"],["más seguros","mas seguros","con más confianza"],["impresionados por la fluidez de la experiencia","sorprendidos por lo fluida que es la experiencia"],["desde el embarque hasta el aterrizaje","del embarque al aterrizaje","desde el principio hasta el final"]
     ]
   },
   {
     id:"HT-7",
     en:`Salish and Nidal attract attention because their videos are full of movement, pressure and emotion. Viewers often feel that their reunions look natural, but their success also depends on planning, confidence and a clear sense of timing. In the future, many creators will probably copy this style, yet it will still be difficult to reproduce the same energy if the relationship on screen does not feel genuine.`,
     keyIdeas:[
-      ["salish"],
-      ["nidal"],
-      ["attirent l attention","attirent beaucoup d attention","captent l attention","sont tres populaires","attirent de nombreux spectateurs"],
-      ["leurs videos sont pleines de mouvement","leurs videos sont pleines d energie","leurs videos sont dynamiques","leurs videos sont energiques","leurs videos contiennent beaucoup d action"],
-      ["de pression et d emotion","de la pression et de l emotion","beaucoup d emotion","des emotions fortes"],
-      ["les spectateurs ont souvent l impression","les viewers pensent souvent","le public pense souvent","beaucoup de gens pensent"],
-      ["leurs retrouvailles paraissent naturelles","leurs retrouvailles semblent naturelles","leurs retrouvailles ont l air naturelles","cela parait naturel","leur relation semble spontanee"],
-      ["mais leur succes depend aussi","cependant leur succes depend aussi","pourtant leur succes depend aussi","leur reussite depend egalement"],
-      ["de la planification","de l organisation","de la preparation","d une bonne preparation"],
-      ["de la confiance","de l assurance","de la confiance en soi"],
-      ["et d un sens clair du timing","et d un bon sens du timing","et d un sens du rythme tres clair","et du bon moment"],
-      ["a l avenir","dans le futur","plus tard"],
-      ["beaucoup de createurs copieront probablement ce style","de nombreux createurs vont sans doute copier ce style","beaucoup d autres createurs copieront ce style","de nombreux youtubeurs essaieront de reproduire ce style"],
-      ["ce sera toujours difficile de reproduire la meme energie","il sera difficile de reproduire la meme energie","ce style sera difficile a reproduire","il sera difficile de recreer cette energie"],
-      ["si la relation a l ecran ne semble pas authentique","si la relation a l ecran ne parait pas vraie","si la relation filmee n est pas sincere","si leur relation devant la camera ne semble pas reelle","si leur relation ne semble pas naturelle"]
+      ["salish"],["y"],["nidal"],["atraen la atención","atraen mucha atención","captan la atención"],["sus videos están llenos de movimiento","sus vídeos están llenos de energía","sus videos contienen movimiento"],["de presión y emoción","de presion y emocion","de emoción"],["los espectadores suelen sentir","el público suele pensar"],["sus reencuentros parecen naturales","sus reuniones parecen naturales","parece natural"],["pero su éxito también depende","sin embargo su éxito también depende"],["de la planificación","de la organización","de la preparación"],["de la confianza"],["y de un claro sentido del timing","y de un buen sentido del ritmo"],["en el futuro"],["muchos creadores probablemente copiarán este estilo","muchos creadores van a copiar este estilo"],["será difícil reproducir la misma energía","sera dificil reproducir la misma energia","este estilo será difícil de reproducir"],["si la relación en pantalla no parece auténtica","si la relación filmada no parece sincera"]
     ]
   }
 ];
 
 const GRAMMAR_POOL = [
-  { prompt:"Madame Munn ______ (dire) que les copies au crayon ne seront pas corrigées.", answer:"dit", alt:[] },
-  { prompt:"Chez Otono Airways, tout ______ (être) organisé avec précision.", answer:"est", alt:[] },
-  { prompt:"Même en classe économique, les passagers ______ (remarquer) le confort.", answer:"remarquent", alt:[] },
-  { prompt:"Salish et Nidal ______ (faire) souvent des vidéos dynamiques.", answer:"font", alt:[] },
-  { prompt:"Hier, j'______ (regarder) une vidéo sur Le Mans.", answer:"ai regardé", alt:["ai regarde"] },
-  { prompt:"Clayton ______ (avoir) un score parfait en maths.", answer:"a eu", alt:["a eut"] },
-  { prompt:"L'an prochain, je ______ (voyager) avec Otono Airways.", answer:"vais voyager", alt:[] },
-  { prompt:"Dans ma région, je ______ (faire) souvent mes devoirs au calme.", answer:"fais", alt:[] }
+  { prompt:"La señora Munn ______ (decir) que los exámenes a lápiz no serán corregidos.", answer:"dice", alt:[] },
+  { prompt:"En Otono Airways, todo ______ (estar) organizado con precisión.", answer:"está", alt:["esta"] },
+  { prompt:"Incluso en clase económica, los pasajeros ______ (notar) la comodidad.", answer:"notan", alt:[] },
+  { prompt:"Salish y Nidal ______ (hacer) a menudo videos dinámicos.", answer:"hacen", alt:[] },
+  { prompt:"Ayer, ______ (ver) un video sobre Le Mans.", answer:"vi", alt:["he visto"] },
+  { prompt:"Clayton ______ (tener) una puntuación perfecta en matemáticas.", answer:"tuvo", alt:["ha tenido"] },
+  { prompt:"El año que viene, ______ (viajar) con Otono Airways.", answer:"voy a viajar", alt:["viajaré","viajare"] },
+  { prompt:"En mi región, ______ (hacer) a menudo mis deberes tranquilamente.", answer:"hago", alt:[] }
 ];
 
 const PROMPTS_40 = {
   t1:{
     themeName:"Theme 1 — School",
-    title:"40 words: Mrs Munn et les règles d'examen",
+    title:"40 words: La señora Munn y las reglas de examen",
     bullets:[
       "Mention Mrs Munn or Mr Young.",
       "Say one exam rule.",
@@ -578,17 +541,18 @@ const PROMPTS_40 = {
     ],
     required:{
       bullets:[
-        {id:"b1", vocab:["mrs munn","madame munn","mr young","monsieur young"]},
-        {id:"b2", vocab:["crayon","pencil","encre","stylo","règle","regle","consigne"]},
-        {id:"b3", vocab:["école","ecole","examen","classe","cours","maths"]},
+        {id:"b1", vocab:["mrs munn","señora munn","mr young","señor young"]},
+        {id:"b2", vocab:["lapiz","lápiz","tinta","boligrafo","bolígrafo","regla","norma","instruccion","instrucción"]},
+        {id:"b3", vocab:["escuela","colegio","instituto","examen","clase","curso","matematicas","matemáticas"]},
         {id:"b4", vocab:[...DETECT.opinion]}
       ],
       wordTarget:40, wordMin:34, wordMax:58, mustHaveOpinion:true
     }
   },
+
   t2:{
     themeName:"Theme 2 — Free time / region",
-    title:"40 words: Mes loisirs et ma région",
+    title:"40 words: Mis pasatiempos y mi región",
     bullets:[
       "Say what you do in your free time.",
       "Mention one game, activity or music detail.",
@@ -597,17 +561,18 @@ const PROMPTS_40 = {
     ],
     required:{
       bullets:[
-        {id:"b1", vocab:["temps libre","loisirs","je joue","musique"]},
-        {id:"b2", vocab:["minecraft","roblox","piano","violon","trompette","jeu","jeux"]},
-        {id:"b3", vocab:["région","region","maison","quartier","ville","chez moi"]},
+        {id:"b1", vocab:["tiempo libre","ocio","juego","musica","música"]},
+        {id:"b2", vocab:["minecraft","roblox","piano","violin","violín","trompeta","juego","juegos"]},
+        {id:"b3", vocab:["region","región","casa","barrio","ciudad","en mi casa"]},
         {id:"b4", vocab:[...DETECT.opinion]}
       ],
       wordTarget:40, wordMin:34, wordMax:58, mustHaveOpinion:true
     }
   },
+
   t3:{
     themeName:"Theme 3 — Otono Airways",
-    title:"40 words: Voyager avec Otono Airways",
+    title:"40 words: Viajar con Otono Airways",
     bullets:[
       "Mention Otono Airways.",
       "Give one aircraft/cabin detail.",
@@ -617,16 +582,17 @@ const PROMPTS_40 = {
     required:{
       bullets:[
         {id:"b1", vocab:["otono airways","otono"]},
-        {id:"b2", vocab:["a380","cabine","économique","economique","business","first","salon","lounge","siège","siege"]},
-        {id:"b3", vocab:["calme","organisé","organisee","confortable","efficace"]},
+        {id:"b2", vocab:["a380","cabina","economica","económica","business","first","salon","salón","lounge","asiento"]},
+        {id:"b3", vocab:["tranquilo","tranquila","organizado","organizada","comodidad","comodo","cómodo","eficiente"]},
         {id:"b4", vocab:[...DETECT.opinion]}
       ],
       wordTarget:40, wordMin:34, wordMax:58, mustHaveOpinion:true
     }
   },
+
   t4:{
     themeName:"Theme 4 — Famous YouTubers / progress / Le Mans",
-    title:"40 words: Célébrité, progrès ou vitesse",
+    title:"40 words: Fama, progreso o velocidad",
     bullets:[
       "Mention Salish, Nidal, Clayton or Le Mans.",
       "Say what happened or what they do.",
@@ -636,8 +602,8 @@ const PROMPTS_40 = {
     required:{
       bullets:[
         {id:"b1", vocab:["salish","nidal","clayton","le mans","jordan matter"]},
-        {id:"b2", vocab:["vidéo","video","score","course","vitesse","progrès","progress"]},
-        {id:"b3", vocab:["pression","émotion","emotion","content","stressé","stressée","impressionné","impressionnée"]},
+        {id:"b2", vocab:["video","vídeo","puntuacion","puntuación","carrera","velocidad","progreso"]},
+        {id:"b3", vocab:["presion","presión","emocion","emoción","feliz","estresado","estresada","impresionado","impresionada"]},
         {id:"b4", vocab:[...DETECT.opinion]}
       ],
       wordTarget:40, wordMin:34, wordMax:58, mustHaveOpinion:true
@@ -647,15 +613,15 @@ const PROMPTS_40 = {
 
 const PROMPTS_70 = {
   t1:[
-    { code:"T1-E", title:"Theme 1: Mrs Munn and exam discipline", bullets:[
+    { code:"T1-E", title:"Theme 1: La señora Munn and exam discipline", bullets:[
       "Describe Mrs Munn or Mr Young.",
       "Explain one exam rule about pencil/ink.",
       "Mention a past exam or class moment.",
       "Give a future idea and your opinion."
     ], required:{ wordTarget:70, wordMin:60, wordMax:220, must:{past:true,present:true,future:true,opinion:true}, bulletVocab:[
-      ["mrs munn","madame munn","mr young","monsieur young"],
-      ["crayon","pencil","encre","stylo","consigne","règle","regle"],
-      ["hier","j'ai","j ai","la semaine dernière","l'année dernière"],
+      ["mrs munn","señora munn","mr young","señor young"],
+      ["lapiz","lápiz","tinta","boligrafo","bolígrafo","instruccion","instrucción","regla","norma"],
+      ["ayer","he","la semana pasada","el año pasado"],
       [...DETECT.opinion]
     ] }},
     { code:"T1-F", title:"Theme 1: School rules, stress and fairness", bullets:[
@@ -664,12 +630,13 @@ const PROMPTS_70 = {
       "Mention a past experience.",
       "Give a future plan and your opinion."
     ], required:{ wordTarget:70, wordMin:60, wordMax:220, must:{past:true,present:true,future:true,opinion:true}, bulletVocab:[
-      ["école","ecole","classe","cours","professeur","examen"],
-      ["règle","regle","juste","injuste","consigne","stress"],
-      ["hier","j'ai","j ai","la semaine dernière"],
+      ["escuela","colegio","instituto","clase","curso","profesor","profesora","examen"],
+      ["regla","norma","justo","justa","injusto","injusta","instruccion","instrucción","estres","estrés"],
+      ["ayer","he","la semana pasada","el año pasado"],
       [...DETECT.opinion]
     ] }}
   ],
+
   t2:[
     { code:"T2-F", title:"Theme 2: Free time, games and focus", bullets:[
       "Say what you do in your free time.",
@@ -677,9 +644,9 @@ const PROMPTS_70 = {
       "Explain what you do now.",
       "Give a future plan and your opinion."
     ], required:{ wordTarget:70, wordMin:60, wordMax:220, must:{past:true,present:true,future:true,opinion:true}, bulletVocab:[
-      ["temps libre","loisirs","minecraft","roblox","musique","piano","violon"],
-      ["hier","j'ai","j ai","avant"],
-      ["maintenant","aujourd'hui","aujourd hui","je fais","je joue"],
+      ["tiempo libre","ocio","minecraft","roblox","musica","música","piano","violin","violín"],
+      ["ayer","he","antes","el año pasado","la semana pasada"],
+      ["ahora","hoy","hago","juego"],
       [...DETECT.opinion]
     ] }},
     { code:"T2-G", title:"Theme 2: My region and what I do there", bullets:[
@@ -688,12 +655,13 @@ const PROMPTS_70 = {
       "Explain what you do there now.",
       "Give a future plan and your opinion."
     ], required:{ wordTarget:70, wordMin:60, wordMax:220, must:{past:true,present:true,future:true,opinion:true}, bulletVocab:[
-      ["région","region","quartier","ville","maison","chez moi"],
-      ["hier","j'ai","j ai","l'année dernière"],
-      ["maintenant","souvent","normalement","je fais"],
+      ["region","región","barrio","ciudad","casa","en mi casa"],
+      ["ayer","he","el año pasado","la semana pasada"],
+      ["ahora","a menudo","normalmente","hago"],
       [...DETECT.opinion]
     ] }}
   ],
+
   t3:[
     { code:"T3-E", title:"Theme 3: Otono Airways and economy class", bullets:[
       "Describe economy class on Otono Airways.",
@@ -701,9 +669,9 @@ const PROMPTS_70 = {
       "Explain what the experience feels like now.",
       "Give a future plan and your opinion."
     ], required:{ wordTarget:70, wordMin:60, wordMax:220, must:{past:true,present:true,future:true,opinion:true}, bulletVocab:[
-      ["otono airways","économique","economique","confort","legroom","espace pour les jambes"],
-      ["hier","la dernière fois","la derniere fois","j'ai","j ai"],
-      ["maintenant","calme","organisé","efficace"],
+      ["otono airways","economica","económica","comodidad","espacio para las piernas","legroom"],
+      ["ayer","la última vez","la ultima vez","he","fui","viajé","viaje"],
+      ["ahora","tranquilo","tranquila","organizado","organizada","eficiente"],
       [...DETECT.opinion]
     ] }},
     { code:"T3-F", title:"Theme 3: A380 cabins and organisation", bullets:[
@@ -712,9 +680,9 @@ const PROMPTS_70 = {
       "Explain how the system works now.",
       "Give a future trip idea and your opinion."
     ], required:{ wordTarget:70, wordMin:60, wordMax:220, must:{past:true,present:true,future:true,opinion:true}, bulletVocab:[
-      ["a380","cabine","business","first","lounge","salon","siège","siege"],
-      ["j'ai","j ai","j'ai remarqué","j ai remarqué","avant"],
-      ["organisation","organisé","efficacité","efficacite"],
+      ["a380","cabina","business","first","lounge","salon","salón","asiento"],
+      ["he notado","noté","note","antes","vi"],
+      ["organizacion","organización","organizado","organizada","eficacia","eficiencia"],
       [...DETECT.opinion]
     ] }},
     { code:"T3-G", title:"Theme 3: Why Otono Airways feels controlled", bullets:[
@@ -723,12 +691,13 @@ const PROMPTS_70 = {
       "Describe the experience now.",
       "Give a future idea and your opinion."
     ], required:{ wordTarget:70, wordMin:60, wordMax:220, must:{past:true,present:true,future:true,opinion:true}, bulletVocab:[
-      ["otono airways","contrôlé","controle","précis","precis","planifié","planifie"],
-      ["hier","la dernière fois","j'ai","j ai"],
-      ["maintenant","calme","efficace","confortable"],
+      ["otono airways","controlado","controlada","preciso","precisa","planificado","planificada"],
+      ["ayer","la última vez","la ultima vez","he","vi","noté","note"],
+      ["ahora","tranquilo","tranquila","eficiente","comodo","cómodo"],
       [...DETECT.opinion]
     ] }}
   ],
+
   t4:[
     { code:"T4-F", title:"Theme 4: Salish and Nidal on screen", bullets:[
       "Describe Salish and Nidal or one of their videos.",
@@ -736,9 +705,9 @@ const PROMPTS_70 = {
       "Explain why viewers react strongly now.",
       "Give a future idea and your opinion."
     ], required:{ wordTarget:70, wordMin:60, wordMax:220, must:{past:true,present:true,future:true,opinion:true}, bulletVocab:[
-      ["salish","nidal","vidéo","video","youtube","réunion","retrouvailles"],
-      ["hier","avant","j'ai","j ai","la semaine dernière"],
-      ["maintenant","émotion","emotion","naturel","naturelle","pression"],
+      ["salish","nidal","video","vídeo","youtube","reunion","reunión","reencuentro"],
+      ["ayer","antes","he","la semana pasada","vi"],
+      ["ahora","emocion","emoción","natural","presion","presión"],
       [...DETECT.opinion]
     ] }},
     { code:"T4-G", title:"Theme 4: Progress, perfection and speed", bullets:[
@@ -747,9 +716,9 @@ const PROMPTS_70 = {
       "Explain the pressure or attraction now.",
       "Give a future mindset and your opinion."
     ], required:{ wordTarget:70, wordMin:60, wordMax:220, must:{past:true,present:true,future:true,opinion:true}, bulletVocab:[
-      ["clayton","perfection","progrès","progres","le mans","vitesse","course"],
-      ["160 sur 160","score parfait","hier","j'ai","j ai"],
-      ["pression","admiration","jalousie","attirant","impressionnant"],
+      ["clayton","perfeccion","perfección","progreso","le mans","velocidad","carrera"],
+      ["160 sobre 160","puntuacion perfecta","puntuación perfecta","ayer","he","vi"],
+      ["presion","presión","admiracion","admiración","celos","atractivo","impresionante"],
       [...DETECT.opinion]
     ] }}
   ]
@@ -761,104 +730,91 @@ const PROMPTS_110 = {
       "Discuss rules such as pencil, ink and responsibility.",
       "Give a developed opinion with past experience and future ideas."
     ], required:{ wordTarget:110, wordMin:95, wordMax:520, must:{past:true,present:true,future:true,opinion:true}, bulletVocab:[
-      ["mrs munn","madame munn","mr young","monsieur young","école","ecole","examen"],
-      ["crayon","pencil","encre","stylo","responsabilité","responsabilite","règle","regle"],
+      ["mrs munn","señora munn","mr young","señor young","escuela","colegio","instituto","examen"],
+      ["lapiz","lápiz","tinta","boligrafo","bolígrafo","responsabilidad","regla","norma"],
       [...DETECT.opinion]
     ] }},
     { code:"H1-6", title:"Theme 1: Fairness, discipline and results at school", bullets:[
       "Discuss fairness and discipline in school.",
       "Give a developed opinion with examples from past, present and future."
     ], required:{ wordTarget:110, wordMin:95, wordMax:520, must:{past:true,present:true,future:true,opinion:true}, bulletVocab:[
-      ["école","ecole","discipline","justice","règle","regle","résultats","resultats"],
-      ["stress","consigne","professeur","classe","cours"],
+      ["escuela","colegio","instituto","disciplina","justicia","regla","norma","resultados"],
+      ["estres","estrés","instruccion","instrucción","profesor","profesora","clase","curso"],
       [...DETECT.opinion]
     ] }}
   ],
+
   t2:[
     { code:"H2-5", title:"Theme 2: Free time, balance and progress", bullets:[
       "Discuss how free time activities help or distract you.",
       "Give a developed opinion with past, present and future references."
     ], required:{ wordTarget:110, wordMin:95, wordMax:520, must:{past:true,present:true,future:true,opinion:true}, bulletVocab:[
-      ["temps libre","loisirs","minecraft","roblox","musique","jeu","jeux"],
-      ["équilibre","equilibre","progrès","progres","concentration","motivation"],
+      ["tiempo libre","ocio","minecraft","roblox","musica","música","juego","juegos"],
+      ["equilibrio","progreso","concentracion","concentración","motivacion","motivación"],
       [...DETECT.opinion]
     ] }},
     { code:"H2-6", title:"Theme 2: My region, my habits and my future", bullets:[
       "Describe your region or home life in depth.",
       "Give a developed opinion with examples from past, present and future."
     ], required:{ wordTarget:110, wordMin:95, wordMax:520, must:{past:true,present:true,future:true,opinion:true}, bulletVocab:[
-      ["région","region","quartier","ville","maison","chez moi"],
-      ["habitudes","calme","activités","activites","avenir"],
+      ["region","región","barrio","ciudad","casa","en mi casa"],
+      ["habitos","hábitos","tranquilo","tranquila","actividades","futuro"],
       [...DETECT.opinion]
     ] }}
   ],
+
   t3:[
     { code:"H3-5", title:"Theme 3: Otono Airways and the importance of comfort", bullets:[
       "Discuss comfort and efficiency on Otono Airways.",
       "Give a developed opinion with comparison and future travel ideas."
     ], required:{ wordTarget:110, wordMin:95, wordMax:520, must:{past:true,present:true,future:true,opinion:true}, bulletVocab:[
-      ["otono airways","confort","efficacité","efficacite","passagers","voyageurs"],
-      ["économique","economique","business","first","a380","cabine"],
+      ["otono airways","comodidad","eficacia","eficiencia","pasajeros","viajeros"],
+      ["economica","económica","business","first","a380","cabina"],
       [...DETECT.opinion]
     ] }},
     { code:"H3-6", title:"Theme 3: Why organisation matters in air travel", bullets:[
       "Discuss planning, calm atmosphere and control in travel.",
       "Give a developed opinion with past, present and future references."
     ], required:{ wordTarget:110, wordMin:95, wordMax:520, must:{past:true,present:true,future:true,opinion:true}, bulletVocab:[
-      ["organisation","planifié","planifie","contrôlé","controle","calme"],
-      ["otono airways","voyage","embarquement","atterrissage","service","passagers"],
+      ["organizacion","organización","planificado","planificada","controlado","controlada","tranquilo","tranquila"],
+      ["otono airways","viaje","embarque","aterrizaje","servicio","pasajeros"],
       [...DETECT.opinion]
     ] }},
-    { code:"H3-7",
-      title:"Theme 3: Is luxury less important than efficiency in air travel?",
-      bullets:[
-        "Discuss whether efficiency matters more than luxury when travelling.",
-        "Give a developed opinion with past experience, present comparison and future travel ideas."
-      ],
-      required:{
-        wordTarget:110, wordMin:95, wordMax:520,
-        must:{past:true,present:true,future:true,opinion:true},
-        bulletVocab:[
-          ["efficacité","efficacite","organisation","ponctualité","ponctualite","retard","contrôle","controle"],
-          ["confort","luxe","business","first","économique","economique","cabine","a380","voyageurs"],
-          [...DETECT.opinion]
-        ]
-      }
-    },
+    { code:"H3-7", title:"Theme 3: Is luxury less important than efficiency in air travel?", bullets:[
+      "Discuss whether efficiency matters more than luxury when travelling.",
+      "Give a developed opinion with past experience, present comparison and future travel ideas."
+    ], required:{ wordTarget:110, wordMin:95, wordMax:520, must:{past:true,present:true,future:true,opinion:true}, bulletVocab:[
+      ["eficacia","eficiencia","organizacion","organización","puntualidad","retraso","control"],
+      ["comodidad","lujo","business","first","economica","económica","cabina","a380","viajeros"],
+      [...DETECT.opinion]
+    ] }}
   ],
+
   t4:[
     { code:"H4-5", title:"Theme 4: Famous creators, emotion and authenticity", bullets:[
       "Discuss Salish, Nidal or other creators and why audiences react strongly.",
       "Give a developed opinion with past, present and future references."
     ], required:{ wordTarget:110, wordMin:95, wordMax:520, must:{past:true,present:true,future:true,opinion:true}, bulletVocab:[
-      ["salish","nidal","jordan matter","youtube","créateurs","createurs","vidéo","video"],
-      ["émotion","emotion","authentique","naturel","pression","timing"],
+      ["salish","nidal","jordan matter","youtube","creadores","video","vídeo"],
+      ["emocion","emoción","autentico","auténtico","autentica","auténtica","natural","presion","presión","timing"],
       [...DETECT.opinion]
     ] }},
     { code:"H4-6", title:"Theme 4: Progress, pressure and success", bullets:[
       "Discuss perfection, pressure, Clayton or Le Mans.",
       "Give a developed opinion with examples from past, present and future."
     ], required:{ wordTarget:110, wordMin:95, wordMax:520, must:{past:true,present:true,future:true,opinion:true}, bulletVocab:[
-      ["clayton","perfection","progrès","progres","le mans","vitesse","succès","succes"],
-      ["pression","comparaison","objectif","admiration","jalousie"],
+      ["clayton","perfeccion","perfección","progreso","le mans","velocidad","exito","éxito"],
+      ["presion","presión","comparacion","comparación","objetivo","admiracion","admiración","celos"],
       [...DETECT.opinion]
     ] }},
-    {code:"H4-7",
-  title:"Theme 4: Does fame create more pressure than success?",
-  bullets:[
-    "Discuss whether fame can create pressure, comparison or unrealistic expectations.",
-    "Give a developed opinion with a past example, present reaction and future view."
-  ],
-  required:{
-    wordTarget:110, wordMin:95, wordMax:520,
-    must:{past:true,present:true,future:true,opinion:true},
-    bulletVocab:[
-      ["célébrité","celebrite","succès","succes","pression","comparaison","attentes","réputation","reputation"],
-      ["jordan","salish","nidal","youtube","créateurs","createurs","vidéo","video","perfection","progrès","progres"],
+    { code:"H4-7", title:"Theme 4: Does fame create more pressure than success?", bullets:[
+      "Discuss whether fame can create pressure, comparison or unrealistic expectations.",
+      "Give a developed opinion with a past example, present reaction and future view."
+    ], required:{ wordTarget:110, wordMin:95, wordMax:520, must:{past:true,present:true,future:true,opinion:true}, bulletVocab:[
+      ["fama","celebridad","exito","éxito","presion","presión","comparacion","comparación","expectativas","reputacion","reputación"],
+      ["jordan","salish","nidal","youtube","creadores","video","vídeo","perfeccion","perfección","progreso"],
       [...DETECT.opinion]
-    ]
-  }
-}
+    ] }}
   ]
 };
 
@@ -999,26 +955,26 @@ function renderFoundationTranslation(items){
     <div class="mcChoice">
       <strong>Sentence ${i+1}</strong> (5 marks)<br/>
       <div class="small" style="margin-top:6px">${escapeHtml(it.en)}</div>
-      <label>Your French</label>
-      <textarea id="ft_s${i+1}" placeholder="Write the French translation here..."></textarea>
+      <label>Your Spanish</label>
+      <textarea id="ft_s${i+1}" placeholder="Write the Spanish translation here..."></textarea>
     </div>
   `).join("");
-  return makeTaskCard("Q1 Translation into French", "25 marks • 5 sentences • Meaning + accuracy", lines);
+  return makeTaskCard("Q1 Translation into Spanish", "25 marks • 5 sentences • Meaning + accuracy", lines);
 }
 function renderHigherTranslation(item){
   const html = `
     <div class="note">
-      <strong>Translate into French</strong> (Higher Tier)<br/>
-      Marking: <strong>ideas</strong> + <strong>language quality</strong> (French-ness, connectors, length).<br/>
+      <strong>Translate into Spanish</strong> (Higher Tier)<br/>
+      Marking: <strong>ideas</strong> + <strong>language quality</strong> (Spanish-ness, connectors, length).<br/>
       <div class="divider"></div>
       <div class="small">${escapeHtml(item.en)}</div>
     </div>
 
-    <label>Your French translation</label>
-    <textarea id="ht_par" placeholder="Write your full French paragraph here..."></textarea>
+    <label>Your Spanish translation</label>
+    <textarea id="ht_par" placeholder="Write your full Spanish paragraph here..."></textarea>
     <div class="small" id="ht_wc"></div>
   `;
-  const card = makeTaskCard("Q1 Translation into French", "20 marks • ideas (10) + quality (10)", html);
+  const card = makeTaskCard("Q1 Translation into Spanish", "20 marks • ideas (10) + quality (10)", html);
   setTimeout(()=>wireWordCount("ht_par","ht_wc"), 0);
   return card;
 }
@@ -1043,7 +999,7 @@ function render40(p){
       </ul>
     </div>
 
-    <label>Your 40-word answer (French)</label>
+    <label>Your 40-word answer (Spanish)</label>
     <textarea id="w40" placeholder="≈ 40 words..."></textarea>
     <div class="small" id="w40_wc"></div>
   `;
@@ -1073,7 +1029,7 @@ function render70Choice(items, tier){
       `).join("")}
     </div>
 
-    <label>Your 70-word answer (French)</label>
+    <label>Your 70-word answer (Spanish)</label>
     <textarea id="w70" placeholder="≈ 70 words..."></textarea>
     <div class="small" id="w70_wc"></div>
   `;
@@ -1105,7 +1061,7 @@ function render110Choice(items){
       `).join("")}
     </div>
 
-    <label>Your 110-word answer (French)</label>
+    <label>Your 110-word answer (Spanish)</label>
     <textarea id="w110" placeholder="≈ 110 words..."></textarea>
     <div class="small" id="w110_wc"></div>
   `;
@@ -1145,11 +1101,11 @@ function markHigherTranslation(user, keyIdeas){
     const alts = Array.isArray(group) ? group : [group];
     if(alts.some(k => t.includes(norm(k)))) ideaHits++;
   });
-  const ideas = clamp(Math.round((ideaHits / Math.min(keyIdeas.length, 13)) * 10), 0, 10);
+  const ideas = clamp(ideaHits, 0, 10);
 
   let markerHits = 0;
-  FRENCH_MARKERS.forEach(m => { if(t.includes(norm(m))) markerHits++; });
-  const markerScore = clamp(Math.round((markerHits/8)*6), 0, 6);
+  Spanish_MARKERS.forEach(m => { if(t.includes(norm(m))) markerHits++; });
+  const markerScore = clamp(Math.round((markerHits/12)*6), 0, 6);
 
   const connScore = clamp(countHits(t, CONNECTORS) >= 1 ? 2 : 0, 0, 2);
 

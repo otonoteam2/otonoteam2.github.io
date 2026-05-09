@@ -315,23 +315,23 @@
           <div class="divider"></div>
           <div class="note">
             <strong>Otono grades (A–H + secret S)</strong><br/>
-            S: 101+ (secret)<br/>
-            A*: 95–100<br/>
-            A: 90–94<br/>
-            B: 80–89<br/>
-            C: 70–79<br/>
-            D: 66–69<br/>
-            E: 55–65<br/>
-            F: 45–54<br/>
-            G: 30–44<br/>
-            H: 15–29<br/>
-            U: 0–14
+              S: 101+ (secret)<br/>
+              A*: 92–100<br/>
+              A: 86–91<br/>
+              B: 76–85<br/>
+              C: 66–75<br/>
+              D: 60–65<br/>
+              E: 50–59<br/>
+              F: 40–49<br/>
+              G: 28–39<br/>
+              H: 15–27<br/>
+              U: 0–14
           </div>
           <div class="divider"></div>
           <div class="note">
-            <strong>GCSE 9–1 estimate (simple mapping)</strong><br/>
-            9: 90–100 • 8: 80–89 • 7: 70–79 • 6: 60–69 • 5: 50–59<br/>
-            4: 40–49 • 3: 30–39 • 2: 20–29 • 1: 10–19 • U: 0–9
+            <strong>GCSE 9–1 estimate — Set 1 adjusted</strong><br/>
+              9: 86–100 • 8: 76–85 • 7: 66–75 • 6: 56–65 • 5: 46–55<br/>
+              4: 36–45 • 3: 28–35 • 2: 20–27 • 1: 10–19 • U: 0–9
           </div>
           <div class="divider"></div>
           <div class="small">
@@ -1989,14 +1989,14 @@ function escapeHtml(str){
 
 function otonoLetterGrade(score){
   if(score >= 101) return "S";
-  if(score >= 95) return "A*";
-  if(score >= 90) return "A";
-  if(score >= 80) return "B";
-  if(score >= 70) return "C";
-  if(score >= 66) return "D";
-  if(score >= 55) return "E";
-  if(score >= 45) return "F";
-  if(score >= 30) return "G";
+  if(score >= 92) return "A*";
+  if(score >= 86) return "A";
+  if(score >= 76) return "B";
+  if(score >= 66) return "C";
+  if(score >= 60) return "D";
+  if(score >= 50) return "E";
+  if(score >= 40) return "F";
+  if(score >= 28) return "G";
   if(score >= 15) return "H";
   return "U";
 }
@@ -2009,13 +2009,13 @@ function passMeritDistinction(score){
 }
 
 function gcseEstimate(score){
-  if(score >= 90) return 9;
-  if(score >= 80) return 8;
-  if(score >= 70) return 7;
-  if(score >= 60) return 6;
-  if(score >= 50) return 5;
-  if(score >= 40) return 4;
-  if(score >= 30) return 3;
+  if(score >= 86) return 9;
+  if(score >= 76) return 8;
+  if(score >= 66) return 7;
+  if(score >= 56) return 6;
+  if(score >= 46) return 5;
+  if(score >= 36) return 4;
+  if(score >= 28) return 3;
   if(score >= 20) return 2;
   if(score >= 10) return 1;
   return "U";
