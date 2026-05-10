@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bury Things Score Calculator</title>
+  <style>
+    :root {
+      --bg1: #101114;
+      --bg2: #23242a;
+      --card: rgba(18, 20, 26, 0.88);
+      --text: #f7f7f8;
+      --muted: rgba(255,255,255,0.78);
+      --accent: #888;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.10), transparent 28%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      transition: background 0.6s ease, color 0.4s ease;
+      padding: 24px;
+    }
+
+    .app {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 4rem);
+      margin: 0;
+      letter-spacing: -1px;
+    }
+
+    h2 { margin-top: 0; }
+
+    .subtitle {
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 850px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: 0 18px 45px rgba(0,0,0,0.35);
+      backdrop-filter: blur(10px);
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin: 14px 0 6px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 2px solid rgba(255,255,255,0.16);
+      font-size: 1rem;
+      outline: none;
+      background: rgba(255,255,255,0.92);
+      color: #111;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(255,255,255,0.12);
+    }
+
+    .time-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .result-box {
+      text-align: center;
+      padding: 26px 16px;
+      border-radius: 24px;
+      background: rgba(0,0,0,0.22);
+      border: 2px solid rgba(255,255,255,0.18);
+    }
+
+    .rank {
+      font-size: clamp(2.2rem, 7vw, 5rem);
+      font-weight: 900;
+      margin: 0;
+      text-shadow: 0 5px 20px rgba(0,0,0,0.42);
+    }
+
+    .score {
+      font-size: clamp(1.5rem, 4vw, 3rem);
+      font-weight: 900;
+      margin: 12px 0 4px;
+      word-break: break-word;
+    }
+
+    .small {
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .formula {
+      font-family: Consolas, Monaco, monospace;
+      background: rgba(0,0,0,0.28);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 14px;
+      border-radius: 16px;
+      overflow-x: auto;
+      line-height: 1.55;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      overflow: hidden;
+      border-radius: 14px;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+
+    th { background: rgba(255,255,255,0.10); }
+
+    .pill {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-weight: bold;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.16);
+      color: white;
+    }
+
+    .breakdown {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    @media (max-width: 520px) {
+      .breakdown { grid-template-columns: 1fr; }
+      .time-row { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .stat {
+      padding: 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+
+    .stat span { color: var(--muted); }
+    .stat strong { display: block; font-size: 1.1rem; }
+
+    button {
+      margin-top: 18px;
+      width: 100%;
+      border: 0;
+      border-radius: 18px;
+      padding: 14px;
+      font-size: 1.05rem;
+      font-weight: 900;
+      cursor: pointer;
+      color: white;
+      background: linear-gradient(135deg, #111, #333);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.34);
+    }
+
+    button:hover { transform: translateY(-1px); }
+
+    .rank-colours {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .rank-swatch {
+      min-height: 86px;
+      border-radius: 18px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      border: 1px solid rgba(255,255,255,0.16);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.24);
+      overflow: hidden;
+    }
+
+    .rank-swatch strong {
+      font-size: 1.05rem;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.55);
+    }
+
+    .rank-swatch span {
+      font-size: 0.82rem;
+      opacity: 0.9;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.55);
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>Bury Things Score Calculator</h1>
+      <div class="subtitle">Milliseconds count. Hints matter. Bigger areas and more items change everything. 🔍</div>
+    </header>
+
+    <div class="grid">
+      <section class="card">
+        <h2>Game Inputs</h2>
+
+        <label>Player Name</label>
+        <input id="playerName" value="Player 1" />
+
+        <label>Survival Time</label>
+        <div class="time-row">
+          <input id="minutes" type="number" min="0" value="0" placeholder="min" />
+          <input id="seconds" type="number" min="0" max="59" value="0" placeholder="sec" />
+          <input id="milliseconds" type="number" min="0" max="999" value="0" placeholder="ms" />
+          <select id="mode">
+            <option value="1" selected>Vanilla ×1.00</option>
+            <option value="1.75">Hard ×1.75</option>
+            <option value="2.5">Nightmare ×2.50</option>
+            <option value="4">Otono ×4.00</option>
+          </select>
+        </div>
+
+        <label>Player Age</label>
+        <input id="age" type="number" min="1" value="0" />
+
+        <label>Average Group Age</label>
+        <input id="averageAge" type="number" min="0" step="0.01" value="0" />
+
+        <label>Hints Used</label>
+        <input id="hints" type="number" min="0" value="0" />
+
+        <label>Hint Strength Average</label>
+        <select id="hintStrength">
+          <option value="1" selected>Very vague ×1</option>
+          <option value="2">Normal / room clue ×2</option>
+          <option value="3">Furniture clue ×3</option>
+          <option value="5">Very obvious ×5</option>
+          <option value="8">Almost giveaway ×8</option>
+        </select>
+
+        <label>Number of Items Hidden</label>
+        <input id="items" type="number" min="0" value="0" />
+
+        <label>Hiding Area Size: 1–10</label>
+        <input id="area" type="number" min="0" max="10" value="0" />
+
+        <label>Number of Finders</label>
+        <input id="finders" type="number" min="0" value="0" />
+
+        <button onclick="calculateScore()">Calculate Score</button>
+      </section>
+
+      <section class="card">
+        <div class="result-box">
+          <p class="rank" id="rankText">Vanilla</p>
+          <div class="score" id="scoreText">0</div>
+          <div class="small" id="summaryText">Enter values to calculate.</div>
+        </div>
+
+        <div class="breakdown" id="breakdown"></div>
+      </section>
+    </div>
+
+    <section class="card" style="margin-top:20px;">
+      <h2>Formula Display</h2>
+      <div class="formula">
+        Score = T⁴ × H × A × I × S × R × D<br><br>
+        T = total time in seconds, including milliseconds<br>
+        H = 30 ÷ (30 + (Hints × Hint Strength × 2))<br>
+        A = 0.75 + (0.18 × Area Rating)<br>
+        I = 1 + (0.08 × Items Hidden)<br>
+        S = 1 + (0.18 × Finders)<br>
+        R = Average Group Age ÷ Player Age, capped between 0.75 and 1.75<br>
+        D = Difficulty Mode Multiplier<br><br>
+        If age is 0, the age multiplier is temporarily treated as ×1 so the calculator can start from 0 safely.
+      </div>
+    </section>
+
+    <section class="card" style="margin-top:20px;">
+      <h2>Ranks</h2>
+      <table>
+        <thead>
+          <tr><th>Rank</th><th>Minimum Score</th></tr>
+        </thead>
+        <tbody id="rankTable"></tbody>
+      </table>
+    </section>
+
+    <section class="card" style="margin-top:20px;">
+      <h2>Rank Colour Preview</h2>
+      <div class="small">These are the darker background colours used when a player reaches each rank.</div>
+      <div class="rank-colours" id="rankColours"></div>
+    </section>
+  </div>
+
+  <script>
+    const ranks = [
+      { name: "Vanilla", min: 0, bg1: "#101114", bg2: "#23242a", accent: "#888888", text: "#f7f7f8" },
+      { name: "Bronze", min: 4_000_000_000, bg1: "#3b2415", bg2: "#8a5528", accent: "#b87935", text: "#fff7ed" },
+      { name: "Silver", min: 10_000_000_000, bg1: "#30343b", bg2: "#687080", accent: "#9ca3af", text: "#f8fafc" },
+      { name: "Gold", min: 20_000_000_000, bg1: "#4a3500", bg2: "#ad7c00", accent: "#d89b00", text: "#fff9db" },
+      { name: "Azure", min: 35_000_000_000, bg1: "#082f49", bg2: "#075985", accent: "#0284c7", text: "#f0f9ff" },
+      { name: "Emerald", min: 55_000_000_000, bg1: "#052e25", bg2: "#047857", accent: "#10b981", text: "#ecfdf5" },
+      { name: "Amethyst", min: 80_000_000_000, bg1: "#2e1065", bg2: "#6b21a8", accent: "#a855f7", text: "#faf5ff" },
+      { name: "Ruby", min: 120_000_000_000, bg1: "#4c0519", bg2: "#9f1239", accent: "#f43f5e", text: "#fff1f2" },
+      { name: "Diamond", min: 180_000_000_000, bg1: "#083344", bg2: "#0e7490", accent: "#22d3ee", text: "#ecfeff" },
+      { name: "Legendary", min: 300_000_000_000, bg1: "#431407", bg2: "#c2410c", accent: "#fb923c", text: "#fff7ed" },
+      { name: "Master", min: 500_000_000_000, bg1: "#030712", bg2: "#4c1d95", accent: "#c084fc", text: "#f5f3ff" }
+    ];
+
+    function clamp(value, min, max) {
+      return Math.min(Math.max(value, min), max);
+    }
+
+    function formatScore(num) {
+      return Math.round(num).toLocaleString("en-GB");
+    }
+
+    function getValue(id) {
+      return Number(document.getElementById(id).value) || 0;
+    }
+
+    function getRank(score) {
+      let current = ranks[0];
+      for (const rank of ranks) {
+        if (score >= rank.min) current = rank;
+      }
+      return current;
+    }
+
+    function applyRankTheme(rank) {
+      document.documentElement.style.setProperty("--bg1", rank.bg1);
+      document.documentElement.style.setProperty("--bg2", rank.bg2);
+      document.documentElement.style.setProperty("--accent", rank.accent);
+      document.documentElement.style.setProperty("--text", rank.text);
+    }
+
+    function calculateScore() {
+      const name = document.getElementById("playerName").value || "Player";
+      const minutes = getValue("minutes");
+      const seconds = getValue("seconds");
+      const milliseconds = getValue("milliseconds");
+      const mode = getValue("mode") || 1;
+      const age = getValue("age");
+      const averageAge = getValue("averageAge");
+      const hints = getValue("hints");
+      const hintStrength = getValue("hintStrength") || 1;
+      const items = getValue("items");
+      const area = clamp(getValue("area"), 0, 10);
+      const finders = getValue("finders");
+
+      const T = (minutes * 60) + seconds + (milliseconds / 1000);
+      const timeScore = Math.pow(T, 4);
+      const H = 30 / (30 + (hints * hintStrength * 2));
+      const A = area === 0 ? 1 : 0.75 + (0.18 * area);
+      const I = items === 0 ? 1 : 1 + (0.08 * items);
+      const S = finders === 0 ? 1 : 1 + (0.18 * finders);
+      const R = age <= 0 || averageAge <= 0 ? 1 : clamp(averageAge / age, 0.75, 1.75);
+      const D = mode;
+      const score = timeScore * H * A * I * S * R * D;
+      const rank = getRank(score);
+
+      applyRankTheme(rank);
+      document.getElementById("rankText").textContent = rank.name;
+      document.getElementById("scoreText").textContent = formatScore(score);
+      document.getElementById("summaryText").textContent = `${name} survived ${minutes}m ${seconds}s ${milliseconds}ms and reached ${rank.name}.`;
+
+      document.getElementById("breakdown").innerHTML = `
+        <div class="stat"><span>Time T</span><strong>${T.toFixed(3)}s</strong></div>
+        <div class="stat"><span>T⁴</span><strong>${formatScore(timeScore)}</strong></div>
+        <div class="stat"><span>Hint Multiplier H</span><strong>×${H.toFixed(4)}</strong></div>
+        <div class="stat"><span>Area Multiplier A</span><strong>×${A.toFixed(3)}</strong></div>
+        <div class="stat"><span>Item Multiplier I</span><strong>×${I.toFixed(3)}</strong></div>
+        <div class="stat"><span>Finder Multiplier S</span><strong>×${S.toFixed(3)}</strong></div>
+        <div class="stat"><span>Age Multiplier R</span><strong>×${R.toFixed(3)}</strong></div>
+        <div class="stat"><span>Difficulty D</span><strong>×${D.toFixed(2)}</strong></div>
+      `;
+    }
+
+    function renderRanks() {
+      document.getElementById("rankTable").innerHTML = ranks.map(rank => `
+        <tr>
+          <td><span class="pill">${rank.name}</span></td>
+          <td>${formatScore(rank.min)}</td>
+        </tr>
+      `).join("");
+    }
+
+    function renderRankColours() {
+      document.getElementById("rankColours").innerHTML = ranks.map(rank => `
+        <div class="rank-swatch" style="background: linear-gradient(135deg, ${rank.bg1}, ${rank.bg2}); color: ${rank.text};">
+          <strong>${rank.name}</strong>
+          <span>${formatScore(rank.min)}+</span>
+        </div>
+      `).join("");
+    }
+
+    document.querySelectorAll("input, select").forEach(element => {
+      element.addEventListener("input", calculateScore);
+      element.addEventListener("change", calculateScore);
+    });
+
+    renderRanks();
+    renderRankColours();
+    calculateScore();
+  </script>
+</body>
+</html>
