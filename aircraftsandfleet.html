@@ -1,481 +1,610 @@
-<html>
-<title>Aircrafts and fleet</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" href="Images/OtonoAirways.png" type="OtonoAirways/png" sizes="16x16">
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-175443844-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  gtag('config', 'UA-175443844-1');
-</script>
+  <title>Otono Airways | Aircraft and Fleet</title>
 
+  <link rel="icon" href="Images/OtonoAirways.png" type="image/png">
 
+  <meta name="description" content="Explore the Otono Airways fleet, including the Airbus A380, Boeing 777, Boeing 787, Airbus A350, legend fleet aircraft and future aircraft concepts.">
+  <meta name="keywords" content="Otono Airways, aircraft, fleet, Airbus A380, Boeing 777, Boeing 787, Airbus A350, Boeing 747, Airbus A340, Airbus A390">
 
-<!-------------------------------------------------------------------------------->
-<style>
-	
-	.six{
-	overflow: hidden;
-	float: left;
-  	background-color: silver;
-  	background-image: url("Images/Dash8.png");
-  	background-position: center;
-  	background-size: cover;
-  	text-align: center;
-  	height: 600px;
-  	padding:0px;
-  	margin-top: 20px;
-  	width:49%;
-  	margin-right: 10px;
-  
-  }
-  	.six h1{
-  	color: white;
-  	padding-top: 100px;
-  	font-size: 55px;
-  	margin: 5px;
-  	}
+  <style>
+    *{
+      box-sizing:border-box;
+    }
 
-  	.six h2{
-  	color: white;
-  	padding-top: 0px;
-  	margin:5px;
-  	font-size: 25px;
-  	font-weight: 1;
-  	}
+    html{
+      scroll-behavior:smooth;
+    }
 
-  	.six p{
-  	color: white;
-  	padding-top: 20px;
-  	margin:5px;
-  	font-size: 15px;
-  	font-weight: 1;
-  	}
-	
-	@media only screen and (max-width: 1000px) {
-  	.six {
-    width: 100%;
-  }	
-	
-</style>
-<div class= "six">
-	<h1>Dash 8</h1>
-	<h2>Our smallest aircarft!</h2>
-	<p>Read more ></p>
-</div>
-<!-------------------------------------------------------------------------------->
-<style>
-	
-	.seven{
-	overflow: hidden;
-	float: right;
-  	background-color: silver;
-  	background-image: url("Images/A320.png");
-  	background-position: center;
-  	background-size: cover;
-  	text-align: center;
-  	height: 600px;
-  	padding:0px;
-  	margin-top: 20px;
-  	width:49%;
-  	margin-left: 10px;
-  }
-  	.seven h1{
-  	color: white;
-  	padding-top: 100px;
-  	font-size: 55px;
-  	margin: 5px;
-  	}
+    body{
+      margin:0;
+      padding:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:#100016;
+      color:white;
+    }
 
-  	.seven h2{
-  	color: white;
-  	padding-top: 0px;
-  	margin:5px;
-  	font-size: 25px;
-  	font-weight: 1;
-  	}
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
 
-  	.seven p{
-  	color: white;
-  	padding-top: 20px;
-  	margin:5px;
-  	font-size: 15px;
-  	font-weight: 1;
-  	}
-		
-	@media only screen and (max-width: 1000px) {
-  	.seven {
-    width: 100%;
-  }
-</style>
-<div class= "seven">
-	<h1>Airbus A320</h1>
-	<h2>Smallest aircraft with business class!</h2>
-	<p>Read more ></p>
-</div>
-<!-------------------------------------------------------------------------------->
-<style>
-	
-	.eight{
-	overflow: hidden;
-	float: left;
-  	background-color: silver;
-  	background-image: url("Images/A321.png");
-  	background-position: center;
-  	background-size: cover;
-  	text-align: center;
-  	height: 600px;
-  	padding:0px;
-  	margin-top: 20px;
-  	width:49%;
-  	margin-right: 10px;
-  
-  }
-  	.eight h1{
-  	color: white;
-  	padding-top: 100px;
-  	font-size: 55px;
-  	margin: 5px;
-  	}
+    .otono-gradient{
+      background:linear-gradient(135deg, #b00020 0%, #dc143c 30%, #7b1fa2 68%, #2b0057 100%);
+    }
 
-  	.eight h2{
-  	color: white;
-  	padding-top: 0px;
-  	margin:5px;
-  	font-size: 25px;
-  	font-weight: 1;
-  	}
+    .menu{
+      width:100%;
+      position:fixed;
+      top:0;
+      z-index:1000;
+      padding:12px 20px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      box-shadow:0 6px 20px rgba(0,0,0,0.35);
+    }
 
-  	.eight p{
-  	color: white;
-  	padding-top: 20px;
-  	margin:5px;
-  	font-size: 15px;
-  	font-weight: 1;
-  	}
-		
-	@media only screen and (max-width: 1000px) {
-  	.eight {
-    width: 100%;
-  }
-</style>
-<div class= "eight">
-	<h1>Airbus A321</h1>
-	<h2>The economy seats with most legroom!</h2>
-	<p>Read more ></p>
-</div>
-<!-------------------------------------------------------------------------------->
-<style>
-	
-	.nine{
-	overflow: hidden;
-	float: right;
-  	background-color: silver;
-  	background-image: url("Images/A344.jpg");
-  	background-position: center;
-  	background-size: cover;
-  	text-align: center;
-  	height: 600px;
-  	padding:0px;
-  	margin-top: 20px;
-  	width:49%;
-  	margin-left: 10px;
-  }
-  	.nine h1{
-  	color: white;
-  	padding-top: 100px;
-  	font-size: 55px;
-  	margin: 5px;
-  	}
+    .menu a{
+      font-size:13px;
+      color:white;
+      padding:9px 13px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.12);
+      border:1px solid rgba(255,255,255,0.18);
+      transition:0.25s;
+      font-weight:bold;
+    }
 
-  	.nine h2{
-  	color: white;
-  	padding-top: 0px;
-  	margin:5px;
-  	font-size: 25px;
-  	font-weight: 1;
-  	}
+    .menu a:hover{
+      background:rgba(255,255,255,0.26);
+      transform:translateY(-2px);
+    }
 
-  	.nine p{
-  	color: white;
-  	padding-top: 20px;
-  	margin:5px;
-  	font-size: 15px;
-  	font-weight: 1;
-  	}
-		
-	@media only screen and (max-width: 1000px) {
-  	.nine {
-    width: 100%;
-  }
-</style>
-<div class= "nine">
-	<h1>Airbus A340</h1>
-	<h2>We have only economy seats in A340!</h2>
-	<p>Read more ></p>
-</div>
-<!-------------------------------------------------------------------------------->
-<style>
-	
-<!-------------------------------------------------------------------------------->
-<style>
-	
-	.seven{
-	overflow: hidden;
-	float: right;
-  	background-color: silver;
-  	background-image: url("Images/B77W.png");
-  	background-position: center;
-  	background-size: cover;
-  	text-align: center;
-  	height: 600px;
-  	padding:0px;
-  	margin-top: 20px;
-  	width:49%;
-  	margin-left: 10px;
-  }
-  	.seven h1{
-  	color: white;
-  	padding-top: 100px;
-  	font-size: 55px;
-  	margin: 5px;
-  	}
+    .top-space{
+      height:78px;
+    }
 
-  	.seven h2{
-  	color: white;
-  	padding-top: 0px;
-  	margin:5px;
-  	font-size: 25px;
-  	font-weight: 1;
-  	}
+    .hero{
+      min-height:620px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:70px 24px;
+      text-align:center;
+      background:
+        linear-gradient(135deg, rgba(10,0,20,0.90), rgba(180,0,55,0.64), rgba(55,0,120,0.86)),
+        url("Images/aircrafts.png");
+      background-size:cover;
+      background-position:center;
+    }
 
-  	.seven p{
-  	color: white;
-  	padding-top: 20px;
-  	margin:5px;
-  	font-size: 15px;
-  	font-weight: 1;
-  	}
-		
-	@media only screen and (max-width: 1000px) {
-  	.seven {
-    width: 100%;
-  }
-</style>
-<div class= "seven">
-	<h1>Boeing 777</h1>
-	<h2>Thin seats but with more legroom</h2>
-	<p>Read more ></p>
-</div>
-<!-------------------------------------------------------------------------------->
-<style>
-	
-	.eight{
-	overflow: hidden;
-	float: left;
-  	background-color: silver;
-  	background-image: url("Images/A359.png");
-  	background-position: center;
-  	background-size: cover;
-  	text-align: center;
-  	height: 600px;
-  	padding:0px;
-  	margin-top: 20px;
-  	width:49%;
-  	margin-right: 10px;
-  
-  }
-  	.eight h1{
-  	color: white;
-  	padding-top: 100px;
-  	font-size: 55px;
-  	margin: 5px;
-  	}
+    .hero-card{
+      max-width:1050px;
+      width:100%;
+      padding:44px;
+      border-radius:34px;
+      background:rgba(10,0,20,0.72);
+      border:1px solid rgba(255,255,255,0.18);
+      box-shadow:0 28px 70px rgba(0,0,0,0.45);
+      backdrop-filter:blur(8px);
+    }
 
-  	.eight h2{
-  	color: white;
-  	padding-top: 0px;
-  	margin:5px;
-  	font-size: 25px;
-  	font-weight: 1;
-  	}
+    .badge{
+      display:inline-block;
+      padding:8px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.14);
+      border:1px solid rgba(255,255,255,0.18);
+      color:#ffe9ff;
+      font-size:13px;
+      font-weight:bold;
+      margin-bottom:18px;
+    }
 
-  	.eight p{
-  	color: white;
-  	padding-top: 20px;
-  	margin:5px;
-  	font-size: 15px;
-  	font-weight: 1;
-  	}
-		
-	@media only screen and (max-width: 1000px) {
-  	.eight {
-    width: 100%;
-  }
-</style>
-<div class= "eight">
-	<h1>Airbus A350</h1>
-	<h2>We reduced the noise in A350s!</h2>
-	<p>Read more ></p>
-</div>
-<!-------------------------------------------------------------------------------->
-<style>
-	
-	.nine{
-	overflow: hidden;
-	float: right;
-  	background-color: silver;
-  	background-image: url("Images/B744.png");
-  	background-position: center;
-  	background-size: cover;
-  	text-align: center;
-  	height: 600px;
-  	padding:0px;
-  	margin-top: 20px;
-  	width:49%;
-  	margin-left: 10px;
-  }
-  	.nine h1{
-  	color: white;
-  	padding-top: 100px;
-  	font-size: 55px;
-  	margin: 5px;
-  	}
+    h1{
+      font-size:clamp(42px, 7vw, 82px);
+      margin:0;
+      line-height:0.95;
+      letter-spacing:-3px;
+    }
 
-  	.nine h2{
-  	color: white;
-  	padding-top: 0px;
-  	margin:5px;
-  	font-size: 25px;
-  	font-weight: 1;
-  	}
+    .hero p{
+      max-width:820px;
+      margin:22px auto 0;
+      font-size:19px;
+      line-height:1.7;
+      color:#f6ddff;
+    }
 
-  	.nine p{
-  	color: white;
-  	padding-top: 20px;
-  	margin:5px;
-  	font-size: 15px;
-  	font-weight: 1;
-  	}
-		
-	@media only screen and (max-width: 1000px) {
-  	.nine {
-    width: 100%;
-  }
-</style>
-<div class= "nine">
-	<h1>Boeing 747
-	<h2>A double decker can carry about 390 passengers!</h2>
-	<p>Read more ></p>
-</div>
-<!-------------------------------------------------------------------------------->
-<style>
-	<!-------------------------------------------------------------------------------->
-<style>
-	
-	.six{
-	overflow: hidden;
-	float: left;
-  	background-color: silver;
-  	background-image: url("Images/A388.png");
-  	background-position: center;
-  	background-size: cover;
-  	text-align: center;
-  	height: 600px;
-  	padding:0px;
-  	margin-top: 20px;
-  	width:49%;
-  	margin-right: 10px;
-  
-  }
-  	.six h1{
-  	color: white;
-  	padding-top: 100px;
-  	font-size: 55px;
-  	margin: 5px;
-  	}
+    .hero-buttons{
+      margin-top:30px;
+      display:flex;
+      justify-content:center;
+      gap:14px;
+      flex-wrap:wrap;
+    }
 
-  	.six h2{
-  	color: white;
-  	padding-top: 0px;
-  	margin:5px;
-  	font-size: 25px;
-  	font-weight: 1;
-  	}
+    .button{
+      display:inline-block;
+      padding:14px 20px;
+      border-radius:16px;
+      font-weight:bold;
+      transition:0.25s;
+      border:1px solid rgba(255,255,255,0.22);
+    }
 
-  	.six p{
-  	color: white;
-  	padding-top: 20px;
-  	margin:5px;
-  	font-size: 15px;
-  	font-weight: 1;
-  	}
-	
-	@media only screen and (max-width: 1000px) {
-  	.six {
-    width: 100%;
-  }	
-	
-</style>
-<div class= "six">
-	<h1>Airbus A380</h1>
-	<h2>Ultra-wide cabin with a bar in the air and carry over 450 passengers!</h2>
-	<p>Read more ></p>
-</div>
-<!-------------------------------------------------------------------------------->
-<style>
-	
-	.seven{
-	overflow: hidden;
-	float: right;
-  	background-color: silver;
-  	background-image: url("Images/A399.png");
-  	background-position: center;
-  	background-size: cover;
-  	text-align: center;
-  	height: 600px;
-  	padding:0px;
-  	margin-top: 20px;
-  	width:49%;
-  	margin-left: 10px;
-  }
-  	.seven h1{
-  	color: white;
-  	padding-top: 100px;
-  	font-size: 55px;
-  	margin: 5px;
-  	}
+    .button.primary{
+      background:white;
+      color:#7b003e;
+    }
 
-  	.seven h2{
-  	color: white;
-  	padding-top: 0px;
-  	margin:5px;
-  	font-size: 25px;
-  	font-weight: 1;
-  	}
+    .button.secondary{
+      background:rgba(255,255,255,0.14);
+      color:white;
+    }
 
-  	.seven p{
-  	color: white;
-  	padding-top: 20px;
-  	margin:5px;
-  	font-size: 15px;
-  	font-weight: 1;
-  	}
-		
-	@media only screen and (max-width: 1000px) {
-  	.seven {
-    width: 100%;
-  }
-</style>
-<!-------------------------------------------------------------------------------->
-<style>
-	</style>
-<div class= "three">
-	<h1>Main Menu</h1>
-	<h2>Want to return to our main menu?</h2>
-	<p><a href="https://otonoteam2.github.io">Go back to main menu ></a></p>
-</div>
-	
+    .button:hover{
+      transform:translateY(-3px);
+      box-shadow:0 12px 24px rgba(0,0,0,0.35);
+    }
+
+    .notice-row{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:12px;
+      padding:18px 24px;
+      max-width:1300px;
+      margin:auto;
+    }
+
+    .notice{
+      padding:18px;
+      text-align:center;
+      border-radius:20px;
+      background:#2a0038;
+      border:1px solid rgba(255,255,255,0.16);
+      box-shadow:0 10px 28px rgba(0,0,0,0.25);
+      font-weight:bold;
+    }
+
+    .page-section{
+      max-width:1300px;
+      margin:auto;
+      padding:24px;
+    }
+
+    .section-title{
+      margin:22px 0;
+      padding:26px;
+      border-radius:28px;
+      background:#240030;
+      border:1px solid rgba(255,255,255,0.16);
+      box-shadow:0 16px 40px rgba(0,0,0,0.28);
+    }
+
+    .section-title h2{
+      margin:0 0 8px;
+      font-size:36px;
+    }
+
+    .section-title p{
+      margin:0;
+      color:#f4d9ff;
+      line-height:1.6;
+    }
+
+    .fleet-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:18px;
+    }
+
+    .aircraft-card{
+      min-height:360px;
+      border-radius:30px;
+      overflow:hidden;
+      position:relative;
+      background:#240030;
+      border:1px solid rgba(255,255,255,0.14);
+      box-shadow:0 18px 45px rgba(0,0,0,0.32);
+      transition:0.25s;
+    }
+
+    .aircraft-card:hover{
+      transform:translateY(-5px);
+      box-shadow:0 24px 55px rgba(0,0,0,0.42);
+    }
+
+    .aircraft-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:rgba(0,0,0,0.45);
+      z-index:1;
+    }
+
+    .aircraft-card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background-size:cover;
+      background-position:center;
+      opacity:0.7;
+    }
+
+    .a380::after{ background-image:url("Images/IMG_5312.jpeg"); }
+    .b777::after{ background-image:url("Images/IMG_8577.jpeg"); }
+    .b787::after{ background-image:url("Images/IMG_9261.jpeg"); }
+    .a350::after{ background-image:url("Images/IMG_6918.jpeg"); }
+    .b747::after{ background-image:url("Images/B747.jpg"); }
+    .a340::after{ background-image:url("Images/A340.jpg"); }
+    .a390::after{ background-image:url("Images/A390.jpg"); }
+    .future::after{ background-image:url("Images/mainicon.png"); }
+
+    .aircraft-content{
+      position:relative;
+      z-index:2;
+      padding:26px;
+      display:flex;
+      flex-direction:column;
+      min-height:360px;
+    }
+
+    .aircraft-content h3{
+      font-size:30px;
+      margin:0 0 8px;
+    }
+
+    .tag{
+      display:inline-block;
+      width:max-content;
+      padding:7px 11px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.15);
+      border:1px solid rgba(255,255,255,0.18);
+      font-size:12px;
+      font-weight:bold;
+      margin-bottom:12px;
+    }
+
+    .aircraft-content p{
+      color:#f4d9ff;
+      line-height:1.6;
+      margin:0 0 16px;
+    }
+
+    .stat-list{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-top:auto;
+      margin-bottom:18px;
+    }
+
+    .stat{
+      padding:12px;
+      border-radius:16px;
+      background:rgba(0,0,0,0.26);
+      border:1px solid rgba(255,255,255,0.13);
+    }
+
+    .stat strong{
+      display:block;
+      font-size:20px;
+    }
+
+    .stat span{
+      color:#ffdfff;
+      font-size:12px;
+    }
+
+    .wide-card{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+      margin-top:18px;
+    }
+
+    .info-card{
+      border-radius:28px;
+      padding:28px;
+      background:#240030;
+      border:1px solid rgba(255,255,255,0.16);
+      box-shadow:0 16px 40px rgba(0,0,0,0.28);
+    }
+
+    .info-card h3{
+      margin:0 0 10px;
+      font-size:28px;
+    }
+
+    .info-card p, .info-card li{
+      color:#ffe7ff;
+      line-height:1.65;
+    }
+
+    .info-card ul{
+      margin:14px 0 0;
+      padding-left:20px;
+    }
+
+    .footer{
+      text-align:center;
+      padding:28px;
+      background:#240030;
+      color:white;
+      font-weight:bold;
+      margin-top:30px;
+    }
+
+    @media only screen and (max-width: 1000px){
+      .fleet-grid,
+      .notice-row,
+      .wide-card{
+        grid-template-columns:1fr;
+      }
+
+      .menu{
+        justify-content:flex-start;
+        overflow-x:auto;
+        flex-wrap:nowrap;
+      }
+
+      .hero-card{
+        padding:28px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="menu otono-gradient">
+    <a href="https://otonoteam2.github.io/">Home</a>
+    <a href="https://otonoteam2.github.io/Otono%20Airways%20A380%20Destinations.html">Destinations</a>
+    <a href="#active-fleet">Active Fleet</a>
+    <a href="#legend-fleet">Legend Fleet</a>
+    <a href="#future-fleet">Future Fleet</a>
+    <a href="https://otonoteam2.github.io/contactus.html">Contact</a>
+  </nav>
+
+  <div class="top-space"></div>
+
+  <header class="hero">
+    <div class="hero-card">
+      <span class="badge">Otono Airways Fleet Centre</span>
+      <h1>Aircraft and Fleet</h1>
+      <p>
+        Explore the real Otono Airways aircraft pages: active widebodies, long-haul aircraft,
+        legend fleet aircraft and future concepts. Fake joke pages such as the retrofitted A380
+        and the 31 February retirement plan are not included here.
+      </p>
+      <div class="hero-buttons">
+        <a class="button primary" href="#active-fleet">View active fleet</a>
+        <a class="button secondary" href="#legend-fleet">View legend fleet</a>
+        <a class="button secondary" href="#future-fleet">View future concepts</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="notice-row">
+    <div class="notice">✈️ Active aircraft pages</div>
+    <div class="notice">👑 Legend fleet included</div>
+    <div class="notice">🚀 Future aircraft concepts</div>
+    <div class="notice">❌ Fake joke pages removed</div>
+  </section>
+
+  <main>
+    <section id="active-fleet" class="page-section">
+      <div class="section-title">
+        <h2>Active Otono Airways Fleet</h2>
+        <p>
+          These aircraft form the main Otono Airways long-haul fleet. This section links to the real aircraft pages only.
+        </p>
+      </div>
+
+      <div class="fleet-grid">
+        <article class="aircraft-card a380">
+          <div class="aircraft-content">
+            <span class="tag">Flagship aircraft</span>
+            <h3>Airbus A380</h3>
+            <p>
+              The Airbus A380-800 is Otono Airways' flagship superjumbo, used for major long-haul routes and high-demand services.
+              Otono Airways originally had 27 A380-800s: 19 remain active, 3 are archived, and 5 were sold to Emirates.
+              Known for Otono One, First, Business, Premium Economy, Economy, lounges and showers.
+            </p>
+            <div class="stat-list">
+              <div class="stat"><strong>19</strong><span>active aircraft</span></div>
+              <div class="stat"><strong>3</strong><span>archived aircraft</span></div>
+              <div class="stat"><strong>456</strong><span>passengers</span></div>
+              <div class="stat"><strong>27</strong><span>original A380 fleet</span></div>
+            </div>
+
+            <p>
+              Layout: 4 Otono One suites, 12 First, 92 Business,
+              84 Premium Economy and 260 Economy.
+            </p>
+            <a class="button primary" href="https://otonoteam2.github.io/Otono%20Airways%20A380.html">Open A380 page</a>
+          </div>
+        </article>
+
+        <article class="aircraft-card b777">
+          <div class="aircraft-content">
+            <span class="tag">Long-haul workhorse</span>
+            <h3>Boeing 777</h3>
+            <p>
+              A major part of the Otono Airways widebody fleet, covering both standard long-haul operations
+              and premium configurations on selected aircraft. Lounge and showers are available for selected
+              aircraft. Ultra premium layouts are installed in some aircraft.
+            </p>
+            <div class="stat-list">
+              <div class="stat"><strong>41</strong><span>777-200</span></div>
+              <div class="stat"><strong>22</strong><span>777-300ER</span></div>
+              <div class="stat"><strong>up to 242</strong><span>passengers</span></div>
+              <div class="stat"><strong>35+</strong><span>777-9 delivery</span></div>
+            </div>
+
+            <p>
+              Layout: 2 Otono One suites, 12 First, 62 Business,
+              38 Premium Economy and 126 Economy.
+            </p>
+            <a class="button primary" href="https://otonoteam2.github.io/Otono%20Airways%20B777.html">Open 777 page</a>
+          </div>
+        </article>
+
+        <article class="aircraft-card a350">
+          <div class="aircraft-content">
+            <span class="tag">Ultra-long-haul specialist</span>
+            <h3>Airbus A350</h3>
+            <p>
+              The efficient long-haul aircraft family, including A350-900 services and A350-1000ULR missions
+              for the longest nonstop routes.
+            </p>
+            <div class="stat-list">
+              <div class="stat"><strong>29</strong><span>A350-900</span></div>
+              <div class="stat"><strong>9</strong><span>A350-1000ULR</span></div>
+            </div>
+
+            <p>
+              A350-1000ULR layout: 4 Otono One suites, 9 First,
+              52 Business, 35 Premium Economy and 134 Economy.
+            </p>
+            <a class="button primary" href="https://otonoteam2.github.io/Otono%20Airways%20A350.html">Open A350 page</a>
+          </div>
+        </article>
+
+        <article class="aircraft-card b787">
+          <div class="aircraft-content">
+            <span class="tag">Modern long-haul aircraft</span>
+            <h3>Boeing 787</h3>
+            <p>
+              The Dreamliner fleet supports thinner long-haul routes and selected premium services,
+              including special aircraft with mini Otono One concepts.
+            </p>
+            <div class="stat-list">
+              <div class="stat"><strong>33</strong><span>aircraft</span></div>
+              <div class="stat"><strong>4</strong><span>selected mini Otono One</span></div>
+            </div>
+
+            <p>
+              Selected Boeing 787 aircraft feature mini Otono One suites
+              and premium long-haul cabin layouts.
+            </p>
+            <a class="button primary" href="https://otonoteam2.github.io/Otono%20Airways%20B787.html">Open 787 page</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="legend-fleet" class="page-section">
+      <div class="section-title">
+        <h2>Legend Fleet</h2>
+        <p>
+          Retired, classic or legendary Otono Airways aircraft belong here. These pages still matter because they show the history of the airline.
+        </p>
+      </div>
+
+      <div class="fleet-grid">
+        <article class="aircraft-card b747">
+          <div class="aircraft-content">
+            <span class="tag">Legend aircraft</span>
+            <h3>Boeing 747</h3>
+            <p>
+              The classic Queen of the Skies. This aircraft belongs in the Otono Airways legend fleet,
+              not the modern active long-haul fleet.
+            </p>
+            <div class="stat-list">
+              <div class="stat"><strong>747</strong><span>legend status</span></div>
+              <div class="stat"><strong>History</strong><span>classic fleet</span></div>
+            </div>
+            <a class="button primary" href="https://otonoteam2.github.io/Otono%20Airways%20B747.html">Open 747 page</a>
+          </div>
+        </article>
+
+        <article class="aircraft-card a340">
+          <div class="aircraft-content">
+            <span class="tag">Legend aircraft</span>
+            <h3>Airbus A340</h3>
+            <p>
+              A four-engine legend from an earlier long-haul era. The A340 page belongs here as part of Otono Airways history.
+            </p>
+            <div class="stat-list">
+              <div class="stat"><strong>A340</strong><span>legend status</span></div>
+              <div class="stat"><strong>4 engines</strong><span>classic long-haul</span></div>
+            </div>
+            <a class="button primary" href="https://otonoteam2.github.io/Otono%20Airways%20A340.html">Open A340 page</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="future-fleet" class="page-section">
+      <div class="section-title">
+        <h2>Future Fleet and Concepts</h2>
+        <p>
+          Future aircraft, cabin experiments and concept pages live here. This is where new ideas can be developed without mixing them up with the active fleet.
+        </p>
+      </div>
+
+      <div class="fleet-grid">
+        <article class="aircraft-card future">
+          <div class="aircraft-content">
+            <span class="tag">Future fleet</span>
+            <h3>Future Fleet</h3>
+            <p>
+              A dedicated page for upcoming aircraft, future deliveries, cabin ideas and long-term Otono Airways planning.
+            </p>
+            <div class="stat-list">
+              <div class="stat"><strong>Next</strong><span>fleet era</span></div>
+              <div class="stat"><strong>Plans</strong><span>development</span></div>
+            </div>
+            <a class="button primary" href="https://otonoteam2.github.io/Otono%20Airways%20Future%20Fleet.html">Open future fleet</a>
+          </div>
+        </article>
+
+        <article class="aircraft-card a390">
+          <div class="aircraft-content">
+            <span class="tag">Concept aircraft</span>
+            <h3>Airbus A390</h3>
+            <p>
+              A fictional future concept aircraft page. This belongs in the future concept section, not the active fleet.
+            </p>
+            <div class="stat-list">
+              <div class="stat"><strong>A390</strong><span>concept</span></div>
+              <div class="stat"><strong>Future</strong><span>fictional idea</span></div>
+            </div>
+            <a class="button primary" href="https://otonoteam2.github.io/Otono%20Airways%20A390.html">Open A390 page</a>
+          </div>
+        </article>
+
+        <article class="aircraft-card future">
+          <div class="aircraft-content">
+            <span class="tag">Short-haul fleet</span>
+            <h3>Club Europe Fleet</h3>
+            <p>
+              The regional and European fleet section for shorter Otono Airways routes, separate from the widebody long-haul fleet.
+            </p>
+            <div class="stat-list">
+              <div class="stat"><strong>Europe</strong><span>regional network</span></div>
+              <div class="stat"><strong>Short-haul</strong><span>fleet area</span></div>
+            </div>
+            <a class="button primary" href="https://otonoteam2.github.io/Otono%20Airways%20Club%20Europe.html">Open Club Europe</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    
+  </main>
+
+  <footer class="footer">
+    <p>Copyright © SoterraOtono | Otono Airways Aircraft and Fleet</p>
+  </footer>
+</body>
+</html>

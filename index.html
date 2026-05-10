@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Otono Team</title>
+  <title>Otono Team | YouTube, Otono Airways, GCSE Resources and Bury Things</title>
 
   <link rel="icon" href="Images/OtonoAirways.png" type="image/png">
 
   <meta name="google-site-verification" content="wL_otW9CEuKXKiwN01gIJwuHESSE1XylD05pFh_phBI">
 
   <!-- SEO -->
-  <meta name="description" content="Official Otono Team website. Otono French, Otono Spanish, GCSE and A Level resources.">
-  <meta name="keywords" content="Otono Team, Otono French, Otono Spanish, Inkredible Drummond">
+  <meta name="description" content="Official Otono Team website. Explore Otono Team YouTube videos, Minecraft challenges, Otono Airways, Otono Languages, GCSE resources, Otono GPTs, transport pages, seasons and Bury Things.">
+  <meta name="keywords" content="Otono Team, Otono YouTube, Otono Airways, Bury Things, Otono French, Otono Spanish, GCSE resources, Minecraft challenge">
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-175443844-1"></script>
@@ -23,470 +23,722 @@
     gtag('config', 'UA-175443844-1');
   </script>
 
-</head>
-<body>
-<style>
-	body{
-	margin:0px;
-	padding:0px;
-	font-family: helvetica;
-	}
-</style>
-<!-------------------------------------------------------------------------------->
+  <style>
+    *{
+      box-sizing:border-box;
+    }
 
-<style>
-	.menuspace{
-	overflow: hidden;
-  	background-color: rgb(50,50,50);
-  	text-align: center;
-  	height: 20px;
-  	padding:10px;
+    html{
+      scroll-behavior:smooth;
+    }
 
-	}
+    body{
+      margin:0;
+      padding:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:#120018;
+      color:white;
+    }
 
-	
-</style>
-<div class= "menuspace">
-	
-</div>
-<!-------------------------------------------------------------------------------->
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
 
-<style>
-	.menu{
-	overflow: hidden;
-  	background-color: crimson;
-  	width: 100%;
-  	text-align: center;
-  	height: 20px;
-  	padding:10px;
-  	position: fixed;
-  	top: 0px;
-    z-index: 100;
+    .otono-gradient{
+      background:linear-gradient(135deg, #b00020 0%, #dc143c 30%, #7b1fa2 68%, #2b0057 100%);
+    }
 
-	}
+    .menu{
+      width:100%;
+      position:fixed;
+      top:0;
+      z-index:1000;
+      padding:12px 20px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      box-shadow:0 6px 20px rgba(0,0,0,0.35);
+    }
 
-	.menu li{
-  	color: white;
-  	width: 50px;
-  	display: inline;
-  	padding: 30px;  	
-  	list-style: none;
-  	font-size: 13px;
+    .menu a{
+      font-size:13px;
+      color:white;
+      padding:9px 13px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.12);
+      border:1px solid rgba(255,255,255,0.18);
+      transition:0.25s;
+    }
 
+    .menu a:hover{
+      background:rgba(255,255,255,0.26);
+      transform:translateY(-2px);
+    }
 
-	
-	}
+    .top-space{
+      height:78px;
+    }
 
-	.menu li:hover{
-		background-color:firebrick;
-	}
+    .notice-row{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:12px;
+      padding:14px 20px;
+      background:#19001f;
+    }
 
-@media only screen and (max-width: 900px) {
-  	.menu {
-    overflow: hidden;
-    margin:0px;
-    padding:0px;
-    height:40px;
-    z-index: 100;
-}
-	.menu li{
-  	display: crimson;
-  	width: 100%;
-  	margin:0px;
-  	padding: 10px;
-    padding-left: 0px;
+    .notice{
+      padding:14px;
+      text-align:center;
+      border-radius:18px;
+      background:linear-gradient(135deg, rgba(220,20,60,0.85), rgba(123,31,162,0.85));
+      border:1px solid rgba(255,255,255,0.16);
+      box-shadow:0 10px 28px rgba(0,0,0,0.25);
+      font-size:14px;
+      font-weight:bold;
+    }
 
+    .hero{
+      min-height:650px;
+      padding:70px 24px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:
+        linear-gradient(135deg, rgba(10,0,20,0.88), rgba(160,0,50,0.60), rgba(60,0,120,0.80)),
+        url("Images/mainicon.png");
+      background-size:cover;
+      background-position:center;
+      text-align:center;
+    }
+
+    .hero-card{
+      max-width:1050px;
+      width:100%;
+      padding:42px;
+      border-radius:34px;
+      background:rgba(10,0,20,0.72);
+      border:1px solid rgba(255,255,255,0.18);
+      box-shadow:0 28px 70px rgba(0,0,0,0.45);
+      backdrop-filter:blur(8px);
+    }
+
+    .badge{
+      display:inline-block;
+      padding:8px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.14);
+      border:1px solid rgba(255,255,255,0.18);
+      color:#ffe9ff;
+      font-size:13px;
+      font-weight:bold;
+      margin-bottom:18px;
+    }
+
+    h1{
+      font-size:clamp(42px, 7vw, 82px);
+      margin:0;
+      line-height:0.95;
+      letter-spacing:-3px;
+    }
+
+    .hero p{
+      max-width:760px;
+      margin:22px auto 0;
+      font-size:19px;
+      line-height:1.7;
+      color:#f6ddff;
+    }
+
+    .hero-buttons{
+      margin-top:30px;
+      display:flex;
+      justify-content:center;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    .button{
+      display:inline-block;
+      padding:14px 20px;
+      border-radius:16px;
+      font-weight:bold;
+      transition:0.25s;
+      border:1px solid rgba(255,255,255,0.22);
+    }
+
+    .button.primary{
+      background:white;
+      color:#7b003e;
+    }
+
+    .button.secondary{
+      background:rgba(255,255,255,0.14);
+      color:white;
+    }
+
+    .button:hover{
+      transform:translateY(-3px);
+      box-shadow:0 12px 24px rgba(0,0,0,0.35);
+    }
+
+    .main-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:24px;
+      padding:32px 24px;
+      max-width:1250px;
+      margin:auto;
+    }
+
+    .section-card{
+      border-radius:30px;
+      padding:30px;
+      min-height:330px;
+      background:#240030;
+      border:1px solid rgba(255,255,255,0.14);
+      box-shadow:0 18px 45px rgba(0,0,0,0.32);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .section-card.image-card{
+      background-size:cover;
+      background-position:center;
+    }
+
+    .section-card.image-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(135deg, rgba(15,0,25,0.88), rgba(120,0,70,0.56));
+    }
+
+    .section-content{
+      position:relative;
+      z-index:1;
+    }
+
+    .section-card h2{
+      font-size:34px;
+      margin:0 0 10px;
+    }
+
+    .section-card p{
+      color:#f4d9ff;
+      line-height:1.65;
+      font-size:16px;
+      margin:10px 0 20px;
+    }
+
+    .link-list{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:10px;
+      margin-top:18px;
+    }
+
+    .link-list a{
+      display:block;
+      padding:12px 14px;
+      border-radius:15px;
+      background:rgba(255,255,255,0.13);
+      border:1px solid rgba(255,255,255,0.14);
+      font-weight:bold;
+      color:white;
+      transition:0.25s;
+    }
+
+    .link-list a:hover{
+      background:rgba(255,255,255,0.25);
+      transform:translateY(-2px);
+    }
+
+    .subscribe-column{
+      position:sticky;
+      top:100px;
+      align-self:start;
+      border-radius:30px;
+      padding:28px;
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.22), transparent 32%),
+        linear-gradient(160deg, #dc143c, #8a00b8 55%, #240054);
+      border:1px solid rgba(255,255,255,0.25);
+      box-shadow:0 22px 60px rgba(0,0,0,0.42);
+    }
+
+    .subscribe-column h2{
+      font-size:30px;
+      margin:0 0 8px;
+    }
+
+    .subscribe-column p{
+      color:#ffeaff;
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .sub-count-box{
+      margin:20px 0;
+      padding:18px;
+      border-radius:20px;
+      background:rgba(0,0,0,0.24);
+      border:1px solid rgba(255,255,255,0.18);
+    }
+
+    .sub-count-box strong{
+      display:block;
+      font-size:38px;
+      line-height:1;
+    }
+
+    .sub-count-box span{
+      color:#ffd7ff;
+      font-size:13px;
+    }
+
+    .subscribe-button{
+      display:block;
+      width:100%;
+      text-align:center;
+      padding:16px;
+      border-radius:18px;
+      background:white;
+      color:#9b0039;
+      font-weight:900;
+      font-size:18px;
+      margin-top:14px;
+      box-shadow:0 12px 28px rgba(0,0,0,0.28);
+    }
+
+    .small-note{
+      font-size:12px !important;
+      opacity:0.9;
+    }
+
+    .feature-strip{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:16px;
+      max-width:1250px;
+      margin:0 auto;
+      padding:0 24px 32px;
+    }
+
+    .mini-card{
+      padding:22px;
+      border-radius:24px;
+      background:linear-gradient(135deg, rgba(220,20,60,0.85), rgba(75,0,130,0.86));
+      border:1px solid rgba(255,255,255,0.16);
+      box-shadow:0 16px 35px rgba(0,0,0,0.28);
+    }
+
+    .mini-card h3{
+      margin:0 0 8px;
+      font-size:22px;
+    }
+
+    .mini-card p{
+      margin:0;
+      color:#ffe7ff;
+      line-height:1.55;
+    }
+
+    .bury-calculator{
+      max-width:1250px;
+      margin:0 auto 32px;
+      padding:0 24px;
+    }
+
+    .calculator-box{
+      border-radius:34px;
+      padding:32px;
+      background:
+        linear-gradient(135deg, rgba(15,0,25,0.92), rgba(140,0,80,0.75)),
+        url("Images/map.png");
+      background-size:cover;
+      background-position:center;
+      border:1px solid rgba(255,255,255,0.18);
+      box-shadow:0 22px 55px rgba(0,0,0,0.38);
+    }
+
+    .calculator-box h2{
+      font-size:36px;
+      margin:0 0 8px;
+    }
+
+    .calculator-box p{
+      color:#f7dcff;
+      line-height:1.65;
+      max-width:780px;
+    }
+
+    .calculator-panel{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:14px;
+      margin-top:22px;
+    }
+
+    .calc-field{
+      background:rgba(255,255,255,0.12);
+      border:1px solid rgba(255,255,255,0.16);
+      border-radius:18px;
+      padding:14px;
+    }
+
+    .calc-field label{
+      display:block;
+      font-size:13px;
+      color:#ffe6ff;
+      margin-bottom:8px;
+      font-weight:bold;
+    }
+
+    .calc-field input{
+      width:100%;
+      padding:11px;
+      border-radius:12px;
+      border:none;
+      outline:none;
+      font-size:16px;
+      font-weight:bold;
+    }
+
+    .rank-result{
+      margin-top:20px;
+      padding:22px;
+      border-radius:22px;
+      background:rgba(0,0,0,0.32);
+      border:1px solid rgba(255,255,255,0.18);
+    }
+
+    .rank-result strong{
+      font-size:30px;
+    }
+
+    .rank-result span{
+      display:block;
+      color:#ffe1ff;
+      margin-top:8px;
+    }
+
+    .formula{
+      margin-top:16px;
+      padding:14px;
+      border-radius:18px;
+      background:rgba(255,255,255,0.12);
+      color:#ffeaff;
+      font-family:Consolas, monospace;
+      font-size:13px;
+      line-height:1.5;
+    }
+
+    .footer{
+      text-align:center;
+      padding:28px;
+      background:linear-gradient(135deg, #2b0057, #dc143c);
+      color:white;
+      font-weight:bold;
+    }
+
+    @media only screen and (max-width: 900px){
+      .menu{
+        justify-content:flex-start;
+        overflow-x:auto;
+        flex-wrap:nowrap;
       }
 
-  .menu li:hover{
-    background-color: crimson;
-  }
+      .top-space{
+        height:74px;
+      }
 
-	
-</style>
-<div class= "menu">
-	<li><a href="https://otonoteam2.github.io/Otono%20Airways%20A380%20Destinations.html">Destinations</a></li>
-	<li><a href="https://otonoteam2.github.io/contactus.html">Contact us</a></li>
-	<li><a href="https://otonoteam2.github.io/aircraftsandfleet.html">Aircraft and fleet</a></li>
-	<li><a href="https://otonoteam2.github.io/otono%20subways%20price%20calculator.html">Otono Subways Transport</a></li>
-	<li><a href="https://otonoteam2.github.io/ChatGPT.html">Otono GPTs</a></li>
-	<li><a href="https://otonoteam2.github.io/Otono%20Seasons.html">Otono Seasons</a></li>
-</div>
-<!-------------------------------------------------------------------------------->
-<style>
-	.notice {
-	overflow: hidden;
-  	background-color: darkviolet;
-  	width: 100%;
-  	text-align: center;
-  	height: 45px;
-  	padding:0px;
-	
-  }
-	
-	.notice p{
-  	color: white;
-  	font-size: 13px;
-  	word-spacing: 5px;
-    padding-right: :26px;
-  }
-	.notice a{
-   color: white;
-    display: inline;
-    padding: 26px;    
-    list-style: none;
-    font-size: 13px;
-    text-decoration: none;
-  }
-</style>
+      .notice-row,
+      .main-grid,
+      .feature-strip,
+      .calculator-panel{
+        grid-template-columns:1fr;
+      }
 
-<div class= "notice">
-<p><a href="contactus.html">Contact us!</a><span class="closebtn" onclick="this.parentElement.parentElement.style.display='none';">&times;</span> </p>
-</div>
+      .subscribe-column{
+        position:relative;
+        top:0;
+      }
 
+      .link-list{
+        grid-template-columns:1fr;
+      }
 
-<!-------------------------------------------------------------------------------->
-<style>
-	.notice2 {
-	overflow: hidden;
-  	background-color: indianred;
-  	width: 100%;
-  	text-align: center;
-  	height: 45px;
-  	padding:0px;
-	
-  }
-	
-	.notice2 p{
- 	color: gray;
-  	font-size: 13px;
-  	width: 100%;
-  	word-spacing: 3px;
+      .hero-card{
+        padding:28px;
+      }
+    }
+  </style>
+</head>
 
-  }
-	.notice2 a{
-	 color: white;
-  	display: inline;
-  	padding: 26px;  	
-  	list-style: none;
-  	font-size: 13px;
-  	text-decoration: none;
-	}
+<body>
+  <nav class="menu otono-gradient">
+    <a href="https://otonoteam2.github.io/Otono%20Airways%20A380%20Destinations.html">Destinations</a>
+    <a href="https://otonoteam2.github.io/contactus.html">Contact</a>
+    <a href="https://otonoteam2.github.io/aircraftsandfleet.html">Fleet</a>
+    <a href="https://otonoteam2.github.io/otono%20subways%20price%20calculator.html">Transport</a>
+    <a href="https://otonoteam2.github.io/ChatGPT.html">Otono GPTs</a>
+    <a href="https://otonoteam2.github.io/Otono%20Seasons.html">Seasons</a>
+    <a href="#subscribe">Subscribe</a>
+    <a href="#bury-things">Bury Things</a>
+  </nav>
 
-	.notice2 p :hover{
-	text-decoration: underline;
-	}
+  <div class="top-space"></div>
 
-.closebtn {
-  color: gray;
-  font-weight: bold;
-  font-size: 13px;
-  line-height: 20px;
-  cursor: pointer;
-  transition: 0.3s;
-  position: absolute;
-  z-index: 1;
-}
-.closebtn:hover {
-  color: black;
-}
+  <section class="notice-row">
+    <div class="notice">🎬 New videos, Minecraft builds and Otono Team challenges</div>
+    <div class="notice">✈️ Otono Airways routes, cabins and future fleet ideas</div>
+    <div class="notice">🎮 Bury Things ranking page now has its own dedicated button</div>
+  </section>
 
-</style>
-<div class= "notice2">
-<p><a href="#support">Check for our destinations! </a><span class="closebtn" onclick="this.parentElement.parentElement.style.display='none';">&times;</span> </p>
-</div>
+  <header class="hero">
+    <div class="hero-card">
+      <span class="badge">Official Otono Team Website</span>
+      <h1>Otono Team</h1>
+      <p>
+        The home of Otono Team projects: YouTube videos, Minecraft challenges, Otono Airways aircraft,
+        GCSE language resources, science pages and experimental calculators.
+      </p>
+      <div class="hero-buttons">
+        <a class="button primary" href="#subscribe">Subscribe to the channel</a>
+        <a class="button secondary" href="#bury-things">Open Bury Things page</a>
+        <a class="button secondary" href="https://otonoteam2.github.io/aircraftsandfleet.html">Explore Otono Airways</a>
+      </div>
+    </div>
+  </header>
 
+  <main class="main-grid">
+    <div>
+      <section class="section-card image-card" style="background-image:url('Images/map.png');">
+        <div class="section-content">
+          <h2>Otono Airways Destinations</h2>
+          <p>
+            Explore Otono Airways routes, A380 services, long-haul flights and future destination ideas.
+            This section is for route maps, aircraft plans and the big flagship flights.
+          </p>
+          <div class="link-list">
+            <a href="https://otonoteam2.github.io/Otono%20Airways%20A380%20Destinations.html">View destinations</a>
+            <a href="https://otonoteam2.github.io/Otono%20Airways%20Australia.html">Survive 20 hours in economy</a>
+          </div>
+        </div>
+      </section>
 
-<!-------------------------------------------------------------------------------->
-<style>
-	.notice {
-	overflow: hidden;
-  	background-color: darkviolet;
-  	width: 100%;
-  	text-align: center;
-  	height: 45px;
-  	padding:0px;
-	
-  }
-	
-	.notice p{
-  	color: white;
-  	font-size: 13px;
-  	word-spacing: 5px;
-    padding-right: :26px;
-  }
-	.notice a{
-   color: white;
-    display: inline;
-    padding: 26px;    
-    list-style: none;
-    font-size: 13px;
-    text-decoration: none;
-  }
-</style>
+      <br>
 
-<div class= "notice">
-<p>Have a chance to win a brand new iPhone by booking our flights!</p>
-</div>
+      <section class="section-card image-card" style="background-image:url('Images/France.jpg');">
+        <div class="section-content">
+          <h2>Otono Languages</h2>
+          <p>
+            French and Spanish revision pages, vocabulary tests, sample materials, A Level practice and MFL results.
+            Built for serious revision, but still in Otono style.
+          </p>
+          <div class="link-list">
+            <a href="https://otonoteam2.github.io/Otono%20Languages%20Theme%201.html">Theme 1</a>
+            <a href="https://otonoteam2.github.io/Otono%20Languages%20Theme%202.html">Theme 2</a>
+            <a href="https://otonoteam2.github.io/Otono%20Languages%20Theme%203.html">Theme 3</a>
+            <a href="https://otonoteam2.github.io/Otono%20Languages%20Theme%204.html">Theme 4</a>
+            <a href="https://otonoteam2.github.io/Otono%20Languages%20Menu.html">Sample Assessment Materials</a>
+            <a href="https://otonoteam2.github.io/Otono%20French%20Vocabulary%201.html">French Vocabulary Test</a>
+            <a href="https://otonoteam2.github.io/Otono%20MFL%20FAQ.html">MFL FAQ</a>
+            <a href="https://otonoteam2.github.io/Otono%20French%20Reading%20A%20Level.html">A Level French Reading</a>
+            <a href="https://otonoteam2.github.io/Otono%20French%20Writing%20A%20Level.html">A Level French Writing</a>
+            <a href="https://otonoteam2.github.io/Otono%20MFL%20Leaderboard.html">Results</a>
+          </div>
+        </div>
+      </section>
 
+      <br>
 
-<!-------------------------------------------------------------------------------->
-<style>
-	
-	.one{
-	overflow: hidden;
-  	background-color: silver;
-  	background-image: url("Images/mainicon.png");
-  	background-position: center;
-  	background-size: cover;
-  	width: 100%;
-  	text-align: center;
-  	height: 600px;
-  	padding:0px;
-  }
-  	.one h1{
-  	color: crimson;
-  	padding-top: 60px;
-  	font-size: 55px;
-  	margin: 5px;
-  	}
+      <section class="section-card image-card" style="background-image:url('Images/aircrafts.png');">
+        <div class="section-content">
+          <h2>Aircraft and Fleet</h2>
+          <p>
+            Compare Otono aircraft, cabins and future fleet plans. This section now separates the current/future fleet from the Legend Fleet.
+          </p>
+          <div class="link-list">
+            <a href="COMING SOON">Destinations</a>
+            <a href="https://otonoteam2.github.io/Otono%20Airways%20A380.html">Airbus A380</a>
+            <a href="https://otonoteam2.github.io/Otono%20Airways%20B777.html">Boeing 777</a>
+            <a href="https://otonoteam2.github.io/Otono%20Airways%20A350.html">Airbus A350</a>
+            <a href="https://otonoteam2.github.io/Otono%20Airways%20B787.html">Boeing 787</a>
+            <a href="https://otonoteam2.github.io/Otono%20Airways%20Future%20Fleet.html">Future Fleet</a>
+            <a href="https://otonoteam2.github.io/Otono%20Airways%20Club%20Europe.html">Club Europe Fleet</a>
+            <a href="https://otonoteam2.github.io/Otono%20Airways%20A380%20retirement.html">A380 Retirement</a>
+            <a href="https://otonoteam2.github.io/Otono%20Airways%20B747.html">Legend Fleet: Boeing 747</a>
+            <a href="https://otonoteam2.github.io/Otono%20Airways%20A340.html">Legend Fleet: Airbus A340</a>
+            <a href="https://otonoteam2.github.io/Otono%20Airways%20A390.html">Future Concept: Airbus A390</a>
+          </div>
+        </div>
+      </section>
+    </div>
 
-  	.one h2{
-  	color: mediumpurple;
-  	padding-top: 0px;
-  	margin:5px;
-  	font-size: 25px;
-  	font-weight: 1;
-  	}
+    <aside id="subscribe" class="subscribe-column">
+      <h2>Subscribe to Otono Team</h2>
+      <p>
+        My channel links back to this website, so this website should send people back to the channel too.
+        Subscribe for Minecraft builds, Otono Airways videos, challenges, trailers and new Otono projects.
+      </p>
 
-  	.one p{
-  	color: mediumpurple;
-  	padding-top: 20px;
-  	margin:5px;
-  	font-size: 15px;
-  	font-weight: 1;
-  	}
-		
-	
-</style>
-<div class= "one">
-	<h1>Welcome To The Otono Team's Website!</h1>
-	<p>Image of Otono Airways Airbus A321</p>
-</div>
+      <div class="sub-count-box">
+        <strong>328</strong>
+        <span>current subscribers, manually updated monthly</span>
+      </div>
 
-<!-------------------------------------------------------------------------------->
-<style>
-	
-	.two{
-	overflow: hidden;
-  	background-color: silver;
-  	background-image: url("Images/map.png");
-  	background-position: center;
-  	background-size: cover;
-  	width: 100%;
-  	text-align: center;
-  	height: 600px;
-  	padding:0px;
-  	margin-top: 20px;
-  }
-  	.two h1{
-  	color: turquoise;
-  	padding-top: 100px;
-  	font-size: 55px;
-  	margin: 5px;
-  	}
+      <div class="sub-count-box">
+        <strong>2672</strong>
+        <span>subscribers to go until the 3000 goal</span>
+      </div>
 
-  	.two h2{
-  	color: turquoise;
-  	padding-top: 0px;
-  	margin:5px;
-  	font-size: 25px;
-  	font-weight: 1;
-  	}
+      <div class="sub-count-box">
+        <strong>10.9%</strong>
+        <span>progress towards 3000 subscribers</span>
+        <div style="margin-top:12px; height:12px; background:rgba(255,255,255,0.22); border-radius:999px; overflow:hidden;">
+          <div style="width:10.9%; height:100%; background:white; border-radius:999px;"></div>
+        </div>
+      </div>
 
-  	.two p{
-  	color: turquoise;
-  	padding-top: 20px;
-  	margin:5px;
-  	font-size: 15px;
-  	font-weight: 1;
-  	}
-		
-	
-</style>
-<div class= "two">
-	<h1>Otono Airways Destinations</h1>
-	<h2>Check for our destinations!</h2>
-	<p><a href="https://otonoteam2.github.io/Otono%20Airways%20A380%20Destinations.html">Read more ></a></p>
-</div>
+      <a class="subscribe-button" href="https://youtube.com/@otonoteamredbird3835?si=y72TF2GE1f5qP-jK">SUBSCRIBE NOW</a>
+      <p class="small-note">
+        Click the button above to subscribe to my channel.
+      </p>
 
-<!-------------------------------------------------------------------------------->
-<style>
-	
-	.three{
-	overflow: hidden;
-  	background-color: silver;
-  	background-image: url("Images/France.jpg");
-  	background-position: center;
-  	background-size: cover;
-  	width: 100%;
-  	text-align: center;
-  	height: 900px;
-  	padding:0px;
-  	margin-top: 20px;
-  }
-  	.three h1{
-  	color: purple;
-  	padding-top: 100px;
-  	font-size: 55px;
-  	margin: 5px;
-  	}
+      <div class="link-list" style="grid-template-columns:1fr; margin-top:18px;">
+        <a href="https://youtu.be/iKfK9isZ1wI?si=bwVPqhyOF32sDBLC">Latest video</a>
+        <a href="https://youtu.be/IDfRkNmhbDM?si=uwim0KqFza6Y045k">Watch the trailer</a>
+        <a href="https://youtu.be/iKfK9isZ1wI?si=bwVPqhyOF32sDBLC">Watch Best Video</a>
+      </div>
+    </aside>
+  </main>
 
-  	.three h2{
-  	color: purple;
-  	padding-top: 0px;
-  	margin:5px;
-  	font-size: 25px;
-  	font-weight: 1;
-  	}
+  <section class="feature-strip">
+    <div class="mini-card">
+      <h3>🎬 Channel Hub</h3>
+      <p>Use this homepage to send website visitors back to your YouTube videos and premieres.</p>
+    </div>
+    <div class="mini-card">
+      <h3>✈️ Otono Airways</h3>
+      <p>Aviation pages, future fleets, route ideas, cabins and aircraft concepts all in one place.</p>
+    </div>
+    <div class="mini-card">
+      <h3>📚 GCSE Tools</h3>
+      <p>French, Spanish, science, geography and revision pages for your Otono-style resources.</p>
+    </div>
+  </section>
 
-  	.three p{
-  	color: purple;
-  	padding-top: 20px;
-  	margin:5px;
-  	font-size: 15px;
-  	font-weight: 1;
-  	}
-		
-	
-</style>
-<div class= "three">
-	<h1>Otono Languages Tutoring Service</h1>
-	<h2>It isn't that hard to get a grade 9!</h2>
-	<p><a href="https://otonoteam2.github.io/Otono%20Languages%20Theme%201.html">Theme 1</a></p>
-	<p><a href="https://otonoteam2.github.io/Otono%20Languages%20Theme%202.html">Theme 2</a></p>
-	<p><a href="https://otonoteam2.github.io/Otono%20Languages%20Theme%203.html">Theme 3</a></p>
-	<p><a href="https://otonoteam2.github.io/Otono%20Languages%20Theme%204.html">Theme 4</a></p>
-	<p><a href="https://otonoteam2.github.io/Otono%20Languages%20Menu.html">Find Sample Assessment Materials</a></p>
-	<p><a href="https://otonoteam2.github.io/Otono%20French%20Vocabulary%201.html">French Vocabulary Test</a></p>
-	<p><a href="https://otonoteam2.github.io/Otono%20MFL%20FAQ.html">FAQ</a></p>
-	<p><a href="https://otonoteam2.github.io/Otono%20French%20Reading%20A%20Level.html">Reading Paper A Level (French)</a></p>
-	<p><a href="https://otonoteam2.github.io/Otono%20French%20Writing%20A%20Level.html">Writing Paper A Level (French)</a></p>
-	<p><a href="https://otonoteam2.github.io/Otono%20MFL%20Leaderboard.html">Results</a></p>
-</div>
+  <section id="bury-things" class="bury-calculator">
+    <div class="calculator-box">
+      <h2>Bury Things Ranking System</h2>
+      <p>
+        Bury Things is one of the newest Otono Team game projects. The full ranking calculator belongs on its own page,
+        so this homepage stays clean and sends players straight to the dedicated calculator.
+      </p>
+      <p>
+        <a class="button primary" href="https://otonoteam2.github.io/bury%20things%20score%20calculator.html">Open Bury Things calculator</a>
+        <a class="button secondary" href="INSERT-BURY-THINGS-RULES-LINK-HERE">Read Bury Things rules</a>
+      </p>
+    </div>
+  </section>
 
-<!-------------------------------------------------------------------------------->
-<style>
-	
-	.four{
-	overflow: hidden;
-  	background-color: silver;
-  	background-image: url("Images/aircrafts.png");
-  	background-position: center;
-  	background-size: cover;
-  	width: 100%;
-  	text-align: center;
-  	height: 900px;
-  	padding:0px;
-  	margin-top: 20px;
-  }
-  	.four h1{
-  	color: white;
-  	padding-top: 200px;
-  	font-size: 55px;
-  	margin: 5px;
-  	}
+  <section class="feature-strip">
+    <div class="mini-card">
+      <h3>🎮 Games and Calculators</h3>
+      <p>Future area for Bury Things, Otono Seasons, ranking systems, timers and score calculators.</p>
+    </div>
+    <div class="mini-card">
+      <h3>🏠 Otono Mansion</h3>
+      <p>Future area for mansion maps, room guides, challenge pages, hiding zones and Minecraft builds.</p>
+    </div>
+    <div class="mini-card">
+      <h3>📺 Video Archive</h3>
+      <p>Future area for trailers, full videos, premieres, thumbnails, shorts and behind-the-scenes updates.</p>
+    </div>
+  </section>
 
-  	.four h2{
-  	color: white;
-  	padding-top: 0px;
-  	margin:3px;
-  	font-size: 25px;
-  	font-weight: 1;
-  	}
+  <section class="feature-strip">
+    <div class="mini-card">
+      <h3>🧪 Exam Tools</h3>
+      <p>Future area for Otono-style GCSE papers, auto-marking pages, revision dashboards and grade calculators.</p>
+    </div>
+    <div class="mini-card">
+      <h3>🌍 Travel and Routes</h3>
+      <p>Future area for destination guides, route battles, A380 services and fictional Otono Airways schedules.</p>
+    </div>
+    <div class="mini-card">
+      <h3>📰 News Board</h3>
+      <p>Future area for website updates, new uploads, project progress and important Otono announcements.</p>
+    </div>
+  </section>
 
-  	.four p{
-  	color: white;
-  	padding-top: 20px;
-  	margin:3px;
-  	font-size: 15px;
-  	font-weight: 1;
-  	}
-		
-	
-</style>
-<div class= "four">
-	<h1>Aircraft and fleet</h1>
-	<h2>Have a look of our aircraft!</h2>
-	<p><a href="https://otonoteam2.github.io/Otono%20Airways%20A380%20v4.5.html">The Retrofitted A380</a></p>
-	<p><a href="https://otonoteam2.github.io/Otono%20Airways%20A380.html">The Airbus A380 ></a></p>
-	<p><a href="https://otonoteam2.github.io/Otono%20Airways%20B777.html">The Boeing 777 ></a></p>
-	<p><a href="https://otonoteam2.github.io/Otono%20Airways%20A350.html">The Airbus A350 ></a></p>
-	<p><a href="https://otonoteam2.github.io/Otono%20Airways%20B787.html">The Boeing 787 ></a></p>
-	<p><a href="https://otonoteam2.github.io/Otono%20Airways%20B747.html">The Boeing 747 ></a></p>
-	<p><a href="https://otonoteam2.github.io/Otono%20Airways%20A340.html">The Airbus A340 ></a></p>
-	<p><a href="https://otonoteam2.github.io/Otono%20Airways%20A390.html">The Airbus A390 ></a></p>
-	<p><a href="https://otonoteam2.github.io/Otono%20Airways%20Club%20Europe.html">Club Europe Fleet ></a></p>
-	<p><a href="https://otonoteam2.github.io/Otono%20Airways%20Future%20Fleet.html">Future Fleet ></a></p>
-	<p><a href="https://otonoteam2.github.io/Otono%20Airways%20A380%20retirement.html">A380 retirement!!!</a></p>
-	<p><a href="https://otonoteam2.github.io/Otono%20Airways%20Australia.html">How to survive 20 hours in economy</a></p>
-</div>
+  <section class="feature-strip">
+    <div class="mini-card">
+      <h3>🤖 Otono GPTs</h3>
+      <p>Future area for Otono AI tools, custom GPT pages, prompt experiments and interactive helpers.</p>
+    </div>
+    <div class="mini-card">
+      <h3>🚇 Otono Transport</h3>
+      <p>Future area for Otono Subways, price calculators, maps, routes, stations and transport experiments.</p>
+    </div>
+    <div class="mini-card">
+      <h3>🍂 Otono Seasons</h3>
+      <p>Future area for season systems, rewards, ranks, challenges and event pages.</p>
+    </div>
+  </section>
 
-<!-------------------------------------------------------------------------------->
-<style>
-	
-	.five{
-	overflow: hidden;
-  	background-color: silver;
-  	background-image: url("Images/chemistry.webp");
-  	background-position: center;
-  	background-size: cover;
-  	width: 100%;
-  	text-align: center;
-  	height: 900px;
-  	padding:0px;
-  	margin-top: 20px;
-  }
-  	.five h1{
-  	color: white;
-  	padding-top: 200px;
-  	font-size: 55px;
-  	margin: 5px;
-  	}
+  <section class="feature-strip">
+    <div class="mini-card">
+      <h3>👑 Legend Fleet</h3>
+      <p>Dedicated space for retired and legendary Otono Airways aircraft like the Boeing 747 and Airbus A340.</p>
+    </div>
+    <div class="mini-card">
+      <h3>🛫 Future Concepts</h3>
+      <p>Future space for A390, 777-9, A350 concepts, cabin experiments and Otono One ideas.</p>
+    </div>
+    <div class="mini-card">
+      <h3>📞 Contact and Community</h3>
+      <p>Future space for contact forms, updates, subscriber links, viewer suggestions and community votes.</p>
+    </div>
+  </section>
 
-  	.five h2{
-  	color: white;
-  	padding-top: 0px;
-  	margin:3px;
-  	font-size: 25px;
-  	font-weight: 1;
-  	}
+  <section class="main-grid" style="padding-top:0;">
+    <div class="section-card image-card" style="background-image:url('Images/chemistry.webp');">
+      <div class="section-content">
+        <h2>Science and Geography</h2>
+        <p>
+          Combined Science, physics practice, geography paper pages and extra Otono academic challenges.
+        </p>
+        <div class="link-list">
+          <a href="https://otonoteam2.github.io/Combined%20Science%20Set%201.html">Combined Science Set 1</a>
+          <a href="https://otonoteam2.github.io/Combined%20Science%20Set%202.html">Combined Science Set 2</a>
+          <a href="https://otonoteam2.github.io/Combined%20Science%20Set%203.html">AS Level Physics</a>
+          <a href="https://otonoteam2.github.io/Combined%20Science%20Set%204.html">A Level Physics</a>
+          <a href="https://otonoteam2.github.io/Otono%20Geography%20Paper%201.html">Geography Paper 1</a>
+          <a href="https://otonoteam2.github.io/Otono%20Pi%20Challenge.html">The Pi Challenge</a>
+        </div>
+      </div>
+    </div>
 
-  	.five p{
-  	color: white;
-  	padding-top: 20px;
-  	margin:3px;
-  	font-size: 15px;
-  	font-weight: 1;
-  	}
-		
-	
-</style>
-<div class= "five">
-	<h1>Science and Geography</h1>
-	<h2>You are doing Combined Science SYNERGY!</h2>
-	<p><a href="https://otonoteam2.github.io/Combined%20Science%20Set%201.html">Sample Set 1 ></a></p>
-	<p><a href="https://otonoteam2.github.io/Combined%20Science%20Set%202.html">Sample Set 2 ></a></p>
-	<p><a href="https://otonoteam2.github.io/Combined%20Science%20Set%203.html">AS Level Physics ></a></p>
-	<p><a href="https://otonoteam2.github.io/Combined%20Science%20Set%204.html">A Level Physics ></a></p>
-	<p><a href="https://otonoteam2.github.io/Otono%20Geography%20Paper%201.html">Geography Paper 1 ></a></p>
-	<p><a href="https://otonoteam2.github.io/Otono%20Pi%20Challenge.html">The Pi Challenge ></a></p>
-</div>
+    <div class="section-card otono-gradient">
+      <div class="section-content">
+        <h2>What should I watch first?</h2>
+        <p>
+          Start with the newest Otono Team video, then check the Minecraft challenge playlist.
+          After that, explore the aircraft pages that connect to the videos.
+        </p>
+        <a class="button primary" href="https://youtu.be/iKfK9isZ1wI?si=bwVPqhyOF32sDBLC">Watch the best video</a>
+      </div>
+    </div>
+  </section>
 
-<div class="footer"> 
-<p>Copyright © SoterraOtono</p>
-</div>
-
-</style>
+  <footer class="footer">
+    <p>Copyright © SoterraOtono | Otono Team</p>
+  </footer>
 </body>
 </html>
