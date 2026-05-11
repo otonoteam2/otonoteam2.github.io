@@ -11,8 +11,8 @@
   <meta name="google-site-verification" content="wL_otW9CEuKXKiwN01gIJwuHESSE1XylD05pFh_phBI">
 
   <!-- SEO -->
-  <meta name="description" content="Official Otono Team website. Explore Otono Team YouTube videos, Minecraft challenges, Otono Airways, Otono Languages, GCSE resources, Otono GPTs, transport pages, seasons and Bury Things.">
-  <meta name="keywords" content="Otono Team, Otono YouTube, Otono Airways, Bury Things, Otono French, Otono Spanish, GCSE resources, Minecraft challenge">
+  <meta name="description" content="Official Otono Team website. Explore Otono Team videos, Otono Airways, Otono Languages, GCSE resources, Otono GPTs, transport pages, seasons, creative challenges and Bury Things.">
+  <meta name="keywords" content="Otono Team, Otono YouTube, Otono Airways, Bury Things, Otono French, Otono Spanish, GCSE resources, creative challenges, aviation, revision tools">
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-175443844-1"></script>
@@ -71,6 +71,7 @@
       background:rgba(255,255,255,0.12);
       border:1px solid rgba(255,255,255,0.18);
       transition:0.25s;
+      white-space:nowrap;
     }
 
     .menu a:hover{
@@ -194,6 +195,11 @@
       margin:auto;
     }
 
+    .section-stack{
+      display:grid;
+      gap:24px;
+    }
+
     .section-card{
       border-radius:30px;
       padding:30px;
@@ -257,25 +263,42 @@
       transform:translateY(-2px);
     }
 
-    .subscribe-column{
+    .side-column{
       position:sticky;
       top:100px;
       align-self:start;
+      display:grid;
+      gap:18px;
+    }
+
+    .subscribe-column,
+    .community-column{
       border-radius:30px;
       padding:28px;
-      background:
-        radial-gradient(circle at top left, rgba(255,255,255,0.22), transparent 32%),
-        linear-gradient(160deg, #dc143c, #8a00b8 55%, #240054);
       border:1px solid rgba(255,255,255,0.25);
       box-shadow:0 22px 60px rgba(0,0,0,0.42);
     }
 
-    .subscribe-column h2{
+    .subscribe-column{
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.22), transparent 32%),
+        linear-gradient(160deg, #dc143c, #8a00b8 55%, #240054);
+    }
+
+    .community-column{
+      background:
+        radial-gradient(circle at top right, rgba(255,255,255,0.22), transparent 32%),
+        linear-gradient(160deg, #2b0057, #7b1fa2 52%, #dc143c);
+    }
+
+    .subscribe-column h2,
+    .community-column h2{
       font-size:30px;
       margin:0 0 8px;
     }
 
-    .subscribe-column p{
+    .subscribe-column p,
+    .community-column p{
       color:#ffeaff;
       line-height:1.6;
       font-size:15px;
@@ -300,7 +323,8 @@
       font-size:13px;
     }
 
-    .subscribe-button{
+    .subscribe-button,
+    .community-button{
       display:block;
       width:100%;
       text-align:center;
@@ -312,6 +336,26 @@
       font-size:18px;
       margin-top:14px;
       box-shadow:0 12px 28px rgba(0,0,0,0.28);
+      transition:0.25s;
+    }
+
+    .deep-community-button{
+      display:inline-block;
+      margin-top:18px;
+      padding:16px 24px;
+      border-radius:20px;
+      background:white;
+      color:#7b003e;
+      font-weight:900;
+      font-size:18px;
+      box-shadow:0 14px 32px rgba(0,0,0,0.32);
+      transition:0.25s;
+    }
+
+    .deep-community-button:hover,
+    .community-button:hover{
+      transform:translateY(-3px);
+      box-shadow:0 18px 38px rgba(0,0,0,0.38);
     }
 
     .small-note{
@@ -347,13 +391,13 @@
       line-height:1.55;
     }
 
-    .bury-calculator{
+    .wide-section{
       max-width:1250px;
       margin:0 auto 32px;
       padding:0 24px;
     }
 
-    .calculator-box{
+    .wide-box{
       border-radius:34px;
       padding:32px;
       background:
@@ -365,76 +409,86 @@
       box-shadow:0 22px 55px rgba(0,0,0,0.38);
     }
 
-    .calculator-box h2{
+    .wide-box h2{
       font-size:36px;
       margin:0 0 8px;
     }
 
-    .calculator-box p{
+    .wide-box p{
       color:#f7dcff;
       line-height:1.65;
-      max-width:780px;
+      max-width:850px;
     }
 
-    .calculator-panel{
-      display:grid;
-      grid-template-columns:repeat(4, 1fr);
-      gap:14px;
-      margin-top:22px;
+    .community-section{
+      max-width:1250px;
+      margin:0 auto 32px;
+      padding:0 24px;
     }
 
-    .calc-field{
-      background:rgba(255,255,255,0.12);
+    .community-box{
+      border-radius:34px;
+      overflow:hidden;
+      position:relative;
+      background:
+        linear-gradient(135deg, rgba(10,0,20,0.90), rgba(120,0,70,0.66), rgba(43,0,87,0.82)),
+        url("Images/community.jpg");
+      background-size:cover;
+      background-position:center;
+      padding:40px;
       border:1px solid rgba(255,255,255,0.16);
-      border-radius:18px;
-      padding:14px;
+      box-shadow:0 22px 55px rgba(0,0,0,0.38);
     }
 
-    .calc-field label{
-      display:block;
-      font-size:13px;
-      color:#ffe6ff;
-      margin-bottom:8px;
-      font-weight:bold;
+    .community-box h2{
+      margin:0;
+      font-size:42px;
     }
 
-    .calc-field input{
-      width:100%;
-      padding:11px;
-      border-radius:12px;
-      border:none;
-      outline:none;
+    .community-box p{
+      color:#f7e8ff;
+      line-height:1.7;
       font-size:16px;
-      font-weight:bold;
+      max-width:900px;
     }
 
-    .rank-result{
-      margin-top:20px;
+    .community-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:18px;
+      margin-top:24px;
+    }
+
+    .community-card{
+      background:rgba(0,0,0,0.34);
+      border:1px solid rgba(255,255,255,0.14);
+      border-radius:24px;
       padding:22px;
-      border-radius:22px;
-      background:rgba(0,0,0,0.32);
-      border:1px solid rgba(255,255,255,0.18);
     }
 
-    .rank-result strong{
-      font-size:30px;
+    .community-card h3{
+      margin-top:0;
+      font-size:26px;
+      color:white;
     }
 
-    .rank-result span{
-      display:block;
-      color:#ffe1ff;
-      margin-top:8px;
+    .community-card p{
+      font-size:15px;
+      margin-bottom:0;
     }
 
-    .formula{
-      margin-top:16px;
-      padding:14px;
-      border-radius:18px;
-      background:rgba(255,255,255,0.12);
-      color:#ffeaff;
-      font-family:Consolas, monospace;
-      font-size:13px;
-      line-height:1.5;
+    .community-note{
+      margin-top:24px;
+      padding:18px;
+      border-radius:20px;
+      background:rgba(255,255,255,0.10);
+      border:1px solid rgba(255,255,255,0.12);
+    }
+
+    .community-note h4{
+      margin-top:0;
+      color:#ffd0ff;
+      font-size:22px;
     }
 
     .footer{
@@ -459,11 +513,11 @@
       .notice-row,
       .main-grid,
       .feature-strip,
-      .calculator-panel{
+      .community-grid{
         grid-template-columns:1fr;
       }
 
-      .subscribe-column{
+      .side-column{
         position:relative;
         top:0;
       }
@@ -472,8 +526,13 @@
         grid-template-columns:1fr;
       }
 
-      .hero-card{
+      .hero-card,
+      .community-box{
         padding:28px;
+      }
+
+      .community-box h2{
+        font-size:34px;
       }
     }
   </style>
@@ -488,13 +547,14 @@
     <a href="https://otonoteam2.github.io/ChatGPT.html">Otono GPTs</a>
     <a href="https://otonoteam2.github.io/Otono%20Seasons.html">Seasons</a>
     <a href="#subscribe">Subscribe</a>
+    <a href="#community">Community</a>
     <a href="#bury-things">Bury Things</a>
   </nav>
 
   <div class="top-space"></div>
 
   <section class="notice-row">
-    <div class="notice">🎬 New videos, Minecraft builds and Otono Team challenges</div>
+    <div class="notice">🎬 New videos, creative builds and Otono Team challenges</div>
     <div class="notice">✈️ Otono Airways routes, cabins and future fleet ideas</div>
     <div class="notice">🎮 Bury Things ranking page now has its own dedicated button</div>
   </section>
@@ -504,11 +564,12 @@
       <span class="badge">Official Otono Team Website</span>
       <h1>Otono Team</h1>
       <p>
-        The home of Otono Team projects: YouTube videos, Minecraft challenges, Otono Airways aircraft,
-        GCSE language resources, science pages and experimental calculators.
+        The home of Otono Team projects: YouTube videos, creative challenges, Otono Airways aircraft,
+        GCSE language resources, science pages, experimental calculators and community updates.
       </p>
       <div class="hero-buttons">
         <a class="button primary" href="#subscribe">Subscribe to the channel</a>
+        <a class="button secondary" href="#community">Our Community</a>
         <a class="button secondary" href="#bury-things">Open Bury Things page</a>
         <a class="button secondary" href="https://otonoteam2.github.io/aircraftsandfleet.html">Explore Otono Airways</a>
       </div>
@@ -516,7 +577,7 @@
   </header>
 
   <main class="main-grid">
-    <div>
+    <div class="section-stack">
       <section class="section-card image-card" style="background-image:url('Images/map.png');">
         <div class="section-content">
           <h2>Otono Airways Destinations</h2>
@@ -530,8 +591,6 @@
           </div>
         </div>
       </section>
-
-      <br>
 
       <section class="section-card image-card" style="background-image:url('Images/France.jpg');">
         <div class="section-content">
@@ -555,13 +614,11 @@
         </div>
       </section>
 
-      <br>
-
       <section class="section-card image-card" style="background-image:url('Images/aircrafts.png');">
         <div class="section-content">
           <h2>Aircraft and Fleet</h2>
           <p>
-            Compare Otono aircraft, cabins and future fleet plans. This section now separates the current/future fleet from the Legend Fleet.
+            Compare Otono aircraft, cabins and future fleet plans. This section separates the current/future fleet from the Legend Fleet.
           </p>
           <div class="link-list">
             <a href="COMING SOON">Destinations</a>
@@ -580,40 +637,48 @@
       </section>
     </div>
 
-    <aside id="subscribe" class="subscribe-column">
-      <h2>Subscribe to Otono Team</h2>
-      <p>
-        My channel links back to this website, so this website should send people back to the channel too.
-        Subscribe for Minecraft builds, Otono Airways videos, challenges, trailers and new Otono projects.
-      </p>
+    <aside class="side-column">
+      <div id="subscribe" class="subscribe-column">
+        <h2>Subscribe to Otono Team</h2>
+        <p>
+          My channel links back to this website, so this website should send people back to the channel too.
+          Subscribe for Otono Airways videos, creative challenges, trailers and new Otono projects.
+        </p>
 
-      <div class="sub-count-box">
-        <strong>328</strong>
-        <span>current subscribers, manually updated monthly</span>
-      </div>
+        <div class="sub-count-box">
+          <strong>328</strong>
+          <span>current subscribers, manually updated monthly</span>
+        </div>
 
-      <div class="sub-count-box">
-        <strong>2672</strong>
-        <span>subscribers to go until the 3000 goal</span>
-      </div>
+        <div class="sub-count-box">
+          <strong>2672</strong>
+          <span>subscribers to go until the 3000 goal</span>
+        </div>
 
-      <div class="sub-count-box">
-        <strong>10.9%</strong>
-        <span>progress towards 3000 subscribers</span>
-        <div style="margin-top:12px; height:12px; background:rgba(255,255,255,0.22); border-radius:999px; overflow:hidden;">
-          <div style="width:10.9%; height:100%; background:white; border-radius:999px;"></div>
+        <div class="sub-count-box">
+          <strong>10.9%</strong>
+          <span>progress towards 3000 subscribers</span>
+          <div style="margin-top:12px; height:12px; background:rgba(255,255,255,0.22); border-radius:999px; overflow:hidden;">
+            <div style="width:10.9%; height:100%; background:white; border-radius:999px;"></div>
+          </div>
+        </div>
+
+        <a class="subscribe-button" href="https://youtube.com/@otonoteamredbird3835?si=y72TF2GE1f5qP-jK">SUBSCRIBE NOW</a>
+        <p class="small-note">Click the button above to subscribe to my channel.</p>
+
+        <div class="link-list" style="grid-template-columns:1fr; margin-top:18px;">
+          <a href="https://youtu.be/iKfK9isZ1wI?si=bwVPqhyOF32sDBLC">Latest video</a>
+          <a href="https://youtu.be/IDfRkNmhbDM?si=uwim0KqFza6Y045k">Watch the trailer</a>
+          <a href="https://youtu.be/iKfK9isZ1wI?si=bwVPqhyOF32sDBLC">Watch Best Video</a>
         </div>
       </div>
 
-      <a class="subscribe-button" href="https://youtube.com/@otonoteamredbird3835?si=y72TF2GE1f5qP-jK">SUBSCRIBE NOW</a>
-      <p class="small-note">
-        Click the button above to subscribe to my channel.
-      </p>
-
-      <div class="link-list" style="grid-template-columns:1fr; margin-top:18px;">
-        <a href="https://youtu.be/iKfK9isZ1wI?si=bwVPqhyOF32sDBLC">Latest video</a>
-        <a href="https://youtu.be/IDfRkNmhbDM?si=uwim0KqFza6Y045k">Watch the trailer</a>
-        <a href="https://youtu.be/iKfK9isZ1wI?si=bwVPqhyOF32sDBLC">Watch Best Video</a>
+      <div class="community-column">
+        <h2>Our Community</h2>
+        <p>
+          A safer homepage area for viewer updates, project news, votes, suggestions and future Otono Team announcements.
+        </p>
+        <a class="community-button" href="#community">Open Community</a>
       </div>
     </aside>
   </main>
@@ -633,8 +698,8 @@
     </div>
   </section>
 
-  <section id="bury-things" class="bury-calculator">
-    <div class="calculator-box">
+  <section id="bury-things" class="wide-section">
+    <div class="wide-box">
       <h2>Bury Things Ranking System</h2>
       <p>
         Bury Things is one of the newest Otono Team game projects. The full ranking calculator belongs on its own page,
@@ -647,14 +712,67 @@
     </div>
   </section>
 
+  <section id="community" class="community-section">
+    <div class="community-box">
+      <h2>Our Community</h2>
+      <p>
+        This is the main community area for Otono Team viewers, updates, related channels and special links.
+        Use the big button below to open the full community page.
+      </p>
+
+      <a class="deep-community-button" href="https://otonoteam2.github.io/community.html">
+        Open Full Community Page
+      </a>
+
+      <div class="community-grid">
+        <div class="community-card">
+          <h3>🤝 Partnered Channels</h3>
+          <p>
+            A future page for channels connected to Otono Team, friendly creators, shoutouts and collaboration links.
+          </p>
+          <a class="community-button" href="https://youtube.com/@owingking4808?si=zqKxFmFkoUKzqNib">
+            View Partnered Channels
+          </a>
+        </div>
+
+        <div class="community-card">
+          <h3>📸 Jordan Matter</h3>
+          <p>
+            A special link area for Jordan Matter-related updates, inspiration, video ideas and future project pages.
+          </p>
+          <a class="community-button" href="https://youtube.com/@jordanmatter?si=2qZEu4kXusGe-wIK">
+            Open Jordan Matter Page
+          </a>
+        </div>
+
+        <div class="community-card">
+          <h3>📢 Otono Updates</h3>
+          <p>
+            Website changes, new pages, video progress, creative projects and important Otono Team announcements.
+          </p>
+          <a class="community-button" href="INSERT-OTONO-UPDATES-LINK-HERE">
+            Read Updates
+          </a>
+        </div>
+      </div>
+
+      <div class="community-note">
+        <h4>✨ Community Reminder</h4>
+        <p>
+          Replace the placeholder links with your real pages when they are ready. The main full community page is currently set to community.html.
+        </p>
+      </div>
+    </div>
+  </section>
+
   <section class="feature-strip">
     <div class="mini-card">
-      <h3>🎮 Games and Calculators</h3>
+      <h3>🎮 Challenges and Calculators</h3>
       <p>Future area for Bury Things, Otono Seasons, ranking systems, timers and score calculators.</p>
     </div>
     <div class="mini-card">
       <h3>🏠 Otono Mansion</h3>
-      <p>Future area for mansion maps, room guides, challenge pages, hiding zones and Minecraft builds.</p>
+      <p>Future area for mansion maps, room guides, challenge pages, hiding zones and creative builds.</p>
     </div>
     <div class="mini-card">
       <h3>📺 Video Archive</h3>
@@ -703,7 +821,7 @@
     </div>
     <div class="mini-card">
       <h3>📞 Contact and Community</h3>
-      <p>Future space for contact forms, updates, subscriber links, viewer suggestions and community votes.</p>
+      <p>Future space for contact forms, updates, viewer suggestions and community votes.</p>
     </div>
   </section>
 
@@ -729,247 +847,13 @@
       <div class="section-content">
         <h2>What should I watch first?</h2>
         <p>
-          Start with the newest Otono Team video, then check the Minecraft challenge playlist.
+          Start with the newest Otono Team video, then check the challenge videos.
           After that, explore the aircraft pages that connect to the videos.
         </p>
         <a class="button primary" href="https://youtu.be/iKfK9isZ1wI?si=bwVPqhyOF32sDBLC">Watch the best video</a>
       </div>
     </div>
   </section>
-
-  <!--------------------------------------------------------------->
-<style>
-
-.minecraft-section{
-  max-width:1300px;
-  margin:30px auto;
-  padding:24px;
-}
-
-.minecraft-box{
-  border-radius:32px;
-  overflow:hidden;
-  position:relative;
-  background:
-    linear-gradient(135deg, rgba(10,0,20,0.88), rgba(120,0,70,0.65)),
-    url("Images/minecraftserver.jpg");
-  background-size:cover;
-  background-position:center;
-  padding:40px;
-  border:1px solid rgba(255,255,255,0.14);
-  box-shadow:0 20px 50px rgba(0,0,0,0.35);
-}
-
-.minecraft-box h1{
-  margin:0;
-  font-size:55px;
-  color:white;
-}
-
-.minecraft-box h2{
-  margin-top:10px;
-  font-size:24px;
-  color:#ffdfff;
-  font-weight:normal;
-}
-
-.minecraft-box p{
-  color:#f7e8ff;
-  line-height:1.7;
-  font-size:16px;
-}
-
-.minecraft-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:18px;
-  margin-top:24px;
-}
-
-.minecraft-card{
-  background:rgba(0,0,0,0.34);
-  border:1px solid rgba(255,255,255,0.14);
-  border-radius:24px;
-  padding:22px;
-}
-
-.minecraft-card h3{
-  margin-top:0;
-  font-size:28px;
-  color:white;
-}
-
-.minecraft-card strong{
-  color:#ffb7ff;
-}
-
-.minecraft-button{
-  display:inline-block;
-  margin-top:14px;
-  padding:14px 18px;
-  border-radius:16px;
-  background:white;
-  color:#7b003e;
-  font-weight:bold;
-  transition:0.25s;
-}
-
-.minecraft-button:hover{
-  transform:translateY(-3px);
-  box-shadow:0 12px 24px rgba(0,0,0,0.35);
-}
-
-.warning-box{
-  margin-top:24px;
-  padding:18px;
-  border-radius:20px;
-  background:rgba(255,120,120,0.12);
-  border:1px solid rgba(255,255,255,0.12);
-}
-
-.warning-box h4{
-  margin-top:0;
-  color:#ffd0d0;
-  font-size:22px;
-}
-
-@media only screen and (max-width: 900px){
-
-  .minecraft-grid{
-    grid-template-columns:1fr;
-  }
-
-  .minecraft-box{
-    padding:28px;
-  }
-
-  .minecraft-box h1{
-    font-size:42px;
-  }
-
-}
-</style>
-
-<section class="minecraft-section">
-
-  <div class="minecraft-box">
-
-    <h1>Join My Minecraft Server</h1>
-    <h2>Java + Bedrock Supported</h2>
-
-    <p>
-      Explore the Otono Team Minecraft world, including airports,
-      aircraft builds, challenges, secret areas and massive projects.
-    </p>
-
-    <div class="minecraft-grid">
-
-      <div class="minecraft-card">
-
-        <h3>🖥 Java Edition</h3>
-
-        <p>
-          <strong>Ideal Version:</strong> 1.21.10 or newer
-        </p>
-
-        <p>
-          <strong>Server IP:</strong><br>
-          otonoteam3.aternos.me
-        </p>
-
-        <a class="minecraft-button" href="INSERT-DISCORD-OR-WEBSITE-LINK-HERE">
-          Join Server
-        </a>
-
-      </div>
-
-      <div class="minecraft-card">
-
-        <h3>📱 Bedrock Edition</h3>
-
-        <p>
-          <strong>Ideal Version:</strong> 1.21.10 or newer
-        </p>
-
-        <p>
-          <strong>Bedrock IP:</strong><br>
-          otonoteam3.aternos.me:58118
-        </p>
-
-        <p>
-          <strong>Port:</strong><br>
-          58118
-        </p>
-
-      </div>
-
-    </div>
-
-    <div class="warning-box">
-
-      <h4>⚠ Important Information</h4>
-
-      <p>
-        This Minecraft server is heavily constructed and uses lots of datapacks,
-        so a good computer/device is recommended.
-      </p>
-
-      <p>
-        Some datapack features may not fully work on Bedrock Edition.
-      </p>
-
-      <p>
-        The server will NOT always be online. Check my YouTube community posts
-        for server openings, or join when lucky.
-      </p>
-
-    </div>
-
-    <div class="minecraft-grid" style="margin-top:24px;">
-
-      <div class="minecraft-card">
-
-        <h3>🎮 Add Me on Roblox</h3>
-
-        <p>
-          It is completely free to add me on Roblox.
-        </p>
-
-        <p>
-          However, I will NOT accept random friend requests.
-          You must be subscribed to the channel first.
-        </p>
-
-        <a class="minecraft-button" href="INSERT-ROBLOX-PROFILE-LINK-HERE">
-          Roblox Profile
-        </a>
-
-      </div>
-
-      <div class="minecraft-card">
-
-        <h3>🔒 Roblox Safety Notice</h3>
-
-        <p>
-          I have NOT completed Roblox age verification
-          and will not do so any time soon.
-        </p>
-
-        <p>
-          Therefore: NO chatting with me on Roblox.
-        </p>
-
-        <p>
-          Please keep interactions appropriate and respectful.
-        </p>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
 
   <footer class="footer">
     <p>Copyright © SoterraOtono | Otono Team</p>
