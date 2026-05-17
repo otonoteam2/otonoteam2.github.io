@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>C1 Atomic Structure & Periodic Table Quiz</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #ffebee;
+      padding: 30px;
+    }
+
+    .quiz-box {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      max-width: 750px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    h1 {
+      color: #c62828;
+    }
+
+    #timer {
+      font-size: 32px;
+      font-weight: bold;
+      color: #d32f2f;
+    }
+
+    .timer-warning {
+      animation: pulseTimer 0.5s infinite alternate;
+    }
+
+    @keyframes pulseTimer {
+      from { transform: scale(1); }
+      to { transform: scale(1.25); }
+    }
+
+    #score, #answered {
+      font-size: 18px;
+      font-weight: bold;
+      color: #c62828;
+    }
+
+    button {
+      display: block;
+      margin: 10px auto;
+      padding: 12px;
+      width: 90%;
+      border: none;
+      border-radius: 8px;
+      background: #ffcdd2;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background: #ef9a9a;
+    }
+
+    .start-btn, .restart-btn {
+      background: #c62828;
+      color: white;
+      font-size: 18px;
+    }
+
+    #feedback {
+      font-weight: bold;
+      margin-top: 15px;
+      line-height: 1.5;
+    }
+
+    .explanation {
+      color: #333;
+      font-weight: normal;
+    }
+
+    .grade {
+      font-size: 28px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="quiz-box">
+
+  <h1>C1 Atomic Structure & Periodic Table Quiz 🔴</h1>
+
+  <div id="startScreen">
+    <p>Answer as many C1 Atomic Structure & Periodic Table questions as possible in 2 minutes.</p>
+    <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
+  </div>
+
+  <div id="quizScreen" style="display:none;">
+    <p id="timer">Time: 2:00</p>
+    <p id="score">Score: 0</p>
+    <p id="answered">Answered: 0</p>
+
+    <h2 id="question"></h2>
+    <div id="answers"></div>
+
+    <p id="feedback"></p>
+  </div>
+
+  <div id="endScreen" style="display:none;">
+    <h2>Time's up!</h2>
+    <p id="finalScore"></p>
+    <p id="finalAccuracy"></p>
+    <p id="finalGrade" class="grade"></p>
+
+    <button class="restart-btn" onclick="restartQuiz()">Play Again</button>
+  </div>
+
+</div>
+
+<script>
+
+const quiz = [
+
+{
+question: "What is the atomic number?",
+answers: [
+"Number of protons",
+"Number of neutrons",
+"Number of electrons and neutrons",
+"Mass of the atom"
+],
+correct: "Number of protons",
+explanation: "The atomic number tells you how many protons are in the nucleus."
+},
+
+{
+question: "What is the mass number?",
+answers: [
+"Protons + neutrons",
+"Only protons",
+"Only neutrons",
+"Electrons + neutrons"
+],
+correct: "Protons + neutrons",
+explanation: "Mass number = protons + neutrons."
+},
+
+{
+question: "Which particle has a negative charge?",
+answers: [
+"Electron",
+"Proton",
+"Neutron",
+"Nucleus"
+],
+correct: "Electron",
+explanation: "Electrons have a negative charge."
+},
+
+{
+question: "Which particle has no charge?",
+answers: [
+"Neutron",
+"Electron",
+"Proton",
+"Ion"
+],
+correct: "Neutron",
+explanation: "Neutrons have no charge."
+},
+
+{
+question: "Where are protons found?",
+answers: [
+"In the nucleus",
+"In electron shells",
+"Outside the atom",
+"In compounds"
+],
+correct: "In the nucleus",
+explanation: "Protons are found inside the nucleus."
+},
+
+{
+question: "Where are electrons found?",
+answers: [
+"In shells around the nucleus",
+"Inside the nucleus",
+"Inside neutrons",
+"Only in metals"
+],
+correct: "In shells around the nucleus",
+explanation: "Electrons are arranged in shells around the nucleus."
+},
+
+{
+question: "What is an isotope?",
+answers: [
+"Atoms with the same protons but different neutrons",
+"Atoms with different protons",
+"Atoms with no electrons",
+"Atoms that are always ions"
+],
+correct: "Atoms with the same protons but different neutrons",
+explanation: "Isotopes have the same number of protons but different numbers of neutrons."
+},
+
+{
+question: "What is the relative charge of a proton?",
+answers: [
+"+1",
+"-1",
+"0",
+"+2"
+],
+correct: "+1",
+explanation: "A proton has a relative charge of +1."
+},
+
+{
+question: "What is the relative charge of an electron?",
+answers: [
+"-1",
+"+1",
+"0",
+"-2"
+],
+correct: "-1",
+explanation: "An electron has a relative charge of -1."
+},
+
+{
+question: "What is the relative mass of a proton?",
+answers: [
+"1",
+"0",
+"2",
+"Very small"
+],
+correct: "1",
+explanation: "A proton has a relative mass of 1."
+},
+
+{
+question: "What is the relative mass of an electron?",
+answers: [
+"Very small",
+"1",
+"2",
+"0"
+],
+correct: "Very small",
+explanation: "Electrons have a very small relative mass."
+},
+
+{
+question: "What is the centre of an atom called?",
+answers: [
+"Nucleus",
+"Shell",
+"Electron cloud",
+"Compound"
+],
+correct: "Nucleus",
+explanation: "The nucleus is the centre of the atom."
+},
+
+{
+question: "Which scientist discovered the nucleus?",
+answers: [
+"Rutherford",
+"Dalton",
+"Bohr",
+"Thomson"
+],
+correct: "Rutherford",
+explanation: "Rutherford discovered the nucleus from the alpha particle scattering experiment."
+},
+
+{
+question: "What was Dalton's model of the atom?",
+answers: [
+"Solid spheres",
+"Nuclear model",
+"Plum pudding model",
+"Electron shells"
+],
+correct: "Solid spheres",
+explanation: "Dalton described atoms as tiny solid spheres."
+},
+
+{
+question: "What did Bohr add to the atomic model?",
+answers: [
+"Electron shells",
+"The nucleus",
+"Neutrons",
+"The plum pudding model"
+],
+correct: "Electron shells",
+explanation: "Bohr suggested that electrons orbit the nucleus in shells."
+},
+
+{
+question: "Which group contains the noble gases?",
+answers: [
+"Group 0",
+"Group 1",
+"Group 7",
+"Group 4"
+],
+correct: "Group 0",
+explanation: "The noble gases are in Group 0."
+},
+
+{
+question: "What are Group 1 elements called?",
+answers: [
+"Alkali metals",
+"Halogens",
+"Noble gases",
+"Transition metals"
+],
+correct: "Alkali metals",
+explanation: "Group 1 elements are called alkali metals."
+},
+
+{
+question: "What are Group 7 elements called?",
+answers: [
+"Halogens",
+"Alkali metals",
+"Noble gases",
+"Transition metals"
+],
+correct: "Halogens",
+explanation: "Group 7 elements are called halogens."
+},
+
+{
+question: "Why are noble gases unreactive?",
+answers: [
+"They have full outer shells",
+"They have no electrons",
+"They are all metals",
+"They have no protons"
+],
+correct: "They have full outer shells",
+explanation: "Noble gases are stable because their outer electron shells are full."
+},
+
+{
+question: "What happens to reactivity down Group 1?",
+answers: [
+"It increases",
+"It decreases",
+"It stays the same",
+"It becomes zero"
+],
+correct: "It increases",
+explanation: "Group 1 metals become more reactive as you go down the group."
+},
+
+{
+question: "What happens to reactivity down Group 7?",
+answers: [
+"It decreases",
+"It increases",
+"It stays the same",
+"It becomes zero"
+],
+correct: "It decreases",
+explanation: "Group 7 halogens become less reactive as you go down the group."
+},
+
+{
+question: "What is the symbol for sodium?",
+answers: [
+"Na",
+"So",
+"Sd",
+"N"
+],
+correct: "Na",
+explanation: "The symbol for sodium is Na."
+},
+
+{
+question: "What is the symbol for potassium?",
+answers: [
+"K",
+"P",
+"Po",
+"Pt"
+],
+correct: "K",
+explanation: "The symbol for potassium is K."
+},
+
+{
+question: "What is the symbol for chlorine?",
+answers: [
+"Cl",
+"Ch",
+"C",
+"Cr"
+],
+correct: "Cl",
+explanation: "The symbol for chlorine is Cl."
+},
+
+{
+question: "What does the group number tell you for main group elements?",
+answers: [
+"Number of electrons in the outer shell",
+"Number of neutrons",
+"Mass number",
+"Number of isotopes"
+],
+correct: "Number of electrons in the outer shell",
+explanation: "For main group elements, the group number tells you the number of outer shell electrons."
+},
+
+{
+question: "What does the period number tell you?",
+answers: [
+"Number of electron shells",
+"Number of protons",
+"Number of neutrons",
+"Number of atoms"
+],
+correct: "Number of electron shells",
+explanation: "The period number shows how many electron shells an atom has."
+},
+
+{
+question: "What are elements in the same group likely to have?",
+answers: [
+"Similar chemical properties",
+"The same mass number",
+"The same number of neutrons",
+"The same atomic number"
+],
+correct: "Similar chemical properties",
+explanation: "Elements in the same group have similar properties because they have the same number of outer shell electrons."
+},
+
+{
+question: "What type of elements are found on the left side of the periodic table?",
+answers: [
+"Metals",
+"Non-metals",
+"Noble gases",
+"Halogens only"
+],
+correct: "Metals",
+explanation: "Metals are mostly found on the left and centre of the periodic table."
+},
+
+{
+question: "What type of elements are found on the right side of the periodic table?",
+answers: [
+"Non-metals",
+"Metals",
+"Alkali metals",
+"Transition metals"
+],
+correct: "Non-metals",
+explanation: "Non-metals are mostly found on the right side of the periodic table."
+},
+
+{
+question: "What is formed when an atom loses or gains electrons?",
+answers: [
+"An ion",
+"An isotope",
+"A neutron",
+"A molecule only"
+],
+correct: "An ion",
+explanation: "Ions form when atoms gain or lose electrons."
+}
+
+];
+
+let questions = [];
+let currentQuestion = 0;
+let score = 0;
+let answered = 0;
+let timeLeft = 120;
+let timer;
+
+function shuffle(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
+
+function formatTime(seconds) {
+  let mins = Math.floor(seconds / 60);
+  let secs = seconds % 60;
+
+  if (secs < 10) {
+    secs = "0" + secs;
+  }
+
+  return mins + ":" + secs;
+}
+
+function startQuiz() {
+  questions = shuffle([...quiz]);
+
+  currentQuestion = 0;
+  score = 0;
+  answered = 0;
+  timeLeft = 120;
+
+  document.getElementById("startScreen").style.display = "none";
+  document.getElementById("endScreen").style.display = "none";
+  document.getElementById("quizScreen").style.display = "block";
+  document.getElementById("timer").classList.remove("timer-warning");
+
+  updateStats();
+  showQuestion();
+
+  clearInterval(timer);
+
+  timer = setInterval(() => {
+    timeLeft--;
+    updateStats();
+
+    if (timeLeft <= 10) {
+      document.getElementById("timer").classList.add("timer-warning");
+    }
+
+    if (timeLeft <= 0) {
+      endQuiz();
+    }
+  }, 1000);
+}
+
+function updateStats() {
+  document.getElementById("score").textContent = "Score: " + score;
+  document.getElementById("answered").textContent = "Answered: " + answered;
+  document.getElementById("timer").textContent = "Time: " + formatTime(timeLeft);
+}
+
+function showQuestion() {
+  if (currentQuestion >= questions.length) {
+    questions = shuffle([...quiz]);
+    currentQuestion = 0;
+  }
+
+  const q = questions[currentQuestion];
+
+  document.getElementById("question").textContent = q.question;
+  document.getElementById("feedback").innerHTML = "";
+
+  const answersDiv = document.getElementById("answers");
+  answersDiv.innerHTML = "";
+
+  const shuffledAnswers = shuffle([...q.answers]);
+
+  shuffledAnswers.forEach(answer => {
+    const button = document.createElement("button");
+    button.textContent = answer;
+    button.onclick = () => checkAnswer(answer);
+    answersDiv.appendChild(button);
+  });
+}
+
+function checkAnswer(selectedAnswer) {
+  const q = questions[currentQuestion];
+
+  answered++;
+
+  const buttons = document.querySelectorAll("#answers button");
+  buttons.forEach(button => button.disabled = true);
+
+  if (selectedAnswer === q.correct) {
+    score++;
+
+    document.getElementById("feedback").innerHTML =
+      "Correct! ✅<br><span class='explanation'><strong>Explanation:</strong> " + q.explanation + "</span>";
+
+    document.getElementById("feedback").style.color = "green";
+  } else {
+    document.getElementById("feedback").innerHTML =
+      "Wrong ❌ Correct answer: " + q.correct +
+      "<br><span class='explanation'><strong>Explanation:</strong> " + q.explanation + "</span>";
+
+    document.getElementById("feedback").style.color = "red";
+  }
+
+  updateStats();
+
+  currentQuestion++;
+
+  setTimeout(showQuestion, 2500);
+}
+
+function endQuiz() {
+  clearInterval(timer);
+
+  document.getElementById("quizScreen").style.display = "none";
+  document.getElementById("endScreen").style.display = "block";
+
+  let accuracy = answered === 0 ? 0 : Math.round((score / answered) * 100);
+
+  let grade = "";
+
+  if (accuracy < 66) {
+    grade = "FAIL";
+  } else if (accuracy < 80) {
+    grade = "PASS";
+  } else if (accuracy < 90) {
+    grade = "MERIT";
+  } else {
+    grade = "DISTINCTION";
+  }
+
+  document.getElementById("finalScore").textContent =
+    "Score: " + score + " / " + answered;
+
+  document.getElementById("finalAccuracy").textContent =
+    "Accuracy: " + accuracy + "%";
+
+  document.getElementById("finalGrade").textContent =
+    "Grade: " + grade;
+}
+
+function restartQuiz() {
+  startQuiz();
+}
+
+</script>
+
+</body>
+</html>

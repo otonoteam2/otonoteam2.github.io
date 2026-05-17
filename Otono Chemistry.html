@@ -1,0 +1,201 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>🔥 Otono Chemistry — Atomic Structure & Periodic Table</title>
+  <style>
+    :root{
+      /* 🔥 Chemistry = orange + red */
+      --bg1:#3a0900; --bg2:#8b1e00;
+      --card:#160803cc; --card2:#241006e6;
+      --text:#fff4ee; --muted:#ffd2bd;
+      --accent:#ff6a00; --accent2:#ff2e00;
+      --good:#19ff9a; --warn:#ffd166; --bad:#ff4d6d;
+      --line:rgba(255,255,255,.12);
+      --shadow:0 18px 50px rgba(0,0,0,.35);
+      --radius:18px;
+      --mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+      --sans:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:var(--sans); color:var(--text);
+      background:
+        radial-gradient(1000px 700px at 15% 10%, rgba(255,106,0,.24), transparent 60%),
+        radial-gradient(900px 650px at 80% 20%, rgba(255,46,0,.20), transparent 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+    }
+    .wrap{max-width:1100px; margin:0 auto; padding:22px}
+    .topbar{
+      display:flex; gap:14px; align-items:center; justify-content:space-between;
+      padding:14px 16px; border:1px solid var(--line); border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      box-shadow:var(--shadow); position:sticky; top:14px; z-index:20; backdrop-filter:blur(10px)
+    }
+    .brand{display:flex; flex-direction:column; gap:2px}
+    .brand h1{margin:0; font-size:16px; letter-spacing:.3px}
+    .brand .sub{font-size:12px; color:var(--muted)}
+    .pill{padding:8px 10px; border-radius:999px; border:1px solid var(--line); background:rgba(0,0,0,.25); font-family:var(--mono); font-size:12px; display:flex; gap:10px; align-items:center}
+    .pill strong{color:#fff}
+    .btn{border:1px solid var(--line); background:rgba(0,0,0,.25); color:var(--text); padding:10px 12px; border-radius:14px; cursor:pointer; transition:.15s transform,.15s background,.15s border; font-weight:600}
+    .btn:hover{transform:translateY(-1px); background:rgba(0,0,0,.33); border-color:rgba(255,255,255,.22)}
+    .btn.primary{background:linear-gradient(135deg, rgba(255,106,0,.6), rgba(255,46,0,.5)); border-color:rgba(255,255,255,.22)}
+    .btn.danger{background:rgba(255,77,109,.18); border-color:rgba(255,77,109,.35)}
+    .grid{display:grid; grid-template-columns:1.1fr .9fr; gap:16px; margin-top:16px}
+    @media(max-width:980px){.grid{grid-template-columns:1fr}.topbar{position:static}}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden}
+    .card .hd{padding:14px 16px; border-bottom:1px solid var(--line); display:flex; align-items:flex-start; justify-content:space-between; gap:10px; background:linear-gradient(180deg, rgba(255,255,255,.06), transparent)}
+    .card .hd h2{margin:0; font-size:14px}.card .hd .meta{font-size:12px; color:var(--muted); line-height:1.25}.card .bd{padding:16px}
+    label{display:block; font-size:12px; color:var(--muted); margin:10px 0 6px}
+    input[type="text"],textarea,select{width:100%; border:1px solid var(--line); background:rgba(0,0,0,.25); color:var(--text); padding:10px 12px; border-radius:14px; outline:none; font-family:var(--sans)}
+    textarea{min-height:90px; resize:vertical}.row{display:flex; gap:10px; flex-wrap:wrap}.row>div{flex:1 1 180px}
+    .note{font-size:12px; color:var(--muted); line-height:1.4; padding:10px 12px; border-radius:14px; border:1px dashed rgba(255,255,255,.18); background:rgba(0,0,0,.18)}
+    .badge{font-family:var(--mono); font-size:12px; padding:6px 10px; border-radius:999px; border:1px solid var(--line); background:rgba(0,0,0,.20); display:inline-flex; align-items:center; gap:6px}
+    .badge.good{border-color:rgba(25,255,154,.35); background:rgba(25,255,154,.12)}.badge.warn{border-color:rgba(255,209,102,.35); background:rgba(255,209,102,.12)}.badge.bad{border-color:rgba(255,77,109,.35); background:rgba(255,77,109,.12)}
+    .divider{height:1px; background:var(--line); margin:14px 0}.passage{padding:12px 14px; border:1px solid var(--line); border-radius:16px; background:rgba(0,0,0,.22); line-height:1.5}.q{margin-top:14px; padding:12px 14px; border:1px solid var(--line); border-radius:16px; background:rgba(0,0,0,.20)}.q h3{margin:0 0 8px; font-size:13px}.opts{display:grid; gap:8px; margin-top:8px}.opt{display:flex; gap:10px; align-items:flex-start; padding:10px; border-radius:14px; border:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.03); cursor:pointer}.opt input{margin-top:3px}
+    .kpi{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}@media(max-width:980px){.kpi{grid-template-columns:repeat(2,1fr)}}.kpi .box{border:1px solid var(--line); border-radius:16px; padding:10px 12px; background:rgba(0,0,0,.22)}.kpi .box .t{font-size:12px; color:var(--muted)}.kpi .box .v{font-size:18px; font-weight:800; margin-top:4px}.small{font-size:12px; color:var(--muted)}
+    .tabs{display:flex; gap:8px; flex-wrap:wrap}.tab{padding:10px 12px; border-radius:14px; border:1px solid var(--line); background:rgba(0,0,0,.22); cursor:pointer; font-weight:700}.tab.active{background:linear-gradient(135deg, rgba(255,106,0,.35), rgba(255,46,0,.22)); border-color:rgba(255,255,255,.22)}.resultsList{display:grid; gap:10px}.attempt{border:1px solid var(--line); border-radius:16px; padding:12px 14px; background:rgba(0,0,0,.20)}.attempt .top{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap}.attempt .top strong{font-family:var(--mono)}.attempt .meta{font-size:12px; color:var(--muted); margin-top:6px; line-height:1.4}.copy{font-family:var(--mono); font-size:12px; white-space:pre-wrap; word-break:break-word}.hide{display:none!important}
+    .digitRow{display:flex; gap:8px; align-items:center; flex-wrap:wrap}.digitRow .digit{width:52px; text-align:center; font-family:var(--mono); font-size:18px; font-weight:900; padding:12px 0; border-radius:14px; border:1px solid var(--line); background:rgba(0,0,0,.25); color:var(--text); outline:none}.digitRow .hint{font-size:12px; color:var(--muted)}.miniRow{display:flex; gap:10px; flex-wrap:wrap; align-items:flex-end}.miniRow>*{flex:1 1 160px}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="brand">
+      <h1>🔥 Otono Chemistry — Atomic Structure & Periodic Table • Sample set 1</h1>
+      <div class="sub">Auto marking • 5 random sections × 20 = 100 • Centre: <strong id="centreTop">50749</strong></div>
+    </div>
+    <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end">
+      <div class="pill"><span>⏱️ Timer:</span><strong id="timerText">--:--</strong></div>
+      <button class="btn" id="btnResults">Results</button><button class="btn primary" id="btnHome">Test</button>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card" id="panelHome">
+      <div class="hd"><div><h2>Candidate setup</h2><div class="meta">Atomic structure + periodic table only • Auto marking uses exact answers and keywords.</div></div><span class="badge" id="statusBadge">Ready</span></div>
+      <div class="bd" id="homeBody">
+        <div class="miniRow"><div><label>Centre number</label><input type="text" id="centreNo" value="50749" disabled><div class="small" style="margin-top:6px">Default is <strong>50749</strong>. You can change it with the button.</div></div><div style="display:flex; gap:10px; align-items:flex-end; flex-wrap:wrap"><button class="btn" id="btnEditCentre">Customise centre</button><button class="btn" id="btnResetCentre">Reset centre</button></div></div>
+        <div class="divider"></div>
+        <div><label>Candidate number (required, 4 digits)</label><div class="digitRow"><input class="digit" id="candD1" inputmode="numeric" maxlength="1"><input class="digit" id="candD2" inputmode="numeric" maxlength="1"><input class="digit" id="candD3" inputmode="numeric" maxlength="1"><input class="digit" id="candD4" inputmode="numeric" maxlength="1"><span class="hint">Digits only • auto-advance</span></div></div>
+        <div class="row" style="margin-top:6px"><div><label>Candidate surname (optional)</label><input type="text" id="candSurname" placeholder="Surname"></div><div><label>Candidate forename(s) (optional)</label><input type="text" id="candForenames" placeholder="Forename(s)"></div></div>
+        <div class="divider"></div>
+        <div class="note"><strong>How this paper works:</strong><br>• The system selects <strong>5 random chemistry sections</strong>, each worth <strong>20 marks</strong>.<br>• Topics are <strong>atomic structure</strong> and the <strong>periodic table</strong> only.<br>• Question types include <strong>MCQ</strong>, <strong>True/False/Not mentioned</strong>, and <strong>written answers</strong>.<br>• Written answers are marked by <strong>keyword coverage</strong>, so be clear and direct.<br>• Your attempt is saved in this browser using <strong>localStorage</strong>.</div>
+        <div class="divider"></div>
+        <div class="row"><div><label>Time allowed</label><select id="timeAllowed"><option value="75" selected>75 minutes</option><option value="60">60 minutes</option><option value="45">45 minutes</option></select></div><div><label>Question order</label><select id="shuffleMode"><option value="shuffleAll" selected>Shuffle questions</option><option value="keepOrder">Keep original order</option></select></div><div><label>On timer end</label><select id="autoSubmit"><option value="yes" selected>Auto-submit</option><option value="no">Do not auto-submit</option></select></div></div>
+        <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap"><button class="btn primary" id="btnStart">Start Random Paper</button><button class="btn" id="btnPreview">Preview Random Selection</button></div>
+        <div id="previewBox" class="note hide" style="margin-top:12px"></div>
+      </div>
+      <div class="bd hide" id="testBody">
+        <div class="kpi"><div class="box"><div class="t">Candidate</div><div class="v" id="kpiCandidate">—</div></div><div class="box"><div class="t">Selected sections</div><div class="v" id="kpiPassages">—</div></div><div class="box"><div class="t">Topic</div><div class="v">Atoms</div></div><div class="box"><div class="t">Max score</div><div class="v">100</div></div></div>
+        <div class="divider"></div><div class="note"><strong>Instructions:</strong> No notes. No searching. Answer from your chemistry knowledge. Use correct scientific words: proton, neutron, electron, shell, group, period, isotope, ion.</div>
+        <div id="paper"></div><div class="divider"></div><div style="display:flex; gap:10px; flex-wrap:wrap"><button class="btn primary" id="btnSubmit">Submit & Auto-Mark</button><button class="btn" id="btnReset">Reset (new random paper)</button></div><div id="markingBox" class="hide" style="margin-top:14px"></div>
+      </div>
+    </div>
+
+    <div class="card" id="panelSide"><div class="hd"><div><h2 id="sideTitle">Otono grading</h2><div class="meta" id="sideMeta">Score → Otono grade + GCSE estimate + Pass/Merit/Distinction.</div></div></div><div class="bd" id="sideBody"><div class="note"><strong>Pass/Merit/Distinction</strong><br>PASS: 66+<br>MERIT: 80+<br>DISTINCTION: 90+</div><div class="divider"></div><div class="note"><strong>Otono grades</strong><br>S: 101+ secret<br>A*: 92–100<br>A: 86–91<br>B: 76–85<br>C: 66–75<br>D: 60–65<br>E: 50–59<br>F: 40–49<br>G: 28–39<br>H: 15–27<br>U: 0–14</div><div class="divider"></div><div class="note"><strong>GCSE estimate</strong><br>9: 86–100 • 8: 76–85 • 7: 66–75 • 6: 56–65 • 5: 46–55<br>4: 36–45 • 3: 28–35 • 2: 20–27 • 1: 10–19 • U: 0–9</div></div><div class="bd hide" id="resultsBody"><div class="tabs"><div class="tab active" id="tabAll">All attempts</div><div class="tab" id="tabCandidate">By candidate</div></div><div class="row" style="margin-top:10px"><div><label>Filter candidate number</label><input type="text" id="filterCandidate" placeholder="e.g. 1105" inputmode="numeric"></div><div><label>Actions</label><div style="display:flex; gap:10px; flex-wrap:wrap"><button class="btn" id="btnExport">Export JSON</button><button class="btn danger" id="btnClear">Clear stored results</button></div></div></div><div class="divider"></div><div class="resultsList" id="resultsList"></div><div id="exportBox" class="note hide" style="margin-top:12px"><div><strong>Exported JSON</strong></div><div class="divider"></div><div class="copy" id="exportText"></div></div></div></div>
+  </div>
+</div>
+
+<script>
+const SECTIONS=[
+{id:1,title:"Section 1 — Subatomic particles",theme:"Atomic structure",text:`Atoms are made from protons, neutrons and electrons. Protons have a positive charge and neutrons have no charge. Both are found in the nucleus. Electrons have a negative charge and move in shells around the nucleus. In a neutral atom, the number of electrons equals the number of protons.`,questions:[
+{id:"s1q1",type:"mcq",marks:2,prompt:"What is found in the nucleus?",options:["Protons and neutrons","Electrons only","Electrons and shells","Groups and periods"],answerIndex:0},
+{id:"s1q2",type:"mcq",marks:2,prompt:"Which particle has a negative charge?",options:["Proton","Neutron","Electron","Nucleus"],answerIndex:2},
+{id:"s1q3",type:"tfnm",marks:2,prompt:"Neutrons have no charge.",correct:"True"},
+{id:"s1q4",type:"short",marks:4,prompt:"Give TWO facts about protons.",rubric:"Positive charge; found in nucleus; number of protons gives atomic number.",keywords:[["positive","+"],["nucleus"],["atomic number","number"]]},
+{id:"s1q5",type:"short",marks:4,prompt:"Explain what a neutral atom means.",rubric:"A neutral atom has equal numbers of protons and electrons, so total charge is zero.",keywords:[["equal","same"],["protons"],["electrons"],["zero","no charge","neutral"]]},
+{id:"s1q6",type:"short",marks:6,prompt:"Compare the charges and positions of protons, neutrons and electrons.",rubric:"Protons positive in nucleus; neutrons neutral in nucleus; electrons negative in shells.",keywords:[["proton","positive"],["neutron","no charge","neutral"],["electron","negative"],["nucleus"],["shell","energy level"]]}
+]},
+{id:2,title:"Section 2 — Atomic number and mass number",theme:"Atomic structure",text:`The atomic number is the number of protons in an atom. The mass number is the total number of protons and neutrons. To find the number of neutrons, subtract the atomic number from the mass number. For example, an atom with atomic number 6 and mass number 12 has 6 neutrons.`,questions:[
+{id:"s2q1",type:"mcq",marks:2,prompt:"What does atomic number show?",options:["Number of protons","Number of neutrons","Number of shells","Total particles"],answerIndex:0},
+{id:"s2q2",type:"mcq",marks:2,prompt:"Mass number means…",options:["Protons + neutrons","Electrons + shells","Groups + periods","Protons only"],answerIndex:0},
+{id:"s2q3",type:"tfnm",marks:2,prompt:"Neutrons = mass number − atomic number.",correct:"True"},
+{id:"s2q4",type:"short",marks:4,prompt:"An atom has atomic number 11 and mass number 23. How many neutrons does it have? Explain.",rubric:"23 - 11 = 12 neutrons.",keywords:[["12"],["23"],["11"],["subtract","minus","-"]]},
+{id:"s2q5",type:"short",marks:4,prompt:"Why do all atoms of the same element have the same atomic number?",rubric:"Because atoms of the same element have the same number of protons.",keywords:[["same"],["element"],["protons"],["atomic number"]]},
+{id:"s2q6",type:"short",marks:6,prompt:"Explain the difference between atomic number and mass number.",rubric:"Atomic number = protons only; mass number = protons + neutrons.",keywords:[["atomic number","protons"],["mass number"],["protons"],["neutrons"],["total","sum","add"]]}
+]},
+{id:3,title:"Section 3 — Electron shells",theme:"Atomic structure",text:`Electrons are arranged in shells. The first shell can hold up to 2 electrons. The second shell can hold up to 8 electrons. The electronic structure of sodium is 2,8,1. This means sodium has one electron in its outer shell. Outer shell electrons affect chemical reactions.`,questions:[
+{id:"s3q1",type:"mcq",marks:2,prompt:"How many electrons can the first shell hold?",options:["2","4","8","10"],answerIndex:0},
+{id:"s3q2",type:"mcq",marks:2,prompt:"What is sodium's electronic structure?",options:["2,8,1","2,7","2,8,8","1,8,2"],answerIndex:0},
+{id:"s3q3",type:"tfnm",marks:2,prompt:"Outer shell electrons affect chemical reactions.",correct:"True"},
+{id:"s3q4",type:"short",marks:4,prompt:"Magnesium has 12 electrons. Write its electronic structure.",rubric:"2,8,2.",keywords:[["2,8,2"],["2 8 2"]]},
+{id:"s3q5",type:"short",marks:4,prompt:"Explain what 2,8,1 tells you about sodium.",rubric:"It has 11 electrons total, with 1 electron in its outer shell.",keywords:[["11"],["electron"],["outer"],["1"]]},
+{id:"s3q6",type:"short",marks:6,prompt:"Explain why atoms with the same number of outer shell electrons can have similar chemical properties.",rubric:"Chemical reactions depend on outer shell electrons; same outer shell number means similar reactions/properties.",keywords:[["outer shell"],["electrons"],["same","similar"],["chemical properties","reactivity","reactions"]]}
+]},
+{id:4,title:"Section 4 — Groups and periods",theme:"Periodic table",text:`The periodic table is arranged in rows called periods and columns called groups. Elements in the same group have the same number of electrons in their outer shell. This is why elements in a group often have similar chemical properties. Across a period, the atomic number increases by one each time.`,questions:[
+{id:"s4q1",type:"mcq",marks:2,prompt:"What are columns in the periodic table called?",options:["Groups","Periods","Shells","Isotopes"],answerIndex:0},
+{id:"s4q2",type:"mcq",marks:2,prompt:"What are rows in the periodic table called?",options:["Periods","Groups","Nuclei","Ions"],answerIndex:0},
+{id:"s4q3",type:"tfnm",marks:2,prompt:"Atomic number increases across a period.",correct:"True"},
+{id:"s4q4",type:"short",marks:4,prompt:"Why do elements in the same group have similar chemical properties?",rubric:"They have the same number of outer shell electrons.",keywords:[["same"],["outer shell"],["electrons"],["properties","reactivity"]]},
+{id:"s4q5",type:"short",marks:4,prompt:"Name TWO things the periodic table shows or helps organise.",rubric:"Elements, atomic number, groups, periods, properties, metals/non-metals.",keywords:[["element"],["atomic number"],["group"],["period"],["properties"],["metal","non-metal"]]},
+{id:"s4q6",type:"short",marks:6,prompt:"Describe the difference between a group and a period.",rubric:"Group = vertical column; period = horizontal row; groups relate to outer shell electrons; periods relate to shells.",keywords:[["group","column","vertical"],["period","row","horizontal"],["outer shell","electrons"],["shell"]]}
+]},
+{id:5,title:"Section 5 — Metals and non-metals",theme:"Periodic table",text:`Metals are found on the left and in the centre of the periodic table. Non-metals are mostly found on the right. Metals usually conduct electricity, have high melting points and form positive ions. Non-metals often have lower melting points and form negative ions or share electrons.`,questions:[
+{id:"s5q1",type:"mcq",marks:2,prompt:"Where are most metals found?",options:["Left and centre","Far right only","Top row only","Nowhere on the table"],answerIndex:0},
+{id:"s5q2",type:"mcq",marks:2,prompt:"What ions do metals usually form?",options:["Positive ions","Negative ions","No ions","Only neutrons"],answerIndex:0},
+{id:"s5q3",type:"tfnm",marks:2,prompt:"Non-metals are mostly found on the right of the periodic table.",correct:"True"},
+{id:"s5q4",type:"short",marks:4,prompt:"Give TWO common properties of metals.",rubric:"Conduct electricity; high melting points; form positive ions; found left/centre.",keywords:[["conduct"],["high melting"],["positive ion"],["left","centre","center"]]},
+{id:"s5q5",type:"short",marks:4,prompt:"Give TWO common features of non-metals.",rubric:"Mostly right side; lower melting points; form negative ions; share electrons.",keywords:[["right"],["lower melting"],["negative ion"],["share electrons"]]},
+{id:"s5q6",type:"short",marks:6,prompt:"Compare metals and non-metals using position and ion formation.",rubric:"Metals are left/centre and form positive ions; non-metals are right and form negative ions or share electrons.",keywords:[["metal","left","centre","center"],["positive ion"],["non-metal","right"],["negative ion"],["share electrons"]]}
+]},
+{id:6,title:"Section 6 — Isotopes",theme:"Atomic structure",text:`Isotopes are atoms of the same element with the same number of protons but different numbers of neutrons. Because they have the same number of protons, isotopes have the same atomic number. Because they have different numbers of neutrons, they have different mass numbers.`,questions:[
+{id:"s6q1",type:"mcq",marks:2,prompt:"Isotopes have the same number of…",options:["Protons","Neutrons","Mass numbers","Shells only"],answerIndex:0},
+{id:"s6q2",type:"mcq",marks:2,prompt:"Isotopes have different numbers of…",options:["Neutrons","Protons","Groups","Periods"],answerIndex:0},
+{id:"s6q3",type:"tfnm",marks:2,prompt:"Isotopes of the same element have the same atomic number.",correct:"True"},
+{id:"s6q4",type:"short",marks:4,prompt:"Explain why isotopes have different mass numbers.",rubric:"They have different numbers of neutrons.",keywords:[["different"],["neutrons"],["mass number"]]},
+{id:"s6q5",type:"short",marks:4,prompt:"Carbon-12 and carbon-14 are isotopes. What is the same about them?",rubric:"They are the same element and have the same number of protons/atomic number.",keywords:[["same element","carbon"],["same"],["protons"],["atomic number"]]},
+{id:"s6q6",type:"short",marks:6,prompt:"Define isotope fully.",rubric:"Atoms of the same element with the same number of protons but different numbers of neutrons.",keywords:[["same element"],["same"],["protons"],["different"],["neutrons"]]}
+]},
+{id:7,title:"Section 7 — Ions and electron loss/gain",theme:"Atomic structure",text:`Atoms become ions when they lose or gain electrons. If an atom loses electrons, it becomes a positive ion because it has more protons than electrons. If an atom gains electrons, it becomes a negative ion because it has more electrons than protons. Only electrons are lost or gained when ions form.`,questions:[
+{id:"s7q1",type:"mcq",marks:2,prompt:"What changes when an ion forms?",options:["Electrons","Protons","Neutrons","Nucleus"],answerIndex:0},
+{id:"s7q2",type:"mcq",marks:2,prompt:"An atom that loses electrons becomes…",options:["Positive","Negative","Neutral","An isotope"],answerIndex:0},
+{id:"s7q3",type:"tfnm",marks:2,prompt:"Protons are lost when ions form.",correct:"False"},
+{id:"s7q4",type:"short",marks:4,prompt:"Explain why gaining electrons makes a negative ion.",rubric:"There are more electrons than protons, so the overall charge is negative.",keywords:[["gain"],["electrons"],["more electrons"],["protons"],["negative"]]},
+{id:"s7q5",type:"short",marks:4,prompt:"Explain why losing electrons makes a positive ion.",rubric:"There are more protons than electrons, so the overall charge is positive.",keywords:[["lose"],["electrons"],["more protons"],["positive"]]},
+{id:"s7q6",type:"short",marks:6,prompt:"Compare an atom and an ion.",rubric:"Atom is neutral with equal protons/electrons; ion is charged because electrons have been lost or gained.",keywords:[["atom","neutral"],["equal"],["protons"],["electrons"],["ion","charged"],["lost","gained"]]}
+]},
+{id:8,title:"Section 8 — Development of the periodic table",theme:"Periodic table",text:`Early periodic tables arranged elements by atomic weight. Some patterns did not fit perfectly. Mendeleev left gaps for elements that had not been discovered yet and predicted their properties. Modern periodic tables are arranged by atomic number, which is the number of protons.`,questions:[
+{id:"s8q1",type:"mcq",marks:2,prompt:"What are modern periodic tables arranged by?",options:["Atomic number","Alphabetical order","Colour","Atomic size only"],answerIndex:0},
+{id:"s8q2",type:"mcq",marks:2,prompt:"What did Mendeleev leave for undiscovered elements?",options:["Gaps","Electrons","Neutrons","Flames"],answerIndex:0},
+{id:"s8q3",type:"tfnm",marks:2,prompt:"Early periodic tables were arranged by atomic weight.",correct:"True"},
+{id:"s8q4",type:"short",marks:4,prompt:"Why was Mendeleev's table useful?",rubric:"He left gaps and predicted properties of undiscovered elements.",keywords:[["gaps"],["predicted"],["properties"],["undiscovered"]]},
+{id:"s8q5",type:"short",marks:4,prompt:"Why is atomic number a better way to arrange the modern periodic table?",rubric:"Atomic number is the number of protons and gives a clear order for elements.",keywords:[["atomic number"],["protons"],["clear"],["order"]]},
+{id:"s8q6",type:"short",marks:6,prompt:"Compare early periodic tables with the modern periodic table.",rubric:"Early tables used atomic weight and had problems; modern table uses atomic number/protons.",keywords:[["early"],["atomic weight"],["modern"],["atomic number"],["protons"],["patterns","order"]]}
+]}
+];
+let currentPaper=null,timer=null,endAt=null;
+const $=id=>document.getElementById(id);
+function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
+function candidate(){return [$('candD1').value,$('candD2').value,$('candD3').value,$('candD4').value].join('')}
+function grade(score){let o=score>100?'S':score>=92?'A*':score>=86?'A':score>=76?'B':score>=66?'C':score>=60?'D':score>=50?'E':score>=40?'F':score>=28?'G':score>=15?'H':'U';let g=score>=86?'9':score>=76?'8':score>=66?'7':score>=56?'6':score>=46?'5':score>=36?'4':score>=28?'3':score>=20?'2':score>=10?'1':'U';let p=score>=90?'DISTINCTION':score>=80?'MERIT':score>=66?'PASS':'NOT YET PASS';return{o,g,p}}
+function pickPaper(){let chosen=shuffle(SECTIONS).slice(0,5);let mode=$('shuffleMode').value;return chosen.map(s=>({...s,questions:mode==='shuffleAll'?shuffle(s.questions):s.questions}))}
+function renderPaper(){const paper=$('paper');paper.innerHTML='';currentPaper.forEach((s,idx)=>{let div=document.createElement('div');div.className='card';div.style.marginTop='16px';div.innerHTML=`<div class="hd"><div><h2>${idx+1}. ${s.title}</h2><div class="meta">${s.theme} • 20 marks</div></div></div><div class="bd"><div class="passage">${s.text}</div><div id="sec${idx}"></div></div>`;paper.appendChild(div);let holder=div.querySelector('#sec'+idx);s.questions.forEach((q,i)=>{let qd=document.createElement('div');qd.className='q';let html=`<h3>${i+1}. ${q.prompt} <span class="small">[${q.marks}]</span></h3>`;if(q.type==='mcq'){html+=`<div class="opts">`+q.options.map((o,j)=>`<label class="opt"><input type="radio" name="${q.id}" value="${j}"><span>${o}</span></label>`).join('')+`</div>`}else if(q.type==='tfnm'){html+=`<div class="opts">`+['True','False','Not mentioned'].map(o=>`<label class="opt"><input type="radio" name="${q.id}" value="${o}"><span>${o}</span></label>`).join('')+`</div>`}else{html+=`<textarea id="${q.id}" placeholder="Write your answer here..."></textarea>`}qd.innerHTML=html;holder.appendChild(qd)})})}
+function startTimer(mins){clearInterval(timer);endAt=Date.now()+mins*60000;timer=setInterval(()=>{let left=Math.max(0,endAt-Date.now());let m=Math.floor(left/60000),s=Math.floor((left%60000)/1000);$('timerText').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');if(left<=0){clearInterval(timer);if($('autoSubmit').value==='yes')submit()}},500)}
+function markShort(ans,q){let a=(ans||'').toLowerCase();let hits=0;(q.keywords||[]).forEach(group=>{if(group.some(k=>a.includes(k.toLowerCase())))hits++});let total=(q.keywords||[]).length||1;return Math.min(q.marks,Math.round((hits/total)*q.marks))}
+function submit(){if(!currentPaper)return;let score=0,max=100,details=[];currentPaper.forEach(s=>s.questions.forEach(q=>{let got=0,ans='';if(q.type==='mcq'){let el=document.querySelector(`input[name="${q.id}"]:checked`);ans=el? q.options[+el.value] : '';got=el&&+el.value===q.answerIndex?q.marks:0}else if(q.type==='tfnm'){let el=document.querySelector(`input[name="${q.id}"]:checked`);ans=el?el.value:'';got=ans===q.correct?q.marks:0}else{ans=$(q.id)?.value||'';got=markShort(ans,q)}score+=got;details.push({question:q.prompt,answer:ans,marks:got,max:q.marks,rubric:q.rubric||q.correct||q.options?.[q.answerIndex]})}));let gr=grade(score);let result={date:new Date().toLocaleString(),centre:$('centreNo').value,candidate:candidate(),surname:$('candSurname').value,forenames:$('candForenames').value,score,max,otono:gr.o,gcse:gr.g,pmd:gr.p,sections:currentPaper.map(s=>s.title),details};let saved=JSON.parse(localStorage.getItem('otonoChemResults')||'[]');saved.unshift(result);localStorage.setItem('otonoChemResults',JSON.stringify(saved));$('markingBox').className='note';$('markingBox').innerHTML=`<strong>Score: ${score}/100</strong><br>Otono grade: <strong>${gr.o}</strong> • GCSE estimate: <strong>${gr.g}</strong> • ${gr.p}<div class="divider"></div>${details.map(d=>`<div class="attempt"><strong>${d.marks}/${d.max}</strong> — ${d.question}<div class="meta">Your answer: ${d.answer||'—'}<br>Mark scheme: ${d.rubric||'—'}</div></div>`).join('')}`;showResults()}
+function showResults(){let saved=JSON.parse(localStorage.getItem('otonoChemResults')||'[]');let filter=$('filterCandidate').value.trim();if(filter)saved=saved.filter(r=>r.candidate===filter);$('resultsList').innerHTML=saved.length?saved.map(r=>`<div class="attempt"><div class="top"><strong>${r.score}/100</strong><span class="badge ${r.score>=66?'good':'warn'}">${r.otono} • GCSE ${r.gcse}</span></div><div class="meta">${r.date}<br>Candidate ${r.candidate||'—'} • ${r.surname||''} ${r.forenames||''}<br>${r.pmd}<br>${r.sections.join(' • ')}</div></div>`).join(''):'<div class="note">No attempts saved yet.</div>'}
+['candD1','candD2','candD3','candD4'].forEach((id,i,arr)=>$(id).addEventListener('input',e=>{e.target.value=e.target.value.replace(/\D/g,'').slice(0,1);if(e.target.value&&i<arr.length-1)$(arr[i+1]).focus()}));
+$('btnEditCentre').onclick=()=>{$('centreNo').disabled=false;$('centreNo').focus()};$('btnResetCentre').onclick=()=>{$('centreNo').value='50749';$('centreNo').disabled=true;$('centreTop').textContent='50749'};$('centreNo').oninput=()=>{$('centreTop').textContent=$('centreNo').value||'—'};
+$('btnPreview').onclick=()=>{let p=pickPaper();$('previewBox').className='note';$('previewBox').innerHTML='<strong>Preview:</strong><br>'+p.map(s=>'• '+s.title).join('<br>')};
+$('btnStart').onclick=()=>{if(!/^\d{4}$/.test(candidate())){alert('Enter a 4-digit candidate number.');return}currentPaper=pickPaper();$('homeBody').classList.add('hide');$('testBody').classList.remove('hide');$('statusBadge').textContent='In progress';$('statusBadge').className='badge warn';$('kpiCandidate').textContent=candidate();$('kpiPassages').textContent='5';renderPaper();startTimer(+$('timeAllowed').value)};
+$('btnSubmit').onclick=submit;$('btnReset').onclick=()=>location.reload();$('btnResults').onclick=()=>{$('sideBody').classList.add('hide');$('resultsBody').classList.remove('hide');showResults()};$('btnHome').onclick=()=>{$('sideBody').classList.remove('hide');$('resultsBody').classList.add('hide')};$('filterCandidate').oninput=showResults;$('btnExport').onclick=()=>{$('exportBox').classList.remove('hide');$('exportText').textContent=localStorage.getItem('otonoChemResults')||'[]'};$('btnClear').onclick=()=>{if(confirm('Clear stored chemistry results?')){localStorage.removeItem('otonoChemResults');showResults()}};
+
+const disabledKeys = ["u", "I"];
+const showAlert = e => {
+  e.preventDefault();
+  return alert("Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!");
+};
+document.addEventListener("contextmenu", e => { showAlert(e); });
+document.addEventListener("keydown", e => {
+  if ((e.ctrlKey && disabledKeys.includes(e.key)) || e.key === "F12") {
+    showAlert(e);
+  }
+});
+
+</script>
+</body>
+</html>

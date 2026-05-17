@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>C2 Bonding, Structure & Properties of Matter Quiz</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #ffebee;
+      padding: 30px;
+    }
+
+    .quiz-box {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      max-width: 750px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    h1 {
+      color: #c62828;
+    }
+
+    #timer {
+      font-size: 32px;
+      font-weight: bold;
+      color: #d32f2f;
+    }
+
+    .timer-warning {
+      animation: pulseTimer 0.5s infinite alternate;
+    }
+
+    @keyframes pulseTimer {
+      from { transform: scale(1); }
+      to { transform: scale(1.25); }
+    }
+
+    #score, #answered {
+      font-size: 18px;
+      font-weight: bold;
+      color: #c62828;
+    }
+
+    button {
+      display: block;
+      margin: 10px auto;
+      padding: 12px;
+      width: 90%;
+      border: none;
+      border-radius: 8px;
+      background: #ffcdd2;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background: #ef9a9a;
+    }
+
+    .start-btn, .restart-btn {
+      background: #c62828;
+      color: white;
+      font-size: 18px;
+    }
+
+    #feedback {
+      font-weight: bold;
+      margin-top: 15px;
+      line-height: 1.5;
+    }
+
+    .explanation {
+      color: #333;
+      font-weight: normal;
+    }
+
+    .grade {
+      font-size: 28px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="quiz-box">
+
+  <h1>C2 Bonding, Structure & Properties of Matter Quiz 🔴</h1>
+
+  <div id="startScreen">
+    <p>Answer as many C2 Bonding, Structure & Properties of Matter questions as possible in 2 minutes.</p>
+    <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
+  </div>
+
+  <div id="quizScreen" style="display:none;">
+    <p id="timer">Time: 2:00</p>
+    <p id="score">Score: 0</p>
+    <p id="answered">Answered: 0</p>
+
+    <h2 id="question"></h2>
+    <div id="answers"></div>
+
+    <p id="feedback"></p>
+  </div>
+
+  <div id="endScreen" style="display:none;">
+    <h2>Time's up!</h2>
+    <p id="finalScore"></p>
+    <p id="finalAccuracy"></p>
+    <p id="finalGrade" class="grade"></p>
+
+    <button class="restart-btn" onclick="restartQuiz()">Play Again</button>
+  </div>
+
+</div>
+
+<script>
+
+const quiz = [
+
+{
+question: "What type of bonding happens between a metal and a non-metal?",
+answers: [
+"Ionic bonding",
+"Covalent bonding",
+"Metallic bonding",
+"Hydrogen bonding"
+],
+correct: "Ionic bonding",
+explanation: "Ionic bonding usually happens when electrons are transferred from a metal atom to a non-metal atom."
+},
+
+{
+question: "What type of bonding happens between non-metal atoms?",
+answers: [
+"Covalent bonding",
+"Ionic bonding",
+"Metallic bonding",
+"Electrolysis"
+],
+correct: "Covalent bonding",
+explanation: "Covalent bonding happens when non-metal atoms share pairs of electrons."
+},
+
+{
+question: "What type of bonding happens in metals?",
+answers: [
+"Metallic bonding",
+"Ionic bonding",
+"Covalent bonding",
+"Simple molecular bonding"
+],
+correct: "Metallic bonding",
+explanation: "Metal atoms form giant metallic structures with delocalised electrons."
+},
+
+{
+question: "What is an ion?",
+answers: [
+"A charged particle",
+"A neutral atom only",
+"A neutron",
+"A type of molecule"
+],
+correct: "A charged particle",
+explanation: "An ion is formed when an atom gains or loses electrons."
+},
+
+{
+question: "What happens when an atom loses electrons?",
+answers: [
+"It becomes a positive ion",
+"It becomes a negative ion",
+"It becomes a neutron",
+"It becomes an isotope"
+],
+correct: "It becomes a positive ion",
+explanation: "Losing negative electrons leaves the atom with an overall positive charge."
+},
+
+{
+question: "What happens when an atom gains electrons?",
+answers: [
+"It becomes a negative ion",
+"It becomes a positive ion",
+"It becomes a proton",
+"It becomes a metal"
+],
+correct: "It becomes a negative ion",
+explanation: "Gaining electrons gives the atom an overall negative charge."
+},
+
+{
+question: "Why do ionic compounds have high melting points?",
+answers: [
+"Strong electrostatic forces between oppositely charged ions",
+"Weak forces between molecules",
+"They contain gases",
+"They have no bonds"
+],
+correct: "Strong electrostatic forces between oppositely charged ions",
+explanation: "A lot of energy is needed to overcome the strong electrostatic forces in ionic lattices."
+},
+
+{
+question: "When can ionic compounds conduct electricity?",
+answers: [
+"When molten or dissolved",
+"When solid only",
+"When cold",
+"When powdered"
+],
+correct: "When molten or dissolved",
+explanation: "Ions must be free to move to carry electrical charge."
+},
+
+{
+question: "Why can solid ionic compounds not conduct electricity?",
+answers: [
+"The ions cannot move",
+"They have no ions",
+"They contain only electrons",
+"They melt easily"
+],
+correct: "The ions cannot move",
+explanation: "In a solid ionic lattice, ions are fixed in place and cannot move."
+},
+
+{
+question: "What is a covalent bond?",
+answers: [
+"A shared pair of electrons",
+"A lost proton",
+"A metal ion attraction",
+"A neutron transfer"
+],
+correct: "A shared pair of electrons",
+explanation: "A covalent bond is a shared pair of electrons between atoms."
+},
+
+{
+question: "Why do simple molecular substances have low melting and boiling points?",
+answers: [
+"Weak intermolecular forces",
+"Strong ionic bonds",
+"Metallic bonding",
+"They have free ions"
+],
+correct: "Weak intermolecular forces",
+explanation: "Only weak forces between molecules need to be overcome."
+},
+
+{
+question: "Do simple molecular substances usually conduct electricity?",
+answers: [
+"No, because they have no free charged particles",
+"Yes, because they have ions",
+"Yes, because they are metals",
+"Only when solid"
+],
+correct: "No, because they have no free charged particles",
+explanation: "They do not usually have free ions or delocalised electrons to carry charge."
+},
+
+{
+question: "What structure does diamond have?",
+answers: [
+"Giant covalent structure",
+"Simple molecular structure",
+"Ionic lattice",
+"Metallic lattice"
+],
+correct: "Giant covalent structure",
+explanation: "Diamond is a giant covalent structure made of carbon atoms."
+},
+
+{
+question: "Why is diamond hard?",
+answers: [
+"Each carbon atom forms four strong covalent bonds",
+"It has weak intermolecular forces",
+"It has free ions",
+"It is made of layers"
+],
+correct: "Each carbon atom forms four strong covalent bonds",
+explanation: "Diamond is hard because it has many strong covalent bonds in a giant structure."
+},
+
+{
+question: "Does diamond conduct electricity?",
+answers: [
+"No, because it has no delocalised electrons",
+"Yes, because it has free ions",
+"Yes, because it is a metal",
+"Yes, because it dissolves"
+],
+correct: "No, because it has no delocalised electrons",
+explanation: "All outer electrons in diamond are used in covalent bonds, so there are no delocalised electrons."
+},
+
+{
+question: "What structure does graphite have?",
+answers: [
+"Layers of carbon atoms",
+"Separate molecules",
+"Positive ions only",
+"A giant ionic lattice"
+],
+correct: "Layers of carbon atoms",
+explanation: "Graphite has layers of carbon atoms arranged in hexagons."
+},
+
+{
+question: "Why can graphite conduct electricity?",
+answers: [
+"It has delocalised electrons",
+"It has free protons",
+"It has moving ions",
+"It is liquid"
+],
+correct: "It has delocalised electrons",
+explanation: "Each carbon atom in graphite has one electron that is delocalised and can carry charge."
+},
+
+{
+question: "Why is graphite soft and slippery?",
+answers: [
+"Layers can slide over each other",
+"It has no bonds",
+"It is made of ions",
+"It melts easily"
+],
+correct: "Layers can slide over each other",
+explanation: "Weak forces between layers allow the layers to slide."
+},
+
+{
+question: "What are fullerenes?",
+answers: [
+"Molecules of carbon shaped like cages or tubes",
+"Metal atoms",
+"Ionic compounds",
+"Only diamond crystals"
+],
+correct: "Molecules of carbon shaped like cages or tubes",
+explanation: "Fullerenes are carbon molecules with hollow shapes, such as spheres or tubes."
+},
+
+{
+question: "What is graphene?",
+answers: [
+"A single layer of graphite",
+"A type of salt",
+"A metal alloy",
+"A simple molecule of oxygen"
+],
+correct: "A single layer of graphite",
+explanation: "Graphene is one layer of carbon atoms arranged in a hexagonal pattern."
+},
+
+{
+question: "Why are metals good conductors of electricity?",
+answers: [
+"They have delocalised electrons",
+"They have weak bonds",
+"They have free neutrons",
+"They are all liquids"
+],
+correct: "They have delocalised electrons",
+explanation: "Delocalised electrons can move through the metal and carry electrical charge."
+},
+
+{
+question: "Why are metals malleable?",
+answers: [
+"Layers of atoms can slide over each other",
+"They have no bonds",
+"They are made of molecules",
+"They contain gases"
+],
+correct: "Layers of atoms can slide over each other",
+explanation: "Metal atoms are arranged in layers that can slide while metallic bonding remains."
+},
+
+{
+question: "What is an alloy?",
+answers: [
+"A mixture of two or more elements, at least one metal",
+"A pure metal only",
+"A non-metal gas",
+"A type of polymer"
+],
+correct: "A mixture of two or more elements, at least one metal",
+explanation: "Alloys are mixtures designed to improve properties such as strength."
+},
+
+{
+question: "Why are alloys harder than pure metals?",
+answers: [
+"Different sized atoms make it harder for layers to slide",
+"They have no electrons",
+"They are always ionic",
+"They melt at room temperature"
+],
+correct: "Different sized atoms make it harder for layers to slide",
+explanation: "Different sized atoms distort the layers, making sliding more difficult."
+},
+
+{
+question: "Which state of matter has particles in fixed positions?",
+answers: [
+"Solid",
+"Liquid",
+"Gas",
+"Solution"
+],
+correct: "Solid",
+explanation: "In solids, particles vibrate around fixed positions."
+},
+
+{
+question: "Which state of matter has particles far apart and moving randomly?",
+answers: [
+"Gas",
+"Solid",
+"Liquid",
+"Crystal"
+],
+correct: "Gas",
+explanation: "Gas particles are far apart and move randomly."
+},
+
+{
+question: "What happens during melting?",
+answers: [
+"A solid changes to a liquid",
+"A liquid changes to a gas",
+"A gas changes to a liquid",
+"A liquid changes to a solid"
+],
+correct: "A solid changes to a liquid",
+explanation: "Melting is the change from solid to liquid."
+},
+
+{
+question: "What happens during boiling?",
+answers: [
+"A liquid changes to a gas",
+"A gas changes to a liquid",
+"A solid changes to a liquid",
+"A liquid changes to a solid"
+],
+correct: "A liquid changes to a gas",
+explanation: "Boiling happens when particles gain enough energy to become a gas."
+},
+
+{
+question: "What happens during condensation?",
+answers: [
+"A gas changes to a liquid",
+"A liquid changes to a gas",
+"A solid changes to a gas",
+"A liquid changes to a solid"
+],
+correct: "A gas changes to a liquid",
+explanation: "Condensation is the change from gas to liquid."
+},
+
+{
+question: "What happens during freezing?",
+answers: [
+"A liquid changes to a solid",
+"A solid changes to a liquid",
+"A gas changes to a liquid",
+"A solid changes to a gas"
+],
+correct: "A liquid changes to a solid",
+explanation: "Freezing is the change from liquid to solid."
+}
+
+];
+
+let questions = [];
+let currentQuestion = 0;
+let score = 0;
+let answered = 0;
+let timeLeft = 120;
+let timer;
+
+function shuffle(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
+
+function formatTime(seconds) {
+  let mins = Math.floor(seconds / 60);
+  let secs = seconds % 60;
+
+  if (secs < 10) {
+    secs = "0" + secs;
+  }
+
+  return mins + ":" + secs;
+}
+
+function startQuiz() {
+  questions = shuffle([...quiz]);
+
+  currentQuestion = 0;
+  score = 0;
+  answered = 0;
+  timeLeft = 120;
+
+  document.getElementById("startScreen").style.display = "none";
+  document.getElementById("endScreen").style.display = "none";
+  document.getElementById("quizScreen").style.display = "block";
+  document.getElementById("timer").classList.remove("timer-warning");
+
+  updateStats();
+  showQuestion();
+
+  clearInterval(timer);
+
+  timer = setInterval(() => {
+    timeLeft--;
+    updateStats();
+
+    if (timeLeft <= 10) {
+      document.getElementById("timer").classList.add("timer-warning");
+    }
+
+    if (timeLeft <= 0) {
+      endQuiz();
+    }
+  }, 1000);
+}
+
+function updateStats() {
+  document.getElementById("score").textContent = "Score: " + score;
+  document.getElementById("answered").textContent = "Answered: " + answered;
+  document.getElementById("timer").textContent = "Time: " + formatTime(timeLeft);
+}
+
+function showQuestion() {
+  if (currentQuestion >= questions.length) {
+    questions = shuffle([...quiz]);
+    currentQuestion = 0;
+  }
+
+  const q = questions[currentQuestion];
+
+  document.getElementById("question").textContent = q.question;
+  document.getElementById("feedback").innerHTML = "";
+
+  const answersDiv = document.getElementById("answers");
+  answersDiv.innerHTML = "";
+
+  const shuffledAnswers = shuffle([...q.answers]);
+
+  shuffledAnswers.forEach(answer => {
+    const button = document.createElement("button");
+    button.textContent = answer;
+    button.onclick = () => checkAnswer(answer);
+    answersDiv.appendChild(button);
+  });
+}
+
+function checkAnswer(selectedAnswer) {
+  const q = questions[currentQuestion];
+
+  answered++;
+
+  const buttons = document.querySelectorAll("#answers button");
+  buttons.forEach(button => button.disabled = true);
+
+  if (selectedAnswer === q.correct) {
+    score++;
+
+    document.getElementById("feedback").innerHTML =
+      "Correct! ✅<br><span class='explanation'><strong>Explanation:</strong> " + q.explanation + "</span>";
+
+    document.getElementById("feedback").style.color = "green";
+  } else {
+    document.getElementById("feedback").innerHTML =
+      "Wrong ❌ Correct answer: " + q.correct +
+      "<br><span class='explanation'><strong>Explanation:</strong> " + q.explanation + "</span>";
+
+    document.getElementById("feedback").style.color = "red";
+  }
+
+  updateStats();
+
+  currentQuestion++;
+
+  setTimeout(showQuestion, 2500);
+}
+
+function endQuiz() {
+  clearInterval(timer);
+
+  document.getElementById("quizScreen").style.display = "none";
+  document.getElementById("endScreen").style.display = "block";
+
+  let accuracy = answered === 0 ? 0 : Math.round((score / answered) * 100);
+
+  let grade = "";
+
+  if (accuracy < 66) {
+    grade = "FAIL";
+  } else if (accuracy < 80) {
+    grade = "PASS";
+  } else if (accuracy < 90) {
+    grade = "MERIT";
+  } else {
+    grade = "DISTINCTION";
+  }
+
+  document.getElementById("finalScore").textContent =
+    "Score: " + score + " / " + answered;
+
+  document.getElementById("finalAccuracy").textContent =
+    "Accuracy: " + accuracy + "%";
+
+  document.getElementById("finalGrade").textContent =
+    "Grade: " + grade;
+}
+
+function restartQuiz() {
+  startQuiz();
+}
+
+</script>
+
+</body>
+</html>

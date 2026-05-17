@@ -640,28 +640,42 @@
     <aside class="side-column">
       <div id="subscribe" class="subscribe-column">
         <h2>Subscribe to Otono Team</h2>
-        <p>
-          My channel links back to this website, so this website should send people back to the channel too.
-          Subscribe for Otono Airways videos, creative challenges, trailers and new Otono projects.
-        </p>
+			<p>
+			  My channel links back to this website, so this website should send people back to the channel too.
+			  Subscribe for Otono Airways videos, creative challenges, trailers and new Otono projects.
+			</p>
 
-        <div class="sub-count-box">
-          <strong>328</strong>
-          <span>current subscribers, manually updated monthly</span>
-        </div>
+			<div class="sub-count-box">
+			  <strong id="current-subs">331</strong>
+			  <span>current subscribers, manually updated monthly</span>
+			</div>
 
-        <div class="sub-count-box">
-          <strong>2672</strong>
-          <span>subscribers to go until the 3000 goal</span>
-        </div>
+			<div class="sub-count-box">
+			  <strong id="subs-to-go"></strong>
+			  <span>subscribers to go until the 3000 goal</span>
+			</div>
 
-        <div class="sub-count-box">
-          <strong>10.9%</strong>
-          <span>progress towards 3000 subscribers</span>
-          <div style="margin-top:12px; height:12px; background:rgba(255,255,255,0.22); border-radius:999px; overflow:hidden;">
-            <div style="width:10.9%; height:100%; background:white; border-radius:999px;"></div>
-          </div>
-        </div>
+			<div class="sub-count-box">
+			  <strong id="sub-progress"></strong>
+			  <span>progress towards 3000 subscribers</span>
+
+			  <div style="margin-top:12px; height:12px; background:rgba(255,255,255,0.22); border-radius:999px; overflow:hidden;">
+			    <div id="sub-progress-bar" style="height:100%; background:white; border-radius:999px;"></div>
+			  </div>
+			</div>
+
+<script>
+  const currentSubs = 331;
+  const goalSubs = 3000;
+
+  const subsToGo = Math.max(goalSubs - currentSubs, 0);
+  const progress = Math.min((currentSubs / goalSubs) * 100, 100);
+
+  document.getElementById("current-subs").textContent = currentSubs;
+  document.getElementById("subs-to-go").textContent = subsToGo;
+  document.getElementById("sub-progress").textContent = progress.toFixed(1) + "%";
+  document.getElementById("sub-progress-bar").style.width = progress + "%";
+</script>
 
         <a class="subscribe-button" href="https://youtube.com/@otonoteamredbird3835?si=y72TF2GE1f5qP-jK">SUBSCRIBE NOW</a>
         <p class="small-note">Click the button above to subscribe to my channel.</p>
@@ -750,7 +764,7 @@
           <p>
             Website changes, new pages, video progress, creative projects and important Otono Team announcements.
           </p>
-          <a class="community-button" href="INSERT-OTONO-UPDATES-LINK-HERE">
+          <a class="community-button" href="https://otonoteam2.github.io/updates.html">
             Read Updates
           </a>
         </div>

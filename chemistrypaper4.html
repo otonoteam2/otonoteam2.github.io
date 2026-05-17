@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>C4 Chemical Changes Quiz</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #ffebee;
+      padding: 30px;
+    }
+
+    .quiz-box {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      max-width: 750px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    h1 {
+      color: #c62828;
+    }
+
+    #timer {
+      font-size: 32px;
+      font-weight: bold;
+      color: #d32f2f;
+    }
+
+    .timer-warning {
+      animation: pulseTimer 0.5s infinite alternate;
+    }
+
+    @keyframes pulseTimer {
+      from { transform: scale(1); }
+      to { transform: scale(1.25); }
+    }
+
+    #score, #answered {
+      font-size: 18px;
+      font-weight: bold;
+      color: #c62828;
+    }
+
+    button {
+      display: block;
+      margin: 10px auto;
+      padding: 12px;
+      width: 90%;
+      border: none;
+      border-radius: 8px;
+      background: #ffcdd2;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background: #ef9a9a;
+    }
+
+    .start-btn, .restart-btn {
+      background: #c62828;
+      color: white;
+      font-size: 18px;
+    }
+
+    #feedback {
+      font-weight: bold;
+      margin-top: 15px;
+      line-height: 1.5;
+    }
+
+    .explanation {
+      color: #333;
+      font-weight: normal;
+    }
+
+    .grade {
+      font-size: 28px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="quiz-box">
+
+  <h1>C4 Chemical Changes Quiz 🔴</h1>
+
+  <div id="startScreen">
+    <p>Answer as many C4 Chemical Changes questions as possible in 2 minutes.</p>
+    <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
+  </div>
+
+  <div id="quizScreen" style="display:none;">
+    <p id="timer">Time: 2:00</p>
+    <p id="score">Score: 0</p>
+    <p id="answered">Answered: 0</p>
+
+    <h2 id="question"></h2>
+    <div id="answers"></div>
+
+    <p id="feedback"></p>
+  </div>
+
+  <div id="endScreen" style="display:none;">
+    <h2>Time's up!</h2>
+    <p id="finalScore"></p>
+    <p id="finalAccuracy"></p>
+    <p id="finalGrade" class="grade"></p>
+
+    <button class="restart-btn" onclick="restartQuiz()">Play Again</button>
+  </div>
+
+</div>
+
+<script>
+
+const quiz = [
+
+{
+question: "What is oxidation?",
+answers: [
+"Gain of oxygen",
+"Loss of oxygen",
+"Gain of neutrons",
+"Loss of protons"
+],
+correct: "Gain of oxygen",
+explanation: "Oxidation is the gain of oxygen."
+},
+
+{
+question: "What is reduction?",
+answers: [
+"Loss of oxygen",
+"Gain of oxygen",
+"Gain of protons",
+"Loss of neutrons"
+],
+correct: "Loss of oxygen",
+explanation: "Reduction is the loss of oxygen."
+},
+
+{
+question: "What is a displacement reaction?",
+answers: [
+"A more reactive element replaces a less reactive element",
+"A less reactive element replaces a more reactive element",
+"A substance dissolves in water",
+"A solid melts"
+],
+correct: "A more reactive element replaces a less reactive element",
+explanation: "A more reactive element can displace a less reactive element from a compound."
+},
+
+{
+question: "Which metal is more reactive than copper?",
+answers: [
+"Magnesium",
+"Gold",
+"Silver",
+"Platinum"
+],
+correct: "Magnesium",
+explanation: "Magnesium is above copper in the reactivity series."
+},
+
+{
+question: "Which metal is least reactive?",
+answers: [
+"Gold",
+"Magnesium",
+"Zinc",
+"Iron"
+],
+correct: "Gold",
+explanation: "Gold is very unreactive and is near the bottom of the reactivity series."
+},
+
+{
+question: "What gas is produced when acids react with metals?",
+answers: [
+"Hydrogen",
+"Oxygen",
+"Carbon dioxide",
+"Chlorine"
+],
+correct: "Hydrogen",
+explanation: "Acid + metal → salt + hydrogen."
+},
+
+{
+question: "What gas is produced when acids react with carbonates?",
+answers: [
+"Carbon dioxide",
+"Hydrogen",
+"Oxygen",
+"Nitrogen"
+],
+correct: "Carbon dioxide",
+explanation: "Acid + carbonate → salt + water + carbon dioxide."
+},
+
+{
+question: "What gas is made when acids react with alkalis?",
+answers: [
+"No gas is made",
+"Hydrogen",
+"Carbon dioxide",
+"Oxygen"
+],
+correct: "No gas is made",
+explanation: "Acid + alkali → salt + water. This is neutralisation."
+},
+
+{
+question: "What is neutralisation?",
+answers: [
+"Acid reacting with a base to form salt and water",
+"Metal reacting with oxygen",
+"Water freezing",
+"A gas dissolving"
+],
+correct: "Acid reacting with a base to form salt and water",
+explanation: "Neutralisation happens when acids react with bases or alkalis."
+},
+
+{
+question: "What salt is made from hydrochloric acid?",
+answers: [
+"Chloride",
+"Sulfate",
+"Nitrate",
+"Carbonate"
+],
+correct: "Chloride",
+explanation: "Hydrochloric acid forms chloride salts."
+},
+
+{
+question: "What salt is made from sulfuric acid?",
+answers: [
+"Sulfate",
+"Chloride",
+"Nitrate",
+"Hydroxide"
+],
+correct: "Sulfate",
+explanation: "Sulfuric acid forms sulfate salts."
+},
+
+{
+question: "What salt is made from nitric acid?",
+answers: [
+"Nitrate",
+"Chloride",
+"Sulfate",
+"Oxide"
+],
+correct: "Nitrate",
+explanation: "Nitric acid forms nitrate salts."
+},
+
+{
+question: "What is the word equation for acid + metal?",
+answers: [
+"Acid + metal → salt + hydrogen",
+"Acid + metal → salt + water",
+"Acid + metal → carbon dioxide",
+"Acid + metal → oxygen + water"
+],
+correct: "Acid + metal → salt + hydrogen",
+explanation: "Metals reacting with acids produce a salt and hydrogen gas."
+},
+
+{
+question: "What is the word equation for acid + carbonate?",
+answers: [
+"Acid + carbonate → salt + water + carbon dioxide",
+"Acid + carbonate → salt + hydrogen",
+"Acid + carbonate → metal + oxygen",
+"Acid + carbonate → water only"
+],
+correct: "Acid + carbonate → salt + water + carbon dioxide",
+explanation: "Carbonates react with acids to produce carbon dioxide."
+},
+
+{
+question: "What is the word equation for acid + base?",
+answers: [
+"Acid + base → salt + water",
+"Acid + base → hydrogen + salt",
+"Acid + base → carbon dioxide",
+"Acid + base → oxygen + salt"
+],
+correct: "Acid + base → salt + water",
+explanation: "This is a neutralisation reaction."
+},
+
+{
+question: "What ion makes a solution acidic?",
+answers: [
+"H⁺ ions",
+"OH⁻ ions",
+"Na⁺ ions",
+"Cl⁻ ions"
+],
+correct: "H⁺ ions",
+explanation: "Acids produce hydrogen ions, H⁺, in solution."
+},
+
+{
+question: "What ion makes a solution alkaline?",
+answers: [
+"OH⁻ ions",
+"H⁺ ions",
+"Cl⁻ ions",
+"Mg²⁺ ions"
+],
+correct: "OH⁻ ions",
+explanation: "Alkalis produce hydroxide ions, OH⁻, in solution."
+},
+
+{
+question: "What is the pH of a neutral solution?",
+answers: [
+"7",
+"1",
+"14",
+"0"
+],
+correct: "7",
+explanation: "A neutral solution has a pH of 7."
+},
+
+{
+question: "What pH do acids have?",
+answers: [
+"Less than 7",
+"More than 7",
+"Exactly 7",
+"Always 14"
+],
+correct: "Less than 7",
+explanation: "Acids have pH values below 7."
+},
+
+{
+question: "What pH do alkalis have?",
+answers: [
+"More than 7",
+"Less than 7",
+"Exactly 7",
+"Always 0"
+],
+correct: "More than 7",
+explanation: "Alkalis have pH values above 7."
+},
+
+{
+question: "What colour does universal indicator turn in strong acid?",
+answers: [
+"Red",
+"Purple",
+"Green",
+"Blue"
+],
+correct: "Red",
+explanation: "Strong acids turn universal indicator red."
+},
+
+{
+question: "What colour does universal indicator turn in neutral solutions?",
+answers: [
+"Green",
+"Red",
+"Purple",
+"Orange"
+],
+correct: "Green",
+explanation: "Neutral solutions turn universal indicator green."
+},
+
+{
+question: "What colour does universal indicator turn in strong alkali?",
+answers: [
+"Purple",
+"Red",
+"Orange",
+"Yellow"
+],
+correct: "Purple",
+explanation: "Strong alkalis turn universal indicator purple."
+},
+
+{
+question: "What does electrolysis use to break down ionic compounds?",
+answers: [
+"Electricity",
+"Heat only",
+"Filtration",
+"Light"
+],
+correct: "Electricity",
+explanation: "Electrolysis uses electricity to decompose ionic compounds."
+},
+
+{
+question: "During electrolysis, where do positive ions move?",
+answers: [
+"To the negative electrode",
+"To the positive electrode",
+"Nowhere",
+"To the surface"
+],
+correct: "To the negative electrode",
+explanation: "Positive ions are attracted to the negative electrode, called the cathode."
+},
+
+{
+question: "During electrolysis, where do negative ions move?",
+answers: [
+"To the positive electrode",
+"To the negative electrode",
+"Nowhere",
+"To the middle"
+],
+correct: "To the positive electrode",
+explanation: "Negative ions are attracted to the positive electrode, called the anode."
+},
+
+{
+question: "What is the negative electrode called?",
+answers: [
+"Cathode",
+"Anode",
+"Electrolyte",
+"Salt bridge"
+],
+correct: "Cathode",
+explanation: "The cathode is the negative electrode."
+},
+
+{
+question: "What is the positive electrode called?",
+answers: [
+"Anode",
+"Cathode",
+"Electrolyte",
+"Metal plate"
+],
+correct: "Anode",
+explanation: "The anode is the positive electrode."
+},
+
+{
+question: "What happens at the cathode during electrolysis?",
+answers: [
+"Reduction",
+"Oxidation",
+"Neutralisation",
+"Combustion"
+],
+correct: "Reduction",
+explanation: "Reduction happens at the cathode because positive ions gain electrons."
+},
+
+{
+question: "What happens at the anode during electrolysis?",
+answers: [
+"Oxidation",
+"Reduction",
+"Neutralisation",
+"Melting"
+],
+correct: "Oxidation",
+explanation: "Oxidation happens at the anode because negative ions lose electrons."
+}
+
+];
+
+let questions = [];
+let currentQuestion = 0;
+let score = 0;
+let answered = 0;
+let timeLeft = 120;
+let timer;
+
+function shuffle(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
+
+function formatTime(seconds) {
+  let mins = Math.floor(seconds / 60);
+  let secs = seconds % 60;
+
+  if (secs < 10) {
+    secs = "0" + secs;
+  }
+
+  return mins + ":" + secs;
+}
+
+function startQuiz() {
+  questions = shuffle([...quiz]);
+
+  currentQuestion = 0;
+  score = 0;
+  answered = 0;
+  timeLeft = 120;
+
+  document.getElementById("startScreen").style.display = "none";
+  document.getElementById("endScreen").style.display = "none";
+  document.getElementById("quizScreen").style.display = "block";
+  document.getElementById("timer").classList.remove("timer-warning");
+
+  updateStats();
+  showQuestion();
+
+  clearInterval(timer);
+
+  timer = setInterval(() => {
+    timeLeft--;
+    updateStats();
+
+    if (timeLeft <= 10) {
+      document.getElementById("timer").classList.add("timer-warning");
+    }
+
+    if (timeLeft <= 0) {
+      endQuiz();
+    }
+  }, 1000);
+}
+
+function updateStats() {
+  document.getElementById("score").textContent = "Score: " + score;
+  document.getElementById("answered").textContent = "Answered: " + answered;
+  document.getElementById("timer").textContent = "Time: " + formatTime(timeLeft);
+}
+
+function showQuestion() {
+  if (currentQuestion >= questions.length) {
+    questions = shuffle([...quiz]);
+    currentQuestion = 0;
+  }
+
+  const q = questions[currentQuestion];
+
+  document.getElementById("question").textContent = q.question;
+  document.getElementById("feedback").innerHTML = "";
+
+  const answersDiv = document.getElementById("answers");
+  answersDiv.innerHTML = "";
+
+  const shuffledAnswers = shuffle([...q.answers]);
+
+  shuffledAnswers.forEach(answer => {
+    const button = document.createElement("button");
+    button.textContent = answer;
+    button.onclick = () => checkAnswer(answer);
+    answersDiv.appendChild(button);
+  });
+}
+
+function checkAnswer(selectedAnswer) {
+  const q = questions[currentQuestion];
+
+  answered++;
+
+  const buttons = document.querySelectorAll("#answers button");
+  buttons.forEach(button => button.disabled = true);
+
+  if (selectedAnswer === q.correct) {
+    score++;
+
+    document.getElementById("feedback").innerHTML =
+      "Correct! ✅<br><span class='explanation'><strong>Explanation:</strong> " + q.explanation + "</span>";
+
+    document.getElementById("feedback").style.color = "green";
+  } else {
+    document.getElementById("feedback").innerHTML =
+      "Wrong ❌ Correct answer: " + q.correct +
+      "<br><span class='explanation'><strong>Explanation:</strong> " + q.explanation + "</span>";
+
+    document.getElementById("feedback").style.color = "red";
+  }
+
+  updateStats();
+
+  currentQuestion++;
+
+  setTimeout(showQuestion, 2500);
+}
+
+function endQuiz() {
+  clearInterval(timer);
+
+  document.getElementById("quizScreen").style.display = "none";
+  document.getElementById("endScreen").style.display = "block";
+
+  let accuracy = answered === 0 ? 0 : Math.round((score / answered) * 100);
+
+  let grade = "";
+
+  if (accuracy < 66) {
+    grade = "FAIL";
+  } else if (accuracy < 80) {
+    grade = "PASS";
+  } else if (accuracy < 90) {
+    grade = "MERIT";
+  } else {
+    grade = "DISTINCTION";
+  }
+
+  document.getElementById("finalScore").textContent =
+    "Score: " + score + " / " + answered;
+
+  document.getElementById("finalAccuracy").textContent =
+    "Accuracy: " + accuracy + "%";
+
+  document.getElementById("finalGrade").textContent =
+    "Grade: " + grade;
+}
+
+function restartQuiz() {
+  startQuiz();
+}
+
+</script>
+
+</body>
+</html>
