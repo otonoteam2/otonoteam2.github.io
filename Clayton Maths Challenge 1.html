@@ -88,7 +88,7 @@ pre{white-space:pre-wrap;font-family:var(--mono);background:rgba(0,0,0,.25);bord
 
       <div class="bd hide" id="paperArea">
         <div class="note">
-          <b>Formula page</b>
+          <b>Formula page</b><br><span class="small">Typing tip: use <b>x^2</b> or <b>x2</b> instead of x² if your keyboard cannot type squared.</span>
 <pre>Quadratic formula:
 x = (-b ± √(b² - 4ac)) / 2a
 
@@ -176,7 +176,7 @@ function qHTML(n, marks, body){
 function renderQuestions(){
 document.getElementById("questions").innerHTML = `
 ${qHTML(1,5,`
-<b>⚠️ SHOCK START:</b> Solve 2x² - 7x - 15 = 0.
+<b>⚠️ SHOCK START:</b> Solve 2x^2 - 7x - 15 = 0.
 <label><input type="radio" name="q1" value="A"> A: x = 5 or x = -1</label>
 <label><input type="radio" name="q1" value="B"> B: x = 5 or x = -3/2</label>
 <label><input type="radio" name="q1" value="C"> C: x = 3 or x = -5</label>
@@ -197,19 +197,39 @@ Simplify 3a - 2(4a - 5) + 7.
 <label><input type="radio" name="q3" value="D"> D: 5a - 17</label>
 `)}
 ${qHTML(4,8,`Solve (3x - 5)/4 = (x + 7)/2 <input id="q4">`)}
-${qHTML(5,9,`Expand and simplify (2x - 3)(x + 5) - (x - 4)² <input id="q5">`)}
+${qHTML(5,9,`Expand and simplify (2x - 3)(x + 5) - (x - 4)^2 <input id="q5">`)}
 ${qHTML(6,10,`Sequence: 4, 11, 18, 25...<label>Next two terms</label><input id="q6a"><label>nth term</label><input id="q6b"><label>Is 298 in the sequence?</label><textarea id="q6c"></textarea>`)}
-${qHTML(7,10,`Rectangle length (3x+2), width (x-1), area 65cm².<label>Equation</label><input id="q7a"><label>Solve x</label><input id="q7b">`)}
+${qHTML(7,10,`Rectangle length (3x+2), width (x-1), area 65 cm^2.<label>Equation</label><input id="q7a"><label>Solve x</label><input id="q7b">`)}
 ${qHTML(8,10,`Spinner 1–5, spun twice.<label>Total is 8</label><input id="q8a"><label>Total greater than 7</label><input id="q8b"><label>Total even</label><input id="q8c">`)}
 ${qHTML(9,11,`Circle radius 7cm.<label>Circumference</label><input id="q9a"><label>Area</label><input id="q9b"><label>Radius increases by 20%, new area</label><input id="q9c">`)}
-${qHTML(10,12,`For 3x² + 6x + 10 = 0:<label>Discriminant</label><input id="q10a"><label>Number of real solutions</label><input id="q10b"><label>Quadratic with exactly one real solution</label><input id="q10c">`)}
-${qHTML(11,15,`A number n: (n + 5)² equals 3n + 61. Form and solve.<textarea id="q11"></textarea>`)}
+${qHTML(10,12,`For 3x^2 + 6x + 10 = 0:<label>Discriminant</label><input id="q10a"><label>Number of real solutions</label><input id="q10b"><label>Quadratic with exactly one real solution</label><input id="q10c">`)}
+${qHTML(11,15,`A number n: (n + 5)^2 equals 3n + 61. Form and solve.<textarea id="q11"></textarea>`)}
 `;
 }
 
-function val(id){return (document.getElementById(id)?.value || "").toLowerCase().replace(/\s/g,"");}
+function val(id){
+  return (document.getElementById(id)?.value || "")
+    .toLowerCase()
+    .replace(/²/g,"^2")
+    .replace(/sqrt/g,"√")
+    .replace(/\s/g,"");
+}
 function radio(name){return document.querySelector(`input[name="${name}"]:checked`)?.value || "";}
-function contains(id, arr){let v=val(id);return arr.some(a=>v.includes(a.toLowerCase().replace(/\s/g,"")));}
+function cleanAns(a){
+  return a.toLowerCase()
+    .replace(/²/g,"^2")
+    .replace(/sqrt/g,"√")
+    .replace(/\s/g,"");
+}
+function typedForms(expr){
+  // Accept common keyboard versions: x^2, x2, n^2, n2, b^2, b2, etc.
+  const base = cleanAns(expr);
+  return [...new Set([base, base.replace(/\^2/g,"2")])];
+}
+function contains(id, arr){
+  const v = val(id);
+  return arr.some(a => typedForms(a).some(form => v.includes(form)));
+}
 
 function otonoAH(score){
   if(score >= 94) return "A*";
@@ -256,7 +276,7 @@ function submitPaper(){
   add(2, radio("q2")==="C"?5:0, 5, "Correct answer: C");
   add(3, radio("q3")==="B"?5:0, 5, "Correct answer: B");
   add(4, contains("q4",["19"])?8:0, 8, "x = 19");
-  add(5, contains("q5",["x^2+15x-31","x²+15x-31"])?9:0, 9, "x² + 15x - 31");
+  add(5, contains("q5",["x^2+15x-31","x²+15x-31"])?9:0, 9, "x^2 + 15x - 31");
 
   let q6=0;
   if(contains("q6a",["32,39","3239"])) q6+=2;
@@ -267,7 +287,7 @@ function submitPaper(){
   let q7=0;
   if(contains("q7a",["3x^2-x-67=0","3x²-x-67=0"])) q7+=4;
   if(contains("q7b",["4.9","4.90","sqrt805","√805"])) q7+=6;
-  add(7,q7,10,"3x² - x - 67 = 0; x ≈ 4.90.");
+  add(7,q7,10,"3x^2 - x - 67 = 0; x ≈ 4.90.");
 
   let q8=0;
   if(contains("q8a",["3/25"])) q8+=4;
@@ -279,13 +299,13 @@ function submitPaper(){
   if(contains("q9a",["14π","14pi"])) q9+=3;
   if(contains("q9b",["49π","49pi"])) q9+=3;
   if(contains("q9c",["221.7"])) q9+=5;
-  add(9,q9,11,"14π, 49π, 221.7cm².");
+  add(9,q9,11,"14π, 49π, 221.7 cm^2.");
 
   let q10=0;
-  if(contains("q10a",["b^2-4ac","b²-4ac"])) q10+=3;
+  if(contains("q10a",["-84","b^2-4ac"])) q10+=3;
   if(contains("q10b",["no","none","negative","0"])) q10+=5;
   if(contains("q10c",["x^2","x²","(x-"])) q10+=4;
-  add(10,q10,12,"Discriminant = b² - 4ac. Negative, so no real solutions.");
+  add(10,q10,12,"Discriminant = -84 (from b^2 - 4ac). Negative, so no real solutions.");
 
   let q11=0;
   if(contains("q11",["(n+5)^2=3n+61","(n+5)²=3n+61"])) q11+=5;
