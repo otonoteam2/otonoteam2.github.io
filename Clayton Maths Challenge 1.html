@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>🟣 Otono Mathematics — Clayton Level Challenge</title>
+<style>
+:root{
+  --bg1:#2b0a3d; --bg2:#7a0036; --text:#f4efff; --muted:#c9b9ff;
+  --line:rgba(255,255,255,.12); --shadow:0 18px 50px rgba(0,0,0,.35);
+  --good:#19ff9a; --warn:#ffd166; --bad:#ff4d6d; --radius:18px;
+  --mono:ui-monospace,Menlo,Consolas,monospace; --sans:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;font-family:var(--sans);color:var(--text);
+  background:radial-gradient(1000px 700px at 15% 10%,rgba(176,0,255,.22),transparent 60%),
+  radial-gradient(900px 650px at 80% 20%,rgba(255,27,106,.18),transparent 55%),
+  linear-gradient(135deg,var(--bg1),var(--bg2));min-height:100vh;
+}
+.wrap{max-width:1120px;margin:auto;padding:22px}
+.topbar,.card{
+  border:1px solid var(--line);border-radius:var(--radius);
+  background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));
+  box-shadow:var(--shadow);backdrop-filter:blur(10px);
+}
+.topbar{padding:14px 16px;display:flex;justify-content:space-between;gap:12px;align-items:center}
+h1{font-size:16px;margin:0}.sub,.small{font-size:12px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;margin-top:16px}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+.hd{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}
+.bd{padding:16px}
+.btn{border:1px solid var(--line);background:rgba(0,0,0,.25);color:var(--text);padding:10px 12px;border-radius:14px;cursor:pointer;font-weight:700}
+.btn.primary{background:linear-gradient(135deg,rgba(176,0,255,.55),rgba(255,27,106,.45))}
+.pill,.badge{padding:8px 10px;border-radius:999px;border:1px solid var(--line);background:rgba(0,0,0,.25);font-family:var(--mono);font-size:12px}
+.badge.good{border-color:rgba(25,255,154,.35);background:rgba(25,255,154,.12)}
+.badge.warn{border-color:rgba(255,209,102,.35);background:rgba(255,209,102,.12)}
+.badge.bad{border-color:rgba(255,77,109,.35);background:rgba(255,77,109,.12)}
+label{display:block;font-size:12px;color:var(--muted);margin:10px 0 6px}
+input,textarea{width:100%;border:1px solid var(--line);background:rgba(0,0,0,.25);color:var(--text);padding:10px 12px;border-radius:14px}
+textarea{min-height:86px}
+.row{display:flex;gap:10px;flex-wrap:wrap}.row>div{flex:1}
+.note,.question{font-size:13px;line-height:1.45;padding:12px 14px;border-radius:16px;border:1px solid var(--line);background:rgba(0,0,0,.22);margin-bottom:12px}
+.note{border-style:dashed;color:var(--muted)}
+.divider{height:1px;background:var(--line);margin:14px 0}
+.choice{padding:9px 10px;border:1px solid var(--line);border-radius:14px;margin:7px 0;background:rgba(255,255,255,.03)}
+.hide{display:none!important}
+pre{white-space:pre-wrap;font-family:var(--mono);background:rgba(0,0,0,.25);border:1px solid var(--line);padding:12px;border-radius:14px}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div>
+      <h1>🟣 Otono Mathematics — Clayton Level Challenge</h1>
+      <div class="sub">Numbers • Algebra • Probability • 100 marks • 45 minutes • Higher Tier</div>
+    </div>
+    <div class="pill">⏱️ <strong id="timer">45:00</strong></div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="hd">
+        <div>
+          <h2>Candidate setup</h2>
+          <div class="small">Use black ink or ball-point pen. <b>Do NOT use pencil.</b></div>
+        </div>
+        <span class="badge" id="status">Ready</span>
+      </div>
+
+      <div class="bd" id="setup">
+        <div class="row">
+          <div><label>Centre number</label><input id="centre" value="50749"></div>
+          <div><label>Candidate number</label><input id="candidate" placeholder="4 digits"></div>
+          <div><label>Candidate name</label><input id="name" placeholder="Optional"></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="note">
+          <b>Luke’s instruction:</b> Use black ink or ball-point pen. <b>Do NOT use pencil.</b><br>
+          Banned: pencil answers, red ink, green ink, correction fluid, invisible ink, suspicious erasable pens.
+        </div>
+
+        <button class="btn primary" onclick="startPaper()">Start Clayton Level Paper 🔥</button>
+      </div>
+
+      <div class="bd hide" id="paperArea">
+        <div class="note">
+          <b>Formula page</b>
+<pre>Quadratic formula:
+x = (-b ± √(b² - 4ac)) / 2a
+
+Pythagoras:
+a² + b² = c²
+
+Circle:
+Area = πr²
+Circumference = 2πr
+
+Probability:
+P(A or B) = P(A) + P(B) - P(A and B)</pre>
+        </div>
+
+        <div id="questions"></div>
+        <button class="btn primary" onclick="submitPaper()">Submit & Auto-Mark</button>
+        <div id="markBox" class="hide"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="hd"><h2>Otono grading</h2></div>
+      <div class="bd">
+        <div class="note">
+          <b>Pass/Merit/Distinction</b><br>
+          🏆 Distinction: 90–100<br>
+          ⭐ Merit: 80–89<br>
+          ✅ Pass: 66–79<br>
+          ❌ Fail: below 66
+        </div>
+
+        <div class="note">
+          <b>Otono A–H — Higher Tier</b><br>
+          A*: 94+<br>A: 88+<br>B: 78+<br>C: 66+<br>D: 54+<br>E: 44+<br>F: 38+<br>U: below 38<br><br>
+          No G or H because this is Higher Tier.
+        </div>
+
+        <div class="note">
+          <b>Estimated GCSE 9–1 — adjusted for Clayton difficulty</b><br>
+          9: 84+<br>8: 74+<br>7: 64+<br>6: 54+<br>5: 44+<br>4: 34+<br>3: 28+<br>U: below 28
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const disabledKeys = ["u", "I"];
+const showAlert = e => {
+  e.preventDefault();
+  return alert("Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!");
+};
+document.addEventListener("contextmenu", e => showAlert(e));
+document.addEventListener("keydown", e => {
+  if ((e.ctrlKey && disabledKeys.includes(e.key)) || e.key === "F12") showAlert(e);
+});
+
+let remaining = 2700;
+let timerInt = null;
+
+function tick(){
+  let m = Math.floor(remaining/60);
+  let s = remaining%60;
+  document.getElementById("timer").textContent = String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
+  remaining--;
+  if(remaining < 0){ clearInterval(timerInt); submitPaper(); }
+}
+
+function startPaper(){
+  const cand = document.getElementById("candidate").value.trim();
+  if(!/^\d{4}$/.test(cand)){ alert("Candidate number is required."); return; }
+  document.getElementById("setup").classList.add("hide");
+  document.getElementById("paperArea").classList.remove("hide");
+  document.getElementById("status").textContent = "In progress";
+  document.getElementById("status").className = "badge warn";
+  renderQuestions();
+  tick();
+  timerInt = setInterval(tick,1000);
+}
+
+function qHTML(n, marks, body){
+  return `<div class="question"><h3>Question ${n} (${marks} marks)</h3>${body}</div>`;
+}
+
+function renderQuestions(){
+document.getElementById("questions").innerHTML = `
+${qHTML(1,5,`
+<b>⚠️ SHOCK START:</b> Solve 2x² - 7x - 15 = 0.
+<label><input type="radio" name="q1" value="A"> A: x = 5 or x = -1</label>
+<label><input type="radio" name="q1" value="B"> B: x = 5 or x = -3/2</label>
+<label><input type="radio" name="q1" value="C"> C: x = 3 or x = -5</label>
+<label><input type="radio" name="q1" value="D"> D: x = -5 only</label>
+`)}
+${qHTML(2,5,`
+Two blue counters are picked without replacement from 5 red, 3 blue, 2 green.
+<label><input type="radio" name="q2" value="A"> A: 3/10</label>
+<label><input type="radio" name="q2" value="B"> B: 1/15</label>
+<label><input type="radio" name="q2" value="C"> C: 1/10</label>
+<label><input type="radio" name="q2" value="D"> D: 2/15</label>
+`)}
+${qHTML(3,5,`
+Simplify 3a - 2(4a - 5) + 7.
+<label><input type="radio" name="q3" value="A"> A: -5a + 12</label>
+<label><input type="radio" name="q3" value="B"> B: -5a + 17</label>
+<label><input type="radio" name="q3" value="C"> C: 11a + 17</label>
+<label><input type="radio" name="q3" value="D"> D: 5a - 17</label>
+`)}
+${qHTML(4,8,`Solve (3x - 5)/4 = (x + 7)/2 <input id="q4">`)}
+${qHTML(5,9,`Expand and simplify (2x - 3)(x + 5) - (x - 4)² <input id="q5">`)}
+${qHTML(6,10,`Sequence: 4, 11, 18, 25...<label>Next two terms</label><input id="q6a"><label>nth term</label><input id="q6b"><label>Is 298 in the sequence?</label><textarea id="q6c"></textarea>`)}
+${qHTML(7,10,`Rectangle length (3x+2), width (x-1), area 65cm².<label>Equation</label><input id="q7a"><label>Solve x</label><input id="q7b">`)}
+${qHTML(8,10,`Spinner 1–5, spun twice.<label>Total is 8</label><input id="q8a"><label>Total greater than 7</label><input id="q8b"><label>Total even</label><input id="q8c">`)}
+${qHTML(9,11,`Circle radius 7cm.<label>Circumference</label><input id="q9a"><label>Area</label><input id="q9b"><label>Radius increases by 20%, new area</label><input id="q9c">`)}
+${qHTML(10,12,`For 3x² + 6x + 10 = 0:<label>Discriminant</label><input id="q10a"><label>Number of real solutions</label><input id="q10b"><label>Quadratic with exactly one real solution</label><input id="q10c">`)}
+${qHTML(11,15,`A number n: (n + 5)² equals 3n + 61. Form and solve.<textarea id="q11"></textarea>`)}
+`;
+}
+
+function val(id){return (document.getElementById(id)?.value || "").toLowerCase().replace(/\s/g,"");}
+function radio(name){return document.querySelector(`input[name="${name}"]:checked`)?.value || "";}
+function contains(id, arr){let v=val(id);return arr.some(a=>v.includes(a.toLowerCase().replace(/\s/g,"")));}
+
+function otonoAH(score){
+  if(score >= 94) return "A*";
+  if(score >= 88) return "A";
+  if(score >= 78) return "B";
+  if(score >= 66) return "C";
+  if(score >= 54) return "D";
+  if(score >= 44) return "E";
+  if(score >= 38) return "F";
+  return "U";
+}
+
+function estimatedGCSE(score){
+  if(score >= 84) return "9";
+  if(score >= 74) return "8";
+  if(score >= 64) return "7";
+  if(score >= 54) return "6";
+  if(score >= 44) return "5";
+  if(score >= 34) return "4";
+  if(score >= 28) return "3";
+  return "U";
+}
+
+function claytonTitle(score){
+  if(score === 100) return "👑 CLAYTON TITLE: The 100/100 Absolute Perfection Candidate";
+  if(score >= 95) return "🔥 Clayton Approved";
+  if(score >= 90) return "🏆 Almost Clayton Level";
+  if(score >= 80) return "⭐ Very Strong";
+  if(score >= 66) return "✅ Passed the Otono Standard";
+  return "❌ Clayton Has Entered Marking Mode";
+}
+
+function submitPaper(){
+  clearInterval(timerInt);
+  let score = 0;
+  let feedback = [];
+
+  function add(q, got, max, note){
+    score += got;
+    feedback.push(`<div class="choice"><b>Q${q}:</b> ${got}/${max}<br>${note}</div>`);
+  }
+
+  add(1, radio("q1")==="B"?5:0, 5, "Correct answer: B");
+  add(2, radio("q2")==="C"?5:0, 5, "Correct answer: C");
+  add(3, radio("q3")==="B"?5:0, 5, "Correct answer: B");
+  add(4, contains("q4",["19"])?8:0, 8, "x = 19");
+  add(5, contains("q5",["x^2+15x-31","x²+15x-31"])?9:0, 9, "x² + 15x - 31");
+
+  let q6=0;
+  if(contains("q6a",["32,39","3239"])) q6+=2;
+  if(contains("q6b",["7n-3"])) q6+=4;
+  if(contains("q6c",["43","yes"])) q6+=4;
+  add(6,q6,10,"32, 39; nth term 7n - 3; yes, n = 43.");
+
+  let q7=0;
+  if(contains("q7a",["3x^2-x-67=0","3x²-x-67=0"])) q7+=4;
+  if(contains("q7b",["4.9","4.90","sqrt805","√805"])) q7+=6;
+  add(7,q7,10,"3x² - x - 67 = 0; x ≈ 4.90.");
+
+  let q8=0;
+  if(contains("q8a",["3/25"])) q8+=4;
+  if(contains("q8b",["6/25"])) q8+=3;
+  if(contains("q8c",["13/25"])) q8+=3;
+  add(8,q8,10,"3/25, 6/25, 13/25.");
+
+  let q9=0;
+  if(contains("q9a",["14π","14pi"])) q9+=3;
+  if(contains("q9b",["49π","49pi"])) q9+=3;
+  if(contains("q9c",["221.7"])) q9+=5;
+  add(9,q9,11,"14π, 49π, 221.7cm².");
+
+  let q10=0;
+  if(contains("q10a",["b^2-4ac","b²-4ac"])) q10+=3;
+  if(contains("q10b",["no","none","negative","0"])) q10+=5;
+  if(contains("q10c",["x^2","x²","(x-"])) q10+=4;
+  add(10,q10,12,"Discriminant = b² - 4ac. Negative, so no real solutions.");
+
+  let q11=0;
+  if(contains("q11",["(n+5)^2=3n+61","(n+5)²=3n+61"])) q11+=5;
+  if(contains("q11",["n^2+7n-36=0","n²+7n-36=0"])) q11+=4;
+  if(contains("q11",["√193","sqrt193","-7"])) q11+=6;
+  add(11,q11,15,"n = (-7 ± √193)/2.");
+
+  let pmd = score>=90?"🏆 Distinction":score>=80?"⭐ Merit":score>=66?"✅ Pass":"❌ Fail";
+  let ah = otonoAH(score);
+  let gcse = estimatedGCSE(score);
+  let title = claytonTitle(score);
+
+  document.getElementById("status").textContent = pmd;
+  document.getElementById("status").className = score>=80?"badge good":score>=66?"badge warn":"badge bad";
+
+  document.getElementById("markBox").classList.remove("hide");
+  document.getElementById("markBox").innerHTML = `
+    <div class="divider"></div>
+    <div class="note">
+      <h2>Result: ${score}/100 — ${pmd}</h2>
+      <h3>${title}</h3>
+      <p><b>Otono A–H grade:</b> ${ah}</p>
+      <p><b>Estimated GCSE 9–1 grade:</b> ${gcse}</p>
+      <p><b>Clayton reaction:</b> ${
+  score===100
+    ? "100/100. Full Clayton perfection unlocked. 👑🔥"
+    : score>=90
+      ? "Very strong, but Clayton still checks every mark."
+      : "Clayton has entered full analysis mode."
+}</p>
+    </div>
+    ${feedback.join("")}
+  `;
+}
+</script>
+</body>
+</html>
