@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>🟣 Otono French — Dictation • Set 1</title>
+<title>🟣 Otono Spanish — Dictation • Set 1</title>
 
 <style>
 :root{
@@ -121,7 +121,7 @@ textarea{min-height:78px;resize:vertical}
 <div class="wrap">
   <div class="topbar">
     <div>
-      <h1>🟣 Otono French — Paper 1 • Dictation • Set 1</h1>
+      <h1>🟣 Otono Spanish — Paper 1 • Dictation • Set 1</h1>
       <div class="sub">Not secured • Foundation or Higher • 20 / 40 / 100 marks • Centre <strong>50749</strong></div>
     </div>
     <div class="row" style="justify-content:flex-end">
@@ -190,7 +190,7 @@ textarea{min-height:78px;resize:vertical}
           1. Full sentence<br>
           2. Broken into slow sections<br>
           3. Full sentence again<br><br>
-          Candidates can toggle <strong>Special characters</strong> at any time.
+          Spanish is marked more strictly because spelling and pronunciation are usually more consistent.
         </div>
       </div>
 
@@ -203,12 +203,12 @@ textarea{min-height:78px;resize:vertical}
         </div>
 
         <div class="divider"></div>
-        <div class="note">Type exactly what you hear in French. Audio is intentionally slow.</div>
+        <div class="note">Type exactly what you hear in Spanish. Audio is intentionally slow.</div>
         <div id="audioSteps"></div>
 
         <div class="q">
           <h3 id="qTitle">Question 1</h3>
-          <textarea id="answerBox" placeholder="Type your French dictation here..."></textarea>
+          <textarea id="answerBox" placeholder="Type your Spanish dictation here..."></textarea>
           <div class="row" style="margin-top:10px">
             <button class="btn primary" onclick="playSequence()">Play sentence sequence</button>
             <button class="btn" onclick="nextQuestion()">Next</button>
@@ -245,7 +245,7 @@ textarea{min-height:78px;resize:vertical}
     <aside class="card">
       <div class="hd">
         <div>
-          <h2>Otono dictation rules</h2>
+          <h2>Otono Spanish dictation rules</h2>
           <div class="meta">AO1 meaning + AO3 transcription accuracy.</div>
         </div>
       </div>
@@ -257,16 +257,17 @@ textarea{min-height:78px;resize:vertical}
         </div>
         <div class="divider"></div>
         <div class="note">
-          <strong>Labels:</strong><br>
-          ❌ Mal: below 66<br>
-          ✅ OK: 66–79<br>
-          ⭐ Très bien: 80–89<br>
-          🏆 Excellent: 90–99<br>
-          💯 Secret score: 100
+          <strong>Spanish stricter rule:</strong><br>
+          Spanish spelling usually matches pronunciation more clearly, so exact letters, accents and verb endings matter more.
         </div>
         <div class="divider"></div>
         <div class="note">
-          Includes Otono school rules, Mr Barley, Mrs Munn, Mr Young, Clayton, Otono Airways, Otono Mansion, Le Mans, and les sciences combinées.
+          <strong>Labels:</strong><br>
+          ❌ Mal: below 66<br>
+          ✅ OK: 66–79<br>
+          ⭐ Muy bien: 80–89<br>
+          🏆 Excelente: 90–99<br>
+          💯 Secret score: 100
         </div>
       </div>
     </aside>
@@ -285,7 +286,6 @@ textarea{min-height:78px;resize:vertical}
 </div>
 
 <script>
-/* source-code challenge */
 const disabledKeys = ["u", "I"];
 const showAlert = e => {
   e.preventDefault();
@@ -298,102 +298,102 @@ document.addEventListener("keydown", e => {
   }
 });
 
-const CHARS = "à â ç é è ê ë î ï ô ù û ü œ æ À Â Ç É È Ê Ë Î Ï Ô Ù Û Ü Œ Æ".split(" ");
+const CHARS = "á é í ó ú ü ñ ¿ ¡ Á É Í Ó Ú Ü Ñ".split(" ");
 
 const BANK = {
   foundation: [
-    "La salle est très calme.",
-    "Il faut utiliser un stylo noir.",
-    "Le dictionnaire est interdit.",
-    "Le professeur vérifie les règles.",
-    "Mme Munn explique la consigne.",
-    "M. Young accepte l'accord.",
-    "Mr Barley porte une ceinture.",
-    "La ceinture devient célèbre.",
-    "Mr Barley enseigne les sciences.",
-    "Il est le meilleur professeur.",
-    "Clayton veut toujours progresser.",
-    "Clayton vise cent pour cent.",
-    "Le progrès compte aussi.",
-    "Les sciences combinées sont difficiles.",
-    "La synergie mélange les thèmes.",
-    "La trilogie sépare les sciences.",
-    "Otono Airways achète des avions.",
-    "La flotte devient plus moderne.",
-    "Le manoir cache des salles.",
-    "La maison possède beaucoup de pièces.",
-    "Nous chantons La Marseillaise.",
-    "La musique donne de l'énergie.",
-    "Le bus rouge arrive bientôt.",
-    "La ville virtuelle est occupée.",
-    "La prison est bien gardée.",
-    "Le serveur communautaire ouvre bientôt.",
-    "La course dure longtemps.",
-    "Le Mans semble légendaire.",
-    "Jordan visite la maison.",
-    "Salish danse très vite.",
-    "Nidal saute avec énergie.",
-    "Les examens commencent demain.",
-    "Les candidats restent silencieux.",
-    "Les fenêtres restent fermées.",
-    "Le papier est très clair.",
-    "L'encre jaune est interdite.",
-    "L'encre noire est obligatoire.",
-    "La règle semble étrange.",
-    "Le surveillant parle calmement.",
-    "Le cahier reste fermé."
+    "La sala está muy tranquila.",
+    "Hay que usar tinta negra.",
+    "El diccionario está prohibido.",
+    "La profesora explica la norma.",
+    "El profesor revisa los bolígrafos.",
+    "El examen empieza mañana.",
+    "Los candidatos guardan silencio.",
+    "Las ventanas están cerradas.",
+    "La tinta amarilla está prohibida.",
+    "La regla parece extraña.",
+    "El aula está preparada.",
+    "Clayton quiere progresar siempre.",
+    "Clayton quiere cien por ciento.",
+    "El progreso también importa.",
+    "Las ciencias combinadas son difíciles.",
+    "La sinergia mezcla los temas.",
+    "La trilogía separa las ciencias.",
+    "Otono Airways compra aviones.",
+    "La flota crece rápidamente.",
+    "La mansión tiene muchas salas.",
+    "La casa es enorme.",
+    "Cantamos La Marsellesa juntos.",
+    "La música da mucha energía.",
+    "El autobús rojo llega pronto.",
+    "La ciudad virtual está ocupada.",
+    "La prisión está bien vigilada.",
+    "El servidor comunitario abre pronto.",
+    "La carrera dura mucho tiempo.",
+    "Le Mans parece legendario.",
+    "Jordan visita la casa.",
+    "Salish baila muy rápido.",
+    "Nidal salta con energía.",
+    "Las reglas son muy estrictas.",
+    "El vigilante habla despacio.",
+    "El papel es muy claro.",
+    "La clase termina tarde.",
+    "La región parece tranquila.",
+    "El invierno es bastante frío.",
+    "Los alumnos escuchan atentamente.",
+    "La respuesta debe ser precisa."
   ],
   higher: [
-    "Il est interdit d'utiliser l'encre jaune pour les examens.",
-    "En sciences, il ne faut pas utiliser l'encre noire.",
-    "Les sciences combinées en trilogie séparent les matières.",
-    "Les sciences combinées en synergie mélangent les thèmes.",
-    "Mme Munn et M. Young ont accepté cet accord.",
-    "Mr Barley, avec sa ceinture, reste le meilleur professeur.",
-    "Mr Barley explique les règles avec beaucoup de calme.",
-    "La ceinture de Mr Barley devient presque légendaire.",
-    "Clayton préfère la perfection, mais le progrès compte aussi.",
-    "Clayton a obtenu un score parfait en mathématiques.",
-    "Red comprend que soixante-dix-neuf reste un bon résultat.",
-    "Il faut lire la consigne écrite avant de répondre.",
-    "Les candidats doivent vérifier chaque accent français.",
-    "Les dictionnaires et les traducteurs sont strictement interdits.",
-    "Le surveillant demande aux candidats de rester silencieux.",
-    "La salle d'examen devient complètement silencieuse.",
-    "La règle sur l'encre semble contradictoire aujourd'hui.",
-    "L'encre noire est obligatoire dans presque tous les papiers.",
-    "Pourtant, cette fois, l'encre noire est interdite.",
-    "Les sciences combinées demandent beaucoup de précision.",
-    "La trilogie contient davantage de contenu scientifique.",
-    "La synergie relie plusieurs idées scientifiques ensemble.",
-    "La physique demande des calculs précis et clairs.",
-    "La chimie exige des réponses bien structurées.",
-    "La biologie contient beaucoup de vocabulaire compliqué.",
-    "Otono Airways modernise sa flotte chaque année.",
-    "L'Airbus A380 transporte beaucoup de passagers.",
-    "La cabine rouge et violette paraît très élégante.",
-    "La classe économique offre beaucoup d'espace.",
-    "Le manoir d'Otono possède quatre-vingt-dix pièces.",
-    "Une salle secrète reste fermée pendant les examens.",
-    "La piscine secrète se trouve sous le jardin.",
-    "La Marseillaise donne beaucoup d'énergie aux élèves.",
-    "Certains élèves apprennent la chanson grâce à Otono.",
-    "La région autour de Bath semble calme en hiver.",
-    "Le serveur communautaire reste ouvert aux administrateurs.",
-    "Le bus rouge traverse la ville rapidement.",
-    "La prison virtuelle est protégée par un champ de force.",
-    "La course du Mans exige vitesse et contrôle.",
-    "Pendant Le Mans, la régularité reste essentielle.",
-    "Jordan Matter filme des défis très populaires.",
-    "Salish et Nidal inspirent beaucoup de jeunes.",
-    "Les vidéos célèbres demandent beaucoup de préparation.",
-    "Il ne faut pas se comparer tout le temps.",
-    "Le progrès régulier protège souvent la confiance.",
-    "La perfection peut motiver, mais aussi stresser.",
-    "Les consignes officielles restent les plus importantes.",
-    "Les candidats doivent écrire exactement ce qu'ils entendent.",
-    "Les accents changent parfois le sens des mots.",
-    "L'écoute finale confirme la phrase complète."
+    "Está prohibido usar tinta amarilla en los exámenes.",
+    "En ciencias, no se debe usar tinta negra.",
+    "Las ciencias combinadas en trilogía separan las materias.",
+    "Las ciencias combinadas en sinergia mezclan los temas.",
+    "La profesora Munn y el profesor Young aceptaron ese acuerdo.",
+    "El señor Barley lleva un cinturón muy famoso.",
+    "El señor Barley sigue siendo el mejor profesor de ciencias.",
+    "Su cinturón casi se convierte en una leyenda escolar.",
+    "Clayton prefiere la perfección, pero el progreso también cuenta.",
+    "Clayton consiguió una puntuación perfecta en matemáticas.",
+    "Un setenta y nueve todavía es un buen resultado.",
+    "Hay que leer la instrucción escrita antes de responder.",
+    "Los candidatos deben comprobar cada acento español.",
+    "Los diccionarios y traductores están estrictamente prohibidos.",
+    "El vigilante pide que todos guarden silencio.",
+    "La sala de examen queda completamente silenciosa.",
+    "La regla sobre la tinta parece contradictoria hoy.",
+    "La tinta negra es obligatoria en casi todos los exámenes.",
+    "Sin embargo, esta vez la tinta negra está prohibida.",
+    "Las ciencias combinadas requieren mucha precisión.",
+    "La trilogía contiene más contenido científico.",
+    "La sinergia conecta varias ideas científicas.",
+    "La física exige cálculos claros y precisos.",
+    "La química necesita respuestas muy bien estructuradas.",
+    "La biología contiene mucho vocabulario complicado.",
+    "Otono Airways moderniza su flota cada año.",
+    "El Airbus A380 transporta muchos pasajeros.",
+    "La cabina roja y morada parece elegante.",
+    "La clase económica ofrece bastante espacio.",
+    "La mansión de Otono tiene noventa habitaciones.",
+    "Una sala secreta permanece cerrada durante los exámenes.",
+    "La piscina secreta está debajo del jardín.",
+    "La Marsellesa da mucha energía a los alumnos.",
+    "Algunos alumnos aprenden la canción gracias a Otono.",
+    "La región cerca de Bath parece tranquila en invierno.",
+    "El servidor comunitario sigue abierto para los administradores.",
+    "El autobús rojo cruza la ciudad rápidamente.",
+    "La prisión virtual está protegida por un campo de fuerza.",
+    "La carrera de Le Mans exige velocidad y control.",
+    "Durante Le Mans, la regularidad sigue siendo esencial.",
+    "Jordan Matter graba retos muy populares.",
+    "Salish y Nidal inspiran a muchos jóvenes.",
+    "Los vídeos famosos requieren mucha preparación.",
+    "No hay que compararse todo el tiempo.",
+    "El progreso regular protege muchas veces la confianza.",
+    "La perfección puede motivar, pero también estresar.",
+    "Las instrucciones oficiales siguen siendo lo más importante.",
+    "Los candidatos deben escribir exactamente lo que oyen.",
+    "Los acentos pueden cambiar el significado de las palabras.",
+    "La escucha final confirma la frase completa."
   ]
 };
 
@@ -467,7 +467,7 @@ function startTest(){
     return;
   }
 
-  const tier = tierEl();
+  const tier = document.getElementById("tier").value;
   maxMarks = Number(document.getElementById("length").value);
 
   const count = maxMarks === 20 ? 5 : maxMarks === 40 ? 10 : 20;
@@ -508,10 +508,6 @@ function startTest(){
   loadQuestion();
 }
 
-function tierEl(){
-  return document.getElementById("tier").value;
-}
-
 function loadQuestion(){
   kQuestion.textContent = `${current+1}/${questions.length}`;
   qTitle.textContent = `Question ${current+1}`;
@@ -527,7 +523,7 @@ function speak(text, rate=0.55){
   return new Promise(resolve=>{
     speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
-    u.lang = "fr-FR";
+    u.lang = "es-ES";
     u.rate = rate;
     u.pitch = 1;
     u.onend = resolve;
@@ -547,7 +543,7 @@ async function playSequence(){
   await wait(900);
 
   document.getElementById("s2").classList.add("done");
-  const words = sentence.replace(/[,.!?;]/g,"").split(" ");
+  const words = sentence.replace(/[,.!?;¿¡]/g,"").split(" ");
   for(let i=0;i<words.length;i+=2){
     await speak(words.slice(i,i+2).join(" "), .42);
     await wait(550);
@@ -572,7 +568,7 @@ function normalise(s){
   return s.toLowerCase()
     .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
     .replace(/[’']/g,"")
-    .replace(/[^a-z0-9 ]/g,"")
+    .replace(/[^a-z0-9ñ ]/g,"")
     .replace(/\s+/g," ")
     .trim();
 }
@@ -611,8 +607,8 @@ function finishTest(){
 
   let awardText = "❌ Mal";
   if(otono === 100) awardText = "💯 Secret score";
-  else if(otono >= 90) awardText = "🏆 Excellent";
-  else if(otono >= 80) awardText = "⭐ Très bien";
+  else if(otono >= 90) awardText = "🏆 Excelente";
+  else if(otono >= 80) awardText = "⭐ Muy bien";
   else if(otono >= 66) awardText = "✅ OK";
 
   currentAttempt.answers = answers;
@@ -633,13 +629,13 @@ function finishTest(){
 }
 
 function getAttempts(){
-  return JSON.parse(localStorage.getItem("otonoDictationAttemptsSet1") || "[]");
+  return JSON.parse(localStorage.getItem("otonoSpanishDictationAttemptsSet1") || "[]");
 }
 
 function saveAttempt(a){
   const attempts = getAttempts();
   attempts.unshift(a);
-  localStorage.setItem("otonoDictationAttemptsSet1", JSON.stringify(attempts.slice(0,50)));
+  localStorage.setItem("otonoSpanishDictationAttemptsSet1", JSON.stringify(attempts.slice(0,50)));
 }
 
 function renderAttempts(){
@@ -663,7 +659,7 @@ function renderAttempts(){
 
 function clearAttempts(){
   if(confirm("Clear all saved attempts?")){
-    localStorage.removeItem("otonoDictationAttemptsSet1");
+    localStorage.removeItem("otonoSpanishDictationAttemptsSet1");
     renderAttempts();
   }
 }
