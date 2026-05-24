@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>B5 Homeostasis and Response Quiz</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #c8e6c9;
+      padding: 30px;
+    }
+
+    .quiz-box {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      max-width: 750px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    h1 {
+      color: #2e7d32;
+    }
+
+    #timer {
+      font-size: 32px;
+      font-weight: bold;
+      color: #1b5e20;
+    }
+
+    .timer-warning {
+      animation: pulseTimer 0.5s infinite alternate;
+    }
+
+    @keyframes pulseTimer {
+      from { transform: scale(1); }
+      to { transform: scale(1.25); }
+    }
+
+    #score, #answered {
+      font-size: 18px;
+      font-weight: bold;
+      color: #2e7d32;
+    }
+
+    button {
+      display: block;
+      margin: 10px auto;
+      padding: 12px;
+      width: 90%;
+      border: none;
+      border-radius: 8px;
+      background: #dcedc8;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background: #aed581;
+    }
+
+    .start-btn, .restart-btn {
+      background: #2e7d32;
+      color: white;
+      font-size: 18px;
+    }
+
+    #feedback {
+      font-weight: bold;
+      margin-top: 15px;
+      line-height: 1.5;
+    }
+
+    .explanation {
+      color: #333;
+      font-weight: normal;
+    }
+
+    .grade {
+      font-size: 28px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="quiz-box">
+
+  <h1>B5 Homeostasis and Response Quiz 🌿</h1>
+
+  <div id="startScreen">
+    <p>Answer as many B5 Homeostasis and Response questions as possible in 4 minutes.</p>
+    <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
+  </div>
+
+  <div id="quizScreen" style="display:none;">
+    <p id="timer">Time: 4:00</p>
+    <p id="score">Score: 0</p>
+    <p id="answered">Answered: 0</p>
+
+    <h2 id="question"></h2>
+    <div id="answers"></div>
+
+    <p id="feedback"></p>
+  </div>
+
+  <div id="endScreen" style="display:none;">
+    <h2>Time's up!</h2>
+    <p id="finalScore"></p>
+    <p id="finalAccuracy"></p>
+    <p id="finalGrade" class="grade"></p>
+
+    <button class="restart-btn" onclick="restartQuiz()">Play Again</button>
+  </div>
+
+</div>
+
+<script>
+
+const quiz = [
+  {
+    "question": "What is homeostasis?",
+    "answers": [
+      "Maintaining a stable internal environment",
+      "Making energy by respiration",
+      "Producing gametes",
+      "Digesting food"
+    ],
+    "correct": "Maintaining a stable internal environment",
+    "explanation": "Homeostasis means keeping internal conditions stable, such as temperature, blood glucose and water levels."
+  },
+  {
+    "question": "Which two systems help coordinate homeostasis?",
+    "answers": [
+      "Nervous system and endocrine system",
+      "Digestive system and skeletal system",
+      "Respiratory system and muscular system",
+      "Immune system and circulatory system only"
+    ],
+    "correct": "Nervous system and endocrine system",
+    "explanation": "The nervous system uses electrical impulses and the endocrine system uses hormones."
+  },
+  {
+    "question": "What is a receptor?",
+    "answers": [
+      "A cell or organ that detects a stimulus",
+      "A muscle that contracts",
+      "A gland that releases enzymes",
+      "A blood vessel near the skin"
+    ],
+    "correct": "A cell or organ that detects a stimulus",
+    "explanation": "Receptors detect changes, such as light, temperature, pressure or glucose levels."
+  },
+  {
+    "question": "What is an effector?",
+    "answers": [
+      "A muscle or gland that produces a response",
+      "A cell that detects a stimulus",
+      "A part of the brain only",
+      "A type of sensory neurone"
+    ],
+    "correct": "A muscle or gland that produces a response",
+    "explanation": "Effectors carry out responses. Muscles contract and glands secrete hormones."
+  },
+  {
+    "question": "What is the central nervous system made of?",
+    "answers": [
+      "Brain and spinal cord",
+      "Brain and kidneys",
+      "Heart and lungs",
+      "Pancreas and liver"
+    ],
+    "correct": "Brain and spinal cord",
+    "explanation": "The CNS is made up of the brain and spinal cord."
+  },
+  {
+    "question": "Which neurone carries impulses from receptors to the CNS?",
+    "answers": [
+      "Sensory neurone",
+      "Motor neurone",
+      "Relay neurone",
+      "Synapse"
+    ],
+    "correct": "Sensory neurone",
+    "explanation": "Sensory neurones carry electrical impulses from receptors towards the CNS."
+  },
+  {
+    "question": "Which neurone carries impulses from the CNS to an effector?",
+    "answers": [
+      "Motor neurone",
+      "Sensory neurone",
+      "Relay neurone",
+      "Reflex neurone"
+    ],
+    "correct": "Motor neurone",
+    "explanation": "Motor neurones carry impulses from the CNS to effectors such as muscles or glands."
+  },
+  {
+    "question": "What is a reflex action?",
+    "answers": [
+      "A fast automatic response",
+      "A slow conscious decision",
+      "A hormone response only",
+      "A response controlled by the kidneys"
+    ],
+    "correct": "A fast automatic response",
+    "explanation": "Reflex actions are fast and automatic, helping protect the body from harm."
+  },
+  {
+    "question": "What is a synapse?",
+    "answers": [
+      "A gap between neurones",
+      "A muscle cell",
+      "A hormone gland",
+      "A part of the kidney"
+    ],
+    "correct": "A gap between neurones",
+    "explanation": "At a synapse, chemicals transfer the signal from one neurone to the next."
+  },
+  {
+    "question": "Which gland produces insulin?",
+    "answers": [
+      "Pancreas",
+      "Pituitary gland",
+      "Adrenal gland",
+      "Thyroid gland"
+    ],
+    "correct": "Pancreas",
+    "explanation": "The pancreas releases insulin when blood glucose levels are too high."
+  },
+  {
+    "question": "What does insulin do?",
+    "answers": [
+      "Lowers blood glucose levels",
+      "Raises blood glucose levels",
+      "Increases sweating",
+      "Makes pupils wider"
+    ],
+    "correct": "Lowers blood glucose levels",
+    "explanation": "Insulin causes body cells to take in glucose and the liver to store glucose as glycogen."
+  },
+  {
+    "question": "What does glucagon do?",
+    "answers": [
+      "Raises blood glucose levels",
+      "Lowers blood glucose levels",
+      "Stops the kidneys working",
+      "Controls body temperature"
+    ],
+    "correct": "Raises blood glucose levels",
+    "explanation": "Glucagon causes glycogen stored in the liver to be converted back into glucose."
+  },
+  {
+    "question": "Where is glycogen stored?",
+    "answers": [
+      "Liver and muscles",
+      "Lungs and heart",
+      "Skin and hair",
+      "Brain and spinal cord"
+    ],
+    "correct": "Liver and muscles",
+    "explanation": "Excess glucose can be stored as glycogen in the liver and muscles."
+  },
+  {
+    "question": "What is type 1 diabetes?",
+    "answers": [
+      "The pancreas produces little or no insulin",
+      "The body makes too much insulin",
+      "The kidneys produce too much urine only",
+      "Blood glucose is always too low"
+    ],
+    "correct": "The pancreas produces little or no insulin",
+    "explanation": "In type 1 diabetes, blood glucose cannot be controlled properly because little or no insulin is produced."
+  },
+  {
+    "question": "How is type 1 diabetes usually treated?",
+    "answers": [
+      "Insulin injections",
+      "Antibiotics",
+      "Vaccines",
+      "Painkillers"
+    ],
+    "correct": "Insulin injections",
+    "explanation": "Insulin injections help control blood glucose levels."
+  },
+  {
+    "question": "What is type 2 diabetes often linked to?",
+    "answers": [
+      "Body cells becoming resistant to insulin",
+      "The pancreas making no digestive enzymes",
+      "Too much oxygen in the blood",
+      "The nervous system stopping completely"
+    ],
+    "correct": "Body cells becoming resistant to insulin",
+    "explanation": "In type 2 diabetes, body cells do not respond properly to insulin."
+  },
+  {
+    "question": "What is thermoregulation?",
+    "answers": [
+      "Control of body temperature",
+      "Control of breathing only",
+      "Control of blood clotting",
+      "Control of digestion"
+    ],
+    "correct": "Control of body temperature",
+    "explanation": "Thermoregulation keeps body temperature close to the optimum for enzymes."
+  },
+  {
+    "question": "What happens when body temperature is too high?",
+    "answers": [
+      "Sweating and vasodilation",
+      "Shivering and vasoconstriction",
+      "Less sweating and more shivering",
+      "Pupils become smaller"
+    ],
+    "correct": "Sweating and vasodilation",
+    "explanation": "Sweating cools the body and vasodilation increases heat loss from the skin."
+  },
+  {
+    "question": "What happens when body temperature is too low?",
+    "answers": [
+      "Shivering and vasoconstriction",
+      "Sweating and vasodilation",
+      "More insulin is released",
+      "More glucose is stored"
+    ],
+    "correct": "Shivering and vasoconstriction",
+    "explanation": "Shivering releases heat and vasoconstriction reduces heat loss."
+  },
+  {
+    "question": "What is vasodilation?",
+    "answers": [
+      "Blood vessels near the skin widen",
+      "Blood vessels near the skin narrow",
+      "Sweat glands stop working",
+      "Muscles relax in the iris"
+    ],
+    "correct": "Blood vessels near the skin widen",
+    "explanation": "Vasodilation increases blood flow near the skin surface, increasing heat loss."
+  },
+  {
+    "question": "What is vasoconstriction?",
+    "answers": [
+      "Blood vessels near the skin narrow",
+      "Blood vessels near the skin widen",
+      "Pupils become larger",
+      "The pancreas releases insulin"
+    ],
+    "correct": "Blood vessels near the skin narrow",
+    "explanation": "Vasoconstriction reduces blood flow near the skin surface, reducing heat loss."
+  },
+  {
+    "question": "Which organ controls water balance by making urine?",
+    "answers": [
+      "Kidney",
+      "Pancreas",
+      "Lung",
+      "Stomach"
+    ],
+    "correct": "Kidney",
+    "explanation": "The kidneys control water and ion levels by adjusting the volume and concentration of urine."
+  },
+  {
+    "question": "What does ADH control?",
+    "answers": [
+      "Water reabsorption in the kidneys",
+      "Blood glucose entering cells",
+      "Pupil size",
+      "Muscle contraction in reflexes"
+    ],
+    "correct": "Water reabsorption in the kidneys",
+    "explanation": "ADH changes how much water the kidneys reabsorb back into the blood."
+  },
+  {
+    "question": "What happens when ADH levels increase?",
+    "answers": [
+      "More water is reabsorbed",
+      "Less water is reabsorbed",
+      "More glucose is released",
+      "More sweat is produced"
+    ],
+    "correct": "More water is reabsorbed",
+    "explanation": "More ADH makes the kidneys reabsorb more water, producing a smaller amount of concentrated urine."
+  },
+  {
+    "question": "In bright light, what happens to the pupil?",
+    "answers": [
+      "It gets smaller",
+      "It gets larger",
+      "It stays the same",
+      "It stops responding"
+    ],
+    "correct": "It gets smaller",
+    "explanation": "In bright light, the pupil constricts to reduce the amount of light entering the eye."
+  },
+  {
+    "question": "In dim light, what happens to the pupil?",
+    "answers": [
+      "It gets larger",
+      "It gets smaller",
+      "It closes completely",
+      "It becomes square"
+    ],
+    "correct": "It gets larger",
+    "explanation": "In dim light, the pupil dilates to let more light enter the eye."
+  },
+  {
+    "question": "What is accommodation in the eye?",
+    "answers": [
+      "Changing lens shape to focus",
+      "Changing blood glucose levels",
+      "Changing body temperature",
+      "Changing urine concentration"
+    ],
+    "correct": "Changing lens shape to focus",
+    "explanation": "Accommodation allows the eye to focus on near or distant objects by changing the shape of the lens."
+  },
+  {
+    "question": "Which hormone is released in stressful situations?",
+    "answers": [
+      "Adrenaline",
+      "Insulin",
+      "Glucagon only",
+      "ADH only"
+    ],
+    "correct": "Adrenaline",
+    "explanation": "Adrenaline prepares the body for fight or flight by increasing heart rate and blood flow to muscles."
+  },
+  {
+    "question": "Which gland is known as the master gland?",
+    "answers": [
+      "Pituitary gland",
+      "Pancreas",
+      "Adrenal gland",
+      "Ovary"
+    ],
+    "correct": "Pituitary gland",
+    "explanation": "The pituitary gland releases hormones that control other glands."
+  },
+  {
+    "question": "What is negative feedback?",
+    "answers": [
+      "A change is detected and reversed",
+      "A change is made bigger forever",
+      "A reflex action in the eye",
+      "A type of neurone"
+    ],
+    "correct": "A change is detected and reversed",
+    "explanation": "Negative feedback brings conditions back towards the normal level."
+  }
+];
+
+let questions = [];
+let currentQuestion = 0;
+let score = 0;
+let answered = 0;
+let timeLeft = 240;
+let timer;
+
+function shuffle(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
+
+function formatTime(seconds) {
+  let mins = Math.floor(seconds / 60);
+  let secs = seconds % 60;
+
+  if (secs < 10) {
+    secs = "0" + secs;
+  }
+
+  return mins + ":" + secs;
+}
+
+function startQuiz() {
+  questions = shuffle([...quiz]);
+
+  currentQuestion = 0;
+  score = 0;
+  answered = 0;
+  timeLeft = 240;
+
+  document.getElementById("startScreen").style.display = "none";
+  document.getElementById("endScreen").style.display = "none";
+  document.getElementById("quizScreen").style.display = "block";
+  document.getElementById("timer").classList.remove("timer-warning");
+
+  updateStats();
+  showQuestion();
+
+  clearInterval(timer);
+
+  timer = setInterval(() => {
+    timeLeft--;
+    updateStats();
+
+    if (timeLeft <= 10) {
+      document.getElementById("timer").classList.add("timer-warning");
+    }
+
+    if (timeLeft <= 0) {
+      endQuiz();
+    }
+  }, 1000);
+}
+
+function updateStats() {
+  document.getElementById("score").textContent = "Score: " + score;
+  document.getElementById("answered").textContent = "Answered: " + answered;
+  document.getElementById("timer").textContent = "Time: " + formatTime(timeLeft);
+}
+
+function showQuestion() {
+  if (currentQuestion >= questions.length) {
+    questions = shuffle([...quiz]);
+    currentQuestion = 0;
+  }
+
+  const q = questions[currentQuestion];
+
+  document.getElementById("question").textContent = q.question;
+  document.getElementById("feedback").innerHTML = "";
+
+  const answersDiv = document.getElementById("answers");
+  answersDiv.innerHTML = "";
+
+  const shuffledAnswers = shuffle([...q.answers]);
+
+  shuffledAnswers.forEach(answer => {
+    const button = document.createElement("button");
+    button.textContent = answer;
+    button.onclick = () => checkAnswer(answer);
+    answersDiv.appendChild(button);
+  });
+}
+
+function checkAnswer(selectedAnswer) {
+  const q = questions[currentQuestion];
+
+  answered++;
+
+  const buttons = document.querySelectorAll("#answers button");
+  buttons.forEach(button => button.disabled = true);
+
+  if (selectedAnswer === q.correct) {
+    score++;
+
+    document.getElementById("feedback").innerHTML =
+      "Correct! ✅<br><span class='explanation'><strong>Explanation:</strong> " + q.explanation + "</span>";
+
+    document.getElementById("feedback").style.color = "green";
+  } else {
+    document.getElementById("feedback").innerHTML =
+      "Wrong ❌ Correct answer: " + q.correct +
+      "<br><span class='explanation'><strong>Explanation:</strong> " + q.explanation + "</span>";
+
+    document.getElementById("feedback").style.color = "red";
+  }
+
+  updateStats();
+
+  currentQuestion++;
+
+  setTimeout(showQuestion, 2500);
+}
+
+function endQuiz() {
+  clearInterval(timer);
+
+  document.getElementById("quizScreen").style.display = "none";
+  document.getElementById("endScreen").style.display = "block";
+
+  let accuracy = answered === 0 ? 0 : Math.round((score / answered) * 100);
+
+  let grade = "";
+
+  if (accuracy < 66) {
+    grade = "FAIL";
+  } else if (accuracy < 80) {
+    grade = "PASS";
+  } else if (accuracy < 90) {
+    grade = "MERIT";
+  } else {
+    grade = "DISTINCTION";
+  }
+
+  document.getElementById("finalScore").textContent =
+    "Score: " + score + " / " + answered;
+
+  document.getElementById("finalAccuracy").textContent =
+    "Accuracy: " + accuracy + "%";
+
+  document.getElementById("finalGrade").textContent =
+    "Grade: " + grade;
+}
+
+function restartQuiz() {
+  startQuiz();
+}
+
+</script>
+
+</body>
+</html>

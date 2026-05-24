@@ -1,0 +1,740 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>B7 Ecology Quiz</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #c8e6c9;
+      padding: 30px;
+    }
+
+    .quiz-box {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      max-width: 750px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    h1 {
+      color: #2e7d32;
+    }
+
+    #timer {
+      font-size: 32px;
+      font-weight: bold;
+      color: #1b5e20;
+    }
+
+    .timer-warning {
+      animation: pulseTimer 0.5s infinite alternate;
+    }
+
+    @keyframes pulseTimer {
+      from { transform: scale(1); }
+      to { transform: scale(1.25); }
+    }
+
+    #score, #answered {
+      font-size: 18px;
+      font-weight: bold;
+      color: #2e7d32;
+    }
+
+    button {
+      display: block;
+      margin: 10px auto;
+      padding: 12px;
+      width: 90%;
+      border: none;
+      border-radius: 8px;
+      background: #dcedc8;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background: #aed581;
+    }
+
+    .start-btn, .restart-btn {
+      background: #2e7d32;
+      color: white;
+      font-size: 18px;
+    }
+
+    #feedback {
+      font-weight: bold;
+      margin-top: 15px;
+      line-height: 1.5;
+    }
+
+    .explanation {
+      color: #333;
+      font-weight: normal;
+    }
+
+    .grade {
+      font-size: 28px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="quiz-box">
+
+  <h1>B7 Ecology Quiz 🧬</h1>
+
+  <div id="startScreen">
+    <p>Answer as many B7 Ecology questions as possible in 4 minutes.</p>
+    <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
+  </div>
+
+  <div id="quizScreen" style="display:none;">
+    <p id="timer">Time: 4:00</p>
+    <p id="score">Score: 0</p>
+    <p id="answered">Answered: 0</p>
+
+    <h2 id="question"></h2>
+    <div id="answers"></div>
+
+    <p id="feedback"></p>
+  </div>
+
+  <div id="endScreen" style="display:none;">
+    <h2>Time's up!</h2>
+    <p id="finalScore"></p>
+    <p id="finalAccuracy"></p>
+    <p id="finalGrade" class="grade"></p>
+
+    <button class="restart-btn" onclick="restartQuiz()">Play Again</button>
+  </div>
+
+</div>
+
+<script>
+
+const quiz = [
+  {
+    "question": "What is an ecosystem?",
+    "answers": [
+      "All the living organisms and non-living conditions in an area",
+      "Only the animals in a habitat",
+      "Only the plants in a community",
+      "The place where one organism lives"
+    ],
+    "correct": "All the living organisms and non-living conditions in an area",
+    "explanation": "An ecosystem includes the community of organisms plus abiotic factors such as temperature, light and water."
+  },
+  {
+    "question": "What is a community in ecology?",
+    "answers": [
+      "All the populations of different species living in a habitat",
+      "One organism living alone",
+      "Only the non-living conditions in an area",
+      "All the habitats on Earth"
+    ],
+    "correct": "All the populations of different species living in a habitat",
+    "explanation": "A community is made up of all the populations of different species that live together in one habitat."
+  },
+  {
+    "question": "What is a population?",
+    "answers": [
+      "All the organisms of one species in a habitat",
+      "All living things on Earth",
+      "The number of habitats in an ecosystem",
+      "Only the predators in a food chain"
+    ],
+    "correct": "All the organisms of one species in a habitat",
+    "explanation": "A population means the members of the same species living in the same area."
+  },
+  {
+    "question": "What is a habitat?",
+    "answers": [
+      "The place where an organism lives",
+      "The role of an organism in a food chain",
+      "All organisms in an ecosystem",
+      "A feeding relationship between organisms"
+    ],
+    "correct": "The place where an organism lives",
+    "explanation": "A habitat is the environment or place where an organism normally lives."
+  },
+  {
+    "question": "Which of these is an abiotic factor?",
+    "answers": [
+      "Light intensity",
+      "Predation",
+      "Competition between animals",
+      "Disease caused by pathogens"
+    ],
+    "correct": "Light intensity",
+    "explanation": "Abiotic factors are non-living factors, such as light, temperature, moisture, soil pH and wind."
+  },
+  {
+    "question": "Which of these is a biotic factor?",
+    "answers": [
+      "Availability of food",
+      "Temperature",
+      "Soil pH",
+      "Light intensity"
+    ],
+    "correct": "Availability of food",
+    "explanation": "Biotic factors are living factors or factors caused by organisms, such as food, predators and pathogens."
+  },
+  {
+    "question": "What does interdependence mean?",
+    "answers": [
+      "Organisms depend on each other for things like food, shelter and pollination",
+      "Organisms never affect each other",
+      "Only plants depend on sunlight",
+      "Organisms live without needing resources"
+    ],
+    "correct": "Organisms depend on each other for things like food, shelter and pollination",
+    "explanation": "Species in a community depend on each other, so a change in one species can affect others."
+  },
+  {
+    "question": "What does a stable community mean?",
+    "answers": [
+      "Population sizes stay fairly constant because factors are balanced",
+      "No organisms die",
+      "Only one species is present",
+      "All abiotic factors are removed"
+    ],
+    "correct": "Population sizes stay fairly constant because factors are balanced",
+    "explanation": "In a stable community, populations may fluctuate, but they remain balanced over time."
+  },
+  {
+    "question": "What do producers do in a food chain?",
+    "answers": [
+      "Make glucose using light energy by photosynthesis",
+      "Eat primary consumers",
+      "Break down dead organisms only",
+      "Transfer all energy to predators"
+    ],
+    "correct": "Make glucose using light energy by photosynthesis",
+    "explanation": "Producers, usually green plants or algae, make their own food by photosynthesis."
+  },
+  {
+    "question": "What is a primary consumer?",
+    "answers": [
+      "An organism that eats producers",
+      "An organism that makes glucose",
+      "An organism that eats secondary consumers",
+      "A decomposer"
+    ],
+    "correct": "An organism that eats producers",
+    "explanation": "Primary consumers feed on producers. They are usually herbivores."
+  },
+  {
+    "question": "What do arrows in a food chain show?",
+    "answers": [
+      "The direction of energy transfer",
+      "The direction animals move",
+      "The size of each organism",
+      "The number of species in a habitat"
+    ],
+    "correct": "The direction of energy transfer",
+    "explanation": "Arrows point from the organism being eaten to the organism that gains energy from it."
+  },
+  {
+    "question": "Why is energy lost between trophic levels?",
+    "answers": [
+      "Energy is lost in movement, heat, waste and uneaten parts",
+      "Energy is created by predators",
+      "All biomass is passed on perfectly",
+      "Consumers do not respire"
+    ],
+    "correct": "Energy is lost in movement, heat, waste and uneaten parts",
+    "explanation": "Not all biomass is eaten or digested, and organisms use energy for life processes such as respiration and movement."
+  },
+  {
+    "question": "What is biomass?",
+    "answers": [
+      "The mass of living material in an organism or area",
+      "The number of food chains in a web",
+      "Only the mass of water in plants",
+      "The speed of photosynthesis"
+    ],
+    "correct": "The mass of living material in an organism or area",
+    "explanation": "Biomass is the mass of living material, often measured as dry mass."
+  },
+  {
+    "question": "What does a pyramid of biomass show?",
+    "answers": [
+      "The biomass at each trophic level",
+      "The speed of energy transfer only",
+      "The age of each organism",
+      "Only the number of predators"
+    ],
+    "correct": "The biomass at each trophic level",
+    "explanation": "A pyramid of biomass shows how much living material is present at each feeding level."
+  },
+  {
+    "question": "What is competition?",
+    "answers": [
+      "Organisms struggle for the same limited resources",
+      "Organisms helping each other reproduce",
+      "Only predators hunting prey",
+      "Plants making glucose"
+    ],
+    "correct": "Organisms struggle for the same limited resources",
+    "explanation": "Competition happens when resources such as food, water, light, space or mates are limited."
+  },
+  {
+    "question": "Which resource do plants commonly compete for?",
+    "answers": [
+      "Light",
+      "Mates",
+      "Prey",
+      "Body temperature"
+    ],
+    "correct": "Light",
+    "explanation": "Plants often compete for light, space, water and mineral ions from the soil."
+  },
+  {
+    "question": "Which resource do animals commonly compete for?",
+    "answers": [
+      "Food",
+      "Carbon dioxide for photosynthesis",
+      "Nitrate ions only",
+      "Light for photosynthesis"
+    ],
+    "correct": "Food",
+    "explanation": "Animals often compete for food, territory, water and mates."
+  },
+  {
+    "question": "What is an adaptation?",
+    "answers": [
+      "A feature that helps an organism survive and reproduce",
+      "A random change that always harms an organism",
+      "The place an organism lives",
+      "A type of decomposer"
+    ],
+    "correct": "A feature that helps an organism survive and reproduce",
+    "explanation": "Adaptations can be structural, behavioural or functional."
+  },
+  {
+    "question": "What is a structural adaptation?",
+    "answers": [
+      "A physical feature such as thick fur or a large surface area",
+      "A response such as migration",
+      "A chemical process inside cells only",
+      "A food chain relationship"
+    ],
+    "correct": "A physical feature such as thick fur or a large surface area",
+    "explanation": "Structural adaptations are physical features of an organism's body."
+  },
+  {
+    "question": "What is a behavioural adaptation?",
+    "answers": [
+      "A way an organism acts, such as migration",
+      "A physical feature such as thorns",
+      "An internal process such as producing concentrated urine",
+      "A non-living factor"
+    ],
+    "correct": "A way an organism acts, such as migration",
+    "explanation": "Behavioural adaptations are actions that improve survival or reproduction."
+  },
+  {
+    "question": "What is a functional adaptation?",
+    "answers": [
+      "An internal process such as producing little urine in dry conditions",
+      "A place where an organism lives",
+      "A physical feature only",
+      "A predator-prey relationship"
+    ],
+    "correct": "An internal process such as producing little urine in dry conditions",
+    "explanation": "Functional adaptations are internal processes that help organisms survive."
+  },
+  {
+    "question": "Why do desert animals often produce very concentrated urine?",
+    "answers": [
+      "To reduce water loss",
+      "To increase heat loss",
+      "To attract predators",
+      "To increase oxygen intake"
+    ],
+    "correct": "To reduce water loss",
+    "explanation": "Concentrated urine helps desert animals conserve water in dry conditions."
+  },
+  {
+    "question": "Why do animals in cold habitats often have thick fur?",
+    "answers": [
+      "To reduce heat loss",
+      "To absorb mineral ions",
+      "To increase water loss",
+      "To help photosynthesis"
+    ],
+    "correct": "To reduce heat loss",
+    "explanation": "Thick fur traps air, which provides insulation and reduces heat loss."
+  },
+  {
+    "question": "What is an extremophile?",
+    "answers": [
+      "An organism adapted to live in very extreme conditions",
+      "An organism that only lives in gardens",
+      "A species with no adaptations",
+      "A producer in every food chain"
+    ],
+    "correct": "An organism adapted to live in very extreme conditions",
+    "explanation": "Extremophiles can live in places such as very hot, salty, acidic or high-pressure environments."
+  },
+  {
+    "question": "What are decomposers?",
+    "answers": [
+      "Organisms that break down dead material and waste",
+      "Organisms that make glucose by photosynthesis",
+      "Animals that only eat plants",
+      "Organisms at the top of every food chain"
+    ],
+    "correct": "Organisms that break down dead material and waste",
+    "explanation": "Decomposers such as bacteria and fungi break down dead organisms and waste materials."
+  },
+  {
+    "question": "Why is decay important?",
+    "answers": [
+      "It recycles minerals back into the environment",
+      "It removes all carbon dioxide from the air",
+      "It stops plants growing",
+      "It creates energy from nothing"
+    ],
+    "correct": "It recycles minerals back into the environment",
+    "explanation": "Decay returns useful mineral ions to the soil so plants can use them again."
+  },
+  {
+    "question": "Which conditions make decay faster?",
+    "answers": [
+      "Warm, moist and oxygen-rich conditions",
+      "Cold, dry and no oxygen",
+      "Very acidic conditions only",
+      "No decomposers present"
+    ],
+    "correct": "Warm, moist and oxygen-rich conditions",
+    "explanation": "Decomposers respire and work fastest when it is warm, moist and oxygen is available."
+  },
+  {
+    "question": "What is the carbon cycle?",
+    "answers": [
+      "The recycling of carbon between organisms and the environment",
+      "The movement of water through roots only",
+      "The transfer of nitrogen into DNA only",
+      "The process that makes new species"
+    ],
+    "correct": "The recycling of carbon between organisms and the environment",
+    "explanation": "Carbon moves through photosynthesis, feeding, respiration, decay and combustion."
+  },
+  {
+    "question": "Which process removes carbon dioxide from the atmosphere?",
+    "answers": [
+      "Photosynthesis",
+      "Respiration",
+      "Combustion",
+      "Decay"
+    ],
+    "correct": "Photosynthesis",
+    "explanation": "Photosynthesis uses carbon dioxide to make glucose in plants and algae."
+  },
+  {
+    "question": "Which processes release carbon dioxide into the atmosphere?",
+    "answers": [
+      "Respiration, decay and combustion",
+      "Photosynthesis only",
+      "Osmosis and diffusion only",
+      "Pollination only"
+    ],
+    "correct": "Respiration, decay and combustion",
+    "explanation": "Respiration, decay and burning fuels all release carbon dioxide."
+  },
+  {
+    "question": "What is biodiversity?",
+    "answers": [
+      "The variety of different species in an ecosystem or on Earth",
+      "The number of food chains only",
+      "The amount of carbon dioxide in air",
+      "The size of one population"
+    ],
+    "correct": "The variety of different species in an ecosystem or on Earth",
+    "explanation": "Biodiversity means the range of different living organisms present."
+  },
+  {
+    "question": "Why is high biodiversity usually important?",
+    "answers": [
+      "It helps ecosystems stay stable and resilient",
+      "It means only one species survives",
+      "It prevents all competition",
+      "It removes the need for producers"
+    ],
+    "correct": "It helps ecosystems stay stable and resilient",
+    "explanation": "More biodiversity can make ecosystems more stable because there are more feeding relationships and genetic variety."
+  },
+  {
+    "question": "Which human activity can reduce biodiversity?",
+    "answers": [
+      "Deforestation",
+      "Creating protected areas",
+      "Recycling materials",
+      "Breeding programmes for endangered species"
+    ],
+    "correct": "Deforestation",
+    "explanation": "Deforestation destroys habitats and can reduce the number of species in an area."
+  },
+  {
+    "question": "How can pollution affect ecosystems?",
+    "answers": [
+      "It can kill organisms and disrupt food chains",
+      "It always increases biodiversity",
+      "It only affects non-living things",
+      "It makes all populations stable"
+    ],
+    "correct": "It can kill organisms and disrupt food chains",
+    "explanation": "Pollution can damage habitats, poison organisms and reduce biodiversity."
+  },
+  {
+    "question": "What is eutrophication?",
+    "answers": [
+      "Excess nutrients cause algal growth, which can reduce oxygen in water",
+      "A method of protecting endangered species",
+      "The movement of carbon through respiration",
+      "The process of plants making glucose"
+    ],
+    "correct": "Excess nutrients cause algal growth, which can reduce oxygen in water",
+    "explanation": "Fertilisers can run into water, causing algal blooms. When algae die and decay, oxygen levels fall."
+  },
+  {
+    "question": "What is deforestation?",
+    "answers": [
+      "Cutting down large areas of forest",
+      "Planting more trees",
+      "Recycling carbon dioxide",
+      "Protecting habitats from damage"
+    ],
+    "correct": "Cutting down large areas of forest",
+    "explanation": "Deforestation removes trees and habitats, and can increase carbon dioxide levels."
+  },
+  {
+    "question": "How can deforestation increase carbon dioxide in the atmosphere?",
+    "answers": [
+      "Fewer trees photosynthesise and burning trees releases carbon dioxide",
+      "Trees absorb extra oxygen only",
+      "It stops all respiration",
+      "It creates more rainfall"
+    ],
+    "correct": "Fewer trees photosynthesise and burning trees releases carbon dioxide",
+    "explanation": "Removing trees reduces carbon dioxide uptake, and burning or decay releases stored carbon."
+  },
+  {
+    "question": "Which action can help maintain biodiversity?",
+    "answers": [
+      "Protecting habitats in nature reserves",
+      "Destroying hedgerows",
+      "Draining wetlands",
+      "Increasing landfills"
+    ],
+    "correct": "Protecting habitats in nature reserves",
+    "explanation": "Conservation methods include protecting habitats, breeding programmes, reforestation and reducing pollution."
+  },
+  {
+    "question": "What is a quadrat used for?",
+    "answers": [
+      "Sampling the distribution or abundance of organisms in an area",
+      "Measuring blood glucose",
+      "Breeding endangered animals",
+      "Showing energy flow in a food chain"
+    ],
+    "correct": "Sampling the distribution or abundance of organisms in an area",
+    "explanation": "Quadrats are square frames used to estimate the abundance of organisms, especially plants or slow-moving animals."
+  },
+  {
+    "question": "Why should quadrats be placed randomly?",
+    "answers": [
+      "To avoid bias in the sample",
+      "To make the results match your prediction",
+      "To count only the biggest plants",
+      "To stop organisms moving"
+    ],
+    "correct": "To avoid bias in the sample",
+    "explanation": "Random sampling helps make results more representative of the whole area."
+  },
+  {
+    "question": "What is a transect used for?",
+    "answers": [
+      "Studying how organisms change across a habitat",
+      "Measuring the temperature of blood",
+      "Showing the structure of DNA",
+      "Counting only predators"
+    ],
+    "correct": "Studying how organisms change across a habitat",
+    "explanation": "A transect line can be used to sample organisms along an environmental gradient, such as from shade to light."
+  },
+  {
+    "question": "What is the mean number of daisies per quadrat if counts are 3, 5, 6 and 2?",
+    "answers": [
+      "4",
+      "16",
+      "8",
+      "3"
+    ],
+    "correct": "4",
+    "explanation": "Add the counts: 3 + 5 + 6 + 2 = 16. Divide by 4 quadrats, so the mean is 4."
+  }
+];
+
+let questions = [];
+let currentQuestion = 0;
+let score = 0;
+let answered = 0;
+let timeLeft = 240;
+let timer;
+
+function shuffle(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
+
+function formatTime(seconds) {
+  let mins = Math.floor(seconds / 60);
+  let secs = seconds % 60;
+
+  if (secs < 10) {
+    secs = "0" + secs;
+  }
+
+  return mins + ":" + secs;
+}
+
+function startQuiz() {
+  questions = shuffle([...quiz]);
+
+  currentQuestion = 0;
+  score = 0;
+  answered = 0;
+  timeLeft = 240;
+
+  document.getElementById("startScreen").style.display = "none";
+  document.getElementById("endScreen").style.display = "none";
+  document.getElementById("quizScreen").style.display = "block";
+  document.getElementById("timer").classList.remove("timer-warning");
+
+  updateStats();
+  showQuestion();
+
+  clearInterval(timer);
+
+  timer = setInterval(() => {
+    timeLeft--;
+    updateStats();
+
+    if (timeLeft <= 10) {
+      document.getElementById("timer").classList.add("timer-warning");
+    }
+
+    if (timeLeft <= 0) {
+      endQuiz();
+    }
+  }, 1000);
+}
+
+function updateStats() {
+  document.getElementById("score").textContent = "Score: " + score;
+  document.getElementById("answered").textContent = "Answered: " + answered;
+  document.getElementById("timer").textContent = "Time: " + formatTime(timeLeft);
+}
+
+function showQuestion() {
+  if (currentQuestion >= questions.length) {
+    questions = shuffle([...quiz]);
+    currentQuestion = 0;
+  }
+
+  const q = questions[currentQuestion];
+
+  document.getElementById("question").textContent = q.question;
+  document.getElementById("feedback").innerHTML = "";
+
+  const answersDiv = document.getElementById("answers");
+  answersDiv.innerHTML = "";
+
+  const shuffledAnswers = shuffle([...q.answers]);
+
+  shuffledAnswers.forEach(answer => {
+    const button = document.createElement("button");
+    button.textContent = answer;
+    button.onclick = () => checkAnswer(answer);
+    answersDiv.appendChild(button);
+  });
+}
+
+function checkAnswer(selectedAnswer) {
+  const q = questions[currentQuestion];
+
+  answered++;
+
+  const buttons = document.querySelectorAll("#answers button");
+  buttons.forEach(button => button.disabled = true);
+
+  if (selectedAnswer === q.correct) {
+    score++;
+
+    document.getElementById("feedback").innerHTML =
+      "Correct! ✅<br><span class='explanation'><strong>Explanation:</strong> " + q.explanation + "</span>";
+
+    document.getElementById("feedback").style.color = "green";
+  } else {
+    document.getElementById("feedback").innerHTML =
+      "Wrong ❌ Correct answer: " + q.correct +
+      "<br><span class='explanation'><strong>Explanation:</strong> " + q.explanation + "</span>";
+
+    document.getElementById("feedback").style.color = "red";
+  }
+
+  updateStats();
+
+  currentQuestion++;
+
+  setTimeout(showQuestion, 2500);
+}
+
+function endQuiz() {
+  clearInterval(timer);
+
+  document.getElementById("quizScreen").style.display = "none";
+  document.getElementById("endScreen").style.display = "block";
+
+  let accuracy = answered === 0 ? 0 : Math.round((score / answered) * 100);
+
+  let grade = "";
+
+  if (accuracy < 66) {
+    grade = "FAIL";
+  } else if (accuracy < 80) {
+    grade = "PASS";
+  } else if (accuracy < 90) {
+    grade = "MERIT";
+  } else {
+    grade = "DISTINCTION";
+  }
+
+  document.getElementById("finalScore").textContent =
+    "Score: " + score + " / " + answered;
+
+  document.getElementById("finalAccuracy").textContent =
+    "Accuracy: " + accuracy + "%";
+
+  document.getElementById("finalGrade").textContent =
+    "Grade: " + grade;
+}
+
+function restartQuiz() {
+  startQuiz();
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,718 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>B6 Inheritance, Variation and Evolution Quiz</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #c8e6c9;
+      padding: 30px;
+    }
+
+    .quiz-box {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      max-width: 750px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    h1 {
+      color: #2e7d32;
+    }
+
+    #timer {
+      font-size: 32px;
+      font-weight: bold;
+      color: #1b5e20;
+    }
+
+    .timer-warning {
+      animation: pulseTimer 0.5s infinite alternate;
+    }
+
+    @keyframes pulseTimer {
+      from { transform: scale(1); }
+      to { transform: scale(1.25); }
+    }
+
+    #score, #answered {
+      font-size: 18px;
+      font-weight: bold;
+      color: #2e7d32;
+    }
+
+    button {
+      display: block;
+      margin: 10px auto;
+      padding: 12px;
+      width: 90%;
+      border: none;
+      border-radius: 8px;
+      background: #dcedc8;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background: #aed581;
+    }
+
+    .start-btn, .restart-btn {
+      background: #2e7d32;
+      color: white;
+      font-size: 18px;
+    }
+
+    #feedback {
+      font-weight: bold;
+      margin-top: 15px;
+      line-height: 1.5;
+    }
+
+    .explanation {
+      color: #333;
+      font-weight: normal;
+    }
+
+    .grade {
+      font-size: 28px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="quiz-box">
+
+  <h1>B6 Inheritance, Variation and Evolution Quiz 🧬</h1>
+
+  <div id="startScreen">
+    <p>Answer as many B6 Inheritance, Variation and Evolution questions as possible in 4 minutes.</p>
+    <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
+  </div>
+
+  <div id="quizScreen" style="display:none;">
+    <p id="timer">Time: 4:00</p>
+    <p id="score">Score: 0</p>
+    <p id="answered">Answered: 0</p>
+
+    <h2 id="question"></h2>
+    <div id="answers"></div>
+
+    <p id="feedback"></p>
+  </div>
+
+  <div id="endScreen" style="display:none;">
+    <h2>Time's up!</h2>
+    <p id="finalScore"></p>
+    <p id="finalAccuracy"></p>
+    <p id="finalGrade" class="grade"></p>
+
+    <button class="restart-btn" onclick="restartQuiz()">Play Again</button>
+  </div>
+
+</div>
+
+<script>
+
+const quiz = [
+  {
+    "question": "What is DNA?",
+    "answers": [
+      "A polymer that carries genetic information",
+      "A type of protein used for movement",
+      "A sugar used in respiration",
+      "A hormone made by the pancreas"
+    ],
+    "correct": "A polymer that carries genetic information",
+    "explanation": "DNA is the genetic material found in chromosomes. It contains instructions for making proteins."
+  },
+  {
+    "question": "Where is DNA found in most animal and plant cells?",
+    "answers": [
+      "In the nucleus",
+      "In the cell wall",
+      "In the ribosomes only",
+      "In the cytoplasm only"
+    ],
+    "correct": "In the nucleus",
+    "explanation": "In eukaryotic cells, DNA is mainly found in the nucleus as chromosomes."
+  },
+  {
+    "question": "What is a gene?",
+    "answers": [
+      "A section of DNA that codes for a protein or characteristic",
+      "A whole organism",
+      "A type of gamete",
+      "A random environmental change"
+    ],
+    "correct": "A section of DNA that codes for a protein or characteristic",
+    "explanation": "A gene is a small section of DNA that can code for a particular protein, influencing a characteristic."
+  },
+  {
+    "question": "What is a chromosome?",
+    "answers": [
+      "A long molecule of DNA coiled up with proteins",
+      "A single amino acid",
+      "A type of enzyme",
+      "A fertilised egg cell"
+    ],
+    "correct": "A long molecule of DNA coiled up with proteins",
+    "explanation": "Chromosomes are structures made from DNA and proteins. They carry many genes."
+  },
+  {
+    "question": "How many pairs of chromosomes are in a normal human body cell?",
+    "answers": [
+      "23 pairs",
+      "46 pairs",
+      "22 pairs",
+      "2 pairs"
+    ],
+    "correct": "23 pairs",
+    "explanation": "Human body cells usually contain 46 chromosomes arranged as 23 pairs."
+  },
+  {
+    "question": "What are gametes?",
+    "answers": [
+      "Sex cells such as sperm and egg cells",
+      "Body cells used for growth",
+      "Cells with no nucleus",
+      "Cells made only by mitosis"
+    ],
+    "correct": "Sex cells such as sperm and egg cells",
+    "explanation": "Gametes are reproductive cells. In humans they are sperm and egg cells."
+  },
+  {
+    "question": "How many chromosomes are in a normal human gamete?",
+    "answers": [
+      "23",
+      "46",
+      "92",
+      "2"
+    ],
+    "correct": "23",
+    "explanation": "Gametes have half the number of chromosomes found in body cells, so human gametes contain 23 chromosomes."
+  },
+  {
+    "question": "What is fertilisation?",
+    "answers": [
+      "Fusion of male and female gametes",
+      "Splitting one cell into two identical cells",
+      "Copying DNA before cell division",
+      "Producing clones from cuttings"
+    ],
+    "correct": "Fusion of male and female gametes",
+    "explanation": "Fertilisation joins the nuclei of two gametes, restoring the full chromosome number."
+  },
+  {
+    "question": "What is the main purpose of meiosis?",
+    "answers": [
+      "To produce genetically different gametes",
+      "To produce identical body cells",
+      "To repair damaged tissue only",
+      "To make proteins at ribosomes"
+    ],
+    "correct": "To produce genetically different gametes",
+    "explanation": "Meiosis produces gametes with half the chromosome number and introduces genetic variation."
+  },
+  {
+    "question": "What does mitosis produce?",
+    "answers": [
+      "Two genetically identical daughter cells",
+      "Four genetically different gametes",
+      "Only sperm cells",
+      "Only egg cells"
+    ],
+    "correct": "Two genetically identical daughter cells",
+    "explanation": "Mitosis produces two genetically identical cells for growth and repair."
+  },
+  {
+    "question": "What are alleles?",
+    "answers": [
+      "Different versions of the same gene",
+      "Different types of chromosome pairs",
+      "Proteins that speed up reactions",
+      "Cells that fuse during fertilisation"
+    ],
+    "correct": "Different versions of the same gene",
+    "explanation": "Alleles are alternative forms of a gene, such as an allele for brown eyes or blue eyes."
+  },
+  {
+    "question": "What does dominant allele mean?",
+    "answers": [
+      "An allele expressed if only one copy is present",
+      "An allele expressed only when two copies are present",
+      "An allele found only on the Y chromosome",
+      "An allele that is always harmful"
+    ],
+    "correct": "An allele expressed if only one copy is present",
+    "explanation": "A dominant allele shows in the phenotype even if the organism has only one copy of it."
+  },
+  {
+    "question": "What does recessive allele mean?",
+    "answers": [
+      "An allele expressed only when two copies are present",
+      "An allele that always appears in the phenotype",
+      "An allele that cannot be inherited",
+      "An allele found only in bacteria"
+    ],
+    "correct": "An allele expressed only when two copies are present",
+    "explanation": "A recessive allele is only expressed when no dominant allele is present."
+  },
+  {
+    "question": "What is a genotype?",
+    "answers": [
+      "The alleles an organism has",
+      "The visible characteristics of an organism",
+      "The environment an organism lives in",
+      "The process of evolution"
+    ],
+    "correct": "The alleles an organism has",
+    "explanation": "Genotype describes the genetic combination, such as BB, Bb or bb."
+  },
+  {
+    "question": "What is a phenotype?",
+    "answers": [
+      "The observable characteristics of an organism",
+      "The alleles written as letters",
+      "The number of chromosomes in a gamete",
+      "The process of DNA replication"
+    ],
+    "correct": "The observable characteristics of an organism",
+    "explanation": "Phenotype is what is expressed, such as eye colour, height or blood group."
+  },
+  {
+    "question": "What does homozygous mean?",
+    "answers": [
+      "Having two identical alleles for a gene",
+      "Having two different alleles for a gene",
+      "Having no alleles for a gene",
+      "Having only dominant alleles in every gene"
+    ],
+    "correct": "Having two identical alleles for a gene",
+    "explanation": "Homozygous means both alleles are the same, such as BB or bb."
+  },
+  {
+    "question": "What does heterozygous mean?",
+    "answers": [
+      "Having two different alleles for a gene",
+      "Having two identical alleles for a gene",
+      "Having only recessive alleles",
+      "Having no chromosomes"
+    ],
+    "correct": "Having two different alleles for a gene",
+    "explanation": "Heterozygous means the alleles are different, such as Bb."
+  },
+  {
+    "question": "If B is dominant and b is recessive, what is the phenotype of Bb?",
+    "answers": [
+      "Dominant phenotype",
+      "Recessive phenotype",
+      "No phenotype",
+      "Both phenotypes equally"
+    ],
+    "correct": "Dominant phenotype",
+    "explanation": "The dominant allele B is expressed when it is present, so Bb shows the dominant phenotype."
+  },
+  {
+    "question": "What is inherited variation caused by?",
+    "answers": [
+      "Differences in genes passed from parents",
+      "Differences in diet only",
+      "Differences in exercise only",
+      "Differences in climate only"
+    ],
+    "correct": "Differences in genes passed from parents",
+    "explanation": "Inherited variation comes from genetic differences passed on through gametes."
+  },
+  {
+    "question": "What is environmental variation caused by?",
+    "answers": [
+      "Conditions around an organism",
+      "Only alleles inherited from parents",
+      "The number of chromosomes in gametes",
+      "Random fertilisation only"
+    ],
+    "correct": "Conditions around an organism",
+    "explanation": "Environmental factors such as diet, exercise, climate and lifestyle can affect characteristics."
+  },
+  {
+    "question": "Which example is mainly environmental variation?",
+    "answers": [
+      "A scar from an injury",
+      "Blood group",
+      "Natural eye colour",
+      "Inherited genetic disorder"
+    ],
+    "correct": "A scar from an injury",
+    "explanation": "A scar is caused by an environmental factor, not by inheriting a specific allele."
+  },
+  {
+    "question": "Which example is mainly genetic variation?",
+    "answers": [
+      "Blood group",
+      "Language spoken",
+      "A suntan",
+      "Muscle size from training"
+    ],
+    "correct": "Blood group",
+    "explanation": "Blood group is determined by inherited alleles."
+  },
+  {
+    "question": "What is a mutation?",
+    "answers": [
+      "A change in DNA",
+      "A type of fertilisation",
+      "A cell without chromosomes",
+      "A guaranteed harmful change"
+    ],
+    "correct": "A change in DNA",
+    "explanation": "A mutation is a change in the DNA sequence. It can be harmful, beneficial or have no effect."
+  },
+  {
+    "question": "What can mutations sometimes lead to?",
+    "answers": [
+      "A new allele",
+      "No chromosomes in body cells",
+      "Identical gametes",
+      "No variation"
+    ],
+    "correct": "A new allele",
+    "explanation": "Mutations can create new alleles, which increases genetic variation in a population."
+  },
+  {
+    "question": "What is natural selection?",
+    "answers": [
+      "Organisms with useful traits survive and reproduce more successfully",
+      "Organisms choose which genes they want",
+      "All organisms survive equally",
+      "A process that stops evolution"
+    ],
+    "correct": "Organisms with useful traits survive and reproduce more successfully",
+    "explanation": "Natural selection means better-adapted organisms are more likely to survive, reproduce and pass on their alleles."
+  },
+  {
+    "question": "What is adaptation?",
+    "answers": [
+      "A feature that helps an organism survive and reproduce",
+      "A random harmful mutation only",
+      "A type of cloning",
+      "A cell division process"
+    ],
+    "correct": "A feature that helps an organism survive and reproduce",
+    "explanation": "Adaptations can be structural, behavioural or functional and improve survival in an environment."
+  },
+  {
+    "question": "What does evolution mean?",
+    "answers": [
+      "Change in inherited characteristics of a population over generations",
+      "A single organism changing because it wants to",
+      "The production of identical cells",
+      "The fusion of gametes"
+    ],
+    "correct": "Change in inherited characteristics of a population over generations",
+    "explanation": "Evolution happens when allele frequencies change in a population over many generations."
+  },
+  {
+    "question": "What is selective breeding?",
+    "answers": [
+      "Humans choosing organisms with desirable traits to breed",
+      "Random survival of organisms in nature",
+      "Producing gametes by meiosis",
+      "Changing DNA using enzymes"
+    ],
+    "correct": "Humans choosing organisms with desirable traits to breed",
+    "explanation": "Selective breeding is artificial selection. Humans breed organisms with desired characteristics."
+  },
+  {
+    "question": "Which is a possible disadvantage of selective breeding?",
+    "answers": [
+      "Reduced genetic variation",
+      "More random mutations only",
+      "No offspring are produced",
+      "Chromosomes disappear"
+    ],
+    "correct": "Reduced genetic variation",
+    "explanation": "Selective breeding can reduce the gene pool, increasing the risk of inherited disorders."
+  },
+  {
+    "question": "What is genetic engineering?",
+    "answers": [
+      "Changing an organism's genome by inserting useful genes",
+      "Choosing parents with desired traits only",
+      "Copying cells by mitosis only",
+      "Growing plants from cuttings"
+    ],
+    "correct": "Changing an organism's genome by inserting useful genes",
+    "explanation": "Genetic engineering involves modifying DNA, often by transferring a useful gene from one organism to another."
+  },
+  {
+    "question": "What is a genome?",
+    "answers": [
+      "All the genetic material of an organism",
+      "One recessive allele",
+      "A single gamete",
+      "A type of protein"
+    ],
+    "correct": "All the genetic material of an organism",
+    "explanation": "The genome is the complete set of DNA in an organism."
+  },
+  {
+    "question": "Why is understanding the human genome useful?",
+    "answers": [
+      "It can help identify genes linked to disease",
+      "It proves all people are genetically identical",
+      "It stops all mutations from happening",
+      "It replaces the need for doctors"
+    ],
+    "correct": "It can help identify genes linked to disease",
+    "explanation": "Studying the human genome helps scientists understand inherited disorders and develop treatments."
+  },
+  {
+    "question": "What is cloning?",
+    "answers": [
+      "Producing genetically identical organisms",
+      "Producing genetically different gametes",
+      "Mixing two genomes through fertilisation",
+      "Making proteins from DNA"
+    ],
+    "correct": "Producing genetically identical organisms",
+    "explanation": "Cloning makes organisms that have the same genetic information as the original organism."
+  },
+  {
+    "question": "Which method can clone plants?",
+    "answers": [
+      "Taking cuttings or tissue culture",
+      "Fertilisation only",
+      "Natural selection",
+      "Producing sperm cells"
+    ],
+    "correct": "Taking cuttings or tissue culture",
+    "explanation": "Plants can be cloned using cuttings or tissue culture because many plant cells can grow into whole plants."
+  },
+  {
+    "question": "What is extinction?",
+    "answers": [
+      "When no individuals of a species remain",
+      "When a population gains variation",
+      "When a cell divides by mitosis",
+      "When an organism adapts successfully"
+    ],
+    "correct": "When no individuals of a species remain",
+    "explanation": "A species becomes extinct when all members of that species have died."
+  },
+  {
+    "question": "Which factor can cause extinction?",
+    "answers": [
+      "A new predator or disease",
+      "Increased genetic variation always",
+      "Successful adaptation",
+      "More suitable habitat"
+    ],
+    "correct": "A new predator or disease",
+    "explanation": "Extinction can be caused by environmental change, new predators, disease, competition or catastrophic events."
+  },
+  {
+    "question": "What is antibiotic resistance?",
+    "answers": [
+      "Bacteria surviving antibiotics due to resistance alleles or mutations",
+      "Humans becoming immune to all bacteria",
+      "Antibiotics killing viruses",
+      "Bacteria choosing to stop reproducing"
+    ],
+    "correct": "Bacteria surviving antibiotics due to resistance alleles or mutations",
+    "explanation": "Resistant bacteria survive antibiotic treatment and reproduce, passing resistance on."
+  },
+  {
+    "question": "Why should antibiotics not be overused?",
+    "answers": [
+      "Overuse increases selection for resistant bacteria",
+      "They kill only viruses",
+      "They always cause mutations in humans",
+      "They stop meiosis"
+    ],
+    "correct": "Overuse increases selection for resistant bacteria",
+    "explanation": "Using antibiotics too often creates strong selection pressure, so resistant bacteria are more likely to survive and spread."
+  },
+  {
+    "question": "What is classification?",
+    "answers": [
+      "Organising organisms into groups based on similarities and evolutionary relationships",
+      "Making organisms extinct",
+      "Changing an organism's DNA",
+      "Producing gametes"
+    ],
+    "correct": "Organising organisms into groups based on similarities and evolutionary relationships",
+    "explanation": "Classification groups organisms using shared features and evidence such as DNA."
+  },
+  {
+    "question": "Who developed the binomial naming system?",
+    "answers": [
+      "Carl Linnaeus",
+      "Charles Darwin",
+      "Gregor Mendel",
+      "Rosalind Franklin"
+    ],
+    "correct": "Carl Linnaeus",
+    "explanation": "Carl Linnaeus developed binomial naming, where each species has a two-part scientific name."
+  }
+];
+
+let questions = [];
+let currentQuestion = 0;
+let score = 0;
+let answered = 0;
+let timeLeft = 240;
+let timer;
+
+function shuffle(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
+
+function formatTime(seconds) {
+  let mins = Math.floor(seconds / 60);
+  let secs = seconds % 60;
+
+  if (secs < 10) {
+    secs = "0" + secs;
+  }
+
+  return mins + ":" + secs;
+}
+
+function startQuiz() {
+  questions = shuffle([...quiz]);
+
+  currentQuestion = 0;
+  score = 0;
+  answered = 0;
+  timeLeft = 240;
+
+  document.getElementById("startScreen").style.display = "none";
+  document.getElementById("endScreen").style.display = "none";
+  document.getElementById("quizScreen").style.display = "block";
+  document.getElementById("timer").classList.remove("timer-warning");
+
+  updateStats();
+  showQuestion();
+
+  clearInterval(timer);
+
+  timer = setInterval(() => {
+    timeLeft--;
+    updateStats();
+
+    if (timeLeft <= 10) {
+      document.getElementById("timer").classList.add("timer-warning");
+    }
+
+    if (timeLeft <= 0) {
+      endQuiz();
+    }
+  }, 1000);
+}
+
+function updateStats() {
+  document.getElementById("score").textContent = "Score: " + score;
+  document.getElementById("answered").textContent = "Answered: " + answered;
+  document.getElementById("timer").textContent = "Time: " + formatTime(timeLeft);
+}
+
+function showQuestion() {
+  if (currentQuestion >= questions.length) {
+    questions = shuffle([...quiz]);
+    currentQuestion = 0;
+  }
+
+  const q = questions[currentQuestion];
+
+  document.getElementById("question").textContent = q.question;
+  document.getElementById("feedback").innerHTML = "";
+
+  const answersDiv = document.getElementById("answers");
+  answersDiv.innerHTML = "";
+
+  const shuffledAnswers = shuffle([...q.answers]);
+
+  shuffledAnswers.forEach(answer => {
+    const button = document.createElement("button");
+    button.textContent = answer;
+    button.onclick = () => checkAnswer(answer);
+    answersDiv.appendChild(button);
+  });
+}
+
+function checkAnswer(selectedAnswer) {
+  const q = questions[currentQuestion];
+
+  answered++;
+
+  const buttons = document.querySelectorAll("#answers button");
+  buttons.forEach(button => button.disabled = true);
+
+  if (selectedAnswer === q.correct) {
+    score++;
+
+    document.getElementById("feedback").innerHTML =
+      "Correct! ✅<br><span class='explanation'><strong>Explanation:</strong> " + q.explanation + "</span>";
+
+    document.getElementById("feedback").style.color = "green";
+  } else {
+    document.getElementById("feedback").innerHTML =
+      "Wrong ❌ Correct answer: " + q.correct +
+      "<br><span class='explanation'><strong>Explanation:</strong> " + q.explanation + "</span>";
+
+    document.getElementById("feedback").style.color = "red";
+  }
+
+  updateStats();
+
+  currentQuestion++;
+
+  setTimeout(showQuestion, 2500);
+}
+
+function endQuiz() {
+  clearInterval(timer);
+
+  document.getElementById("quizScreen").style.display = "none";
+  document.getElementById("endScreen").style.display = "block";
+
+  let accuracy = answered === 0 ? 0 : Math.round((score / answered) * 100);
+
+  let grade = "";
+
+  if (accuracy < 66) {
+    grade = "FAIL";
+  } else if (accuracy < 80) {
+    grade = "PASS";
+  } else if (accuracy < 90) {
+    grade = "MERIT";
+  } else {
+    grade = "DISTINCTION";
+  }
+
+  document.getElementById("finalScore").textContent =
+    "Score: " + score + " / " + answered;
+
+  document.getElementById("finalAccuracy").textContent =
+    "Accuracy: " + accuracy + "%";
+
+  document.getElementById("finalGrade").textContent =
+    "Grade: " + grade;
+}
+
+function restartQuiz() {
+  startQuiz();
+}
+
+</script>
+
+</body>
+</html>
