@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Otono Airways Boeing 777 Seat Map - Fleet V4.2</title>
+  <title>Luke's Dream Otono Airways A380 Seat Map</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Playfair+Display:wght@700&display=swap');
 
     body { font-family: 'Inter', sans-serif; }
     .font-serif { font-family: 'Playfair Display', serif; }
@@ -29,14 +29,14 @@
     .fuselage-style {
       background-color: white;
       border: 4px solid #cbd5e1;
-      border-top-left-radius: 50% 110px;
-      border-top-right-radius: 50% 110px;
-      border-bottom-left-radius: 50% 260px;
-      border-bottom-right-radius: 50% 260px;
+      border-top-left-radius: 50% 120px;
+      border-top-right-radius: 50% 120px;
+      border-bottom-left-radius: 50% 280px;
+      border-bottom-right-radius: 50% 280px;
       position: relative;
       overflow: hidden;
       box-shadow: 0 0 50px rgba(0,0,0,0.18);
-      padding: 0 10px 320px 10px;
+      padding: 0 10px 330px 10px;
     }
 
     .seat-style {
@@ -80,6 +80,28 @@
       color: #1e40af;
       border: 1px solid #93c5fd;
     }
+
+    .luke-note {
+      background: linear-gradient(135deg, #2e005d, #7e22ce, #d91435);
+      color: white;
+      border-radius: 1rem;
+      padding: 1rem;
+      box-shadow: 0 14px 35px rgba(46,0,93,.25);
+    }
+
+    .dream-label {
+      position: absolute;
+      right: 10px;
+      top: 160px;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      color: #7e22ce;
+      font-weight: 900;
+      font-size: 1.15rem;
+      letter-spacing: .02em;
+      opacity: .9;
+      pointer-events: none;
+    }
   </style>
 </head>
 
@@ -108,15 +130,15 @@
     const ThumbsDown = (props) => <IconWrapper {...props}><path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22h0a3.13 3.13 0 0 1-3-3.88Z"/></IconWrapper>;
 
     // ---------- Config ----------
-    const VARIANT_77A = '77A';
-    const VARIANT_77J = '77J';
-    const VARIANT_77K = '77K';
+    const DECK_UPPER = 'UPPER';
+    const DECK_LOWER = 'LOWER';
 
     const CLASS_OTONO_ONE = 'Otono One';
     const CLASS_FIRST = 'First Class';
     const CLASS_BUSINESS = 'Business';
     const CLASS_PREM_ECO = 'Premium Economy';
     const CLASS_ECONOMY = 'Economy';
+    const CLASS_LUKE_ZONE = 'Luke Zone';
 
     const CLASS_COLORS = {
       [CLASS_OTONO_ONE]: 'bg-purple-900 border-yellow-400 text-yellow-100',
@@ -124,6 +146,7 @@
       [CLASS_BUSINESS]: 'bg-red-900 border-red-700 text-white',
       [CLASS_PREM_ECO]: 'bg-red-700 border-red-500 text-white',
       [CLASS_ECONOMY]: 'bg-red-500 border-red-400 text-white hover:bg-red-400 hover:border-red-300',
+      [CLASS_LUKE_ZONE]: 'bg-black border-purple-400 text-purple-100',
     };
 
     const STORAGE_BIN_WINDOW_SEAT_PRICE = '£1,650';
@@ -133,12 +156,13 @@
       if (type === CLASS_FIRST) return '£6,500';
       if (type === CLASS_BUSINESS) return '£3,500';
       if (type === CLASS_PREM_ECO) return '£2,150';
+      if (type === CLASS_LUKE_ZONE) return 'Not for sale';
 
       if (type === CLASS_ECONOMY) {
         if (features.includes('Storage Bin') && features.includes('Upper Deck Window Seat')) return STORAGE_BIN_WINDOW_SEAT_PRICE;
         if (features.includes('Extra Legroom')) return '£1,650';
         if (features.includes('Extra Bag Room')) return '£1,600';
-        if (row >= 68 && row <= 77) return '£1,350';
+        if (row >= 86 && row <= 93) return '£1,350';
         return '£1,500';
       }
 
@@ -161,6 +185,10 @@
         finalFeatures.push('Standard Otono Service');
       }
 
+      if (type === CLASS_BUSINESS) {
+        finalFeatures.push('Luke-approved business class density');
+      }
+
       return {
         id,
         type,
@@ -180,16 +208,19 @@
         return { type: 'GOOD', label: 'Amazing Suite', reason: 'Luxury suite for two', icon: ThumbsUp };
       }
       if (seat.type === CLASS_FIRST) {
-        return { type: 'GOOD', label: 'Premium Seat', reason: 'First Class private suite', icon: ThumbsUp };
+        return { type: 'GOOD', label: 'Premium Suite', reason: 'First Class private suite', icon: ThumbsUp };
       }
       if (seat.features.includes('Extra Legroom')) {
         return { type: 'GOOD', label: 'Good Seat', reason: 'Extra Legroom', icon: ThumbsUp };
+      }
+      if (seat.features.includes('Storage Bin') && seat.features.includes('Upper Deck Window Seat')) {
+        return { type: 'GOOD', label: 'Good Seat', reason: 'Upper deck storage bin', icon: ThumbsUp };
       }
       if (seat.features.includes('Extra Bag Room')) {
         return { type: 'GOOD', label: 'Good Seat', reason: 'Extra bag room', icon: ThumbsUp };
       }
 
-      const badRows = [4, 8, 18, 28, 38, 48, 58, 68, 78];
+      const badRows = [8, 23, 38, 52, 62, 77, 83, 93, 103, 118];
       if (badRows.includes(r)) {
         return { type: 'BAD', label: 'Bad Seat', reason: 'Near lavatories / galley', icon: ThumbsDown };
       }
@@ -214,6 +245,7 @@
       };
 
       for (const s of seats) {
+        if (s.type === CLASS_LUKE_ZONE) continue;
         const cls = s.type;
         const paxValue = cls === CLASS_OTONO_ONE ? 2 : 1;
 
@@ -290,190 +322,88 @@
       );
     };
 
-    // ---------- Boeing 777 Seat generation ----------
-
-    const addRows = (target, rowStart, rowEnd, cols, type, featureBuilder = () => []) => {
-      for (let row = rowStart; row <= rowEnd; row++) {
+    // ---------- Luke's Dream A380 Seat generation ----------
+    const addRows = (target, rows, cols, type, featureBuilder = () => []) => {
+      rows.forEach(row => {
         cols(row).forEach(col => {
           const isAisle = ['C','D','G','H'].includes(col) || ['D','G'].includes(col);
           target.push(createSeat(`${row}${col}`, type, row, col, isAisle, featureBuilder(row, col)));
         });
-      }
+      });
     };
 
     const businessFeatures = ['Lie-flat', 'Direct aisle access', 'Gourmet meal service'];
-    const firstFeatures = ['Private suite', 'Larger IFE screen', 'Fine dining'];
+    const firstFeatures = ['Shower Access', 'Private suite', 'Larger IFE screen'];
     const otonoOneFeatures = ['Largest IFE screen', 'Shower Access', 'Private suite for two', 'Fine dining', 'Exclusive amenity kit'];
 
-    const generate77A = () => {
+    const generateUpperDeck = () => {
       const cabins = [];
 
-      // 77A from the uploaded diagram:
-      // Row 1-2 Otono One, rows 11,12,15-26,29-35 Business,
-      // rows 48-51 Premium Economy, rows 64-78 Economy with rear taper.
+      // Upper deck in the diagram: Otono One at the front, then huge Luke-business block,
+      // then premium economy, then Luke's rear lounge/restaurant and extra economy zone.
 
       let c1 = [];
       [1, 2].forEach(row => {
         ['A', 'K'].forEach(col => c1.push(createSeat(`${row}${col}`, CLASS_OTONO_ONE, row, col, false, otonoOneFeatures)));
       });
-      cabins.push({ name: 'Otono One', seats: c1, divider: 'Onboard Lounge' });
+      cabins.push({ name: 'Otono One', seats: c1, divider: 'Otono One / Forward Showers' });
 
       let c2 = [];
-      [11, 12, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26].forEach(row => {
-        ['A','D','G','K'].forEach(col => c2.push(createSeat(`${row}${col}`, CLASS_BUSINESS, row, col, ['D','G'].includes(col), businessFeatures)));
-      });
-      cabins.push({ name: 'Business Cabin 1', seats: c2, divider: 'Mid Business / Lavatories' });
+      addRows(c2, [10,11,12,15,16,17,18,19,20,21,22,23], () => ['A','D','G','K'], CLASS_BUSINESS, () => businessFeatures);
+      cabins.push({ name: 'Forward Business', seats: c2, divider: 'Business / Mid Lavatories' });
 
       let c3 = [];
-      [29, 30, 31, 32, 33, 34, 35].forEach(row => {
-        ['A','D','G','K'].forEach(col => c3.push(createSeat(`${row}${col}`, CLASS_BUSINESS, row, col, ['D','G'].includes(col), businessFeatures)));
-      });
-      cabins.push({ name: 'Business Cabin 2', seats: c3, divider: 'Premium Economy' });
+      addRows(c3, [25,26,27,28,29,30,31,32,33,34,35], () => ['A','D','G','K'], CLASS_BUSINESS, () => businessFeatures);
+      cabins.push({ name: 'Rear Business', seats: c3, divider: 'Premium Economy' });
 
       let c4 = [];
-      [48, 49, 50, 51].forEach(row => {
-        ['A','C','D','E','F','G','H','K'].forEach(col => c4.push(createSeat(`${row}${col}`, CLASS_PREM_ECO, row, col, ['C','D','G','H'].includes(col), row === 48 ? ['Extra Legroom'] : [])));
-      });
-      cabins.push({ name: 'Premium Economy', seats: c4, divider: 'Economy Cabin' });
+      addRows(c4, [48,49,50,51,52], () => ['A','C','D','F','G','H','K'], CLASS_PREM_ECO, (row) => row === 48 ? ['Extra Legroom'] : []);
+      cabins.push({ name: 'Premium Economy', seats: c4, divider: 'Luke Lounge / Restaurant' });
 
       let c5 = [];
-      [64,65,66,67,68,69,70,71,72].forEach(row => {
-        ['A','B','C','D','E','F','G','H','J','K'].forEach(col => c5.push(createSeat(`${row}${col}`, CLASS_ECONOMY, row, col, ['C','D','G','H'].includes(col), row === 64 ? ['Extra Legroom'] : [])));
+      addRows(c5, [86,87,88,89], () => ['A','C','D','E','F','G','H','K'], CLASS_ECONOMY, (row, col) => {
+        const f = [];
+        if (row === 86) f.push('Extra Legroom');
+        if (col === 'A' || col === 'K') { f.push('Storage Bin'); f.push('Upper Deck Window Seat'); }
+        return f;
       });
-      [73,74,75].forEach(row => {
-        ['A','B','C','D','F','G','H','J','K'].forEach(col => c5.push(createSeat(`${row}${col}`, CLASS_ECONOMY, row, col, ['C','D','G','H'].includes(col), [])));
-      });
-      [76,77,78].forEach(row => {
-        ['B','C','D','F','G','H','J'].forEach(col => c5.push(createSeat(`${row}${col}`, CLASS_ECONOMY, row, col, ['C','D','G','H'].includes(col), row === 78 ? ['Extra Bag Room'] : [])));
-      });
-      cabins.push({ name: 'Economy', seats: c5, divider: 'Rear Exit / Lavatories' });
+      cabins.push({ name: 'Rear Upper Economy', seats: c5, divider: 'Rear Economy' });
 
       return cabins;
     };
 
-    const generate77J = () => {
+    const generateLowerDeck = () => {
       const cabins = [];
 
-      // 77J from the uploaded left diagram:
-      // Row 1-2 Otono One, rows 5-7 First, rows 11,12,15-22 Business,
-      // lounge, rows 25-31 Business, rows 48-52 Premium Economy,
-      // rows 63-75 Economy with rear taper.
+      // Main deck in the diagram: Luke deletes normal first class, turns the front into business,
+      // then premium economy, a food/drink zone, huge economy, more rear economy and service spaces.
 
       let c1 = [];
-      [1, 2].forEach(row => {
-        ['A', 'K'].forEach(col => c1.push(createSeat(`${row}${col}`, CLASS_OTONO_ONE, row, col, false, otonoOneFeatures)));
-      });
-      cabins.push({ name: 'Otono One', seats: c1, divider: 'Forward First Class' });
+      addRows(c1, [11,12,15,16,17,18,19,20,21,22,23,24,25,26], () => ['A','D','G','K'], CLASS_BUSINESS, () => businessFeatures);
+      cabins.push({ name: 'Forward Business', seats: c1, divider: 'Forward Business / Stairs' });
 
       let c2 = [];
-      [5, 6, 7].forEach(row => {
-        ['A','D','G','K'].forEach(col => c2.push(createSeat(`${row}${col}`, CLASS_FIRST, row, col, ['D','G'].includes(col), firstFeatures)));
-      });
-      cabins.push({ name: 'First Class', seats: c2, divider: 'Business Cabin 1' });
+      addRows(c2, [28,29,30,31,32,33,34,35,36,37,38], () => ['A','D','G','K'], CLASS_BUSINESS, () => businessFeatures);
+      cabins.push({ name: 'Rear Business', seats: c2, divider: 'Premium Economy' });
 
       let c3 = [];
-      [11, 12, 15, 16, 17, 18, 19, 20, 21, 22].forEach(row => {
-        ['A','D','G','K'].forEach(col => c3.push(createSeat(`${row}${col}`, CLASS_BUSINESS, row, col, ['D','G'].includes(col), businessFeatures)));
-      });
-      cabins.push({ name: 'Business Cabin 1', seats: c3, divider: 'The Otono Lounge' });
+      addRows(c3, [42,43,44,45,46,47], () => ['A','C','D','E','F','G','H','K'], CLASS_PREM_ECO, (row) => row === 42 ? ['Extra Legroom'] : []);
+      cabins.push({ name: 'Premium Economy', seats: c3, divider: 'Food and Drink Zone' });
 
       let c4 = [];
-      [25, 26, 27, 28, 29, 30, 31].forEach(row => {
-        ['A','D','G','K'].forEach(col => c4.push(createSeat(`${row}${col}`, CLASS_BUSINESS, row, col, ['D','G'].includes(col), businessFeatures)));
-      });
-      cabins.push({ name: 'Business After Lounge', seats: c4, divider: 'Premium Economy' });
+      addRows(c4, [53,54,55,56,57,58,59,60,61,62], () => ['A','B','C','D','E','F','G','H','J','K'], CLASS_ECONOMY, (row) => row === 53 ? ['Extra Legroom'] : []);
+      addRows(c4, [63], () => ['B','C','D','E','F','G','H','J'], CLASS_ECONOMY, () => ['Extra Bag Room']);
+      cabins.push({ name: 'Forward Economy', seats: c4, divider: 'Mid Economy / Lavatories' });
 
       let c5 = [];
-      [48, 49, 50, 51, 52].forEach(row => {
-        ['A','C','D','E','F','G','H','K'].forEach(col => c5.push(createSeat(`${row}${col}`, CLASS_PREM_ECO, row, col, ['C','D','G','H'].includes(col), row === 48 ? ['Extra Legroom'] : [])));
-      });
-      cabins.push({ name: 'Premium Economy', seats: c5, divider: 'Economy Cabin' });
-
-      let c6 = [];
-      [63,64,65,66,67,68,69,70,71,72].forEach(row => {
-        ['A','B','C','D','E','F','G','H','J','K'].forEach(col => c6.push(createSeat(`${row}${col}`, CLASS_ECONOMY, row, col, ['C','D','G','H'].includes(col), row === 63 ? ['Extra Legroom'] : [])));
-      });
-      [73,74,75].forEach(row => {
-        ['A','B','C','D','F','G','H','J','K'].forEach(col => c6.push(createSeat(`${row}${col}`, CLASS_ECONOMY, row, col, ['C','D','G','H'].includes(col), row === 75 ? ['Extra Bag Room'] : [])));
-      });
-      cabins.push({ name: 'Economy', seats: c6, divider: 'Rear Exit / Lavatories' });
+      addRows(c5, [68,69,70,71,72,73,74,75,76,77], () => ['A','B','C','D','E','F','G','H','J','K'], CLASS_ECONOMY, (row) => row === 68 ? ['Extra Legroom'] : []);
+      addRows(c5, [78,79], () => ['A','B','C','D','F','G','H','J','K'], CLASS_ECONOMY, () => []);
+      cabins.push({ name: 'Rear Economy', seats: c5, divider: 'Rear Economy / Service Area' });
 
       return cabins;
-    };
-
-    const generate77K = () => {
-      const cabins = [];
-
-      // 77K from the uploaded right diagram:
-      // Rows 1-3 First, rows 11,12,17-27 Business,
-      // lounge, rows 31-32 Business, rows 48-53 Premium Economy,
-      // rows 56-58 and 63-75 Economy with rear taper.
-
-      let c1 = [];
-      [1, 2, 3].forEach(row => {
-        ['A','D','G','K'].forEach(col => c1.push(createSeat(`${row}${col}`, CLASS_FIRST, row, col, ['D','G'].includes(col), firstFeatures)));
-      });
-      cabins.push({ name: 'First Class', seats: c1, divider: 'Business Cabin 1' });
-
-      let c2 = [];
-      [11, 12, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27].forEach(row => {
-        ['A','D','G','K'].forEach(col => c2.push(createSeat(`${row}${col}`, CLASS_BUSINESS, row, col, ['D','G'].includes(col), businessFeatures)));
-      });
-      cabins.push({ name: 'Business Cabin 1', seats: c2, divider: 'The Otono Lounge' });
-
-      let c3 = [];
-      [31, 32].forEach(row => {
-        ['A','D','G','K'].forEach(col => c3.push(createSeat(`${row}${col}`, CLASS_BUSINESS, row, col, ['D','G'].includes(col), businessFeatures)));
-      });
-      cabins.push({ name: 'Business After Lounge', seats: c3, divider: 'Premium Economy' });
-
-      let c4 = [];
-      [48,49,50,51,52,53].forEach(row => {
-        ['A','C','D','E','F','G','H','K'].forEach(col => c4.push(createSeat(`${row}${col}`, CLASS_PREM_ECO, row, col, ['C','D','G','H'].includes(col), row === 48 ? ['Extra Legroom'] : [])));
-      });
-      cabins.push({ name: 'Premium Economy', seats: c4, divider: 'Economy Cabin' });
-
-      let c5 = [];
-      [56,57,58,63,64,65,66,67,68,69,70,71,72].forEach(row => {
-        ['A','B','C','D','E','F','G','H','J','K'].forEach(col => c5.push(createSeat(`${row}${col}`, CLASS_ECONOMY, row, col, ['C','D','G','H'].includes(col), row === 56 || row === 63 ? ['Extra Legroom'] : [])));
-      });
-      [73,74,75].forEach(row => {
-        ['A','B','C','D','F','G','H','J','K'].forEach(col => c5.push(createSeat(`${row}${col}`, CLASS_ECONOMY, row, col, ['C','D','G','H'].includes(col), row === 75 ? ['Extra Bag Room'] : [])));
-      });
-      cabins.push({ name: 'Economy', seats: c5, divider: 'Rear Exit / Lavatories' });
-
-      return cabins;
-    };
-
-    const VARIANT_INFO = {
-      [VARIANT_77A]: {
-        subtitle: 'Boeing 777-300ER • 77A • Otono One + Huge Lounge',
-        description: 'Otono One, Business, Premium Economy, Economy',
-        generator: generate77A,
-        hasOtonoOne: true,
-        hasShowers: true,
-        hasBigLounge: true,
-      },
-      [VARIANT_77J]: {
-        subtitle: 'Boeing 777-300ER • 77J • Premium Configuration',
-        description: 'Otono One, First, Business, Premium Economy, Economy',
-        generator: generate77J,
-        hasOtonoOne: true,
-        hasShowers: true,
-        hasBigLounge: false,
-      },
-      [VARIANT_77K]: {
-        subtitle: 'Boeing 777-300ER • 77K • Standard Configuration',
-        description: 'First, Business, Premium Economy, Economy',
-        generator: generate77K,
-        hasOtonoOne: false,
-        hasShowers: false,
-        hasBigLounge: false,
-      },
     };
 
     // ---------- Components ----------
-
     const Seat = ({ seat, onSelect, isSelected }) => {
       const baseClasses = "w-7 h-8 m-[1px] md:m-0.5 text-[9px] flex items-center justify-center font-bold cursor-pointer transition-all duration-200 seat-style";
       let typeClasses = CLASS_COLORS[seat.type];
@@ -540,19 +470,24 @@
       </div>
     );
 
-    const Lounge = ({ big = false }) => (
-      <div className={`w-full bg-purple-900 text-white ${big ? 'p-10' : 'p-6'} rounded-b-3xl flex flex-col items-center justify-center mt-4 border-t-4 border-red-600 shadow-2xl relative overflow-hidden`}>
-        <div className="z-10 flex items-center space-x-4">
-          <Coffee size={big ? 42 : 32} />
-          <div className="text-center">
-            <h3 className={`${big ? 'text-3xl' : 'text-xl'} font-bold font-serif`}>The Otono Lounge</h3>
-            <p className="text-xs text-purple-200">Open to ALL Classes</p>
-            <p className="text-xs text-purple-200">"NO MORE FEAR of economy class!"</p>
-            <p className="text-xs text-purple-200">777 version of the A380 lounge style</p>
+    const Lounge = ({ type = 'normal' }) => {
+      const isDream = type === 'dream';
+      const isFood = type === 'food';
+
+      return (
+        <div className={`w-full ${isFood ? 'bg-red-900' : 'bg-purple-900'} text-white ${isDream ? 'p-10' : 'p-6'} rounded-b-3xl flex flex-col items-center justify-center mt-4 border-t-4 border-red-600 shadow-2xl relative overflow-hidden`}>
+          <div className="z-10 flex items-center space-x-4">
+            <Coffee size={isDream ? 42 : 32} />
+            <div className="text-center">
+              <h3 className={`${isDream ? 'text-3xl' : 'text-xl'} font-bold font-serif`}>{isFood ? 'Luke Food & Drink Zone' : 'The Otono Lounge'}</h3>
+              <p className="text-xs text-purple-200">Open to ALL Classes</p>
+              <p className="text-xs text-purple-200">"NO MORE FEAR of economy class!"</p>
+              <p className="text-xs text-purple-200">Luke-approved dream A380 feature</p>
+            </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    };
 
     const CabinDivider = ({ label }) => (
       <div className="w-full flex items-center justify-center my-4">
@@ -562,26 +497,22 @@
       </div>
     );
 
-    const VariantMap = ({ variant, cabins, onSelect, selectedSeat }) => {
-      const info = VARIANT_INFO[variant];
-
+    const DeckMap = ({ deck, cabins, onSelect, selectedSeat }) => {
       return (
         <div className="flex flex-col items-center bg-white rounded-3xl shadow-2xl border-4 border-gray-300 p-2 md:p-4 w-full max-w-2xl mx-auto relative overflow-hidden min-h-[800px] fuselage-style">
+          <div className="dream-label">Luke's Dream A380</div>
+
           <div className="mt-8 mb-4 w-full flex justify-center z-10">
-            {info.hasShowers ? (
+            {deck === DECK_UPPER ? (
               <div className="flex justify-between w-full px-4 md:px-8">
                 <ShowerSuite />
                 <div className="flex flex-col justify-end pb-4 w-full mx-2">
-                  <div className="text-5xl font-black text-gray-800 text-center mb-3">{variant}</div>
-                  <Stairs label="Forward Galley" />
+                  <Stairs label="Grand Staircase" />
                 </div>
                 <ShowerSuite />
               </div>
             ) : (
-              <div className="w-full text-center py-4 text-gray-400 font-bold">
-                <div className="text-5xl font-black text-gray-800 mb-2">{variant}</div>
-                COCKPIT / FORWARD GALLEY
-              </div>
+              <div className="w-full text-center py-4 text-gray-400 font-bold">COCKPIT BELOW</div>
             )}
           </div>
 
@@ -598,8 +529,8 @@
                 <div key={cabin.name} className="w-full flex flex-col items-center">
                   {cIdx > 0 && <CabinDivider label={cabin.divider || 'Cabin Transition'} />}
 
-                  {variant === VARIANT_77A && cIdx === 1 && <Lounge big />}
-                  {variant !== VARIANT_77A && cabin.name === 'Business After Lounge' && <Lounge />}
+                  {deck === DECK_UPPER && cabin.name === 'Forward Business' && <Lounge type="dream" />}
+                  {deck === DECK_LOWER && cabin.name === 'Forward Economy' && <Lounge type="food" />}
 
                   {rowNumbers.map(rowNum => {
                     const rowSeats = rows[rowNum].sort((a,b) => a.col.localeCompare(b.col));
@@ -639,42 +570,48 @@
           </div>
 
           <div className="mt-8 w-full z-10">
-            <div className="w-full py-4 text-center text-gray-400">
-              <div className="w-full h-8 bg-gray-100 my-2 flex items-center justify-center text-[10px] text-gray-400">
-                REAR GALLEY / LAVATORIES / EXIT
-              </div>
-            </div>
-            <Stairs label="Rear Service Area" isLower={true} />
+            {deck === DECK_UPPER ? (
+              <>
+                <Stairs label="Spiral Staircase" />
+                <Lounge />
+              </>
+            ) : (
+              <>
+                <div className="w-full py-4 text-center text-gray-400">
+                  <div className="w-full h-8 bg-gray-100 my-2 flex items-center justify-center text-[10px] text-gray-400">
+                    REAR GALLEY / LAVATORIES / EXIT
+                  </div>
+                </div>
+                <Stairs label="Spiral Staircase / Rear Stairs" isLower={true} />
+              </>
+            )}
           </div>
         </div>
       );
     };
 
     function App() {
-      const [currentVariant, setCurrentVariant] = useState(VARIANT_77A);
+      const [currentDeck, setCurrentDeck] = useState(DECK_UPPER);
       const [selectedSeat, setSelectedSeat] = useState(null);
 
-      const cabins77A = useMemo(() => generate77A(), []);
-      const cabins77J = useMemo(() => generate77J(), []);
-      const cabins77K = useMemo(() => generate77K(), []);
+      const upperCabins = useMemo(() => generateUpperDeck(), []);
+      const lowerCabins = useMemo(() => generateLowerDeck(), []);
 
-      const currentCabins = currentVariant === VARIANT_77A ? cabins77A : currentVariant === VARIANT_77J ? cabins77J : cabins77K;
-      const allSeats = useMemo(() => flattenCabins(currentCabins), [currentCabins]);
+      const allSeats = useMemo(() => [...flattenCabins(upperCabins), ...flattenCabins(lowerCabins)], [upperCabins, lowerCabins]);
       const seatStats = useMemo(() => buildSeatStats(allSeats), [allSeats]);
       const quality = selectedSeat ? getSeatQuality(selectedSeat) : null;
-      const info = VARIANT_INFO[currentVariant];
 
       return (
         <div className="min-h-screen bg-slate-50 font-sans text-slate-800 pb-20">
-          <header className="bg-gradient-to-r from-purple-900 to-red-700 text-white p-4 shadow-lg sticky top-0 z-50">
+          <header className="bg-gradient-to-r from-purple-950 via-purple-800 to-red-700 text-white p-4 shadow-lg sticky top-0 z-50">
             <div className="max-w-4xl mx-auto flex justify-between items-center">
               <div className="flex items-center space-x-2">
                 <Plane className="transform -rotate-45" size={28} />
                 <div>
-                  <h1 className="text-xl font-bold tracking-wider">OTONO AIRWAYS</h1>
+                  <h1 className="text-xl font-bold tracking-wider">LUKE'S DREAM OTONO AIRWAYS A380</h1>
                   <a href="index.html">Return To Main Menu</a>
-                  <p className="text-xs text-purple-200">{info.subtitle}</p>
-                  <p className="text-xs text-purple-200">Fleet V4.2 Boeing 777 layout using the same system as the A380 seat map</p>
+                  <p className="text-xs text-purple-200">Airbus A380-800 • Luke Dream Layout • Otono Style</p>
+                  <p className="text-xs text-purple-200">Business-heavy, huge lounge, food zone, and still no fear of economy class!</p>
                 </div>
               </div>
               <div className="text-right hidden sm:block">
@@ -683,8 +620,8 @@
                   <span className="text-sm font-bold text-yellow-300">Free Messaging WiFi</span>
                   <span className="text-xs ml-1 text-purple-200">(High Speed: £7.50 ONLY!!!)</span>
                 </div>
-                <p className="text-sm font-bold italic">"NO MORE FEAR of economy class!"</p>
-                <a href="https://otonoteam2.github.io/Otono%20Airways%20A380%20French.html">Français 🇫🇷</a>
+                <p className="text-sm font-bold italic">"Luke has definitely touched the seat map." 💜</p>
+                <a href="https://otonoteam2.github.io/Otono%20Airways%20A380.html">Visit the normal A380 layout</a>
                 <p className="text-xs opacity-75">Bristol • London • Global</p>
               </div>
             </div>
@@ -692,19 +629,33 @@
 
           <main className="max-w-6xl mx-auto mt-6 px-2 md:px-6 flex flex-col md:flex-row gap-8">
             <div className="w-full md:w-1/3 space-y-6">
+              <div className="luke-note">
+                <h2 className="text-lg font-black mb-2">Important note for passengers</h2>
+                <p className="text-sm font-semibold leading-relaxed">
+                  This is Luke's dream A380 layout, not the normal Otono Airways A380. It is more experimental, more business-heavy, and includes Luke-style lounge/food-zone chaos. For the official normal layout, visit:
+                </p>
+                <a className="block mt-3 text-yellow-200 font-black underline break-words" href="https://otonoteam2.github.io/Otono%20Airways%20A380.html">
+                  https://otonoteam2.github.io/Otono%20Airways%20A380.html
+                </a>
+              </div>
+
               <div className="bg-white p-4 rounded-xl shadow-md border border-gray-100">
-                <h2 className="text-sm font-bold text-gray-500 uppercase mb-3">Select 777 Variant</h2>
+                <h2 className="text-sm font-bold text-gray-500 uppercase mb-3">Select Deck</h2>
                 <div className="flex space-x-2 bg-gray-100 p-1 rounded-lg">
-                  {[VARIANT_77A, VARIANT_77J, VARIANT_77K].map(v => (
-                    <button
-                      key={v}
-                      onClick={() => { setCurrentVariant(v); setSelectedSeat(null); }}
-                      className={`flex-1 py-3 rounded-md text-sm font-bold transition-all ${currentVariant === v ? 'bg-white text-purple-700 shadow-sm' : 'text-gray-500 hover:bg-gray-200'}`}
-                    >
-                      {v}
-                      <span className="block text-[9px] font-normal opacity-75">{VARIANT_INFO[v].description}</span>
-                    </button>
-                  ))}
+                  <button
+                    onClick={() => { setCurrentDeck(DECK_UPPER); setSelectedSeat(null); }}
+                    className={`flex-1 py-3 rounded-md text-sm font-bold transition-all ${currentDeck === DECK_UPPER ? 'bg-white text-purple-700 shadow-sm' : 'text-gray-500 hover:bg-gray-200'}`}
+                  >
+                    Upper Deck
+                    <span className="block text-[9px] font-normal opacity-75">Otono One, Business, Premium, Lounge</span>
+                  </button>
+                  <button
+                    onClick={() => { setCurrentDeck(DECK_LOWER); setSelectedSeat(null); }}
+                    className={`flex-1 py-3 rounded-md text-sm font-bold transition-all ${currentDeck === DECK_LOWER ? 'bg-white text-indigo-700 shadow-sm' : 'text-gray-500 hover:bg-gray-200'}`}
+                  >
+                    Main Deck
+                    <span className="block text-[9px] font-normal opacity-75">Business, Premium, Food Zone, Economy</span>
+                  </button>
                 </div>
               </div>
 
@@ -777,7 +728,7 @@
               <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
                 <h3 className="text-xs font-bold text-gray-400 uppercase mb-3">Key</h3>
                 <div className="space-y-2">
-                  {Object.keys(CLASS_COLORS).map(cls => (
+                  {Object.keys(CLASS_COLORS).filter(cls => cls !== CLASS_LUKE_ZONE).map(cls => (
                     <div key={cls} className="flex items-center">
                       <div className={`w-4 h-4 rounded-sm mr-3 ${CLASS_COLORS[cls].split(' ')[0]} border border-black/10`}></div>
                       <span className="text-sm font-medium text-gray-600">{cls}</span>
@@ -810,9 +761,9 @@
             </div>
 
             <div className="w-full md:w-2/3">
-              <VariantMap
-                variant={currentVariant}
-                cabins={currentCabins}
+              <DeckMap
+                deck={currentDeck}
+                cabins={currentDeck === DECK_UPPER ? upperCabins : lowerCabins}
                 onSelect={setSelectedSeat}
                 selectedSeat={selectedSeat}
               />
