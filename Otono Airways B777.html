@@ -313,7 +313,7 @@
       // rows 48-51 Premium Economy, rows 64-78 Economy with rear taper.
 
       let c1 = [];
-      [1, 2].forEach(row => {
+      [1].forEach(row => {
         ['A', 'K'].forEach(col => c1.push(createSeat(`${row}${col}`, CLASS_OTONO_ONE, row, col, false, otonoOneFeatures)));
       });
       cabins.push({ name: 'Otono One', seats: c1, divider: 'Onboard Lounge' });
@@ -360,7 +360,7 @@
       // rows 63-75 Economy with rear taper.
 
       let c1 = [];
-      [1, 2].forEach(row => {
+      [1].forEach(row => {
         ['A', 'K'].forEach(col => c1.push(createSeat(`${row}${col}`, CLASS_OTONO_ONE, row, col, false, otonoOneFeatures)));
       });
       cabins.push({ name: 'Otono One', seats: c1, divider: 'Forward First Class' });
