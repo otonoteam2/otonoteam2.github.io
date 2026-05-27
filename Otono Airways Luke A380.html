@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Luke's Dream Otono Airways A380 Seat Map</title>
+  <title>Otono Airways A380 Seat Map - Luke Dream Layout</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Playfair+Display:wght@700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap');
 
     body { font-family: 'Inter', sans-serif; }
     .font-serif { font-family: 'Playfair Display', serif; }
@@ -29,14 +29,14 @@
     .fuselage-style {
       background-color: white;
       border: 4px solid #cbd5e1;
-      border-top-left-radius: 50% 120px;
-      border-top-right-radius: 50% 120px;
-      border-bottom-left-radius: 50% 280px;
-      border-bottom-right-radius: 50% 280px;
+      border-top-left-radius: 50% 110px;
+      border-top-right-radius: 50% 110px;
+      border-bottom-left-radius: 50% 260px;
+      border-bottom-right-radius: 50% 260px;
       position: relative;
       overflow: hidden;
       box-shadow: 0 0 50px rgba(0,0,0,0.18);
-      padding: 0 10px 330px 10px;
+      padding: 0 10px 320px 10px;
     }
 
     .seat-style {
@@ -80,28 +80,6 @@
       color: #1e40af;
       border: 1px solid #93c5fd;
     }
-
-    .luke-note {
-      background: linear-gradient(135deg, #2e005d, #7e22ce, #d91435);
-      color: white;
-      border-radius: 1rem;
-      padding: 1rem;
-      box-shadow: 0 14px 35px rgba(46,0,93,.25);
-    }
-
-    .dream-label {
-      position: absolute;
-      right: 10px;
-      top: 160px;
-      writing-mode: vertical-rl;
-      text-orientation: mixed;
-      color: #7e22ce;
-      font-weight: 900;
-      font-size: 1.15rem;
-      letter-spacing: .02em;
-      opacity: .9;
-      pointer-events: none;
-    }
   </style>
 </head>
 
@@ -138,7 +116,6 @@
     const CLASS_BUSINESS = 'Business';
     const CLASS_PREM_ECO = 'Premium Economy';
     const CLASS_ECONOMY = 'Economy';
-    const CLASS_LUKE_ZONE = 'Luke Zone';
 
     const CLASS_COLORS = {
       [CLASS_OTONO_ONE]: 'bg-purple-900 border-yellow-400 text-yellow-100',
@@ -146,7 +123,6 @@
       [CLASS_BUSINESS]: 'bg-red-900 border-red-700 text-white',
       [CLASS_PREM_ECO]: 'bg-red-700 border-red-500 text-white',
       [CLASS_ECONOMY]: 'bg-red-500 border-red-400 text-white hover:bg-red-400 hover:border-red-300',
-      [CLASS_LUKE_ZONE]: 'bg-black border-purple-400 text-purple-100',
     };
 
     const STORAGE_BIN_WINDOW_SEAT_PRICE = '£1,650';
@@ -156,13 +132,12 @@
       if (type === CLASS_FIRST) return '£6,500';
       if (type === CLASS_BUSINESS) return '£3,500';
       if (type === CLASS_PREM_ECO) return '£2,150';
-      if (type === CLASS_LUKE_ZONE) return 'Not for sale';
 
       if (type === CLASS_ECONOMY) {
         if (features.includes('Storage Bin') && features.includes('Upper Deck Window Seat')) return STORAGE_BIN_WINDOW_SEAT_PRICE;
         if (features.includes('Extra Legroom')) return '£1,650';
         if (features.includes('Extra Bag Room')) return '£1,600';
-        if (row >= 86 && row <= 93) return '£1,350';
+        if (row >= 68 && row <= 77) return '£1,350';
         return '£1,500';
       }
 
@@ -185,10 +160,6 @@
         finalFeatures.push('Standard Otono Service');
       }
 
-      if (type === CLASS_BUSINESS) {
-        finalFeatures.push('Luke-approved business class density');
-      }
-
       return {
         id,
         type,
@@ -203,12 +174,10 @@
 
     const getSeatQuality = (seat) => {
       const r = seat.row;
+      const c = seat.col;
 
       if (seat.type === CLASS_OTONO_ONE) {
         return { type: 'GOOD', label: 'Amazing Suite', reason: 'Luxury suite for two', icon: ThumbsUp };
-      }
-      if (seat.type === CLASS_FIRST) {
-        return { type: 'GOOD', label: 'Premium Suite', reason: 'First Class private suite', icon: ThumbsUp };
       }
       if (seat.features.includes('Extra Legroom')) {
         return { type: 'GOOD', label: 'Good Seat', reason: 'Extra Legroom', icon: ThumbsUp };
@@ -220,9 +189,13 @@
         return { type: 'GOOD', label: 'Good Seat', reason: 'Extra bag room', icon: ThumbsUp };
       }
 
-      const badRows = [8, 23, 38, 52, 62, 77, 83, 93, 103, 118];
+      const badRows = [16, 28, 42, 48, 54, 65, 77, 92];
       if (badRows.includes(r)) {
         return { type: 'BAD', label: 'Bad Seat', reason: 'Near lavatories / galley', icon: ThumbsDown };
+      }
+
+      if (r >= 91 && ['A','C','D','E','F','G','H','K'].includes(c)) {
+        return { type: 'BAD', label: 'Bad Seat', reason: 'Lavatory traffic', icon: ThumbsDown };
       }
 
       return null;
@@ -245,7 +218,6 @@
       };
 
       for (const s of seats) {
-        if (s.type === CLASS_LUKE_ZONE) continue;
         const cls = s.type;
         const paxValue = cls === CLASS_OTONO_ONE ? 2 : 1;
 
@@ -265,7 +237,7 @@
     };
 
     const SeatCounterPanel = ({ stats }) => {
-      const classOrder = [CLASS_OTONO_ONE, CLASS_FIRST, CLASS_BUSINESS, CLASS_PREM_ECO, CLASS_ECONOMY];
+      const classOrder = [CLASS_OTONO_ONE, CLASS_BUSINESS, CLASS_PREM_ECO, CLASS_ECONOMY];
 
       return (
         <div className="bg-white p-4 rounded-xl shadow-md border border-gray-100">
@@ -322,52 +294,63 @@
       );
     };
 
-    // ---------- Luke's Dream A380 Seat generation ----------
-    const addRows = (target, rows, cols, type, featureBuilder = () => []) => {
+    // ---------- Seat generation ----------
+
+    const addSeats = (list, rows, cols, type, featuresFactory = () => []) => {
       rows.forEach(row => {
-        cols(row).forEach(col => {
-          const isAisle = ['C','D','G','H'].includes(col) || ['D','G'].includes(col);
-          target.push(createSeat(`${row}${col}`, type, row, col, isAisle, featureBuilder(row, col)));
+        cols.forEach(col => {
+          const aisleCols = ['C','D','G','H'];
+          list.push(createSeat(`${row}${col}`, type, row, col, aisleCols.includes(col), featuresFactory(row, col)));
         });
       });
     };
 
-    const businessFeatures = ['Lie-flat', 'Direct aisle access', 'Gourmet meal service'];
-    const firstFeatures = ['Shower Access', 'Private suite', 'Larger IFE screen'];
-    const otonoOneFeatures = ['Largest IFE screen', 'Shower Access', 'Private suite for two', 'Fine dining', 'Exclusive amenity kit'];
-
     const generateUpperDeck = () => {
       const cabins = [];
 
-      // Upper deck in the diagram: Otono One at the front, then huge Luke-business block,
-      // then premium economy, then Luke's rear lounge/restaurant and extra economy zone.
-
+      // Otono One exactly from diagram: rows 1-2, A/K. Each suite counts as 2 pax.
       let c1 = [];
       [1, 2].forEach(row => {
-        ['A', 'K'].forEach(col => c1.push(createSeat(`${row}${col}`, CLASS_OTONO_ONE, row, col, false, otonoOneFeatures)));
+        ['A','K'].forEach(col => {
+          c1.push(createSeat(`${row}${col}`, CLASS_OTONO_ONE, row, col, false, [
+            'Largest IFE screen',
+            'Shower Access',
+            'Private suite for two',
+            'Fine dining',
+            'Exclusive amenity kit'
+          ]));
+        });
       });
-      cabins.push({ name: 'Otono One', seats: c1, divider: 'Otono One / Forward Showers' });
+      cabins.push({ name: "Otono One", seats: c1 });
 
+      // Business upper cabin 1: row 29 has A/K only; rows 30-33 have A/D/G/K.
+      // Count: 2 + 16 = 18.
       let c2 = [];
-      addRows(c2, [10,11,12,15,16,17,18,19,20,21,22,23], () => ['A','D','G','K'], CLASS_BUSINESS, () => businessFeatures);
-      cabins.push({ name: 'Forward Business', seats: c2, divider: 'Business / Mid Lavatories' });
+      addSeats(c2, [29], ['A','K'], CLASS_BUSINESS, () => ['Lie-flat','Direct aisle access','Gourmet meal service']);
+      addSeats(c2, [30,31,32,33], ['A','D','G','K'], CLASS_BUSINESS, () => ['Lie-flat','Direct aisle access','Gourmet meal service']);
+      cabins.push({ name: "Upper Business 1", seats: c2 });
 
+      // Row 34 is the lavatory / exit row in Luke's diagram, then rows 35-42 are business.
+      // Count: 8 rows x 4 = 32. Upper deck business total = 18 + 32 = 50.
       let c3 = [];
-      addRows(c3, [25,26,27,28,29,30,31,32,33,34,35], () => ['A','D','G','K'], CLASS_BUSINESS, () => businessFeatures);
-      cabins.push({ name: 'Rear Business', seats: c3, divider: 'Premium Economy' });
+      addSeats(c3, [35,36,37,38,39,40,41,42], ['A','D','G','K'], CLASS_BUSINESS, () => ['Lie-flat','Direct aisle access','Gourmet meal service']);
+      cabins.push({ name: "Upper Business 2", seats: c3, markerRowsBefore: [{ row: 34, label: 'Lavatories / Exit' }] });
 
+      // Premium Economy upper deck: rows 43-47 are 2-3-2, row 48 is centre only.
       let c4 = [];
-      addRows(c4, [48,49,50,51,52], () => ['A','C','D','F','G','H','K'], CLASS_PREM_ECO, (row) => row === 48 ? ['Extra Legroom'] : []);
-      cabins.push({ name: 'Premium Economy', seats: c4, divider: 'Luke Lounge / Restaurant' });
+      addSeats(c4, [43,44,45,46,47], ['A','C','D','F','G','H','K'], CLASS_PREM_ECO, (row) => row === 43 ? ['Extra Legroom'] : []);
+      addSeats(c4, [48], ['D','F','G'], CLASS_PREM_ECO, () => ['Extra Bag Room']);
+      cabins.push({ name: "Upper Premium Economy", seats: c4 });
 
+      // Economy upper deck: row 88 centre only, rows 89-92 are 2-4-2.
       let c5 = [];
-      addRows(c5, [86,87,88,89], () => ['A','C','D','E','F','G','H','K'], CLASS_ECONOMY, (row, col) => {
-        const f = [];
-        if (row === 86) f.push('Extra Legroom');
-        if (col === 'A' || col === 'K') { f.push('Storage Bin'); f.push('Upper Deck Window Seat'); }
-        return f;
+      addSeats(c5, [88], ['D','E','F','G'], CLASS_ECONOMY, () => ['Extra Legroom']);
+      addSeats(c5, [89,90,91,92], ['A','C','D','E','F','G','H','K'], CLASS_ECONOMY, (row, col) => {
+        const feats = [];
+        if (col === 'A' || col === 'K') feats.push('Storage Bin', 'Upper Deck Window Seat');
+        return feats;
       });
-      cabins.push({ name: 'Rear Upper Economy', seats: c5, divider: 'Rear Economy' });
+      cabins.push({ name: "Upper Economy", seats: c5 });
 
       return cabins;
     };
@@ -375,35 +358,42 @@
     const generateLowerDeck = () => {
       const cabins = [];
 
-      // Main deck in the diagram: Luke deletes normal first class, turns the front into business,
-      // then premium economy, a food/drink zone, huge economy, more rear economy and service spaces.
-
+      // Main deck business exactly following the diagram row numbers.
+      // Rows 11-12: A/K only. Rows 15-28: A/D/G/K.
+      // Count: 4 + 56 = 60.
       let c1 = [];
-      addRows(c1, [11,12,15,16,17,18,19,20,21,22,23,24,25,26], () => ['A','D','G','K'], CLASS_BUSINESS, () => businessFeatures);
-      cabins.push({ name: 'Forward Business', seats: c1, divider: 'Forward Business / Stairs' });
+      addSeats(c1, [11,12], ['A','K'], CLASS_BUSINESS, () => ['Lie-flat','Direct aisle access','Gourmet meal service']);
+      addSeats(c1, [15,16,17,18,19], ['A','D','G','K'], CLASS_BUSINESS, () => ['Lie-flat','Direct aisle access','Gourmet meal service']);
+      cabins.push({ name: "Main Business 1", seats: c1 });
 
       let c2 = [];
-      addRows(c2, [28,29,30,31,32,33,34,35,36,37,38], () => ['A','D','G','K'], CLASS_BUSINESS, () => businessFeatures);
-      cabins.push({ name: 'Rear Business', seats: c2, divider: 'Premium Economy' });
+      addSeats(c2, [20,21,22,23,24,25,26,27,28], ['A','D','G','K'], CLASS_BUSINESS, () => ['Lie-flat','Direct aisle access','Gourmet meal service']);
+      cabins.push({ name: "Main Business 2", seats: c2 });
 
+      // Premium Economy lower deck: rows 50-53 are 2-4-2, row 54 centre only.
       let c3 = [];
-      addRows(c3, [42,43,44,45,46,47], () => ['A','C','D','E','F','G','H','K'], CLASS_PREM_ECO, (row) => row === 42 ? ['Extra Legroom'] : []);
-      cabins.push({ name: 'Premium Economy', seats: c3, divider: 'Food and Drink Zone' });
+      addSeats(c3, [50,51,52,53], ['A','C','D','E','F','G','H','K'], CLASS_PREM_ECO, (row) => row === 50 ? ['Extra Legroom'] : []);
+      addSeats(c3, [54], ['D','E','F','G'], CLASS_PREM_ECO, () => ['Extra Bag Room']);
+      cabins.push({ name: "Lower Premium Economy", seats: c3 });
 
+      // Economy lower deck: rows 56-65.
       let c4 = [];
-      addRows(c4, [53,54,55,56,57,58,59,60,61,62], () => ['A','B','C','D','E','F','G','H','J','K'], CLASS_ECONOMY, (row) => row === 53 ? ['Extra Legroom'] : []);
-      addRows(c4, [63], () => ['B','C','D','E','F','G','H','J'], CLASS_ECONOMY, () => ['Extra Bag Room']);
-      cabins.push({ name: 'Forward Economy', seats: c4, divider: 'Mid Economy / Lavatories' });
+      addSeats(c4, [56,57,58,59,60,61,62,63,64], ['A','B','C','D','E','F','G','H','J','K'], CLASS_ECONOMY, (row) => row === 56 ? ['Extra Legroom'] : []);
+      addSeats(c4, [65], ['B','C','D','E','F','G','H','J'], CLASS_ECONOMY, () => ['Extra Bag Room']);
+      cabins.push({ name: "Lower Economy 1", seats: c4 });
 
+      // Economy lower deck rear cabin: row 68 centre only; rows 69-76 full; row 77 side seats only.
       let c5 = [];
-      addRows(c5, [68,69,70,71,72,73,74,75,76,77], () => ['A','B','C','D','E','F','G','H','J','K'], CLASS_ECONOMY, (row) => row === 68 ? ['Extra Legroom'] : []);
-      addRows(c5, [78,79], () => ['A','B','C','D','F','G','H','J','K'], CLASS_ECONOMY, () => []);
-      cabins.push({ name: 'Rear Economy', seats: c5, divider: 'Rear Economy / Service Area' });
+      addSeats(c5, [68], ['D','E','F','G'], CLASS_ECONOMY, () => ['Extra Legroom']);
+      addSeats(c5, [69,70,71,72,73,74,75,76], ['A','B','C','D','E','F','G','H','J','K'], CLASS_ECONOMY);
+      addSeats(c5, [77], ['A','B','C','H','J','K'], CLASS_ECONOMY, () => ['Extra Bag Room']);
+      cabins.push({ name: "Lower Economy 2", seats: c5 });
 
       return cabins;
     };
 
     // ---------- Components ----------
+
     const Seat = ({ seat, onSelect, isSelected }) => {
       const baseClasses = "w-7 h-8 m-[1px] md:m-0.5 text-[9px] flex items-center justify-center font-bold cursor-pointer transition-all duration-200 seat-style";
       let typeClasses = CLASS_COLORS[seat.type];
@@ -459,7 +449,7 @@
       <div className="flex flex-col items-center justify-center bg-blue-100 border border-blue-300 text-blue-800 p-2 rounded-lg w-24 h-24 m-2 text-xs text-center shadow-inner">
         <Bath size={24} className="mb-1" />
         <span className="font-bold">Shower Spa</span>
-        <span className="text-[9px]">Otono One & First</span>
+        <span className="text-[9px]">Otono One</span>
       </div>
     );
 
@@ -470,24 +460,19 @@
       </div>
     );
 
-    const Lounge = ({ type = 'normal' }) => {
-      const isDream = type === 'dream';
-      const isFood = type === 'food';
-
-      return (
-        <div className={`w-full ${isFood ? 'bg-red-900' : 'bg-purple-900'} text-white ${isDream ? 'p-10' : 'p-6'} rounded-b-3xl flex flex-col items-center justify-center mt-4 border-t-4 border-red-600 shadow-2xl relative overflow-hidden`}>
-          <div className="z-10 flex items-center space-x-4">
-            <Coffee size={isDream ? 42 : 32} />
-            <div className="text-center">
-              <h3 className={`${isDream ? 'text-3xl' : 'text-xl'} font-bold font-serif`}>{isFood ? 'Luke Food & Drink Zone' : 'The Otono Lounge'}</h3>
-              <p className="text-xs text-purple-200">Open to ALL Classes</p>
-              <p className="text-xs text-purple-200">"NO MORE FEAR of economy class!"</p>
-              <p className="text-xs text-purple-200">Luke-approved dream A380 feature</p>
-            </div>
+    const Lounge = () => (
+      <div className="w-full bg-purple-900 text-white p-6 rounded-b-3xl flex flex-col items-center justify-center mt-4 border-t-4 border-red-600 shadow-2xl relative overflow-hidden">
+        <div className="z-10 flex items-center space-x-4">
+          <Coffee size={32} />
+          <div className="text-center">
+            <h3 className="text-xl font-bold font-serif">The Otono Lounge</h3>
+            <p className="text-xs text-purple-200">Open to ALL Classes</p>
+            <p className="text-xs text-purple-200">"NO MORE FEAR of economy class!"</p>
+            <p className="text-xs text-purple-200">"Grandpa Belt's Favorite Spot"</p>
           </div>
         </div>
-      );
-    };
+      </div>
+    );
 
     const CabinDivider = ({ label }) => (
       <div className="w-full flex items-center justify-center my-4">
@@ -497,11 +482,19 @@
       </div>
     );
 
+    const FacilityRow = ({ row, label }) => (
+      <div className="flex items-center justify-center w-full my-0.5">
+        <span className="w-6 text-[10px] text-gray-400 text-right mr-1 font-mono">{row}</span>
+        <div className="w-48 h-10 bg-gray-100 border-y border-gray-200 flex items-center justify-center">
+          <span className="text-[10px] text-gray-400 tracking-widest uppercase">{label}</span>
+        </div>
+        <span className="w-6 text-[10px] text-gray-400 text-left ml-1 font-mono">{row}</span>
+      </div>
+    );
+
     const DeckMap = ({ deck, cabins, onSelect, selectedSeat }) => {
       return (
         <div className="flex flex-col items-center bg-white rounded-3xl shadow-2xl border-4 border-gray-300 p-2 md:p-4 w-full max-w-2xl mx-auto relative overflow-hidden min-h-[800px] fuselage-style">
-          <div className="dream-label">Luke's Dream A380</div>
-
           <div className="mt-8 mb-4 w-full flex justify-center z-10">
             {deck === DECK_UPPER ? (
               <div className="flex justify-between w-full px-4 md:px-8">
@@ -525,30 +518,54 @@
               });
               const rowNumbers = Object.keys(rows).sort((a, b) => a - b);
 
+              const dividerLabel =
+                deck === DECK_UPPER
+                  ? (cIdx === 1 ? 'Business Begins' : cIdx === 2 ? 'Upper Deck Business Continues' : cIdx === 3 ? 'Premium Economy Begins' : cIdx === 4 ? 'Rear Economy Begins' : 'Otono One')
+                  : (cIdx === 1 ? 'Business Continues' : cIdx === 2 ? 'Premium Economy Begins' : cIdx === 3 ? 'Economy Begins' : cIdx === 4 ? 'Rear Economy Begins' : 'Galley / Exit');
+
               return (
                 <div key={cabin.name} className="w-full flex flex-col items-center">
-                  {cIdx > 0 && <CabinDivider label={cabin.divider || 'Cabin Transition'} />}
+                  {cIdx > 0 && <CabinDivider label={dividerLabel} />}
 
-                  {deck === DECK_UPPER && cabin.name === 'Forward Business' && <Lounge type="dream" />}
-                  {deck === DECK_LOWER && cabin.name === 'Forward Economy' && <Lounge type="food" />}
+                  {cabin.markerRowsBefore && cabin.markerRowsBefore.map(marker => (
+                    <FacilityRow key={`marker-${marker.row}`} row={marker.row} label={marker.label} />
+                  ))}
 
                   {rowNumbers.map(rowNum => {
                     const rowSeats = rows[rowNum].sort((a,b) => a.col.localeCompare(b.col));
+                    const rInt = parseInt(rowNum, 10);
+                    const isGrandStairRow = deck === DECK_LOWER && (rInt === 11 || rInt === 12);
 
                     return (
                       <div key={rowNum} className="flex items-center justify-center w-full my-0.5">
                         <span className="w-6 text-[10px] text-gray-400 text-right mr-1 font-mono">{rowNum}</span>
 
                         <div className="flex relative">
+                          {isGrandStairRow && (
+                            <div className="absolute left-1/2 top-0 -translate-x-1/2 w-24 h-full bg-gray-200 border-x border-gray-300 flex items-center justify-center z-0">
+                              {rInt === 11 && <span className="text-[8px] text-gray-400 font-bold uppercase">Grand</span>}
+                              {rInt === 12 && <span className="text-[8px] text-gray-400 font-bold uppercase">Staircase</span>}
+                            </div>
+                          )}
+
                           {rowSeats.map((seat) => {
                             let spacer = null;
 
-                            if (seat.type === CLASS_ECONOMY || seat.type === CLASS_PREM_ECO) {
+                            if (deck === DECK_LOWER && (seat.type === CLASS_ECONOMY || seat.type === CLASS_PREM_ECO)) {
                               if (seat.col === 'D') spacer = <div className="w-3 md:w-6"></div>;
                               if (seat.col === 'H') spacer = <div className="w-3 md:w-6"></div>;
-                            } else if (seat.type === CLASS_BUSINESS || seat.type === CLASS_FIRST) {
-                              if (seat.col === 'D') spacer = <div className="w-4 md:w-8"></div>;
-                              if (seat.col === 'K') spacer = <div className="w-4 md:w-8"></div>;
+                            }
+                            else if (deck === DECK_UPPER && (seat.type === CLASS_ECONOMY || seat.type === CLASS_PREM_ECO)) {
+                              if (seat.col === 'D') spacer = <div className="w-3 md:w-6"></div>;
+                              if (seat.col === 'H') spacer = <div className="w-3 md:w-6"></div>;
+                            }
+                            else if (seat.type === CLASS_BUSINESS || seat.type === CLASS_FIRST) {
+                              if (isGrandStairRow) {
+                                if (seat.col === 'K') spacer = <div className="w-24 md:w-32"></div>;
+                              } else {
+                                if (seat.col === 'D') spacer = <div className="w-4 md:w-8"></div>;
+                                if (seat.col === 'K') spacer = <div className="w-4 md:w-8"></div>;
+                              }
                             }
 
                             return (
@@ -579,10 +596,10 @@
               <>
                 <div className="w-full py-4 text-center text-gray-400">
                   <div className="w-full h-8 bg-gray-100 my-2 flex items-center justify-center text-[10px] text-gray-400">
-                    REAR GALLEY / LAVATORIES / EXIT
+                    REAR GALLEY
                   </div>
                 </div>
-                <Stairs label="Spiral Staircase / Rear Stairs" isLower={true} />
+                <Stairs label="Spiral Staircase (Up to Lounge)" isLower={true} />
               </>
             )}
           </div>
@@ -603,15 +620,15 @@
 
       return (
         <div className="min-h-screen bg-slate-50 font-sans text-slate-800 pb-20">
-          <header className="bg-gradient-to-r from-purple-950 via-purple-800 to-red-700 text-white p-4 shadow-lg sticky top-0 z-50">
+          <header className="bg-gradient-to-r from-purple-900 to-red-700 text-white p-4 shadow-lg sticky top-0 z-50">
             <div className="max-w-4xl mx-auto flex justify-between items-center">
               <div className="flex items-center space-x-2">
                 <Plane className="transform -rotate-45" size={28} />
                 <div>
-                  <h1 className="text-xl font-bold tracking-wider">LUKE'S DREAM OTONO AIRWAYS A380</h1>
+                  <h1 className="text-xl font-bold tracking-wider">OTONO AIRWAYS</h1>
                   <a href="index.html">Return To Main Menu</a>
-                  <p className="text-xs text-purple-200">Airbus A380-800 • Luke Dream Layout • Otono Style</p>
-                  <p className="text-xs text-purple-200">Business-heavy, huge lounge, food zone, and still no fear of economy class!</p>
+                  <p className="text-xs text-purple-200">Airbus A380-800 • Luke Dream Layout</p>
+                  <p className="text-xs text-purple-200">4 Otono One suites • 110 Business • diagram row numbers followed</p>
                 </div>
               </div>
               <div className="text-right hidden sm:block">
@@ -620,8 +637,8 @@
                   <span className="text-sm font-bold text-yellow-300">Free Messaging WiFi</span>
                   <span className="text-xs ml-1 text-purple-200">(High Speed: £7.50 ONLY!!!)</span>
                 </div>
-                <p className="text-sm font-bold italic">"Luke has definitely touched the seat map." 💜</p>
-                <a href="https://otonoteam2.github.io/Otono%20Airways%20A380.html">Visit the normal A380 layout</a>
+                <p className="text-sm font-bold italic">"NO MORE FEAR of economy class!"</p>
+                <a href="https://otonoteam2.github.io/Otono%20Airways%20A380%20French.html">Français 🇫🇷</a>
                 <p className="text-xs opacity-75">Bristol • London • Global</p>
               </div>
             </div>
@@ -629,16 +646,6 @@
 
           <main className="max-w-6xl mx-auto mt-6 px-2 md:px-6 flex flex-col md:flex-row gap-8">
             <div className="w-full md:w-1/3 space-y-6">
-              <div className="luke-note">
-                <h2 className="text-lg font-black mb-2">Important note for passengers</h2>
-                <p className="text-sm font-semibold leading-relaxed">
-                  This is Luke's dream A380 layout, not the normal Otono Airways A380. It is more experimental, more business-heavy, and includes Luke-style lounge/food-zone chaos. For the official normal layout, visit:
-                </p>
-                <a className="block mt-3 text-yellow-200 font-black underline break-words" href="https://otonoteam2.github.io/Otono%20Airways%20A380.html">
-                  https://otonoteam2.github.io/Otono%20Airways%20A380.html
-                </a>
-              </div>
-
               <div className="bg-white p-4 rounded-xl shadow-md border border-gray-100">
                 <h2 className="text-sm font-bold text-gray-500 uppercase mb-3">Select Deck</h2>
                 <div className="flex space-x-2 bg-gray-100 p-1 rounded-lg">
@@ -647,14 +654,14 @@
                     className={`flex-1 py-3 rounded-md text-sm font-bold transition-all ${currentDeck === DECK_UPPER ? 'bg-white text-purple-700 shadow-sm' : 'text-gray-500 hover:bg-gray-200'}`}
                   >
                     Upper Deck
-                    <span className="block text-[9px] font-normal opacity-75">Otono One, Business, Premium, Lounge</span>
+                    <span className="block text-[9px] font-normal opacity-75">Otono One, Business, PE, Economy</span>
                   </button>
                   <button
                     onClick={() => { setCurrentDeck(DECK_LOWER); setSelectedSeat(null); }}
                     className={`flex-1 py-3 rounded-md text-sm font-bold transition-all ${currentDeck === DECK_LOWER ? 'bg-white text-indigo-700 shadow-sm' : 'text-gray-500 hover:bg-gray-200'}`}
                   >
                     Main Deck
-                    <span className="block text-[9px] font-normal opacity-75">Business, Premium, Food Zone, Economy</span>
+                    <span className="block text-[9px] font-normal opacity-75">Business, PE, Economy</span>
                   </button>
                 </div>
               </div>
@@ -728,7 +735,7 @@
               <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
                 <h3 className="text-xs font-bold text-gray-400 uppercase mb-3">Key</h3>
                 <div className="space-y-2">
-                  {Object.keys(CLASS_COLORS).filter(cls => cls !== CLASS_LUKE_ZONE).map(cls => (
+                  {[CLASS_OTONO_ONE, CLASS_BUSINESS, CLASS_PREM_ECO, CLASS_ECONOMY].map(cls => (
                     <div key={cls} className="flex items-center">
                       <div className={`w-4 h-4 rounded-sm mr-3 ${CLASS_COLORS[cls].split(' ')[0]} border border-black/10`}></div>
                       <span className="text-sm font-medium text-gray-600">{cls}</span>
