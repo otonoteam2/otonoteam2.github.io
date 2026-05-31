@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>P3 Particle Model of Matter Quiz</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #e3f2fd;
+      padding: 30px;
+    }
+
+    .quiz-box {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      max-width: 750px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    h1 {
+      color: #1565c0;
+    }
+
+    #timer {
+      font-size: 32px;
+      font-weight: bold;
+      color: #0d47a1;
+    }
+
+    .timer-warning {
+      animation: pulseTimer 0.5s infinite alternate;
+    }
+
+    @keyframes pulseTimer {
+      from { transform: scale(1); }
+      to { transform: scale(1.25); }
+    }
+
+    #score, #answered {
+      font-size: 18px;
+      font-weight: bold;
+      color: #1565c0;
+    }
+
+    button {
+      display: block;
+      margin: 10px auto;
+      padding: 12px;
+      width: 90%;
+      border: none;
+      border-radius: 8px;
+      background: #bbdefb;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background: #90caf9;
+    }
+
+    .start-btn, .restart-btn {
+      background: #1565c0;
+      color: white;
+      font-size: 18px;
+    }
+
+    #feedback {
+      font-weight: bold;
+      margin-top: 15px;
+      line-height: 1.5;
+    }
+
+    .explanation {
+      color: #333;
+      font-weight: normal;
+    }
+
+    .grade {
+      font-size: 28px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="quiz-box">
+
+  <h1>P3 Particle Model of Matter Quiz 🧊🔥</h1>
+
+  <div id="startScreen">
+    <p>Answer as many Physics Paper 1 P3 Particle Model of Matter questions as possible in 4 minutes.</p>
+    <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
+  </div>
+
+  <div id="quizScreen" style="display:none;">
+    <p id="timer">Time: 4:00</p>
+    <p id="score">Score: 0</p>
+    <p id="answered">Answered: 0</p>
+
+    <h2 id="question"></h2>
+    <div id="answers"></div>
+
+    <p id="feedback"></p>
+  </div>
+
+  <div id="endScreen" style="display:none;">
+    <h2>Time's up!</h2>
+    <p id="finalScore"></p>
+    <p id="finalAccuracy"></p>
+    <p id="finalGrade" class="grade"></p>
+
+    <button class="restart-btn" onclick="restartQuiz()">Play Again</button>
+  </div>
+
+</div>
+
+<script>
+
+const quiz = [
+  {
+    "question": "What is density?",
+    "answers": [
+      "Mass per unit volume",
+      "Volume per unit mass",
+      "Weight per unit area",
+      "Energy per unit time"
+    ],
+    "correct": "Mass per unit volume",
+    "explanation": "Density tells you how much mass there is in a certain volume. The equation is density = mass ÷ volume."
+  },
+  {
+    "question": "What is the equation for density?",
+    "answers": [
+      "density = mass ÷ volume",
+      "density = volume ÷ mass",
+      "density = mass × volume",
+      "density = force ÷ area"
+    ],
+    "correct": "density = mass ÷ volume",
+    "explanation": "The density equation is ρ = m ÷ V, where ρ is density, m is mass and V is volume."
+  },
+  {
+    "question": "What is the unit for density?",
+    "answers": [
+      "kg/m³",
+      "J/kg",
+      "N/m",
+      "W/kg"
+    ],
+    "correct": "kg/m³",
+    "explanation": "Density is usually measured in kilograms per cubic metre, kg/m³. It can also be measured in g/cm³."
+  },
+  {
+    "question": "How are particles arranged in a solid?",
+    "answers": [
+      "Close together in a fixed arrangement",
+      "Far apart and moving randomly",
+      "Close together but flowing past each other",
+      "Completely still with no vibration"
+    ],
+    "correct": "Close together in a fixed arrangement",
+    "explanation": "Particles in a solid are close together and vibrate about fixed positions."
+  },
+  {
+    "question": "How do particles move in a liquid?",
+    "answers": [
+      "They move around each other",
+      "They only vibrate in fixed positions",
+      "They are very far apart",
+      "They do not move at all"
+    ],
+    "correct": "They move around each other",
+    "explanation": "Liquid particles are close together but can move around each other, so liquids can flow."
+  },
+  {
+    "question": "How are particles arranged in a gas?",
+    "answers": [
+      "Far apart and moving randomly",
+      "Close together in a regular pattern",
+      "Close together but fixed",
+      "Packed tightly with no spaces"
+    ],
+    "correct": "Far apart and moving randomly",
+    "explanation": "Gas particles are spread out and move quickly in random directions."
+  },
+  {
+    "question": "What happens to particles when a substance is heated?",
+    "answers": [
+      "They gain energy and move faster",
+      "They lose energy and move slower",
+      "They become heavier",
+      "They disappear"
+    ],
+    "correct": "They gain energy and move faster",
+    "explanation": "Heating transfers energy to particles, increasing their kinetic energy."
+  },
+  {
+    "question": "What is internal energy?",
+    "answers": [
+      "The total kinetic and potential energy of particles",
+      "Only the gravitational energy of an object",
+      "Only the chemical energy in a fuel",
+      "The useful power output of a machine"
+    ],
+    "correct": "The total kinetic and potential energy of particles",
+    "explanation": "Internal energy is the total energy stored by the particles due to their motion and positions."
+  },
+  {
+    "question": "What does temperature measure?",
+    "answers": [
+      "The average kinetic energy of particles",
+      "The total number of particles",
+      "The mass of each particle",
+      "The potential energy only"
+    ],
+    "correct": "The average kinetic energy of particles",
+    "explanation": "Temperature is linked to the average kinetic energy of the particles in a substance."
+  },
+  {
+    "question": "What is specific heat capacity?",
+    "answers": [
+      "Energy needed to raise 1 kg of a substance by 1°C",
+      "Energy needed to melt 1 kg without temperature change",
+      "Energy transferred per second",
+      "Mass per unit volume"
+    ],
+    "correct": "Energy needed to raise 1 kg of a substance by 1°C",
+    "explanation": "Specific heat capacity is the energy required to increase the temperature of 1 kg of a substance by 1°C."
+  },
+  {
+    "question": "What is the equation for change in thermal energy?",
+    "answers": [
+      "E = m c Δθ",
+      "E = m L",
+      "P = E ÷ t",
+      "ρ = m ÷ V"
+    ],
+    "correct": "E = m c Δθ",
+    "explanation": "Change in thermal energy equals mass × specific heat capacity × temperature change."
+  },
+  {
+    "question": "In E = m c Δθ, what does c stand for?",
+    "answers": [
+      "Specific heat capacity",
+      "Current",
+      "Charge",
+      "Change in volume"
+    ],
+    "correct": "Specific heat capacity",
+    "explanation": "In the equation E = m c Δθ, c is the specific heat capacity of the material."
+  },
+  {
+    "question": "What is specific latent heat?",
+    "answers": [
+      "Energy needed to change the state of 1 kg without temperature change",
+      "Energy needed to raise 1 kg by 1°C",
+      "Energy transferred per second",
+      "Density of a material"
+    ],
+    "correct": "Energy needed to change the state of 1 kg without temperature change",
+    "explanation": "Specific latent heat is the energy needed to change the state of 1 kg of a substance without changing its temperature."
+  },
+  {
+    "question": "What is the equation for energy transferred during a change of state?",
+    "answers": [
+      "E = m L",
+      "E = m c Δθ",
+      "V = I R",
+      "W = m g"
+    ],
+    "correct": "E = m L",
+    "explanation": "Energy transferred during a change of state equals mass × specific latent heat."
+  },
+  {
+    "question": "What happens to temperature during melting?",
+    "answers": [
+      "It stays constant while energy changes the state",
+      "It always rises quickly",
+      "It always falls quickly",
+      "It becomes zero"
+    ],
+    "correct": "It stays constant while energy changes the state",
+    "explanation": "During melting, energy is used to overcome forces between particles, so the temperature stays the same."
+  },
+  {
+    "question": "What is latent heat of fusion?",
+    "answers": [
+      "Energy needed for melting or freezing",
+      "Energy needed for boiling or condensing",
+      "Energy needed to increase temperature",
+      "Energy lost by friction"
+    ],
+    "correct": "Energy needed for melting or freezing",
+    "explanation": "Latent heat of fusion is linked to changing state between solid and liquid."
+  },
+  {
+    "question": "What is latent heat of vaporisation?",
+    "answers": [
+      "Energy needed for boiling or condensing",
+      "Energy needed for melting or freezing",
+      "Energy needed to change mass",
+      "Energy needed to increase density"
+    ],
+    "correct": "Energy needed for boiling or condensing",
+    "explanation": "Latent heat of vaporisation is linked to changing state between liquid and gas."
+  },
+  {
+    "question": "When a gas is heated in a sealed container, what usually happens to pressure?",
+    "answers": [
+      "Pressure increases",
+      "Pressure decreases",
+      "Pressure becomes zero",
+      "Pressure is unaffected because particles stop moving"
+    ],
+    "correct": "Pressure increases",
+    "explanation": "Heating a gas makes particles move faster, so they collide with the container walls more often and with more force."
+  },
+  {
+    "question": "What causes gas pressure?",
+    "answers": [
+      "Particles colliding with container walls",
+      "Particles sticking together permanently",
+      "Particles changing into solids",
+      "Particles having no kinetic energy"
+    ],
+    "correct": "Particles colliding with container walls",
+    "explanation": "Gas pressure is caused by gas particles hitting the walls of their container."
+  },
+  {
+    "question": "If the volume of a gas decreases while temperature stays constant, what happens to pressure?",
+    "answers": [
+      "Pressure increases",
+      "Pressure decreases",
+      "Pressure stays zero",
+      "Pressure disappears"
+    ],
+    "correct": "Pressure increases",
+    "explanation": "When volume decreases, particles hit the walls more often, so pressure increases."
+  },
+  {
+    "question": "Which statement describes Boyle's law?",
+    "answers": [
+      "For a fixed mass of gas at constant temperature, pressure × volume is constant",
+      "Pressure increases only when mass decreases",
+      "Volume is always constant for all gases",
+      "Temperature never affects gas particles"
+    ],
+    "correct": "For a fixed mass of gas at constant temperature, pressure × volume is constant",
+    "explanation": "Boyle's law says that pressure is inversely proportional to volume for a fixed mass of gas at constant temperature."
+  },
+  {
+    "question": "What is the equation linked to Boyle's law?",
+    "answers": [
+      "pV = constant",
+      "E = mL",
+      "ρ = m ÷ V",
+      "F = k e"
+    ],
+    "correct": "pV = constant",
+    "explanation": "For a fixed mass of gas at constant temperature, pressure multiplied by volume remains constant."
+  },
+  {
+    "question": "What happens during evaporation?",
+    "answers": [
+      "Some higher-energy particles escape from the surface of a liquid",
+      "All particles instantly become solid",
+      "Particles stop moving completely",
+      "The liquid gains mass from the air"
+    ],
+    "correct": "Some higher-energy particles escape from the surface of a liquid",
+    "explanation": "Evaporation happens when faster particles leave the surface of a liquid, reducing the average energy of the remaining particles."
+  },
+  {
+    "question": "Why does evaporation cool a liquid?",
+    "answers": [
+      "The highest-energy particles leave, lowering the average kinetic energy",
+      "The slowest particles leave first",
+      "The liquid gains thermal energy from nowhere",
+      "The particles become heavier"
+    ],
+    "correct": "The highest-energy particles leave, lowering the average kinetic energy",
+    "explanation": "When the most energetic particles escape, the average kinetic energy of the remaining particles decreases, so the temperature falls."
+  },
+  {
+    "question": "What is sublimation?",
+    "answers": [
+      "Changing directly from solid to gas",
+      "Changing from gas to liquid",
+      "Changing from liquid to solid",
+      "Changing from solid to liquid"
+    ],
+    "correct": "Changing directly from solid to gas",
+    "explanation": "Sublimation is when a substance changes directly from solid to gas without becoming liquid first."
+  },
+  {
+    "question": "Which change of state releases energy?",
+    "answers": [
+      "Freezing",
+      "Melting",
+      "Boiling",
+      "Evaporation"
+    ],
+    "correct": "Freezing",
+    "explanation": "Freezing releases energy as particles form stronger bonds and become fixed in position."
+  },
+  {
+    "question": "Which change of state requires energy to be absorbed?",
+    "answers": [
+      "Melting",
+      "Freezing",
+      "Condensing",
+      "Deposition"
+    ],
+    "correct": "Melting",
+    "explanation": "Melting requires energy to overcome some of the forces holding particles in fixed positions."
+  },
+  {
+    "question": "What does a flat section on a heating graph show?",
+    "answers": [
+      "A change of state is happening",
+      "The substance is getting hotter",
+      "No energy is being transferred",
+      "The mass is increasing"
+    ],
+    "correct": "A change of state is happening",
+    "explanation": "A flat section shows energy is being used to change state rather than increase temperature."
+  },
+  {
+    "question": "What is absolute zero?",
+    "answers": [
+      "The lowest possible temperature",
+      "The boiling point of water",
+      "The melting point of ice",
+      "The pressure of a gas"
+    ],
+    "correct": "The lowest possible temperature",
+    "explanation": "Absolute zero is 0 K, the lowest possible temperature, where particles have minimum internal energy."
+  },
+  {
+    "question": "How do you convert degrees Celsius to kelvin?",
+    "answers": [
+      "Add 273",
+      "Subtract 273",
+      "Multiply by 273",
+      "Divide by 273"
+    ],
+    "correct": "Add 273",
+    "explanation": "Temperature in kelvin is approximately temperature in degrees Celsius plus 273."
+  }
+];
+
+let questions = [];
+let currentQuestion = 0;
+let score = 0;
+let answered = 0;
+let timeLeft = 240;
+let timer;
+
+function shuffle(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
+
+function formatTime(seconds) {
+  let mins = Math.floor(seconds / 60);
+  let secs = seconds % 60;
+
+  if (secs < 10) {
+    secs = "0" + secs;
+  }
+
+  return mins + ":" + secs;
+}
+
+function startQuiz() {
+  questions = shuffle([...quiz]);
+
+  currentQuestion = 0;
+  score = 0;
+  answered = 0;
+  timeLeft = 240;
+
+  document.getElementById("startScreen").style.display = "none";
+  document.getElementById("endScreen").style.display = "none";
+  document.getElementById("quizScreen").style.display = "block";
+  document.getElementById("timer").classList.remove("timer-warning");
+
+  updateStats();
+  showQuestion();
+
+  clearInterval(timer);
+
+  timer = setInterval(() => {
+    timeLeft--;
+    updateStats();
+
+    if (timeLeft <= 10) {
+      document.getElementById("timer").classList.add("timer-warning");
+    }
+
+    if (timeLeft <= 0) {
+      endQuiz();
+    }
+  }, 1000);
+}
+
+function updateStats() {
+  document.getElementById("score").textContent = "Score: " + score;
+  document.getElementById("answered").textContent = "Answered: " + answered;
+  document.getElementById("timer").textContent = "Time: " + formatTime(timeLeft);
+}
+
+function showQuestion() {
+  if (currentQuestion >= questions.length) {
+    questions = shuffle([...quiz]);
+    currentQuestion = 0;
+  }
+
+  const q = questions[currentQuestion];
+
+  document.getElementById("question").textContent = q.question;
+  document.getElementById("feedback").innerHTML = "";
+
+  const answersDiv = document.getElementById("answers");
+  answersDiv.innerHTML = "";
+
+  const shuffledAnswers = shuffle([...q.answers]);
+
+  shuffledAnswers.forEach(answer => {
+    const button = document.createElement("button");
+    button.textContent = answer;
+    button.onclick = () => checkAnswer(answer);
+    answersDiv.appendChild(button);
+  });
+}
+
+function checkAnswer(selectedAnswer) {
+  const q = questions[currentQuestion];
+
+  answered++;
+
+  const buttons = document.querySelectorAll("#answers button");
+  buttons.forEach(button => button.disabled = true);
+
+  if (selectedAnswer === q.correct) {
+    score++;
+
+    document.getElementById("feedback").innerHTML =
+      "Correct! ✅<br><span class='explanation'><strong>Explanation:</strong> " + q.explanation + "</span>";
+
+    document.getElementById("feedback").style.color = "green";
+  } else {
+    document.getElementById("feedback").innerHTML =
+      "Wrong ❌ Correct answer: " + q.correct +
+      "<br><span class='explanation'><strong>Explanation:</strong> " + q.explanation + "</span>";
+
+    document.getElementById("feedback").style.color = "red";
+  }
+
+  updateStats();
+
+  currentQuestion++;
+
+  setTimeout(showQuestion, 2500);
+}
+
+function endQuiz() {
+  clearInterval(timer);
+
+  document.getElementById("quizScreen").style.display = "none";
+  document.getElementById("endScreen").style.display = "block";
+
+  let accuracy = answered === 0 ? 0 : Math.round((score / answered) * 100);
+
+  let grade = "";
+
+  if (accuracy < 66) {
+    grade = "FAIL";
+  } else if (accuracy < 80) {
+    grade = "PASS";
+  } else if (accuracy < 90) {
+    grade = "MERIT";
+  } else {
+    grade = "DISTINCTION";
+  }
+
+  document.getElementById("finalScore").textContent =
+    "Score: " + score + " / " + answered;
+
+  document.getElementById("finalAccuracy").textContent =
+    "Accuracy: " + accuracy + "%";
+
+  document.getElementById("finalGrade").textContent =
+    "Grade: " + grade;
+}
+
+function restartQuiz() {
+  startQuiz();
+}
+
+</script>
+
+</body>
+</html>

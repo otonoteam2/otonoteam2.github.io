@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>P2 Electricity Quiz</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #d1c4e9;
+      padding: 30px;
+    }
+
+    .quiz-box {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      max-width: 750px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    h1 {
+      color: #311b92;
+    }
+
+    #timer {
+      font-size: 32px;
+      font-weight: bold;
+      color: #311b92;
+    }
+
+    .timer-warning {
+      animation: pulseTimer 0.5s infinite alternate;
+    }
+
+    @keyframes pulseTimer {
+      from { transform: scale(1); }
+      to { transform: scale(1.25); }
+    }
+
+    #score, #answered {
+      font-size: 18px;
+      font-weight: bold;
+      color: #4527a0;
+    }
+
+    button {
+      display: block;
+      margin: 10px auto;
+      padding: 12px;
+      width: 90%;
+      border: none;
+      border-radius: 8px;
+      background: #ede7f6;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background: #b39ddb;
+    }
+
+    .start-btn, .restart-btn {
+      background: #4527a0;
+      color: white;
+      font-size: 18px;
+    }
+
+    #feedback {
+      font-weight: bold;
+      margin-top: 15px;
+      line-height: 1.5;
+    }
+
+    .explanation {
+      color: #333;
+      font-weight: normal;
+    }
+
+    .grade {
+      font-size: 28px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="quiz-box">
+
+  <h1>P2 Electricity Quiz 🔌</h1>
+
+  <div id="startScreen">
+    <p>Answer as many Physics Paper 1 energy questions as possible in 4 minutes.</p>
+    <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
+  </div>
+
+  <div id="quizScreen" style="display:none;">
+    <p id="timer">Time: 4:00</p>
+    <p id="score">Score: 0</p>
+    <p id="answered">Answered: 0</p>
+
+    <h2 id="question"></h2>
+    <div id="answers"></div>
+
+    <p id="feedback"></p>
+  </div>
+
+  <div id="endScreen" style="display:none;">
+    <h2>Time's up!</h2>
+    <p id="finalScore"></p>
+    <p id="finalAccuracy"></p>
+    <p id="finalGrade" class="grade"></p>
+
+    <button class="restart-btn" onclick="restartQuiz()">Play Again</button>
+  </div>
+
+</div>
+
+<script>
+
+const quiz = [
+  {
+    "question": "What is electric current?",
+    "answers": [
+      "The rate of flow of electric charge",
+      "The energy transferred by a component",
+      "The opposition to flow in a circuit",
+      "The force between two magnets"
+    ],
+    "correct": "The rate of flow of electric charge",
+    "explanation": "Current is the rate at which charge flows. It is measured in amperes, A."
+  },
+  {
+    "question": "What is the equation linking charge, current and time?",
+    "answers": [
+      "Q = It",
+      "V = IR",
+      "P = IV",
+      "E = Pt"
+    ],
+    "correct": "Q = It",
+    "explanation": "Charge flow equals current multiplied by time: Q = It."
+  },
+  {
+    "question": "What is potential difference?",
+    "answers": [
+      "Energy transferred per unit charge",
+      "Charge flowing per second",
+      "Power used per second",
+      "Resistance per unit current"
+    ],
+    "correct": "Energy transferred per unit charge",
+    "explanation": "Potential difference tells you how much energy is transferred for each coulomb of charge."
+  },
+  {
+    "question": "What is the equation linking potential difference, current and resistance?",
+    "answers": [
+      "V = IR",
+      "Q = It",
+      "P = E/t",
+      "E = Q/t"
+    ],
+    "correct": "V = IR",
+    "explanation": "For an ohmic conductor, potential difference equals current times resistance."
+  },
+  {
+    "question": "What is resistance measured in?",
+    "answers": [
+      "Ohms",
+      "Amperes",
+      "Volts",
+      "Coulombs"
+    ],
+    "correct": "Ohms",
+    "explanation": "Resistance is measured in ohms, shown using the symbol Ω."
+  },
+  {
+    "question": "What happens to current if resistance increases and potential difference stays the same?",
+    "answers": [
+      "Current decreases",
+      "Current increases",
+      "Current becomes zero always",
+      "Current is unchanged"
+    ],
+    "correct": "Current decreases",
+    "explanation": "Using V = IR, for the same potential difference a larger resistance gives a smaller current."
+  },
+  {
+    "question": "What is an ohmic conductor?",
+    "answers": [
+      "A component with constant resistance at constant temperature",
+      "A component that only lets current flow one way",
+      "A component whose resistance falls when hot",
+      "A component that stores charge"
+    ],
+    "correct": "A component with constant resistance at constant temperature",
+    "explanation": "An ohmic conductor has current directly proportional to potential difference if temperature is constant."
+  },
+  {
+    "question": "What does the I-V graph for an ohmic conductor look like?",
+    "answers": [
+      "A straight line through the origin",
+      "A curve that gets flatter",
+      "A horizontal line",
+      "A vertical line"
+    ],
+    "correct": "A straight line through the origin",
+    "explanation": "A straight line through the origin shows current is directly proportional to potential difference."
+  },
+  {
+    "question": "What does a diode do in a circuit?",
+    "answers": [
+      "Allows current to flow in one direction only",
+      "Stores electrical charge",
+      "Changes current into sound",
+      "Measures potential difference"
+    ],
+    "correct": "Allows current to flow in one direction only",
+    "explanation": "A diode has very high resistance in the reverse direction, so current mostly flows one way."
+  },
+  {
+    "question": "What happens to the resistance of a filament lamp as it gets hotter?",
+    "answers": [
+      "It increases",
+      "It decreases",
+      "It becomes zero",
+      "It stays exactly the same"
+    ],
+    "correct": "It increases",
+    "explanation": "As the filament heats up, the metal ions vibrate more and make it harder for charge to flow."
+  },
+  {
+    "question": "What happens to the resistance of an LDR when light intensity increases?",
+    "answers": [
+      "It decreases",
+      "It increases",
+      "It becomes infinite",
+      "It stays the same"
+    ],
+    "correct": "It decreases",
+    "explanation": "An LDR has lower resistance in bright light and higher resistance in darkness."
+  },
+  {
+    "question": "What happens to the resistance of a thermistor when temperature increases?",
+    "answers": [
+      "It decreases",
+      "It increases",
+      "It doubles every second",
+      "It becomes a diode"
+    ],
+    "correct": "It decreases",
+    "explanation": "In GCSE circuits, thermistors usually have resistance that decreases as temperature increases."
+  },
+  {
+    "question": "How is current shared in a series circuit?",
+    "answers": [
+      "It is the same through every component",
+      "It is split between each branch",
+      "It is largest at the battery only",
+      "It is zero after the first component"
+    ],
+    "correct": "It is the same through every component",
+    "explanation": "In a series circuit there is only one path, so the same current flows through all components."
+  },
+  {
+    "question": "How is potential difference shared in a series circuit?",
+    "answers": [
+      "It is shared between components",
+      "It is the same across every component",
+      "It is always zero",
+      "It only appears across the battery"
+    ],
+    "correct": "It is shared between components",
+    "explanation": "In series, the supply potential difference is shared across the components."
+  },
+  {
+    "question": "How is potential difference arranged in a parallel circuit?",
+    "answers": [
+      "It is the same across each branch",
+      "It is shared between branches",
+      "It is zero in every branch",
+      "It increases after each component"
+    ],
+    "correct": "It is the same across each branch",
+    "explanation": "Each branch in parallel is connected across the supply, so each branch has the same potential difference."
+  },
+  {
+    "question": "How is current arranged in a parallel circuit?",
+    "answers": [
+      "It splits between branches",
+      "It is the same in every branch always",
+      "It cannot flow",
+      "It only flows through one branch"
+    ],
+    "correct": "It splits between branches",
+    "explanation": "Current divides at junctions and the total current is the sum of the currents in the branches."
+  },
+  {
+    "question": "What happens to total resistance when more resistors are added in series?",
+    "answers": [
+      "It increases",
+      "It decreases",
+      "It stays the same",
+      "It becomes zero"
+    ],
+    "correct": "It increases",
+    "explanation": "Adding resistors in series increases the total opposition to current."
+  },
+  {
+    "question": "What happens to total resistance when more branches are added in parallel?",
+    "answers": [
+      "It decreases",
+      "It increases",
+      "It always doubles",
+      "It becomes infinite"
+    ],
+    "correct": "It decreases",
+    "explanation": "More parallel branches provide more paths for charge, reducing total resistance."
+  },
+  {
+    "question": "What does an ammeter measure?",
+    "answers": [
+      "Current",
+      "Potential difference",
+      "Resistance",
+      "Charge only"
+    ],
+    "correct": "Current",
+    "explanation": "An ammeter measures current in amperes and is connected in series with the component."
+  },
+  {
+    "question": "How should a voltmeter be connected?",
+    "answers": [
+      "In parallel with the component",
+      "In series with the component",
+      "Instead of the cell",
+      "Only next to a switch"
+    ],
+    "correct": "In parallel with the component",
+    "explanation": "A voltmeter measures potential difference across a component, so it is connected in parallel."
+  },
+  {
+    "question": "What is electrical power?",
+    "answers": [
+      "Energy transferred per second",
+      "Charge stored per second",
+      "Resistance used per coulomb",
+      "Current multiplied by time only"
+    ],
+    "correct": "Energy transferred per second",
+    "explanation": "Power is the rate of energy transfer, measured in watts."
+  },
+  {
+    "question": "Which equation links power, potential difference and current?",
+    "answers": [
+      "P = IV",
+      "V = IR",
+      "Q = It",
+      "E = QV only"
+    ],
+    "correct": "P = IV",
+    "explanation": "Electrical power equals current multiplied by potential difference."
+  },
+  {
+    "question": "Which equation links energy transferred, power and time?",
+    "answers": [
+      "E = Pt",
+      "P = I²R",
+      "Q = It",
+      "V = E/t"
+    ],
+    "correct": "E = Pt",
+    "explanation": "Energy transferred equals power multiplied by time."
+  },
+  {
+    "question": "Which equation links energy transferred, charge and potential difference?",
+    "answers": [
+      "E = QV",
+      "E = Pt",
+      "Q = It",
+      "P = V/R"
+    ],
+    "correct": "E = QV",
+    "explanation": "Energy transferred equals charge flow multiplied by potential difference."
+  },
+  {
+    "question": "What is the live wire in mains electricity?",
+    "answers": [
+      "The wire that carries alternating potential difference",
+      "The safety wire connected to the case",
+      "The wire at about 0 V",
+      "The wire with no current ever"
+    ],
+    "correct": "The wire that carries alternating potential difference",
+    "explanation": "The live wire carries the alternating potential difference from the supply and can be dangerous."
+  },
+  {
+    "question": "What is the neutral wire usually at?",
+    "answers": [
+      "About 0 V",
+      "About 230 V",
+      "About 12 V",
+      "Always a positive charge"
+    ],
+    "correct": "About 0 V",
+    "explanation": "The neutral wire completes the circuit and is close to 0 V."
+  },
+  {
+    "question": "What is the purpose of the earth wire?",
+    "answers": [
+      "To make metal cases safer if a fault occurs",
+      "To increase the power of appliances",
+      "To store electrical energy",
+      "To make the live wire hotter"
+    ],
+    "correct": "To make metal cases safer if a fault occurs",
+    "explanation": "The earth wire provides a low resistance path to ground, helping prevent electric shocks."
+  },
+  {
+    "question": "What does a fuse do?",
+    "answers": [
+      "Melts and breaks the circuit if current is too high",
+      "Makes current flow faster",
+      "Stores charge for later",
+      "Changes AC to DC"
+    ],
+    "correct": "Melts and breaks the circuit if current is too high",
+    "explanation": "A fuse contains a wire that melts when too much current flows, disconnecting the appliance."
+  },
+  {
+    "question": "What type of current is supplied by UK mains electricity?",
+    "answers": [
+      "Alternating current",
+      "Direct current",
+      "Static current",
+      "Zero current"
+    ],
+    "correct": "Alternating current",
+    "explanation": "Mains electricity is alternating current, meaning the direction of current changes repeatedly."
+  },
+  {
+    "question": "What is the UK mains potential difference approximately?",
+    "answers": [
+      "230 V",
+      "12 V",
+      "1.5 V",
+      "1000 V"
+    ],
+    "correct": "230 V",
+    "explanation": "UK mains electricity has a potential difference of about 230 volts."
+  }
+];
+
+let questions = [];
+let currentQuestion = 0;
+let score = 0;
+let answered = 0;
+let timeLeft = 240;
+let timer;
+
+function shuffle(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
+
+function formatTime(seconds) {
+  let mins = Math.floor(seconds / 60);
+  let secs = seconds % 60;
+
+  if (secs < 10) {
+    secs = "0" + secs;
+  }
+
+  return mins + ":" + secs;
+}
+
+function startQuiz() {
+  questions = shuffle([...quiz]);
+
+  currentQuestion = 0;
+  score = 0;
+  answered = 0;
+  timeLeft = 240;
+
+  document.getElementById("startScreen").style.display = "none";
+  document.getElementById("endScreen").style.display = "none";
+  document.getElementById("quizScreen").style.display = "block";
+  document.getElementById("timer").classList.remove("timer-warning");
+
+  updateStats();
+  showQuestion();
+
+  clearInterval(timer);
+
+  timer = setInterval(() => {
+    timeLeft--;
+    updateStats();
+
+    if (timeLeft <= 10) {
+      document.getElementById("timer").classList.add("timer-warning");
+    }
+
+    if (timeLeft <= 0) {
+      endQuiz();
+    }
+  }, 1000);
+}
+
+function updateStats() {
+  document.getElementById("score").textContent = "Score: " + score;
+  document.getElementById("answered").textContent = "Answered: " + answered;
+  document.getElementById("timer").textContent = "Time: " + formatTime(timeLeft);
+}
+
+function showQuestion() {
+  if (currentQuestion >= questions.length) {
+    questions = shuffle([...quiz]);
+    currentQuestion = 0;
+  }
+
+  const q = questions[currentQuestion];
+
+  document.getElementById("question").textContent = q.question;
+  document.getElementById("feedback").innerHTML = "";
+
+  const answersDiv = document.getElementById("answers");
+  answersDiv.innerHTML = "";
+
+  const shuffledAnswers = shuffle([...q.answers]);
+
+  shuffledAnswers.forEach(answer => {
+    const button = document.createElement("button");
+    button.textContent = answer;
+    button.onclick = () => checkAnswer(answer);
+    answersDiv.appendChild(button);
+  });
+}
+
+function checkAnswer(selectedAnswer) {
+  const q = questions[currentQuestion];
+
+  answered++;
+
+  const buttons = document.querySelectorAll("#answers button");
+  buttons.forEach(button => button.disabled = true);
+
+  if (selectedAnswer === q.correct) {
+    score++;
+
+    document.getElementById("feedback").innerHTML =
+      "Correct! ✅<br><span class='explanation'><strong>Explanation:</strong> " + q.explanation + "</span>";
+
+    document.getElementById("feedback").style.color = "green";
+  } else {
+    document.getElementById("feedback").innerHTML =
+      "Wrong ❌ Correct answer: " + q.correct +
+      "<br><span class='explanation'><strong>Explanation:</strong> " + q.explanation + "</span>";
+
+    document.getElementById("feedback").style.color = "red";
+  }
+
+  updateStats();
+
+  currentQuestion++;
+
+  setTimeout(showQuestion, 2500);
+}
+
+function endQuiz() {
+  clearInterval(timer);
+
+  document.getElementById("quizScreen").style.display = "none";
+  document.getElementById("endScreen").style.display = "block";
+
+  let accuracy = answered === 0 ? 0 : Math.round((score / answered) * 100);
+
+  let grade = "";
+
+  if (accuracy < 66) {
+    grade = "FAIL";
+  } else if (accuracy < 80) {
+    grade = "PASS";
+  } else if (accuracy < 90) {
+    grade = "MERIT";
+  } else {
+    grade = "DISTINCTION";
+  }
+
+  document.getElementById("finalScore").textContent =
+    "Score: " + score + " / " + answered;
+
+  document.getElementById("finalAccuracy").textContent =
+    "Accuracy: " + accuracy + "%";
+
+  document.getElementById("finalGrade").textContent =
+    "Grade: " + grade;
+}
+
+function restartQuiz() {
+  startQuiz();
+}
+
+</script>
+
+</body>
+</html>

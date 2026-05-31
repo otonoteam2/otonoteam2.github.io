@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>P4 Atomic Structure Quiz</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #ede7f6;
+      padding: 30px;
+    }
+
+    .quiz-box {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      max-width: 750px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    h1 {
+      color: #4527a0;
+    }
+
+    #timer {
+      font-size: 32px;
+      font-weight: bold;
+      color: #311b92;
+    }
+
+    .timer-warning {
+      animation: pulseTimer 0.5s infinite alternate;
+    }
+
+    @keyframes pulseTimer {
+      from { transform: scale(1); }
+      to { transform: scale(1.25); }
+    }
+
+    #score, #answered {
+      font-size: 18px;
+      font-weight: bold;
+      color: #4527a0;
+    }
+
+    button {
+      display: block;
+      margin: 10px auto;
+      padding: 12px;
+      width: 90%;
+      border: none;
+      border-radius: 8px;
+      background: #d1c4e9;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background: #b39ddb;
+    }
+
+    .start-btn, .restart-btn {
+      background: #4527a0;
+      color: white;
+      font-size: 18px;
+    }
+
+    #feedback {
+      font-weight: bold;
+      margin-top: 15px;
+      line-height: 1.5;
+    }
+
+    .explanation {
+      color: #333;
+      font-weight: normal;
+    }
+
+    .grade {
+      font-size: 28px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="quiz-box">
+
+  <h1>P4 Atomic Structure Quiz ☢️</h1>
+
+  <div id="startScreen">
+    <p>Answer as many Physics Paper 1 P4 Atomic Structure questions as possible in 4 minutes.</p>
+    <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
+  </div>
+
+  <div id="quizScreen" style="display:none;">
+    <p id="timer">Time: 4:00</p>
+    <p id="score">Score: 0</p>
+    <p id="answered">Answered: 0</p>
+
+    <h2 id="question"></h2>
+    <div id="answers"></div>
+
+    <p id="feedback"></p>
+  </div>
+
+  <div id="endScreen" style="display:none;">
+    <h2>Time's up!</h2>
+    <p id="finalScore"></p>
+    <p id="finalAccuracy"></p>
+    <p id="finalGrade" class="grade"></p>
+
+    <button class="restart-btn" onclick="restartQuiz()">Play Again</button>
+  </div>
+
+</div>
+
+<script>
+
+const quiz = [
+  {
+    "question": "What is an atom?",
+    "answers": [
+      "The smallest part of an element that can exist",
+      "A molecule made of two elements",
+      "A type of radiation",
+      "A charged particle only found in metals"
+    ],
+    "correct": "The smallest part of an element that can exist",
+    "explanation": "An atom is the smallest part of an element that still has the properties of that element."
+  },
+  {
+    "question": "Where is most of the mass of an atom found?",
+    "answers": [
+      "In the nucleus",
+      "In the electron shells",
+      "In the empty space around the atom",
+      "Only in the electrons"
+    ],
+    "correct": "In the nucleus",
+    "explanation": "Protons and neutrons are in the nucleus and have much more mass than electrons."
+  },
+  {
+    "question": "Which particles are found in the nucleus?",
+    "answers": [
+      "Protons and neutrons",
+      "Electrons and protons",
+      "Electrons and neutrons",
+      "Only electrons"
+    ],
+    "correct": "Protons and neutrons",
+    "explanation": "The nucleus contains protons and neutrons. Electrons orbit in shells around the nucleus."
+  },
+  {
+    "question": "What charge does a proton have?",
+    "answers": [
+      "Positive",
+      "Negative",
+      "Neutral",
+      "It changes depending on the atom"
+    ],
+    "correct": "Positive",
+    "explanation": "A proton has a relative charge of +1."
+  },
+  {
+    "question": "What charge does an electron have?",
+    "answers": [
+      "Negative",
+      "Positive",
+      "Neutral",
+      "No charge and no mass"
+    ],
+    "correct": "Negative",
+    "explanation": "An electron has a relative charge of -1."
+  },
+  {
+    "question": "What charge does a neutron have?",
+    "answers": [
+      "Neutral",
+      "Positive",
+      "Negative",
+      "The same as an electron"
+    ],
+    "correct": "Neutral",
+    "explanation": "A neutron has no charge, so it is neutral."
+  },
+  {
+    "question": "What does the atomic number tell you?",
+    "answers": [
+      "The number of protons",
+      "The number of neutrons only",
+      "The total number of protons and neutrons",
+      "The number of electron shells"
+    ],
+    "correct": "The number of protons",
+    "explanation": "The atomic number is the number of protons in the nucleus."
+  },
+  {
+    "question": "What does the mass number tell you?",
+    "answers": [
+      "The total number of protons and neutrons",
+      "The number of protons only",
+      "The number of electrons only",
+      "The number of atoms in a sample"
+    ],
+    "correct": "The total number of protons and neutrons",
+    "explanation": "Mass number = protons + neutrons."
+  },
+  {
+    "question": "How do you calculate the number of neutrons in an atom?",
+    "answers": [
+      "Mass number minus atomic number",
+      "Atomic number minus mass number",
+      "Mass number plus atomic number",
+      "Number of electrons minus protons"
+    ],
+    "correct": "Mass number minus atomic number",
+    "explanation": "Neutrons = mass number - atomic number."
+  },
+  {
+    "question": "What are isotopes?",
+    "answers": [
+      "Atoms of the same element with different numbers of neutrons",
+      "Atoms of different elements with the same number of electrons",
+      "Atoms with no nucleus",
+      "Atoms that always have a negative charge"
+    ],
+    "correct": "Atoms of the same element with different numbers of neutrons",
+    "explanation": "Isotopes have the same number of protons but different numbers of neutrons."
+  },
+  {
+    "question": "Why do isotopes of the same element have the same chemical properties?",
+    "answers": [
+      "They have the same number of electrons",
+      "They have the same number of neutrons",
+      "They have different nuclei",
+      "They all emit radiation"
+    ],
+    "correct": "They have the same number of electrons",
+    "explanation": "Chemical properties depend on electron arrangement, and isotopes of the same element have the same number of electrons."
+  },
+  {
+    "question": "What is radioactive decay?",
+    "answers": [
+      "An unstable nucleus emits radiation to become more stable",
+      "An electron leaves a metal wire",
+      "A solid changes into a gas",
+      "Atoms join together chemically"
+    ],
+    "correct": "An unstable nucleus emits radiation to become more stable",
+    "explanation": "Radioactive decay happens when an unstable nucleus gives out radiation."
+  },
+  {
+    "question": "Which type of nuclear radiation is the least penetrating?",
+    "answers": [
+      "Alpha",
+      "Beta",
+      "Gamma",
+      "X-rays"
+    ],
+    "correct": "Alpha",
+    "explanation": "Alpha radiation is stopped by paper or skin, so it is the least penetrating."
+  },
+  {
+    "question": "Which type of nuclear radiation is the most penetrating?",
+    "answers": [
+      "Gamma",
+      "Alpha",
+      "Beta",
+      "Infrared"
+    ],
+    "correct": "Gamma",
+    "explanation": "Gamma radiation is very penetrating and needs thick lead or concrete to reduce it."
+  },
+  {
+    "question": "What is alpha radiation made of?",
+    "answers": [
+      "Two protons and two neutrons",
+      "A fast-moving electron",
+      "An electromagnetic wave",
+      "A single neutron"
+    ],
+    "correct": "Two protons and two neutrons",
+    "explanation": "An alpha particle is the same as a helium nucleus: 2 protons and 2 neutrons."
+  },
+  {
+    "question": "What is beta radiation?",
+    "answers": [
+      "A fast-moving electron emitted from the nucleus",
+      "Two protons and two neutrons",
+      "A low-energy sound wave",
+      "A beam of protons from the shell"
+    ],
+    "correct": "A fast-moving electron emitted from the nucleus",
+    "explanation": "Beta radiation is a fast-moving electron produced when a neutron changes into a proton."
+  },
+  {
+    "question": "What is gamma radiation?",
+    "answers": [
+      "A high-energy electromagnetic wave",
+      "A helium nucleus",
+      "A fast-moving electron",
+      "A neutron with no charge"
+    ],
+    "correct": "A high-energy electromagnetic wave",
+    "explanation": "Gamma radiation is electromagnetic radiation from the nucleus."
+  },
+  {
+    "question": "What happens to the mass number during alpha decay?",
+    "answers": [
+      "It decreases by 4",
+      "It increases by 4",
+      "It decreases by 1",
+      "It stays the same"
+    ],
+    "correct": "It decreases by 4",
+    "explanation": "Alpha decay emits 2 protons and 2 neutrons, so the mass number decreases by 4."
+  },
+  {
+    "question": "What happens to the atomic number during alpha decay?",
+    "answers": [
+      "It decreases by 2",
+      "It increases by 2",
+      "It decreases by 4",
+      "It stays the same"
+    ],
+    "correct": "It decreases by 2",
+    "explanation": "An alpha particle contains 2 protons, so the atomic number decreases by 2."
+  },
+  {
+    "question": "What happens to the atomic number during beta decay?",
+    "answers": [
+      "It increases by 1",
+      "It decreases by 1",
+      "It decreases by 4",
+      "It stays the same"
+    ],
+    "correct": "It increases by 1",
+    "explanation": "In beta decay, a neutron becomes a proton, so the atomic number increases by 1."
+  },
+  {
+    "question": "What happens to the mass number during beta decay?",
+    "answers": [
+      "It stays the same",
+      "It increases by 1",
+      "It decreases by 1",
+      "It decreases by 4"
+    ],
+    "correct": "It stays the same",
+    "explanation": "Beta decay changes a neutron into a proton, so the total number of nucleons stays the same."
+  },
+  {
+    "question": "What is half-life?",
+    "answers": [
+      "The time taken for the count rate or number of unstable nuclei to halve",
+      "The time taken for all radiation to disappear",
+      "Half the time an atom exists for",
+      "The time taken for temperature to halve"
+    ],
+    "correct": "The time taken for the count rate or number of unstable nuclei to halve",
+    "explanation": "Half-life is the time for the activity or number of unstable nuclei in a sample to fall by half."
+  },
+  {
+    "question": "A source has a count rate of 800 counts per minute. After one half-life, what is the count rate?",
+    "answers": [
+      "400 counts per minute",
+      "200 counts per minute",
+      "1600 counts per minute",
+      "0 counts per minute"
+    ],
+    "correct": "400 counts per minute",
+    "explanation": "After one half-life, the count rate halves: 800 becomes 400 counts per minute."
+  },
+  {
+    "question": "A source has a count rate of 800 counts per minute. After two half-lives, what is the count rate?",
+    "answers": [
+      "200 counts per minute",
+      "400 counts per minute",
+      "100 counts per minute",
+      "0 counts per minute"
+    ],
+    "correct": "200 counts per minute",
+    "explanation": "Two half-lives means the count rate halves twice: 800 to 400 to 200."
+  },
+  {
+    "question": "What is irradiation?",
+    "answers": [
+      "Being exposed to radiation from a source outside the body",
+      "Radioactive material getting onto or inside an object",
+      "An atom losing an electron",
+      "A nucleus splitting into two smaller nuclei"
+    ],
+    "correct": "Being exposed to radiation from a source outside the body",
+    "explanation": "Irradiation means exposure to radiation, but the object does not become radioactive."
+  },
+  {
+    "question": "What is contamination?",
+    "answers": [
+      "Radioactive material getting onto or inside an object",
+      "Being near a sealed radioactive source only",
+      "Radiation passing through paper",
+      "An atom becoming neutral"
+    ],
+    "correct": "Radioactive material getting onto or inside an object",
+    "explanation": "Contamination happens when radioactive material is transferred to an object or person."
+  },
+  {
+    "question": "Why is alpha radiation dangerous if swallowed or breathed in?",
+    "answers": [
+      "It is strongly ionising inside the body",
+      "It can travel through thick lead",
+      "It has no ionising effect",
+      "It only damages objects outside the body"
+    ],
+    "correct": "It is strongly ionising inside the body",
+    "explanation": "Alpha radiation is strongly ionising, so it can damage cells if the source is inside the body."
+  },
+  {
+    "question": "Which material can stop alpha radiation?",
+    "answers": [
+      "Paper",
+      "Thick lead only",
+      "Several metres of concrete only",
+      "Nothing can stop it"
+    ],
+    "correct": "Paper",
+    "explanation": "Alpha radiation has low penetration and can be stopped by a sheet of paper."
+  },
+  {
+    "question": "Which material is commonly used to reduce gamma radiation?",
+    "answers": [
+      "Thick lead or concrete",
+      "Thin paper",
+      "A few centimetres of air",
+      "Plastic film only"
+    ],
+    "correct": "Thick lead or concrete",
+    "explanation": "Gamma radiation is highly penetrating, so thick lead or concrete is needed to reduce it."
+  },
+  {
+    "question": "What is background radiation?",
+    "answers": [
+      "Low-level radiation that is always around us",
+      "Radiation only from nuclear power stations",
+      "Radiation that has no sources",
+      "Radiation only produced in hospitals"
+    ],
+    "correct": "Low-level radiation that is always around us",
+    "explanation": "Background radiation comes from natural and man-made sources and is always present."
+  },
+  {
+    "question": "Which of these is a natural source of background radiation?",
+    "answers": [
+      "Radon gas from rocks",
+      "Medical X-rays only",
+      "Nuclear weapons testing only",
+      "Smoke alarms only"
+    ],
+    "correct": "Radon gas from rocks",
+    "explanation": "Radon gas is a natural source of background radiation released from some rocks."
+  }
+];
+
+let questions = [];
+let currentQuestion = 0;
+let score = 0;
+let answered = 0;
+let timeLeft = 240;
+let timer;
+
+function shuffle(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
+
+function formatTime(seconds) {
+  let mins = Math.floor(seconds / 60);
+  let secs = seconds % 60;
+
+  if (secs < 10) {
+    secs = "0" + secs;
+  }
+
+  return mins + ":" + secs;
+}
+
+function startQuiz() {
+  questions = shuffle([...quiz]);
+
+  currentQuestion = 0;
+  score = 0;
+  answered = 0;
+  timeLeft = 240;
+
+  document.getElementById("startScreen").style.display = "none";
+  document.getElementById("endScreen").style.display = "none";
+  document.getElementById("quizScreen").style.display = "block";
+  document.getElementById("timer").classList.remove("timer-warning");
+
+  updateStats();
+  showQuestion();
+
+  clearInterval(timer);
+
+  timer = setInterval(() => {
+    timeLeft--;
+    updateStats();
+
+    if (timeLeft <= 10) {
+      document.getElementById("timer").classList.add("timer-warning");
+    }
+
+    if (timeLeft <= 0) {
+      endQuiz();
+    }
+  }, 1000);
+}
+
+function updateStats() {
+  document.getElementById("score").textContent = "Score: " + score;
+  document.getElementById("answered").textContent = "Answered: " + answered;
+  document.getElementById("timer").textContent = "Time: " + formatTime(timeLeft);
+}
+
+function showQuestion() {
+  if (currentQuestion >= questions.length) {
+    questions = shuffle([...quiz]);
+    currentQuestion = 0;
+  }
+
+  const q = questions[currentQuestion];
+
+  document.getElementById("question").textContent = q.question;
+  document.getElementById("feedback").innerHTML = "";
+
+  const answersDiv = document.getElementById("answers");
+  answersDiv.innerHTML = "";
+
+  const shuffledAnswers = shuffle([...q.answers]);
+
+  shuffledAnswers.forEach(answer => {
+    const button = document.createElement("button");
+    button.textContent = answer;
+    button.onclick = () => checkAnswer(answer);
+    answersDiv.appendChild(button);
+  });
+}
+
+function checkAnswer(selectedAnswer) {
+  const q = questions[currentQuestion];
+
+  answered++;
+
+  const buttons = document.querySelectorAll("#answers button");
+  buttons.forEach(button => button.disabled = true);
+
+  if (selectedAnswer === q.correct) {
+    score++;
+
+    document.getElementById("feedback").innerHTML =
+      "Correct! ✅<br><span class='explanation'><strong>Explanation:</strong> " + q.explanation + "</span>";
+
+    document.getElementById("feedback").style.color = "green";
+  } else {
+    document.getElementById("feedback").innerHTML =
+      "Wrong ❌ Correct answer: " + q.correct +
+      "<br><span class='explanation'><strong>Explanation:</strong> " + q.explanation + "</span>";
+
+    document.getElementById("feedback").style.color = "red";
+  }
+
+  updateStats();
+
+  currentQuestion++;
+
+  setTimeout(showQuestion, 2500);
+}
+
+function endQuiz() {
+  clearInterval(timer);
+
+  document.getElementById("quizScreen").style.display = "none";
+  document.getElementById("endScreen").style.display = "block";
+
+  let accuracy = answered === 0 ? 0 : Math.round((score / answered) * 100);
+
+  let grade = "";
+
+  if (accuracy < 66) {
+    grade = "FAIL";
+  } else if (accuracy < 80) {
+    grade = "PASS";
+  } else if (accuracy < 90) {
+    grade = "MERIT";
+  } else {
+    grade = "DISTINCTION";
+  }
+
+  document.getElementById("finalScore").textContent =
+    "Score: " + score + " / " + answered;
+
+  document.getElementById("finalAccuracy").textContent =
+    "Accuracy: " + accuracy + "%";
+
+  document.getElementById("finalGrade").textContent =
+    "Grade: " + grade;
+}
+
+function restartQuiz() {
+  startQuiz();
+}
+
+</script>
+
+</body>
+</html>

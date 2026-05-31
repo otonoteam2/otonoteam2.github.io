@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>P1 Energy Quiz</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #bbdefb;
+      padding: 30px;
+    }
+
+    .quiz-box {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      max-width: 750px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    h1 {
+      color: #0d47a1;
+    }
+
+    #timer {
+      font-size: 32px;
+      font-weight: bold;
+      color: #0d47a1;
+    }
+
+    .timer-warning {
+      animation: pulseTimer 0.5s infinite alternate;
+    }
+
+    @keyframes pulseTimer {
+      from { transform: scale(1); }
+      to { transform: scale(1.25); }
+    }
+
+    #score, #answered {
+      font-size: 18px;
+      font-weight: bold;
+      color: #1565c0;
+    }
+
+    button {
+      display: block;
+      margin: 10px auto;
+      padding: 12px;
+      width: 90%;
+      border: none;
+      border-radius: 8px;
+      background: #e3f2fd;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background: #90caf9;
+    }
+
+    .start-btn, .restart-btn {
+      background: #1565c0;
+      color: white;
+      font-size: 18px;
+    }
+
+    #feedback {
+      font-weight: bold;
+      margin-top: 15px;
+      line-height: 1.5;
+    }
+
+    .explanation {
+      color: #333;
+      font-weight: normal;
+    }
+
+    .grade {
+      font-size: 28px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="quiz-box">
+
+  <h1>P1 Energy Quiz ⚡</h1>
+
+  <div id="startScreen">
+    <p>Answer as many Physics Paper 1 energy questions as possible in 4 minutes.</p>
+    <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
+  </div>
+
+  <div id="quizScreen" style="display:none;">
+    <p id="timer">Time: 4:00</p>
+    <p id="score">Score: 0</p>
+    <p id="answered">Answered: 0</p>
+
+    <h2 id="question"></h2>
+    <div id="answers"></div>
+
+    <p id="feedback"></p>
+  </div>
+
+  <div id="endScreen" style="display:none;">
+    <h2>Time's up!</h2>
+    <p id="finalScore"></p>
+    <p id="finalAccuracy"></p>
+    <p id="finalGrade" class="grade"></p>
+
+    <button class="restart-btn" onclick="restartQuiz()">Play Again</button>
+  </div>
+
+</div>
+
+<script>
+
+const quiz = [
+  {
+    "question": "What is energy?",
+    "answers": [
+      "The ability to do work",
+      "The mass of an object",
+      "The speed of an object",
+      "The distance moved every second"
+    ],
+    "correct": "The ability to do work",
+    "explanation": "Energy is needed to make things happen, such as heating, moving, lifting or changing shape."
+  },
+  {
+    "question": "What is the unit of energy?",
+    "answers": [
+      "Joule",
+      "Watt",
+      "Newton",
+      "Pascal"
+    ],
+    "correct": "Joule",
+    "explanation": "Energy is measured in joules, symbol J."
+  },
+  {
+    "question": "Which energy store increases when an object is lifted higher?",
+    "answers": [
+      "Gravitational potential energy store",
+      "Kinetic energy store",
+      "Thermal energy store",
+      "Elastic potential energy store"
+    ],
+    "correct": "Gravitational potential energy store",
+    "explanation": "Lifting an object increases its gravitational potential energy because it is higher above the ground."
+  },
+  {
+    "question": "Which energy store increases when an object speeds up?",
+    "answers": [
+      "Kinetic energy store",
+      "Chemical energy store",
+      "Nuclear energy store",
+      "Elastic potential energy store"
+    ],
+    "correct": "Kinetic energy store",
+    "explanation": "A moving object has energy in its kinetic energy store. The faster it moves, the more kinetic energy it has."
+  },
+  {
+    "question": "Which energy store is found in fuels and food?",
+    "answers": [
+      "Chemical energy store",
+      "Kinetic energy store",
+      "Magnetic energy store",
+      "Electrostatic energy store"
+    ],
+    "correct": "Chemical energy store",
+    "explanation": "Fuels and food contain energy stored chemically, which can be transferred during chemical reactions."
+  },
+  {
+    "question": "Which energy store increases when a spring is stretched?",
+    "answers": [
+      "Elastic potential energy store",
+      "Thermal energy store",
+      "Kinetic energy store",
+      "Nuclear energy store"
+    ],
+    "correct": "Elastic potential energy store",
+    "explanation": "Stretching or compressing a spring stores energy in its elastic potential energy store."
+  },
+  {
+    "question": "Which formula calculates kinetic energy?",
+    "answers": [
+      "KE = 0.5 × mass × speed²",
+      "GPE = mass × gravitational field strength × height",
+      "Power = energy transferred ÷ time",
+      "Efficiency = useful output ÷ total input"
+    ],
+    "correct": "KE = 0.5 × mass × speed²",
+    "explanation": "Kinetic energy depends on mass and the square of speed: KE = 1/2mv²."
+  },
+  {
+    "question": "What is the formula for gravitational potential energy?",
+    "answers": [
+      "GPE = mass × gravitational field strength × height",
+      "GPE = 0.5 × mass × speed²",
+      "GPE = power × time",
+      "GPE = force ÷ area"
+    ],
+    "correct": "GPE = mass × gravitational field strength × height",
+    "explanation": "Gravitational potential energy is calculated using GPE = mgh."
+  },
+  {
+    "question": "What is the formula for elastic potential energy?",
+    "answers": [
+      "E = 0.5 × spring constant × extension²",
+      "E = mass × speed",
+      "E = force × distance ÷ time",
+      "E = voltage × current"
+    ],
+    "correct": "E = 0.5 × spring constant × extension²",
+    "explanation": "Elastic potential energy is E = 1/2ke², where k is spring constant and e is extension."
+  },
+  {
+    "question": "What is meant by work done?",
+    "answers": [
+      "Energy transferred when a force moves an object through a distance",
+      "The total time taken for a force to act",
+      "The weight of an object",
+      "The speed of energy transfer only"
+    ],
+    "correct": "Energy transferred when a force moves an object through a distance",
+    "explanation": "Work is done when a force causes movement. The energy transferred equals force × distance."
+  },
+  {
+    "question": "What is the formula for work done?",
+    "answers": [
+      "Work done = force × distance",
+      "Work done = mass × speed",
+      "Work done = energy ÷ power",
+      "Work done = current × voltage"
+    ],
+    "correct": "Work done = force × distance",
+    "explanation": "Work done is calculated using W = Fs, where force is in newtons and distance is in metres."
+  },
+  {
+    "question": "What is the unit of work done?",
+    "answers": [
+      "Joule",
+      "Kilogram",
+      "Newton per metre",
+      "Metre per second"
+    ],
+    "correct": "Joule",
+    "explanation": "Work done is energy transferred, so it is measured in joules."
+  },
+  {
+    "question": "What is power?",
+    "answers": [
+      "The rate of energy transfer",
+      "The amount of force on an object",
+      "The distance an object moves",
+      "The amount of mass in an object"
+    ],
+    "correct": "The rate of energy transfer",
+    "explanation": "Power tells you how quickly energy is transferred or how quickly work is done."
+  },
+  {
+    "question": "What is the unit of power?",
+    "answers": [
+      "Watt",
+      "Joule",
+      "Newton",
+      "Volt"
+    ],
+    "correct": "Watt",
+    "explanation": "Power is measured in watts. One watt means one joule of energy transferred per second."
+  },
+  {
+    "question": "What is the formula for power?",
+    "answers": [
+      "Power = energy transferred ÷ time",
+      "Power = mass × height",
+      "Power = force ÷ distance",
+      "Power = speed × time"
+    ],
+    "correct": "Power = energy transferred ÷ time",
+    "explanation": "Power is calculated using P = E/t or P = W/t."
+  },
+  {
+    "question": "What does conservation of energy mean?",
+    "answers": [
+      "Energy cannot be created or destroyed",
+      "Energy always disappears after use",
+      "Energy can only be stored as heat",
+      "Energy is created by every machine"
+    ],
+    "correct": "Energy cannot be created or destroyed",
+    "explanation": "Energy can be transferred between stores, but the total amount of energy stays the same."
+  },
+  {
+    "question": "In a useful energy transfer, what often happens to some energy?",
+    "answers": [
+      "It is dissipated to the surroundings",
+      "It is destroyed completely",
+      "It becomes mass",
+      "It stops existing"
+    ],
+    "correct": "It is dissipated to the surroundings",
+    "explanation": "Wasted energy is usually transferred to the thermal energy store of the surroundings and becomes less useful."
+  },
+  {
+    "question": "What does dissipated energy mean?",
+    "answers": [
+      "Energy spread out to the surroundings",
+      "Energy created from nothing",
+      "Energy stored only chemically",
+      "Energy moving backwards"
+    ],
+    "correct": "Energy spread out to the surroundings",
+    "explanation": "Dissipated energy is energy that has spread out, usually as heating, making it less useful."
+  },
+  {
+    "question": "What is efficiency?",
+    "answers": [
+      "The proportion of input energy transferred usefully",
+      "The total energy wasted",
+      "The speed of an object",
+      "The amount of heat produced only"
+    ],
+    "correct": "The proportion of input energy transferred usefully",
+    "explanation": "Efficiency compares useful output energy to total input energy."
+  },
+  {
+    "question": "Which formula calculates efficiency?",
+    "answers": [
+      "Efficiency = useful output energy ÷ total input energy",
+      "Efficiency = mass × speed²",
+      "Efficiency = force × distance",
+      "Efficiency = power × time²"
+    ],
+    "correct": "Efficiency = useful output energy ÷ total input energy",
+    "explanation": "Efficiency can be written as a decimal or multiplied by 100 to give a percentage."
+  },
+  {
+    "question": "How can unwanted energy transfers by heating be reduced?",
+    "answers": [
+      "Using insulation",
+      "Increasing friction",
+      "Using a louder sound",
+      "Making surfaces rougher"
+    ],
+    "correct": "Using insulation",
+    "explanation": "Insulation reduces energy transfers by heating, helping keep energy where it is useful."
+  },
+  {
+    "question": "How can unwanted energy transfers by friction be reduced?",
+    "answers": [
+      "Using lubrication",
+      "Removing insulation",
+      "Increasing air resistance",
+      "Making surfaces rougher"
+    ],
+    "correct": "Using lubrication",
+    "explanation": "Lubrication reduces friction, so less energy is wasted as heating."
+  },
+  {
+    "question": "Which material is usually a good thermal insulator?",
+    "answers": [
+      "Air trapped in foam",
+      "Copper",
+      "Aluminium",
+      "Iron"
+    ],
+    "correct": "Air trapped in foam",
+    "explanation": "Trapped air is a poor conductor, so materials with trapped air can reduce heat transfer."
+  },
+  {
+    "question": "What is a renewable energy resource?",
+    "answers": [
+      "One that can be replaced as it is used",
+      "One that will run out quickly",
+      "One that only stores chemical energy",
+      "One that produces no energy"
+    ],
+    "correct": "One that can be replaced as it is used",
+    "explanation": "Renewable resources are naturally replenished, such as wind, solar, hydroelectric and geothermal."
+  },
+  {
+    "question": "Which of these is a renewable energy resource?",
+    "answers": [
+      "Solar",
+      "Coal",
+      "Oil",
+      "Natural gas"
+    ],
+    "correct": "Solar",
+    "explanation": "Solar energy is renewable because sunlight is continually available on a human timescale."
+  },
+  {
+    "question": "Which of these is a non-renewable energy resource?",
+    "answers": [
+      "Coal",
+      "Wind",
+      "Solar",
+      "Tidal"
+    ],
+    "correct": "Coal",
+    "explanation": "Coal is a fossil fuel and takes millions of years to form, so it is non-renewable."
+  },
+  {
+    "question": "What is one disadvantage of burning fossil fuels?",
+    "answers": [
+      "They release carbon dioxide",
+      "They are always renewable",
+      "They never produce waste gases",
+      "They cannot generate electricity"
+    ],
+    "correct": "They release carbon dioxide",
+    "explanation": "Burning fossil fuels releases carbon dioxide, which contributes to climate change."
+  },
+  {
+    "question": "What is one advantage of fossil fuels?",
+    "answers": [
+      "They can generate electricity on demand",
+      "They never pollute",
+      "They are unlimited",
+      "They do not release energy"
+    ],
+    "correct": "They can generate electricity on demand",
+    "explanation": "Fossil fuel power stations can respond quickly to changes in electricity demand."
+  },
+  {
+    "question": "What is one advantage of wind power?",
+    "answers": [
+      "It does not produce carbon dioxide while generating electricity",
+      "It works at full power all the time",
+      "It uses fossil fuels directly",
+      "It is non-renewable"
+    ],
+    "correct": "It does not produce carbon dioxide while generating electricity",
+    "explanation": "Wind turbines generate electricity without burning fuel, although output depends on wind speed."
+  },
+  {
+    "question": "What is one disadvantage of solar power?",
+    "answers": [
+      "It depends on sunlight intensity",
+      "It releases carbon dioxide while generating electricity",
+      "It uses coal directly",
+      "It is always available at night"
+    ],
+    "correct": "It depends on sunlight intensity",
+    "explanation": "Solar panels produce less electricity when it is cloudy and do not generate at night."
+  }
+];
+
+let questions = [];
+let currentQuestion = 0;
+let score = 0;
+let answered = 0;
+let timeLeft = 240;
+let timer;
+
+function shuffle(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
+
+function formatTime(seconds) {
+  let mins = Math.floor(seconds / 60);
+  let secs = seconds % 60;
+
+  if (secs < 10) {
+    secs = "0" + secs;
+  }
+
+  return mins + ":" + secs;
+}
+
+function startQuiz() {
+  questions = shuffle([...quiz]);
+
+  currentQuestion = 0;
+  score = 0;
+  answered = 0;
+  timeLeft = 240;
+
+  document.getElementById("startScreen").style.display = "none";
+  document.getElementById("endScreen").style.display = "none";
+  document.getElementById("quizScreen").style.display = "block";
+  document.getElementById("timer").classList.remove("timer-warning");
+
+  updateStats();
+  showQuestion();
+
+  clearInterval(timer);
+
+  timer = setInterval(() => {
+    timeLeft--;
+    updateStats();
+
+    if (timeLeft <= 10) {
+      document.getElementById("timer").classList.add("timer-warning");
+    }
+
+    if (timeLeft <= 0) {
+      endQuiz();
+    }
+  }, 1000);
+}
+
+function updateStats() {
+  document.getElementById("score").textContent = "Score: " + score;
+  document.getElementById("answered").textContent = "Answered: " + answered;
+  document.getElementById("timer").textContent = "Time: " + formatTime(timeLeft);
+}
+
+function showQuestion() {
+  if (currentQuestion >= questions.length) {
+    questions = shuffle([...quiz]);
+    currentQuestion = 0;
+  }
+
+  const q = questions[currentQuestion];
+
+  document.getElementById("question").textContent = q.question;
+  document.getElementById("feedback").innerHTML = "";
+
+  const answersDiv = document.getElementById("answers");
+  answersDiv.innerHTML = "";
+
+  const shuffledAnswers = shuffle([...q.answers]);
+
+  shuffledAnswers.forEach(answer => {
+    const button = document.createElement("button");
+    button.textContent = answer;
+    button.onclick = () => checkAnswer(answer);
+    answersDiv.appendChild(button);
+  });
+}
+
+function checkAnswer(selectedAnswer) {
+  const q = questions[currentQuestion];
+
+  answered++;
+
+  const buttons = document.querySelectorAll("#answers button");
+  buttons.forEach(button => button.disabled = true);
+
+  if (selectedAnswer === q.correct) {
+    score++;
+
+    document.getElementById("feedback").innerHTML =
+      "Correct! ✅<br><span class='explanation'><strong>Explanation:</strong> " + q.explanation + "</span>";
+
+    document.getElementById("feedback").style.color = "green";
+  } else {
+    document.getElementById("feedback").innerHTML =
+      "Wrong ❌ Correct answer: " + q.correct +
+      "<br><span class='explanation'><strong>Explanation:</strong> " + q.explanation + "</span>";
+
+    document.getElementById("feedback").style.color = "red";
+  }
+
+  updateStats();
+
+  currentQuestion++;
+
+  setTimeout(showQuestion, 2500);
+}
+
+function endQuiz() {
+  clearInterval(timer);
+
+  document.getElementById("quizScreen").style.display = "none";
+  document.getElementById("endScreen").style.display = "block";
+
+  let accuracy = answered === 0 ? 0 : Math.round((score / answered) * 100);
+
+  let grade = "";
+
+  if (accuracy < 66) {
+    grade = "FAIL";
+  } else if (accuracy < 80) {
+    grade = "PASS";
+  } else if (accuracy < 90) {
+    grade = "MERIT";
+  } else {
+    grade = "DISTINCTION";
+  }
+
+  document.getElementById("finalScore").textContent =
+    "Score: " + score + " / " + answered;
+
+  document.getElementById("finalAccuracy").textContent =
+    "Accuracy: " + accuracy + "%";
+
+  document.getElementById("finalGrade").textContent =
+    "Grade: " + grade;
+}
+
+function restartQuiz() {
+  startQuiz();
+}
+
+</script>
+
+</body>
+</html>
