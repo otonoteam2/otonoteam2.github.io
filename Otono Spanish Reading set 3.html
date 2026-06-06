@@ -2330,7 +2330,7 @@ function badgeForScore(score){
 /* -----------------------------
    Local storage
 --------------------------------*/
-const STORE_KEY = "otonoFrenchReadingSAM_set3_results_v2";
+const STORE_KEY = "otonoSpanishReadingSAM_set3_results_v2";
 
 function loadResults(){
   try{ return JSON.parse(localStorage.getItem(STORE_KEY) || "[]"); }
@@ -2618,8 +2618,8 @@ function renderTest(){
       <div class="passage">${escapeHtml(t.text)}</div>
       <div class="divider"></div>
       <div class="q" data-qid="translation">
-        <h3>Translate into French (write naturally). <span class="badge">20 marks</span></h3>
-        <textarea id="ans_translation" placeholder="Type your French translation here..."></textarea>
+        <h3>Translate into Spanish (write naturally). <span class="badge">20 marks</span></h3>
+        <textarea id="ans_translation" placeholder="Type your Spanish translation here..."></textarea>
         <div class="small" style="margin-top:8px">Auto-mark checks key ideas. It’s strict: include the meaning clearly.</div>
       </div>
     </div>
@@ -2986,7 +2986,7 @@ function computeTotal(){
     qid: "translation",
     passageId: "translation",
     type: "translation",
-    prompt: "Translate into French",
+    prompt: "Translate into Spanish",
     score: tRes.score,
     max: tRes.max,
     detail: tRes.detail
