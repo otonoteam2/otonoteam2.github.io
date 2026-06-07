@@ -1,0 +1,2148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>🟣 Otono German — Reading • November 2025 </title>
+  <style>
+    :root{
+      --bg1:#2b0a3d; --bg2:#7a0036;
+      --card:#0f0b18cc; --card2:#120c22e6;
+      --text:#f4efff; --muted:#c9b9ff;
+      --accent:#b000ff; --accent2:#ff1b6a;
+      --good:#19ff9a; --warn:#ffd166; --bad:#ff4d6d;
+      --line:rgba(255,255,255,.12);
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:var(--sans); color:var(--text);
+      background:
+        radial-gradient(1000px 700px at 15% 10%, rgba(176,0,255,.22), transparent 60%),
+        radial-gradient(900px 650px at 80% 20%, rgba(255,27,106,.18), transparent 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+    }
+    .wrap{max-width:1100px; margin:0 auto; padding:22px;}
+    .topbar{
+      display:flex; gap:14px; align-items:center; justify-content:space-between;
+      padding:14px 16px; border:1px solid var(--line); border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      box-shadow:var(--shadow);
+      position:sticky; top:14px; z-index:20; backdrop-filter: blur(10px);
+    }
+    .brand{display:flex; flex-direction:column; gap:2px}
+    .brand h1{margin:0; font-size:16px; letter-spacing:.3px}
+    .brand .sub{font-size:12px; color:var(--muted)}
+    .pill{
+      padding:8px 10px; border-radius:999px; border:1px solid var(--line);
+      background:rgba(0,0,0,.25); font-family:var(--mono); font-size:12px;
+      display:flex; gap:10px; align-items:center;
+    }
+    .pill strong{color:#fff}
+    .btn{
+      border:1px solid var(--line); background:rgba(0,0,0,.25);
+      color:var(--text); padding:10px 12px; border-radius:14px; cursor:pointer;
+      transition:.15s transform, .15s background, .15s border;
+      font-weight:600;
+    }
+    .btn:hover{transform:translateY(-1px); background:rgba(0,0,0,.33); border-color:rgba(255,255,255,.22)}
+    .btn.primary{
+      background:linear-gradient(135deg, rgba(176,0,255,.55), rgba(255,27,106,.45));
+      border-color:rgba(255,255,255,.22);
+    }
+    .btn.danger{background:rgba(255,77,109,.18); border-color:rgba(255,77,109,.35)}
+    .grid{display:grid; grid-template-columns: 1.1fr .9fr; gap:16px; margin-top:16px;}
+    @media (max-width: 980px){ .grid{grid-template-columns:1fr} .topbar{position:static} }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .card .hd{
+      padding:14px 16px; border-bottom:1px solid var(--line);
+      display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
+      background:linear-gradient(180deg, rgba(255,255,255,.06), transparent);
+    }
+    .card .hd h2{margin:0; font-size:14px}
+    .card .hd .meta{font-size:12px; color:var(--muted); line-height:1.25}
+    .card .bd{padding:16px}
+    label{display:block; font-size:12px; color:var(--muted); margin:10px 0 6px}
+
+    input[type="text"], input[type="number"], textarea, select{
+      width:100%; border:1px solid var(--line); background:rgba(0,0,0,.25);
+      color:var(--text); padding:10px 12px; border-radius:14px; outline:none;
+      font-family:var(--sans);
+    }
+    textarea{min-height:90px; resize:vertical}
+
+    .row{display:flex; gap:10px; flex-wrap:wrap}
+    .row > div{flex:1 1 180px}
+
+    .note{
+      font-size:12px; color:var(--muted); line-height:1.4;
+      padding:10px 12px; border-radius:14px; border:1px dashed rgba(255,255,255,.18);
+      background:rgba(0,0,0,.18);
+    }
+    .badge{
+      font-family:var(--mono); font-size:12px; padding:6px 10px; border-radius:999px;
+      border:1px solid var(--line); background:rgba(0,0,0,.20);
+      display:inline-flex; align-items:center; gap:6px;
+    }
+    .badge.good{border-color:rgba(25,255,154,.35); background:rgba(25,255,154,.12)}
+    .badge.warn{border-color:rgba(255,209,102,.35); background:rgba(255,209,102,.12)}
+    .badge.bad{border-color:rgba(255,77,109,.35); background:rgba(255,77,109,.12)}
+    .divider{height:1px; background:var(--line); margin:14px 0}
+    .passage{
+      padding:12px 14px; border:1px solid var(--line); border-radius:16px;
+      background:rgba(0,0,0,.22); line-height:1.5;
+    }
+    .q{
+      margin-top:14px; padding:12px 14px; border:1px solid var(--line);
+      border-radius:16px; background:rgba(0,0,0,.20);
+    }
+    .q h3{margin:0 0 8px; font-size:13px}
+    .opts{display:grid; gap:8px; margin-top:8px}
+    .opt{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:10px 10px; border-radius:14px; border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+      cursor:pointer;
+    }
+    .opt input{margin-top:3px}
+    .kpi{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
+    @media (max-width: 980px){ .kpi{grid-template-columns:repeat(2,1fr)} }
+    .kpi .box{
+      border:1px solid var(--line); border-radius:16px; padding:10px 12px;
+      background:rgba(0,0,0,.22);
+    }
+    .kpi .box .t{font-size:12px; color:var(--muted)}
+    .kpi .box .v{font-size:18px; font-weight:800; margin-top:4px}
+    .small{font-size:12px; color:var(--muted)}
+    .tabs{display:flex; gap:8px; flex-wrap:wrap}
+    .tab{padding:10px 12px; border-radius:14px; border:1px solid var(--line); background:rgba(0,0,0,.22); cursor:pointer; font-weight:700}
+    .tab.active{background:linear-gradient(135deg, rgba(176,0,255,.35), rgba(255,27,106,.22)); border-color:rgba(255,255,255,.22)}
+    .resultsList{display:grid; gap:10px}
+    .attempt{
+      border:1px solid var(--line); border-radius:16px; padding:12px 14px;
+      background:rgba(0,0,0,.20);
+    }
+    .attempt .top{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap}
+    .attempt .top strong{font-family:var(--mono)}
+    .attempt .meta{font-size:12px; color:var(--muted); margin-top:6px; line-height:1.4}
+    .copy{font-family:var(--mono); font-size:12px; white-space:pre-wrap; word-break:break-word}
+    .hide{display:none !important}
+
+    /* Candidate number 4 squares */
+    .digitRow{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
+    .digitRow .digit{
+      width:52px; text-align:center; font-family:var(--mono);
+      font-size:18px; font-weight:900; padding:12px 0;
+      border-radius:14px; border:1px solid var(--line);
+      background:rgba(0,0,0,.25); color:var(--text);
+      outline:none;
+    }
+    .digitRow .hint{font-size:12px; color:var(--muted)}
+    .miniRow{display:flex; gap:10px; flex-wrap:wrap; align-items:flex-end}
+    .miniRow > *{flex:1 1 160px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <h1>🟣 Otono German — Paper 3 • Reading • November 2025 (SECURED) </h1>
+        <div class="sub">
+          Auto marking • 4 random passages × 20 + 1 translation × 20 = 100 • Centre:
+          <strong id="centreTop">50749</strong>
+        </div>
+      </div>
+      <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end">
+        <div class="pill">
+          <span>⏱️ Timer:</span>
+          <strong id="timerText">--:--</strong>
+        </div>
+        <button class="btn" id="btnResults">Results</button>
+        <button class="btn primary" id="btnHome">Test</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- Left: main -->
+      <div class="card" id="panelHome">
+        <div class="hd">
+          <div>
+            <h2>Candidate setup</h2>
+            <div class="meta">No dictionary • No translator • Answer from the text • Auto marking for written answers uses keywords (not perfect).</div>
+          </div>
+          <span class="badge" id="statusBadge">Ready</span>
+        </div>
+
+        <div class="bd" id="homeBody">
+          <div class="miniRow">
+            <div>
+              <label>Centre number</label>
+              <input type="text" id="centreNo" value="50749" disabled />
+              <div class="small" style="margin-top:6px">
+                Default is <strong>50749</strong>. You can change it (optional) with the button.
+              </div>
+            </div>
+            <div style="display:flex; gap:10px; align-items:flex-end; flex-wrap:wrap">
+              <button class="btn" id="btnEditCentre">Customise centre</button>
+              <button class="btn" id="btnResetCentre">Reset centre</button>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div>
+            <label>Candidate number (required, 4 digits)</label>
+            <div class="digitRow" aria-label="Candidate number 4 digits">
+              <input class="digit" id="candD1" inputmode="numeric" maxlength="1" />
+              <input class="digit" id="candD2" inputmode="numeric" maxlength="1" />
+              <input class="digit" id="candD3" inputmode="numeric" maxlength="1" />
+              <input class="digit" id="candD4" inputmode="numeric" maxlength="1" />
+              <span class="hint">Digits only • auto-advance</span>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top:6px">
+            <div>
+              <label>Candidate surname (optional)</label>
+              <input type="text" id="candSurname" placeholder="Surname" />
+            </div>
+            <div>
+              <label>Candidate forename(s) (optional)</label>
+              <input type="text" id="candForenames" placeholder="Forename(s)" />
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>How the random paper works (Nov 2025):</strong><br/>
+            • The system selects <strong>4 random passages</strong> (each worth <strong>20</strong>) and <strong>1 random translation</strong> (worth <strong>20</strong>).<br/>
+            • You’ll get a mix of <strong>MCQ</strong>, <strong>P/N/P+N</strong>, <strong>True/False/Not mentioned</strong>, and <strong>written answers</strong>.<br/>
+            • Some passages include <strong>questions answered in German</strong> (you must answer in German).<br/>
+            • Written + translation answers are marked by <strong>keyword coverage</strong> (so write clear, direct answers).<br/>
+            • Your attempt is saved to this browser using <strong>localStorage</strong>.
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="row">
+            <div>
+              <label>Time allowed</label>
+              <select id="timeAllowed">
+                <option value="75" selected>75 minutes (recommended)</option>
+                <option value="60">60 minutes</option>
+                <option value="45">45 minutes</option>
+              </select>
+            </div>
+            <div>
+              <label>Question order</label>
+              <select id="shuffleMode">
+                <option value="shuffleAll">Shuffle questions (harder)</option>
+                <option value="keepOrder" selected>Keep original order</option>
+              </select>
+            </div>
+            <div>
+              <label>On timer end</label>
+              <select id="autoSubmit">
+                <option value="yes" selected>Auto-submit</option>
+                <option value="no">Do not auto-submit</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap">
+            <button class="btn primary" id="btnStart">Start Random Paper</button>
+            <button class="btn" id="btnPreview">Preview Random Selection</button>
+          </div>
+
+          <div id="previewBox" class="note hide" style="margin-top:12px"></div>
+        </div>
+
+        <!-- Test body -->
+        <div class="bd hide" id="testBody">
+          <div class="kpi">
+            <div class="box"><div class="t">Candidate</div><div class="v" id="kpiCandidate">—</div></div>
+            <div class="box"><div class="t">Selected passages</div><div class="v" id="kpiPassages">—</div></div>
+            <div class="box"><div class="t">Translation</div><div class="v" id="kpiTranslation">—</div></div>
+            <div class="box"><div class="t">Max score</div><div class="v">100</div></div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>Instructions reminder:</strong>
+            No dictionary. Do not copy from outside. Base answers on the passage. For written answers, include the key idea(s) clearly.
+          </div>
+
+          <div id="paper"></div>
+
+          <div class="divider"></div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap">
+            <button class="btn primary" id="btnSubmit">Submit & Auto-Mark</button>
+            <button class="btn" id="btnReset">Reset (new random paper)</button>
+          </div>
+
+          <div id="markingBox" class="hide" style="margin-top:14px"></div>
+        </div>
+      </div>
+
+      <!-- Right: results / help -->
+      <div class="card" id="panelSide">
+        <div class="hd">
+          <div>
+            <h2 id="sideTitle">Otono grading</h2>
+            <div class="meta" id="sideMeta">Score → Otono grade + GCSE estimate + Pass/Merit/Distinction.</div>
+          </div>
+        </div>
+
+        <div class="bd" id="sideBody">
+          <div class="note">
+            <strong>Pass/Merit/Distinction</strong><br/>
+            PASS: 66+<br/>
+            MERIT: 80+<br/>
+            DISTINCTION: 90+<br/>
+          </div>
+          <div class="divider"></div>
+          <div class="note">
+            <strong>Otono grades (A–H + secret S)</strong><br/>
+            S: 101+ (secret)<br/>
+            A*: 95–100<br/>
+            A: 90–94<br/>
+            B: 80–89<br/>
+            C: 70–79<br/>
+            D: 66–69<br/>
+            E: 55–65<br/>
+            F: 45–54<br/>
+            G: 30–44<br/>
+            H: 15–29<br/>
+            U: 0–14
+          </div>
+          <div class="divider"></div>
+          <div class="note">
+            <strong>GCSE 9–1 estimate (simple mapping)</strong><br/>
+            9: 90–100 • 8: 80–89 • 7: 70–79 • 6: 60–69 • 5: 50–59<br/>
+            4: 40–49 • 3: 30–39 • 2: 20–29 • 1: 10–19 • U: 0–9
+          </div>
+          <div class="divider"></div>
+          <div class="small">
+            Tip: results are stored locally on this device/browser only. If you clear site data, they disappear.
+          </div>
+        </div>
+
+        <!-- Results panel -->
+        <div class="bd hide" id="resultsBody">
+          <div class="tabs">
+            <div class="tab active" id="tabAll">All attempts</div>
+            <div class="tab" id="tabCandidate">By candidate</div>
+          </div>
+
+          <div class="row" style="margin-top:10px">
+            <div>
+              <label>Filter candidate number (4 digits)</label>
+              <input type="text" id="filterCandidate" placeholder="e.g. 1105" inputmode="numeric" />
+            </div>
+            <div>
+              <label>Actions</label>
+              <div style="display:flex; gap:10px; flex-wrap:wrap">
+                <button class="btn" id="btnExport">Export JSON</button>
+                <button class="btn danger" id="btnClear">Clear stored results</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+          <div class="resultsList" id="resultsList"></div>
+
+          <div id="exportBox" class="note hide" style="margin-top:12px">
+            <div><strong>Exported JSON</strong> (copy/save it):</div>
+            <div class="divider"></div>
+            <div class="copy" id="exportText"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* -----------------------------
+   OTONO BANK (STRAIGHTFORWARD TEXT, SIMILAR LENGTH)
+   Each passage total = 20 marks
+--------------------------------*/
+
+// ✅ UPDATED: P/N/P+N questions restored + each passage now totals 20 marks
+// ✅ NOT every passage has 6 questions anymore (some have 5, some 7)
+// ✅ ALL questions + rubrics are in ENGLISH (only prompts marked “En alemán” require German answers)
+
+const PASSAGES = [
+  {
+    id: 1,
+  title: "Passage 1 — Herr Barley und der braune Gürtel",
+    theme: "Theme 1 — School",
+    unit: "Science teacher",
+    text: `Herr Barley unterrichtet Naturwissenschaften an der Otono-Schule. Red sagt, dass er sein Lieblingslehrer ist, weil er schwierige Ideen mit einfachen Beispielen erklärt. Oft trägt er einen braunen Gürtel, und dieser Gürtel ist in der Klasse fast berühmt geworden.
+
+Im Unterricht mag Herr Barley praktische Experimente. Die Schüler müssen zuhören, deutlich schreiben und am Ende das Material wegräumen. Vor jeder Klassenarbeit wiederholt er auch eine sehr wichtige Anweisung: Man muss schwarze Tinte oder einen schwarzen Kugelschreiber benutzen. Seiner Meinung nach sind die Arbeiten leichter zu lesen und das Einscannen funktioniert besser.
+
+Red findet diese Regeln nützlich. Er denkt, dass Herr Barley streng, aber fair ist. Für Red kann ein Lehrer, der gut erklärt, die Atmosphäre eines ganzen Faches verändern.`,
+    questions: [
+      {id:"p1q1",type:"mcq",marks:2,prompt:"(E) What subject does Mr Barley teach?",options:["Science","Maths","French","Geography"],answerIndex:0},
+      {id:"p1q2",type:"mcq",marks:2,prompt:"(E) What colour is Mr Barley’s belt?",options:["Black","Brown","Purple","Yellow"],answerIndex:1},
+      {id:"p1q3",type:"mcq",marks:2,prompt:"(E) Why does Red like Mr Barley?",options:["He explains difficult ideas simply","He gives no work","He hates science","He cancels every test"],answerIndex:0},
+      {id:"p1q4",type:"tfnm",marks:2,prompt:"(E) Mr Barley always wears a brown belt outside school. (True / False / Not mentioned)",correct:"Not mentioned"},
+      {id:"p1q5",type:"pn",marks:2,prompt:"(E) Red’s view of Mr Barley is… (P / N / P+N)",answer:"P"},
+      {id:"p1q6",type:"fr_short",marks:4,prompt:"(M) En alemán : ¿Por qué a Red le gusta el señor Barley?",rubric:"Weil er schwierige Ideen einfach erklärt.",keywords:[["explique"],["ideen","schwierige","schwierig"],["einfach","einfacherklärt"]],model:"Red mag Herrn Barley, weil er schwierige Ideen einfach erklärt."},
+      {id:"p1q7",type:"short",marks:6,prompt:"(E) Give TWO reasons why Mr Barley’s rules are useful.",rubric:"Any two: copies easier to read; scans work better; lessons are organised; students know what to do.",keywords:[["read","easier","lisible","facile"],["scan","scanned","scanning"],["organised","organized","rangé","order"],["know","what to do","clear","claire"]]}
+    ]
+  },
+  {
+    id: 2,
+  title: "Passage 2 — Frau Munn, Herr Young und der Bleistift",
+    theme: "Theme 1 — School",
+    unit: "Exam rules",
+    text: `Frau Munn ist dafür bekannt, sehr streng zu sein. Vor einer Mathearbeit liest sie die Anweisungen langsam vor. Die Schüler müssen schwarze Tinte oder einen schwarzen Kugelschreiber benutzen. Bleistift ist für die endgültigen Antworten verboten.
+
+Herr Young ist mit ihr einverstanden. Er sagt, dass eine Arbeit, die mit Bleistift geschrieben ist, schwer zu scannen oder zu blass sein kann. Deshalb erklären die beiden Lehrer eine einfache Regel: Wenn die Antworten mit Bleistift geschrieben sind, werden sie nicht bewertet.
+
+Luke findet diese Regel logisch, weil er genaue Anweisungen mag. Red findet sie streng, versteht aber das Risiko. Niemand möchte wegen eines Stiftes Punkte verlieren.`,
+    questions: [
+      {id:"p2q1",type:"mcq",marks:2,prompt:"(E) What is Mrs Munn known for?",options:["Being very strict","Being late","Being quiet","Being relaxed about every rule"],answerIndex:0},
+      {id:"p2q2",type:"mcq",marks:2,prompt:"(E) Which teacher agrees with Mrs Munn?",options:["Mr Barley","Mr Young","Mr Ribbon Cutter","Gary"],answerIndex:1},
+      {id:"p2q3",type:"mcq",marks:2,prompt:"(E) What must students use?",options:["Black ink or black ball-point pen","Yellow pencil","Green highlighter only","Red pen"],answerIndex:0},
+      {id:"p2q4",type:"tfnm",marks:2,prompt:"(E) Pencil is allowed for final answers. (True / False / Not mentioned)",correct:"False"},
+      {id:"p2q5",type:"pn",marks:2,prompt:"(E) Red’s view of the rule is… (P / N / P+N)",answer:"P+N"},
+      {id:"p2q6",type:"fr_short",marks:4,prompt:"(M) En alemán : ¿Por qué está prohibido el lápiz?",rubric:"Weil die Antworten schwer zu scannen oder zu blass sein können.",keywords:[["scanner"],["blass","zu blass","pale"],["schwer","schwierig"]],model:"Bleistift ist verboten, weil die Antworten schwer zu scannen sein können."},
+      {id:"p2q7",type:"short",marks:6,prompt:"(E) Why might pencil answers not be marked? Give TWO ideas.",rubric:"Any two: hard to scan; too pale; final answers must be in black ink; rule says pencil is banned.",keywords:[["scan","scanned","scanner"],["pale","light","faint"],["black ink","black pen","encre noire"],["banned","not allowed","interdit"]]}
+    ]
+  },
+  {
+    id: 3,
+  title: "Passage 3 — Achtzig und Emmanuel achtundsiebzig",
+    theme: "Theme 1 — School",
+    unit: "Maths results",
+    text: `In der Matheklasse ist die Zahl achtzig fast legendär geworden. Für Red ist 80 von 80 mehr als ein gutes Ergebnis: Es ist der Beweis, dass eine Arbeit perfekt ist. Wenn er 79 bekommt, ist er zwei Sekunden lang zufrieden und denkt dann an den verlorenen Punkt.
+
+Eines Tages verkündet Frau Munn mehrere Ergebnisse. Sie sagt: „Emmanuel, achtundsiebzig.“ Die Klasse lächelt, denn 78 ist ausgezeichnet, aber Red denkt immer noch an die Zahl 80. Für ihn ist 78 sehr gut, aber 80 ist eine andere Welt.
+
+Frau Munn erinnert daran, dass Fortschritt wichtiger ist als Besessenheit. Red hört zu, behält aber sein geheimes Ziel: eine weitere 80 auf seiner Arbeit zu sehen.`,
+    questions: [
+      {id:"p3q1",type:"mcq",marks:2,prompt:"(E) What score is almost legendary?",options:["66","78","79","80"],answerIndex:3},
+      {id:"p3q2",type:"mcq",marks:2,prompt:"(E) What score does Emmanuel get?",options:["66","78","79","80"],answerIndex:1},
+      {id:"p3q3",type:"mcq",marks:2,prompt:"(E) Why is 80 special for Red?",options:["It means a perfect paper","It means he failed","It is his candidate number","It is the room number"],answerIndex:0},
+      {id:"p3q4",type:"tfnm",marks:2,prompt:"(E) Emmanuel is angry after hearing his result. (True / False / Not mentioned)",correct:"Not mentioned"},
+      {id:"p3q5",type:"pn",marks:2,prompt:"(E) Red’s view of 79 is… (P / N / P+N)",answer:"N"},
+      {id:"p3q6",type:"fr_short",marks:4,prompt:"(M) En alemán : ¿Cuál es el objetivo secreto de Red?",rubric:"Eine weitere 80 auf seiner Arbeit sehen / bekommen.",keywords:[["80"],["arbeit","prüfung"],["bekommen","sehen"]]},
+      {id:"p3q7",type:"short",marks:6,prompt:"(E) Give TWO views about the score 78 in the passage.",rubric:"78 is excellent / the class smiles / Red thinks it is very good / but Red thinks 80 is another world.",keywords:[["excellent","very good","très bon"],["class","smiles","sourit"],["80","another world","autre monde"],["red","thinks","pense"]]}
+    ]
+  },
+  {
+    id: 4,
+  title: "Passage 4 — Clayton und das vorgezogene Mathe-GCSE",
+    theme: "Theme 1 — School",
+    unit: "Early exams",
+    text: `Clayton hat sein Mathe-GCSE sehr früh gemacht, in Year 10. Viele Schüler finden das beeindruckend, aber das überraschendste Detail ist seine Punktzahl: 160 von 160. Das bedeutet, dass er in den beiden Arbeiten 100% erreicht hat.
+
+OWing weiß nicht immer, wie er reagieren soll. Einerseits respektiert er das Ergebnis, denn man muss sehr stark sein, um so früh so erfolgreich zu sein. Andererseits findet er, dass Clayton manchmal zu viel über seine Punktzahl spricht.
+
+Für Frau Munn zeigt das Ergebnis eine einfache Sache: Genauigkeit zählt. Sie sagt, dass selbst sehr starke Schüler jede Frage aufmerksam lesen müssen. Eine perfekte Punktzahl kommt nicht nur vom Talent, sondern auch von der Methode.`,
+    questions: [
+      {id:"p4q1",type:"mcq",marks:2,prompt:"(E) When did Clayton take GCSE Maths?",options:["Year 7","Year 8","Year 10","Year 13"],answerIndex:2},
+      {id:"p4q2",type:"mcq",marks:2,prompt:"(E) What was Clayton’s score?",options:["78/80","80/80","160/160","159/160"],answerIndex:2},
+      {id:"p4q3",type:"mcq",marks:2,prompt:"(E) What percentage did he get?",options:["78%","90%","99%","100%"],answerIndex:3},
+      {id:"p4q4",type:"tfnm",marks:2,prompt:"(E) OWing has mixed feelings about Clayton’s result. (True / False / Not mentioned)",correct:"True"},
+      {id:"p4q5",type:"pn",marks:2,prompt:"(E) The passage presents Clayton’s achievement as… (P / N / P+N)",answer:"P+N"},
+      {id:"p4q6",type:"select_true",marks:4,prompt:"(E) Select TWO true statements.",statements:["Clayton took the exam early.","Clayton got 159/160.","Mrs Munn says precision matters.","OWing thinks the result is fake."],correctIndices:[0,2],minSelect:2},
+      {id:"p4q7",type:"short",marks:6,prompt:"(E) According to Mrs Munn, what helps create a perfect score? Give TWO ideas.",rubric:"Any two: precision; reading each question carefully; method; not only talent.",keywords:[["precision","précision"],["read","question","carefully","attention"],["method","méthode"],["talent","not only","pas seulement"]]}
+    ]
+  },
+  {
+    id: 5,
+  title: "Passage 5 — Hokkaido, Juli 2024: der verspätete Abflug",
+    theme: "Theme 3 — Travel",
+    unit: "Hokkaido trip 1",
+    text: `Im Juli 2024 reist ein Teil des Otono Teams nach Japan, um Hokkaido zu besuchen. Die Reise findet im Sommer statt, nicht im Winter. Am Flughafen New Chitose erfährt die Gruppe zunächst, dass der Abflug bis 19:00 Uhr verspätet ist. Später kündigt eine zweite Nachricht 19:50 Uhr an.
+
+Das Warten ist lang. Die Gruppe geht in den Gate-Bereich, aber das Flugzeug ist noch nicht einmal angekommen. Eine Stunde später sehen sie es ankommen. Dadurch wirkt die Verspätung realer, aber auch interessanter für diejenigen, die gern Flugzeuge beobachten.
+
+Luke ist nicht bei ihnen. Er ist im Vereinigten Königreich geblieben. Jessica ist auch nicht mitgekommen, weil sie Japan hasst. Grandpa Belt hat an der Reise nicht teilgenommen.`,
+    questions: [
+      {id:"p5q1",type:"mcq",marks:2,prompt:"(E) When was the Hokkaido trip?",options:["January 2024","July 2024","December 2025","July 2026"],answerIndex:1},
+      {id:"p5q2",type:"mcq",marks:2,prompt:"(E) What was the first delayed departure time?",options:["18:00","19:00","19:50","20:30"],answerIndex:1},
+      {id:"p5q3",type:"mcq",marks:2,prompt:"(E) What was the later delayed time?",options:["18:50","19:00","19:50","21:00"],answerIndex:2},
+      {id:"p5q4",type:"mcq",marks:2,prompt:"(E) Who did not come because they hate Japan?",options:["Luke","Jessica","Grandpa Belt","Mr Barley"],answerIndex:1},
+      {id:"p5q5",type:"tfnm",marks:2,prompt:"(E) The trip was in winter. (True / False / Not mentioned)",correct:"False"},
+      {id:"p5q6",type:"fr_short",marks:4,prompt:"(M) En alemán : ¿Qué pasó en el aeropuerto?",rubric:"Der Flug hatte Verspätung und das Flugzeug kam spät an.",keywords:[["verspätung","verspätet"],["flugzeug"],["kam","spät"]],model:"Der Flug hatte Verspätung und das Flugzeug kam spät an."},
+      {id:"p5q7",type:"short",marks:8,prompt:"(E) Give TWO details about the delay at New Chitose Airport.",rubric:"Any two: first delayed to 19:00; then 19:50; plane had not arrived at the gate; they saw the aircraft arrive.",keywords:[["19:00","7pm"],["19:50","7:50"],["not arrived","had not arrived","plane was not there"],["saw","arrive","aircraft arrived","avion"]]}
+    ]
+  },
+  {
+    id: 6,
+  title: "Passage 6 — Hokkaido: Kushiro und die unterschiedlichen Meinungen",
+    theme: "Theme 3 — Travel",
+    unit: "Hokkaido trip 2",
+    text: `Während der Reise nach Hokkaido gefällt Red und Lit Kushiro sehr. Sie finden die Stadt ruhiger als die großen Touristenorte. Außerdem mögen sie die frische Luft, die offenen Landschaften und die einfache Atmosphäre. Für sie wird Kushiro zu einer der besten Erinnerungen der Reise.
+
+OWing hat eine gemischtere Meinung. Er findet manche Landschaften großartig, denkt aber, dass die Tage manchmal anstrengend sind. Im Juli gibt es abends viel Licht, was Spaziergänge angenehm macht, aber auch den Eindruck erweckt, dass der Tag nie endet.
+
+Die Gruppe spricht nach ihrer Rückkehr oft über die Reise. Red sagt, dass Kushiro vielleicht sein Lieblingsort war. OWing entscheidet sich nicht so schnell, weil er alle Tage der Reise vergleichen möchte.`,
+    questions: [
+      {id:"p6q1",type:"mcq",marks:2,prompt:"(E) Which place does Red like a lot?",options:["Kushiro","Paris","Bath","Le Mans"],answerIndex:0},
+      {id:"p6q2",type:"mcq",marks:2,prompt:"(E) How does Red and Lit describe Kushiro?",options:["Calmer than big tourist places","Too loud","Completely boring","Impossible to visit"],answerIndex:0},
+      {id:"p6q3",type:"mcq",marks:2,prompt:"(E) What is OWing’s opinion?",options:["Mixed","Only negative","He hates all landscapes","He refuses to speak"],answerIndex:0},
+      {id:"p6q4",type:"tfnm",marks:2,prompt:"(E) There is a lot of evening light in July. (True / False / Not mentioned)",correct:"True"},
+      {id:"p6q5",type:"pn",marks:2,prompt:"(E) OWing’s view of the trip is… (P / N / P+N)",answer:"P+N"},
+      {id:"p6q6",type:"fr_short",marks:4,prompt:"(M) En alemán : ¿Por qué a Red le gusta Kushiro? Da UNA razón.",rubric:"Any one: es ist ruhig; er mag die frische Luft; die Landschaften; die einfache Atmosphäre.",keywords:[["ruhig"],["frische","luft"],["landschaften"],["einfache","atmosphäre"]],model:"Red mag Kushiro, weil es ruhig ist."},
+      {id:"p6q7",type:"short",marks:6,prompt:"(E) Give TWO reasons why the long daylight is positive or negative.",rubric:"Positive: walks are pleasant. Negative: the day feels as if it never ends / it is tiring.",keywords:[["walk","promenade","pleasant","agréable"],["never ends","does not end","ne finit jamais"],["tiring","fatiguing","fatigue"]]}
+    ]
+  },
+  {
+    id: 7,
+  title: "Passage 7 — Hokkaido: das Budget und die Erinnerungen",
+    theme: "Theme 3 — Travel",
+    unit: "Hokkaido trip 3",
+    text: `Nach der Reise nach Hokkaido prüft das Otono Team das Budget. Einige Hotels waren vernünftig im Preis, aber Yoroushi war sehr teuer, fast vierhundert Pfund pro Nacht. Die Gruppe versteht, dass besondere Orte oft viel mehr kosten.
+
+Trotz des Preises bleiben mehrere Erinnerungen positiv. Die Mahlzeiten waren interessant, die Landschaften waren sehr anders als im Vereinigten Königreich, und die Tage wirkten lang. Red spricht immer noch über Kushiro, während OWing die Vorteile und Nachteile analysiert.
+
+Die Gruppe entscheidet, dass eine gute Reise nicht nur eine Frage des Preises ist. Man muss auch an Erinnerungen, Komfort, Verspätungen und Organisation denken.`,
+    questions: [
+      {id:"p7q1",type:"mcq",marks:2,prompt:"(E) Which place was very expensive?",options:["Yoroushi","Kushiro Station","Le Mans","Otono Mansion"],answerIndex:0},
+      {id:"p7q2",type:"mcq",marks:2,prompt:"(E) Roughly how much was it per night?",options:["£40","£100","Nearly £400","Over £1000"],answerIndex:2},
+      {id:"p7q3",type:"mcq",marks:2,prompt:"(E) What does the group learn?",options:["Special places often cost more","All hotels are free","Budgets do not matter","Japan has no hotels"],answerIndex:0},
+      {id:"p7q4",type:"tfnm",marks:2,prompt:"(E) The passage says every memory was negative. (True / False / Not mentioned)",correct:"False"},
+      {id:"p7q5",type:"pn",marks:2,prompt:"(E) The final view of the trip budget is… (P / N / P+N)",answer:"P+N"},
+      {id:"p7q6",type:"select_true",marks:4,prompt:"(E) Select TWO true statements.",statements:["Yoroushi was almost £400 per night.","The landscapes were exactly like the UK.","Red still talks about Kushiro.","The group ignores organisation."],correctIndices:[0,2],minSelect:2},
+      {id:"p7q7",type:"short",marks:6,prompt:"(E) What should people consider when judging a trip? Give TWO ideas.",rubric:"Any two: price; memories; comfort; delays; organisation.",keywords:[["price","cost","prix"],["memories","souvenirs"],["comfort","confort"],["delay","retard"],["organisation","organization"]]}
+    ]
+  },
+  {
+    id: 8,
+  title: "Passage 8 — Otono Airways und der Komfort in der Economy Class",
+    theme: "Theme 3 — Travel",
+    unit: "Otono Airways",
+    text: `Otono Airways möchte, dass die Economy Class bequem ist. Gary erklärt, dass Beinfreiheit sehr wichtig ist, sogar für Passagiere, die nicht für eine Premium-Kabine bezahlen. In manchen Flugzeugen behält die Gesellschaft 34 bis 35 Zoll Beinfreiheit.
+
+Luke schaut sich Kabinenpläne an und denkt vor allem an die Anzahl der Sitze in der Business Class. Gary erinnert daran, dass das Flugzeug auch viele Passagiere in der Economy transportieren muss. Wenn man zu viele Sitze entfernt, wird die Strecke schwerer rentabel zu machen.
+
+OWing mag die Idee einer angenehmeren Economy Class. Er sagt, dass es keine Luxuskabine ist, aber dass sie einen langen Flug viel weniger ermüdend machen kann.`,
+    questions: [
+      {id:"p8q1",type:"mcq",marks:2,prompt:"(E) What does Otono Airways want economy to be?",options:["Comfortable","Tiny","Silent only","Closed"],answerIndex:0},
+      {id:"p8q2",type:"mcq",marks:2,prompt:"(E) What is important according to Gary?",options:["Legroom","Pencil cases","Homework","Snow"],answerIndex:0},
+      {id:"p8q3",type:"mcq",marks:2,prompt:"(E) What does Luke mainly look at?",options:["Business seats","School rules","Belts","Restaurants"],answerIndex:0},
+      {id:"p8q4",type:"tfnm",marks:2,prompt:"(E) OWing says economy is a luxury cabin. (True / False / Not mentioned)",correct:"False"},
+      {id:"p8q5",type:"pn",marks:2,prompt:"(E) OWing’s view of better economy is… (P / N / P+N)",answer:"P"},
+      {id:"p8q6",type:"fr_short",marks:4,prompt:"(M) En alemán : ¿Por qué Gary piensa que el espacio para las piernas es importante?",rubric:"Weil lange Flüge bequemer sind.",keywords:[["bequem","bequemer"],["beinfreiheit","platz"],["beine"],["lange","flüge"]],model:"Gary denkt, dass Beinfreiheit wichtig ist, weil lange Flüge bequemer sind."},
+      {id:"p8q7",type:"short",marks:6,prompt:"(E) Why can’t Otono Airways remove too many economy seats? Give ONE reason.",rubric:"Because the route would be harder to make profitable / the plane must carry enough passengers.",keywords:[["profitable","rentabiliser","make money"],["passengers","carry enough","transport"],["too few seats","remove seats"]]}
+    ]
+  },
+  {
+    id: 9,
+  title: "Passage 9 — Le Mans und das Rennen, das fast nie endet",
+    theme: "Theme 2 — Free time",
+    unit: "Sport",
+    text: `Red schaut manchmal Videos über das Rennen von Le Mans. Er findet die Idee beeindruckend: Die Autos fahren vierundzwanzig Stunden lang. Es ist nicht nur ein schnelles Rennen, sondern auch ein Test für Ausdauer, Organisation und Konzentration.
+
+OWing vergleicht das Rennen gern mit einer langen Prüfung. Seiner Meinung nach kann man nicht einfach schnell anfangen. Man muss Energie behalten und Fehler vermeiden. Ein kleiner Fehler kann viel Zeit kosten.
+
+Red bevorzugt Sprachen gegenüber Autos, aber er versteht, warum dieses Rennen berühmt ist. Es zeigt, dass Geschwindigkeit nicht ausreicht. Geduld und Strategie zählen auch.`,
+    questions: [
+      {id:"p9q1",type:"mcq",marks:2,prompt:"(E) How long is the Le Mans race mentioned here?",options:["2 hours","6 hours","12 hours","24 hours"],answerIndex:3},
+      {id:"p9q2",type:"mcq",marks:2,prompt:"(E) What kind of test is it?",options:["Endurance and organisation","Only spelling","Only singing","A normal school lunch"],answerIndex:0},
+      {id:"p9q3",type:"mcq",marks:2,prompt:"(E) What does OWing compare it to?",options:["A long exam","A short song","A pencil rule","A hotel"],answerIndex:0},
+      {id:"p9q4",type:"tfnm",marks:2,prompt:"(E) Red prefers cars to languages. (True / False / Not mentioned)",correct:"False"},
+      {id:"p9q5",type:"pn",marks:2,prompt:"(E) The view of Le Mans is… (P / N / P+N)",answer:"P"},
+      {id:"p9q6",type:"select_true",marks:4,prompt:"(E) Select TWO true statements.",statements:["Le Mans lasts 24 hours.","Speed alone is enough.","Strategy matters.","OWing says errors do not matter."],correctIndices:[0,2],minSelect:2},
+      {id:"p9q7",type:"short",marks:6,prompt:"(E) Give TWO qualities needed for Le Mans.",rubric:"Any two: endurance; organisation; concentration; patience; strategy; avoiding errors.",keywords:[["endurance"],["organisation","organization"],["concentration"],["patience"],["strategy","stratégie"],["avoid","errors","erreurs"]]}
+    ]
+  },
+  {
+    id: 10,
+  title: "Passage 10 — Wyatt und die Doritos",
+    theme: "Theme 2 — Free time",
+    unit: "Food",
+    text: `In Otono Mansion ist Wyatt für eine einfache Sache bekannt: Er mag Doritos sehr. Während eines Spieleabends bringt er eine große Tüte mit und legt sie in die Mitte des Tisches. Red lacht, weil er schon weiß, dass die Tüte nicht lange voll bleiben wird.
+
+Gary erinnert trotzdem an eine Regel: Man darf in der Pause essen, aber nicht über wichtigen Papieren. Niemand möchte ein Blatt sehen, das mit orangefarbenem Staub bedeckt ist. Wyatt verspricht, vorsichtig zu sein, aber er hält die Tüte sehr nah bei sich.
+
+Der Abend bleibt lustig. Die Doritos werden fast zu einem Symbol der Pause, auch wenn Gary den Tisch besorgt beobachtet.`,
+    questions: [
+      {id:"p10q1",type:"mcq",marks:2,prompt:"(E) What food is Wyatt known for liking?",options:["Doritos","Sushi","Apples","Soup"],answerIndex:0},
+      {id:"p10q2",type:"mcq",marks:2,prompt:"(E) Where does he put the packet?",options:["In the middle of the table","Outside the house","Under a car","In the pool"],answerIndex:0},
+      {id:"p10q3",type:"mcq",marks:2,prompt:"(E) What does Gary worry about?",options:["Orange dust on important papers","Snow","Plane tickets","A science belt"],answerIndex:0},
+      {id:"p10q4",type:"tfnm",marks:2,prompt:"(E) Wyatt promises to be careful. (True / False / Not mentioned)",correct:"True"},
+      {id:"p10q5",type:"pn",marks:2,prompt:"(E) Gary’s feeling is… (P / N / P+N)",answer:"N"},
+      {id:"p10q6",type:"gap_fill_en",marks:4,prompt:"(E) Complete the English summary.",summary:"Wyatt likes ____. Gary does not want orange ____ on important papers.",answers:["Doritos","dust"]},
+      {id:"p10q7",type:"short",marks:6,prompt:"(E) Give TWO details about the game evening.",rubric:"Any two: Wyatt brings Doritos; Red laughs; Gary gives a rule; the evening is fun; Gary watches the table.",keywords:[["Doritos","packet"],["Red","laugh"],["Gary","rule"],["fun","amusante"],["watches","surveille","table"]]}
+    ]
+  },
+  {
+    id: 11,
+  title: "Passage 11 — Die Otono-Ergebnisseite",
+    theme: "Theme 1 — School",
+    unit: "Technology",
+    text: `Die Otono-Schule benutzt eine Ergebnisseite für Klassenarbeiten. Die Schüler können ihre Punktzahl, ihre Otono-Note und eine GCSE-Schätzung sehen. Das System zeigt auch Pass, Merit oder Distinction an.
+
+  Jessica sieht die Ergebnisse gern schnell, aber sie aktualisiert die Seite zu oft. OWing sagt, dass das die Punktzahl nicht ändert. Frau Munn möchte lieber, dass die Schüler die schriftliche Rückmeldung lesen, nicht nur die Zahl.
+
+  Das System ist nicht perfekt. Manchmal lädt es langsam, wenn sich zu viele Schüler gleichzeitig anmelden. Trotzdem finden die Familien die Seite nützlich, weil sie den Fortschritt leichter verfolgen können.`,
+    questions: [
+      {id:"p11q1",type:"mcq",marks:2,prompt:"(E) What can students see on the results page?",options:["Score and grade","Dinner menu only","Flight gates only","Weather only"],answerIndex:0},
+      {id:"p11q2",type:"mcq",marks:2,prompt:"(E) What does Jessica do too often?",options:["Refreshes the page","Deletes the page","Prints maps","Eats Doritos"],answerIndex:0},
+      {id:"p11q3",type:"mcq",marks:2,prompt:"(E) What does Mrs Munn want students to read?",options:["Written feedback","Only the number","Plane timetables","Restaurant reviews"],answerIndex:0},
+      {id:"p11q4",type:"tfnm",marks:2,prompt:"(E) The system is always perfect. (True / False / Not mentioned)",correct:"False"},
+      {id:"p11q5",type:"pn",marks:2,prompt:"(E) The results page is presented as… (P / N / P+N)",answer:"P+N"},
+      {id:"p11q6",type:"select_true",marks:4,prompt:"(E) Select TWO true statements.",statements:["Families can follow progress.","The page sometimes loads slowly.","OWing says refreshing changes the score.","The system only shows lunch."],correctIndices:[0,1],minSelect:2},
+      {id:"p11q7",type:"short",marks:6,prompt:"(E) Give TWO reasons why the page is useful or not perfect.",rubric:"Useful: quick results, grades, families track progress. Not perfect: slow loading, too many students online.",keywords:[["quick","rapid","results"],["grade","Otono","GCSE"],["families","progress","parents"],["slow","lent"],["too many","students","connect"]]}
+    ]
+  },
+
+  {
+    id: 12,
+  title: "Passage 12 — Die Sprachprüfung und die schwarze Tinte",
+    theme: "Theme 1 — School",
+    unit: "Language paper",
+    text: `Vor einer Deutschprüfung gibt die erste Seite sehr klare Anweisungen. Die Kandidaten müssen schwarze Tinte oder einen schwarzen Kugelschreiber benutzen. Sie dürfen kein Wörterbuch benutzen. Sie dürfen die Texte unterstreichen, aber ihre Antworten müssen lesbar sein.
+
+Red schätzt diese Regel, weil sie Ausreden vermeidet. Wenn eine Antwort schwer zu lesen ist, kann der Prüfer sie falsch verstehen. Luke achtet vor allem auf den Satz „Do not use pencil“, weil ihm das Wort „not“ dramatisch vorkommt.
+
+Frau Munn fügt hinzu, dass Textmarker nur nützlich sind, wenn die Schüler die Frage wirklich beantworten. Die ganze Seite zu markieren beweist nichts. Um erfolgreich zu sein, muss man den Text verstehen und klare Antworten schreiben.`,
+    questions: [
+      {id:"p12q1",type:"mcq",marks:2,prompt:"(E) What must candidates use?",options:["Black ink or black ball-point pen","Pencil only","A dictionary","Blue highlighter only"],answerIndex:0,model:"Black ink or a black ball-point pen."},
+      {id:"p12q2",type:"mcq",marks:2,prompt:"(E) What is not allowed?",options:["A dictionary","Highlighting","Readable answers","Black ink"],answerIndex:0,model:"A dictionary is not allowed."},
+      {id:"p12q3",type:"mcq",marks:2,prompt:"(E) What does Luke focus on?",options:["The phrase Do not use pencil","The candidate number","The weather","The listening audio"],answerIndex:0,model:"He focuses on the phrase “Do not use pencil”."},
+      {id:"p12q4",type:"tfnm",marks:2,prompt:"(E) Highlighting is allowed. (True / False / Not mentioned)",correct:"True",model:"True."},
+      {id:"p12q5",type:"pn",marks:2,prompt:"(E) Red’s view of the rule is… (P / N / P+N)",answer:"P",model:"P — he thinks it avoids excuses."},
+      {id:"p12q6",type:"select_true",marks:4,prompt:"(E) Select TWO true statements.",statements:["Answers must be readable.","A dictionary is allowed.","Luke finds the word “not” dramatic.","Mrs Munn says highlighting the whole page proves everything."],correctIndices:[0,2],minSelect:2,model:"Correct: answers must be readable; Luke finds “not” dramatic."},
+      {id:"p12q7",type:"short",marks:6,prompt:"(E) Why is black ink useful? Give TWO ideas.",rubric:"Any two: readable answers; examiner/corrector can understand; avoids excuses; prevents pencil problems.",keywords:[["readable","lisible","easy to read"],["examiner","corrector","understand"],["excuse","excuses"],["pencil","crayon","not use pencil"]],model:"It makes answers readable and helps the examiner understand them; it also avoids excuses or pencil problems."}
+    ]
+  },
+  {
+    id: 13,
+  title: "Passage 13 — Mr Clock, Andy und der Mathetest",
+    theme: "Theme 1 — School",
+    unit: "Maths memory",
+    text: `In den Jahren 2015 und 2016 erinnert sich Red an einen Mathetest mit Mr Clock. Red war sehr jung: Er war erst fünf Jahre alt. Damals wirkten Tests für Erwachsene einfach, aber für Red war jede Note riesig.
+
+  Eines Tages bekommt Red 66. Er ist zufrieden, weil es keine schlechte Note ist, aber dann sieht er Andys Ergebnis: 100. Andy war in der Klasse 6B, und seine Punktzahl wird sofort unvergesslich.
+
+  Red hasst Andy deshalb nicht. Im Gegenteil, diese Erinnerung wird ein Teil seiner Geschichte mit Mathematik. Später, wenn Red an 80 von 80 denkt, erinnert er sich daran, dass er perfekte Punktzahlen immer bewundert hat.`,
+    questions: [
+      {id:"p13q1",type:"mcq",marks:2,prompt:"(E) What subject was the test?",options:["Maths","French","Science","Art"],answerIndex:0,model:"Maths."},
+      {id:"p13q2",type:"mcq",marks:2,prompt:"(E) How old was Red?",options:["Five","Ten","Fifteen","Sixteen"],answerIndex:0,model:"Red was five years old."},
+      {id:"p13q3",type:"mcq",marks:2,prompt:"(E) What score did Red get?",options:["66","78","80","100"],answerIndex:0,model:"Red got 66."},
+      {id:"p13q4",type:"mcq",marks:2,prompt:"(E) What score did Andy get?",options:["66","78","80","100"],answerIndex:3,model:"Andy got 100."},
+      {id:"p13q5",type:"tfnm",marks:2,prompt:"(E) Mr Clock shouted at the class. (True / False / Not mentioned)",correct:"False",model:"False."},
+      {id:"p13q6",type:"pn",marks:2,prompt:"(E) Red’s view of Mr Clock’s method is… (P / N / P+N)",answer:"P",model:"P — Red liked being able to check his mistakes."},
+      {id:"p13q7",type:"select_true",marks:2,prompt:"(E) Select ONE true statement.",statements:["Andy was in 6B.","Red got 100.","Mr Clock taught French.","Red hated Andy."],correctIndices:[0],minSelect:1,model:"Correct: Andy was in 6B."},
+      {id:"p13q8",type:"short",marks:8,prompt:"(E) Why is this memory important for Red? Give TWO details.",rubric:"Any two developed ideas: Red was only five; Red got 66; Andy got 100; it started Red’s obsession with scores; it links to Red later caring about 80/80; Mr Clock let students understand mistakes.",keywords:[["five","5","young"],["66"],["Andy","100"],["obsession","scores","marks"],["80","80/80"],["mistakes","errors","lost points"]],model:"It is important because Red was only five when he got 66 while Andy got 100. It also explains why Red later became obsessed with scores such as 80/80."}
+    ]
+  },
+  {
+    id: 14,
+  title: "Passage 14 — Le Mans und das Vierundzwanzig-Stunden-Rennen",
+    theme: "Theme 2 — Free time",
+    unit: "Sport",
+    text: `Red entdeckt das Rennen von Le Mans an einem ruhigen Abend. Zuerst glaubt er, dass es ein normales Rennen ist, aber dann versteht er, dass es vierundzwanzig Stunden dauert. Die Idee, so lange zu fahren, erscheint ihm fast unmöglich.
+
+  OWing erklärt, dass die Teams nicht nur schnelle Autos brauchen. Sie brauchen auch vorbereitete Mechaniker, konzentrierte Fahrer und eine klare Strategie. Wenn ein Stopp zu lange dauert, kann das Team einen wichtigen Vorteil verlieren.
+
+  Luke interessiert sich weniger für Autos, aber er findet die Organisation beeindruckend. Red lernt, dass Ausdauer nicht nur bedeutet, lange weiterzumachen: Man muss auch klug bleiben, wenn man müde ist.`,
+    questions: [
+      {id:"p14q1",type:"mcq",marks:2,prompt:"(E) How long is the Le Mans race mentioned here?",options:["2 hours","6 hours","12 hours","24 hours"],answerIndex:3,model:"24 hours."},
+      {id:"p14q2",type:"mcq",marks:2,prompt:"(E) What kind of test is it?",options:["Endurance, organisation and concentration","Only spelling","Only singing","A normal school lunch"],answerIndex:0,model:"It is a test of endurance, organisation and concentration."},
+      {id:"p14q3",type:"mcq",marks:2,prompt:"(E) What does OWing compare it to?",options:["A very long exam","A short song","A pencil rule","A hotel"],answerIndex:0,model:"A very long exam."},
+      {id:"p14q4",type:"tfnm",marks:2,prompt:"(E) Red prefers cars to languages. (True / False / Not mentioned)",correct:"False",model:"False."},
+      {id:"p14q5",type:"pn",marks:2,prompt:"(E) The view of Le Mans is… (P / N / P+N)",answer:"P",model:"P — it is presented as impressive and strategic."},
+      {id:"p14q6",type:"fr_short",marks:4,prompt:"(M) En alemán : Pourquoi la course du Mans est difficile ?",rubric:"Weil es vierundzwanzig Stunden dauert und Konzentration verlangt.",keywords:[["vierundzwanzig","24"],["concentration"],["schwierig"]],model:"Das Rennen von Le Mans ist schwierig, weil es vierundzwanzig Stunden dauert."},
+      {id:"p14q7",type:"short",marks:6,prompt:"(E) Give TWO qualities needed for Le Mans.",rubric:"Any two: endurance; organisation; concentration; patience; strategy; avoiding errors.",keywords:[["endurance"],["organisation","organization"],["concentration"],["patience"],["strategy","stratégie"],["avoid","errors","erreurs"]],model:"Drivers need endurance and concentration. They also need patience, strategy and organisation."}
+    ]
+  },
+  {
+    id: 15,
+  title: "Passage 15 — Frau Munns verlorene Klassenarbeit",
+    theme: "Theme 1 — School",
+    unit: "Strict teachers",
+    text: `Eines Morgens sucht Frau Munn eine Mathearbeit, die verschwunden ist. Sie schaut auf ihrem Schreibtisch, in einer blauen Mappe und unter einem Stapel Bücher nach. Die Klasse bleibt still, weil niemand schuldig aussehen möchte.
+
+Red erinnert sich, dass Luke einige Papiere bewegt hatte, um Platz zu schaffen. Luke sagt, dass er nur helfen wollte und nichts versteckt hat. OWing schlägt vor, die Druckerablage zu überprüfen.
+
+Am Ende liegt die Arbeit hinter dem Drucker. Frau Munn wirkt erleichtert, aber auch ein wenig verärgert. Sie sagt, dass in Zukunft niemand wichtige Papiere ohne Erlaubnis bewegen darf. Luke nickt schnell. Niemand weiß, ob Luke wirklich scherzt.`,
+    questions: [
+      {id:"p15q1",type:"mcq",marks:2,prompt:"(E) What does Red think he has lost?",options:["A maths sheet","A passport","A phone","A belt"],answerIndex:0,model:"A maths sheet."},
+      {id:"p15q2",type:"mcq",marks:2,prompt:"(E) Where is it found?",options:["In a purple folder","In the pool","On a plane","In a Doritos packet"],answerIndex:0,model:"In a purple folder."},
+      {id:"p15q3",type:"mcq",marks:2,prompt:"(E) Who says a simple system avoids stress?",options:["Mr Young","Wyatt","Jessica","Clayton"],answerIndex:0,model:"Mr Young."},
+      {id:"p15q4",type:"tfnm",marks:2,prompt:"(E) The missing maths sheet was an official GCSE paper. (True / False / Not mentioned)",correct:"Not mentioned",model:"Not mentioned — she does not shout."},
+      {id:"p15q5",type:"pn",marks:2,prompt:"(E) Mrs Munn’s reaction is… (P / N / P+N)",answer:"P+N",model:"P+N — calm but intimidating/strict."},
+      {id:"p15q6",type:"select_true",marks:4,prompt:"(E) Select TWO true statements.",statements:["The sheet is found.","Red decides to organise papers by subject.","Luke creates a science belt.","Mrs Munn says documents can be messy."],correctIndices:[0,1],minSelect:2,model:"Correct: the sheet is found; Red decides to organise papers by subject."},
+      {id:"p15q7",type:"gap_fill_en",marks:4,prompt:"(E) Complete the English summary.",summary:"Documents should be clean, readable and in the ____ place. Luke suggests a ____ section.",answers:["right","black ink only"],model:"Documents should be in the right place. Luke suggests a “BLACK INK ONLY” section."},
+      {id:"p15q8",type:"short",marks:2,prompt:"(E) What does Red change after this?",rubric:"He organises his papers by subject.",keywords:[["organise","organize","sort","range"],["subject","matière"]],model:"He organises his papers by subject."}
+    ]
+  },
+  {
+    id: 16,
+  title: "Passage 16 — OT116 und die drei A380",
+    theme: "Theme 3 — Travel",
+    unit: "Otono Airways operations",
+    text: `Gary und Ivy erklären eine Idee, die Luke überrascht: Um einen täglichen Langstreckenflug aufrechtzuerhalten, reichen zwei Flugzeuge nicht immer aus. Bei OT116 und OT117 muss ein A380 hinfliegen, ein anderer zurückfliegen, und ein dritter kann wegen Bodenzeit, Reinigung, Catering und möglichen Verspätungen nötig sein.
+
+Luke möchte das verfügbare Flugzeug nutzen, um einen zweiten Flug nach Los Angeles hinzuzufügen. Gary antwortet, dass das riskant wäre. Eine Gesellschaft muss ihren Flugplan schützen, bevor sie eine glänzende neue Strecke hinzufügt. Ivy fügt hinzu, dass Passagiere einen zuverlässigen Flug einer spektakulären Ankündigung vorziehen.
+
+Red versteht schneller, als Gary Flugzeugmodelle auf einem Tisch benutzt. Für Luke wirkt das Problem weiterhin unfair: Ein freier A380 sollte fliegen, nicht warten.`,
+    questions: [
+      {id:"p16q1",type:"mcq",marks:2,prompt:"(E) Which route is discussed?",options:["OT116/OT117","OT714 only","OT380 to Le Mans","No route"],answerIndex:0,model:"OT116/OT117."},
+      {id:"p16q2",type:"mcq",marks:2,prompt:"(E) Why may a third A380 be needed?",options:["Ground time, cleaning, catering and delays","Because Luke likes purple","Because exams are cancelled","Because Doritos are heavy"],answerIndex:0,model:"Because of ground time, cleaning, catering, and possible delays."},
+      {id:"p16q3",type:"mcq",marks:2,prompt:"(E) What does Luke want to add?",options:["A second LA flight","A French test","A belt shop","A school lunch"],answerIndex:0,model:"A second flight to Los Angeles."},
+      {id:"p16q4",type:"tfnm",marks:2,prompt:"(E) Ivy says reliability matters more than a spectacular announcement. (True / False / Not mentioned)",correct:"True",model:"True."},
+      {id:"p16q5",type:"pn",marks:2,prompt:"(E) Gary’s view of Luke’s idea is… (P / N / P+N)",answer:"N",model:"N — he thinks it is risky."},
+      {id:"p16q6",type:"select_true",marks:4,prompt:"(E) Select TWO true statements.",statements:["Cleaning and catering take time.","Luke wants more business seats.","Red refuses to understand the models.","Gary cancels OT116 forever."],correctIndices:[0,1],minSelect:2,model:"Correct: cleaning/catering take time; Luke wants more business seats."},
+      {id:"p16q7",type:"short",marks:6,prompt:"(E) Give TWO reasons why airlines need spare time or aircraft.",rubric:"Any two: cleaning; catering; delays; turnaround/ground time; protecting schedule/reliability.",keywords:[["clean","cleaning"],["catering","food"],["delay","retard"],["ground","turnaround"],["reliable","schedule","horaire"]],model:"They need time for cleaning and catering, and spare capacity protects the schedule from delays."}
+    ]
+  },
+  {
+    id: 17,
+  title: "Passage 17 — Grandpa Belts geheimes Abendessen",
+    theme: "Theme 2 — Free time",
+    unit: "Food and family",
+    text: `Grandpa Belt mag geheime Restaurants und salziges Essen. Eines Abends tut er so, als ob er nur spazieren geht, aber Gary bemerkt, dass er einen seiner besten Gürtel trägt. Das bedeutet normalerweise, dass ein besonderes Abendessen geplant ist.
+
+Red vermutet ein verstecktes Restaurant. OWing sucht Hinweise: eine zu schnell geschriebene Adresse, einen Geruch nach Soße und einen gefalteten Beleg in einer Tasche. Grandpa Belt lacht und sagt, dass er die Überraschung bewahren wollte.
+
+Das Essen ist sehr gut, aber für Red etwas zu salzig. Grandpa Belt findet es dagegen perfekt. Am Ende verspricht er, das Restaurant nur zu verraten, wenn niemand seinen Gürtel kritisiert.`,
+    questions: [
+      {id:"p17q1",type:"mcq",marks:3,prompt:"(E) What does Grandpa Belt like?",options:["Secret restaurants and salty food","Silent exams only","Cold swimming pools only","Maths papers"],answerIndex:0,model:"Secret restaurants and salty food."},
+      {id:"p17q2",type:"mcq",marks:3,prompt:"(E) What clue does Gary notice?",options:["A good belt","A purple A380","A dictionary","A pencil"],answerIndex:0,model:"He notices Grandpa Belt wearing one of his best belts."},
+      {id:"p17q3",type:"tfnm",marks:3,prompt:"(E) Red thinks the food is a bit too salty. (True / False / Not mentioned)",correct:"True",model:"True."},
+      {id:"p17q4",type:"pn",marks:3,prompt:"(E) Red’s view of the meal is… (P / N / P+N)",answer:"P+N",model:"P+N — very good, but too salty."},
+      {id:"p17q5",type:"short",marks:8,prompt:"(E) Give ONE clue that OWing finds.",rubric:"Address written quickly / smell of sauce / folded receipt in a pocket.",keywords:[["address","adresse"],["sauce","smell","odeur"],["receipt","reçu","pocket"]],model:"OWing finds a quickly written address, a smell of sauce, or a folded receipt."}
+    ]
+  },
+  {
+    id: 18,
+  title: "Passage 18 — Luke und die hundertzehn Sitze in der Business Class",
+    theme: "Theme 3 — Travel",
+    unit: "Otono Airways cabin design",
+    text: `Luke liebt es, Kabinenpläne für Otono Airways zu zeichnen. Sein Traum ist einfach: hundertzehn Sitze in der Business Class in ein Flugzeug zu setzen. Er sagt, dass die Business Class groß, modern und beeindruckend sein muss.
+
+  Gary findet die Idee lustig, erklärt aber das Problem. Wenn Luke zu viele Sitze in der Business Class hinzufügt, bleibt weniger Platz für Economy, Premium Economy und First Class. Eine Fluggesellschaft kann nicht nur an Premium-Passagiere denken.
+
+  Luke probiert trotzdem mehrere Pläne aus. Er verschiebt die Toiletten, verkleinert einige Bereiche und betrachtet die Reihen noch einmal. Trotzdem muss er zugeben, dass hundertzehn Business-Sitze nicht immer möglich sind.
+
+  OWing denkt, dass Luke zu sehr von der Business Class besessen ist. Für ihn ist Komfort in der Economy auch wichtig, besonders auf langen Flügen.`,
+    questions: [
+      {id:"p18q1",type:"mcq",marks:2,prompt:"(E) What does Luke like designing?",options:["Cabin plans","Maths tests","Restaurant menus","School maps"],answerIndex:0,model:"Cabin plans."},
+      {id:"p18q2",type:"mcq",marks:2,prompt:"(E) How many business class seats does Luke want?",options:["66","80","100","110"],answerIndex:3,model:"110 business class seats."},
+      {id:"p18q3",type:"mcq",marks:2,prompt:"(E) What problem does Gary explain?",options:["There will be less space for other cabins","The plane cannot fly at night","Luke forgot black ink","The airport is closed"],answerIndex:0,model:"There would be less space for other cabins."},
+      {id:"p18q4",type:"tfnm",marks:2,prompt:"(E) Luke immediately gives up after Gary explains the problem. (True / False / Not mentioned)",correct:"False",model:"False."},
+      {id:"p18q5",type:"pn",marks:2,prompt:"(E) OWing’s view of Luke’s business-class obsession is… (P / N / P+N)",answer:"N",model:"N — OWing thinks Luke is too obsessed."},
+      {id:"p18q6",type:"fr_short",marks:4,prompt:"(M) En alemán : ¿Qué quiere Luke en el avión?",rubric:"Er möchte hundertzehn Sitze in der Business Class.",keywords:[["hundertzehn","110"],["sitze"],["business class","business"]],model:"Luke möchte hundertzehn Sitze in der Business Class."},
+      {id:"p18q7",type:"select_true",marks:4,prompt:"(E) Select TWO true statements.",statements:["Luke wants a large business class.","Gary says airlines must also think about other passengers.","OWing thinks economy comfort is not important.","Luke designs restaurant belts."],correctIndices:[0,1],minSelect:2,model:"Correct: Luke wants a large business class; Gary says airlines must think about other passengers."},
+      {id:"p18q8",type:"short",marks:2,prompt:"(E) Why does OWing care about economy comfort?",rubric:"Because it matters on long flights.",keywords:[["long flights","long vols"],["comfort","confort"],["economy","économie"]],model:"Because comfort in economy matters on long flights."}
+    ]
+  },
+  {
+    id: 19,
+    supergrade: true,
+    title: "Passage 19 — SUPERGRADE : Salish, Nidal et l’amitié",
+    theme: "Theme 4 — Influence and relationships",
+    unit: "Creators and friendship",
+    text: `Luke liebt es, Kabinenpläne für Otono Airways zu zeichnen. Sein Traum ist einfach: hundertzehn Sitze in der Business Class in ein Flugzeug zu setzen. Er sagt, dass die Business Class groß, modern und beeindruckend sein muss.
+
+  Gary findet die Idee lustig, erklärt aber das Problem. Wenn Luke zu viele Sitze in der Business Class hinzufügt, bleibt weniger Platz für Economy, Premium Economy und First Class. Eine Fluggesellschaft kann nicht nur an Premium-Passagiere denken.
+
+  Luke probiert trotzdem mehrere Pläne aus. Er verschiebt die Toiletten, verkleinert einige Bereiche und betrachtet die Reihen noch einmal. Trotzdem muss er zugeben, dass hundertzehn Business-Sitze nicht immer möglich sind.
+
+  OWing denkt, dass Luke zu sehr von der Business Class besessen ist. Für ihn ist Komfort in der Economy auch wichtig, besonders auf langen Flügen.`,
+    questions: [
+      {id:"p19q1",type:"mcq",marks:2,prompt:"(E) Which creator is mentioned?",options:["Jordan Matter","Mr Young","Mr Barley","Gary"],answerIndex:0,model:"Jordan Matter."},
+      {id:"p19q2",type:"mcq",marks:2,prompt:"(E) Who is described as Nidal’s best friend?",options:["Salish","Wyatt","Joshua","Red"],answerIndex:0,model:"Salish."},
+      {id:"p19q3",type:"mcq",marks:2,prompt:"(E) What does Red mainly admire?",options:["Their friendship","Their maths scores","Their airport knowledge","Their exam rules"],answerIndex:0,model:"Their friendship."},
+      {id:"p19q4",type:"mcq",marks:2,prompt:"(E) What do Salish and Nidal often do when they meet?",options:["Run towards each other and hug","Ignore each other","Argue loudly","Study French grammar"],answerIndex:0,model:"They run towards each other and hug."},
+      {id:"p19q5",type:"tfnm",marks:2,prompt:"(E) The passage says Salish and Nidal are dating. (True / False / Not mentioned)",correct:"False",model:"False — the passage says they are not dating."},
+      {id:"p19q6",type:"tfnm",marks:3,prompt:"(E) Wyatt watches Jordan Matter every day. (True / False / Not mentioned)",correct:"Not mentioned",model:"Not mentioned."},
+      {id:"p19q7",type:"pn",marks:3,prompt:"(E) Red’s overall opinion of Salish and Nidal’s friendship is… (P / N / P+N)",answer:"P",model:"P — Red has a very positive opinion of their friendship."},
+
+      {id:"p19q8",type:"select_true",marks:4,prompt:"(E) Select TWO true statements.",statements:[
+        "Red compares their friendship with his own friendships.",
+        "Red thinks positive friendships can improve projects and challenges.",
+        "Joshua appears in the videos with Salish and Nidal.",
+        "Red dislikes emotional moments in videos."
+      ],correctIndices:[0,1],minSelect:2,model:"Correct: Red compares their friendship with his own friendships; Red thinks positive friendships improve projects and challenges."},
+      {id:"p19q9",type:"short",marks:4,prompt:"(E) According to the passage, why does Red think friendships are important in videos? Give TWO ideas.",rubric:"Any two: friendships make videos more interesting; more natural; more enjoyable; help keep viewers watching; create positive energy.",keywords:[["interesting","intéressant"],["natural","naturelle"],["enjoyable","fun","amusant"],["watching","viewers","spectateurs"],["positive","energy","énergie"]],model:"Red thinks friendships are important because they make videos feel more natural and enjoyable, and they help keep viewers interested."}
+    ]
+  },
+  {
+  id: 20,
+  title: "Passage 20 — Der Astronomieclub in Otono Mansion",
+  theme: "Theme 2 — Free time and hobbies",
+  unit: "Astronomy club",
+  text: `Jeden Freitagabend treffen sich mehrere Mitglieder des Otono Teams im Astronomieclub in Otono Mansion. Sie benutzen Teleskope, um den Mond, die Planeten und manchmal Meteorschauer zu beobachten. Red schaut am liebsten Jupiter an, während OWing gern die verschiedenen Teleskope vergleicht.
+
+Im Winter ist es draußen oft sehr kalt, aber die Gruppe setzt die Beobachtungen trotzdem fort. Luke sagt, dass die besten Nächte manchmal die schwierigsten sind. Manche Abende werden jedoch enttäuschend, wenn plötzlich Wolken auftauchen.
+
+Der Club möchte nicht nur berühmte Objekte sehen. Die Mitglieder lernen auch gern Geduld, Organisation und die Art, ruhig zusammenzuarbeiten.`,
+  questions: [
+    {id:"p20q1",type:"mcq",marks:2,prompt:"(E) When does the astronomy club usually meet?",options:["Every Friday evening","Every Monday morning","Only in summer","Twice a year"],answerIndex:0},
+
+    {id:"p20q2",type:"mcq",marks:2,prompt:"(E) What does Red prefer observing?",options:["Mars","Jupiter","Saturn","The Sun"],answerIndex:1},
+
+    {id:"p20q3",type:"tfnm",marks:2,prompt:"(E) The astronomy club only meets during summer. (True / False / Not mentioned)",correct:"False"},
+
+    {id:"p20q4",type:"tfnm",marks:2,prompt:"(E) Luke bought a new telescope this year. (True / False / Not mentioned)",correct:"Not mentioned"},
+
+    {id:"p20q5",type:"pn",marks:2,prompt:"(E) The general opinion of the astronomy club is… (P / N / P+N)",answer:"P+N"},
+
+    {id:"p20q6",type:"fr_short",marks:4,prompt:"(M) En alemán : ¿Por qué algunas noches se vuelven decepcionantes?",rubric:"Weil plötzlich Wolken auftauchen.",keywords:[["wolken"],["plötzlich","auftauchen"]],model:"Manche Abende werden enttäuschend, weil plötzlich Wolken auftauchen."},
+
+    {id:"p20q7",type:"short",marks:6,prompt:"(E) Give TWO things the members learn from astronomy.",rubric:"Any two: patience; organisation; calm teamwork.",keywords:[["patience"],["organisation"],["calm","calmement"],["teamwork","juntos","travailler"]]}
+  ]
+},
+{
+  id: 21,
+  title: "Passage 21 — Schwarze Tinte und Prüfungen",
+  theme: "Theme 1 — School",
+  unit: "Exam rules",
+  text: `Vor wichtigen Prüfungen überprüft Luke immer sehr aufmerksam seine schwarzen Kugelschreiber. Er denkt, dass eine gute Handschrift und klare Tinte den Prüfern helfen können, die Antworten leichter zu verstehen. Red findet diese Gewohnheit etwas übertrieben, gibt aber zu, dass ein zuverlässiger Stift Stress vermeiden kann.
+
+Frau Munn erinnert auch daran, dass die Schüler die Anweisungen aufmerksam lesen müssen. Manche Kandidaten vergessen einfache Details, weil sie zu schnell anfangen. Ihrer Meinung nach ist mentale Vorbereitung genauso wichtig wie das Material.
+
+OWing denkt jedoch, dass man sich nicht mit Stiften verrückt machen sollte. Für ihn bleibt die Qualität der Ideen wichtiger als die Marke des verwendeten Materials.`,
+  questions: [
+    {id:"p21q1",type:"mcq",marks:2,prompt:"(E) Why does Luke check his pens carefully?",options:["To help examiners read answers","To decorate the classroom","To save electricity","To clean the tables"],answerIndex:0},
+
+    {id:"p21q2",type:"mcq",marks:2,prompt:"(E) What does Red think about Luke’s habit?",options:["A bit excessive","Completely useless","Very funny","Dangerous"],answerIndex:0},
+
+    {id:"p21q3",type:"tfnm",marks:2,prompt:"(E) Madame Munn says preparation is important. (True / False / Not mentioned)",correct:"True"},
+
+    {id:"p21q4",type:"tfnm",marks:2,prompt:"(E) OWing only uses fountain pens. (True / False / Not mentioned)",correct:"Not mentioned"},
+
+    {id:"p21q5",type:"select_true",marks:4,prompt:"(E) Select TWO true statements.",statements:[
+      "Some students begin too quickly.",
+      "OWing thinks pen brands are the most important thing.",
+      "A reliable pen can reduce stress.",
+      "Madame Munn bans black ink."
+    ],correctIndices:[0,2],minSelect:2},
+
+    {id:"p21q6",type:"fr_short",marks:2,prompt:"(M) En alemán : ¿Qué es más importante que la marca del material según OWing?",rubric:"Die Qualität der Ideen.",keywords:[["qualität"],["ideen"]],model:"Laut OWing ist die Qualität der Ideen wichtiger."},
+
+    {id:"p21q7",type:"short",marks:6,prompt:"(E) Give TWO reasons why candidates make simple mistakes.",rubric:"Any two: they start too quickly; they ignore instructions; stress; poor preparation.",keywords:[["too quickly","vite"],["instructions","consignes"],["stress"],["preparation","préparation"]]}
+  ]
+},
+{
+  id: 22,
+  title: "Passage 22 — Le Mans und die Strategie",
+  theme: "Theme 2 — Sport and competition",
+  unit: "Le Mans",
+  text: `Nachdem Red mehrere Videos über Le Mans gesehen hat, versteht er besser, warum dieses Rennen berühmt ist. Die Teams müssen vierundzwanzig Stunden lang weitermachen, ohne die Konzentration zu verlieren. Ein kleiner Fehler kann viel Zeit kosten.
+
+OWing vergleicht dieses Rennen mit einer langen Wiederholungsphase. Er erklärt, dass es keinen Sinn hat, am Anfang zu schnell zu arbeiten, wenn man später völlig müde endet. Seiner Meinung nach sind Geduld und Strategie in beiden Situationen wesentlich.
+
+Luke bevorzugt weiterhin Flugzeuge gegenüber Autos, aber er findet es interessant, dass die Fahrer während des Rennens regelmäßig wechseln. Das zeigt, dass effektive Teamarbeit sogar in einem sehr wettbewerbsorientierten Sport notwendig bleibt.`,
+  questions: [
+    {id:"p22q1",type:"mcq",marks:2,prompt:"(E) How long does the race continue?",options:["6 hours","12 hours","24 hours","48 hours"],answerIndex:2},
+
+    {id:"p22q2",type:"mcq",marks:2,prompt:"(E) What does OWing compare Le Mans to?",options:["A science lesson","A long revision period","A holiday flight","A football match"],answerIndex:1},
+
+    {id:"p22q3",type:"tfnm",marks:2,prompt:"(E) Luke prefers cars to planes. (True / False / Not mentioned)",correct:"False"},
+
+    {id:"p22q4",type:"tfnm",marks:2,prompt:"(E) Red wants to become a racing driver. (True / False / Not mentioned)",correct:"Not mentioned"},
+
+    {id:"p22q5",type:"pn",marks:2,prompt:"(E) The overall opinion of Le Mans is… (P / N / P+N)",answer:"P"},
+
+    {id:"p22q6",type:"select_true",marks:4,prompt:"(E) Select TWO true statements.",statements:[
+      "Small mistakes can waste time.",
+      "OWing says speed at the beginning is enough.",
+      "Drivers change during the race.",
+      "Luke dislikes teamwork."
+    ],correctIndices:[0,2],minSelect:2},
+
+    {id:"p22q7",type:"short",marks:6,prompt:"(E) Give TWO qualities needed for Le Mans or long revision.",rubric:"Any two: patience; strategy; concentration; teamwork; avoiding fatigue.",keywords:[["patience"],["strategy","stratégie"],["concentration"],["teamwork","équipe"],["fatigue","tired"]]}
+  ]
+},
+{
+  id: 21,
+  title: "Passage 21 — Schwarze Tinte und Prüfungen",
+  theme: "Theme 1 — School",
+  unit: "Exam rules",
+  text: `Vor wichtigen Prüfungen überprüft Luke immer sehr aufmerksam seine schwarzen Kugelschreiber. Er denkt, dass eine gute Handschrift und klare Tinte den Prüfern helfen können, die Antworten leichter zu verstehen. Red findet diese Gewohnheit etwas übertrieben, gibt aber zu, dass ein zuverlässiger Stift Stress vermeiden kann.
+
+Frau Munn erinnert auch daran, dass die Schüler die Anweisungen aufmerksam lesen müssen. Manche Kandidaten vergessen einfache Details, weil sie zu schnell anfangen. Ihrer Meinung nach ist mentale Vorbereitung genauso wichtig wie das Material.
+
+OWing denkt jedoch, dass man sich nicht mit Stiften verrückt machen sollte. Für ihn bleibt die Qualität der Ideen wichtiger als die Marke des verwendeten Materials.`,
+  questions: [
+    {id:"p21q1",type:"mcq",marks:2,prompt:"(E) Why does Luke check his pens carefully?",options:["To help examiners read answers","To decorate the classroom","To save electricity","To clean the tables"],answerIndex:0},
+
+    {id:"p21q2",type:"mcq",marks:2,prompt:"(E) What does Red think about Luke’s habit?",options:["A bit excessive","Completely useless","Very funny","Dangerous"],answerIndex:0},
+
+    {id:"p21q3",type:"tfnm",marks:2,prompt:"(E) Madame Munn says preparation is important. (True / False / Not mentioned)",correct:"True"},
+
+    {id:"p21q4",type:"tfnm",marks:2,prompt:"(E) OWing only uses fountain pens. (True / False / Not mentioned)",correct:"Not mentioned"},
+
+    {id:"p21q5",type:"select_true",marks:4,prompt:"(E) Select TWO true statements.",statements:[
+      "Some students begin too quickly.",
+      "OWing thinks pen brands are the most important thing.",
+      "A reliable pen can reduce stress.",
+      "Madame Munn bans black ink."
+    ],correctIndices:[0,2],minSelect:2},
+
+    {id:"p21q6",type:"fr_short",marks:2,prompt:"(M) En alemán : ¿Qué es más importante que la marca del material según OWing?",rubric:"Die Qualität der Ideen.",keywords:[["qualität"],["ideen"]],model:"Laut OWing ist die Qualität der Ideen wichtiger."},
+
+    {id:"p21q7",type:"short",marks:6,prompt:"(E) Give TWO reasons why candidates make simple mistakes.",rubric:"Any two: they start too quickly; they ignore instructions; stress; poor preparation.",keywords:[["too quickly","vite"],["instructions","consignes"],["stress"],["preparation","préparation"]]}
+  ]
+},
+{
+  id: 22,
+  title: "Passage 22 — Le Mans und die Strategie",
+  theme: "Theme 2 — Sport and competition",
+  unit: "Le Mans",
+  text: `Nachdem Red mehrere Videos über Le Mans gesehen hat, versteht er besser, warum dieses Rennen berühmt ist. Die Teams müssen vierundzwanzig Stunden lang weitermachen, ohne die Konzentration zu verlieren. Ein kleiner Fehler kann viel Zeit kosten.
+
+OWing vergleicht dieses Rennen mit einer langen Wiederholungsphase. Er erklärt, dass es keinen Sinn hat, am Anfang zu schnell zu arbeiten, wenn man später völlig müde endet. Seiner Meinung nach sind Geduld und Strategie in beiden Situationen wesentlich.
+
+Luke bevorzugt weiterhin Flugzeuge gegenüber Autos, aber er findet es interessant, dass die Fahrer während des Rennens regelmäßig wechseln. Das zeigt, dass effektive Teamarbeit sogar in einem sehr wettbewerbsorientierten Sport notwendig bleibt.`,
+  questions: [
+    {id:"p22q1",type:"mcq",marks:2,prompt:"(E) How long does the race continue?",options:["6 hours","12 hours","24 hours","48 hours"],answerIndex:2},
+
+    {id:"p22q2",type:"mcq",marks:2,prompt:"(E) What does OWing compare Le Mans to?",options:["A science lesson","A long revision period","A holiday flight","A football match"],answerIndex:1},
+
+    {id:"p22q3",type:"tfnm",marks:2,prompt:"(E) Luke prefers cars to planes. (True / False / Not mentioned)",correct:"False"},
+
+    {id:"p22q4",type:"tfnm",marks:2,prompt:"(E) Red wants to become a racing driver. (True / False / Not mentioned)",correct:"Not mentioned"},
+
+    {id:"p22q5",type:"pn",marks:2,prompt:"(E) The overall opinion of Le Mans is… (P / N / P+N)",answer:"P"},
+
+    {id:"p22q6",type:"select_true",marks:4,prompt:"(E) Select TWO true statements.",statements:[
+      "Small mistakes can waste time.",
+      "OWing says speed at the beginning is enough.",
+      "Drivers change during the race.",
+      "Luke dislikes teamwork."
+    ],correctIndices:[0,2],minSelect:2},
+
+    {id:"p22q7",type:"short",marks:6,prompt:"(E) Give TWO qualities needed for Le Mans or long revision.",rubric:"Any two: patience; strategy; concentration; teamwork; avoiding fatigue.",keywords:[["patience"],["strategy","stratégie"],["concentration"],["teamwork","équipe"],["fatigue","tired"]]}
+  ]
+},
+{
+  id: 23,
+  title: "Passage 23 — Lit, die Poesie und das kreative Projekt",
+  theme: "Theme 2 — Free time",
+  unit: "Creative hobbies",
+  text: `In Otono Mansion bereitet Lit ein kleines kreatives Projekt über Poesie vor. Er mag Gedichte sehr, besonders wenn die Wörter im Kopf ein starkes Bild erzeugen. Jessica findet das Projekt interessant, weil sie gern die Details und Farben in einem Text analysiert.
+
+OWing dagegen mag Poesie nicht. Er bevorzugt logischere Themen und sagt, dass ein Gedicht manchmal zu vage ist. Red hört der Diskussion zu und bemerkt, dass jeder Mensch Kunst auf eine andere Weise versteht.
+
+Am Ende wählt Lit ein kurzes Gedicht aus, um es der Gruppe vorzustellen. Obwohl OWing kein Fan von Poesie wird, gibt er zu, dass einige Formulierungen gut gewählt sind.`,
+  questions: [
+    {id:"p23q1",type:"mcq",marks:2,prompt:"(E) What does Lit like a lot?",options:["Poetry","Planes","Maths tests","Restaurants"],answerIndex:0},
+    {id:"p23q2",type:"mcq",marks:2,prompt:"(E) What does Jessica find interesting?",options:["The creative project","A delayed flight","A black pen rule","A race car"],answerIndex:0},
+    {id:"p23q3",type:"mcq",marks:2,prompt:"(E) What does OWing prefer?",options:["More logical subjects","Long poems","Drama only","Painting belts"],answerIndex:0},
+    {id:"p23q4",type:"tfnm",marks:2,prompt:"(E) OWing becomes a fan of poetry. (True / False / Not mentioned)",correct:"False"},
+    {id:"p23q5",type:"tfnm",marks:2,prompt:"(E) Lit writes the poem herself. (True / False / Not mentioned)",correct:"Not mentioned"},
+    {id:"p23q6",type:"pn",marks:2,prompt:"(E) OWing’s view of poetry is… (P / N / P+N)",answer:"P+N"},
+    {id:"p23q7",type:"fr_short",marks:4,prompt:"(M) En alemán : ¿Por qué a Lit le gustan los poemas?",rubric:"Weil die Wörter ein starkes Bild erzeugen.",keywords:[["wörter"],["bild"],["stark"]],model:"Lit mag Gedichte, weil die Wörter ein starkes Bild erzeugen."},
+    {id:"p23q8",type:"short",marks:4,prompt:"(E) Give ONE reason why OWing dislikes poetry.",rubric:"It is too vague / he prefers logical subjects.",keywords:[["vague"],["logical","logique"]],model:"OWing dislikes poetry because he thinks it is sometimes too vague."}
+  ]
+},
+{
+  id: 24,
+  title: "Passage 24 — Die Marseillaise und die Identität",
+  theme: "Theme 4 — Identity and culture",
+  unit: "Music and national symbols",
+  text: `Red mag die Marseillaise sehr. Für ihn ist die Hymne kraftvoll, dramatisch und voller Charakter. Er denkt, dass die Melodie einen Eindruck von Energie vermittelt, besonders wenn mehrere Stimmen zusammen singen.
+
+Manche Menschen finden die Hymne zu intensiv, aber Red behält eine sehr positive Meinung. Er denkt, dass ein Nationallied die Geschichte, den Stolz und die Identität eines Landes zeigen kann. Allerdings versteht er auch, dass nicht jeder auf Musik gleich reagiert.
+
+Wenn Red die Marseillaise hört, denkt er nicht nur an den Text. Er bemerkt auch den Rhythmus, die Stimme und die Emotion. Für ihn ist es ein Lied, das leicht im Gedächtnis bleibt.`,
+  questions: [
+    {id:"p24q1",type:"mcq",marks:2,prompt:"(E) What does Red like?",options:["La Marseillaise","A maths mark scheme","A hotel budget","A racing car"],answerIndex:0},
+    {id:"p24q2",type:"mcq",marks:2,prompt:"(E) How does Red describe the anthem?",options:["Powerful and dramatic","Boring and weak","Silent and simple","Funny only"],answerIndex:0},
+    {id:"p24q3",type:"mcq",marks:2,prompt:"(E) What can a national song show?",options:["History, pride and identity","Only exam rules","Only food prices","Only airport gates"],answerIndex:0},
+    {id:"p24q4",type:"tfnm",marks:2,prompt:"(E) Everyone reacts to music in the same way. (True / False / Not mentioned)",correct:"False"},
+    {id:"p24q5",type:"tfnm",marks:2,prompt:"(E) Red has performed La Marseillaise in public. (True / False / Not mentioned)",correct:"Not mentioned"},
+    {id:"p24q6",type:"pn",marks:2,prompt:"(E) Red’s opinion of La Marseillaise is… (P / N / P+N)",answer:"P"},
+    {id:"p24q7",type:"fr_short",marks:4,prompt:"(M) En alemán : ¿Por qué a Red le gusta La Marsellesa?",rubric:"Weil sie kraftvoll / dramatisch / voller Charakter ist.",keywords:[["kraftvoll"],["dramatisch"],["charakter"]],model:"Red mag die Marseillaise, weil sie kraftvoll und voller Charakter ist."},
+    {id:"p24q8",type:"short",marks:4,prompt:"(E) Give TWO musical features Red notices.",rubric:"Any two: melody, rhythm, voice, emotion.",keywords:[["melody","mélodie"],["rhythm","rythme"],["voice","voix"],["emotion","émotion"]],model:"He notices the rhythm and the emotion."}
+  ]
+},
+{
+  id: 25,
+  title: "Passage 25 — Jessica und die Kunstausstellung",
+  theme: "Theme 2 — Free time",
+  unit: "Art and opinions",
+  text: `Jessica bereitet eine kleine Kunstausstellung in Otono Mansion vor. Sie wählt mehrere Zeichnungen mit ruhigen Farben, präzisen Schatten und sehr sorgfältigen Details aus. Sie möchte zeigen, dass Kunst nicht nur dazu dient, ein Zimmer zu dekorieren: Sie kann auch eine Geschichte erzählen.
+
+Lit mag vor allem die Werke, die wie visuelle Poesie wirken. Er sagt, dass ein Bild manchmal schneller eine Emotion vermitteln kann als ein langer Text. Red geht schnell an den Zeichnungen vorbei und sagt, dass ihn einige Details an Video-Thumbnails erinnern.
+
+Jessica freut sich über die Komplimente, aber sie möchte lieber, dass die Besucher genau erklären, was ihnen gefällt. Für sie ist eine detaillierte Meinung nützlicher als ein einfaches positives Wort.`,
+  questions: [
+    {id:"p25q1",type:"mcq",marks:2,prompt:"(E) What is Jessica preparing?",options:["An art exhibition","A flight plan","A poetry exam","A race"],answerIndex:0},
+    {id:"p25q2",type:"mcq",marks:2,prompt:"(E) What does Jessica want art to do?",options:["Tell a story","Cancel lessons","Replace exams","Hide mistakes"],answerIndex:0},
+    {id:"p25q3",type:"mcq",marks:2,prompt:"(E) What does Lit compare some artworks to?",options:["Visual poetry","Airport signs","Science belts","Maths papers"],answerIndex:0},
+    {id:"p25q4",type:"tfnm",marks:2,prompt:"(E) Jessica uses only bright colours. (True / False / Not mentioned)",correct:"False"},
+    {id:"p25q5",type:"tfnm",marks:2,prompt:"(E) The exhibition takes place in a school hall. (True / False / Not mentioned)",correct:"False"},
+    {id:"p25q6",type:"pn",marks:2,prompt:"(E) Jessica’s view of detailed feedback is… (P / N / P+N)",answer:"P"},
+    {id:"p25q7",type:"select_true",marks:4,prompt:"(E) Select TWO true statements.",statements:["Jessica chooses careful details.","Lit likes art that feels like visual poetry.","Red is the main organiser.","Jessica dislikes all compliments."],correctIndices:[0,1],minSelect:2},
+    {id:"p25q8",type:"short",marks:4,prompt:"(E) Why does Jessica prefer detailed opinions?",rubric:"Because they explain exactly what visitors like and are more useful.",keywords:[["explain","precisely","exactly"],["useful","utile"],["like","aiment"]],model:"She prefers detailed opinions because they explain exactly what people like."}
+  ]
+},
+{
+  id: 26,
+  title: "Passage 26 — Hokkaido und der Edelstein-Schieber",
+  theme: "Theme 3 — Travel",
+  unit: "Hokkaido trip",
+  text: `Während der Reise nach Hokkaido finden OWing, Red und Lit in einer Spielhalle einen Edelstein-Schieber. Die Maschine zieht sofort ihre Aufmerksamkeit auf sich, weil die Steine unter den Lichtern glänzen. OWing beobachtet den Mechanismus ernst, während Lit vor allem die Farben bewundert.
+
+Red denkt, dass die Maschine wie eine kleine Geduldsaufgabe wirkt. Er möchte auf den richtigen Moment warten, bevor er spielt. OWing erklärt, dass zu schnelles Schieben nichts garantiert, weil die Steine am Rand stecken bleiben können.
+
+Lit wählt einen violetten Stein als seinen Favoriten. Die Gruppe gewinnt nicht viel, aber die Erfahrung wird zu einer lustigen Erinnerung an die Reise. Für sie zählt nicht nur der Preis, sondern auch der gemeinsam verbrachte Moment.`,
+  questions: [
+    {id:"p26q1",type:"mcq",marks:2,prompt:"(E) Where do they find the machine?",options:["In an arcade / games room","At school","On an aircraft","In a library"],answerIndex:0},
+    {id:"p26q2",type:"mcq",marks:2,prompt:"(E) What does Lit mainly admire?",options:["The colours","The timetable","The exam paper","The gate number"],answerIndex:0},
+    {id:"p26q3",type:"mcq",marks:2,prompt:"(E) What does Red think the machine is like?",options:["A patience challenge","A French song","A science lesson","A hotel"],answerIndex:0},
+    {id:"p26q4",type:"tfnm",marks:2,prompt:"(E) Lit chooses a purple stone as her favourite. (True / False / Not mentioned)",correct:"True"},
+    {id:"p26q5",type:"tfnm",marks:2,prompt:"(E) The group wins a very expensive prize. (True / False / Not mentioned)",correct:"False"},
+    {id:"p26q6",type:"pn",marks:2,prompt:"(E) The group’s final view of the experience is… (P / N / P+N)",answer:"P"},
+    {id:"p26q7",type:"fr_short",marks:4,prompt:"(M) En alemán : ¿Por qué la máquina les llama la atención?",rubric:"Weil die Steine unter den Lichtern glänzen.",keywords:[["steine"],["glänzen"],["lichter"]],model:"Die Maschine zieht ihre Aufmerksamkeit auf sich, weil die Steine unter den Lichtern glänzen."},
+    {id:"p26q8",type:"short",marks:4,prompt:"(E) Give ONE reason why pushing too quickly may not work.",rubric:"The stones may get stuck at the edge / it does not guarantee a win.",keywords:[["stuck","coincées"],["edge","bord"],["guarantee","garantit"]],model:"Pushing too quickly may not work because the stones can stay stuck at the edge."}
+  ]
+}
+];
+
+const TRANSLATIONS = [
+  {
+    id: "T6",
+    title: "Translation — Der Astronomieclub",
+    theme: "Theme 2 — Free time and hobbies",
+    text: "Every Friday evening, the astronomy club meets inside Otono Mansion to observe the sky. The members especially enjoy watching the Moon, planets and meteor showers together. According to Luke, astronomy teaches patience because some events only happen at the perfect moment.",
+    keyIdeas: [
+      ["jeden freitagabend", "every friday evening"],
+      ["der astronomieclub", "astronomy club"],
+      ["trifft sich in otono mansion", "meets inside otono mansion"],
+      ["den himmel beobachten", "observe the sky"],
+      ["die mitglieder mögen besonders", "members especially enjoy"],
+      ["der mond", "moon"],
+      ["die planeten", "planets"],
+      ["meteorschauer", "meteor showers"],
+      ["zusammen", "together"],
+      ["astronomie lehrt geduld", "astronomy teaches patience"],
+      ["manche ereignisse", "some events"],
+      ["im perfekten moment", "perfect moment"]
+    ],
+    sampleAnswer:
+      "Jeden Freitagabend trifft sich der Astronomieclub in Otono Mansion, um den Himmel zu beobachten. Die Mitglieder schauen besonders gern zusammen den Mond, die Planeten und Meteorschauer an. Laut Luke lehrt Astronomie Geduld, weil manche Ereignisse nur im perfekten Moment passieren."
+  },
+
+  {
+    id: "T7",
+    title: "Translation — Schwarze Tinte",
+    theme: "Theme 1 — School and study",
+    text: "Luke prefers writing in black ink because he thinks it looks clearer and more professional. Before important exams, he always checks his pens carefully and brings extra ones with him. In his opinion, good equipment can improve confidence during a difficult paper.",
+    keyIdeas: [
+      ["luke schreibt lieber mit schwarzer tinte", "luke prefers writing in black ink"],
+      ["klarer", "clearer"],
+      ["professioneller", "more professional"],
+      ["vor wichtigen prüfungen", "before important exams"],
+      ["er überprüft seine stifte sorgfältig", "checks his pens carefully"],
+      ["er bringt zusätzliche stifte mit", "brings extra pens"],
+      ["gute ausrüstung", "good equipment"],
+      ["das selbstvertrauen verbessern", "improve confidence"],
+      ["eine schwierige prüfung", "difficult paper"]
+    ],
+    sampleAnswer:
+      "Luke schreibt lieber mit schwarzer Tinte, weil er denkt, dass es klarer und professioneller aussieht. Vor wichtigen Prüfungen überprüft er seine Stifte immer sorgfältig und bringt zusätzliche mit. Seiner Meinung nach kann gute Ausrüstung das Selbstvertrauen während einer schwierigen Prüfung verbessern."
+  },
+
+  {
+    id: "T8",
+    title: "Translation — Le Mans",
+    theme: "Theme 3 — Sport and competition",
+    text: "Red became interested in the Le Mans race after watching a documentary about endurance racing. He was surprised that drivers could continue for twenty-four hours with different teammates. For him, the event is impressive because strategy, concentration and teamwork are just as important as speed.",
+    keyIdeas: [
+      ["red interessierte sich für das rennen von le mans", "interested in the le mans race"],
+      ["nachdem er eine dokumentation gesehen hatte", "after watching a documentary"],
+      ["langstreckenrennen", "endurance racing"],
+      ["er war überrascht", "he was surprised"],
+      ["vierundzwanzig stunden", "twenty four hours"],
+      ["mit verschiedenen teamkollegen", "different teammates"],
+      ["die veranstaltung ist beeindruckend", "event is impressive"],
+      ["strategie", "strategy"],
+      ["konzentration", "concentration"],
+      ["teamarbeit", "teamwork"],
+      ["genauso wichtig wie geschwindigkeit", "as important as speed"]
+    ],
+    sampleAnswer:
+      "Red interessierte sich für das Rennen von Le Mans, nachdem er eine Dokumentation über Langstreckenrennen gesehen hatte. Er war überrascht, dass Fahrer mit verschiedenen Teamkollegen vierundzwanzig Stunden lang weitermachen konnten. Für ihn ist die Veranstaltung beeindruckend, weil Strategie, Konzentration und Teamarbeit genauso wichtig sind wie Geschwindigkeit."
+  },
+
+  {
+    id: "T9",
+    title: "Translation — Das versteckte Observatorium",
+    theme: "Theme 2 — Technology and hobbies",
+    text: "OWing recently helped to improve the hidden observatory inside Otono Mansion. During the winter, the team used powerful telescopes to observe Jupiter and several distant galaxies. Even though the weather in the United Kingdom is not always ideal, they believe that astronomy becomes more exciting when conditions are difficult.",
+    keyIdeas: [
+      ["owing half kürzlich", "owing recently helped"],
+      ["das versteckte observatorium verbessern", "improve the hidden observatory"],
+      ["in otono mansion", "inside otono mansion"],
+      ["während des winters", "during the winter"],
+      ["leistungsstarke teleskope", "powerful telescopes"],
+      ["jupiter beobachten", "observe jupiter"],
+      ["mehrere entfernte galaxien", "several distant galaxies"],
+      ["obwohl das wetter im vereinigten königreich", "even though the weather in the united kingdom"],
+      ["nicht immer ideal ist", "not always ideal"],
+      ["astronomie wird spannender", "astronomy becomes more exciting"],
+      ["wenn die bedingungen schwierig sind", "when conditions are difficult"]
+    ],
+    sampleAnswer:
+      "OWing half kürzlich, das versteckte Observatorium in Otono Mansion zu verbessern. Im Winter benutzte das Team leistungsstarke Teleskope, um Jupiter und mehrere entfernte Galaxien zu beobachten. Obwohl das Wetter im Vereinigten Königreich nicht immer ideal ist, glauben sie, dass Astronomie spannender wird, wenn die Bedingungen schwierig sind."
+  }
+];
+
+/* -----------------------------
+   Utilities
+--------------------------------*/
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+function nowISO(){ return new Date().toISOString(); }
+
+function norm(s){
+  return (s ?? "")
+    .toString()
+    .toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .replace(/[^a-z0-9\s]/g," ")
+    .replace(/\s+/g," ")
+    .trim();
+}
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function hasPassage(selection, id){
+  return !!selection?.passages?.some(p => p.id === id);
+}
+
+function pickRandom(arr, n){
+  return shuffle(arr).slice(0, n);
+}
+
+function escapeHtml(str){
+  return (str ?? "").toString()
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+function otonoLetterGrade(score){
+  if(score >= 101) return "S";
+  if(score >= 96) return "A*";
+  if(score >= 89) return "A";
+  if(score >= 81) return "B";
+  if(score >= 72) return "C";
+  if(score >= 64) return "D";
+  if(score >= 52) return "E";
+  if(score >= 38) return "F";
+  if(score >= 29) return "G";
+  if(score >= 18) return "H";
+  return "U";
+}
+
+function passMeritDistinction(score){
+  if(score >= 90) return "DISTINCTION";
+  if(score >= 80) return "MERIT";
+  if(score >= 66) return "PASS";
+  return "FAIL";
+}
+
+function gcseEstimate(score){
+  if(score >= 101) return 10;
+  if(score >= 92) return 9;
+  if(score >= 84) return 8;
+  if(score >= 77) return 7;
+  if(score >= 69) return 6;
+  if(score >= 59) return 5;
+  if(score >= 49) return 4;
+  if(score >= 38) return 3;
+  if(score >= 26) return 2;
+  if(score >= 15) return 1;
+  return "U";
+}
+
+function badgeForScore(score){
+  if(score >= 101) return ["badge good","💯 SECRET SCORE"];
+  if(score >= 90) return ["badge good","🏆 Excelente"];
+  if(score >= 80) return ["badge good","⭐ Muy Bien"];
+  if(score >= 66) return ["badge warn","✅ OK"];
+  return ["badge bad","❌ Mal"];
+}
+
+/* -----------------------------
+   Local storage
+--------------------------------*/
+const STORE_KEY = "otonoGermanReading_nov25_results_v2";
+
+function loadResults(){
+  try{ return JSON.parse(localStorage.getItem(STORE_KEY) || "[]"); }
+  catch(e){ return []; }
+}
+function saveResults(list){
+  localStorage.setItem(STORE_KEY, JSON.stringify(list));
+}
+function addResult(attempt){
+  const list = loadResults();
+  list.unshift(attempt);
+  saveResults(list);
+}
+
+/* -----------------------------
+   App state
+--------------------------------*/
+let state = {
+  mode: "home",
+  timer: null,
+  remainingSec: 0,
+  startedAt: null,
+
+  centreNo: "50749",
+
+  candidateNo: null,         // 4 digits
+  candSurname: "",
+  candForenames: "",
+
+  selection: null,
+  answers: {},               // qid -> user answer (string)
+  mcqCorrectValue: {},       // qid -> correct radio value after shuffling
+  submitted: false
+};
+
+/* -----------------------------
+   Centre number controls
+--------------------------------*/
+function setCentre(no){
+  state.centreNo = String(no);
+  $("#centreNo").value = state.centreNo;
+  $("#centreTop").textContent = state.centreNo;
+}
+
+$("#btnEditCentre").addEventListener("click", () => {
+  const val = prompt("Enter centre number (digits only, e.g. 50749):", state.centreNo);
+  if(val === null) return;
+  const clean = String(val).replace(/\D/g,"").slice(0, 10);
+  if(clean.length < 5){
+    alert("Centre number must be digits only (at least 5 digits).");
+    return;
+  }
+  setCentre(clean);
+});
+
+$("#btnResetCentre").addEventListener("click", () => setCentre("50749"));
+
+/* -----------------------------
+   Candidate number 4 squares
+--------------------------------*/
+const digitIds = ["#candD1","#candD2","#candD3","#candD4"];
+
+function getCandidateNoFromSquares(){
+  const d = digitIds.map(id => ($(id).value || "").trim());
+  if(d.some(x => x.length !== 1 || !/^\d$/.test(x))) return "";
+  return d.join("");
+}
+
+function focusDigit(i){
+  const el = $(digitIds[i]);
+  if(el) el.focus();
+}
+
+function wireDigitSquares(){
+  digitIds.forEach((id, idx) => {
+    const el = $(id);
+
+    el.addEventListener("input", () => {
+      // keep digits only
+      el.value = (el.value || "").replace(/\D/g,"").slice(0,1);
+      if(el.value && idx < digitIds.length-1) focusDigit(idx+1);
+    });
+
+    el.addEventListener("keydown", (e) => {
+      if(e.key === "Backspace" && !el.value && idx > 0){
+        focusDigit(idx-1);
+      }
+      if(e.key === "ArrowLeft" && idx > 0){
+        e.preventDefault(); focusDigit(idx-1);
+      }
+      if(e.key === "ArrowRight" && idx < digitIds.length-1){
+        e.preventDefault(); focusDigit(idx+1);
+      }
+    });
+
+    el.addEventListener("paste", (e) => {
+      e.preventDefault();
+      const txt = (e.clipboardData || window.clipboardData).getData("text") || "";
+      const digits = txt.replace(/\D/g,"").slice(0,4).split("");
+      digits.forEach((ch, j) => {
+        const target = $(digitIds[j]);
+        if(target) target.value = ch;
+      });
+      // focus next empty
+      const joined = getCandidateNoFromSquares();
+      if(joined.length === 4) focusDigit(3);
+      else{
+        const firstEmpty = digitIds.findIndex(did => !$(did).value);
+        if(firstEmpty >= 0) focusDigit(firstEmpty);
+      }
+    });
+  });
+}
+wireDigitSquares();
+
+/* -----------------------------
+   Build paper (4 passages + 1 translation)
+--------------------------------*/
+function generateSelection(){
+  const passages = pickRandom(PASSAGES, 4);
+  const translation = pickRandom(TRANSLATIONS, 1)[0];
+  return { passages, translation };
+}
+function selectionSummary(sel){
+  const p = sel.passages.map(x=>`#${x.id}`).join(", ");
+  return `Passages: ${p} • Translation: ${sel.translation.id}`;
+}
+
+/* -----------------------------
+   Rendering
+--------------------------------*/
+function setBadge(text, cls="badge"){
+  const b = $("#statusBadge");
+  b.className = cls;
+  b.textContent = text;
+}
+
+function renderHome(){
+  $("#homeBody").classList.remove("hide");
+  $("#testBody").classList.add("hide");
+  $("#resultsBody").classList.add("hide");
+  $("#sideTitle").textContent = "Otono grading";
+  $("#sideMeta").textContent = "Score → Otono grade + GCSE estimate + Pass/Merit/Distinction.";
+  $("#sideBody").classList.remove("hide");
+  setBadge("Ready","badge");
+  $("#timerText").textContent = "--:--";
+}
+
+function renderResults(){
+  $("#homeBody").classList.add("hide");
+  $("#testBody").classList.add("hide");
+  $("#sideBody").classList.add("hide");
+  $("#resultsBody").classList.remove("hide");
+  $("#sideTitle").textContent = "Saved results";
+  $("#sideMeta").textContent = "Stored per candidate in this browser (localStorage).";
+  setBadge("Results","badge");
+  $("#timerText").textContent = "--:--";
+  drawResults();
+}
+
+function stopTimer(){
+  if(state.timer){
+    clearInterval(state.timer);
+    state.timer = null;
+  }
+}
+
+function startTimer(minutes){
+  stopTimer();
+  state.remainingSec = Math.max(1, Math.floor(minutes*60));
+  state.startedAt = Date.now();
+
+  const tick = () => {
+    if(state.submitted) return;
+    const m = Math.floor(state.remainingSec/60);
+    const s = state.remainingSec%60;
+    $("#timerText").textContent = `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+    state.remainingSec--;
+    if(state.remainingSec < 0){
+      stopTimer();
+      const auto = $("#autoSubmit").value === "yes";
+      if(auto) submitPaper(true);
+      else alert("Time is up. You can still submit manually.");
+    }
+  };
+
+  tick();
+  state.timer = setInterval(tick, 1000);
+}
+
+function renderTest(){
+  $("#homeBody").classList.add("hide");
+  $("#testBody").classList.remove("hide");
+  $("#resultsBody").classList.add("hide");
+  $("#sideBody").classList.remove("hide");
+
+  const candNameLine = [
+    state.candSurname ? state.candSurname : "",
+    state.candForenames ? state.candForenames : ""
+  ].filter(Boolean).join(", ");
+
+  const cand = `${state.candidateNo}${candNameLine ? " • " + candNameLine : ""}`;
+  $("#kpiCandidate").textContent = cand;
+  $("#kpiPassages").textContent = state.selection.passages.map(p=>`#${p.id}`).join(" ");
+  $("#kpiTranslation").textContent = state.selection.translation.id;
+
+  const shuffleMode = $("#shuffleMode").value;
+  const paper = $("#paper");
+  paper.innerHTML = "";
+
+  // reset per-paper MCQ mapping
+  state.mcqCorrectValue = {};
+
+  const sel = state.selection;
+  const themes = sel.passages.map(p => `${p.title} (${p.theme}, ${p.unit})`);
+  const head = document.createElement("div");
+  head.className = "note";
+  head.innerHTML = `<strong>Selected content</strong><br/>` +
+    themes.map(t => `• ${escapeHtml(t)}`).join("<br/>") +
+    `<br/>• ${escapeHtml(sel.translation.title)} (${escapeHtml(sel.translation.theme)})`;
+  paper.appendChild(head);
+
+  let allBlocks = [];
+
+  sel.passages.forEach(p => {
+    const block = document.createElement("div");
+    block.className = "card";
+    block.style.marginTop = "14px";
+
+    block.innerHTML = `
+      <div class="hd">
+        <div>
+          <h2>${escapeHtml(p.title)}</h2>
+          <div class="meta">${escapeHtml(p.theme)} • ${escapeHtml(p.unit)} • <strong>20 marks</strong></div>
+        </div>
+        <span class="badge">${escapeHtml("#"+p.id)}</span>
+      </div>
+      <div class="bd">
+        <div class="passage">${escapeHtml(p.text).replace(/\n/g,"<br/>")}</div>
+        <div class="divider"></div>
+        <div class="small">MCQ/choice options are always shuffled. Written answers are auto-marked using keyword coverage.</div>
+        <div class="qs"></div>
+      </div>
+    `;
+
+    const qs = block.querySelector(".qs");
+    let qsList = p.questions.slice();
+    if(shuffleMode === "shuffleAll") qsList = shuffle(qsList);
+
+    qsList.forEach(q => {
+      const qWrap = document.createElement("div");
+      qWrap.className = "q";
+      qWrap.dataset.qid = q.id;
+
+      const markTag = `<span class="badge" title="Marks for this question">${q.marks} marks</span>`;
+      const instruction = (q.type === "fr_short")
+        ? "Answer in German. Auto-mark uses keywords."
+        : (["mcq","pn","tfnm"].includes(q.type) ? "Select one option." : "Auto-mark uses keywords. Write concise, direct answers.");
+
+      qWrap.innerHTML = `
+        <h3>${escapeHtml(q.prompt)} ${markTag}</h3>
+        ${renderQuestion(q)}
+        <div class="small" style="margin-top:8px">${escapeHtml(instruction)}</div>
+      `;
+      qs.appendChild(qWrap);
+    });
+
+    allBlocks.push(block);
+  });
+
+  // Translation block
+  const t = sel.translation;
+  const tBlock = document.createElement("div");
+  tBlock.className = "card";
+  tBlock.style.marginTop = "14px";
+  tBlock.innerHTML = `
+    <div class="hd">
+      <div>
+        <h2>${escapeHtml(t.title)}</h2>
+        <div class="meta">${escapeHtml(t.theme)} • <strong>20 marks</strong></div>
+      </div>
+      <span class="badge">TRANSLATION</span>
+    </div>
+    <div class="bd">
+      <div class="passage">${escapeHtml(t.text)}</div>
+      <div class="divider"></div>
+      <div class="q" data-qid="translation">
+        <h3>Translate into German (write naturally). <span class="badge">20 marks</span></h3>
+        <textarea id="ans_translation" placeholder="Type your German translation here..."></textarea>
+        <div class="small" style="margin-top:8px">Auto-mark checks key ideas. It’s strict: include the meaning clearly.</div>
+      </div>
+    </div>
+  `;
+  allBlocks.push(tBlock);
+
+  allBlocks.forEach(b => paper.appendChild(b));
+
+  bindInputs();
+
+  const mins = parseInt($("#timeAllowed").value,10);
+  startTimer(mins);
+  state.submitted = false;
+
+  $("#markingBox").classList.add("hide");
+  $("#markingBox").innerHTML = "";
+  setBadge("In progress","badge warn");
+}
+
+function renderQuestion(q){
+  if(q.type === "mcq"){
+    const opts = q.options.map((text, idx) => ({ text, isCorrect: idx === q.answerIndex }));
+    return renderChoice(q, opts);
+  }
+
+  if(q.type === "mcq_reason"){
+    const mainQ = {
+      id: q.id,
+      options: q.options,
+      answerIndex: q.answerIndex
+    };
+
+    const reasonQ = {
+      id: q.id + "_reason",
+      options: q.reasonOptions,
+      answerIndex: q.reasonAnswerIndex
+    };
+
+    const mainOpts = mainQ.options.map((text, idx) => ({
+      text,
+      isCorrect: idx === mainQ.answerIndex
+    }));
+
+    const reasonOpts = reasonQ.options.map((text, idx) => ({
+      text,
+      isCorrect: idx === reasonQ.answerIndex
+    }));
+
+    return `
+      <div>
+        ${renderChoice(mainQ, mainOpts)}
+      </div>
+      <div style="margin-top:12px">
+        <div class="small" style="margin-bottom:6px"><strong>${escapeHtml(q.reasonPrompt)}</strong></div>
+        ${renderChoice(reasonQ, reasonOpts)}
+      </div>
+    `;
+  }
+
+  if(q.type === "pn"){
+    const key = q.correct ?? q.answer;
+    const opts = [
+      { text:"P", isCorrect: key === "P" },
+      { text:"N", isCorrect: key === "N" },
+      { text:"P+N", isCorrect: key === "P+N" }
+    ];
+    return renderChoice(q, opts);
+  }
+
+  if(q.type === "tfnm"){
+    const opts = [
+      { text:"True", isCorrect: q.correct === "True" },
+      { text:"False", isCorrect: q.correct === "False" },
+      { text:"Not mentioned", isCorrect: q.correct === "Not mentioned" }
+    ];
+    return renderChoice(q, opts);
+  }
+
+  if(q.type === "select_true"){
+    return renderSelectTrue(q);
+  }
+
+  if(q.type === "gap_fill_en"){
+    return renderGapFill(q);
+  }
+
+  // short / fr_short remain unchanged
+  return `<textarea id="ans_${q.id}" placeholder="${q.type === "fr_short" ? "Réponds en français..." : "Write your answer here..."}"></textarea>`;
+}
+
+function renderChoice(q, optionObjects){
+  const name = `ans_${q.id}`;
+
+  // ALWAYS shuffle choice options
+  const shuffled = shuffle(optionObjects);
+
+  // store which radio value is correct after shuffle
+  // value = index in shuffled array
+  const correctIndex = shuffled.findIndex(o => o.isCorrect);
+  state.mcqCorrectValue[q.id] = String(correctIndex);
+
+  return `
+    <div class="opts">
+      ${shuffled.map((opt, idx) => `
+        <label class="opt">
+          <input type="radio" name="${name}" value="${idx}" />
+          <div><div><strong>${String.fromCharCode(65+idx)}.</strong> ${escapeHtml(opt.text)}</div></div>
+        </label>
+      `).join("")}
+    </div>
+  `;
+}
+
+function renderSelectTrue(q){
+  return `
+    <div class="opts">
+      ${q.statements.map((text, idx) => `
+        <label class="opt">
+          <input type="checkbox" name="ans_${q.id}" value="${idx}" />
+          <div><strong>${String.fromCharCode(65+idx)}.</strong> ${escapeHtml(text)}</div>
+        </label>
+      `).join("")}
+    </div>
+  `;
+}
+
+function renderGapFill(q){
+  const blanks = q.answers.map((_, i) => `
+    <div>
+      <label>Blank ${i + 1}</label>
+      <input type="text" id="ans_${q.id}_${i}" placeholder="Type answer for blank ${i + 1}" />
+    </div>
+  `).join("");
+
+  return `
+    <div class="note" style="margin-bottom:10px">
+      ${escapeHtml(q.summary)}
+    </div>
+    <div class="row">
+      ${blanks}
+    </div>
+  `;
+}
+
+function bindInputs(){
+  // radio buttons
+  $$("input[type='radio']").forEach(r => {
+    r.addEventListener("change", () => {
+      const qid = r.name.replace("ans_","");
+      state.answers[qid] = r.value;
+    });
+  });
+
+  // textareas (short, fr_short, translation)
+  $$("textarea").forEach(t => {
+    t.addEventListener("input", () => {
+      const id = t.id.replace("ans_","");
+      state.answers[id] = t.value;
+    });
+  });
+
+  // checkboxes (select_true)
+  $$("input[type='checkbox']").forEach(c => {
+    c.addEventListener("change", () => {
+      const qid = c.name.replace("ans_","");
+      const selected = $$(`input[name="ans_${qid}"]:checked`).map(x => x.value);
+      state.answers[qid] = selected;
+    });
+  });
+
+  // gap fill inputs
+  $$("input[id^='ans_']").forEach(inp => {
+    if(inp.type === "radio" || inp.type === "checkbox") return;
+    if(inp.classList.contains("digit")) return;
+    if(inp.id === "ans_translation") return;
+    if(inp.tagName.toLowerCase() !== "input") return;
+
+    inp.addEventListener("input", () => {
+      const match = inp.id.match(/^ans_(.+)_(\d+)$/);
+      if(!match) return;
+
+      const qid = match[1];
+      const idx = Number(match[2]);
+
+      if(!Array.isArray(state.answers[qid])) state.answers[qid] = [];
+      state.answers[qid][idx] = inp.value;
+    });
+  });
+}
+
+/* -----------------------------
+   Auto marking
+--------------------------------*/
+function markMcqReason(q){
+  const main = markChoice(q.id, state.answers[q.id], q.marks / 2);
+  const reason = markChoice(q.id + "_reason", state.answers[q.id + "_reason"], q.marks / 2);
+
+  return {
+    score: main.score + reason.score,
+    max: q.marks,
+    detail: `Main answer: ${main.detail} Reason: ${reason.detail}`
+  };
+}
+
+function markSelectTrue(q, userAnswer){
+  const chosen = Array.isArray(userAnswer) ? userAnswer.map(Number) : [];
+  const correct = q.correctIndices || [];
+  const totalCorrect = correct.length;
+
+  const correctSet = new Set(correct);
+
+  const correctChosen = chosen.filter(x => correctSet.has(x)).length;
+  const wrongChosen = chosen.filter(x => !correctSet.has(x)).length;
+
+  // softer penalty (half mark per wrong instead of full)
+  let raw = correctChosen - (0.5 * wrongChosen);
+  raw = Math.max(0, raw);
+
+  const score = Math.round((raw / totalCorrect) * q.marks);
+
+  return {
+    score,
+    max: q.marks,
+    detail: `Correct selected: ${correctChosen}; wrong selected: ${wrongChosen}.`
+  };
+}
+
+function markGapFill(q, userAnswer){
+  const user = Array.isArray(userAnswer) ? userAnswer : [];
+  const expected = q.answers || [];
+
+  let hits = 0;
+
+  for(let i = 0; i < expected.length; i++){
+    const u = norm(user[i] || "");
+    const e = norm(expected[i] || "");
+    if(u && u === e) hits++;
+  }
+
+  const raw = (hits / expected.length) * q.marks;
+  const score = Math.round(raw * 2) / 2;
+
+  return {
+    score,
+    max: q.marks,
+    detail: `Correct blanks: ${hits}/${expected.length}.`
+  };
+}
+
+function tokenOverlap(text, phrase){
+  const textTokens = new Set(norm(text).split(" ").filter(Boolean));
+  const phraseTokens = norm(phrase).split(" ").filter(Boolean);
+  const matched = phraseTokens.filter(tok => textTokens.has(tok)).length;
+  return phraseTokens.length ? matched / phraseTokens.length : 0;
+}
+
+function expectedDetailCount(marks){
+  if(marks === 2) return 1;
+  if(marks === 4) return 2;
+  if(marks === 6) return 3;
+  if(marks === 8) return 4;
+  return null;
+}
+
+function markShortAnswer(q, userText){
+  const t = norm(userText);
+  if(!t) return {score:0, max:q.marks, detail:"Blank answer."};
+
+  const groups = q.keywords || [];
+  if(groups.length === 0) return {score:0, max:q.marks, detail:"No keyword rubric set."};
+
+  let hits = 0;
+  let matchedGroups = [];
+
+  groups.forEach((group, i) => {
+    const found = group.some(k => {
+      const nk = norm(k);
+      return t.includes(nk) || tokenOverlap(t, k) >= 0.7;
+    });
+    if(found){
+      hits++;
+      matchedGroups.push(i + 1);
+    }
+  });
+
+  const expected = expectedDetailCount(q.marks) || groups.length;
+  const countedHits = Math.min(hits, expected);
+  const per = q.marks / expected;
+  const raw = countedHits * per;
+  const score = Math.max(0, Math.min(q.marks, Math.round(raw * 2) / 2));
+
+  let detail = `Keyword groups matched: ${hits}/${groups.length}; counted: ${countedHits}/${expected}.`;
+  if(matchedGroups.length) detail += ` Matched groups: ${matchedGroups.join(", ")}.`;
+  if(q.rubric) detail += ` Expected: ${q.rubric}`;
+
+  return {score, max:q.marks, detail};
+}
+
+function markChoice(qid, chosenValue, marks){
+  const correctValue = state.mcqCorrectValue[qid];
+  const ok = String(chosenValue ?? "") === String(correctValue);
+  return {
+    score: ok ? marks : 0,
+    max: marks,
+    detail: ok ? "Correct." : "Incorrect."
+  };
+}
+
+function markTranslation(tObj, userText){
+  const t = norm(userText);
+  if(!t) return {score:0, max:20, detail:"Blank translation."};
+
+  let hits = 0;
+  const ideas = tObj.keyIdeas || [];
+  ideas.forEach(group => {
+    const ok = group.some(k => t.includes(norm(k)));
+    if(ok) hits++;
+  });
+
+  // 5 ideas × 4 marks
+  const score = Math.min(20, hits * 4);
+  const detail = `Key ideas matched: ${hits}/${ideas.length}. (4 marks each)`;
+  return {score, max:20, detail};
+}
+
+function computeTotal(){
+  let total = 0;
+  let breakdown = [];
+
+  state.selection.passages.forEach(p => {
+    p.questions.forEach(q => {
+      const ans = state.answers[q.id];
+      let res;
+
+      if(["mcq","pn","tfnm"].includes(q.type)){
+          res = markChoice(q.id, ans, q.marks);
+        }else if(q.type === "mcq_reason"){
+          res = markMcqReason(q);
+        }else if(q.type === "select_true"){
+          res = markSelectTrue(q, ans);
+        }else if(q.type === "gap_fill_en"){
+          res = markGapFill(q, ans);
+        }else{
+          res = markShortAnswer(q, ans);
+        }
+
+      total += res.score;
+      breakdown.push({
+        qid: q.id,
+        passageId: p.id,
+        type: q.type,
+        prompt: q.prompt,
+        score: res.score,
+        max: res.max,
+        detail: res.detail
+      });
+    });
+  });
+
+  const tAns = state.answers["translation"] ?? $("#ans_translation")?.value ?? "";
+  const tRes = markTranslation(state.selection.translation, tAns);
+  total += tRes.score;
+  breakdown.push({
+    qid: "translation",
+    passageId: "translation",
+    type: "translation",
+    prompt: "Translate into German",
+    score: tRes.score,
+    max: tRes.max,
+    detail: tRes.detail
+  });
+
+   const totalRounded = Math.round(total*10)/10;
+
+  // ✅ Secret S unlock: perfect paper + Passage 18 selected = +1 bonus
+  let finalTotal = totalRounded;
+  const unlockS = (finalTotal === 100) && hasPassage(state.selection, 19);
+
+  if(unlockS){
+    finalTotal = 101;
+    breakdown.push({
+      qid: "bonus_s",
+      passageId: 19,
+      type: "bonus",
+      prompt: "Secret bonus: perfect paper + Passage 19 selected",
+      score: 1,
+      max: 1,
+      detail: "Unlocked Grade S bonus (+1)."
+    });
+  }
+
+  // keep 'max' as 100 (base marks), bonus sits on top
+  return { total: finalTotal, max: 100, breakdown };
+}
+
+/* -----------------------------
+   Submission + saving
+--------------------------------*/
+function submitPaper(fromAutoTimer=false){
+  if(state.submitted) return;
+
+let { total, max, breakdown } = computeTotal();
+
+// Secret S bonus: only if perfect 100 AND Passage 19 selected
+const unlockS = (total === 100) && hasPassage(state.selection, 19);
+if (unlockS) {
+  total = 101;
+  breakdown.push({
+    qid: "bonus_s",
+    passageId: 19,
+    type: "bonus",
+    prompt: "Secret bonus: perfect paper + Passage 19 selected",
+    score: 1,
+    max: 1,
+    detail: "Unlocked Grade S bonus (+1)."
+  });
+}
+
+  state.submitted = true;
+  stopTimer();
+
+  const letter = otonoLetterGrade(total);
+  const pmd = passMeritDistinction(total);
+  const gcse = gcseEstimate(total);
+  const [badgeCls, badgeText] = badgeForScore(total);
+
+  const attempt = {
+    paper: "Otono German Reading (SAM) • November 2025",
+    centre: state.centreNo,
+    candidateNo: String(state.candidateNo),
+    candidateSurname: state.candSurname || "",
+    candidateForenames: state.candForenames || "",
+    submittedAt: nowISO(),
+    timeAllowedMin: parseInt($("#timeAllowed").value,10),
+    selectedPassages: state.selection.passages.map(p=>p.id),
+    selectedTranslation: state.selection.translation.id,
+    score: total,
+    maxScore: max,
+    otonoGrade: letter,
+    gcseEstimated: gcse,
+    outcome: pmd,
+    breakdown
+  };
+  addResult(attempt);
+
+  const nameLine = [attempt.candidateSurname, attempt.candidateForenames].filter(Boolean).join(", ");
+
+  const box = $("#markingBox");
+  box.classList.remove("hide");
+  box.className = "";
+  box.innerHTML = `
+    <div class="card">
+      <div class="hd">
+        <div>
+          <h2>✅ Marked${fromAutoTimer ? " (auto-submitted)" : ""}</h2>
+          <div class="meta">Saved to Results • Centre ${escapeHtml(attempt.centre)} • Candidate ${escapeHtml(attempt.candidateNo)}${nameLine ? " • " + escapeHtml(nameLine) : ""}</div>
+        </div>
+        <span class="${badgeCls}">${escapeHtml(badgeText)}</span>
+      </div>
+      <div class="bd">
+        <div class="kpi">
+          <div class="box"><div class="t">Score</div><div class="v">${attempt.score} / ${attempt.maxScore}</div></div>
+          <div class="box"><div class="t">Otono grade</div><div class="v">${escapeHtml(attempt.otonoGrade)}</div></div>
+          <div class="box"><div class="t">GCSE estimate</div><div class="v">${escapeHtml(String(attempt.gcseEstimated))}</div></div>
+          <div class="box"><div class="t">Outcome</div><div class="v">${escapeHtml(attempt.outcome)}</div></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="note">
+          <strong>Marking notes</strong><br/>
+          • MCQ / P-N / TFNM are exact (options are shuffled).<br/>
+          • Written + translation are keyword-based. If you used very different wording, it may under-mark.
+        </div>
+
+        <div class="divider"></div>
+
+        <button class="btn" id="btnShowBreakdown">Show question breakdown</button>
+        <div id="breakdown" class="hide" style="margin-top:12px"></div>
+
+        <div class="divider"></div>
+
+        <div class="note">
+          <strong>Translation model answer (for reference)</strong><br/>
+          ${escapeHtml(state.selection.translation.sampleAnswer)}
+        </div>
+      </div>
+    </div>
+  `;
+
+  $("#btnShowBreakdown").addEventListener("click", () => {
+    const bd = $("#breakdown");
+    bd.classList.toggle("hide");
+    if(!bd.classList.contains("hide")){
+      bd.innerHTML = breakdown.map(b => `
+        <div class="attempt">
+          <div class="top">
+            <div><strong>${escapeHtml(b.qid)}</strong> • ${escapeHtml(String(b.type))}</div>
+            <div><span class="badge">${b.score} / ${b.max}</span></div>
+          </div>
+          <div class="meta">
+            <div><strong>Prompt:</strong> ${escapeHtml(b.prompt)}</div>
+            <div><strong>Marker:</strong> ${escapeHtml(b.detail)}</div>
+          </div>
+        </div>
+      `).join("");
+    }
+  });
+
+  setBadge("Submitted","badge good");
+}
+
+/* -----------------------------
+   Results UI
+--------------------------------*/
+function drawResults(){
+  const listEl = $("#resultsList");
+  const all = loadResults();
+  const filter = ($("#filterCandidate").value || "").replace(/\D/g,"").slice(0,4);
+
+  const filtered = filter ? all.filter(a => String(a.candidateNo) === String(filter)) : all;
+
+  if(filtered.length === 0){
+    listEl.innerHTML = `<div class="note">No stored attempts${filter ? " for this candidate" : ""} yet.</div>`;
+    return;
+  }
+
+  listEl.innerHTML = filtered.map(a => {
+    const [cls, txt] = badgeForScore(a.score);
+    const nameLine = [a.candidateSurname, a.candidateForenames].filter(Boolean).join(", ");
+    return `
+      <div class="attempt">
+        <div class="top">
+          <div>
+            <strong>${escapeHtml(a.candidateNo)}</strong>${nameLine ? " • " + escapeHtml(nameLine) : ""}
+            <span class="badge" style="margin-left:8px">Centre ${escapeHtml(a.centre)}</span>
+          </div>
+          <div class="${cls}">${escapeHtml(txt)} • ${escapeHtml(String(a.score))}/100</div>
+        </div>
+        <div class="meta">
+          <div><strong>Date:</strong> ${escapeHtml(new Date(a.submittedAt).toLocaleString())}</div>
+          <div><strong>Selection:</strong> Passages ${escapeHtml(a.selectedPassages.join(", "))} • Translation ${escapeHtml(a.selectedTranslation)}</div>
+          <div><strong>Grades:</strong> Otono ${escapeHtml(a.otonoGrade)} • GCSE ${escapeHtml(String(a.gcseEstimated))} • ${escapeHtml(a.outcome)}</div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function exportResults(){
+  const all = loadResults();
+  $("#exportText").textContent = JSON.stringify(all, null, 2);
+  $("#exportBox").classList.remove("hide");
+}
+
+function clearResults(){
+  if(!confirm("Clear ALL stored Otono German results on this browser?")) return;
+  localStorage.removeItem(STORE_KEY);
+  drawResults();
+  $("#exportBox").classList.add("hide");
+}
+
+/* -----------------------------
+   Buttons / navigation
+--------------------------------*/
+$("#btnHome").addEventListener("click", () => {
+  state.mode = "home";
+  renderHome();
+});
+
+$("#btnResults").addEventListener("click", () => {
+  state.mode = "results";
+  renderResults();
+});
+
+$("#btnPreview").addEventListener("click", () => {
+  const c = getCandidateNoFromSquares();
+  if(!c){
+    alert("Enter a candidate number first.");
+    return;
+  }
+  const sel = generateSelection();
+  const box = $("#previewBox");
+  box.classList.remove("hide");
+  box.innerHTML = `<strong>Preview (not started):</strong><br/>${escapeHtml(selectionSummary(sel))}<br/>` +
+    sel.passages.map(p => `• ${escapeHtml(p.title)} (${escapeHtml(p.theme)})`).join("<br/>") +
+    `<br/>• ${escapeHtml(sel.translation.title)} (${escapeHtml(sel.translation.theme)})`;
+});
+
+$("#btnStart").addEventListener("click", () => {
+  const c = getCandidateNoFromSquares();
+  if(!c){
+    alert("Candidate number is required.");
+    focusDigit(0);
+    return;
+  }
+
+  state.candidateNo = c;
+  state.candSurname = ($("#candSurname").value || "").trim();
+  state.candForenames = ($("#candForenames").value || "").trim();
+
+  state.selection = generateSelection();
+  state.answers = {};
+  renderTest();
+});
+
+$("#btnSubmit").addEventListener("click", () => submitPaper(false));
+
+$("#btnReset").addEventListener("click", () => {
+  if(!confirm("Reset this paper and generate a NEW random test? Your current answers will be lost.")) return;
+  stopTimer();
+  state.answers = {};
+  state.submitted = false;
+  state.selection = generateSelection();
+  renderTest();
+});
+
+/* Results filters & tabs */
+$("#filterCandidate").addEventListener("input", (e) => {
+  e.target.value = e.target.value.replace(/\D/g,"").slice(0,4);
+  drawResults();
+});
+
+$("#tabAll").addEventListener("click", () => {
+  $("#tabAll").classList.add("active");
+  $("#tabCandidate").classList.remove("active");
+  $("#filterCandidate").value = "";
+  drawResults();
+});
+
+$("#tabCandidate").addEventListener("click", () => {
+  $("#tabCandidate").classList.add("active");
+  $("#tabAll").classList.remove("active");
+  $("#filterCandidate").focus();
+});
+
+$("#btnExport").addEventListener("click", exportResults);
+$("#btnClear").addEventListener("click", clearResults);
+
+/* Initial */
+setCentre("50749");
+renderHome();
+
+/* -----------------------------
+   Anti-cheat / source protection
+   (as requested)
+--------------------------------*/
+const disabledKeys = ["u", "I"];
+const showAlert = e => {
+  e.preventDefault();
+  return alert("Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!");
+};
+document.addEventListener("contextmenu", e => { showAlert(e); });
+document.addEventListener("keydown", e => {
+  if ((e.ctrlKey && disabledKeys.includes(e.key)) || e.key === "F12") {
+    showAlert(e);
+  }
+});
+</script>
+
+</body>
+</html>
