@@ -381,342 +381,344 @@
 
 // ✅ UPDATED: P/N/P+N questions restored + each passage now totals 20 marks
 // ✅ NOT every passage has 6 questions anymore (some have 5, some 7)
-// ✅ ALL questions + rubrics are in ENGLISH (only prompts marked “En español” require Spanish answers)
+// ✅ ALL questions + rubrics are in ENGLISH (only prompts marked “En espagnol” require Spanish answers)
 
 const PASSAGES = [
   {
     id: 1,
-  title: "Passage 1 — Señor Barley y el cinturón marrón",
+    title: "Passage 1 — El señor Barley y el cinturón marrón",
     theme: "Theme 1 — School",
     unit: "Science teacher",
-    text: `El señor Barley enseña ciencias en el colegio Otono. Red dice que es su profesor favorito, porque explica las ideas difíciles con ejemplos sencillos. A menudo lleva un cinturón marrón, y ese cinturón casi se ha vuelto famoso en la clase.
+    text: `El señor Barley enseña ciencias en el colegio Otono. Red dice que es su profesor favorito porque explica las ideas difíciles con ejemplos sencillos. A menudo lleva un cinturón marrón, y ese cinturón casi se ha vuelto famoso en la clase.
 
-Durante las clases, al señor Barley le gustan los experimentos prácticos. Los alumnos deben escuchar, escribir con claridad y guardar el material al final. Antes de cada prueba, también repite una instrucción muy importante: hay que usar tinta negra o un bolígrafo negro. Según él, los exámenes son más fáciles de leer y el escaneo funciona mejor.
+Durante las clases, al señor Barley le gustan los experimentos prácticos. Los alumnos deben escuchar, escribir con claridad y recoger el material al final. Antes de cada prueba, también repite una instrucción muy importante: hay que usar tinta negra o un bolígrafo negro. Según él, los exámenes son más fáciles de leer y el escaneo funciona mejor.
 
-Red encuentra útiles estas reglas. Piensa que el señor Barley es estricto, pero justo. Para Red, un profesor que explica bien puede cambiar el ambiente de toda una asignatura.`,
+Red considera útiles estas reglas. Piensa que el señor Barley es estricto, pero justo. Para Red, un profesor que explica bien puede cambiar el ambiente de toda una asignatura.`,
     questions: [
-      {id:"p1q1",type:"mcq",marks:2,prompt:"(E) What subject does Mr Barley teach?",options:["Science","Maths","French","Geography"],answerIndex:0},
-      {id:"p1q2",type:"mcq",marks:2,prompt:"(E) What colour is Mr Barley’s belt?",options:["Black","Brown","Purple","Yellow"],answerIndex:1},
+      {id:"p1q1",type:"mcq",marks:1,prompt:"(E) What subject does Mr Barley teach?",options:["Science","Maths","French","Geography"],answerIndex:0},
+      {id:"p1q2",type:"mcq",marks:1,prompt:"(E) What colour is Mr Barley’s belt?",options:["Black","Brown","Purple","Yellow"],answerIndex:1},
       {id:"p1q3",type:"mcq",marks:2,prompt:"(E) Why does Red like Mr Barley?",options:["He explains difficult ideas simply","He gives no work","He hates science","He cancels every test"],answerIndex:0},
       {id:"p1q4",type:"tfnm",marks:2,prompt:"(E) Mr Barley always wears a brown belt outside school. (True / False / Not mentioned)",correct:"Not mentioned"},
-      {id:"p1q5",type:"pn",marks:2,prompt:"(E) Red’s view of Mr Barley is… (P / N / P+N)",answer:"P"},
-      {id:"p1q6",type:"fr_short",marks:4,prompt:"(M) En español : ¿Por qué a Red le gusta el señor Barley?",rubric:"Porque explica las ideas difíciles de forma sencilla.",keywords:[["explique"],["ideas","difíciles"],["sencilla","sencillo","simple"]],model:"A Red le gusta el señor Barley porque explica las ideas difíciles de forma sencilla."},
-      {id:"p1q7",type:"short",marks:6,prompt:"(E) Give TWO reasons why Mr Barley’s rules are useful.",rubric:"Any two: copies easier to read; scans work better; lessons are organised; students know what to do.",keywords:[["read","easier","lisible","facile"],["scan","scanned","scanning"],["organised","organized","rangé","order"],["know","what to do","clear","claire"]]}
+      {id:"p1q5",type:"pn",marks:3,prompt:"(E) Red’s view of Mr Barley is… (P / N / P+N)",answer:"P"},
+      {id:"p1q6",type:"es_short",marks:4,prompt:"(M) En español: ¿Por qué a Red le gusta el señor Barley?",rubric:"Porque explica las ideas difíciles de forma sencilla.",keywords:[["explique"],["ideas","difíciles"],["sencillamente","sencillos"]],model:"A Red le gusta el señor Barley porque explica las ideas difíciles de forma sencilla."},
+      {id:"p1q7",type:"short",marks:7,prompt:"(E) Give TWO reasons why Mr Barley’s rules are useful.",rubric:"Any two: pruebas easier to read; scans work better; lessons are organised; students know what to do.",keywords:[["read","easier","lisible","facile"],["scan","scanned","scanning"],["organised","organized","rangé","order"],["know","what to do","clear","claire"]]}
     ]
   },
   {
     id: 2,
-  title: "Passage 2 — La señora Munn, el señor Young y el lápiz",
+    title: "Passage 2 — La señora Munn, el señor Young y el lápiz",
     theme: "Theme 1 — School",
     unit: "Exam rules",
     text: `La señora Munn es conocida por ser muy estricta. Antes de una prueba de matemáticas, lee las instrucciones lentamente. Los alumnos deben usar tinta negra o un bolígrafo negro. El lápiz está prohibido para las respuestas finales.
 
-El señor Young está de acuerdo con ella. Dice que si un examen está escrito a lápiz, puede ser difícil de escanear o demasiado claro. Por eso, los dos profesores explican una regla sencilla: si las respuestas están escritas a lápiz, no serán corregidas.
+El señor Young está de acuerdo con ella. Dice que, si un examen está escrito a lápiz, puede ser difícil de escanear o demasiado claro. Por eso los dos profesores explican una regla sencilla: si las respuestas están escritas a lápiz, no se corregirán.
 
-Luke encuentra lógica esta regla, porque le gustan las instrucciones precisas. Red piensa que es severa, pero entiende el riesgo. Nadie quiere perder puntos por culpa de un bolígrafo.`,
+Luke cree que esta regla es lógica, porque le gustan las instrucciones precisas. Red piensa que es severa, pero comprende el riesgo. Nadie quiere perder puntos por culpa de un bolígrafo.`,
     questions: [
-      {id:"p2q1",type:"mcq",marks:2,prompt:"(E) What is Mrs Munn known for?",options:["Being very strict","Being late","Being quiet","Being relaxed about every rule"],answerIndex:0},
-      {id:"p2q2",type:"mcq",marks:2,prompt:"(E) Which teacher agrees with Mrs Munn?",options:["Mr Barley","Mr Young","Mr Ribbon Cutter","Gary"],answerIndex:1},
+      {id:"p2q1",type:"mcq",marks:1,prompt:"(E) What is Mrs Munn known for?",options:["Being very strict","Being late","Being quiet","Being relaxed about every rule"],answerIndex:0},
+      {id:"p2q2",type:"mcq",marks:1,prompt:"(E) Which teacher agrees with Mrs Munn?",options:["Mr Barley","Mr Young","Mr Ribbon Cutter","Gary"],answerIndex:1},
       {id:"p2q3",type:"mcq",marks:2,prompt:"(E) What must students use?",options:["Black ink or black ball-point pen","Yellow pencil","Green highlighter only","Red pen"],answerIndex:0},
       {id:"p2q4",type:"tfnm",marks:2,prompt:"(E) Pencil is allowed for final answers. (True / False / Not mentioned)",correct:"False"},
-      {id:"p2q5",type:"pn",marks:2,prompt:"(E) Red’s view of the rule is… (P / N / P+N)",answer:"P+N"},
-      {id:"p2q6",type:"fr_short",marks:4,prompt:"(M) En español : ¿Por qué está prohibido el lápiz?",rubric:"Porque las respuestas pueden ser difíciles de escanear o demasiado claras.",keywords:[["scanner"],["claras","demasiado claras","pale"],["difíciles"]],model:"El lápiz está prohibido porque las respuestas pueden ser difíciles de escanear."},
-      {id:"p2q7",type:"short",marks:6,prompt:"(E) Why might pencil answers not be marked? Give TWO ideas.",rubric:"Any two: hard to scan; too pale; final answers must be in black ink; rule says pencil is banned.",keywords:[["scan","scanned","scanner"],["pale","light","faint"],["black ink","black pen","encre noire"],["banned","not allowed","interdit"]]}
+      {id:"p2q5",type:"pn",marks:3,prompt:"(E) Red’s view of the rule is… (P / N / P+N)",answer:"P+N"},
+      {id:"p2q6",type:"es_short",marks:4,prompt:"(M) En español: ¿Por qué está prohibido el lápiz?",rubric:"Porque las respuestas pueden ser difíciles de escanear o demasiado claras.",keywords:[["scanner"],["claras","pale"],["difíciles"]],model:"El lápiz está prohibido porque las respuestas pueden ser difíciles de escanear."},
+      {id:"p2q7",type:"short",marks:7,prompt:"(E) Why might pencil answers not be marked? Give TWO ideas.",rubric:"Any two: hard to scan; too pale; final answers must be in black ink; rule says pencil is banned.",keywords:[["scan","scanned","scanner"],["pale","light","faint"],["black ink","black pen","tinta negra"],["banned","not allowed","interdit"]]}
     ]
   },
   {
     id: 3,
-  title: "Passage 3 — Ochenta y Emmanuel setenta y ocho",
+    title: "Passage 3 — Ochenta y Emmanuel setenta y ocho",
     theme: "Theme 1 — School",
     unit: "Maths results",
     text: `En la clase de matemáticas, el número ochenta se ha vuelto casi legendario. Para Red, sacar 80 de 80 es más que un buen resultado: es la prueba de que un examen es perfecto. Cuando saca 79, está contento durante dos segundos y luego piensa en el punto perdido.
 
 Un día, la señora Munn anuncia varios resultados. Dice: «Emmanuel, setenta y ocho». La clase sonríe, porque 78 es excelente, pero Red sigue pensando en el número 80. Para él, 78 está muy bien, pero 80 es otro mundo.
 
-La señora Munn recuerda que el progreso es más importante que la obsesión. Red escucha, pero mantiene su objetivo secreto: ver otro 80 en su examen.`,
+La señora Munn recuerda a la clase que el progreso es más importante que la obsesión. Red escucha, pero mantiene su objetivo secreto: ver otro 80 en su examen.`,
     questions: [
-      {id:"p3q1",type:"mcq",marks:2,prompt:"(E) What score is almost legendary?",options:["66","78","79","80"],answerIndex:3},
-      {id:"p3q2",type:"mcq",marks:2,prompt:"(E) What score does Emmanuel get?",options:["66","78","79","80"],answerIndex:1},
+      {id:"p3q1",type:"mcq",marks:1,prompt:"(E) What score is almost legendary?",options:["66","78","79","80"],answerIndex:3},
+      {id:"p3q2",type:"mcq",marks:1,prompt:"(E) What score does Emmanuel get?",options:["66","78","79","80"],answerIndex:1},
       {id:"p3q3",type:"mcq",marks:2,prompt:"(E) Why is 80 special for Red?",options:["It means a perfect paper","It means he failed","It is his candidate number","It is the room number"],answerIndex:0},
-      {id:"p3q4",type:"tfnm",marks:2,prompt:"(E) Emmanuel is angry after hearing his result. (True / False / Not mentioned)",correct:"Not mentioned"},
-      {id:"p3q5",type:"pn",marks:2,prompt:"(E) Red’s view of 79 is… (P / N / P+N)",answer:"N"},
-      {id:"p3q6",type:"fr_short",marks:4,prompt:"(M) En español : ¿Cuál es el objetivo secreto de Red?",rubric:"Ver / conseguir otro 80 en su examen.",keywords:[["80"],["examen","papel"],["conseguir","obtener","ver"]]},
-      {id:"p3q7",type:"short",marks:6,prompt:"(E) Give TWO views about the score 78 in the passage.",rubric:"78 is excellent / the class smiles / Red thinks it is very good / but Red thinks 80 is another world.",keywords:[["excellent","very good","très bon"],["class","smiles","sourit"],["80","another world","autre monde"],["red","thinks","pense"]]}
+      {id:"p3q4",type:"tfnm",marks:3,prompt:"(E) Emmanuel is angry after hearing his result. (True / False / Not mentioned)",correct:"Not mentioned"},
+      {id:"p3q5",type:"pn",marks:3,prompt:"(E) Red’s view of 79 is… (P / N / P+N)",answer:"N"},
+      {id:"p3q6",type:"es_short",marks:4,prompt:"(M) En español: ¿Cuál es el objetivo secreto de Red?",rubric:"Ver / conseguir otro 80 en su examen.",keywords:[["80"],["examen","prueba"],["conseguir","ver"]]},
+      {id:"p3q7",type:"short",marks:6,prompt:"(E) Give TWO views about the score 78 in the passage.",rubric:"78 is excellent / the class smiles / Red thinks it is very good / but Red thinks 80 is another world.",keywords:[["excellent","very good","muy bueno"],["class","smiles","sonríe"],["80","another world","otro mundo"],["red","thinks","piensa"]]}
     ]
   },
   {
     id: 4,
-  title: "Passage 4 — Clayton y el GCSE de matemáticas por adelantado",
+    title: "Passage 4 — Clayton y el GCSE de matemáticas por adelantado",
     theme: "Theme 1 — School",
     unit: "Early exams",
     text: `Clayton hizo su GCSE de matemáticas muy pronto, en Year 10. A muchos alumnos les parece impresionante, pero el detalle más sorprendente es su puntuación: 160 de 160. Eso significa que obtuvo el 100% en los dos exámenes.
 
-OWing no siempre sabe cómo reaccionar. Por un lado, respeta el resultado, porque hay que ser muy bueno para tener éxito tan pronto. Por otro lado, le parece que Clayton a veces habla demasiado de su puntuación.
+OWing no siempre sabe cómo reaccionar. Por un lado, respeta el resultado, porque hay que ser muy bueno para tener éxito tan pronto. Por otro lado, cree que Clayton a veces habla demasiado de su nota.
 
-Para la señora Munn, el resultado demuestra una cosa sencilla: la precisión cuenta. Dice que incluso los alumnos muy fuertes deben leer cada pregunta con atención. Una puntuación perfecta no viene solo del talento, sino también del método.`,
+Para la señora Munn, el resultado demuestra una cosa sencilla: la precisión importa. Dice que incluso los alumnos muy fuertes deben leer cada pregunta con atención. Una puntuación perfecta no viene solo del talento, sino también del método.`,
     questions: [
-      {id:"p4q1",type:"mcq",marks:2,prompt:"(E) When did Clayton take GCSE Maths?",options:["Year 7","Year 8","Year 10","Year 13"],answerIndex:2},
-      {id:"p4q2",type:"mcq",marks:2,prompt:"(E) What was Clayton’s score?",options:["78/80","80/80","160/160","159/160"],answerIndex:2},
+      {id:"p4q1",type:"mcq",marks:1,prompt:"(E) When did Clayton take GCSE Maths?",options:["Year 7","Year 8","Year 10","Year 13"],answerIndex:2},
+      {id:"p4q2",type:"mcq",marks:1,prompt:"(E) What was Clayton’s score?",options:["78/80","80/80","160/160","159/160"],answerIndex:2},
       {id:"p4q3",type:"mcq",marks:2,prompt:"(E) What percentage did he get?",options:["78%","90%","99%","100%"],answerIndex:3},
-      {id:"p4q4",type:"tfnm",marks:2,prompt:"(E) OWing has mixed feelings about Clayton’s result. (True / False / Not mentioned)",correct:"True"},
-      {id:"p4q5",type:"pn",marks:2,prompt:"(E) The passage presents Clayton’s achievement as… (P / N / P+N)",answer:"P+N"},
+      {id:"p4q4",type:"tfnm",marks:3,prompt:"(E) OWing has mixed feelings about Clayton’s result. (True / False / Not mentioned)",correct:"True"},
+      {id:"p4q5",type:"pn",marks:3,prompt:"(E) The passage presents Clayton’s achievement as… (P / N / P+N)",answer:"P+N"},
       {id:"p4q6",type:"select_true",marks:4,prompt:"(E) Select TWO true statements.",statements:["Clayton took the exam early.","Clayton got 159/160.","Mrs Munn says precision matters.","OWing thinks the result is fake."],correctIndices:[0,2],minSelect:2},
       {id:"p4q7",type:"short",marks:6,prompt:"(E) According to Mrs Munn, what helps create a perfect score? Give TWO ideas.",rubric:"Any two: precision; reading each question carefully; method; not only talent.",keywords:[["precision","précision"],["read","question","carefully","attention"],["method","méthode"],["talent","not only","pas seulement"]]}
     ]
   },
   {
     id: 5,
-  title: "Passage 5 — Hokkaido, julio de 2024: la salida retrasada",
+    title: "Passage 5 — Hokkaido, julio de 2024: la salida retrasada",
     theme: "Theme 3 — Travel",
     unit: "Hokkaido trip 1",
-    text: `En julio de 2024, una parte del Otono Team va a Japón para visitar Hokkaido. El viaje tiene lugar en verano, no en invierno. En el aeropuerto de New Chitose, el grupo primero se entera de que la salida se retrasa hasta las 19:00. Más tarde, un segundo mensaje anuncia las 19:50.
+    text: `En julio de 2024, una parte del Otono Team viaja a Japón para visitar Hokkaido. El viaje se realiza en verano, no en invierno. En el aeropuerto de New Chitose, el grupo primero se entera de que la salida se retrasa hasta las 19:00. Más tarde, un segundo mensaje anuncia las 19:50.
 
 La espera es larga. El grupo entra en la zona de la puerta, pero el avión ni siquiera ha llegado todavía. Una hora después, lo ven llegar. Eso hace que el retraso parezca más real, pero también más interesante para quienes disfrutan mirando aviones.
 
 Luke no está con ellos. Se quedó en el Reino Unido. Jessica tampoco vino, porque odia Japón. Grandpa Belt no participó en el viaje.`,
     questions: [
-      {id:"p5q1",type:"mcq",marks:2,prompt:"(E) When was the Hokkaido trip?",options:["January 2024","July 2024","December 2025","July 2026"],answerIndex:1},
-      {id:"p5q2",type:"mcq",marks:2,prompt:"(E) What was the first delayed departure time?",options:["18:00","19:00","19:50","20:30"],answerIndex:1},
+      {id:"p5q1",type:"mcq",marks:1,prompt:"(E) When was the Hokkaido trip?",options:["January 2024","July 2024","December 2025","July 2026"],answerIndex:1},
+      {id:"p5q2",type:"mcq",marks:1,prompt:"(E) What was the first delayed departure time?",options:["18:00","19:00","19:50","20:30"],answerIndex:1},
       {id:"p5q3",type:"mcq",marks:2,prompt:"(E) What was the later delayed time?",options:["18:50","19:00","19:50","21:00"],answerIndex:2},
       {id:"p5q4",type:"mcq",marks:2,prompt:"(E) Who did not come because they hate Japan?",options:["Luke","Jessica","Grandpa Belt","Mr Barley"],answerIndex:1},
       {id:"p5q5",type:"tfnm",marks:2,prompt:"(E) The trip was in winter. (True / False / Not mentioned)",correct:"False"},
-      {id:"p5q6",type:"fr_short",marks:4,prompt:"(M) En español : ¿Qué pasó en el aeropuerto?",rubric:"El vuelo estaba retrasado y el avión llegó tarde.",keywords:[["retrasado","retrasada"],["avion"],["llegó","tarde"]],model:"El vuelo estaba retrasado y el avión llegó tarde."},
-      {id:"p5q7",type:"short",marks:8,prompt:"(E) Give TWO details about the delay at New Chitose Airport.",rubric:"Any two: first delayed to 19:00; then 19:50; plane had not arrived at the gate; they saw the aircraft arrive.",keywords:[["19:00","7pm"],["19:50","7:50"],["not arrived","had not arrived","plane was not there"],["saw","arrive","aircraft arrived","avion"]]}
+      {id:"p5q6",type:"es_short",marks:4,prompt:"(M) En español: ¿Qué pasó en el aeropuerto?",rubric:"El vuelo estaba retrasado y el avión llegó tarde.",keywords:[["retrasado"],["avión"],["llegó","tarde"]],model:"El vuelo estaba retrasado y el avión llegó tarde."},
+      {id:"p5q7",type:"short",marks:8,prompt:"(E) Give TWO details about the delay at New Chitose Airport.",rubric:"Any two: first delayed to 19:00; then 19:50; plane had not arrived at the gate; they saw the aircraft arrive.",keywords:[["19:00","7pm"],["19:50","7:50"],["not arrived","had not arrived","plane was not there"],["saw","arrive","aircraft arrived","avión"]]}
     ]
   },
   {
     id: 6,
-  title: "Passage 6 — Hokkaido: Kushiro y las opiniones diferentes",
+    title: "Passage 6 — Hokkaido: Kushiro y las opiniones diferentes",
     theme: "Theme 3 — Travel",
     unit: "Hokkaido trip 2",
-    text: `Durante el viaje a Hokkaido, a Red y a Lit les gusta mucho Kushiro. Encuentran la ciudad más tranquila que los grandes lugares turísticos. También les gustan el aire fresco, los paisajes abiertos y el ambiente sencillo. Para ellos, Kushiro se convierte en uno de los mejores recuerdos del viaje.
+    text: `Durante el viaje a Hokkaido, a Red y a Lit les gusta mucho Kushiro. Les parece una ciudad más tranquila que los grandes lugares turísticos. También les gustan el aire fresco, los paisajes abiertos y el ambiente sencillo. Para ellos, Kushiro se convierte en uno de los mejores recuerdos del viaje.
 
-OWing tiene una opinión más mezclada. Encuentra algunos paisajes magníficos, pero piensa que los días a veces son cansados. En julio hay mucha luz por la tarde, lo que hace que los paseos sean agradables, pero también da la impresión de que el día nunca termina.
+OWing tiene una opinión más mezclada. Le parecen magníficos algunos paisajes, pero piensa que los días a veces son cansados. En julio hay mucha luz por la tarde, lo que hace agradables los paseos, pero también da la impresión de que el día nunca termina.
 
-El grupo habla a menudo del viaje después de volver. Red dice que Kushiro fue quizá su lugar favorito. OWing no elige tan rápido, porque quiere comparar todos los días del viaje.`,
+El grupo habla a menudo del viaje después de volver. Red dice que Kushiro quizá fue su lugar favorito. OWing no elige tan rápido, porque quiere comparar todos los días del viaje.`,
     questions: [
-      {id:"p6q1",type:"mcq",marks:2,prompt:"(E) Which place does Red like a lot?",options:["Kushiro","Paris","Bath","Le Mans"],answerIndex:0},
-      {id:"p6q2",type:"mcq",marks:2,prompt:"(E) How does Red and Lit describe Kushiro?",options:["Calmer than big tourist places","Too loud","Completely boring","Impossible to visit"],answerIndex:0},
+      {id:"p6q1",type:"mcq",marks:1,prompt:"(E) Which place does Red like a lot?",options:["Kushiro","Paris","Bath","Le Mans"],answerIndex:0},
+      {id:"p6q2",type:"mcq",marks:1,prompt:"(E) How does Red and Lit describe Kushiro?",options:["Calmer than big tourist places","Too loud","Completely boring","Impossible to visit"],answerIndex:0},
       {id:"p6q3",type:"mcq",marks:2,prompt:"(E) What is OWing’s opinion?",options:["Mixed","Only negative","He hates all landscapes","He refuses to speak"],answerIndex:0},
-      {id:"p6q4",type:"tfnm",marks:2,prompt:"(E) There is a lot of evening light in July. (True / False / Not mentioned)",correct:"True"},
-      {id:"p6q5",type:"pn",marks:2,prompt:"(E) OWing’s view of the trip is… (P / N / P+N)",answer:"P+N"},
-      {id:"p6q6",type:"fr_short",marks:4,prompt:"(M) En español : ¿Por qué a Red le gusta Kushiro? Da UNA razón.",rubric:"Any one: es tranquilo; le gusta el aire fresco; los paisajes; el ambiente sencillo.",keywords:[["calme"],["aire","fresco"],["paisajes"],["ambiente","sencillo"]],model:"A Red le gusta Kushiro porque es tranquilo."},
+      {id:"p6q4",type:"tfnm",marks:3,prompt:"(E) There is a lot of evening light in July. (True / False / Not mentioned)",correct:"True"},
+      {id:"p6q5",type:"pn",marks:3,prompt:"(E) OWing’s view of the trip is… (P / N / P+N)",answer:"P+N"},
+      {id:"p6q6",type:"es_short",marks:4,prompt:"(M) En español: ¿Por qué a Red le gusta Kushiro? Da UNA razón.",rubric:"Cualquiera: es tranquilo; le gusta el aire fresco; los paisajes; el ambiente sencillo.",keywords:[["tranquilo"],["air","fresco"],["paisajes"],["ambiente","simple"]],model:"A Red le gusta Kushiro porque es tranquilo."},
       {id:"p6q7",type:"short",marks:6,prompt:"(E) Give TWO reasons why the long daylight is positive or negative.",rubric:"Positive: walks are pleasant. Negative: the day feels as if it never ends / it is tiring.",keywords:[["walk","promenade","pleasant","agréable"],["never ends","does not end","ne finit jamais"],["tiring","fatiguing","fatigue"]]}
     ]
   },
   {
     id: 7,
-  title: "Passage 7 — Hokkaido: el presupuesto y los recuerdos",
+    title: "Passage 7 — Hokkaido: el presupuesto y los recuerdos",
     theme: "Theme 3 — Travel",
     unit: "Hokkaido trip 3",
-    text: `Después del viaje a Hokkaido, el Otono Team revisa el presupuesto. Algunos hoteles eran razonables, pero Yoroushi era muy caro, casi cuatrocientas libras por noche. El grupo entiende que los lugares especiales suelen costar mucho más.
+    text: `Después del viaje a Hokkaido, el Otono Team revisa el presupuesto. Algunos hoteles eran razonables, pero Yoroushi era muy caro, casi cuatrocientas libras por noche. El grupo comprende que los lugares especiales suelen costar mucho más.
 
-A pesar del precio, varios recuerdos siguen siendo positivos. Las comidas eran interesantes, los paisajes eran muy diferentes del Reino Unido y los días daban la impresión de ser largos. Red todavía habla de Kushiro, mientras OWing analiza las ventajas y los inconvenientes.
+A pesar del precio, varios recuerdos siguen siendo positivos. Las comidas eran interesantes, los paisajes eran muy diferentes de los del Reino Unido y los días daban la impresión de ser largos. Red todavía habla de Kushiro, mientras OWing analiza las ventajas y las desventajas.
 
-El grupo decide que un buen viaje no es solo una cuestión de precio. También hay que pensar en los recuerdos, la comodidad, los retrasos y la organización.`,
+El grupo decide que un buen viaje no es solo cuestión de precio. También hay que pensar en los recuerdos, la comodidad, los retrasos y la organización.`,
     questions: [
-      {id:"p7q1",type:"mcq",marks:2,prompt:"(E) Which place was very expensive?",options:["Yoroushi","Kushiro Station","Le Mans","Otono Mansion"],answerIndex:0},
-      {id:"p7q2",type:"mcq",marks:2,prompt:"(E) Roughly how much was it per night?",options:["£40","£100","Nearly £400","Over £1000"],answerIndex:2},
+      {id:"p7q1",type:"mcq",marks:1,prompt:"(E) Which place was very expensive?",options:["Yoroushi","Kushiro Station","Le Mans","Otono Mansion"],answerIndex:0},
+      {id:"p7q2",type:"mcq",marks:1,prompt:"(E) Roughly how much was it per night?",options:["£40","£100","Nearly £400","Over £1000"],answerIndex:2},
       {id:"p7q3",type:"mcq",marks:2,prompt:"(E) What does the group learn?",options:["Special places often cost more","All hotels are free","Budgets do not matter","Japan has no hotels"],answerIndex:0},
       {id:"p7q4",type:"tfnm",marks:2,prompt:"(E) The passage says every memory was negative. (True / False / Not mentioned)",correct:"False"},
-      {id:"p7q5",type:"pn",marks:2,prompt:"(E) The final view of the trip budget is… (P / N / P+N)",answer:"P+N"},
+      {id:"p7q5",type:"pn",marks:3,prompt:"(E) The final view of the trip budget is… (P / N / P+N)",answer:"P+N"},
       {id:"p7q6",type:"select_true",marks:4,prompt:"(E) Select TWO true statements.",statements:["Yoroushi was almost £400 per night.","The landscapes were exactly like the UK.","Red still talks about Kushiro.","The group ignores organisation."],correctIndices:[0,2],minSelect:2},
-      {id:"p7q7",type:"short",marks:6,prompt:"(E) What should people consider when judging a trip? Give TWO ideas.",rubric:"Any two: price; memories; comfort; delays; organisation.",keywords:[["price","cost","prix"],["memories","souvenirs"],["comfort","confort"],["delay","retard"],["organisation","organization"]]}
+      {id:"p7q7",type:"short",marks:7,prompt:"(E) What should people consider when judging a trip? Give TWO ideas.",rubric:"Any two: price; memories; comfort; delays; organisation.",keywords:[["price","cost","prix"],["memories","souvenirs"],["comfort","confort"],["delay","retarde"],["organisation","organization"]]}
     ]
   },
   {
     id: 8,
-  title: "Passage 8 — Otono Airways y la comodidad en clase económica",
+    title: "Passage 8 — Otono Airways y la comodidad en económica",
     theme: "Theme 3 — Travel",
     unit: "Otono Airways",
     text: `Otono Airways quiere que la clase económica sea cómoda. Gary explica que el espacio para las piernas es muy importante, incluso para los pasajeros que no pagan por una cabina premium. En algunos aviones, la compañía mantiene de 34 a 35 pulgadas de espacio para las piernas.
 
-Luke mira los planos de cabina y piensa sobre todo en el número de asientos en business. Gary recuerda que el avión también debe transportar a muchos pasajeros en económica. Si se quitan demasiados asientos, la ruta se vuelve más difícil de rentabilizar.
+Luke mira los planos de cabina y piensa sobre todo en el número de asientos de business. Gary recuerda que el avión también debe transportar a muchos pasajeros en clase económica. Si se quitan demasiados asientos, la ruta se vuelve más difícil de rentabilizar.
 
-A OWing le gusta la idea de una económica más agradable. Dice que no es una cabina de lujo, pero que puede hacer que un vuelo largo sea mucho menos cansado.`,
+A OWing le gusta la idea de una clase económica más agradable. Dice que no es una cabina de lujo, pero que puede hacer que un vuelo largo sea mucho menos agotador.`,
     questions: [
-      {id:"p8q1",type:"mcq",marks:2,prompt:"(E) What does Otono Airways want economy to be?",options:["Comfortable","Tiny","Silent only","Closed"],answerIndex:0},
-      {id:"p8q2",type:"mcq",marks:2,prompt:"(E) What is important according to Gary?",options:["Legroom","Pencil cases","Homework","Snow"],answerIndex:0},
+      {id:"p8q1",type:"mcq",marks:1,prompt:"(E) What does Otono Airways want economy to be?",options:["Comfortable","Tiny","Silent only","Closed"],answerIndex:0},
+      {id:"p8q2",type:"mcq",marks:1,prompt:"(E) What is important according to Gary?",options:["Legroom","Pencil cases","Homework","Snow"],answerIndex:0},
       {id:"p8q3",type:"mcq",marks:2,prompt:"(E) What does Luke mainly look at?",options:["Business seats","School rules","Belts","Restaurants"],answerIndex:0},
       {id:"p8q4",type:"tfnm",marks:2,prompt:"(E) OWing says economy is a luxury cabin. (True / False / Not mentioned)",correct:"False"},
-      {id:"p8q5",type:"pn",marks:2,prompt:"(E) OWing’s view of better economy is… (P / N / P+N)",answer:"P"},
-      {id:"p8q6",type:"fr_short",marks:4,prompt:"(M) En español : ¿Por qué Gary piensa que el espacio para las piernas es importante?",rubric:"Porque los vuelos largos son más cómodos.",keywords:[["cómodos","confortables"],["espacio"],["piernas"],["vuelos","largos"]],model:"Gary piensa que el espacio para las piernas es importante porque los vuelos largos son más cómodos."},
-      {id:"p8q7",type:"short",marks:6,prompt:"(E) Why can’t Otono Airways remove too many economy seats? Give ONE reason.",rubric:"Because the route would be harder to make profitable / the plane must carry enough passengers.",keywords:[["profitable","rentabiliser","make money"],["passengers","carry enough","transport"],["too few seats","remove seats"]]}
+      {id:"p8q5",type:"pn",marks:3,prompt:"(E) OWing’s view of better economy is… (P / N / P+N)",answer:"P"},
+      {id:"p8q6",type:"es_short",marks:4,prompt:"(M) En español: ¿Por qué piensa Gary que el espacio para las piernas es importante?",rubric:"Porque los vuelos largos son más cómodos.",keywords:[["cómodos"],["espacio"],["piernas"],["largos","vuelos"]],model:"Gary piensa que el espacio para las piernas es importante porque los vuelos largos son más cómodos."},
+      {id:"p8q7",type:"short",marks:7,prompt:"(E) Why can’t Otono Airways remove too many economy seats? Give ONE reason.",rubric:"Because the route would be harder to make profitable / the plane must carry enough passengers.",keywords:[["profitable","rentabiliser","make money"],["passengers","carry enough","transport"],["too few seats","remove seats"]]}
     ]
   },
   {
     id: 9,
-  title: "Passage 9 — Le Mans y la carrera que casi nunca termina",
+    title: "Passage 9 — Le Mans y la carrera que casi nunca termina",
     theme: "Theme 2 — Free time",
     unit: "Sport",
     text: `Red a veces ve vídeos sobre la carrera de Le Mans. La idea le parece impresionante: los coches corren durante veinticuatro horas. No es solo una carrera rápida, sino también una prueba de resistencia, organización y concentración.
 
-A OWing le gusta comparar la carrera con un examen largo. Según él, no se puede simplemente empezar rápido. Hay que conservar energía y evitar errores. Un pequeño fallo puede costar mucho tiempo.
+OWing compara la carrera con un examen largo. Según él, no se puede sencillamentee empezar rápido. Hay que conservar energía y evitar errores. Un pequeño fallo puede costar mucho tiempo.
 
-Red prefiere los idiomas a los coches, pero entiende por qué esta carrera es famosa. Muestra que la velocidad no basta. La paciencia y la estrategia también cuentan.`,
+Red prefiere los idiomas a los coches, pero comprende por qué esta carrera es famosa. Muestra que la velocidad no basta. La paciencia y la estrategia también cuentan.`,
     questions: [
-      {id:"p9q1",type:"mcq",marks:2,prompt:"(E) How long is the Le Mans race mentioned here?",options:["2 hours","6 hours","12 hours","24 hours"],answerIndex:3},
-      {id:"p9q2",type:"mcq",marks:2,prompt:"(E) What kind of test is it?",options:["Endurance and organisation","Only spelling","Only singing","A normal school lunch"],answerIndex:0},
+      {id:"p9q1",type:"mcq",marks:1,prompt:"(E) How long is the Le Mans race mentioned here?",options:["2 hours","6 hours","12 hours","24 hours"],answerIndex:3},
+      {id:"p9q2",type:"mcq",marks:1,prompt:"(E) What kind of test is it?",options:["Endurance and organisation","Only spelling","Only singing","A normal school lunch"],answerIndex:0},
       {id:"p9q3",type:"mcq",marks:2,prompt:"(E) What does OWing compare it to?",options:["A long exam","A short song","A pencil rule","A hotel"],answerIndex:0},
-      {id:"p9q4",type:"tfnm",marks:2,prompt:"(E) Red prefers cars to languages. (True / False / Not mentioned)",correct:"False"},
-      {id:"p9q5",type:"pn",marks:2,prompt:"(E) The view of Le Mans is… (P / N / P+N)",answer:"P"},
+      {id:"p9q4",type:"tfnm",marks:3,prompt:"(E) Red prefers cars to languages. (True / False / Not mentioned)",correct:"False"},
+      {id:"p9q5",type:"pn",marks:3,prompt:"(E) The view of Le Mans is… (P / N / P+N)",answer:"P"},
       {id:"p9q6",type:"select_true",marks:4,prompt:"(E) Select TWO true statements.",statements:["Le Mans lasts 24 hours.","Speed alone is enough.","Strategy matters.","OWing says errors do not matter."],correctIndices:[0,2],minSelect:2},
-      {id:"p9q7",type:"short",marks:6,prompt:"(E) Give TWO qualities needed for Le Mans.",rubric:"Any two: endurance; organisation; concentration; patience; strategy; avoiding errors.",keywords:[["endurance"],["organisation","organization"],["concentration"],["patience"],["strategy","stratégie"],["avoid","errors","erreurs"]]}
+      {id:"p9q7",type:"short",marks:6,prompt:"(E) Give TWO qualities needed for Le Mans.",rubric:"Any two: endurance; organisation; concentración; patience; strategy; avoiding errors.",keywords:[["endurance"],["organisation","organization"],["concentración"],["patience"],["strategy","estrategia"],["avoid","errors","errores"]]}
     ]
   },
   {
     id: 10,
-  title: "Passage 10 — Wyatt y los Doritos",
+    title: "Passage 10 — Wyatt y los Doritos",
     theme: "Theme 2 — Free time",
     unit: "Food",
-    text: `En Otono Mansion, Wyatt es conocido por una cosa sencilla: le gustan mucho los Doritos. Durante una noche de juegos, trae un paquete grande y lo pone en el centro de la mesa. Red se ríe, porque ya sabe que el paquete no seguirá lleno mucho tiempo.
+    text: `En Otono Mansion, Wyatt es conocido por una cosa sencilla: le gustan mucho los Doritos. Durante una noche de juegos, trae una bolsa grande y la pone en el centro de la mesa. Red se ríe, porque ya sabe que la bolsa no seguirá llena durante mucho tiempo.
 
-Gary recuerda de todos modos una regla: se puede comer durante el descanso, pero no encima de los papeles importantes. Nadie quiere ver una hoja cubierta de polvo naranja. Wyatt promete tener cuidado, pero mantiene el paquete muy cerca de él.
+Gary recuerda una regla de todos modos: se puede comer durante el descanso, pero no encima de los papeles importantes. Nadie quiere ver una hoja cubierta de polvo naranja. Wyatt promete tener cuidado, pero mantiene la bolsa muy cerca de él.
 
 La noche sigue siendo divertida. Los Doritos se convierten casi en un símbolo del descanso, aunque Gary vigila la mesa con preocupación.`,
     questions: [
-      {id:"p10q1",type:"mcq",marks:2,prompt:"(E) What food is Wyatt known for liking?",options:["Doritos","Sushi","Apples","Soup"],answerIndex:0},
-      {id:"p10q2",type:"mcq",marks:2,prompt:"(E) Where does he put the packet?",options:["In the middle of the table","Outside the house","Under a car","In the pool"],answerIndex:0},
+      {id:"p10q1",type:"mcq",marks:1,prompt:"(E) What food is Wyatt known for liking?",options:["Doritos","Sushi","Apples","Soup"],answerIndex:0},
+      {id:"p10q2",type:"mcq",marks:1,prompt:"(E) Where does he put the packet?",options:["In the middle of the table","Outside the house","Under a car","In the pool"],answerIndex:0},
       {id:"p10q3",type:"mcq",marks:2,prompt:"(E) What does Gary worry about?",options:["Orange dust on important papers","Snow","Plane tickets","A science belt"],answerIndex:0},
       {id:"p10q4",type:"tfnm",marks:2,prompt:"(E) Wyatt promises to be careful. (True / False / Not mentioned)",correct:"True"},
-      {id:"p10q5",type:"pn",marks:2,prompt:"(E) Gary’s feeling is… (P / N / P+N)",answer:"N"},
+      {id:"p10q5",type:"pn",marks:3,prompt:"(E) Gary’s feeling is… (P / N / P+N)",answer:"N"},
       {id:"p10q6",type:"gap_fill_en",marks:4,prompt:"(E) Complete the English summary.",summary:"Wyatt likes ____. Gary does not want orange ____ on important papers.",answers:["Doritos","dust"]},
-      {id:"p10q7",type:"short",marks:6,prompt:"(E) Give TWO details about the game evening.",rubric:"Any two: Wyatt brings Doritos; Red laughs; Gary gives a rule; the evening is fun; Gary watches the table.",keywords:[["Doritos","packet"],["Red","laugh"],["Gary","rule"],["fun","amusante"],["watches","surveille","table"]]}
+      {id:"p10q7",type:"short",marks:7,prompt:"(E) Give TWO details about the game evening.",rubric:"Any two: Wyatt brings Doritos; Red laughs; Gary gives a rule; the evening is fun; Gary watches the table.",keywords:[["Doritos","packet"],["Red","laugh"],["Gary","rule"],["fun","divertidoe"],["watches","surveille","table"]]}
     ]
   },
   {
     id: 11,
-  title: "Passage 11 — La página de resultados Otono",
+    title: "Passage 11 — La página de resultados Otono",
     theme: "Theme 1 — School",
     unit: "Technology",
-    text: `El colegio Otono utiliza una página de resultados para las pruebas. Los alumnos pueden ver su puntuación, su nota Otono y una estimación GCSE. El sistema también muestra Pass, Merit o Distinction.
+    text: `El colegio Otono utiliza una página de resultados para las pruebas. Los alumnos pueden ver su puntuación, su grado Otono y una estimación GCSE. El sistema también muestra Pass, Merit o Distinction.
 
   A Jessica le gusta ver los resultados rápidamente, pero actualiza la página con demasiada frecuencia. OWing dice que eso no cambia la puntuación. La señora Munn prefiere que los alumnos lean el comentario escrito, no solo el número.
 
-  El sistema no es perfecto. A veces carga lentamente cuando demasiados alumnos se conectan al mismo tiempo. Sin embargo, las familias encuentran útil la página, porque pueden seguir el progreso más fácilmente.`,
+  El sistema no es perfecto. A veces carga lentamente cuando demasiados alumnos se conectan al mismo tiempo. Sin embargo, las familias encuentran útil la página, porque pueden seguir el progreso con más facilidad.`,
     questions: [
-      {id:"p11q1",type:"mcq",marks:2,prompt:"(E) What can students see on the results page?",options:["Score and grade","Dinner menu only","Flight gates only","Weather only"],answerIndex:0},
-      {id:"p11q2",type:"mcq",marks:2,prompt:"(E) What does Jessica do too often?",options:["Refreshes the page","Deletes the page","Prints maps","Eats Doritos"],answerIndex:0},
+      {id:"p11q1",type:"mcq",marks:1,prompt:"(E) What can students see on the results page?",options:["Score and grade","Dinner menu only","Flight gates only","Weather only"],answerIndex:0},
+      {id:"p11q2",type:"mcq",marks:1,prompt:"(E) What does Jessica do too often?",options:["Refreshes the page","Deletes the page","Prints maps","Eats Doritos"],answerIndex:0},
       {id:"p11q3",type:"mcq",marks:2,prompt:"(E) What does Mrs Munn want students to read?",options:["Written feedback","Only the number","Plane timetables","Restaurant reviews"],answerIndex:0},
       {id:"p11q4",type:"tfnm",marks:2,prompt:"(E) The system is always perfect. (True / False / Not mentioned)",correct:"False"},
-      {id:"p11q5",type:"pn",marks:2,prompt:"(E) The results page is presented as… (P / N / P+N)",answer:"P+N"},
+      {id:"p11q5",type:"pn",marks:3,prompt:"(E) The results page is presented as… (P / N / P+N)",answer:"P+N"},
       {id:"p11q6",type:"select_true",marks:4,prompt:"(E) Select TWO true statements.",statements:["Families can follow progress.","The page sometimes loads slowly.","OWing says refreshing changes the score.","The system only shows lunch."],correctIndices:[0,1],minSelect:2},
-      {id:"p11q7",type:"short",marks:6,prompt:"(E) Give TWO reasons why the page is useful or not perfect.",rubric:"Useful: quick results, grades, families track progress. Not perfect: slow loading, too many students online.",keywords:[["quick","rapid","results"],["grade","Otono","GCSE"],["families","progress","parents"],["slow","lent"],["too many","students","connect"]]}
+      {id:"p11q7",type:"short",marks:7,prompt:"(E) Give TWO reasons why the page is useful or not perfect.",rubric:"Useful: quick results, grades, families track progress. Not perfect: slow loading, too many students online.",keywords:[["quick","rapid","results"],["grade","Otono","GCSE"],["families","progress","parents"],["slow","lent"],["too many","students","connect"]]}
     ]
   },
 
   {
     id: 12,
-  title: "Passage 12 — El examen de idiomas y la tinta negra",
+    title: "Passage 12 — El examen de idiomas y la tinta negra",
     theme: "Theme 1 — School",
     unit: "Language paper",
-    text: `Antes de un examen de español, la primera página da instrucciones muy claras. Los candidatos deben usar tinta negra o un bolígrafo negro. No deben usar diccionario. Pueden subrayar los textos, pero sus respuestas deben ser legibles.
+    text: `Antes de un examen de español, la primera página da instrucciones muy claras. Los candidatos deben usar tinta negra o un bolígrafo negro. No deben usar diccionario. Pueden subrayar o resaltar los textos, pero sus respuestas deben ser legibles.
 
-Red aprecia esta regla, porque evita las excusas. Si una respuesta es difícil de leer, el corrector puede malinterpretarla. Luke, por su parte, se fija sobre todo en la frase «Do not use pencil», porque la palabra «not» le parece dramática.
+A Red le gusta esta regla porque evita las excusas. Si una respuesta es difícil de leer, el corrector puede malinterpretarla. Luke, por su parte, se concentra sobre todo en la frase «Do not use pencil», porque la palabra «not» le parece dramática.
 
-La señora Munn añade que los subrayadores solo son útiles si los alumnos responden de verdad a la pregunta. Subrayar toda la página no demuestra nada. Para tener éxito, hay que entender el texto y escribir respuestas claras.`,
+La señora Munn añade que los subrayadores solo son útiles si los alumnos realmente responden a la pregunta. Resaltar toda la página no demuestra nada. Para tener éxito, hay que comprender el texto y escoger los detalles importantes.`,
     questions: [
-      {id:"p12q1",type:"mcq",marks:2,prompt:"(E) What must candidates use?",options:["Black ink or black ball-point pen","Pencil only","A dictionary","Blue highlighter only"],answerIndex:0,model:"Black ink or a black ball-point pen."},
-      {id:"p12q2",type:"mcq",marks:2,prompt:"(E) What is not allowed?",options:["A dictionary","Highlighting","Readable answers","Black ink"],answerIndex:0,model:"A dictionary is not allowed."},
+      {id:"p12q1",type:"mcq",marks:1,prompt:"(E) What must candidates use?",options:["Black ink or black ball-point pen","Pencil only","A dictionary","Blue highlighter only"],answerIndex:0,model:"Black ink or a black ball-point pen."},
+      {id:"p12q2",type:"mcq",marks:1,prompt:"(E) What is not allowed?",options:["A dictionary","Highlighting","Readable answers","Black ink"],answerIndex:0,model:"A dictionary is not allowed."},
       {id:"p12q3",type:"mcq",marks:2,prompt:"(E) What does Luke focus on?",options:["The phrase Do not use pencil","The candidate number","The weather","The listening audio"],answerIndex:0,model:"He focuses on the phrase “Do not use pencil”."},
       {id:"p12q4",type:"tfnm",marks:2,prompt:"(E) Highlighting is allowed. (True / False / Not mentioned)",correct:"True",model:"True."},
-      {id:"p12q5",type:"pn",marks:2,prompt:"(E) Red’s view of the rule is… (P / N / P+N)",answer:"P",model:"P — he thinks it avoids excuses."},
+      {id:"p12q5",type:"pn",marks:3,prompt:"(E) Red’s view of the rule is… (P / N / P+N)",answer:"P",model:"P — he thinks it avoids excuses."},
       {id:"p12q6",type:"select_true",marks:4,prompt:"(E) Select TWO true statements.",statements:["Answers must be readable.","A dictionary is allowed.","Luke finds the word “not” dramatic.","Mrs Munn says highlighting the whole page proves everything."],correctIndices:[0,2],minSelect:2,model:"Correct: answers must be readable; Luke finds “not” dramatic."},
-      {id:"p12q7",type:"short",marks:6,prompt:"(E) Why is black ink useful? Give TWO ideas.",rubric:"Any two: readable answers; examiner/corrector can understand; avoids excuses; prevents pencil problems.",keywords:[["readable","lisible","easy to read"],["examiner","corrector","understand"],["excuse","excuses"],["pencil","crayon","not use pencil"]],model:"It makes answers readable and helps the examiner understand them; it also avoids excuses or pencil problems."}
+      {id:"p12q7",type:"short",marks:7,prompt:"(E) Why is black ink useful? Give TWO ideas.",rubric:"Any two: readable answers; examiner/corrector can understand; avoids excuses; prevents pencil problems.",keywords:[["readable","lisible","easy to read"],["examiner","corrector","understand"],["excuse","excuses"],["pencil","lápiz","not use pencil"]],model:"It makes answers readable and helps the examiner understand them; it also avoids excuses or pencil problems."}
     ]
   },
   {
     id: 13,
-  title: "Passage 13 — Mr Clock, Andy y la prueba de matemáticas",
+    title: "Passage 13 — Mr Clock, Andy y la prueba de matemáticas",
     theme: "Theme 1 — School",
     unit: "Maths memory",
     text: `En 2015 y 2016, Red recuerda una prueba de matemáticas con Mr Clock. Red era muy joven: solo tenía cinco años. En aquella época, las pruebas parecían sencillas para los adultos, pero para Red cada nota era enorme.
 
-  Un día, Red saca 66. Está contento, porque no es una mala nota, pero luego ve el resultado de Andy: 100. Andy estaba en la clase 6B, y su puntuación se vuelve inmediatamente imposible de olvidar.
+  Un día, Red saca 66. Está contento, porque no es una mala nota, pero después ve el resultado de Andy: 100. Andy estaba en la clase 6B, y su puntuación se vuelve inmediatamente imposible de olvidar.
 
-  Red no odia a Andy por eso. Al contrario, ese recuerdo se convierte en una parte de su historia con las matemáticas. Más tarde, cuando Red piensa en 80 de 80, recuerda que siempre ha admirado las puntuaciones perfectas.`,
+  Red no odia a Andy por eso. Al contrario, ese recuerdo se convierte en una parte de su historia con las matemáticas. Más tarde, cuando Red piensa en 80 de 80, recuerda que su obsesión por las notas no empezó con el GCSE. Ya había empezado con aquella prueba antigua.
+
+  Mr Clock entregaba los exámenes con calma. No gritaba y dejaba que los alumnos miraran sus errores. A Red le gustaba este método, porque podía entender exactamente dónde había perdido puntos.`,
     questions: [
-      {id:"p13q1",type:"mcq",marks:2,prompt:"(E) What subject was the test?",options:["Maths","French","Science","Art"],answerIndex:0,model:"Maths."},
-      {id:"p13q2",type:"mcq",marks:2,prompt:"(E) How old was Red?",options:["Five","Ten","Fifteen","Sixteen"],answerIndex:0,model:"Red was five years old."},
+      {id:"p13q1",type:"mcq",marks:1,prompt:"(E) What subject was the test?",options:["Maths","French","Science","Art"],answerIndex:0,model:"Maths."},
+      {id:"p13q2",type:"mcq",marks:1,prompt:"(E) How old was Red?",options:["Five","Ten","Fifteen","Sixteen"],answerIndex:0,model:"Red was five years old."},
       {id:"p13q3",type:"mcq",marks:2,prompt:"(E) What score did Red get?",options:["66","78","80","100"],answerIndex:0,model:"Red got 66."},
       {id:"p13q4",type:"mcq",marks:2,prompt:"(E) What score did Andy get?",options:["66","78","80","100"],answerIndex:3,model:"Andy got 100."},
       {id:"p13q5",type:"tfnm",marks:2,prompt:"(E) Mr Clock shouted at the class. (True / False / Not mentioned)",correct:"False",model:"False."},
-      {id:"p13q6",type:"pn",marks:2,prompt:"(E) Red’s view of Mr Clock’s method is… (P / N / P+N)",answer:"P",model:"P — Red liked being able to check his mistakes."},
+      {id:"p13q6",type:"pn",marks:3,prompt:"(E) Red’s view of Mr Clock’s method is… (P / N / P+N)",answer:"P",model:"P — Red liked being able to check his mistakes."},
       {id:"p13q7",type:"select_true",marks:2,prompt:"(E) Select ONE true statement.",statements:["Andy was in 6B.","Red got 100.","Mr Clock taught French.","Red hated Andy."],correctIndices:[0],minSelect:1,model:"Correct: Andy was in 6B."},
-      {id:"p13q8",type:"short",marks:8,prompt:"(E) Why is this memory important for Red? Give TWO details.",rubric:"Any two developed ideas: Red was only five; Red got 66; Andy got 100; it started Red’s obsession with scores; it links to Red later caring about 80/80; Mr Clock let students understand mistakes.",keywords:[["five","5","young"],["66"],["Andy","100"],["obsession","scores","marks"],["80","80/80"],["mistakes","errors","lost points"]],model:"It is important because Red was only five when he got 66 while Andy got 100. It also explains why Red later became obsessed with scores such as 80/80."}
+      {id:"p13q8",type:"short",marks:7,prompt:"(E) Why is this memory important for Red? Give TWO details.",rubric:"Any two developed ideas: Red was only five; Red got 66; Andy got 100; it started Red’s obsession with scores; it links to Red later caring about 80/80; Mr Clock let students understand mistakes.",keywords:[["five","5","young"],["66"],["Andy","100"],["obsession","scores","marks"],["80","80/80"],["mistakes","errors","lost points"]],model:"It is important because Red was only five when he got 66 while Andy got 100. It also explains why Red later became obsessed with scores such as 80/80."}
     ]
   },
   {
     id: 14,
-  title: "Passage 14 — Le Mans y la carrera de veinticuatro horas",
+    title: "Passage 14 — Le Mans y la carrera de veinticuatro horas",
     theme: "Theme 2 — Free time",
     unit: "Sport",
-    text: `Red descubre la carrera de Le Mans en una noche tranquila. Al principio cree que es una carrera normal, pero luego entiende que dura veinticuatro horas. La idea de conducir durante tanto tiempo le parece casi imposible.
+    text: `OWing ve a menudo vídeos sobre la carrera de Le Mans. La idea le parece impresionante: los coches corren durante veinticuatro horas. No es solo una carrera rápida, sino también una prueba de resistencia, organización y concentración.
 
-  OWing explica que los equipos no solo necesitan coches rápidos. También necesitan mecánicos preparados, pilotos concentrados y una estrategia clara. Si una parada dura demasiado tiempo, el equipo puede perder una ventaja importante.
+  OWing compara la carrera con un examen muy largo. Según él, no se puede sencillamentee empezar rápido. Hay que conservar energía, mantener la calma y evitar errores. Un pequeño fallo puede costar mucho tiempo.
 
-  Luke no está muy interesado en los coches, pero le gusta el lado técnico. Dice que una carrera tan larga se parece un poco a gestionar una ruta aérea: hay que planificar, reaccionar y evitar errores.`,
+  Red prefiere los idiomas a los coches, pero comprende por qué esta carrera es famosa. Muestra que la velocidad no basta. La paciencia y la estrategia también cuentan.`,
     questions: [
-      {id:"p14q1",type:"mcq",marks:2,prompt:"(E) How long is the Le Mans race mentioned here?",options:["2 hours","6 hours","12 hours","24 hours"],answerIndex:3,model:"24 hours."},
-      {id:"p14q2",type:"mcq",marks:2,prompt:"(E) What kind of test is it?",options:["Endurance, organisation and concentration","Only spelling","Only singing","A normal school lunch"],answerIndex:0,model:"It is a test of endurance, organisation and concentration."},
+      {id:"p14q1",type:"mcq",marks:1,prompt:"(E) How long is the Le Mans race mentioned here?",options:["2 hours","6 hours","12 hours","24 hours"],answerIndex:3,model:"24 hours."},
+      {id:"p14q2",type:"mcq",marks:1,prompt:"(E) What kind of test is it?",options:["Endurance, organisation and concentración","Only spelling","Only singing","A normal school lunch"],answerIndex:0,model:"It is a test of endurance, organisation and concentración."},
       {id:"p14q3",type:"mcq",marks:2,prompt:"(E) What does OWing compare it to?",options:["A very long exam","A short song","A pencil rule","A hotel"],answerIndex:0,model:"A very long exam."},
       {id:"p14q4",type:"tfnm",marks:2,prompt:"(E) Red prefers cars to languages. (True / False / Not mentioned)",correct:"False",model:"False."},
-      {id:"p14q5",type:"pn",marks:2,prompt:"(E) The view of Le Mans is… (P / N / P+N)",answer:"P",model:"P — it is presented as impressive and strategic."},
-      {id:"p14q6",type:"fr_short",marks:4,prompt:"(M) En español : ¿Por qué es difícil la carrera de Le Mans?",rubric:"Porque dura veinticuatro horas y exige concentración.",keywords:[["veinticuatro","24"],["concentration"],["difficile"]],model:"La carrera de Le Mans es difícil porque dura veinticuatro horas."},
-      {id:"p14q7",type:"short",marks:6,prompt:"(E) Give TWO qualities needed for Le Mans.",rubric:"Any two: endurance; organisation; concentration; patience; strategy; avoiding errors.",keywords:[["endurance"],["organisation","organization"],["concentration"],["patience"],["strategy","stratégie"],["avoid","errors","erreurs"]],model:"Drivers need endurance and concentration. They also need patience, strategy and organisation."}
+      {id:"p14q5",type:"pn",marks:3,prompt:"(E) The view of Le Mans is… (P / N / P+N)",answer:"P",model:"P — it is presented as impressive and strategic."},
+      {id:"p14q6",type:"es_short",marks:4,prompt:"(M) En español: ¿Por qué es difícil la carrera de Le Mans?",rubric:"Porque dura veinticuatro horas y exige concentración.",keywords:[["veinticuatro","24"],["concentración"],["difícil"]],model:"La carrera de Le Mans es difícil porque dura veinticuatro horas."},
+      {id:"p14q7",type:"short",marks:7,prompt:"(E) Give TWO qualities needed for Le Mans.",rubric:"Any two: endurance; organisation; concentración; patience; strategy; avoiding errors.",keywords:[["endurance"],["organisation","organization"],["concentración"],["patience"],["strategy","estrategia"],["avoid","errors","errores"]],model:"Drivers need endurance and concentración. They also need patience, strategy and organisation."}
     ]
   },
   {
     id: 15,
-  title: "Passage 15 — El examen perdido de la señora Munn",
+    title: "Passage 15 — La hoja perdida de Mrs Munn",
     theme: "Theme 1 — School",
     unit: "Strict teachers",
-    text: `Una mañana, la señora Munn busca un examen de matemáticas que ha desaparecido. Mira sobre su escritorio, dentro de una carpeta azul y debajo de una pila de libros. La clase se queda en silencio, porque nadie quiere parecer culpable.
+    text: `Una mañana, Red piensa que ha perdido una hoja importante de matemáticas. Busca en su mochila, debajo de su carpeta e incluso cerca del piano. Mrs Munn llega y pregunta con calma por qué todo el mundo está entrando en pánico.
 
-Red recuerda que Luke había movido unos papeles para liberar espacio. Luke dice que solo quería ayudar y que no ha escondido nada. OWing propone revisar la bandeja de impresiones.
+La hoja finalmente aparece en una funda violeta. Mrs Munn no grita, pero su mirada es suficiente. Explica que los documentos de examen deben mantenerse limpios, legibles y en el lugar correcto. Mr Young añade que un sistema sencillo evita mucho estrés.
 
-Al final, el examen está detrás de la impresora. La señora Munn parece aliviada, pero también un poco irritada. Dice que, en el futuro, nadie debe mover papeles importantes sin permiso. Luke asiente rápidamente. Nadie sabe si Luke está bromeando de verdad.`,
+Red decide entonces ordenar sus papeles por asignatura. Luke aprueba la idea inmediatamente y propone una sección especial llamada «BLACK INK ONLY». Nadie sabe si Luke está bromeando de verdad.`,
     questions: [
-      {id:"p15q1",type:"mcq",marks:2,prompt:"(E) What does Red think he has lost?",options:["A maths sheet","A passport","A phone","A belt"],answerIndex:0,model:"A maths sheet."},
-      {id:"p15q2",type:"mcq",marks:2,prompt:"(E) Where is it found?",options:["In a purple folder","In the pool","On a plane","In a Doritos packet"],answerIndex:0,model:"In a purple folder."},
+      {id:"p15q1",type:"mcq",marks:1,prompt:"(E) What does Red think he has lost?",options:["A maths sheet","A passport","A phone","A belt"],answerIndex:0,model:"A maths sheet."},
+      {id:"p15q2",type:"mcq",marks:1,prompt:"(E) Where is it found?",options:["In a purple folder","In the pool","On a plane","In a Doritos packet"],answerIndex:0,model:"In a purple folder."},
       {id:"p15q3",type:"mcq",marks:2,prompt:"(E) Who says a simple system avoids stress?",options:["Mr Young","Wyatt","Jessica","Clayton"],answerIndex:0,model:"Mr Young."},
       {id:"p15q4",type:"tfnm",marks:2,prompt:"(E) The missing maths sheet was an official GCSE paper. (True / False / Not mentioned)",correct:"Not mentioned",model:"Not mentioned — she does not shout."},
-      {id:"p15q5",type:"pn",marks:2,prompt:"(E) Mrs Munn’s reaction is… (P / N / P+N)",answer:"P+N",model:"P+N — calm but intimidating/strict."},
+      {id:"p15q5",type:"pn",marks:3,prompt:"(E) Mrs Munn’s reaction is… (P / N / P+N)",answer:"P+N",model:"P+N — calm but intimidating/strict."},
       {id:"p15q6",type:"select_true",marks:4,prompt:"(E) Select TWO true statements.",statements:["The sheet is found.","Red decides to organise papers by subject.","Luke creates a science belt.","Mrs Munn says documents can be messy."],correctIndices:[0,1],minSelect:2,model:"Correct: the sheet is found; Red decides to organise papers by subject."},
       {id:"p15q7",type:"gap_fill_en",marks:4,prompt:"(E) Complete the English summary.",summary:"Documents should be clean, readable and in the ____ place. Luke suggests a ____ section.",answers:["right","black ink only"],model:"Documents should be in the right place. Luke suggests a “BLACK INK ONLY” section."},
-      {id:"p15q8",type:"short",marks:2,prompt:"(E) What does Red change after this?",rubric:"He organises his papers by subject.",keywords:[["organise","organize","sort","range"],["subject","matière"]],model:"He organises his papers by subject."}
+      {id:"p15q8",type:"short",marks:3,prompt:"(E) What does Red change after this?",rubric:"He organises his papers by subject.",keywords:[["organise","organize","sort","range"],["subject","matière"]],model:"He organises his papers by subject."}
     ]
   },
   {
     id: 16,
-  title: "Passage 16 — OT116 y los tres A380",
+    title: "Passage 16 — OT116 y los tres A380",
     theme: "Theme 3 — Travel",
     unit: "Otono Airways operations",
-    text: `Gary e Ivy explican una idea que sorprende a Luke: para mantener un vuelo diario de larga distancia, dos aviones no siempre bastan. En OT116 y OT117, un A380 debe volar, otro debe volver, y un tercero puede ser necesario por el tiempo en tierra, la limpieza, el catering y los posibles retrasos.
+    text: `Gary e Ivy explican una idea que sorprende a Luke: para mantener un vuelo diario de larga distancia, dos aviones no siempre son suficientes. En OT116 y OT117, un A380 debe volar, otro debe regresar y un tercero puede ser necesario por el tiempo en tierra, la limpieza, el catering y los posibles retrasos.
 
 Luke quiere usar el avión disponible para añadir un segundo vuelo a Los Ángeles. Gary responde que sería arriesgado. Una compañía debe proteger su horario antes de añadir una ruta brillante. Ivy añade que los pasajeros prefieren un vuelo fiable a un anuncio espectacular.
 
-Red entiende más rápido cuando Gary usa modelos de aviones sobre una mesa. Para Luke, el problema sigue pareciendo injusto: un A380 libre debería volar, no esperar.`,
+Red comprende más rápido cuando Gary usa modelos de aviones sobre una mesa. Para Luke, el problema sigue siendo simple: quiere más asientos de business en todas partes.`,
     questions: [
-      {id:"p16q1",type:"mcq",marks:2,prompt:"(E) Which route is discussed?",options:["OT116/OT117","OT714 only","OT380 to Le Mans","No route"],answerIndex:0,model:"OT116/OT117."},
-      {id:"p16q2",type:"mcq",marks:2,prompt:"(E) Why may a third A380 be needed?",options:["Ground time, cleaning, catering and delays","Because Luke likes purple","Because exams are cancelled","Because Doritos are heavy"],answerIndex:0,model:"Because of ground time, cleaning, catering, and possible delays."},
+      {id:"p16q1",type:"mcq",marks:1,prompt:"(E) Which route is discussed?",options:["OT116/OT117","OT714 only","OT380 to Le Mans","No route"],answerIndex:0,model:"OT116/OT117."},
+      {id:"p16q2",type:"mcq",marks:1,prompt:"(E) Why may a third A380 be needed?",options:["Ground time, cleaning, catering and delays","Because Luke likes purple","Because exams are cancelled","Because Doritos are heavy"],answerIndex:0,model:"Because of ground time, cleaning, catering, and possible delays."},
       {id:"p16q3",type:"mcq",marks:2,prompt:"(E) What does Luke want to add?",options:["A second LA flight","A French test","A belt shop","A school lunch"],answerIndex:0,model:"A second flight to Los Angeles."},
       {id:"p16q4",type:"tfnm",marks:2,prompt:"(E) Ivy says reliability matters more than a spectacular announcement. (True / False / Not mentioned)",correct:"True",model:"True."},
-      {id:"p16q5",type:"pn",marks:2,prompt:"(E) Gary’s view of Luke’s idea is… (P / N / P+N)",answer:"N",model:"N — he thinks it is risky."},
+      {id:"p16q5",type:"pn",marks:3,prompt:"(E) Gary’s view of Luke’s idea is… (P / N / P+N)",answer:"N",model:"N — he thinks it is risky."},
       {id:"p16q6",type:"select_true",marks:4,prompt:"(E) Select TWO true statements.",statements:["Cleaning and catering take time.","Luke wants more business seats.","Red refuses to understand the models.","Gary cancels OT116 forever."],correctIndices:[0,1],minSelect:2,model:"Correct: cleaning/catering take time; Luke wants more business seats."},
-      {id:"p16q7",type:"short",marks:6,prompt:"(E) Give TWO reasons why airlines need spare time or aircraft.",rubric:"Any two: cleaning; catering; delays; turnaround/ground time; protecting schedule/reliability.",keywords:[["clean","cleaning"],["catering","food"],["delay","retard"],["ground","turnaround"],["reliable","schedule","horaire"]],model:"They need time for cleaning and catering, and spare capacity protects the schedule from delays."}
+      {id:"p16q7",type:"short",marks:7,prompt:"(E) Give TWO reasons why airlines need spare time or aircraft.",rubric:"Any two: cleaning; catering; delays; turnaround/ground time; protecting schedule/reliability.",keywords:[["clean","cleaning"],["catering","food"],["delay","retarde"],["ground","turnaround"],["reliable","schedule","horaire"]],model:"They need time for cleaning and catering, and spare capacity protects the schedule from delays."}
     ]
   },
   {
     id: 17,
-  title: "Passage 17 — La cena secreta de Grandpa Belt",
+    title: "Passage 17 — La cena secreta de Grandpa Belt",
     theme: "Theme 2 — Free time",
     unit: "Food and family",
-    text: `A Grandpa Belt le gustan los restaurantes secretos y las comidas saladas. Una noche, finge que solo va a dar un paseo, pero Gary nota que lleva uno de sus mejores cinturones. Eso suele significar que hay una cena especial prevista.
+    text: `A Grandpa Belt le gustan los restaurantes secretos y las comidas saladas. Una noche, finge que solo va a pasear, pero Gary nota que lleva uno de sus mejores cinturones. Eso suele significar que hay una cena especial prevista.
 
-Red sospecha de un restaurante escondido. OWing busca pistas: una dirección escrita demasiado rápido, un olor a salsa y un recibo doblado en un bolsillo. Grandpa Belt se ríe y dice que quería mantener la sorpresa.
+Red sospecha que hay un restaurante escondido. OWing busca pistas: una dirección escrita demasiado rápido, un olor a salsa y un recibo doblado en un bolsillo. Grandpa Belt se ríe y dice que quería guardar la sorpresa.
 
-La comida está muy buena, pero un poco demasiado salada para Red. Grandpa Belt, por su parte, la encuentra perfecta. Al final, promete revelar el restaurante solo si nadie critica su cinturón.`,
+La comida está muy buena, pero un poco demasiado salada para Red. Grandpa Belt, en cambio, cree que está perfecta. Al final, promete revelar el restaurante solo si nadie critica su cinturón.`,
     questions: [
       {id:"p17q1",type:"mcq",marks:3,prompt:"(E) What does Grandpa Belt like?",options:["Secret restaurants and salty food","Silent exams only","Cold swimming pools only","Maths papers"],answerIndex:0,model:"Secret restaurants and salty food."},
       {id:"p17q2",type:"mcq",marks:3,prompt:"(E) What clue does Gary notice?",options:["A good belt","A purple A380","A dictionary","A pencil"],answerIndex:0,model:"He notices Grandpa Belt wearing one of his best belts."},
@@ -727,25 +729,25 @@ La comida está muy buena, pero un poco demasiado salada para Red. Grandpa Belt,
   },
   {
     id: 18,
-  title: "Passage 18 — Luke y los ciento diez asientos en clase business",
+    title: "Passage 18 — Luke y los ciento diez asientos en clase business",
     theme: "Theme 3 — Travel",
     unit: "Otono Airways cabin design",
     text: `A Luke le encanta dibujar planos de cabina para Otono Airways. Su sueño es sencillo: poner ciento diez asientos en clase business en un avión. Dice que la clase business debe ser grande, moderna e impresionante.
 
-  A Gary le parece divertida la idea, pero explica el problema. Si Luke añade demasiados asientos en clase business, queda menos espacio para económica, premium economy y primera clase. Una compañía aérea no puede pensar solo en los pasajeros premium.
+  A Gary le parece divertida la idea, pero explica el problema. Si Luke añade demasiados asientos en clase business, queda menos espacio para la económica, la premium economy y la primera clase. Una compañía aérea no puede pensar solo en los pasajeros premium.
 
-  Luke prueba de todos modos varios planos. Mueve los baños, reduce algunos espacios y mira las filas una vez más. Sin embargo, debe admitir que ciento diez asientos en business no siempre son posibles.
+  Luke prueba varios planos de todos modos. Mueve los baños, reduce algunos espacios y mira las filas otra vez. Sin embargo, tiene que admitir que ciento diez asientos en clase business no siempre son posibles.
 
-  OWing piensa que Luke está demasiado obsesionado con la clase business. Para él, la comodidad en económica también es importante, sobre todo en los vuelos largos.`,
+  OWing piensa que Luke está demasiado obsesionado con la clase business. Para él, la comodidad en económica también es importante, sobre todo en vuelos largos.`,
     questions: [
-      {id:"p18q1",type:"mcq",marks:2,prompt:"(E) What does Luke like designing?",options:["Cabin plans","Maths tests","Restaurant menus","School maps"],answerIndex:0,model:"Cabin plans."},
-      {id:"p18q2",type:"mcq",marks:2,prompt:"(E) How many business class seats does Luke want?",options:["66","80","100","110"],answerIndex:3,model:"110 business class seats."},
+      {id:"p18q1",type:"mcq",marks:1,prompt:"(E) What does Luke like designing?",options:["Cabin plans","Maths tests","Restaurant menus","School maps"],answerIndex:0,model:"Cabin plans."},
+      {id:"p18q2",type:"mcq",marks:1,prompt:"(E) How many business class seats does Luke want?",options:["66","80","100","110"],answerIndex:3,model:"110 business class seats."},
       {id:"p18q3",type:"mcq",marks:2,prompt:"(E) What problem does Gary explain?",options:["There will be less space for other cabins","The plane cannot fly at night","Luke forgot black ink","The airport is closed"],answerIndex:0,model:"There would be less space for other cabins."},
       {id:"p18q4",type:"tfnm",marks:2,prompt:"(E) Luke immediately gives up after Gary explains the problem. (True / False / Not mentioned)",correct:"False",model:"False."},
-      {id:"p18q5",type:"pn",marks:2,prompt:"(E) OWing’s view of Luke’s business-class obsession is… (P / N / P+N)",answer:"N",model:"N — OWing thinks Luke is too obsessed."},
-      {id:"p18q6",type:"fr_short",marks:4,prompt:"(M) En español : ¿Qué quiere Luke en el avión?",rubric:"Quiere ciento diez asientos en clase business.",keywords:[["ciento diez","110"],["asientos"],["clase business","business"]],model:"Luke quiere ciento diez asientos en clase business."},
+      {id:"p18q5",type:"pn",marks:3,prompt:"(E) OWing’s view of Luke’s business-class obsession is… (P / N / P+N)",answer:"N",model:"N — OWing thinks Luke is too obsessed."},
+      {id:"p18q6",type:"es_short",marks:4,prompt:"(M) En español: ¿Qué quiere Luke en el avión?",rubric:"Quiere ciento diez asientos en clase business.",keywords:[["cent dix","110"],["asientos"],["clase business"]],model:"Luke quiere ciento diez asientos en clase business."},
       {id:"p18q7",type:"select_true",marks:4,prompt:"(E) Select TWO true statements.",statements:["Luke wants a large business class.","Gary says airlines must also think about other passengers.","OWing thinks economy comfort is not important.","Luke designs restaurant belts."],correctIndices:[0,1],minSelect:2,model:"Correct: Luke wants a large business class; Gary says airlines must think about other passengers."},
-      {id:"p18q8",type:"short",marks:2,prompt:"(E) Why does OWing care about economy comfort?",rubric:"Because it matters on long flights.",keywords:[["long flights","long vols"],["comfort","confort"],["economy","économie"]],model:"Because comfort in economy matters on long flights."}
+      {id:"p18q8",type:"short",marks:3,prompt:"(E) Why does OWing care about economy comfort?",rubric:"Because it matters on long flights.",keywords:[["long flights","long vuelos"],["comfort","confort"],["economy","économie"]],model:"Because comfort in economy matters on long flights."}
     ]
   },
   {
@@ -754,13 +756,11 @@ La comida está muy buena, pero un poco demasiado salada para Red. Grandpa Belt,
     title: "Passage 19 — SUPERGRADE: Salish, Nidal y la amistad",
     theme: "Theme 4 — Influence and relationships",
     unit: "Creators and friendship",
-    text: `A Luke le encanta dibujar planos de cabina para Otono Airways. Su sueño es sencillo: poner ciento diez asientos en clase business en un avión. Dice que la clase business debe ser grande, moderna e impresionante.
+    text: `Red ve a menudo vídeos de Jordan Matter, sobre todo cuando aparecen Salish y su mejor amigo Nidal. Lo que más le gusta no son solo los retos ni el humor: le gusta especialmente su amistad. Según Red, siempre parecen muy felices de volver a verse. Cada vez que Salish ve a Nidal, corren el uno hacia el otro y se abrazan. Sin embargo, no salen juntos y nunca se besan.
 
-  A Gary le parece divertida la idea, pero explica el problema. Si Luke añade demasiados asientos en clase business, queda menos espacio para económica, premium economy y primera clase. Una compañía aérea no puede pensar solo en los pasajeros premium.
+  Red considera muy interesante esa energía positiva. Para él, su amistad parece natural, fuerte y sincera. También piensa que eso ayuda a que los vídeos sigan siendo divertidos hasta el final. Cuando ve los vídeos, a veces compara esa relación con sus propias amistades.
 
-  Luke prueba de todos modos varios planos. Mueve los baños, reduce algunos espacios y mira las filas una vez más. Sin embargo, debe admitir que ciento diez asientos en business no siempre son posibles.
-
-  OWing piensa que Luke está demasiado obsesionado con la clase business. Para él, la comodidad en económica también es importante, sobre todo en los vuelos largos.`,
+  Red piensa en Joshua, Emmanuel y Wyatt. Nota que cada amigo aporta una energía diferente: algunos son más tranquilos, otros más caóticos o competitivos. Sin embargo, a Red le gusta la idea de que una buena amistad puede hacer que los proyectos, los retos e incluso los momentos sencillos sean mucho más agradables.`,
     questions: [
       {id:"p19q1",type:"mcq",marks:2,prompt:"(E) Which creator is mentioned?",options:["Jordan Matter","Mr Young","Mr Barley","Gary"],answerIndex:0,model:"Jordan Matter."},
       {id:"p19q2",type:"mcq",marks:2,prompt:"(E) Who is described as Nidal’s best friend?",options:["Salish","Wyatt","Joshua","Red"],answerIndex:0,model:"Salish."},
@@ -776,7 +776,7 @@ La comida está muy buena, pero un poco demasiado salada para Red. Grandpa Belt,
         "Joshua appears in the videos with Salish and Nidal.",
         "Red dislikes emotional moments in videos."
       ],correctIndices:[0,1],minSelect:2,model:"Correct: Red compares their friendship with his own friendships; Red thinks positive friendships improve projects and challenges."},
-      {id:"p19q9",type:"short",marks:4,prompt:"(E) According to the passage, why does Red think friendships are important in videos? Give TWO ideas.",rubric:"Any two: friendships make videos more interesting; more natural; more enjoyable; help keep viewers watching; create positive energy.",keywords:[["interesting","intéressant"],["natural","naturelle"],["enjoyable","fun","amusant"],["watching","viewers","spectateurs"],["positive","energy","énergie"]],model:"Red thinks friendships are important because they make videos feel more natural and enjoyable, and they help keep viewers interested."}
+      {id:"p19q9",type:"short",marks:4,prompt:"(E) According to the passage, why does Red think friendships are important in videos? Give TWO ideas.",rubric:"Any two: friendships make videos more interesting; more natural; more enjoyable; help keep viewers watching; create positive energy.",keywords:[["interesting","interesante"],["natural","natural"],["enjoyable","fun","divertido"],["watching","viewers","espectadores"],["positive","energy","energía"]],model:"Red thinks friendships are important because they make videos feel more natural and enjoyable, and they help keep viewers interested."}
     ]
   },
   {
@@ -784,25 +784,25 @@ La comida está muy buena, pero un poco demasiado salada para Red. Grandpa Belt,
   title: "Passage 20 — El club de astronomía en Otono Mansion",
   theme: "Theme 2 — Free time and hobbies",
   unit: "Astronomy club",
-  text: `Cada viernes por la noche, varios miembros del Otono Team se reúnen en el club de astronomía en Otono Mansion. Usan telescopios para observar la Luna, los planetas y a veces lluvias de meteoros. Red prefiere mirar Júpiter, mientras que a OWing le gusta comparar los diferentes telescopios.
+  text: `Cada viernes por la noche, varios miembros del Otono Team se reúnen en el club de astronomía de Otono Mansion. Usan telescopios para observar la Luna, los planetas y a veces lluvias de meteoros. Red prefiere mirar Júpiter, mientras OWing disfruta comparando los diferentes telescopios.
 
-En invierno, a menudo hace mucho frío fuera, pero el grupo continúa las observaciones de todos modos. Luke dice que las mejores noches son a veces las más difíciles. Sin embargo, algunas noches se vuelven decepcionantes cuando las nubes llegan de repente.
+En invierno, a menudo hace mucho frío fuera, pero el grupo continúa las observaciones de todos modos. Luke dice que las mejores noches a veces son las más difíciles. Sin embargo, algunas noches se vuelven decepcionantes cuando las nubes llegan de repente.
 
-El club no busca solo ver objetos famosos. A los miembros también les gusta aprender la paciencia, la organización y la manera de trabajar tranquilamente juntos.`,
+El club no busca solo ver objetos famosos. A los miembros también les gusta aprender la paciencia, la organización y la manera de trabajar juntos con calma.`,
   questions: [
-    {id:"p20q1",type:"mcq",marks:2,prompt:"(E) When does the astronomy club usually meet?",options:["Every Friday evening","Every Monday morning","Only in summer","Twice a year"],answerIndex:0},
+    {id:"p20q1",type:"mcq",marks:1,prompt:"(E) When does the astronomy club usually meet?",options:["Every Friday evening","Every Monday morning","Only in summer","Twice a year"],answerIndex:0},
 
-    {id:"p20q2",type:"mcq",marks:2,prompt:"(E) What does Red prefer observing?",options:["Mars","Jupiter","Saturn","The Sun"],answerIndex:1},
+    {id:"p20q2",type:"mcq",marks:1,prompt:"(E) What does Red prefer observing?",options:["Mars","Jupiter","Saturn","The Sun"],answerIndex:1},
 
     {id:"p20q3",type:"tfnm",marks:2,prompt:"(E) The astronomy club only meets during summer. (True / False / Not mentioned)",correct:"False"},
 
     {id:"p20q4",type:"tfnm",marks:2,prompt:"(E) Luke bought a new telescope this year. (True / False / Not mentioned)",correct:"Not mentioned"},
 
-    {id:"p20q5",type:"pn",marks:2,prompt:"(E) The general opinion of the astronomy club is… (P / N / P+N)",answer:"P+N"},
+    {id:"p20q5",type:"pn",marks:3,prompt:"(E) The general opinion of the astronomy club is… (P / N / P+N)",answer:"P+N"},
 
-    {id:"p20q6",type:"fr_short",marks:4,prompt:"(M) En español : ¿Por qué algunas noches se vuelven decepcionantes?",rubric:"Porque las nubes llegan de repente.",keywords:[["nubes"],["llegan","de repente"]],model:"Algunas noches se vuelven decepcionantes porque las nubes llegan de repente."},
+    {id:"p20q6",type:"es_short",marks:4,prompt:"(M) En español: ¿Por qué algunas noches se vuelven decepcionantes?",rubric:"Porque las nubes llegan de repente.",keywords:[["nubes"],["llegan","de repente"]],model:"Algunas noches se vuelven decepcionantes porque las nubes llegan de repente."},
 
-    {id:"p20q7",type:"short",marks:6,prompt:"(E) Give TWO things the members learn from astronomy.",rubric:"Any two: patience; organisation; calm teamwork.",keywords:[["patience"],["organisation"],["calm","calmement"],["teamwork","juntos","travailler"]]}
+    {id:"p20q7",type:"short",marks:7,prompt:"(E) Give TWO things the members learn from astronomy.",rubric:"Any two: patience; organisation; calm teamwork.",keywords:[["patience"],["organisation"],["calm","tranquiloment"],["teamwork","ensemble","travailler"]]}
   ]
 },
 {
@@ -810,15 +810,15 @@ El club no busca solo ver objetos famosos. A los miembros también les gusta apr
   title: "Passage 21 — La tinta negra y los exámenes",
   theme: "Theme 1 — School",
   unit: "Exam rules",
-  text: `Antes de los exámenes importantes, Luke revisa siempre sus bolígrafos negros con mucha atención. Piensa que una buena letra y una tinta clara pueden ayudar a los correctores a entender las respuestas más fácilmente. Red encuentra esta costumbre un poco excesiva, pero admite que un bolígrafo fiable puede evitar estrés.
+  text: `Antes de los exámenes importantes, Luke siempre revisa sus bolígrafos negros con mucha atención. Piensa que una buena letra y una tinta clara pueden ayudar a los correctores a entender las respuestas con más facilidad. Red encuentra esta costumbre un poco excesiva, pero admite que un bolígrafo fiable puede evitar estrés.
 
 La señora Munn también recuerda que los alumnos deben leer las instrucciones con atención. Algunos candidatos olvidan detalles sencillos porque empiezan demasiado rápido. Según ella, la preparación mental es tan importante como el material.
 
 Sin embargo, OWing piensa que no hay que obsesionarse con los bolígrafos. Para él, la calidad de las ideas sigue siendo más importante que la marca del material utilizado.`,
   questions: [
-    {id:"p21q1",type:"mcq",marks:2,prompt:"(E) Why does Luke check his pens carefully?",options:["To help examiners read answers","To decorate the classroom","To save electricity","To clean the tables"],answerIndex:0},
+    {id:"p21q1",type:"mcq",marks:1,prompt:"(E) Why does Luke check his pens carefully?",options:["To help examiners read answers","To decorate the classroom","To save electricity","To clean the tables"],answerIndex:0},
 
-    {id:"p21q2",type:"mcq",marks:2,prompt:"(E) What does Red think about Luke’s habit?",options:["A bit excessive","Completely useless","Very funny","Dangerous"],answerIndex:0},
+    {id:"p21q2",type:"mcq",marks:1,prompt:"(E) What does Red think about Luke’s habit?",options:["A bit excessive","Completely useless","Very funny","Dangerous"],answerIndex:0},
 
     {id:"p21q3",type:"tfnm",marks:2,prompt:"(E) Madame Munn says preparation is important. (True / False / Not mentioned)",correct:"True"},
 
@@ -831,9 +831,9 @@ Sin embargo, OWing piensa que no hay que obsesionarse con los bolígrafos. Para 
       "Madame Munn bans black ink."
     ],correctIndices:[0,2],minSelect:2},
 
-    {id:"p21q6",type:"fr_short",marks:2,prompt:"(M) En español : ¿Qué es más importante que la marca del material según OWing?",rubric:"La calidad de las ideas.",keywords:[["calidad"],["ideas"]],model:"Según OWing, la calidad de las ideas es más importante."},
+    {id:"p21q6",type:"es_short",marks:2,prompt:"(M) En español: ¿Qué es más importante que la marca del material según OWing?",rubric:"La calidad de las ideas.",keywords:[["calidad"],["ideas"]],model:"Según OWing, la calidad de las ideas es más importante."},
 
-    {id:"p21q7",type:"short",marks:6,prompt:"(E) Give TWO reasons why candidates make simple mistakes.",rubric:"Any two: they start too quickly; they ignore instructions; stress; poor preparation.",keywords:[["too quickly","vite"],["instructions","consignes"],["stress"],["preparation","préparation"]]}
+    {id:"p21q7",type:"short",marks:8,prompt:"(E) Give TWO reasons why candidates make simple mistakes.",rubric:"Any two: they start too quickly; they ignore instructions; stress; poor preparation.",keywords:[["too quickly","vite"],["instructions","consignes"],["stress"],["preparation","préparation"]]}
   ]
 },
 {
@@ -841,21 +841,21 @@ Sin embargo, OWing piensa que no hay que obsesionarse con los bolígrafos. Para 
   title: "Passage 22 — Le Mans y la estrategia",
   theme: "Theme 2 — Sport and competition",
   unit: "Le Mans",
-  text: `Después de ver varios vídeos sobre Le Mans, Red entiende mejor por qué esta carrera es famosa. Los equipos deben continuar durante veinticuatro horas sin perder la concentración. Un pequeño error puede costar mucho tiempo.
+  text: `Después de ver varios vídeos sobre Le Mans, Red comprende mejor por qué esta carrera es famosa. Los equipos deben continuar durante veinticuatro horas sin perder la concentración. Un pequeño error puede costar mucho tiempo.
 
-OWing compara esta carrera con un largo período de repaso. Explica que no sirve de nada trabajar demasiado rápido al principio si uno acaba completamente cansado más tarde. Según él, la paciencia y la estrategia son esenciales en las dos situaciones.
+OWing compara esta carrera con un largo periodo de repaso. Explica que no sirve de nada trabajar demasiado rápido al principio si uno acaba completamente cansado más tarde. Según él, la paciencia y la estrategia son esenciales en las dos situaciones.
 
 Luke sigue prefiriendo los aviones a los coches, pero le parece interesante que los pilotos cambien regularmente durante la carrera. Eso muestra que un trabajo en equipo eficaz sigue siendo necesario incluso en un deporte muy competitivo.`,
   questions: [
-    {id:"p22q1",type:"mcq",marks:2,prompt:"(E) How long does the race continue?",options:["6 hours","12 hours","24 hours","48 hours"],answerIndex:2},
+    {id:"p22q1",type:"mcq",marks:1,prompt:"(E) How long does the race continue?",options:["6 hours","12 hours","24 hours","48 hours"],answerIndex:2},
 
-    {id:"p22q2",type:"mcq",marks:2,prompt:"(E) What does OWing compare Le Mans to?",options:["A science lesson","A long revision period","A holiday flight","A football match"],answerIndex:1},
+    {id:"p22q2",type:"mcq",marks:1,prompt:"(E) What does OWing compare Le Mans to?",options:["A science lesson","A long revision period","A holiday flight","A football match"],answerIndex:1},
 
     {id:"p22q3",type:"tfnm",marks:2,prompt:"(E) Luke prefers cars to planes. (True / False / Not mentioned)",correct:"False"},
 
     {id:"p22q4",type:"tfnm",marks:2,prompt:"(E) Red wants to become a racing driver. (True / False / Not mentioned)",correct:"Not mentioned"},
 
-    {id:"p22q5",type:"pn",marks:2,prompt:"(E) The overall opinion of Le Mans is… (P / N / P+N)",answer:"P"},
+    {id:"p22q5",type:"pn",marks:3,prompt:"(E) The overall opinion of Le Mans is… (P / N / P+N)",answer:"P"},
 
     {id:"p22q6",type:"select_true",marks:4,prompt:"(E) Select TWO true statements.",statements:[
       "Small mistakes can waste time.",
@@ -864,7 +864,7 @@ Luke sigue prefiriendo los aviones a los coches, pero le parece interesante que 
       "Luke dislikes teamwork."
     ],correctIndices:[0,2],minSelect:2},
 
-    {id:"p22q7",type:"short",marks:6,prompt:"(E) Give TWO qualities needed for Le Mans or long revision.",rubric:"Any two: patience; strategy; concentration; teamwork; avoiding fatigue.",keywords:[["patience"],["strategy","stratégie"],["concentration"],["teamwork","équipe"],["fatigue","tired"]]}
+    {id:"p22q7",type:"short",marks:7,prompt:"(E) Give TWO qualities needed for Le Mans or long revision.",rubric:"Any two: patience; strategy; concentración; teamwork; avoiding fatigue.",keywords:[["patience"],["strategy","estrategia"],["concentración"],["teamwork","equipo"],["fatigue","tired"]]}
   ]
 },
 {
@@ -872,15 +872,15 @@ Luke sigue prefiriendo los aviones a los coches, pero le parece interesante que 
   title: "Passage 21 — La tinta negra y los exámenes",
   theme: "Theme 1 — School",
   unit: "Exam rules",
-  text: `Antes de los exámenes importantes, Luke revisa siempre sus bolígrafos negros con mucha atención. Piensa que una buena letra y una tinta clara pueden ayudar a los correctores a entender las respuestas más fácilmente. Red encuentra esta costumbre un poco excesiva, pero admite que un bolígrafo fiable puede evitar estrés.
+  text: `Antes de los exámenes importantes, Luke siempre revisa sus bolígrafos negros con mucha atención. Piensa que una buena letra y una tinta clara pueden ayudar a los correctores a entender las respuestas con más facilidad. Red encuentra esta costumbre un poco excesiva, pero admite que un bolígrafo fiable puede evitar estrés.
 
 La señora Munn también recuerda que los alumnos deben leer las instrucciones con atención. Algunos candidatos olvidan detalles sencillos porque empiezan demasiado rápido. Según ella, la preparación mental es tan importante como el material.
 
 Sin embargo, OWing piensa que no hay que obsesionarse con los bolígrafos. Para él, la calidad de las ideas sigue siendo más importante que la marca del material utilizado.`,
   questions: [
-    {id:"p21q1",type:"mcq",marks:2,prompt:"(E) Why does Luke check his pens carefully?",options:["To help examiners read answers","To decorate the classroom","To save electricity","To clean the tables"],answerIndex:0},
+    {id:"p21q1",type:"mcq",marks:1,prompt:"(E) Why does Luke check his pens carefully?",options:["To help examiners read answers","To decorate the classroom","To save electricity","To clean the tables"],answerIndex:0},
 
-    {id:"p21q2",type:"mcq",marks:2,prompt:"(E) What does Red think about Luke’s habit?",options:["A bit excessive","Completely useless","Very funny","Dangerous"],answerIndex:0},
+    {id:"p21q2",type:"mcq",marks:1,prompt:"(E) What does Red think about Luke’s habit?",options:["A bit excessive","Completely useless","Very funny","Dangerous"],answerIndex:0},
 
     {id:"p21q3",type:"tfnm",marks:2,prompt:"(E) Madame Munn says preparation is important. (True / False / Not mentioned)",correct:"True"},
 
@@ -893,9 +893,9 @@ Sin embargo, OWing piensa que no hay que obsesionarse con los bolígrafos. Para 
       "Madame Munn bans black ink."
     ],correctIndices:[0,2],minSelect:2},
 
-    {id:"p21q6",type:"fr_short",marks:2,prompt:"(M) En español : ¿Qué es más importante que la marca del material según OWing?",rubric:"La calidad de las ideas.",keywords:[["calidad"],["ideas"]],model:"Según OWing, la calidad de las ideas es más importante."},
+    {id:"p21q6",type:"es_short",marks:2,prompt:"(M) En español: ¿Qué es más importante que la marca del material según OWing?",rubric:"La calidad de las ideas.",keywords:[["calidad"],["ideas"]],model:"Según OWing, la calidad de las ideas es más importante."},
 
-    {id:"p21q7",type:"short",marks:6,prompt:"(E) Give TWO reasons why candidates make simple mistakes.",rubric:"Any two: they start too quickly; they ignore instructions; stress; poor preparation.",keywords:[["too quickly","vite"],["instructions","consignes"],["stress"],["preparation","préparation"]]}
+    {id:"p21q7",type:"short",marks:8,prompt:"(E) Give TWO reasons why candidates make simple mistakes.",rubric:"Any two: they start too quickly; they ignore instructions; stress; poor preparation.",keywords:[["too quickly","vite"],["instructions","consignes"],["stress"],["preparation","préparation"]]}
   ]
 },
 {
@@ -903,21 +903,21 @@ Sin embargo, OWing piensa que no hay que obsesionarse con los bolígrafos. Para 
   title: "Passage 22 — Le Mans y la estrategia",
   theme: "Theme 2 — Sport and competition",
   unit: "Le Mans",
-  text: `Después de ver varios vídeos sobre Le Mans, Red entiende mejor por qué esta carrera es famosa. Los equipos deben continuar durante veinticuatro horas sin perder la concentración. Un pequeño error puede costar mucho tiempo.
+  text: `Después de ver varios vídeos sobre Le Mans, Red comprende mejor por qué esta carrera es famosa. Los equipos deben continuar durante veinticuatro horas sin perder la concentración. Un pequeño error puede costar mucho tiempo.
 
-OWing compara esta carrera con un largo período de repaso. Explica que no sirve de nada trabajar demasiado rápido al principio si uno acaba completamente cansado más tarde. Según él, la paciencia y la estrategia son esenciales en las dos situaciones.
+OWing compara esta carrera con un largo periodo de repaso. Explica que no sirve de nada trabajar demasiado rápido al principio si uno acaba completamente cansado más tarde. Según él, la paciencia y la estrategia son esenciales en las dos situaciones.
 
 Luke sigue prefiriendo los aviones a los coches, pero le parece interesante que los pilotos cambien regularmente durante la carrera. Eso muestra que un trabajo en equipo eficaz sigue siendo necesario incluso en un deporte muy competitivo.`,
   questions: [
-    {id:"p22q1",type:"mcq",marks:2,prompt:"(E) How long does the race continue?",options:["6 hours","12 hours","24 hours","48 hours"],answerIndex:2},
+    {id:"p22q1",type:"mcq",marks:1,prompt:"(E) How long does the race continue?",options:["6 hours","12 hours","24 hours","48 hours"],answerIndex:2},
 
-    {id:"p22q2",type:"mcq",marks:2,prompt:"(E) What does OWing compare Le Mans to?",options:["A science lesson","A long revision period","A holiday flight","A football match"],answerIndex:1},
+    {id:"p22q2",type:"mcq",marks:1,prompt:"(E) What does OWing compare Le Mans to?",options:["A science lesson","A long revision period","A holiday flight","A football match"],answerIndex:1},
 
     {id:"p22q3",type:"tfnm",marks:2,prompt:"(E) Luke prefers cars to planes. (True / False / Not mentioned)",correct:"False"},
 
     {id:"p22q4",type:"tfnm",marks:2,prompt:"(E) Red wants to become a racing driver. (True / False / Not mentioned)",correct:"Not mentioned"},
 
-    {id:"p22q5",type:"pn",marks:2,prompt:"(E) The overall opinion of Le Mans is… (P / N / P+N)",answer:"P"},
+    {id:"p22q5",type:"pn",marks:3,prompt:"(E) The overall opinion of Le Mans is… (P / N / P+N)",answer:"P"},
 
     {id:"p22q6",type:"select_true",marks:4,prompt:"(E) Select TWO true statements.",statements:[
       "Small mistakes can waste time.",
@@ -926,7 +926,7 @@ Luke sigue prefiriendo los aviones a los coches, pero le parece interesante que 
       "Luke dislikes teamwork."
     ],correctIndices:[0,2],minSelect:2},
 
-    {id:"p22q7",type:"short",marks:6,prompt:"(E) Give TWO qualities needed for Le Mans or long revision.",rubric:"Any two: patience; strategy; concentration; teamwork; avoiding fatigue.",keywords:[["patience"],["strategy","stratégie"],["concentration"],["teamwork","équipe"],["fatigue","tired"]]}
+    {id:"p22q7",type:"short",marks:7,prompt:"(E) Give TWO qualities needed for Le Mans or long revision.",rubric:"Any two: patience; strategy; concentración; teamwork; avoiding fatigue.",keywords:[["patience"],["strategy","estrategia"],["concentración"],["teamwork","equipo"],["fatigue","tired"]]}
   ]
 },
 {
@@ -936,39 +936,39 @@ Luke sigue prefiriendo los aviones a los coches, pero le parece interesante que 
   unit: "Creative hobbies",
   text: `En Otono Mansion, Lit prepara un pequeño proyecto creativo sobre la poesía. Le gustan mucho los poemas, sobre todo cuando las palabras crean una imagen fuerte en la mente. Jessica encuentra interesante el proyecto, porque le gusta analizar los detalles y los colores en un texto.
 
-A OWing, en cambio, no le gusta la poesía. Prefiere los temas más lógicos y dice que un poema a veces es demasiado vago. Red escucha la discusión y nota que cada persona entiende el arte de una manera diferente.
+A OWing, en cambio, no le gusta la poesía. Prefiere los temas más lógicos y dice que un poema a veces es demasiado vago. Red escucha la conversación y nota que cada persona comprende el arte de una manera diferente.
 
 Al final, Lit elige un poema corto para presentarlo al grupo. Aunque OWing no se convierte en fan de la poesía, admite que algunas frases están bien elegidas.`,
   questions: [
-    {id:"p23q1",type:"mcq",marks:2,prompt:"(E) What does Lit like a lot?",options:["Poetry","Planes","Maths tests","Restaurants"],answerIndex:0},
-    {id:"p23q2",type:"mcq",marks:2,prompt:"(E) What does Jessica find interesting?",options:["The creative project","A delayed flight","A black pen rule","A race car"],answerIndex:0},
+    {id:"p23q1",type:"mcq",marks:1,prompt:"(E) What does Lit like a lot?",options:["Poetry","Planes","Maths tests","Restaurants"],answerIndex:0},
+    {id:"p23q2",type:"mcq",marks:1,prompt:"(E) What does Jessica find interesting?",options:["The creative project","A delayed flight","A black pen rule","A race car"],answerIndex:0},
     {id:"p23q3",type:"mcq",marks:2,prompt:"(E) What does OWing prefer?",options:["More logical subjects","Long poems","Drama only","Painting belts"],answerIndex:0},
     {id:"p23q4",type:"tfnm",marks:2,prompt:"(E) OWing becomes a fan of poetry. (True / False / Not mentioned)",correct:"False"},
     {id:"p23q5",type:"tfnm",marks:2,prompt:"(E) Lit writes the poem herself. (True / False / Not mentioned)",correct:"Not mentioned"},
-    {id:"p23q6",type:"pn",marks:2,prompt:"(E) OWing’s view of poetry is… (P / N / P+N)",answer:"P+N"},
-    {id:"p23q7",type:"fr_short",marks:4,prompt:"(M) En español : ¿Por qué a Lit le gustan los poemas?",rubric:"Porque las palabras crean una imagen fuerte.",keywords:[["palabras"],["image"],["fuerte"]],model:"A Lit le gustan los poemas porque las palabras crean una imagen fuerte."},
-    {id:"p23q8",type:"short",marks:4,prompt:"(E) Give ONE reason why OWing dislikes poetry.",rubric:"It is too vague / he prefers logical subjects.",keywords:[["vague"],["logical","logique"]],model:"OWing dislikes poetry because he thinks it is sometimes too vague."}
+    {id:"p23q6",type:"pn",marks:3,prompt:"(E) OWing’s view of poetry is… (P / N / P+N)",answer:"P+N"},
+    {id:"p23q7",type:"es_short",marks:4,prompt:"(M) En español: ¿Por qué a Lit le gustan los poemas?",rubric:"Porque las palabras crean una imagen fuerte.",keywords:[["palabras"],["image"],["forte"]],model:"A Lit le gustan los poemas porque las palabras crean una imagen fuerte."},
+    {id:"p23q8",type:"short",marks:5,prompt:"(E) Give ONE reason why OWing dislikes poetry.",rubric:"It is too vague / he prefers logical subjects.",keywords:[["vague"],["logical","logique"]],model:"OWing dislikes poetry because he thinks it is sometimes too vague."}
   ]
 },
 {
   id: 24,
-  title: "Passage 24 — La Marsellesa y la identidad",
+  title: "Passage 24 — La Marcha Real y la identidad",
   theme: "Theme 4 — Identity and culture",
   unit: "Music and national symbols",
-  text: `A Red le gusta mucho La Marsellesa. Para él, el himno es poderoso, dramático y lleno de carácter. Piensa que la melodía da una impresión de energía, sobre todo cuando varias voces cantan juntas.
+  text: `A Red le gusta mucho la Marcha Real. Para él, el himno es poderoso, solemne y lleno de carácter. Cree que la melodía da una impresión de energía, sobre todo cuando varias voces cantan juntas.
 
-Algunas personas encuentran el himno demasiado intenso, pero Red mantiene una opinión muy positiva. Piensa que una canción nacional puede mostrar la historia, el orgullo y la identidad de un país. Sin embargo, también entiende que no todo el mundo reacciona de la misma manera ante la música.
+Algunas personas encuentran el himno demasiado intenso, pero Red mantiene una opinión muy positiva. Piensa que una canción nacional puede mostrar la historia, el orgullo y la identidad de un país. Sin embargo, también comprende que no todo el mundo reacciona de la misma manera a la música.
 
-Cuando Red escucha La Marsellesa, no piensa solo en la letra. También nota el ritmo, la voz y la emoción. Para él, es una canción que se queda fácilmente en la memoria.`,
+Cuando Red escucha la Marcha Real, no piensa solo en el significado. También nota el ritmo, las voces y la emoción. Para él, es una canción que se queda fácilmente en la memoria.`,
   questions: [
-    {id:"p24q1",type:"mcq",marks:2,prompt:"(E) What does Red like?",options:["La Marseillaise","A maths mark scheme","A hotel budget","A racing car"],answerIndex:0},
-    {id:"p24q2",type:"mcq",marks:2,prompt:"(E) How does Red describe the anthem?",options:["Powerful and dramatic","Boring and weak","Silent and simple","Funny only"],answerIndex:0},
+    {id:"p24q1",type:"mcq",marks:1,prompt:"(E) What does Red like?",options:["La Marcha Real","A maths mark scheme","A hotel budget","A racing car"],answerIndex:0},
+    {id:"p24q2",type:"mcq",marks:1,prompt:"(E) How does Red describe the anthem?",options:["Powerful and dramatic","Boring and weak","Silent and simple","Funny only"],answerIndex:0},
     {id:"p24q3",type:"mcq",marks:2,prompt:"(E) What can a national song show?",options:["History, pride and identity","Only exam rules","Only food prices","Only airport gates"],answerIndex:0},
     {id:"p24q4",type:"tfnm",marks:2,prompt:"(E) Everyone reacts to music in the same way. (True / False / Not mentioned)",correct:"False"},
-    {id:"p24q5",type:"tfnm",marks:2,prompt:"(E) Red has performed La Marseillaise in public. (True / False / Not mentioned)",correct:"Not mentioned"},
-    {id:"p24q6",type:"pn",marks:2,prompt:"(E) Red’s opinion of La Marseillaise is… (P / N / P+N)",answer:"P"},
-    {id:"p24q7",type:"fr_short",marks:4,prompt:"(M) En español : ¿Por qué a Red le gusta La Marsellesa?",rubric:"Porque es poderosa / dramática / llena de carácter.",keywords:[["poderosa"],["dramatique"],["carácter"]],model:"A Red le gusta La Marsellesa porque es poderosa y llena de carácter."},
-    {id:"p24q8",type:"short",marks:4,prompt:"(E) Give TWO musical features Red notices.",rubric:"Any two: melody, rhythm, voice, emotion.",keywords:[["melody","mélodie"],["rhythm","rythme"],["voice","voix"],["emotion","émotion"]],model:"He notices the rhythm and the emotion."}
+    {id:"p24q5",type:"tfnm",marks:2,prompt:"(E) Red has performed La Marcha Real in public. (True / False / Not mentioned)",correct:"Not mentioned"},
+    {id:"p24q6",type:"pn",marks:3,prompt:"(E) Red’s opinion of La Marcha Real is… (P / N / P+N)",answer:"P"},
+    {id:"p24q7",type:"es_short",marks:4,prompt:"(M) En español: ¿Por qué a Red le gusta la Marcha Real?",rubric:"Porque es poderosa / solemne / llena de carácter.",keywords:[["poderosa"],["solemne"],["carácter"]],model:"A Red le gusta la Marcha Real porque es poderosa y llena de carácter."},
+    {id:"p24q8",type:"short",marks:5,prompt:"(E) Give TWO musical features Red notices.",rubric:"Any two: melody, rhythm, voice, emotion.",keywords:[["melody","mélodie"],["rhythm","rythme"],["voice","voix"],["emotion","émotion"]],model:"He notices the rhythm and the emotion."}
   ]
 },
 {
@@ -978,18 +978,18 @@ Cuando Red escucha La Marsellesa, no piensa solo en la letra. También nota el r
   unit: "Art and opinions",
   text: `Jessica prepara una pequeña exposición de arte en Otono Mansion. Elige varios dibujos con colores tranquilos, sombras precisas y detalles muy cuidados. Quiere mostrar que el arte no sirve solo para decorar una habitación: también puede contar una historia.
 
-A Lit le gustan sobre todo las obras que se parecen a poesía visual. Dice que una imagen a veces puede transmitir una emoción más rápido que un texto largo. Red pasa rápidamente delante de los dibujos y dice que algunos detalles le recuerdan a las miniaturas de vídeos.
+A Lit le gustan sobre todo las obras que parecen poesía visual. Dice que una imagen a veces puede transmitir una emoción más rápido que un texto largo. Red pasa rápidamente delante de los dibujos y dice que algunos detalles le recuerdan a miniaturas de vídeos.
 
-Jessica aprecia los cumplidos, pero prefiere que los visitantes expliquen precisamente lo que les gusta. Para ella, una opinión detallada es más útil que una simple palabra positiva.`,
+Jessica aprecia los cumplidos, pero prefiere que los visitantes expliquen precisamente qué les gusta. Para ella, una opinión detallada es más útil que una simple palabra positiva.`,
   questions: [
-    {id:"p25q1",type:"mcq",marks:2,prompt:"(E) What is Jessica preparing?",options:["An art exhibition","A flight plan","A poetry exam","A race"],answerIndex:0},
-    {id:"p25q2",type:"mcq",marks:2,prompt:"(E) What does Jessica want art to do?",options:["Tell a story","Cancel lessons","Replace exams","Hide mistakes"],answerIndex:0},
+    {id:"p25q1",type:"mcq",marks:1,prompt:"(E) What is Jessica preparing?",options:["An art exhibition","A flight plan","A poetry exam","A race"],answerIndex:0},
+    {id:"p25q2",type:"mcq",marks:1,prompt:"(E) What does Jessica want art to do?",options:["Tell a story","Cancel lessons","Replace exams","Hide mistakes"],answerIndex:0},
     {id:"p25q3",type:"mcq",marks:2,prompt:"(E) What does Lit compare some artworks to?",options:["Visual poetry","Airport signs","Science belts","Maths papers"],answerIndex:0},
     {id:"p25q4",type:"tfnm",marks:2,prompt:"(E) Jessica uses only bright colours. (True / False / Not mentioned)",correct:"False"},
     {id:"p25q5",type:"tfnm",marks:2,prompt:"(E) The exhibition takes place in a school hall. (True / False / Not mentioned)",correct:"False"},
-    {id:"p25q6",type:"pn",marks:2,prompt:"(E) Jessica’s view of detailed feedback is… (P / N / P+N)",answer:"P"},
+    {id:"p25q6",type:"pn",marks:3,prompt:"(E) Jessica’s view of detailed feedback is… (P / N / P+N)",answer:"P"},
     {id:"p25q7",type:"select_true",marks:4,prompt:"(E) Select TWO true statements.",statements:["Jessica chooses careful details.","Lit likes art that feels like visual poetry.","Red is the main organiser.","Jessica dislikes all compliments."],correctIndices:[0,1],minSelect:2},
-    {id:"p25q8",type:"short",marks:4,prompt:"(E) Why does Jessica prefer detailed opinions?",rubric:"Because they explain exactly what visitors like and are more useful.",keywords:[["explain","precisely","exactly"],["useful","utile"],["like","aiment"]],model:"She prefers detailed opinions because they explain exactly what people like."}
+    {id:"p25q8",type:"short",marks:5,prompt:"(E) Why does Jessica prefer detailed opinions?",rubric:"Because they explain exactly what visitors like and are more useful.",keywords:[["explain","precisely","exactly"],["useful","utile"],["like","aiment"]],model:"She prefers detailed opinions because they explain exactly what people like."}
   ]
 },
 {
@@ -997,66 +997,65 @@ Jessica aprecia los cumplidos, pero prefiere que los visitantes expliquen precis
   title: "Passage 26 — Hokkaido y la máquina de piedras preciosas",
   theme: "Theme 3 — Travel",
   unit: "Hokkaido trip",
-  text: `Durante el viaje a Hokkaido, OWing, Red y Lit encuentran una máquina de empujar piedras preciosas en una sala de juegos. La máquina les llama inmediatamente la atención, porque las piedras brillan bajo las luces. OWing observa el mecanismo con seriedad, mientras que Lit admira sobre todo los colores.
+  text: `Durante el viaje a Hokkaido, OWing, Red y Lit encuentran una máquina de empujar piedras preciosas en una sala de juegos. La máquina atrae inmediatamente su atención, porque las piedras brillan bajo las luces. OWing observa el mecanismo con seriedad, mientras Lit admira sobre todo los colores.
 
-Red piensa que la máquina parece un pequeño reto de paciencia. Quiere esperar el momento adecuado antes de jugar. OWing explica que empujar demasiado rápido no garantiza nada, porque las piedras pueden quedarse atascadas en el borde.
+Red piensa que la máquina parece un pequeño reto de paciencia. Quiere esperar el momento adecuado antes de jugar. OWing explica que empujar demasiado rápido no garantiza nada, porque las piedras pueden quedarse atascadas en el bordee.
 
 Lit elige una piedra violeta como su favorita. El grupo no gana mucho, pero la experiencia se convierte en un recuerdo divertido del viaje. Para ellos, no cuenta solo el premio, sino también el momento pasado juntos.`,
   questions: [
-    {id:"p26q1",type:"mcq",marks:2,prompt:"(E) Where do they find the machine?",options:["In an arcade / games room","At school","On an aircraft","In a library"],answerIndex:0},
-    {id:"p26q2",type:"mcq",marks:2,prompt:"(E) What does Lit mainly admire?",options:["The colours","The timetable","The exam paper","The gate number"],answerIndex:0},
+    {id:"p26q1",type:"mcq",marks:1,prompt:"(E) Where do they find the machine?",options:["In an arcade / games room","At school","On an aircraft","In a library"],answerIndex:0},
+    {id:"p26q2",type:"mcq",marks:1,prompt:"(E) What does Lit mainly admire?",options:["The colours","The timetable","The exam paper","The gate number"],answerIndex:0},
     {id:"p26q3",type:"mcq",marks:2,prompt:"(E) What does Red think the machine is like?",options:["A patience challenge","A French song","A science lesson","A hotel"],answerIndex:0},
     {id:"p26q4",type:"tfnm",marks:2,prompt:"(E) Lit chooses a purple stone as her favourite. (True / False / Not mentioned)",correct:"True"},
     {id:"p26q5",type:"tfnm",marks:2,prompt:"(E) The group wins a very expensive prize. (True / False / Not mentioned)",correct:"False"},
-    {id:"p26q6",type:"pn",marks:2,prompt:"(E) The group’s final view of the experience is… (P / N / P+N)",answer:"P"},
-    {id:"p26q7",type:"fr_short",marks:4,prompt:"(M) En español : ¿Por qué la máquina les llama la atención?",rubric:"Porque las piedras brillan bajo las luces.",keywords:[["piedras"],["brillan"],["luces"]],model:"La máquina les llama la atención porque las piedras brillan bajo las luces."},
-    {id:"p26q8",type:"short",marks:4,prompt:"(E) Give ONE reason why pushing too quickly may not work.",rubric:"The stones may get stuck at the edge / it does not guarantee a win.",keywords:[["stuck","coincées"],["edge","bord"],["guarantee","garantit"]],model:"Pushing too quickly may not work because the stones can stay stuck at the edge."}
+    {id:"p26q6",type:"pn",marks:3,prompt:"(E) The group’s final view of the experience is… (P / N / P+N)",answer:"P"},
+    {id:"p26q7",type:"es_short",marks:4,prompt:"(M) En español: ¿Por qué la máquina atrae su atención?",rubric:"Porque las piedras brillan bajo las luces.",keywords:[["piedras"],["brillan"],["luces"]],model:"La máquina atrae su atención porque las piedras brillan bajo las luces."},
+    {id:"p26q8",type:"short",marks:5,prompt:"(E) Give ONE reason why pushing too quickly may not work.",rubric:"The stones may get stuck at the edge / it does not guarantee a win.",keywords:[["stuck","atascadas"],["edge","borde"],["guarantee","garantiza"]],model:"Pushing too quickly may not work because the stones can stay stuck at the edge."}
   ]
 }
 ];
-
 const TRANSLATIONS = [
   {
     id: "T6",
-    title: "Translation — El club de astronomía",
+    title: "Translation — The Astronomy Club",
     theme: "Theme 2 — Free time and hobbies",
     text: "Every Friday evening, the astronomy club meets inside Otono Mansion to observe the sky. The members especially enjoy watching the Moon, planets and meteor showers together. According to Luke, astronomy teaches patience because some events only happen at the perfect moment.",
     keyIdeas: [
-      ["cada viernes por la noche", "every friday evening"],
-      ["el club de astronomia", "el club de astronomía", "astronomy club"],
-      ["se reune en otono mansion", "se reúne en otono mansion", "meets inside otono mansion"],
-      ["observar el cielo", "observe the sky"],
-      ["a los miembros les gusta sobre todo", "members especially enjoy"],
-      ["la luna", "moon"],
-      ["los planetas", "los planetas", "planets"],
-      ["las lluvias de meteoros", "las lluvias de meteoros", "meteor showers"],
-      ["juntos", "together"],
-      ["la astronomia enseña paciencia", "astronomy teaches patience"],
-      ["algunos acontecimientos", "algunos acontecimientos", "some events"],
-      ["en el momento perfecto", "perfect moment"]
+      ["chaque vendredi soir", "every friday evening"],
+      ["le club d astronomie", "le club d’astronomie", "astronomy club"],
+      ["se reunit dans otono mansion", "se réunit dans otono mansion", "meets inside otono mansion"],
+      ["observer le ciel", "observe the sky"],
+      ["les membres aiment surtout", "members especially enjoy"],
+      ["la lune", "moon"],
+      ["les planetes", "les planètes", "planets"],
+      ["les pluies de meteores", "les pluies de météores", "meteor showers"],
+      ["ensemble", "together"],
+      ["l astronomie enseigne la patience", "astronomy teaches patience"],
+      ["certains evenements", "certains événements", "some events"],
+      ["au moment parfait", "perfect moment"]
     ],
     sampleAnswer:
-      "Cada viernes por la noche, el club de astronomía se reúne en Otono Mansion para observar el cielo. A los miembros les gusta sobre todo mirar la Luna, los planetas y las lluvias de meteoros juntos. Según Luke, la astronomía enseña paciencia porque algunos acontecimientos solo ocurren en el momento perfecto."
+      "Chaque vendredi soir, le club d’astronomie se réunit dans Otono Mansion pour observer le ciel. Les membres aiment surtout regarder la Lune, les planètes et les pluies de météores ensemble. Selon Luke, l’astronomie enseigne la patience parce que certains événements n’arrivent qu’au moment parfait."
   },
 
   {
     id: "T7",
-    title: "Translation — Tinta negra",
+    title: "Translation — Black ink",
     theme: "Theme 1 — School and study",
     text: "Luke prefers writing in black ink because he thinks it looks clearer and more professional. Before important exams, he always checks his pens carefully and brings extra ones with him. In his opinion, good equipment can improve confidence during a difficult paper.",
     keyIdeas: [
-      ["luke prefiere escribir con tinta negra", "luke prefiere escribir en tinta negra", "luke prefers writing in black ink"],
-      ["más clara", "clearer"],
-      ["más profesional", "more professional"],
+      ["luke prefere ecrire en encre noire", "luke préfère écrire en encre noire", "luke prefers writing in black ink"],
+      ["plus claire", "clearer"],
+      ["plus professionnelle", "more professional"],
       ["avant les examens importants", "before important exams"],
-      ["siempre revisa sus boligrafos", "siempre revisa sus bolígrafos", "checks his pens carefully"],
-      ["trae boligrafos adicionales", "bolígrafos adicionales", "brings extra pens"],
-      ["buen material", "buen equipo", "good equipment"],
-      ["mejorar la confianza", "aumentar la confianza", "improve confidence"],
-      ["un examen dificil", "un examen difícil", "difficult paper"]
+      ["il verifie toujours ses stylos", "il vérifie toujours ses stylos", "checks his pens carefully"],
+      ["il apporte des stylos supplementaires", "stylos supplémentaires", "brings extra pens"],
+      ["du bon materiel", "bon matériel", "good equipment"],
+      ["ameliorer la confiance", "améliorer la confiance", "improve confidence"],
+      ["une epreuve difficile", "une épreuve difficile", "difficult paper"]
     ],
     sampleAnswer:
-      "Luke prefiere escribir con tinta negra porque piensa que parece más claro y más profesional. Antes de los exámenes importantes, siempre revisa sus bolígrafos con atención y trae bolígrafos adicionales. En su opinión, un buen material puede mejorar la confianza durante un examen difícil."
+      "Luke préfère écrire en encre noire parce qu’il pense que cela paraît plus clair et plus professionnel. Avant les examens importants, il vérifie toujours ses stylos attentivement et il en apporte des supplémentaires avec lui. À son avis, du bon matériel peut améliorer la confiance pendant une épreuve difficile."
   },
 
   {
@@ -1065,42 +1064,42 @@ const TRANSLATIONS = [
     theme: "Theme 3 — Sport and competition",
     text: "Red became interested in the Le Mans race after watching a documentary about endurance racing. He was surprised that drivers could continue for twenty-four hours with different teammates. For him, the event is impressive because strategy, concentration and teamwork are just as important as speed.",
     keyIdeas: [
-      ["red se intereso por la carrera de le mans", "red se interesó por la carrera de le mans", "interested in the le mans race"],
-      ["despues de ver un documental", "después de ver un documental", "after watching a documentary"],
-      ["las carreras de resistencia", "carreras de resistencia", "endurance racing"],
-      ["estaba sorprendido", "se sorprendio", "he was surprised"],
-      ["veinticuatro horas", "24 horas", "twenty four hours"],
-      ["con diferentes compañeros de equipo", "con distintos compañeros de equipo", "different teammates"],
-      ["el evento es impresionante", "event is impressive"],
-      ["la estrategia", "strategy"],
+      ["red s est interesse a la course du mans", "red s’est intéressé à la course du mans", "interested in the le mans race"],
+      ["apres avoir regarde un documentaire", "après avoir regardé un documentaire", "after watching a documentary"],
+      ["les courses d endurance", "courses d’endurance", "endurance racing"],
+      ["il etait surpris", "il était surpris", "he was surprised"],
+      ["vingt quatre heures", "twenty four hours"],
+      ["avec differents coequipiers", "avec différents coéquipiers", "different teammates"],
+      ["l evenement est impressionnant", "event is impressive"],
+      ["la strategie", "strategy"],
       ["la concentration", "concentration"],
-      ["el trabajo en equipo", "trabajo en equipo", "teamwork"],
-      ["tan importantes como la velocidad", "as important as speed"]
+      ["le travail d equipe", "travail d’équipe", "teamwork"],
+      ["aussi importants que la vitesse", "as important as speed"]
     ],
     sampleAnswer:
-      "Red se interesó por la carrera de Le Mans después de ver un documental sobre las carreras de resistencia. Le sorprendió que los pilotos pudieran continuar durante veinticuatro horas con diferentes compañeros de equipo. Para él, el evento es impresionante porque la estrategia, la concentración y el trabajo en equipo son tan importantes como la velocidad."
+      "Red s’est intéressé à la course du Mans après avoir regardé un documentaire sur les courses d’endurance. Il était surpris que les pilotes puissent continuer pendant vingt-quatre heures avec différents coéquipiers. Pour lui, l’événement est impressionnant parce que la stratégie, la concentration et le travail d’équipe sont aussi importants que la vitesse."
   },
 
   {
     id: "T9",
-    title: "Translation — El observatorio escondido",
+    title: "Translation — The hidden observatory",
     theme: "Theme 2 — Technology and hobbies",
     text: "OWing recently helped to improve the hidden observatory inside Otono Mansion. During the winter, the team used powerful telescopes to observe Jupiter and several distant galaxies. Even though the weather in the United Kingdom is not always ideal, they believe that astronomy becomes more exciting when conditions are difficult.",
     keyIdeas: [
-      ["owing ayudo recientemente", "owing ayudó recientemente", "owing recently helped"],
-      ["mejorar el observatorio escondido", "mejorar el observatorio secreto", "improve the hidden observatory"],
+      ["owing a recemment aide", "owing a récemment aidé", "owing recently helped"],
+      ["ameliorer l observatoire secret", "améliorer l’observatoire secret", "improve the hidden observatory"],
       ["dans otono mansion", "inside otono mansion"],
-      ["durante el invierno", "en invierno", "during the winter"],
-      ["telescopios potentes", "telescopios poderosos", "powerful telescopes"],
+      ["pendant l hiver", "pendant l’hiver", "during the winter"],
+      ["des telescopes puissants", "des télescopes puissants", "powerful telescopes"],
       ["observer jupiter", "observe jupiter"],
       ["plusieurs galaxies lointaines", "several distant galaxies"],
-      ["aunque el tiempo en el reino unido", "aunque el clima en el reino unido", "even though the weather in the united kingdom"],
-      ["no siempre es ideal", "no es siempre ideal", "not always ideal"],
-      ["la astronomia se vuelve mas emocionante", "astronomy becomes more exciting"],
-      ["cuando las condiciones son dificiles", "when conditions are difficult"]
+      ["meme si le temps au royaume uni", "même si le temps au royaume uni", "even though the weather in the united kingdom"],
+      ["n est pas toujours ideal", "n’est pas toujours idéal", "not always ideal"],
+      ["l astronomie devient plus passionnante", "astronomy becomes more exciting"],
+      ["quand les conditions sont difficiles", "when conditions are difficult"]
     ],
     sampleAnswer:
-      "OWing ayudó recientemente a mejorar el observatorio escondido en Otono Mansion. Durante el invierno, el equipo usó telescopios potentes para observar Júpiter y varias galaxias lejanas. Aunque el tiempo en el Reino Unido no siempre es ideal, creen que la astronomía se vuelve más emocionante cuando las condiciones son difíciles."
+      "OWing a récemment aidé à améliorer l’observatoire secret dans Otono Mansion. Pendant l’hiver, l’équipe a utilisé des télescopes puissants pour observer Jupiter et plusieurs galaxies lointaines. Même si le temps au Royaume-Uni n’est pas toujours idéal, ils pensent que l’astronomie devient plus passionnante quand les conditions sont difficiles."
   }
 ];
 
@@ -1185,8 +1184,8 @@ function gcseEstimate(score){
 
 function badgeForScore(score){
   if(score >= 101) return ["badge good","💯 SECRET SCORE"];
-  if(score >= 90) return ["badge good","🏆 Excelente"];
-  if(score >= 80) return ["badge good","⭐ Muy Bien"];
+  if(score >= 90) return ["badge good","🏆 Excellent"];
+  if(score >= 80) return ["badge good","⭐ Très bien"];
   if(score >= 66) return ["badge warn","✅ OK"];
   return ["badge bad","❌ Mal"];
 }
@@ -1450,7 +1449,7 @@ function renderTest(){
       qWrap.dataset.qid = q.id;
 
       const markTag = `<span class="badge" title="Marks for this question">${q.marks} marks</span>`;
-      const instruction = (q.type === "fr_short")
+      const instruction = (q.type === "es_short")
         ? "Answer in Spanish. Auto-mark uses keywords."
         : (["mcq","pn","tfnm"].includes(q.type) ? "Select one option." : "Auto-mark uses keywords. Write concise, direct answers.");
 
@@ -1570,8 +1569,8 @@ function renderQuestion(q){
     return renderGapFill(q);
   }
 
-  // short / fr_short remain unchanged
-  return `<textarea id="ans_${q.id}" placeholder="${q.type === "fr_short" ? "Responde en español..." : "Write your answer here..."}"></textarea>`;
+  // short / es_short remain unchanged
+  return `<textarea id="ans_${q.id}" placeholder="${q.type === "es_short" ? "Réponds en español..." : "Write your answer here..."}"></textarea>`;
 }
 
 function renderChoice(q, optionObjects){
@@ -1637,7 +1636,7 @@ function bindInputs(){
     });
   });
 
-  // textareas (short, fr_short, translation)
+  // textareas (short, es_short, translation)
   $$("textarea").forEach(t => {
     t.addEventListener("input", () => {
       const id = t.id.replace("ans_","");
@@ -1741,10 +1740,15 @@ function tokenOverlap(text, phrase){
 }
 
 function expectedDetailCount(marks){
+  if(marks === 1) return 1;
   if(marks === 2) return 1;
+  if(marks === 3) return 2;
   if(marks === 4) return 2;
+  if(marks === 5) return 3;
   if(marks === 6) return 3;
+  if(marks === 7) return 4;
   if(marks === 8) return 4;
+  if(marks === 9) return 5;
   return null;
 }
 
