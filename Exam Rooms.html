@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Otono GCSE Room Simulator</title>
+<style>
+:root{
+  --red:#d7193f; --purple:#6c2bd9; --dark:#171424; --mid:#2a2440;
+  --soft:#f7f2ff; --paper:#fff; --gold:#ffd166; --green:#2bb673; --blue:#3aa6ff;
+  --danger:#ff4d6d; --ink:#111; --muted:#6b6478;
+}
+*{box-sizing:border-box} body{margin:0;font-family:Arial, Helvetica, sans-serif;background:linear-gradient(135deg,var(--dark),#31114d 45%,#510d2d);color:#fff;}
+header{padding:24px 18px;text-align:center;background:linear-gradient(90deg,var(--red),var(--purple));box-shadow:0 8px 30px #0006;}
+h1{margin:0;font-size:clamp(26px,5vw,46px);letter-spacing:.5px}.subtitle{opacity:.95;margin-top:8px}.wrap{max-width:1280px;margin:auto;padding:18px}.card{background:#fffffff0;color:var(--ink);border-radius:18px;padding:18px;margin:18px 0;box-shadow:0 12px 35px #0007;border:3px solid #ffffff55}.card h2{margin-top:0;color:var(--purple)}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}@media(max-width:850px){.grid2,.grid3{grid-template-columns:1fr}}
+label{font-weight:700;font-size:14px;color:#30293f}input,select,textarea,button{font:inherit}input,select,textarea{width:100%;padding:10px;border:2px solid #ddd;border-radius:10px;background:#fff;margin-top:5px}textarea{min-height:100px}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:end}.row>*{flex:1;min-width:170px}button{border:0;border-radius:12px;padding:11px 14px;font-weight:800;cursor:pointer;background:linear-gradient(90deg,var(--red),var(--purple));color:#fff;box-shadow:0 5px 12px #0003}button.secondary{background:#eee;color:#261c3b}button.good{background:var(--green)}button.warn{background:#f59e0b}button.danger{background:var(--danger)}button.small{padding:6px 9px;border-radius:8px;font-size:13px}.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}.tab{background:#eee;color:#222}.tab.active{background:linear-gradient(90deg,var(--red),var(--purple));color:#fff}.panel{display:none}.panel.active{display:block}.pill{display:inline-block;padding:5px 10px;border-radius:999px;background:#eee;color:#222;margin:3px;font-weight:700}.pill.red{background:#ffe3e8}.pill.purple{background:#eee4ff}.pill.blue{background:#e2f2ff}.pill.gold{background:#fff4c2}.stats{display:flex;gap:10px;flex-wrap:wrap}.roomCards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}.roomCard{background:#f6f3ff;border:2px solid #e3d8ff;border-left:7px solid var(--red);border-radius:14px;padding:11px;color:#20162f}.roomCard b{color:var(--purple)}.stat{background:#f6f3ff;border-left:6px solid var(--purple);border-radius:14px;padding:12px;min-width:150px}.stat b{font-size:24px;color:var(--red)}
+.roomShell{overflow:auto;border:3px solid #eee;border-radius:16px;padding:14px;background:#f8f6ff}.roomGrid{display:grid;gap:8px;min-width:max-content}.seat{width:92px;height:78px;background:#fff;border:2px solid #cfc7e9;border-radius:12px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;font-size:12px;padding:4px;cursor:pointer;position:relative}.seat:hover{outline:3px solid var(--gold)}.seat.occupied{background:#fff4f7;border-color:var(--red)}.seat.exam2{background:#edf7ff;border-color:var(--blue)}.seat.back{box-shadow:inset 0 0 0 3px #ffd166}.seat .code{font-size:11px;color:#555}.seat .icons{position:absolute;bottom:3px;right:5px;font-size:13px}.seat .label{position:absolute;top:3px;left:5px;font-size:10px;color:#777}.frontback{display:flex;justify-content:space-between;color:#fff;background:var(--mid);padding:8px 12px;border-radius:12px;margin-bottom:8px;font-weight:800}.candidateList{max-height:360px;overflow:auto}.seatTableWrap{overflow:auto}.seatTable{width:100%;border-collapse:collapse;background:#fff}.seatTable th,.seatTable td{border:1px solid #ddd;padding:8px;text-align:left}.seatTable th{background:#eee4ff;color:#24163d}.seatTable tr:nth-child(even){background:#faf8ff}.cand{display:grid;grid-template-columns:1.1fr 1.1fr .7fr .7fr 1fr auto;gap:8px;align-items:center;padding:8px;border-bottom:1px solid #eee}.cand:nth-child(even){background:#faf8ff}.modal{position:fixed;inset:0;background:#0009;display:none;align-items:center;justify-content:center;z-index:10;padding:18px}.modalBox{background:#fff;color:#111;border-radius:18px;max-width:620px;width:100%;padding:18px;max-height:92vh;overflow:auto}.checkgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.checkgrid label{font-weight:500}.timerBox{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.timer{background:#161222;color:#fff;border-radius:16px;padding:18px;text-align:center}.timer b{font-size:34px;color:var(--gold)}.notice{padding:12px;border-radius:12px;background:#fff8d6;color:#443600;border-left:6px solid #f59e0b;margin:8px 0}.bad{background:#ffe6eb;border-left-color:var(--danger);color:#4a0010}.ok{background:#e8fff3;border-left-color:var(--green);color:#003f20}.printOnly{display:none}
+@media print{body{background:#fff;color:#000}header,.tabs,.noPrint,button,.modal{display:none!important}.card{box-shadow:none;border:1px solid #999;break-inside:avoid}.panel{display:block}.panel:not(#layoutPanel){display:none}.printOnly{display:block}.seat{break-inside:avoid;color:#000}.roomShell{overflow:visible;border:1px solid #999}.frontback{color:#000;background:#eee}}
+</style>
+</head>
+<body>
+<header>
+  <h1>✈️ Otono GCSE Room Simulator 📋</h1>
+  <div class="subtitle">Seating plans, timers, access arrangements, announcements, saving and printing — Otono style.</div>
+</header>
+<div class="wrap">
+  <div class="tabs noPrint">
+    <button class="tab active" onclick="showTab('setupPanel',this)">1 Setup</button>
+    <button class="tab" onclick="showTab('candidatesPanel',this)">2 Candidates</button>
+    <button class="tab" onclick="showTab('layoutPanel',this)">3 Seating Plan</button>
+    <button class="tab" onclick="showTab('timerPanel',this)">4 Timer</button>
+    <button class="tab" onclick="showTab('announcePanel',this)">5 Announcements</button>
+    <button class="tab" onclick="showTab('savePanel',this)">6 Save / Print</button>
+  </div>
+
+  <section id="setupPanel" class="panel active card">
+    <h2>Exam Setup</h2>
+    <div class="grid3">
+      <label>Centre Number<input id="centre" value="50749" maxlength="5"></label>
+      <label>Date<input id="examDate" type="date"></label>
+      <label>Room<select id="room" onchange="buildRoom()"></select></label>
+    </div>
+    <div class="grid2">
+      <label>Exam 1 Name<input id="exam1" value="Enter Exam Series" oninput="updateTimes()"></label>
+      <label>Exam 1 Duration (minutes)<input id="dur1" type="number" min="1" value="0" onchange="updateTimes()"></label>
+      <label>Exam 2 Name (optional)<input id="exam2" placeholder="GCSE History / A Level Maths etc." oninput="updateTimes()"></label>
+      <label>Exam 2 Duration (minutes, 0 = off)<input id="dur2" type="number" min="0" value="0" onchange="updateTimes()"></label>
+      <label>Default Extra Time %<input id="extraPercent" type="number" min="0" value="25" onchange="updateTimes()"></label>
+    </div>
+    <h3>Time settings</h3>
+    <div class="notice">No typed start time: the exam starts when you press <b>Start Timer</b>. End times are then calculated from that exact moment.</div>
+    <div class="grid2">
+      <label>Exam 1 custom extra minutes<input id="extraMins1Override" type="number" min="0" placeholder="auto from %" onchange="updateTimes()"></label>
+      <label>Exam 2 custom extra minutes<input id="extraMins2Override" type="number" min="0" placeholder="auto from %" onchange="updateTimes()"></label>
+    </div>
+    <input id="startTime" type="hidden" value="">
+    <input id="end1Override" type="hidden" value="">
+    <input id="extraEnd1Override" type="hidden" value="">
+    <input id="end2Override" type="hidden" value="">
+    <input id="extraEnd2Override" type="hidden" value="">
+    <div class="row noPrint"><button onclick="finishSetup()">Calculate & Go to Candidates ➜</button><button class="secondary" onclick="updateTimes();buildRoom();">Calculate Only</button></div>
+    <h3>Available Exam Rooms</h3>
+    <div id="roomCards" class="roomCards"></div>
+    <div id="timeSummary" class="notice"></div>
+    <h3>Invigilators</h3>
+    <div id="invigilators"></div>
+    <button class="secondary noPrint" onclick="addInvigilator('New Invigilator','Default')">+ Add Invigilator</button>
+  </section>
+
+  <section id="candidatesPanel" class="panel card">
+    <h2>Candidate Entry</h2>
+    <div class="notice">Candidate number is required and must be 4 digits. Access arrangement candidates automatically get <b>*</b>. Word processor candidates must be seated at the back.</div>
+    <div class="row noPrint">
+      <label>Surname<input id="candSurname" placeholder="SURNAME"></label>
+      <label>Forename(s)<input id="candForenames" placeholder="Forename(s)"></label>
+      <label>Candidate No.<input id="candNo" maxlength="4" placeholder="0248"></label>
+      <label>Exam<select id="candExam"><option value="1">Exam 1</option><option value="2">Exam 2</option></select></label>
+      <button onclick="addCandidateFromForm()">Add Candidate</button>
+    </div>
+    <div class="checkgrid noPrint" id="arrChecks"></div>
+    <div class="row noPrint"><label>Custom arrangement<input id="customArr" placeholder="Phone, Black Ink Only, Otono One Seat..."></label></div>
+    <h3>Candidates</h3>
+    <div class="candidateList" id="candidateList"></div>
+    <div class="row noPrint" style="margin-top:12px"><button onclick="finishCandidates()">Go to Seating Plan ➜</button><button class="secondary" onclick="renderSeatTable()">Refresh Candidate List</button></div>
+  </section>
+
+  <section id="layoutPanel" class="panel card">
+    <div class="printOnly"><h2>GCSE Exam Seating Plan</h2><div id="printMeta"></div></div>
+    <h2>Seating Plan</h2>
+    <div class="stats" id="stats"></div>
+    <div class="row noPrint">
+      <label>Mode<select id="mode"><option value="shuffle">Shuffle candidates</option><option value="custom">Custom seating</option></select></label>
+      <button onclick="shuffleSeats()">Shuffle Seats</button>
+      <button class="secondary" onclick="clearSeats()">Clear Seats</button>
+      <button class="warn" onclick="validatePlan()">Check Rules</button>
+    </div>
+    <div id="warnings"></div>
+    <div class="frontback"><span>BACK / TOP — Word Processor Zone 💻</span><span>FRONT</span></div>
+    <div class="roomShell"><div id="roomGrid" class="roomGrid"></div></div>
+    <h3>Candidate Seating Plan</h3>
+    <div class="seatTableWrap"><table class="seatTable" id="seatTable"></table></div>
+    <div class="row noPrint" style="margin-top:12px"><button onclick="finishSeating()">Go to Timer ➜</button><button class="secondary" onclick="goToTab('candidatesPanel')">← Back to Candidates</button></div>
+  </section>
+
+  <section id="timerPanel" class="panel card">
+    <h2>Live Timer</h2>
+    <div class="timerBox">
+      <div class="timer">Current Clock<br><b id="clock">--:--:--</b></div>
+      <div class="timer">Exam 1 Remaining<br><b id="timer1">--:--:--</b></div>
+      <div class="timer">Exam 2 Remaining<br><b id="timer2">--:--:--</b></div>
+    </div>
+    <div class="row noPrint" style="margin-top:12px"><button class="good" onclick="startTimers()">▶ Start Timer</button><button class="danger" onclick="stopTimers()">Stop Timer</button><button class="secondary" onclick="resetTimers()">Reset</button></div>
+    <div id="timerInfo" class="notice"></div>
+    <div class="row noPrint" style="margin-top:12px"><button onclick="finishTimer()">Go to Announcements ➜</button><button class="secondary" onclick="goToTab('layoutPanel')">← Back to Seating</button></div>
+  </section>
+
+  <section id="announcePanel" class="panel card">
+    <h2>Announcement System 🔊</h2>
+    <div class="grid3 noPrint">
+      <label>Reader<select id="reader"></select></label>
+      <label>Voice<select id="voiceSelect"></select></label>
+      <label>Speed<select id="rate"><option value="0.85">Slow</option><option value="1" selected>Normal</option><option value="1.15">Fast</option></select></label>
+    </div>
+    <textarea id="announcement">You must now follow the rules and regulations of the examination. Only material which is listed on the question paper may be used in this exam room. You must not have on or near you any other material.
+
+Check your pockets now for notes, books, earbuds, iPods, mobile phones and watches. You must hand these into an invigilator now. Failure to do so may lead to disqualification.
+
+Check the day, date, time, subject, unit component and tier, make sure you have the correct question paper. Put your hand up if you think you have been given the wrong paper.
+
+Fill in all of the details now on the front of your answer booklet in black ink. Make sure you fill in these details on any additional answer sheets that you use.
+
+Read the instructions on the front of the question paper. Check that you have all of the materials you need for the exam.
+
+You must write clearly and in black ink. You must not use correcting pens, fluid or tape, erasable pens or blotting paper. You may use pencil for drawings and rough notes.
+
+You must not communicate in any way with, ask for help from or give help to another candidate. Put your hand up to attract an invigilator's attention. If the fire alarm sounds, please remain seated and wait for instructions.</textarea>
+    <div class="row noPrint"><button onclick="speakAnnouncement()">Speak Announcement</button><button class="danger" onclick="speechSynthesis.cancel()">Stop Speaking</button><button class="secondary" onclick="preset('start')">Exam Started Preset</button><button class="secondary" onclick="preset('five')">5 Minutes Left Preset</button></div>
+    <div class="row noPrint" style="margin-top:12px"><button onclick="finishAnnouncements()">Go to Save / Print ➜</button><button class="secondary" onclick="goToTab('timerPanel')">← Back to Timer</button></div>
+  </section>
+
+  <section id="savePanel" class="panel card">
+    <h2>Save / Load / Print</h2>
+    <div class="row noPrint">
+      <label>Plan name<input id="saveName" value="Otono GCSE Plan"></label>
+      <button onclick="savePlan()">Save in Browser</button>
+      <button onclick="loadPlan()">Load Saved</button>
+      <button onclick="downloadJSON()">Export JSON</button>
+      <button onclick="window.print()">Print</button>
+    </div>
+    <div class="notice">Saved plans stay in this browser. Export JSON if you want a backup file.</div>
+    <h3>Reminders</h3>
+    <div id="reminders"></div>
+  </section>
+</div>
+
+<div class="modal" id="seatModal"><div class="modalBox">
+  <h2 id="modalTitle">Seat</h2>
+  <label>Assign Candidate<select id="seatCandidate"></select></label>
+  <div class="row"><button onclick="assignSeat()">Assign</button><button class="secondary" onclick="emptySeat()">Empty Seat</button><button class="danger" onclick="closeModal()">Close</button></div>
+</div></div>
+
+<script>
+const rooms={
+  hall:{name:'Hall',cols:['A','B','C','D','E','F','G','H','J','K'],rows:14,cap:140},
+  gym:{name:'Gym',cols:['A','B','C','D','E','F','G'],rows:6,cap:42},
+  drama:{name:'Drama Studio',cols:['A','B','C','D','E','F','G','H'],rows:10,cap:80},
+  conference:{name:'Conference Room',cols:['A','B','C'],rows:3,cap:9},
+  maths:{name:'Maths Office',cols:['A','B'],rows:1,cap:2},
+  humanities:{name:'Humanities Office',cols:['A','B'],rows:1,cap:2},
+  reset:{name:'Reset Room',cols:['A','B'],rows:2,cap:4},
+  head:{name:"Headteacher's Office",cols:['A','B'],rows:1,cap:2}
+};
+const arrangements=['Word processor','Extra Time','Rest Breaks','Scribe','Reader','Separate room','Prompter','Coloured paper','Enlarged paper','Supervised breaks','Practical assistant','Bilingual dictionary'];
+let candidates=[], seats={}, selectedSeat=null, timerInterval=null, examStartAt=null, examEnds={};
+
+function roomLayoutText(r){
+  const orientation = r.name==='Gym' ? 'row 1 = back' : (r.rows===1 ? 'single row' : `row ${r.rows} = back`);
+  return `${r.cols.join(' ')} × 1–${r.rows}` + (r.name==='Hall'?' (no I column)': '') + ` (${orientation})`;
+}
+function renderRoomCards(){
+  const el=document.getElementById('roomCards'); if(!el)return;
+  el.innerHTML=Object.entries(rooms).map(([key,r])=>`<div class="roomCard"><b>${r.name}</b><br>Capacity: ${r.cap}<br>Layout: ${roomLayoutText(r)}</div>`).join('');
+}
+function containsFrench(){return ((exam1?.value||'')+' '+(exam2?.value||'')).toUpperCase().includes('FRENCH')}
+function luckText(){return containsFrench()?'Bonne chance!':'Good luck!'}
+function init(){
+  const roomSel=document.getElementById('room');
+  roomSel.innerHTML='';
+  Object.keys(rooms).forEach(k=>{let o=document.createElement('option');o.value=k;o.textContent=`${rooms[k].name} (${rooms[k].cap})`;roomSel.appendChild(o)});
+  renderRoomCards();
+  document.getElementById('examDate').value=new Date().toISOString().slice(0,10);
+  ['Meirion Edwards','Celia Burn','Vanessa Williams-Grey'].forEach((n,i)=>addInvigilator(n,i==0?'Male':'Female'));
+  arrangements.forEach(a=>document.getElementById('arrChecks').innerHTML+=`<label><input type="checkbox" value="${a}"> ${a}</label>`);
+  buildRoom(); updateTimes(); renderCandidates(); renderReminders(); loadVoices(); setInterval(()=>document.getElementById('clock').textContent=new Date().toLocaleTimeString('en-GB'),500);
+}
+function showTab(id,btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  else { const buttons=[...document.querySelectorAll('.tab')]; const target=buttons.find(b=>b.getAttribute('onclick')?.includes(id)); if(target) target.classList.add('active'); }
+  if(id==='layoutPanel') buildRoom();
+  document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'});
+}
+function goToTab(id){showTab(id,null)}
+function finishSetup(){updateTimes();buildRoom();goToTab('candidatesPanel')}
+function finishCandidates(){renderCandidates();buildRoom();goToTab('layoutPanel')}
+function finishSeating(){validatePlan(false);updateTimes();goToTab('timerPanel')}
+function finishTimer(){updateTimes();goToTab('announcePanel')}
+function finishAnnouncements(){renderReminders();goToTab('savePanel')}
+function addInvigilator(name='',gender='Default'){let d=document.createElement('div');d.className='row noPrint';d.innerHTML=`<label>Name<input value="${name}"></label><label>Gender / voice type<select><option ${gender==='Default'?'selected':''}>Default</option><option ${gender==='Male'?'selected':''}>Male</option><option ${gender==='Female'?'selected':''}>Female</option><option>Custom</option></select></label><button class="secondary" onclick="this.parentElement.remove();refreshReaders()">Remove</button>`;document.getElementById('invigilators').appendChild(d);refreshReaders();}
+function getInvigilators(){return [...document.querySelectorAll('#invigilators .row')].map(r=>({name:r.querySelector('input').value,gender:r.querySelector('select').value}));}
+function refreshReaders(){let r=document.getElementById('reader'); if(!r)return; r.innerHTML=''; getInvigilators().forEach((x,i)=>{let o=document.createElement('option');o.value=i;o.textContent=`${x.name} (${x.gender})`;r.appendChild(o)});}
+function fmtDuration(mins){
+  mins=Number(mins)||0;
+  const h=Math.floor(mins/60), m=mins%60;
+  return h ? `${h}h ${m?m+'m':''}`.trim() : `${m}m`;
+}
+function addMinutesToDate(date,min){return new Date(date.getTime()+min*60000)}
+function fmtClock(date){return date ? date.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}) : '--:--'}
+function getExtraMinutes(n){
+  const dur=+(n===1?dur1.value:dur2.value);
+  const override=document.getElementById(n===1?'extraMins1Override':'extraMins2Override').value;
+  if(override!=='') return +override;
+  return Math.ceil(dur*(+extraPercent.value||0)/100);
+}
+function updateTimes(){
+  const d1=+dur1.value||0, d2=+dur2.value||0;
+  let text=`<b>Exam 1:</b> ${exam1.value||'Exam 1'} — ${fmtDuration(d1)}. Start: when Start Timer is pressed. Extra time: ${getExtraMinutes(1)} mins.`;
+  if(examStartAt && examEnds[1]) text += ` Started ${fmtClock(examStartAt)}, standard end ${fmtClock(addMinutesToDate(examStartAt,d1))}, extra-time end ${fmtClock(examEnds[1])}.`;
+  if(d2>0){
+    text+=`<br><b>Exam 2:</b> ${exam2.value||'Exam 2'} — ${fmtDuration(d2)}. Start: when Start Timer is pressed. Extra time: ${getExtraMinutes(2)} mins.`;
+    if(examStartAt && examEnds[2]) text += ` Started ${fmtClock(examStartAt)}, standard end ${fmtClock(addMinutesToDate(examStartAt,d2))}, extra-time end ${fmtClock(examEnds[2])}.`;
+  }
+  text += `<br><b>Start message:</b> ${luckText()}`;
+  timeSummary.innerHTML=text; timerInfo.innerHTML=text; updatePrintMeta(); renderSeatTable();
+}
+function fullName(c){if(!c.surname && c.name) return c.name; return `${(c.surname||'').toUpperCase()}, ${c.forenames||''}`.trim().replace(/,\s*$/,'')}
+function addCandidateFromForm(){
+  const surname=candSurname.value.trim(), forenames=candForenames.value.trim(), no=candNo.value.trim();
+  if(!surname || !forenames)return alert('Enter surname and forename(s).');
+  if(!/^\d{4}$/.test(no))return alert('Candidate number is required.');
+  let arr=[...document.querySelectorAll('#arrChecks input:checked')].map(x=>x.value); if(customArr.value.trim())arr.push(customArr.value.trim());
+  candidates.push({id:crypto.randomUUID(),surname,forenames,no,exam:candExam.value,arr});
+  candSurname.value='';candForenames.value='';candNo.value='';customArr.value='';document.querySelectorAll('#arrChecks input').forEach(x=>x.checked=false); renderCandidates(); buildRoom();
+}
+function seatOf(cid){return Object.entries(seats).find(([s,id])=>id===cid)?.[0] || 'Not seated';}
+function renderCandidates(){
+  candidateList.innerHTML=candidates.map(c=>`<div class="cand"><b>${c.arr.length?'* ':''}${(c.surname||'').toUpperCase()}</b><span>${c.forenames||''}</span><span>${c.arr.length?'* ':''}${centre.value} / ${c.no}</span><span>${seatOf(c.id)}</span><span>Exam ${c.exam}: ${c.exam==='2'?(exam2.value||'Exam 2'):(exam1.value||'Exam 1')}<br>${c.arr.join(', ')||'None'}</span><button class="small danger" onclick="removeCandidate('${c.id}')">X</button></div>`).join('') || '<div class="notice">No candidates yet.</div>';
+  updateStats(); renderSeatTable();
+}
+function renderSeatTable(){
+  const table=document.getElementById('seatTable'); if(!table)return;
+  const rows=candidates.map(c=>{const seat=seatOf(c.id); return {seat,surname:(c.surname||'').toUpperCase(),forenames:c.forenames||'',no:c.no,exam:c.exam,arr:c.arr.join(', ')||'None',star:c.arr.length?'* ':''}})
+    .sort((a,b)=>String(a.seat).localeCompare(String(b.seat),undefined,{numeric:true}));
+  table.innerHTML='<thead><tr><th>Seat</th><th>Surname</th><th>Forename(s)</th><th>Candidate Number</th><th>Exam</th><th>Access Arrangements</th></tr></thead><tbody>'+ 
+    (rows.length?rows.map(r=>`<tr><td>${r.seat}</td><td>${r.star}${r.surname}</td><td>${r.forenames}</td><td>${r.star}${centre.value} / ${r.no}</td><td>${r.exam==='2'?(exam2.value||'Exam 2'):(exam1.value||'Exam 1')}</td><td>${r.arr}</td></tr>`).join(''):'<tr><td colspan="6">No candidates yet.</td></tr>')+
+    '</tbody>';
+}
+function removeCandidate(id){candidates=candidates.filter(c=>c.id!==id); Object.keys(seats).forEach(s=>{if(seats[s]===id)delete seats[s]}); renderCandidates(); buildRoom();}
+function isBackSeat(seat){
+  const r=rooms[room.value];
+  const row=parseInt(String(seat).match(/\d+$/)?.[0]||'1',10);
+  if(!r) return false;
+  if(r.name==='Gym') return row===1;
+  return row===r.rows;
+}
+function visualRows(r){
+  const rows=Array.from({length:r.rows},(_,i)=>i+1);
+  return r.name==='Gym' ? rows : rows.reverse();
+}
+function orientationText(r){
+  if(r.name==='Gym') return 'BACK / TOP: row 1 — Word Processor Zone 💻';
+  if(r.rows===1) return 'BACK / TOP: single row — Word Processor Zone 💻';
+  return `BACK / TOP: row ${r.rows} — Word Processor Zone 💻`;
+}
+function buildRoom(){
+  const r=rooms[room.value], grid=roomGrid;
+  document.querySelector('.frontback span:first-child').textContent=orientationText(r);
+  grid.style.gridTemplateColumns=`repeat(${r.cols.length},92px)`; grid.innerHTML='';
+  for(let row of visualRows(r)) for(let col of r.cols){
+    let id=col+row, c=candidates.find(x=>x.id===seats[id]);
+    let div=document.createElement('div');
+    div.className='seat '+(c?'occupied ':'')+(c&&c.exam==='2'?'exam2 ':'')+(isBackSeat(id)?'back ':'');
+    div.onclick=()=>openSeat(id);
+    div.innerHTML=`<span class="label">${id}</span>${c?`<b>${c.arr.length?'* ':''}${fullName(c)}</b><span class="code">${c.arr.length?'* ':''}${centre.value}/${c.no}</span><span class="icons">${c.arr.includes('Word processor')?'💻':''}${c.arr.includes('Extra Time')?'⏱️':''}</span>`:'<span>Empty</span>'}`;
+    grid.appendChild(div)
+  }
+  updateStats(); renderSeatTable(); validatePlan(false); updatePrintMeta();
+}
+function openSeat(id){selectedSeat=id; modalTitle.textContent='Seat '+id; seatCandidate.innerHTML='<option value="">-- empty --</option>'+candidates.map(c=>`<option value="${c.id}" ${seats[id]===c.id?'selected':''}>${fullName(c)} (${c.no})</option>`).join(''); seatModal.style.display='flex';}
+function closeModal(){seatModal.style.display='none'}
+function assignSeat(){if(!selectedSeat)return; const cid=seatCandidate.value; Object.keys(seats).forEach(s=>{if(seats[s]===cid)delete seats[s]}); if(cid)seats[selectedSeat]=cid; else delete seats[selectedSeat]; closeModal(); buildRoom(); renderCandidates();}
+function emptySeat(){delete seats[selectedSeat]; closeModal(); buildRoom(); renderCandidates();}
+function clearSeats(){seats={}; buildRoom(); renderCandidates();}
+function shuffleSeats(){
+  seats={}; const r=rooms[room.value]; let all=[]; for(let row=1;row<=r.rows;row++)for(let col of r.cols)all.push(col+row);
+  let back=all.filter(s=>isBackSeat(s)), other=all.filter(s=>!isBackSeat(s));
+  function sh(a){return a.sort(()=>Math.random()-.5)} sh(back);sh(other);
+  let wp=candidates.filter(c=>c.arr.includes('Word processor')), rest=candidates.filter(c=>!c.arr.includes('Word processor'));
+  if(wp.length>back.length) alert('Not enough back-row seats for word processors!');
+  wp.forEach(c=>{let s=back.shift(); if(s)seats[s]=c.id}); sh([...back,...other]).forEach((s,i)=>{if(rest[i])seats[s]=rest[i].id}); buildRoom(); renderCandidates();
+}
+function validatePlan(show=true){
+  let msgs=[]; let used=new Set(); candidates.forEach(c=>{if(!/^\d{4}$/.test(c.no))msgs.push(`Candidate number problem: ${fullName(c)}`); if(used.has(c.no))msgs.push(`Duplicate candidate number: ${c.no}`); used.add(c.no);});
+  Object.entries(seats).forEach(([seat,cid])=>{let c=candidates.find(x=>x.id===cid); if(c&&c.arr.includes('Word processor')&&!isBackSeat(seat))msgs.push(`${fullName(c)} has a word processor but is not at the back (${seat}).`)});
+  warnings.innerHTML=msgs.length?msgs.map(m=>`<div class="notice bad">⚠ ${m}</div>`).join(''):'<div class="notice ok">✅ No rule problems found.</div>'; if(show&&msgs.length===0)alert('No rule problems found!'); return msgs;
+}
+function updateStats(){let cap=rooms[room.value]?.cap||0, occ=Object.keys(seats).length; stats.innerHTML=`<div class="stat"><b>${cap}</b><br>Capacity</div><div class="stat"><b>${occ}</b><br>Occupied</div><div class="stat"><b>${cap-occ}</b><br>Free seats</div><div class="stat"><b>${candidates.filter(c=>c.arr.length).length}</b><br>Access arrangements</div><div class="stat"><b>${candidates.filter(c=>c.arr.includes('Word processor')).length}</b><br>Word processors</div>`;}
+function renderReminders(){reminders.innerHTML=['Word processor candidates must sit in the room back row. Gym uses row 1; most other rooms use the highest row number.','Candidate numbers must be 4 digits.','Check phones, watches, earbuds and notes are handed in.','Use black ink unless the exam instructions say otherwise.','The timer starts only when Start Timer is pressed; extra time is rounded up to the next minute.','Print the seating plan before the exam starts.','Access arrangement candidates must show * next to name and number.'].map(x=>`<div class="notice">📌 ${x}</div>`).join('')}
+function updatePrintMeta(){printMeta.innerHTML=`Centre: ${centre.value}<br>Date: ${examDate.value}<br>Room: ${rooms[room.value]?.name}<br>${timeSummary.innerHTML}<br>Invigilators: ${getInvigilators().map(i=>i.name).join(', ')}`}
+function savePlan(){localStorage.setItem('otonoGCSEPlan',JSON.stringify(getState())); alert('Saved!')}
+function loadPlan(){let s=localStorage.getItem('otonoGCSEPlan'); if(!s)return alert('No saved plan found.'); setState(JSON.parse(s));}
+function getState(){return {centre:centre.value,examDate:examDate.value,room:room.value,exam1:exam1.value,exam2:exam2.value,dur1:dur1.value,dur2:dur2.value,extraPercent:extraPercent.value,extraMins1Override:extraMins1Override.value,extraMins2Override:extraMins2Override.value,candidates,seats,invigilators:getInvigilators(),announcement:announcement.value};}
+function setState(s){['centre','examDate','exam1','exam2','dur1','dur2','extraPercent','extraMins1Override','extraMins2Override'].forEach(k=>{if(s[k]!==undefined && document.getElementById(k))document.getElementById(k).value=s[k]}); room.value=rooms[s.room]?s.room:'hall'; candidates=s.candidates||[]; seats=s.seats||{}; invigilators.innerHTML=''; (s.invigilators||[]).forEach(i=>addInvigilator(i.name,i.gender)); announcement.value=s.announcement||announcement.value; examStartAt=null; examEnds={}; updateTimes(); renderCandidates(); buildRoom();}
+function downloadJSON(){let a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([JSON.stringify(getState(),null,2)],{type:'application/json'})); a.download=(saveName.value||'otono-plan')+'.json'; a.click();}
+function startTimers(){
+  clearInterval(timerInterval);
+  examStartAt=new Date();
+  const d1=+dur1.value||0, d2=+dur2.value||0;
+  examEnds={};
+  examEnds[1]=addMinutesToDate(examStartAt,d1+getExtraMinutes(1));
+  if(d2>0) examEnds[2]=addMinutesToDate(examStartAt,d2+getExtraMinutes(2));
+  updateTimes();
+  countdown(1); countdown(2);
+  timerInterval=setInterval(()=>{countdown(1);countdown(2)},250);
+}
+function stopTimers(){clearInterval(timerInterval); timerInterval=null;}
+function resetTimers(){
+  stopTimers(); examStartAt=null; examEnds={}; timer1.textContent='--:--:--'; timer2.textContent='--:--:--'; updateTimes();
+}
+function countdown(n){
+  let dur=+(n===1?dur1.value:dur2.value);
+  if(!dur || !examStartAt || !examEnds[n]){document.getElementById('timer'+n).textContent='--:--:--';return}
+  let diff=Math.max(0,examEnds[n]-new Date());
+  let hh=String(Math.floor(diff/3600000)).padStart(2,'0'), mm=String(Math.floor(diff%3600000/60000)).padStart(2,'0'), ss=String(Math.floor(diff%60000/1000)).padStart(2,'0');
+  document.getElementById('timer'+n).textContent=`${hh}:${mm}:${ss}`;
+  if(diff===0 && timerInterval){
+    if((!examEnds[2] || timer2.textContent==='00:00:00') && timer1.textContent==='00:00:00') stopTimers();
+  }
+}
+function loadVoices(){let vs=speechSynthesis.getVoices(); voiceSelect.innerHTML=vs.map((v,i)=>`<option value="${i}">${v.name} (${v.lang})</option>`).join(''); refreshReaders();} speechSynthesis.onvoiceschanged=loadVoices;
+function speakAnnouncement(){speechSynthesis.cancel(); let u=new SpeechSynthesisUtterance(announcement.value); let vs=speechSynthesis.getVoices(); if(vs[voiceSelect.value])u.voice=vs[voiceSelect.value]; u.rate=+rate.value; speechSynthesis.speak(u);}
+function preset(type){announcement.value= type==='five'?'You have five minutes remaining. Please check that you have completed all required questions and filled in your details.':`You may now begin. ${luckText()}`;}
+init();
+</script>
+</body>
+</html>
