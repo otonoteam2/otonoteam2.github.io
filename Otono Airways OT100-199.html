@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Otono Airways | OT100–199 Booking</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  color:#21152b;
+  background:
+    radial-gradient(circle at top left,rgba(255,255,255,.18),transparent 30%),
+    linear-gradient(135deg,#250042 0%,#4b0082 42%,#8a005d 72%,#c0003b 100%);
+  background-attachment:fixed;
+}
+header{
+  min-height:260px;
+  color:white;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:35px 18px;
+  background:
+    linear-gradient(rgba(20,0,40,.35),rgba(20,0,40,.65)),
+    radial-gradient(circle at 70% 20%,rgba(255,255,255,.22),transparent 25%);
+}
+.logo{
+  font-size:46px;
+  font-weight:900;
+  letter-spacing:2px;
+}
+.tagline{font-size:18px;margin-top:8px}
+.limit{
+  background:#fff3cd;
+  color:#5c4200;
+  text-align:center;
+  padding:12px;
+  font-weight:bold;
+}
+main{max-width:1180px;margin:auto;padding:22px}
+.page{display:none}
+.page.active{display:block}
+.card{
+  background:rgba(255,255,255,.96);
+  border-radius:24px;
+  padding:24px;
+  margin:20px 0;
+  box-shadow:0 18px 45px rgba(0,0,0,.28);
+}
+.hero-card{
+  border:2px solid rgba(255,255,255,.55);
+  background:linear-gradient(135deg,#ffffff,#f7efff);
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  gap:15px;
+}
+label{font-weight:bold;font-size:14px}
+input,select,button{
+  width:100%;
+  padding:13px;
+  margin-top:6px;
+  border-radius:12px;
+  border:1px solid #cfc3d9;
+  font-size:15px;
+}
+button{
+  border:none;
+  cursor:pointer;
+  color:white;
+  font-weight:bold;
+  background:linear-gradient(90deg,#4b0082,#c0003b);
+}
+button:hover{filter:brightness(1.08)}
+button.secondary{background:#2d2436}
+button:disabled{background:#999;cursor:not-allowed}
+.nav{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+  gap:12px;
+  margin-top:18px;
+}
+.promise{
+  margin-top:18px;
+  padding:18px;
+  border-radius:18px;
+  background:linear-gradient(135deg,#f4e7ff,#fff1f5);
+  border:2px dashed #7b1fa2;
+}
+.promise h2{margin:0;color:#4b0082}
+.flight{
+  border-radius:18px;
+  padding:17px;
+  margin:15px 0;
+  border:2px solid #eee;
+  border-left:9px solid #7b1fa2;
+  background:white;
+}
+.flight h3{margin:0;color:#4b0082}
+.badge{
+  display:inline-block;
+  margin:7px 5px 7px 0;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:bold;
+}
+.a380{background:#ead6ff;color:#4b0082}
+.ok{background:#d7f7df;color:#075c1e}
+.warn{background:#fff0bd;color:#704b00}
+.full{background:#ffd6d6;color:#8a0000}
+.price{font-size:21px;font-weight:900;color:#c0003b}
+table{width:100%;border-collapse:collapse;margin-top:12px}
+th,td{padding:10px;border-bottom:1px solid #ddd;text-align:left}
+th{background:#4b0082;color:white}
+.small{font-size:13px;color:#5b5264}
+.boarding{
+  border:4px dashed #4b0082;
+  background:#fff;
+}
+.barcode{
+  margin-top:16px;
+  padding:14px;
+  background:#eee;
+  text-align:center;
+  font-size:22px;
+  letter-spacing:4px;
+  font-family:monospace;
+}
+footer{
+  color:white;
+  text-align:center;
+  padding:25px;
+}
+@media print{
+  body *{visibility:hidden}
+  #boardingPage,#boardingPage *{visibility:visible}
+  #boardingPage{position:absolute;top:0;left:0;width:100%}
+  button{display:none}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">OTONO AIRWAYS</div>
+  <div class="tagline">OT100–199 Long-Haul Booking System</div>
+  <p>Red and purple skies. A380 dreams. Legroom guaranteed.</p>
+</header>
+
+<div class="limit">Fictional demo only — currently limited to Otono Airways flights OT100–OT199.</div>
+
+<main>
+
+<section id="homePage" class="page active">
+  <div class="card hero-card">
+    <h1>Welcome aboard 💜✈️</h1>
+    <p>Search Otono Airways flights to Asia and Australia using the OT100–199 timetable.</p>
+
+    <div class="nav">
+      <button onclick="showPage('searchPage')">Book a Flight</button>
+      <button onclick="showPage('infoPage')">Cabins & Baggage</button>
+      <button onclick="showPage('seatMapPage')">Aircraft Seat Maps</button>
+    </div>
+
+    <div class="promise">
+      <h2>LEGROOM GUARANTEED</h2>
+      <p><strong>34–35 inches / 86–89 cm</strong> in every Economy seat.</p>
+      <p>“It may cost a bit more! But very much worth it!”</p>
+      <p><strong>No more fear of Economy Class!</strong></p>
+    </div>
+  </div>
+</section>
+
+<section id="searchPage" class="page">
+  <div class="card">
+    <h2>Search Flights</h2>
+    <p class="small">The website automatically chooses Northern Summer or Northern Winter timetable from your travel date.</p>
+
+    <div class="grid">
+      <div><label>Trip type</label><select id="tripType" onchange="toggleReturnDate()"><option>Round trip</option><option>One way</option></select></div>
+      <div><label>From</label><select id="from"></select></div>
+      <div><label>To</label><select id="to"></select></div>
+      <div><label>Departure date</label><input type="date" id="departDate"></div>
+      <div id="returnDateBox"><label>Return date</label><input type="date" id="returnDate"></div>
+      <div><label>Adults</label><input type="number" id="adults" value="1" min="1" max="9"></div>
+      <div><label>Children</label><input type="number" id="children" value="0" min="0" max="9"></div>
+      <div>
+        <label>Cabin / Fare</label>
+        <select id="fare">
+          <option value="ecoBasic">Economy Basic</option>
+          <option value="ecoStandard" selected>Economy Standard</option>
+          <option value="ecoFlex">Economy Flex</option>
+          <option value="peStandard">Premium Economy Standard</option>
+          <option value="peFlex">Premium Economy Flex</option>
+          <option value="bizSaver">Business Saver</option>
+          <option value="bizFlex">Business Flex</option>
+          <option value="otonoOne">Otono One</option>
+          <option value="first">First Class</option>
+        </select>
+      </div>
+      <div><label>Discount code</label><input id="discountCode" placeholder="Code"></div>
+    </div>
+
+    <br>
+    <button onclick="searchFlights()">Search OT100–199 Flights</button>
+    <button class="secondary" onclick="showPage('homePage')">Return to Home Page</button>
+  </div>
+</section>
+
+<section id="resultsPage" class="page">
+  <div class="card">
+    <h2>Choose Your Flight</h2>
+    <p id="seasonText"></p>
+    <h3>Outbound</h3>
+    <div id="outboundResults"></div>
+    <div id="returnResultsBox">
+      <h3>Return</h3>
+      <div id="returnResults"></div>
+    </div>
+    <button class="secondary" onclick="showPage('searchPage')">Back to Search</button>
+  </div>
+</section>
+
+<section id="passengerPage" class="page">
+  <div class="card">
+    <h2>Passenger Details</h2>
+    <div class="grid">
+      <div><label>Lead passenger name</label><input id="passengerName" placeholder="Your Name Here"></div>
+      <div><label>Email</label><input id="email" placeholder="example@email.com"></div>
+      <div><label>Phone</label><input id="phone" placeholder="Optional"></div>
+    </div>
+    <br>
+    <button onclick="goSeatPage()">Continue to Seat Selection</button>
+    <button class="secondary" onclick="showPage('resultsPage')">Back to Results</button>
+  </div>
+</section>
+
+<section id="seatPage" class="page">
+  <div class="card">
+    <h2>Seat Selection</h2>
+    <p>You can type custom seat numbers. Real aircraft seat map links can be inserted later.</p>
+    <div class="grid">
+      <div><label>Outbound seat</label><input id="outSeat" placeholder="Example: 74A"></div>
+      <div id="returnSeatBox"><label>Return seat</label><input id="retSeat" placeholder="Example: 56C"></div>
+    </div>
+    <div id="seatMapLinks" class="promise"></div>
+    <br>
+    <button onclick="showBaggagePage()">Continue to Baggage</button>
+    <button class="secondary" onclick="showPage('passengerPage')">Back</button>
+  </div>
+</section>
+
+<section id="baggagePage" class="page">
+  <div class="card">
+    <h2>Baggage Allowance</h2>
+    <div id="baggageInfo"></div>
+    <table>
+      <tr><th>Fare</th><th>Checked baggage</th><th>Cabin baggage</th></tr>
+      <tr><td>Economy Basic</td><td>1 × 26kg</td><td>1 × 7kg</td></tr>
+      <tr><td>Economy Standard</td><td>2 × 26kg</td><td>1 × 7kg</td></tr>
+      <tr><td>Economy Flex</td><td>2 × 26kg</td><td>1 × 10kg</td></tr>
+      <tr><td>Premium Economy</td><td>2 × 29kg</td><td>1–2 × 10kg</td></tr>
+      <tr><td>Business</td><td>2 × 36kg</td><td>2 × 10–15kg</td></tr>
+      <tr><td>First</td><td>2 × 50kg</td><td>2 × 15kg</td></tr>
+      <tr><td>Otono One</td><td>2 × 50kg per passenger</td><td>2 × 18kg per passenger</td></tr>
+    </table>
+    <br>
+    <button onclick="showSummary()">Continue to Payment Summary</button>
+    <button class="secondary" onclick="showPage('seatPage')">Back</button>
+  </div>
+</section>
+
+<section id="paymentPage" class="page">
+  <div class="card">
+    <h2>Payment Summary</h2>
+    <div id="summary"></div>
+    <br>
+    <button onclick="confirmBooking()">Confirm Fictional Booking</button>
+    <button class="secondary" onclick="showPage('baggagePage')">Back</button>
+  </div>
+</section>
+
+<section id="confirmationPage" class="page">
+  <div class="card">
+    <h2>Booking Confirmed ✅</h2>
+    <div id="confirmation"></div>
+    <br>
+    <button onclick="showPage('boardingPage')">View Boarding Pass</button>
+    <button class="secondary" onclick="showPage('homePage')">Return to Home Page</button>
+  </div>
+</section>
+
+<section id="boardingPage" class="page">
+  <div class="card boarding">
+    <h2>Otono Airways Boarding Pass</h2>
+    <div id="boardingPass"></div>
+    <div class="barcode">▌▌ ▌ ▌▌▌ ▌ ▌▌ ▌▌▌ ▌</div>
+    <br>
+    <button onclick="window.print()">Print Boarding Pass</button>
+    <button class="secondary" onclick="showPage('homePage')">Return to Home Page</button>
+  </div>
+</section>
+
+<section id="infoPage" class="page">
+  <div class="card">
+    <h2>Cabins & Baggage</h2>
+    <p><strong>Economy:</strong> 34–35 inch legroom guaranteed, full meal service, hot/cold drinks, and generous baggage.</p>
+    <p><strong>Otono One:</strong> private double suite, priced per person, slightly cheaper than First per person.</p>
+    <button class="secondary" onclick="showPage('homePage')">Return to Home Page</button>
+  </div>
+</section>
+
+<section id="seatMapPage" class="page">
+  <div class="card">
+    <h2>Aircraft Seat Maps</h2>
+    <p>Insert your links here later:</p>
+    <ul>
+      <li>A380-800 seat map</li>
+      <li>777-300ER seat map</li>
+      <li>777-200 seat map</li>
+      <li>787-8 seat map</li>
+      <li>787-9 seat map</li>
+      <li>A350-900 seat map</li>
+    </ul>
+    <button class="secondary" onclick="showPage('homePage')">Return to Home Page</button>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  Otono Airways — NO MORE FEAR OF ECONOMY CLASS ✈️
+</footer>
+
+<script>
+const airports={LHR:"London Heathrow",HND:"Tokyo Haneda",HKG:"Hong Kong",SYD:"Sydney",SIN:"Singapore",MEL:"Melbourne",ICN:"Seoul Incheon",BKK:"Bangkok",TPE:"Taipei",CTS:"Sapporo",PVG:"Shanghai Pudong"};
+
+const summer=[
+["OT108","LHR","HND","777-300ER","10:10","07:50","13h40m","Daily"],["OT109","HND","LHR","777-300ER","09:50","16:10","14h20m","Daily"],
+["OT110","LHR","HND","MIX_TOKYO_A380","19:35","17:35","14h","Daily"],["OT111","HND","LHR","MIX_TOKYO_A380_RETURN","00:15","07:00","14h45m","Daily"],
+["OT112","LHR","HND","MIX_TOKYO_787","17:10","15:15","14h5m","Daily"],["OT113","HND","LHR","MIX_TOKYO_787_RETURN","23:00","05:40","14h40m","Daily"],
+["OT114","LHR","HKG","MIX_HKG_A350","12:20","07:40","12h20m","Daily"],["OT115","HKG","LHR","MIX_HKG_A350_RETURN","08:40","15:50","14h10m","Daily"],
+["OT116","LHR","HKG","A380-800","22:15","17:50","12h35m","Daily"],["OT116","HKG","SYD","A380-800","20:50","08:05","9h15m","Daily"],
+["OT117","SYD","HKG","A380-800","14:00","21:55","9h55m","Daily"],["OT117","HKG","LHR","A380-800","23:55","06:45","13h50m","Daily"],
+["OT118","LHR","HKG","777-300ER","16:50","12:25","12h35m","Daily"],["OT119","HKG","LHR","777-300ER","23:00","05:40","13h40m","Daily"],
+["OT120","LHR","HKG","A380-800","23:40","19:05","12h25m","Daily"],["OT121","HKG","LHR","A380-800","00:25","07:15","13h50m","Daily"],
+["OT122","LHR","SIN","777-200","11:35","07:55","13h20m","Daily"],["OT123","SIN","LHR","777-200","09:30","16:30","14h","Daily"],
+["OT124","LHR","SIN","MIX_MEL","21:00","17:40","13h40m","Daily"],["OT124","SIN","MEL","MIX_MEL","20:55","06:15","7h20m","Daily"],
+["OT125","MEL","SIN","MIX_MEL_RETURN","13:35","19:50","8h15m","Daily"],["OT125","SIN","LHR","MIX_MEL_RETURN","22:15","05:35","14h20m","Daily"],
+["OT126","LHR","SIN","A380-800","19:35","16:15","13h40m","Daily"],["OT127","SIN","LHR","A380-800","23:05","06:20","14h15m","Daily"],
+["OT128","LHR","SIN","MIX_SIN_A380","23:05","19:40","13h35m","Daily"],["OT129","SIN","LHR","MIX_SIN_A380_RETURN","23:55","07:20","14h25m","Daily"],
+["OT130","LHR","ICN","777-200","16:35","13:20","12h45m","Daily"],["OT131","ICN","LHR","777-200","22:55","05:30","14h35m","Daily"],
+["OT134","LHR","ICN","787-9","20:45","17:45","13h","4 weekly"],["OT135","ICN","LHR","787-9","23:55","06:40","14h45m","4 weekly"],
+["OT136","LHR","HKG","A350-900","19:35","15:10","12h35m","Seasonal"],["OT137","HKG","LHR","A350-900","21:40","04:40","14h","Seasonal"],
+["OT140","LHR","BKK","777-200","21:25","15:05","11h40m","Daily"],["OT141","BKK","LHR","777-200","00:15","06:45","12h30m","Daily"],
+["OT142","LHR","BKK","787-9 / A380 seasonal","18:00","12:00","12h","Daily"],["OT143","BKK","LHR","787-9 / A380 seasonal","23:45","06:25","12h40m","Daily"],
+["OT150","LHR","TPE","787-8","21:10","17:50","13h40m","Daily"],["OT151","TPE","LHR","787-8","08:40","16:50","15h10m","Daily"],
+["OT166","LHR","CTS","787-8","TBC","TBC","TBC","Seasonal"],["OT167","CTS","LHR","787-8","TBC","TBC","TBC","Seasonal"],
+["OT170","LHR","PVG","777-200","09:55","05:45","12h50m","Daily"],["OT171","PVG","LHR","777-200","11:20","19:05","14h45m","Daily"],
+["OT172","LHR","PVG","787-9","21:40","17:20","12h40m","4 weekly"],["OT173","PVG","LHR","787-9","23:40","07:35","14h55m","4 weekly"]
+];
+
+const winter=JSON.parse(JSON.stringify(summer));
+function setWinter(f,from,dep,arr,dur){let r=winter.find(x=>x[0]===f&&x[1]===from);if(r){r[4]=dep;r[5]=arr;r[6]=dur}}
+setWinter("OT108","LHR","09:40","08:20","13h40m");setWinter("OT109","HND","10:30","15:55","14h25m");
+setWinter("OT116","LHR","21:20","17:55","12h35m");setWinter("OT116","HKG","20:25","08:45","9h20m");
+setWinter("OT117","SYD","15:15","22:10","9h55m");setWinter("OT117","HKG","00:15","06:20","14h5m");
+setWinter("OT120","LHR","22:50","19:05","12h15m");setWinter("OT121","HKG","01:10","07:10","14h");
+
+const prices={ecoBasic:550,ecoStandard:650,ecoFlex:800,peStandard:1400,peFlex:1650,bizSaver:2900,bizFlex:3500,otonoOne:6200,first:6900};
+const fareNames={ecoBasic:"Economy Basic",ecoStandard:"Economy Standard",ecoFlex:"Economy Flex",peStandard:"Premium Economy Standard",peFlex:"Premium Economy Flex",bizSaver:"Business Saver",bizFlex:"Business Flex",otonoOne:"Otono One",first:"First Class"};
+const baggage={ecoBasic:"1 × 26kg checked, 1 × 7kg cabin",ecoStandard:"2 × 26kg checked, 1 × 7kg cabin",ecoFlex:"2 × 26kg checked, 1 × 10kg cabin",peStandard:"2 × 29kg checked, 1 × 10kg cabin",peFlex:"2 × 29kg checked, 2 × 10kg cabin",bizSaver:"2 × 36kg checked, 2 × 10kg cabin",bizFlex:"2 × 36kg checked, 2 × 15kg cabin",first:"2 × 50kg checked, 2 × 15kg cabin",otonoOne:"2 × 50kg checked per passenger, 2 × 18kg cabin per passenger"};
+
+let selectedOutbound=null,selectedReturn=null,totalPrice=0,bookingRef="";
+
+function showPage(id){document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));document.getElementById(id).classList.add("active");scrollTo(0,0)}
+function fillAirports(){const codes=[...new Set(summer.flatMap(r=>[r[1],r[2]]))];from.innerHTML=codes.map(c=>`<option value="${c}">${airports[c]} (${c})</option>`).join("");to.innerHTML=from.innerHTML;from.value="LHR";to.value="HKG"}
+function toggleReturnDate(){returnDateBox.style.display=tripType.value==="Round trip"?"block":"none"}
+function seasonForDate(ds){if(!ds)return{name:"Northern Summer timetable",data:summer};const m=new Date(ds).getMonth()+1;return m>=4&&m<=10?{name:"Northern Summer timetable: April–October",data:summer}:{name:"Northern Winter timetable: November–March",data:winter}}
+function dayName(ds){if(!ds)return"Mon";return["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][new Date(ds).getDay()]}
+function aircraft(code,ds){const d=dayName(ds);if(code==="MIX_TOKYO_A380")return["Mon","Wed","Fri","Sun"].includes(d)?"A380-800":"787-9";if(code==="MIX_TOKYO_A380_RETURN")return["Tue","Thu","Sat","Mon"].includes(d)?"A380-800":"787-9";if(code==="MIX_SIN_A380")return["Tue","Thu","Sat"].includes(d)?"A380-800":"787-9";if(code==="MIX_SIN_A380_RETURN")return["Wed","Fri","Sun"].includes(d)?"A380-800":"787-9";if(code==="MIX_TOKYO_787")return["Mon","Wed","Fri","Sun"].includes(d)?"787-9":"787-8";if(code==="MIX_TOKYO_787_RETURN")return["Tue","Thu","Sat","Mon"].includes(d)?"787-9":"787-8";if(code==="MIX_HKG_A350")return["Mon","Wed","Fri","Sun"].includes(d)?"A350-900":"787-9";if(code==="MIX_HKG_A350_RETURN")return["Tue","Thu","Sat","Mon"].includes(d)?"A350-900":"787-9";if(code==="MIX_MEL")return["Mon","Wed","Fri","Sun"].includes(d)?"787-9":"A350-900";if(code==="MIX_MEL_RETURN")return["Tue","Thu","Sat","Mon"].includes(d)?"787-9":"A350-900";return code}
+function multiplier(ds){if(!ds)return 1;const d=new Date(ds),m=d.getMonth()+1,day=d.getDate();if(m===12&&day>=15)return 1.65;if(m===1&&day<=5)return 1.55;if(m===7||m===8)return 1.35;if(m===4)return 1.25;return 1.08}
+function discountMult(){return discountCode.value.trim().toUpperCase()==="90%offOtonoAirways34inchLegroom!!!"?0.10:1}
+function fareTotal(base,ds){return Math.round(base*multiplier(ds)*(Number(adults.value)+(Number(children.value)*0.8))*discountMult())}
+function availability(f){if(f[0]==="OT166"||f[0]==="OT167")return"Register interest";if(f[7]==="Seasonal")return"Limited seats";if(["OT116","OT117","OT120","OT121"].includes(f[0]))return"Almost full";return"Available"}
+function findJourneys(data,a,b){let direct=data.filter(r=>r[1]===a&&r[2]===b).map(r=>[r]);let connect=[];for(const x of data){for(const y of data){if(x[1]===a&&x[2]===y[1]&&y[2]===b&&x[0]===y[0])connect.push([x,y])}}return[...direct,...connect]}
+function searchFlights(){selectedOutbound=null;selectedReturn=null;const s=seasonForDate(departDate.value);seasonText.textContent=s.name+" — selected automatically from your travel date.";outboundResults.innerHTML=renderJourneys(findJourneys(s.data,from.value,to.value),"outbound",departDate.value);if(tripType.value==="Round trip"){const rs=seasonForDate(returnDate.value);returnResultsBox.style.display="block";returnResults.innerHTML=renderJourneys(findJourneys(rs.data,to.value,from.value),"return",returnDate.value)}else{returnResultsBox.style.display="none"}showPage("resultsPage")}
+function renderJourneys(j,type,ds){if(!j.length)return"<p>No matching OT100–199 journey found.</p>";return j.map(legs=>{const status=legs.some(l=>availability(l)==="Register interest")?"Register interest":availability(legs[0]);const air=legs.map(l=>aircraft(l[3],ds)).join(" + ");const title=legs.map(l=>`${l[0]} ${l[1]}→${l[2]}`).join(" / ");const price=fareTotal(prices[fare.value]*legs.length,ds);return`<div class="flight"><h3>${title}</h3><span class="badge ${air.includes("A380")?"a380":"ok"}">${air}</span><span class="badge ${status==="Available"?"ok":"warn"}">${status}</span><p><strong>Times:</strong> ${legs.map(l=>`${l[4]}→${l[5]}`).join(" / ")}</p><p><strong>Duration:</strong> ${legs.map(l=>l[6]).join(" + ")}</p><p class="price">Estimated ${type} price: £${price.toLocaleString()}</p><button ${status==="Register interest"?"disabled":""} onclick='selectJourney(${JSON.stringify(legs)}, "${type}", "${ds}")'>${status==="Register interest"?"Register Interest":"Select "+type}</button></div>`}).join("")}
+function selectJourney(legs,type,ds){if(type==="outbound")selectedOutbound={legs,dateStr:ds};else selectedReturn={legs,dateStr:ds};if(selectedOutbound&&(tripType.value==="One way"||selectedReturn))showPage("passengerPage");else alert("Outbound selected. Now choose a return flight.")}
+function goSeatPage(){if(!passengerName.value.trim()){alert("Please enter passenger name.");return}const outAir=selectedOutbound.legs.map(l=>aircraft(l[3],selectedOutbound.dateStr)).join(" + ");const retAir=selectedReturn?selectedReturn.legs.map(l=>aircraft(l[3],selectedReturn.dateStr)).join(" + "):"";seatMapLinks.innerHTML=`<p><strong>Outbound seat map:</strong> Insert your ${outAir} seat map link here.</p>`+(retAir?`<p><strong>Return seat map:</strong> Insert your ${retAir} seat map link here.</p>`:"");returnSeatBox.style.display=tripType.value==="Round trip"?"block":"none";showPage("seatPage")}
+function showBaggagePage(){baggageInfo.innerHTML=`<p><strong>${fareNames[fare.value]}:</strong> ${baggage[fare.value]}</p>`;showPage("baggagePage")}
+function showSummary(){const out=fareTotal(prices[fare.value]*selectedOutbound.legs.length,selectedOutbound.dateStr);const ret=selectedReturn?fareTotal(prices[fare.value]*selectedReturn.legs.length,selectedReturn.dateStr):0;totalPrice=out+ret;summary.innerHTML=`<p><strong>Passenger:</strong> ${passengerName.value}</p><p><strong>Trip:</strong> ${tripType.value}</p><p><strong>Fare:</strong> ${fareNames[fare.value]}</p><p><strong>Adults:</strong> ${adults.value} | <strong>Children:</strong> ${children.value} with 20% discount</p><p><strong>Discount code:</strong> ${discountCode.value||"None"}</p><p><strong>Baggage:</strong> ${baggage[fare.value]}</p><p class="price">Total fictional price: £${totalPrice.toLocaleString()}</p>`;showPage("paymentPage")}
+function confirmBooking(){bookingRef="OT"+Math.random().toString(36).substring(2,8).toUpperCase();confirmation.innerHTML=`<p><strong>Booking reference:</strong> ${bookingRef}</p><p>Total fictional price: £${totalPrice.toLocaleString()}</p>`;boardingPass.innerHTML=`<p><strong>Passenger:</strong> ${passengerName.value}</p><p><strong>Booking reference:</strong> ${bookingRef}</p><p><strong>Outbound:</strong> ${selectedOutbound.legs.map(l=>`${l[0]} ${l[1]}→${l[2]}`).join(" / ")}</p><p><strong>Aircraft:</strong> ${selectedOutbound.legs.map(l=>aircraft(l[3],selectedOutbound.dateStr)).join(" + ")}</p><p><strong>Cabin:</strong> ${fareNames[fare.value]}</p><p><strong>Seat:</strong> ${outSeat.value||"Not selected"}</p><p><strong>Baggage:</strong> ${baggage[fare.value]}</p>`;showPage("confirmationPage")}
+
+fillAirports();toggleReturnDate();
+</script>
+
+</body>
+</html>
