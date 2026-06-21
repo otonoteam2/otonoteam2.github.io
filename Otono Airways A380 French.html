@@ -1,829 +1,802 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Otono Airways A380 Plan des sièges</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plan des sièges A380 Otono Airways - Version française</title>
+  <style>
+    :root {
+      --slate-50: #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-300: #cbd5e1;
+      --slate-400: #94a3b8;
+      --slate-500: #64748b;
+      --slate-700: #334155;
+      --purple-900: #581c87;
+      --purple-700: #7e22ce;
+      --red-900: #7f1d1d;
+      --red-700: #b91c1c;
+      --red-600: #dc2626;
+      --red-500: #ef4444;
+      --red-400: #f87171;
+      --yellow-400: #facc15;
+      --yellow-100: #fef9c3;
+      --green-600: #16a34a;
+      --blue-500: #3b82f6;
+    }
 
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap');
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--slate-50);
+      color: #1e293b;
+    }
 
-        body { font-family: 'Inter', sans-serif; }
-        .font-serif { font-family: 'Playfair Display', serif; }
+    a { color: inherit; }
 
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #555; }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      color: white;
+      background: linear-gradient(90deg, #581c87, #b91c1c);
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.25);
+      padding: 16px;
+    }
 
-        .animate-fade-in { animation: fadeIn 0.3s ease-in-out; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    .topbar-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
 
-        .fuselage-style {
-            background-color: white;
-            border: 4px solid #cbd5e1;
-            border-top-left-radius: 50% 100px;
-            border-top-right-radius: 50% 100px;
-            border-bottom-left-radius: 50% 250px;
-            border-bottom-right-radius: 50% 250px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
-            padding: 0 10px 350px 10px;
-        }
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .brand-icon { font-size: 30px; transform: rotate(-45deg); display: inline-block; }
+    .brand h1 { margin: 0; font-size: 22px; letter-spacing: 0.08em; }
+    .brand p, .brand a, .top-note p, .top-note a { margin: 2px 0; font-size: 12px; opacity: 0.86; }
+    .top-note { text-align: right; }
+    .wifi-line { font-weight: 800; color: #fde047; }
 
-        .seat-style {
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
-            border-bottom-left-radius: 4px;
-            border-bottom-right-radius: 4px;
-            border-width: 1px;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-        }
+    .page {
+      max-width: 1180px;
+      margin: 24px auto 80px;
+      padding: 0 12px;
+      display: grid;
+      grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+      gap: 32px;
+      align-items: start;
+    }
 
-        .seat-occupied-style {
-            background-color: #e5e7eb !important;
-            border-color: #9ca3af !important;
-            color: #4b5563 !important;
-            cursor: not-allowed !important;
-            pointer-events: none;
-            transform: none !important;
-            box-shadow: none !important;
-            opacity: 0.8;
-        }
+    .sidebar { display: flex; flex-direction: column; gap: 20px; }
+    .card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
+    }
 
-        .seat-selected-style {
-            background-color: #3fd166 !important;
-            border-color: #298c43 !important;
-            color: black !important;
-            transform: scale(1.15);
-            z-index: 20;
-            box-shadow: 0 0 15px rgba(0, 255, 21, 0.8);
-        }
+    .section-title {
+      margin: 0 0 12px;
+      font-size: 12px;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 800;
+    }
 
-        .good-seat-badge {
-            background-color: #e9d5ff;
-            color: #6d28d9;
-            border: 1px solid #d8b4fe;
-        }
+    .deck-switch {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: #f1f5f9;
+      padding: 4px;
+      border-radius: 12px;
+      gap: 4px;
+    }
 
-        .bad-seat-badge {
-            background-color: #bfdbfe;
-            color: #1e40af;
-            border: 1px solid #93c5fd;
-        }
-    </style>
+    .deck-btn {
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 8px;
+      background: transparent;
+      color: #64748b;
+      cursor: pointer;
+      font-weight: 800;
+      transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
+    }
+    .deck-btn small { display: block; margin-top: 3px; font-weight: 500; opacity: 0.7; }
+    .deck-btn.active { background: white; color: #6d28d9; box-shadow: 0 2px 8px rgba(15, 23, 42, 0.12); }
+    .deck-btn:hover { transform: translateY(-1px); }
+
+    .seat-details-empty {
+      min-height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #94a3b8;
+      text-align: center;
+    }
+
+    .detail-head { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; margin-bottom: 16px; }
+    .class-pill {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border: 1px solid currentColor;
+    }
+    .seat-id-large { font-size: 34px; line-height: 1; margin: 9px 0 0; font-weight: 900; }
+    .price { color: #16a34a; font-size: 28px; font-weight: 900; text-align: right; }
+    .one-way { display: block; color: #94a3b8; font-size: 12px; }
+
+    .quality {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      border-radius: 12px;
+      padding: 10px;
+      font-size: 14px;
+      font-weight: 800;
+      margin: 14px 0;
+    }
+    .quality small { display: block; font-weight: 500; opacity: 0.8; font-style: italic; margin-top: 2px; }
+    .quality.good { color: #6d28d9; background: #e9d5ff; border: 1px solid #d8b4fe; }
+    .quality.bad { color: #1e40af; background: #bfdbfe; border: 1px solid #93c5fd; }
+
+    .feature { display: flex; gap: 9px; align-items: center; margin: 10px 0; color: #475569; font-size: 14px; }
+    .book-btn {
+      width: 100%;
+      border: 0;
+      border-radius: 12px;
+      margin-top: 18px;
+      padding: 13px;
+      background: #dc2626;
+      color: white;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(220, 38, 38, 0.2);
+    }
+    .book-btn:hover { background: #b91c1c; }
+
+    .legend-row { display: flex; align-items: center; gap: 12px; margin: 10px 0; color: #475569; font-size: 14px; font-weight: 600; }
+    .legend-dot { width: 16px; height: 16px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.15); flex: 0 0 auto; }
+    .legend-dot.extra-legroom { border-bottom: 4px solid #facc15; }
+    .legend-dot.extra-bagroom { border-bottom: 4px solid #22d3ee; }
+    .good-dot { background: #e9d5ff; border-color: #d8b4fe; }
+    .bad-dot { background: #bfdbfe; border-color: #93c5fd; }
+
+    .counter-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
+    .counter-box { border: 1px solid #f1f5f9; border-radius: 12px; padding: 10px; }
+    .counter-label { font-size: 10px; color: #64748b; font-weight: 900; text-transform: uppercase; }
+    .counter-value { font-size: 25px; font-weight: 900; margin-top: 4px; }
+    .counter-value.total { color: #7e22ce; }
+    .counter-value.occupied { color: #dc2626; }
+    .counter-value.available { color: #16a34a; }
+    .class-stat { border: 1px solid #f1f5f9; border-radius: 12px; padding: 10px; margin-top: 8px; }
+    .class-stat-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 13px; font-weight: 800; }
+    .class-stat-title { display: flex; align-items: center; gap: 8px; }
+    .mini-dot { width: 12px; height: 12px; border-radius: 3px; border: 1px solid rgba(0,0,0,0.12); flex: 0 0 auto; }
+    .class-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+    .tiny-box { background: #f8fafc; border-radius: 8px; padding: 8px; }
+    .tiny-label { color: #64748b; text-transform: uppercase; font-size: 9px; font-weight: 900; }
+    .tiny-value { font-size: 18px; font-weight: 900; margin-top: 2px; }
+
+    .map-wrap { overflow-x: auto; padding-bottom: 20px; }
+    .fuselage {
+      min-height: 800px;
+      max-width: 720px;
+      min-width: 520px;
+      margin: 0 auto;
+      background: white;
+      border: 4px solid #cbd5e1;
+      border-top-left-radius: 50% 110px;
+      border-top-right-radius: 50% 110px;
+      border-bottom-left-radius: 50% 260px;
+      border-bottom-right-radius: 50% 260px;
+      box-shadow: 0 0 50px rgba(0,0,0,0.18);
+      overflow: hidden;
+      padding: 28px 10px 320px;
+    }
+
+    .deck-top { margin: 6px 0 16px; color: #94a3b8; font-weight: 900; text-align: center; }
+    .upper-front { display: grid; grid-template-columns: auto 1fr auto; align-items: end; gap: 12px; padding: 0 24px; }
+    .shower {
+      width: 96px;
+      height: 96px;
+      background: #dbeafe;
+      border: 1px solid #93c5fd;
+      color: #1e40af;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 12px;
+      box-shadow: inset 0 2px 8px rgba(30, 64, 175, 0.08);
+    }
+    .shower b { margin-top: 4px; }
+    .shower small { font-size: 9px; }
+
+    .stairs {
+      width: 100%;
+      min-height: 40px;
+      background: #e5e7eb;
+      border-top: 2px solid #d1d5db;
+      border-bottom: 2px solid #d1d5db;
+      color: #64748b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      border-radius: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 10px;
+      font-weight: 900;
+      margin: 10px auto;
+      opacity: 0.72;
+    }
+    .stairs.lower { width: 150px; height: 64px; border: 2px solid #d1d5db; flex-direction: column; }
+
+    .cabin { width: 100%; display: flex; flex-direction: column; align-items: center; }
+    .divider {
+      width: 100%;
+      height: 48px;
+      background: #f8fafc;
+      border-top: 1px solid #e5e7eb;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 16px 0;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-size: 10px;
+    }
+
+    .row { display: flex; align-items: center; justify-content: center; width: 100%; margin: 3px 0; }
+    .row-number { width: 28px; color: #94a3b8; font-size: 10px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .row-number.left { text-align: right; margin-right: 6px; }
+    .row-number.right { text-align: left; margin-left: 6px; }
+    .seat-line { display: flex; align-items: center; justify-content: center; position: relative; min-height: 34px; }
+    .spacer-small { width: 24px; height: 1px; }
+    .spacer-medium { width: 36px; height: 1px; }
+    .spacer-grand { width: 128px; height: 1px; }
+    .grand-stair-block {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+      width: 118px;
+      height: 100%;
+      background: #e5e7eb;
+      border-left: 1px solid #d1d5db;
+      border-right: 1px solid #d1d5db;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      font-weight: 900;
+      text-transform: uppercase;
+      z-index: 0;
+    }
+
+    .seat {
+      position: relative;
+      z-index: 1;
+      width: 28px;
+      height: 32px;
+      margin: 1px 2px;
+      border: 1px solid currentColor;
+      border-radius: 8px 8px 4px 4px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 900;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.14);
+      user-select: none;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+    }
+    .seat:hover { transform: scale(1.12); z-index: 10; filter: brightness(1.08); }
+    .seat.otono-one { width: 64px; height: 64px; margin: 8px; border-width: 2px; border-radius: 12px; flex-direction: column; font-size: 12px; font-family: Georgia, serif; }
+    .seat.otono-one small { font-size: 8px; opacity: 0.78; }
+    .seat.first-class { width: 40px; height: 40px; margin: 4px; border-radius: 8px; font-size: 10px; }
+    .seat.extra-legroom { border-bottom: 4px solid #facc15; }
+    .seat.extra-bagroom { border-bottom: 4px solid #22d3ee; }
+    .seat.occupied { background: #e5e7eb !important; border-color: #9ca3af !important; color: #4b5563 !important; cursor: not-allowed; pointer-events: none; transform: none; box-shadow: none; opacity: 0.82; }
+    .seat.selected { background: #3fd166 !important; border-color: #298c43 !important; color: black !important; transform: scale(1.14); z-index: 20; box-shadow: 0 0 15px rgba(0, 255, 21, 0.75); }
+
+    .otono-one-color { background: #581c87; border-color: #facc15; color: #fef9c3; }
+    .first-class-color { background: #7e22ce; border-color: #d8b4fe; color: white; }
+    .business-color { background: #7f1d1d; border-color: #b91c1c; color: white; }
+    .premium-economy-color { background: #b91c1c; border-color: #ef4444; color: white; }
+    .economy-color { background: #ef4444; border-color: #f87171; color: white; }
+
+    .rear-galley { height: 32px; background: #f1f5f9; color: #94a3b8; display:flex; align-items:center; justify-content:center; font-size:10px; margin: 10px 0; }
+    .lounge {
+      margin: 18px 0 0;
+      padding: 24px;
+      background: #581c87;
+      color: white;
+      border-top: 4px solid #dc2626;
+      border-radius: 0 0 28px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      box-shadow: 0 16px 30px rgba(88, 28, 135, 0.25);
+      text-align: center;
+    }
+    .lounge-icon { font-size: 34px; }
+    .lounge h3 { margin: 0 0 4px; font-family: Georgia, serif; font-size: 22px; }
+    .lounge p { margin: 2px 0; color: #e9d5ff; font-size: 12px; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-in { animation: fadeIn 0.22s ease-in-out; }
+
+    @media (max-width: 860px) {
+      .page { grid-template-columns: 1fr; }
+      .topbar-inner { align-items: flex-start; }
+      .top-note { display: none; }
+      .fuselage { min-width: 500px; }
+    }
+  </style>
 </head>
-<body class="bg-slate-50 text-slate-800">
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-icon">✈</span>
+        <div>
+          <h1>OTONO AIRWAYS</h1>
+          <a href="index.html">Retour au menu principal</a>
+          <p>Airbus A380-800 • Avion vedette</p>
+          <p>Plan de flotte V4.2 avec classe Affaires au pont supérieur et Économie Premium révisée au pont principal</p>
+        </div>
+      </div>
+      <div class="top-note">
+        <p class="wifi-line">📶 Messagerie Wi‑Fi gratuite <span style="font-size:11px;color:#e9d5ff;">(haut débit : seulement 7,50 £ !!!)</span></p>
+        <p><b><i>"PLUS PEUR de la classe Économie !"</i></b></p>
+        <a href="https://otonoteam2.github.io/Otono%20Airways%20A380.html">English 🇬🇧</a>
+        <p>Bristol • Londres • Monde</p>
+      </div>
+    </div>
+  </header>
 
-<div id="root"></div>
+  <main id="app" class="page"></main>
 
-<script type="text/babel">
-    const { useState, useMemo } = React;
-
-    // --- Icons ---
-    const IconWrapper = ({ children, size = 24, className = "" }) => (
-        <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-            {children}
-        </svg>
-    );
-
-    const Plane = (props) => <IconWrapper {...props}><path d="M2 12h20"/><path d="M13 2l9 10-9 10"/><path d="M2 12l5-5m-5 5l5 5"/></IconWrapper>;
-    const Star = (props) => <IconWrapper {...props}><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></IconWrapper>;
-    const Coffee = (props) => <IconWrapper {...props}><path d="M18 8h1a4 4 0 0 1 0 8h-1" /><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" /><line x1="6" y1="1" x2="6" y2="4" /><line x1="10" y1="1" x2="10" y2="4" /><line x1="14" y1="1" x2="14" y2="4" /></IconWrapper>;
-    const User = (props) => <IconWrapper {...props}><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></IconWrapper>;
-    const Bath = (props) => <IconWrapper {...props}><path d="M9 6 6.5 3.5a1.5 1.5 0 0 0-1-1C5.5 2.5 5 3 5 4v8" /><line x1="10" y1="5" x2="8" y2="7" /><path d="M2 12h20" /><path d="M7 19v2" /><path d="M17 19v2" /></IconWrapper>;
-    const ArrowUp = (props) => <IconWrapper {...props}><line x1="12" y1="19" x2="12" y2="5" /><polyline points="5 12 12 5 19 12" /></IconWrapper>;
-    const Wifi = (props) => <IconWrapper {...props}><path d="M5 12.55a11 11 0 0 1 14.08 0" /><path d="M1.44 9a16 16 0 0 1 21.16 0" /><path d="M8.53 16.11a6 6 0 0 1 6.95 0" /><line x1="12" y1="20" x2="12.01" y2="20" /></IconWrapper>;
-    const ThumbsUp = (props) => <IconWrapper {...props}><path d="M7 10v12" /><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z" /></IconWrapper>;
-    const ThumbsDown = (props) => <IconWrapper {...props}><path d="M17 14V2" /><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22h0a3.13 3.13 0 0 1-3-3.88Z" /></IconWrapper>;
-
-    // --- Configuration ---
+  <script>
     const DECK_UPPER = 'UPPER';
     const DECK_LOWER = 'LOWER';
 
     const CLASS_OTONO_ONE = 'Otono One';
-    const CLASS_FIRST = 'La Première';
+    const CLASS_FIRST = 'Première Classe';
     const CLASS_BUSINESS = 'Affaires';
-    const CLASS_PREM_ECO = 'Économique Premium';
-    const CLASS_ECONOMY = 'Économique';
+    const CLASS_PREM_ECO = 'Économie Premium';
+    const CLASS_ECONOMY = 'Économie';
 
-    const CLASS_COLORS = {
-        [CLASS_OTONO_ONE]: 'bg-purple-900 border-yellow-400 text-yellow-100',
-        [CLASS_FIRST]: 'bg-purple-700 border-purple-300 text-white',
-        [CLASS_BUSINESS]: 'bg-red-900 border-red-700 text-white',
-        [CLASS_PREM_ECO]: 'bg-red-700 border-red-500 text-white',
-        [CLASS_ECONOMY]: 'bg-red-500 border-red-400 text-white hover:bg-red-400 hover:border-red-300',
+    const CLASS_COLOR_CLASS = {
+      [CLASS_OTONO_ONE]: 'otono-one-color',
+      [CLASS_FIRST]: 'first-class-color',
+      [CLASS_BUSINESS]: 'business-color',
+      [CLASS_PREM_ECO]: 'premium-economy-color',
+      [CLASS_ECONOMY]: 'economy-color',
     };
 
-    // --- Pricing Logic ---
-    const getPrice = (type, row, features) => {
-        if (type === CLASS_OTONO_ONE) return '€16,000';
-        if (type === CLASS_FIRST) return '€7,500';
-        if (type === CLASS_BUSINESS) return '€4,100';
-        if (type === CLASS_PREM_ECO) return '€2,500';
-
-        if (type === CLASS_ECONOMY) {
-            if (features.includes("Casier de rangement")) return '€1,800';
-            if (features.includes("Plus d'espace pour les jambes")) return '€1,900';
-            if (row >= 68 && row <= 77) return '€1,600';
-            return '€1,750';
-        }
-
-        return 'N/A';
+    const CLASS_STYLE = {
+      [CLASS_OTONO_ONE]: { background: '#581c87', borderColor: '#facc15', color: '#fef9c3' },
+      [CLASS_FIRST]: { background: '#7e22ce', borderColor: '#d8b4fe', color: '#ffffff' },
+      [CLASS_BUSINESS]: { background: '#7f1d1d', borderColor: '#b91c1c', color: '#ffffff' },
+      [CLASS_PREM_ECO]: { background: '#b91c1c', borderColor: '#ef4444', color: '#ffffff' },
+      [CLASS_ECONOMY]: { background: '#ef4444', borderColor: '#f87171', color: '#ffffff' },
     };
 
-    const createSeat = (id, type, row, col, isAisle = false, features = []) => {
-        let finalFeatures = [...features];
-
-        const wifiFeature = (type === CLASS_OTONO_ONE || type === CLASS_FIRST || type === CLASS_BUSINESS)
-            ? 'WiFi haut débit gratuit'
-            : (type === CLASS_PREM_ECO)
-            ? '€4 pour WiFi haut débit et messagerie WiFi gratuite'
-            : '€9 pour WiFi haut débit et messagerie WiFi gratuite';
-
-        finalFeatures.push(wifiFeature);
-
-        if (type === CLASS_ECONOMY || type === CLASS_PREM_ECO) {
-            finalFeatures.push("Service standard d'Otono");
-        }
-
-        return {
-            id,
-            type,
-            row,
-            col,
-            isAisle,
-            isOccupied: Math.random() > 0.75,
-            features: finalFeatures,
-            price: getPrice(type, row, finalFeatures),
-        };
-    };
-
-    // --- Helper: Get Seat Quality Label ---
-    const getSeatQuality = (seat) => {
-        const r = seat.row;
-
-        if (seat.features.includes("Plus d'espace pour les jambes")) {
-            return { type: 'GOOD', label: 'Bon siège', reason: "Plus d'espace pour les jambes", icon: ThumbsUp };
-        }
-
-        if (seat.features.includes("Casier de rangement")) {
-            return { type: 'GOOD', label: 'Bon siège', reason: 'Casier de rangement', icon: ThumbsUp };
-        }
-
-        if (seat.features.includes("Espace supplémentaire pour les bagages")) {
-            return { type: 'GOOD', label: 'Bon siège', reason: 'Espace supplémentaire pour les bagages', icon: ThumbsUp };
-        }
-
-        if (seat.type === CLASS_OTONO_ONE) {
-            return { type: 'GOOD', label: 'Suite incroyable', reason: 'Suite de luxe', icon: ThumbsUp };
-        }
-
-        if ([25, 38, 52, 62, 77, 93].includes(r)) {
-            return { type: 'BAD', label: 'Mauvais siège', reason: 'Près des toilettes / du bruit', icon: ThumbsDown };
-        }
-
-        return null;
-    };
-
-    // --- Passenger Counter ---
-    const flattenCabins = (cabins) => cabins.reduce((acc, c) => acc.concat(c.seats), []);
-
-    const buildSeatStats = (seats) => {
-        const totals = {
-            total: 0,
-            occupied: 0,
-            available: 0,
-            byClass: {
-                [CLASS_OTONO_ONE]: { total: 0, occupied: 0, available: 0 },
-                [CLASS_FIRST]: { total: 0, occupied: 0, available: 0 },
-                [CLASS_BUSINESS]: { total: 0, occupied: 0, available: 0 },
-                [CLASS_PREM_ECO]: { total: 0, occupied: 0, available: 0 },
-                [CLASS_ECONOMY]: { total: 0, occupied: 0, available: 0 },
-            }
-        };
-
-        for (const s of seats) {
-            const cls = s.type;
-            const paxValue = (cls === CLASS_OTONO_ONE) ? 2 : 1;
-
-            totals.total += paxValue;
-            totals.byClass[cls].total += paxValue;
-
-            if (s.isOccupied) {
-                totals.occupied += paxValue;
-                totals.byClass[cls].occupied += paxValue;
-            } else {
-                totals.available += paxValue;
-                totals.byClass[cls].available += paxValue;
-            }
-        }
-
-        return totals;
-    };
-
-    const SeatCounterPanel = ({ stats }) => {
-        const classOrder = [CLASS_OTONO_ONE, CLASS_FIRST, CLASS_BUSINESS, CLASS_PREM_ECO, CLASS_ECONOMY];
-
-        return (
-            <div className="bg-white p-4 rounded-xl shadow-md border border-gray-100">
-                <h2 className="text-sm font-bold text-gray-500 uppercase mb-3">Disponibilité des passagers</h2>
-
-                <div className="grid grid-cols-3 gap-2 mb-4">
-                    <div className="rounded-lg border border-gray-100 p-3">
-                        <div className="text-[11px] text-gray-500 font-bold uppercase">Total</div>
-                        <div className="text-2xl font-extrabold text-purple-700">{stats.total}</div>
-                    </div>
-                    <div className="rounded-lg border border-gray-100 p-3">
-                        <div className="text-[11px] text-gray-500 font-bold uppercase">Occupé</div>
-                        <div className="text-2xl font-extrabold text-red-600">{stats.occupied}</div>
-                    </div>
-                    <div className="rounded-lg border border-gray-100 p-3">
-                        <div className="text-[11px] text-gray-500 font-bold uppercase">Disponible</div>
-                        <div className="text-2xl font-extrabold text-green-600">{stats.available}</div>
-                    </div>
-                </div>
-
-                <div className="border-t border-gray-100 pt-3">
-                    <div className="text-[11px] text-gray-500 font-bold uppercase mb-2">Par classe</div>
-
-                    <div className="space-y-2">
-                        {classOrder.map(cls => {
-                            const c = stats.byClass[cls];
-                            const badgeBg = CLASS_COLORS[cls] ? CLASS_COLORS[cls].split(' ')[0] : 'bg-slate-200';
-
-                            return (
-                                <div key={cls} className="rounded-lg border border-gray-100 p-3">
-                                    <div className="flex items-center justify-between">
-                                        <div className="flex items-center gap-2">
-                                            <span className={`w-3 h-3 rounded-sm ${badgeBg} border border-black/10`}></span>
-                                            <span className="font-bold text-gray-700 text-sm">{cls}</span>
-                                        </div>
-                                        <div className="text-xs font-bold text-purple-700">{c.total} pax</div>
-                                    </div>
-
-                                    <div className="grid grid-cols-2 gap-2 mt-2">
-                                        <div className="rounded-md bg-gray-50 p-2">
-                                            <div className="text-[10px] uppercase font-bold text-gray-500">Occupé</div>
-                                            <div className="text-lg font-extrabold text-red-600">{c.occupied}</div>
-                                        </div>
-                                        <div className="rounded-md bg-gray-50 p-2">
-                                            <div className="text-[10px] uppercase font-bold text-gray-500">Disponible</div>
-                                            <div className="text-lg font-extrabold text-green-600">{c.available}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
-            </div>
-        );
-    };
-
-    // --- Data Generation Logic ---
-
-    // UPPER DECK
-    const generateUpperDeck = () => {
-        let cabins = [];
-
-        // Cabin 1: Otono One (Rows 1-2)
-        let c1 = [];
-        [1, 2].forEach(row => {
-            c1.push(createSeat(
-                `${row}A`,
-                CLASS_OTONO_ONE,
-                row,
-                'A',
-                false,
-                ['Grand écran IFE', 'Accès douche', 'Suite privée pour deux', 'Restauration raffinée', 'Kit de luxe exclusif']
-            ));
-            c1.push(createSeat(
-                `${row}K`,
-                CLASS_OTONO_ONE,
-                row,
-                'K',
-                false,
-                ['Grand écran IFE', 'Accès douche', 'Suite privée pour deux', 'Restauration raffinée', 'Kit de luxe exclusif']
-            ));
-        });
-        cabins.push({ name: "Cabin 1", seats: c1 });
-
-        // Cabin 2: First Class (Rows 5-7)
-        let c2 = [];
-        [5, 6, 7].forEach(row => {
-            ['A', 'D', 'G', 'K'].forEach(col => {
-                c2.push(createSeat(
-                    `${row}${col}`,
-                    CLASS_FIRST,
-                    row,
-                    col,
-                    ['D', 'G'].includes(col),
-                    ['Accès douche', 'Suite privée', 'Grand écran IFE']
-                ));
-            });
-        });
-        cabins.push({ name: "Cabin 2", seats: c2 });
-
-        // Cabin 3: Business (Rows 25-38), rows 25 and 38 no A/K
-        let c3 = [];
-        for (let row = 25; row <= 38; row++) {
-            let cols = ['A', 'D', 'G', 'K'];
-            if (row === 25 || row === 38) cols = ['D', 'G'];
-
-            cols.forEach(col => {
-                c3.push(createSeat(
-                    `${row}${col}`,
-                    CLASS_BUSINESS,
-                    row,
-                    col,
-                    ['D', 'G'].includes(col),
-                    ['Siège-lit', "Accès direct à l’allée", 'Service de repas gastronomiques']
-                ));
-            });
-        }
-        cabins.push({ name: "Cabin 3", seats: c3 });
-
-        // Cabin 4: Upper Deck Economy (Rows 86-93)
-        let c4 = [];
-        for (let row = 86; row <= 93; row++) {
-            ['A', 'C', 'D', 'E', 'F', 'G', 'H', 'K'].forEach(col => {
-                let feats = [];
-                if (row === 86) feats.push("Plus d'espace pour les jambes");
-                if (col === 'A' || col === 'K') feats.push("Casier de rangement");
-
-                c4.push(createSeat(
-                    `${row}${col}`,
-                    CLASS_ECONOMY,
-                    row,
-                    col,
-                    ['C', 'D', 'G', 'H'].includes(col),
-                    feats
-                ));
-            });
-        }
-        cabins.push({ name: "Cabin 4", seats: c4 });
-
-        return cabins;
-    };
-
-    // LOWER DECK
-    const generateLowerDeck = () => {
-        let cabins = [];
-
-        // Cabin 1: Business rows 11,12,15-19
-        let c1 = [];
-        const c1Rows = [11, 12, 15, 16, 17, 18, 19];
-        c1Rows.forEach(row => {
-            c1.push(createSeat(`${row}A`, CLASS_BUSINESS, row, 'A', false, ['Siège-lit', "Accès direct à l’allée", 'Service de repas gastronomiques']));
-            c1.push(createSeat(`${row}K`, CLASS_BUSINESS, row, 'K', false, ['Siège-lit', "Accès direct à l’allée", 'Service de repas gastronomiques']));
-
-            if (row !== 11 && row !== 12) {
-                c1.push(createSeat(`${row}D`, CLASS_BUSINESS, row, 'D', true, ['Siège-lit', "Accès direct à l’allée", 'Service de repas gastronomiques', 'Centre']));
-                c1.push(createSeat(`${row}G`, CLASS_BUSINESS, row, 'G', true, ['Siège-lit', "Accès direct à l’allée", 'Service de repas gastronomiques', 'Centre']));
-            }
-        });
-        cabins.push({ name: "Cabin 1", seats: c1 });
-
-        // Cabin 2: Business rows 20-23
-        let c2 = [];
-        for (let row = 20; row <= 23; row++) {
-            ['A', 'D', 'G', 'K'].forEach(col => {
-                c2.push(createSeat(`${row}${col}`, CLASS_BUSINESS, row, col, ['D', 'G'].includes(col), ['Siège-lit', "Accès direct à l’allée", 'Service de repas gastronomiques']));
-            });
-        }
-        cabins.push({ name: "Cabin 2", seats: c2 });
-
-        // Cabin 3: Premium Economy rows 42-52, row 52 no A/C/H/K
-        let c3 = [];
-        for (let row = 42; row <= 52; row++) {
-            let cols = ['A', 'C', 'D', 'E', 'F', 'G', 'H', 'K'];
-            if (row === 52) cols = ['D', 'E', 'F', 'G'];
-
-            cols.forEach(col => {
-                let feats = [];
-                if (row === 42) feats.push("Plus d'espace pour les jambes");
-
-                c3.push(createSeat(`${row}${col}`, CLASS_PREM_ECO, row, col, ['C', 'D', 'G', 'H'].includes(col), feats));
-            });
-        }
-        cabins.push({ name: "Cabin 3", seats: c3 });
-
-        // Cabin 4: Economy rows 53-62, row 62 no A/K, extra bag room
-        let c4 = [];
-        for (let row = 53; row <= 62; row++) {
-            let cols = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K'];
-            if (row === 62) cols = ['B', 'C', 'D', 'E', 'F', 'G', 'H', 'J'];
-
-            cols.forEach(col => {
-                let feats = [];
-                if (row === 53) feats.push("Plus d'espace pour les jambes");
-                if (row === 62) feats.push("Espace supplémentaire pour les bagages");
-
-                c4.push(createSeat(`${row}${col}`, CLASS_ECONOMY, row, col, ['C', 'D', 'G', 'H'].includes(col), feats));
-            });
-        }
-        cabins.push({ name: "Cabin 4", seats: c4 });
-
-        // Cabin 5: Economy rows 68-77, rear saver, row 77 no D/E/F/G
-        let c5 = [];
-        for (let row = 68; row <= 77; row++) {
-            let cols = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K'];
-            if (row === 77) cols = ['A', 'B', 'C', 'H', 'J', 'K'];
-
-            cols.forEach(col => {
-                let feats = [];
-                if (row === 68) feats.push("Plus d'espace pour les jambes");
-
-                c5.push(createSeat(`${row}${col}`, CLASS_ECONOMY, row, col, ['C', 'D', 'G', 'H'].includes(col), feats));
-            });
-        }
-        cabins.push({ name: "Cabin 5", seats: c5 });
-
-        return cabins;
-    };
-
-    // --- Components ---
-    const Seat = ({ seat, onSelect, isSelected }) => {
-        const baseClasses = "w-7 h-8 m-[1px] md:m-0.5 text-[9px] flex items-center justify-center font-bold cursor-pointer transition-all duration-200 seat-style";
-        let typeClasses = CLASS_COLORS[seat.type];
-
-        let borderClass = "";
-        if (seat.features.includes("Plus d'espace pour les jambes")) borderClass = "border-b-4 border-yellow-400";
-        if (seat.features.includes("Espace supplémentaire pour les bagages")) borderClass = "border-b-4 border-cyan-400";
-
-        if (seat.isOccupied) {
-            typeClasses = "seat-occupied-style";
-            borderClass = "";
-        } else if (isSelected) {
-            typeClasses = "seat-selected-style";
-        } else {
-            typeClasses += " hover:scale-110 hover:z-10";
-        }
-
-        if (seat.type === CLASS_OTONO_ONE) {
-            return (
-                <div
-                    onClick={() => !seat.isOccupied && onSelect(seat)}
-                    className={`w-16 h-16 m-2 rounded-lg text-xs flex flex-col items-center justify-center font-serif border-2 ${typeClasses.includes('seat-occupied-style') ? 'seat-occupied-style' : typeClasses} ${seat.isOccupied ? '' : 'hover:shadow-xl'} ${isSelected ? 'seat-selected-style' : ''}`}
-                >
-                    <span>{seat.id}</span>
-                    <span className="text-[8px] opacity-75">SUITE</span>
-                </div>
-            );
-        }
-
-        if (seat.type === CLASS_FIRST) {
-            return (
-                <div
-                    onClick={() => !seat.isOccupied && onSelect(seat)}
-                    className={`w-10 h-10 m-1 rounded-md text-[10px] flex items-center justify-center border ${typeClasses.includes('seat-occupied-style') ? 'seat-occupied-style' : typeClasses} ${isSelected ? 'seat-selected-style' : ''}`}
-                >
-                    {seat.id}
-                </div>
-            );
-        }
-
-        return (
-            <div
-                onClick={() => !seat.isOccupied && onSelect(seat)}
-                className={`${baseClasses} ${typeClasses} ${borderClass}`}
-                title={seat.features.join(', ')}
-            >
-                {seat.id.replace(/[0-9]/g, '')}
-            </div>
-        );
-    };
-
-    const ShowerSuite = () => (
-        <div className="flex flex-col items-center justify-center bg-blue-100 border border-blue-300 text-blue-800 p-2 rounded-lg w-24 h-24 m-2 text-xs text-center shadow-inner">
-            <Bath size={24} className="mb-1" />
-            <span className="font-bold">Douche Spa</span>
-            <span className="text-[9px]">Otono One et La Première</span>
-        </div>
-    );
-
-    const Stairs = ({ label, isLower = false }) => (
-        <div className={`w-full ${isLower ? 'h-16 w-32 mx-auto rounded-lg border-2' : 'h-10 border-y-2'} bg-gray-200 border-gray-300 flex flex-col items-center justify-center my-2 opacity-60 bg-[url('https://www.transparenttextures.com/patterns/diagmonds-light.png')]`}>
-            {isLower && <ArrowUp size={16} className="text-gray-500 mb-1" />}
-            <span className="text-gray-500 text-[10px] font-bold uppercase tracking-widest text-center leading-tight">{label}</span>
-        </div>
-    );
-
-    const Lounge = () => (
-        <div className="w-full bg-purple-900 text-white p-6 rounded-b-3xl flex flex-col items-center justify-center mt-4 border-t-4 border-red-600 shadow-2xl relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-            <div className="z-10 flex items-center space-x-4">
-                <Coffee size={32} />
-                <div className="text-center">
-                    <h3 className="text-xl font-bold font-serif">Le salon Otono</h3>
-                    <p className="text-xs text-purple-200">Ouvert à toutes les classes</p>
-                    <p className="text-xs text-purple-200">L’endroit préféré de Grandpa Belt</p>
-                </div>
-            </div>
-        </div>
-    );
-
-    const DeckMap = ({ deck, cabins, onSelect, selectedSeat }) => {
-        return (
-            <div className="flex flex-col items-center bg-white rounded-3xl shadow-2xl border-4 border-gray-300 p-2 md:p-4 w-full max-w-2xl mx-auto relative overflow-hidden min-h-[800px] fuselage-style">
-                <div className="mt-8 mb-4 w-full flex justify-center z-10">
-                    {deck === DECK_UPPER ? (
-                        <div className="flex justify-between w-full px-4 md:px-8">
-                            <ShowerSuite />
-                            <div className="flex flex-col justify-end pb-4 w-full mx-2">
-                                <Stairs label="Escalier d'honneur" />
-                            </div>
-                            <ShowerSuite />
-                        </div>
-                    ) : (
-                        <div className="w-full text-center py-4 text-gray-400 font-bold">COCKPIT CI-DESSOUS</div>
-                    )}
-                </div>
-
-                <div className="w-full flex flex-col items-center space-y-2">
-                    {cabins.map((cabin, cIdx) => {
-                        const rows = {};
-                        cabin.seats.forEach(s => {
-                            if (!rows[s.row]) rows[s.row] = [];
-                            rows[s.row].push(s);
-                        });
-                        const rowNumbers = Object.keys(rows).sort((a,b) => a-b);
-
-                        return (
-                            <div key={cabin.name} className="w-full flex flex-col items-center">
-                                {cIdx > 0 && (
-                                    <div className="w-full flex items-center justify-center my-4">
-                                        <div className="h-12 w-full bg-gray-100 border-y border-gray-200 flex items-center justify-center">
-                                            <span className="text-[10px] text-gray-400 tracking-widest uppercase">Cuisine / Sortie</span>
-                                        </div>
-                                    </div>
-                                )}
-
-                                {rowNumbers.map(rowNum => {
-                                    const rowSeats = rows[rowNum].sort((a,b) => a.col.localeCompare(b.col));
-                                    const rInt = parseInt(rowNum);
-                                    const isGrandStairRow = deck === DECK_LOWER && (rInt === 11 || rInt === 12);
-
-                                    return (
-                                        <div key={rowNum} className="flex items-center justify-center w-full my-0.5">
-                                            <span className="w-6 text-[10px] text-gray-400 text-right mr-1 font-mono">{rowNum}</span>
-                                            <div className="flex relative">
-                                                {isGrandStairRow && (
-                                                    <div className="absolute left-1/2 top-0 -translate-x-1/2 w-24 h-full bg-gray-200 border-x border-gray-300 flex items-center justify-center z-0">
-                                                        {rInt === 11 && <span className="text-[8px] text-gray-400 font-bold uppercase">Escalier</span>}
-                                                        {rInt === 12 && <span className="text-[8px] text-gray-400 font-bold uppercase">d'honneur</span>}
-                                                    </div>
-                                                )}
-
-                                                {rowSeats.map((seat, i) => {
-                                                    let spacer = null;
-
-                                                    if (deck === DECK_LOWER && (seat.type === CLASS_ECONOMY || seat.type === CLASS_PREM_ECO)) {
-                                                        if (seat.col === 'D' && i > 0) spacer = <div className="w-3 md:w-6"></div>;
-                                                        if (seat.col === 'H') spacer = <div className="w-3 md:w-6"></div>;
-                                                    }
-                                                    else if (deck === DECK_UPPER && seat.type === CLASS_ECONOMY) {
-                                                        if (seat.col === 'D') spacer = <div className="w-3 md:w-6"></div>;
-                                                        if (seat.col === 'H') spacer = <div className="w-3 md:w-6"></div>;
-                                                    }
-                                                    else if (seat.type === CLASS_BUSINESS) {
-                                                        if (isGrandStairRow) {
-                                                            if (seat.col === 'K') spacer = <div className="w-24 md:w-32"></div>;
-                                                        } else {
-                                                            if (seat.col === 'D') spacer = <div className="w-4 md:w-8"></div>;
-                                                            if (seat.col === 'K') spacer = <div className="w-4 md:w-8"></div>;
-                                                        }
-                                                    }
-                                                    else if (seat.type === CLASS_FIRST) {
-                                                        if (seat.col === 'D') spacer = <div className="w-4 md:w-8"></div>;
-                                                        if (seat.col === 'K') spacer = <div className="w-4 md:w-8"></div>;
-                                                    }
-
-                                                    return (
-                                                        <React.Fragment key={seat.id}>
-                                                            {spacer}
-                                                            <Seat seat={seat} onSelect={onSelect} isSelected={selectedSeat?.id === seat.id} />
-                                                        </React.Fragment>
-                                                    );
-                                                })}
-                                            </div>
-                                            <span className="w-6 text-[10px] text-gray-400 text-left ml-1 font-mono">{rowNum}</span>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        );
-                    })}
-                </div>
-
-                <div className="mt-8 w-full z-10">
-                    {deck === DECK_UPPER ? (
-                        <>
-                            <Stairs label="Escalier en colimaçon" />
-                            <Lounge />
-                        </>
-                    ) : (
-                        <>
-                            <div className="w-full py-4 text-center text-gray-400">
-                                <div className="w-full h-8 bg-gray-100 my-2 flex items-center justify-center text-[10px] text-gray-400">CUISINE ARRIÈRE</div>
-                            </div>
-                            <Stairs label="Escalier en colimaçon (au salon)" isLower={true} />
-                        </>
-                    )}
-                </div>
-            </div>
-        );
-    };
-
-    function App() {
-        const [currentDeck, setCurrentDeck] = useState(DECK_UPPER);
-        const [selectedSeat, setSelectedSeat] = useState(null);
-
-        const upperCabins = useMemo(() => generateUpperDeck(), []);
-        const lowerCabins = useMemo(() => generateLowerDeck(), []);
-
-        const allSeats = useMemo(() => {
-            return [...flattenCabins(upperCabins), ...flattenCabins(lowerCabins)];
-        }, [upperCabins, lowerCabins]);
-
-        const seatStats = useMemo(() => buildSeatStats(allSeats), [allSeats]);
-
-        const quality = selectedSeat ? getSeatQuality(selectedSeat) : null;
-
-        return (
-            <div className="min-h-screen bg-slate-50 font-sans text-slate-800 pb-20">
-                <header className="bg-gradient-to-r from-purple-900 to-red-700 text-white p-4 shadow-lg sticky top-0 z-50">
-                    <div className="max-w-4xl mx-auto flex justify-between items-center">
-                        <div className="flex items-center space-x-2">
-                            <Plane className="transform -rotate-45" size={28} />
-                            <div>
-                                <h1 className="text-xl font-bold tracking-wider">OTONO AIRWAYS</h1>
-                                <a href="index.html">Retour au menu</a>
-                                <p className="text-xs text-purple-200">Airbus A380-800</p>
-                                <p className="text-xs text-purple-200">Version française • tarifs en euros</p>
-                            </div>
-                        </div>
-                        <div className="text-right hidden sm:block">
-                            <div className="flex items-center justify-end">
-                                <Wifi size={16} className="text-yellow-400 mr-1" />
-                                <span className="text-sm font-bold text-yellow-300">Messagerie WiFi gratuite</span>
-                                <span className="text-xs ml-1 text-purple-200">(WiFi haut débit : €9 seulement)</span>
-                            </div>
-
-                            <p className="text-sm font-bold italic">"PLUS DE PEUR de la classe économique !"</p>
-                            <a href="https://otonoteam2.github.io/Otono%20Airways%20A380.html">English 🇬🇧</a>
-                            <p className="text-xs opacity-75">Paris • Londres • Le Monde</p>
-                        </div>
-                    </div>
-                </header>
-
-                <main className="max-w-6xl mx-auto mt-6 px-2 md:px-6 flex flex-col md:flex-row gap-8">
-                    <div className="w-full md:w-1/3 space-y-6">
-                        <div className="bg-white p-4 rounded-xl shadow-md border border-gray-100">
-                            <h2 className="text-sm font-bold text-gray-500 uppercase mb-3">Sélectionnez le pont</h2>
-                            <div className="flex space-x-2 bg-gray-100 p-1 rounded-lg">
-                                <button
-                                    onClick={() => { setCurrentDeck(DECK_UPPER); setSelectedSeat(null); }}
-                                    className={`flex-1 py-3 rounded-md text-sm font-bold transition-all ${currentDeck === DECK_UPPER ? 'bg-white text-purple-700 shadow-sm' : 'text-gray-500 hover:bg-gray-200'}`}
-                                >
-                                    Pont supérieur
-                                    <span className="block text-[9px] font-normal opacity-75">Suites, La Première, Salon</span>
-                                </button>
-                                <button
-                                    onClick={() => { setCurrentDeck(DECK_LOWER); setSelectedSeat(null); }}
-                                    className={`flex-1 py-3 rounded-md text-sm font-bold transition-all ${currentDeck === DECK_LOWER ? 'bg-white text-indigo-700 shadow-sm' : 'text-gray-500 hover:bg-gray-200'}`}
-                                >
-                                    Pont principal
-                                    <span className="block text-[9px] font-normal opacity-75">Affaires, Premium, Économique</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100 min-h-[200px]">
-                            {selectedSeat ? (
-                                <div className="animate-fade-in">
-                                    <div className="flex justify-between items-start mb-4">
-                                        <div>
-                                            <span className={`px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wide text-white ${CLASS_COLORS[selectedSeat.type].split(' ')[0]}`}>
-                                                {selectedSeat.type}
-                                            </span>
-                                            <h2 className="text-3xl font-bold text-gray-800 mt-2">{selectedSeat.id}</h2>
-                                        </div>
-                                        <div className="text-right">
-                                            <span className="block text-2xl font-bold text-green-600">{selectedSeat.price}</span>
-                                            <span className="text-xs text-gray-400">Aller simple</span>
-                                        </div>
-                                    </div>
-
-                                    {quality && (
-                                        <div className={`p-2 rounded-lg mb-4 text-sm font-bold flex items-center shadow-inner ${quality.type === 'GOOD' ? 'good-seat-badge' : 'bad-seat-badge'}`}>
-                                            <quality.icon size={18} className="mr-2" />
-                                            <div className="flex flex-col">
-                                                <span>{quality.label}</span>
-                                                <span className="text-[10px] font-normal opacity-80 italic">{quality.reason}</span>
-                                            </div>
-                                        </div>
-                                    )}
-
-                                    <div className="space-y-3">
-                                        <div className="flex items-center text-sm text-gray-600">
-                                            <User size={16} className="mr-2" />
-                                            <span>{selectedSeat.isAisle ? "Accès allée" : "Fenêtre / intérieur"}</span>
-                                        </div>
-
-                                        {selectedSeat.features && selectedSeat.features.map((feat, i) => (
-                                            <div key={i} className="flex items-center text-sm text-gray-600">
-                                                {feat.includes('WiFi') ? <Wifi size={16} className="mr-2 text-blue-500" /> : <Star size={16} className="mr-2 text-yellow-500" />}
-                                                <span>{feat}</span>
-                                            </div>
-                                        ))}
-
-                                        {selectedSeat.type === CLASS_ECONOMY && (
-                                            <div className="flex items-center text-sm text-purple-600 font-medium">
-                                                <span>34" d'espace pour les jambes garanti</span>
-                                            </div>
-                                        )}
-                                    </div>
-
-                                    <button
-                                        className="w-full mt-6 bg-red-600 text-white py-3 rounded-lg font-bold hover:bg-red-700 transition-colors shadow-md hover:shadow-lg flex items-center justify-center"
-                                        onClick={() => {
-                                            if (selectedSeat) {
-                                                window.location.href = 'https://otonoteam2.github.io/Otono%20Airways%20A380%20Destinations.html';
-                                            } else {
-                                                alert("Veuillez d'abord choisir un siège.");
-                                            }
-                                        }}
-                                    >
-                                        Réserver le siège {selectedSeat ? selectedSeat.id : ''}
-                                    </button>
-                                </div>
-                            ) : (
-                                <div className="h-full flex flex-col items-center justify-center text-gray-400 text-center py-8">
-                                    <p>Sélectionnez un siège pour voir les détails.</p>
-                                </div>
-                            )}
-                        </div>
-
-                        <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
-                            <h3 className="text-xs font-bold text-gray-400 uppercase mb-3">Légende</h3>
-                            <div className="space-y-2">
-                                {Object.keys(CLASS_COLORS).map(cls => (
-                                    <div key={cls} className="flex items-center">
-                                        <div className={`w-4 h-4 rounded-sm mr-3 ${CLASS_COLORS[cls].split(' ')[0]} border border-black/10`}></div>
-                                        <span className="text-sm font-medium text-gray-600">{cls}</span>
-                                    </div>
-                                ))}
-                                <div className="flex items-center mt-4 pt-4 border-t border-gray-100">
-                                    <div className="w-4 h-4 rounded-sm mr-3 bg-gray-300"></div>
-                                    <span className="text-sm text-gray-400">Occupé</span>
-                                </div>
-                                <div className="flex items-center pt-2">
-                                    <div className="w-4 h-4 rounded-sm mr-3 bg-red-500 border-b-4 border-yellow-400"></div>
-                                    <span className="text-sm text-gray-600">Plus d'espace pour les jambes</span>
-                                </div>
-                                <div className="flex items-center pt-2">
-                                    <div className="w-4 h-4 rounded-sm mr-3 bg-red-500 border-b-4 border-cyan-400"></div>
-                                    <span className="text-sm text-gray-600">Espace bagages supplémentaire</span>
-                                </div>
-                                <div className="flex items-center pt-2">
-                                    <div className="w-4 h-4 rounded-sm mr-3 good-seat-badge"></div>
-                                    <span className="text-sm text-gray-600">Bon siège</span>
-                                </div>
-                                <div className="flex items-center pt-2">
-                                    <div className="w-4 h-4 rounded-sm mr-3 bad-seat-badge"></div>
-                                    <span className="text-sm text-gray-600">Mauvais siège</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <SeatCounterPanel stats={seatStats} />
-                    </div>
-
-                    <div className="w-full md:w-2/3">
-                        <DeckMap
-                            deck={currentDeck}
-                            cabins={currentDeck === DECK_UPPER ? upperCabins : lowerCabins}
-                            onSelect={setSelectedSeat}
-                            selectedSeat={selectedSeat}
-                        />
-                    </div>
-                </main>
-            </div>
-        );
+    const STORAGE_BIN_WINDOW_SEAT_PRICE = '1 650 £';
+
+    let currentDeck = DECK_UPPER;
+    let selectedSeatId = null;
+
+    function getPrice(type, row, features) {
+      if (type === CLASS_OTONO_ONE) return '14 000 £';
+      if (type === CLASS_FIRST) return '6 500 £';
+      if (type === CLASS_BUSINESS) return '3 500 £';
+      if (type === CLASS_PREM_ECO) return '2 150 £';
+
+      if (type === CLASS_ECONOMY) {
+        if (features.includes('Coffre de rangement') && features.includes('Siège hublot du pont supérieur')) return STORAGE_BIN_WINDOW_SEAT_PRICE;
+        if (features.includes('Espace supplémentaire pour les jambes')) return '1 650 £';
+        if (features.includes('Espace bagages supplémentaire')) return '1 600 £';
+        if (row >= 68 && row <= 77) return '1 350 £';
+        return '1 500 £';
+      }
+      return 'N/D';
     }
 
-    ReactDOM.render(<App />, document.getElementById('root'));
-</script>
+    function createSeat(id, type, row, col, isAisle = false, features = []) {
+      const finalFeatures = [...features];
+      const wifiFeature =
+        (type === CLASS_OTONO_ONE || type === CLASS_FIRST || type === CLASS_BUSINESS)
+          ? 'Wi‑Fi haut débit gratuit'
+          : (type === CLASS_PREM_ECO)
+            ? 'Wi‑Fi haut débit à 2,50 £ et messagerie Wi‑Fi gratuite'
+            : 'Messagerie Wi‑Fi gratuite et haut débit à 7,50 £';
 
+      finalFeatures.push(wifiFeature);
+      if (type === CLASS_ECONOMY || type === CLASS_PREM_ECO) finalFeatures.push('Service Otono standard');
+
+      return {
+        id, type, row, col, isAisle,
+        isOccupied: Math.random() > 0.75,
+        features: finalFeatures,
+        price: getPrice(type, row, finalFeatures),
+      };
+    }
+
+    function getSeatQuality(seat) {
+      const r = seat.row;
+      const c = seat.col;
+      if (seat.type === CLASS_OTONO_ONE) return { type: 'GOOD', label: 'Suite exceptionnelle', reason: 'Suite luxueuse pour deux', icon: '👍' };
+      if (seat.features.includes('Espace supplémentaire pour les jambes')) return { type: 'GOOD', label: 'Bon siège', reason: 'Espace supplémentaire pour les jambes', icon: '👍' };
+      if (seat.features.includes('Coffre de rangement') && seat.features.includes('Siège hublot du pont supérieur')) return { type: 'GOOD', label: 'Bon siège', reason: 'Coffre de rangement du pont supérieur', icon: '👍' };
+      if (seat.features.includes('Espace bagages supplémentaire')) return { type: 'GOOD', label: 'Bon siège', reason: 'Espace bagages supplémentaire', icon: '👍' };
+
+      const badRows = [7, 38, 52, 62, 77, 93, 23];
+      if (badRows.includes(r)) return { type: 'BAD', label: 'Siège moins conseillé', reason: 'Près des toilettes / de l’office', icon: '👎' };
+      if (r >= 92 && ['A','C','D','E','F','G','H','K'].includes(c)) return { type: 'BAD', label: 'Siège moins conseillé', reason: 'Passage vers les toilettes', icon: '👎' };
+      return null;
+    }
+
+    function flattenCabins(cabins) {
+      return cabins.reduce((acc, cabin) => acc.concat(cabin.seats), []);
+    }
+
+    function buildSeatStats(seats) {
+      const totals = {
+        total: 0,
+        occupied: 0,
+        available: 0,
+        byClass: {
+          [CLASS_OTONO_ONE]: { total: 0, occupied: 0, available: 0 },
+          [CLASS_FIRST]: { total: 0, occupied: 0, available: 0 },
+          [CLASS_BUSINESS]: { total: 0, occupied: 0, available: 0 },
+          [CLASS_PREM_ECO]: { total: 0, occupied: 0, available: 0 },
+          [CLASS_ECONOMY]: { total: 0, occupied: 0, available: 0 },
+        }
+      };
+
+      seats.forEach(seat => {
+        const paxValue = seat.type === CLASS_OTONO_ONE ? 2 : 1;
+        totals.total += paxValue;
+        totals.byClass[seat.type].total += paxValue;
+        if (seat.isOccupied) {
+          totals.occupied += paxValue;
+          totals.byClass[seat.type].occupied += paxValue;
+        } else {
+          totals.available += paxValue;
+          totals.byClass[seat.type].available += paxValue;
+        }
+      });
+      return totals;
+    }
+
+    function generateUpperDeck() {
+      const cabins = [];
+
+      const c1 = [];
+      [1, 2].forEach(row => {
+        ['A', 'K'].forEach(col => c1.push(createSeat(`${row}${col}`, CLASS_OTONO_ONE, row, col, false, [
+          'Très grand écran de divertissement', 'Accès à la douche', 'Suite privée pour deux', 'Gastronomie raffinée', 'Trousse de confort exclusive'
+        ])));
+      });
+      cabins.push({ name: 'Cabin 1', seats: c1 });
+
+      const c2 = [];
+      for (let row = 5; row <= 7; row++) {
+        ['A', 'D', 'G', 'K'].forEach(col => c2.push(createSeat(`${row}${col}`, CLASS_FIRST, row, col, ['D','G'].includes(col), [
+          'Accès à la douche', 'Suite privée', 'Écran de divertissement plus grand'
+        ])));
+      }
+      cabins.push({ name: 'Cabin 2', seats: c2 });
+
+      const c3 = [];
+      for (let row = 25; row <= 38; row++) {
+        ['A', 'D', 'G', 'K'].filter(col => !((row === 25 || row === 38) && (col === 'A' || col === 'K'))).forEach(col => {
+          c3.push(createSeat(`${row}${col}`, CLASS_BUSINESS, row, col, ['D','G'].includes(col), [
+            'Siège-lit', 'Accès direct au couloir', 'Repas gastronomique'
+          ]));
+        });
+      }
+      cabins.push({ name: 'Cabin 3', seats: c3 });
+
+      const c4 = [];
+      for (let row = 86; row <= 93; row++) {
+        ['A','C','D','E','F','G','H','K'].forEach(col => {
+          const feats = [];
+          if (row === 86) feats.push('Espace supplémentaire pour les jambes');
+          if (col === 'A' || col === 'K') feats.push('Coffre de rangement', 'Siège hublot du pont supérieur');
+          c4.push(createSeat(`${row}${col}`, CLASS_ECONOMY, row, col, ['C','D','G','H'].includes(col), feats));
+        });
+      }
+      cabins.push({ name: 'Cabin 4', seats: c4 });
+      return cabins;
+    }
+
+    function generateLowerDeck() {
+      const cabins = [];
+
+      const c1 = [];
+      [11, 12].forEach(row => {
+        ['A', 'K'].forEach(col => c1.push(createSeat(`${row}${col}`, CLASS_BUSINESS, row, col, false, [
+          'Siège-lit', 'Accès direct au couloir', 'Repas gastronomique'
+        ])));
+      });
+      [15, 16, 17, 18, 19].forEach(row => {
+        ['A','D','G','K'].forEach(col => c1.push(createSeat(`${row}${col}`, CLASS_BUSINESS, row, col, ['D','G'].includes(col), [
+          'Siège-lit', 'Accès direct au couloir', 'Repas gastronomique'
+        ])));
+      });
+      cabins.push({ name: 'Cabin 1', seats: c1 });
+
+      const c2 = [];
+      for (let row = 20; row <= 23; row++) {
+        ['A','D','G','K'].forEach(col => c2.push(createSeat(`${row}${col}`, CLASS_BUSINESS, row, col, ['D','G'].includes(col), [
+          'Siège-lit', 'Accès direct au couloir', 'Repas gastronomique'
+        ])));
+      }
+      cabins.push({ name: 'Cabin 2', seats: c2 });
+
+      const c3 = [];
+      for (let row = 42; row <= 52; row++) {
+        let cols = ['A','C','D','E','F','G','H','K'];
+        if (row === 52) cols = ['D','E','F','G'];
+        cols.forEach(col => {
+          const feats = [];
+          if (row === 42) feats.push('Espace supplémentaire pour les jambes');
+          c3.push(createSeat(`${row}${col}`, CLASS_PREM_ECO, row, col, ['C','D','G','H'].includes(col), feats));
+        });
+      }
+      cabins.push({ name: 'Cabin 3', seats: c3 });
+
+      const c4 = [];
+      for (let row = 53; row <= 62; row++) {
+        let cols = ['A','B','C','D','E','F','G','H','J','K'];
+        if (row === 62) cols = ['B','C','D','E','F','G','H','J'];
+        cols.forEach(col => {
+          const feats = [];
+          if (row === 53) feats.push('Espace supplémentaire pour les jambes');
+          if (row === 62) feats.push('Espace bagages supplémentaire');
+          c4.push(createSeat(`${row}${col}`, CLASS_ECONOMY, row, col, ['C','D','G','H'].includes(col), feats));
+        });
+      }
+      cabins.push({ name: 'Cabin 4', seats: c4 });
+
+      const c5 = [];
+      for (let row = 68; row <= 77; row++) {
+        let cols = ['A','B','C','D','E','F','G','H','J','K'];
+        if (row === 77) cols = ['A','B','C','H','J','K'];
+        cols.forEach(col => {
+          const feats = [];
+          if (row === 68) feats.push('Espace supplémentaire pour les jambes');
+          c5.push(createSeat(`${row}${col}`, CLASS_ECONOMY, row, col, ['C','D','G','H'].includes(col), feats));
+        });
+      }
+      cabins.push({ name: 'Cabin 5', seats: c5 });
+      return cabins;
+    }
+
+    const upperCabins = generateUpperDeck();
+    const lowerCabins = generateLowerDeck();
+    const allSeats = [...flattenCabins(upperCabins), ...flattenCabins(lowerCabins)];
+    const seatStats = buildSeatStats(allSeats);
+
+    function escapeHTML(value) {
+      return String(value).replace(/[&<>'"]/g, char => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#039;', '"': '&quot;'
+      }[char]));
+    }
+
+    function styleString(style) {
+      return Object.entries(style).map(([key, value]) => {
+        const cssKey = key.replace(/[A-Z]/g, match => '-' + match.toLowerCase());
+        return `${cssKey}:${value}`;
+      }).join(';');
+    }
+
+    function getCurrentCabins() {
+      return currentDeck === DECK_UPPER ? upperCabins : lowerCabins;
+    }
+
+    function getSelectedSeat() {
+      return selectedSeatId ? allSeats.find(seat => seat.id === selectedSeatId) : null;
+    }
+
+    function cabinDividerLabel(deck, index) {
+      if (deck === DECK_UPPER) {
+        if (index === 1) return 'Sortie / transition';
+        if (index === 2) return 'Transition du pont supérieur';
+        if (index === 3) return 'Toilettes arrière / sortie';
+        return 'Sortie / office';
+      }
+      if (index === 1) return 'Transition avant Affaires';
+      if (index === 2) return 'Début de l’Économie Premium';
+      if (index === 3) return 'Sortie / toilettes';
+      if (index === 4) return 'Sortie arrière / toilettes';
+      return 'Office / sortie';
+    }
+
+    function renderSeat(seat) {
+      const classes = ['seat', CLASS_COLOR_CLASS[seat.type]];
+      if (seat.type === CLASS_OTONO_ONE) classes.push('otono-one');
+      if (seat.type === CLASS_FIRST) classes.push('first-class');
+      if (seat.features.includes('Espace supplémentaire pour les jambes')) classes.push('extra-legroom');
+      if (seat.features.includes('Espace bagages supplémentaire')) classes.push('extra-bagroom');
+      if (seat.isOccupied) classes.push('occupied');
+      if (selectedSeatId === seat.id) classes.push('selected');
+
+      const label = seat.type === CLASS_OTONO_ONE
+        ? `<span>${escapeHTML(seat.id)}</span><small>SUITE</small>`
+        : seat.type === CLASS_FIRST
+          ? escapeHTML(seat.id)
+          : escapeHTML(seat.id.replace(/[0-9]/g, ''));
+
+      return `<button class="${classes.join(' ')}" data-seat-id="${escapeHTML(seat.id)}" title="${escapeHTML(seat.features.join(', '))}" ${seat.isOccupied ? 'disabled' : ''}>${label}</button>`;
+    }
+
+    function spacerForSeat(deck, seat, isGrandStairRow) {
+      if (deck === DECK_LOWER && (seat.type === CLASS_ECONOMY || seat.type === CLASS_PREM_ECO)) {
+        if (seat.col === 'D' || seat.col === 'H') return '<span class="spacer-small"></span>';
+      } else if (deck === DECK_UPPER && seat.type === CLASS_ECONOMY) {
+        if (seat.col === 'D' || seat.col === 'H') return '<span class="spacer-small"></span>';
+      } else if (seat.type === CLASS_BUSINESS || seat.type === CLASS_FIRST) {
+        if (isGrandStairRow && seat.col === 'K') return '<span class="spacer-grand"></span>';
+        if (!isGrandStairRow && (seat.col === 'D' || seat.col === 'K')) return '<span class="spacer-medium"></span>';
+      }
+      return '';
+    }
+
+    function renderDeckMap() {
+      const cabins = getCurrentCabins();
+      const front = currentDeck === DECK_UPPER
+        ? `<div class="upper-front">
+             <div class="shower"><span style="font-size:24px;">🚿</span><b>Spa-douche</b><small>Otono One & Première</small></div>
+             <div class="stairs">Grand escalier</div>
+             <div class="shower"><span style="font-size:24px;">🚿</span><b>Spa-douche</b><small>Otono One & Première</small></div>
+           </div>`
+        : `<div class="deck-top">COCKPIT EN DESSOUS</div>`;
+
+      const cabinHtml = cabins.map((cabin, cabinIndex) => {
+        const rows = {};
+        cabin.seats.forEach(seat => {
+          if (!rows[seat.row]) rows[seat.row] = [];
+          rows[seat.row].push(seat);
+        });
+
+        const rowsHtml = Object.keys(rows).sort((a, b) => Number(a) - Number(b)).map(rowNum => {
+          const rowSeats = rows[rowNum].sort((a, b) => a.col.localeCompare(b.col));
+          const rInt = Number(rowNum);
+          const isGrandStairRow = currentDeck === DECK_LOWER && (rInt === 11 || rInt === 12);
+          const grandLabel = rInt === 11 ? 'Grand' : rInt === 12 ? 'Escalier' : '';
+          const grandBlock = isGrandStairRow ? `<span class="grand-stair-block">${grandLabel}</span>` : '';
+          const seats = rowSeats.map(seat => spacerForSeat(currentDeck, seat, isGrandStairRow) + renderSeat(seat)).join('');
+          return `<div class="row"><span class="row-number left">${rowNum}</span><div class="seat-line">${grandBlock}${seats}</div><span class="row-number right">${rowNum}</span></div>`;
+        }).join('');
+
+        return `<section class="cabin">${cabinIndex > 0 ? `<div class="divider">${cabinDividerLabel(currentDeck, cabinIndex)}</div>` : ''}${rowsHtml}</section>`;
+      }).join('');
+
+      const rear = currentDeck === DECK_UPPER
+        ? `<div class="stairs">Escalier en colimaçon</div><div class="lounge"><span class="lounge-icon">☕</span><div><h3>Le salon Otono</h3><p>Ouvert à toutes les classes</p><p>"PLUS PEUR de la classe Économie !"</p><p>"Le coin préféré de Grandpa Belt"</p></div></div>`
+        : `<div class="rear-galley">OFFICE ARRIÈRE</div><div class="stairs lower"><span>⬆</span><span>Escalier en colimaçon<br>(vers le salon)</span></div>`;
+
+      return `<div class="map-wrap"><div class="fuselage">${front}<div>${cabinHtml}</div><div style="margin-top:28px;">${rear}</div></div></div>`;
+    }
+
+    function renderDetails() {
+      const seat = getSelectedSeat();
+      if (!seat) return `<div class="card seat-details-empty"><p>Sélectionnez un siège pour voir les détails.</p></div>`;
+      const quality = getSeatQuality(seat);
+      const classStyle = styleString(CLASS_STYLE[seat.type]);
+      const qualityHtml = quality ? `<div class="quality ${quality.type === 'GOOD' ? 'good' : 'bad'}"><span>${quality.icon}</span><div><div>${quality.label}</div><small>${quality.reason}</small></div></div>` : '';
+      const featuresHtml = seat.features.map(feat => `<div class="feature"><span>${feat.includes('Wi') ? '📶' : '⭐'}</span><span>${escapeHTML(feat)}</span></div>`).join('');
+      return `<div class="card fade-in">
+        <div class="detail-head">
+          <div>
+            <span class="class-pill" style="${classStyle}">${escapeHTML(seat.type)}</span>
+            <h2 class="seat-id-large">${escapeHTML(seat.id)}</h2>
+          </div>
+          <div><div class="price">${escapeHTML(seat.price)}</div><span class="one-way">Aller simple</span></div>
+        </div>
+        ${qualityHtml}
+        <div class="feature"><span>👤</span><span>${seat.isAisle ? 'Accès couloir' : 'Hublot / intérieur'}</span></div>
+        ${featuresHtml}
+        ${seat.type === CLASS_ECONOMY ? `<div class="feature" style="color:#7e22ce;font-weight:800;"><span>↔</span><span>34&quot; d’espace pour les jambes garanti</span></div>` : ''}
+        <button class="book-btn" id="bookBtn">Réserver le siège ${escapeHTML(seat.id)}</button>
+      </div>`;
+    }
+
+    function renderLegend() {
+      const classOrder = [CLASS_OTONO_ONE, CLASS_FIRST, CLASS_BUSINESS, CLASS_PREM_ECO, CLASS_ECONOMY];
+      const rows = classOrder.map(cls => `<div class="legend-row"><span class="legend-dot" style="${styleString(CLASS_STYLE[cls])}"></span><span>${escapeHTML(cls)}</span></div>`).join('');
+      return `<div class="card"><h3 class="section-title">Légende</h3>${rows}
+        <div class="legend-row" style="border-top:1px solid #f1f5f9;margin-top:14px;padding-top:14px;"><span class="legend-dot" style="background:#d1d5db;"></span><span>Occupé</span></div>
+        <div class="legend-row"><span class="legend-dot extra-legroom" style="${styleString(CLASS_STYLE[CLASS_ECONOMY])}"></span><span>Espace jambes supplémentaire</span></div>
+        <div class="legend-row"><span class="legend-dot extra-bagroom" style="${styleString(CLASS_STYLE[CLASS_ECONOMY])}"></span><span>Espace bagages supplémentaire</span></div>
+        <div class="legend-row"><span class="legend-dot good-dot"></span><span>Bon siège</span></div>
+        <div class="legend-row"><span class="legend-dot bad-dot"></span><span>Siège moins conseillé</span></div>
+      </div>`;
+    }
+
+    function renderStats() {
+      const classOrder = [CLASS_OTONO_ONE, CLASS_FIRST, CLASS_BUSINESS, CLASS_PREM_ECO, CLASS_ECONOMY];
+      const classRows = classOrder.map(cls => {
+        const c = seatStats.byClass[cls];
+        return `<div class="class-stat">
+          <div class="class-stat-head"><div class="class-stat-title"><span class="mini-dot" style="${styleString(CLASS_STYLE[cls])}"></span><span>${escapeHTML(cls)}</span></div><span style="color:#7e22ce;">${c.total} passagers</span></div>
+          <div class="class-stat-grid"><div class="tiny-box"><div class="tiny-label">Occupés</div><div class="tiny-value" style="color:#dc2626;">${c.occupied}</div></div><div class="tiny-box"><div class="tiny-label">Disponibles</div><div class="tiny-value" style="color:#16a34a;">${c.available}</div></div></div>
+        </div>`;
+      }).join('');
+
+      return `<div class="card"><h3 class="section-title">Disponibilité passagers</h3>
+        <div class="counter-grid">
+          <div class="counter-box"><div class="counter-label">Total</div><div class="counter-value total">${seatStats.total}</div></div>
+          <div class="counter-box"><div class="counter-label">Occupés</div><div class="counter-value occupied">${seatStats.occupied}</div></div>
+          <div class="counter-box"><div class="counter-label">Disponibles</div><div class="counter-value available">${seatStats.available}</div></div>
+        </div>
+        <h3 class="section-title" style="border-top:1px solid #f1f5f9;padding-top:14px;">Par classe</h3>
+        ${classRows}
+      </div>`;
+    }
+
+    function renderDeckSelector() {
+      return `<div class="card"><h2 class="section-title">Choisir le pont</h2>
+        <div class="deck-switch">
+          <button class="deck-btn ${currentDeck === DECK_UPPER ? 'active' : ''}" data-deck="${DECK_UPPER}">Pont supérieur<small>Suites, Première, Affaires, Salon</small></button>
+          <button class="deck-btn ${currentDeck === DECK_LOWER ? 'active' : ''}" data-deck="${DECK_LOWER}">Pont principal<small>Affaires, Économie Premium, Économie</small></button>
+        </div>
+      </div>`;
+    }
+
+    function renderApp() {
+      const app = document.getElementById('app');
+      app.innerHTML = `<aside class="sidebar">${renderDeckSelector()}${renderDetails()}${renderLegend()}${renderStats()}</aside><section>${renderDeckMap()}</section>`;
+    }
+
+    document.addEventListener('click', event => {
+      const deckButton = event.target.closest('[data-deck]');
+      if (deckButton) {
+        currentDeck = deckButton.dataset.deck;
+        selectedSeatId = null;
+        renderApp();
+        return;
+      }
+
+      const seatButton = event.target.closest('[data-seat-id]');
+      if (seatButton && !seatButton.disabled) {
+        selectedSeatId = seatButton.dataset.seatId;
+        renderApp();
+        return;
+      }
+
+      if (event.target.id === 'bookBtn') {
+        window.location.href = 'https://otonoteam2.github.io/Otono%20Airways%20A380%20Destinations.html';
+      }
+    });
+
+    renderApp();
+  </script>
 </body>
 </html>

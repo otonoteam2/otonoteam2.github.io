@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Otono Airways | Cabins</title>
+
+  <link rel="icon" href="Images/OtonoAirways.png" type="image/png">
+
+  <meta name="description" content="Explore Otono Airways cabins including Economy, Premium Economy, Business, First, Otono One, onboard lounges and shower spas.">
+  <meta name="keywords" content="Otono Airways, cabins, Economy, Premium Economy, Business Class, First Class, Otono One, onboard lounge, shower spa">
+
+  <style>
+    *{
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      margin:0;
+      padding:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:#100016;
+      color:white;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    .otono-gradient{
+      background:linear-gradient(135deg, #b00020 0%, #dc143c 30%, #7b1fa2 68%, #2b0057 100%);
+    }
+
+    .menu{
+      width:100%;
+      position:fixed;
+      top:0;
+      z-index:1000;
+      padding:12px 20px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      box-shadow:0 6px 20px rgba(0,0,0,0.35);
+    }
+
+    .menu a{
+      font-size:13px;
+      color:white;
+      padding:9px 13px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.12);
+      border:1px solid rgba(255,255,255,0.18);
+      transition:0.25s;
+      font-weight:bold;
+    }
+
+    .menu a:hover{
+      background:rgba(255,255,255,0.26);
+      transform:translateY(-2px);
+    }
+
+    .top-space{
+      height:78px;
+    }
+
+    .hero{
+      min-height:620px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:70px 24px;
+      text-align:center;
+      background:
+        linear-gradient(135deg, rgba(10,0,20,0.90), rgba(180,0,55,0.64), rgba(55,0,120,0.86)),
+        url("Images/cabin.png");
+      background-size:cover;
+      background-position:center;
+    }
+
+    .hero-card{
+      max-width:1050px;
+      width:100%;
+      padding:44px;
+      border-radius:34px;
+      background:rgba(10,0,20,0.72);
+      border:1px solid rgba(255,255,255,0.18);
+      box-shadow:0 28px 70px rgba(0,0,0,0.45);
+      backdrop-filter:blur(8px);
+    }
+
+    .badge{
+      display:inline-block;
+      padding:8px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.14);
+      border:1px solid rgba(255,255,255,0.18);
+      color:#ffe9ff;
+      font-size:13px;
+      font-weight:bold;
+      margin-bottom:18px;
+    }
+
+    h1{
+      font-size:clamp(42px, 7vw, 82px);
+      margin:0;
+      line-height:0.95;
+      letter-spacing:-3px;
+    }
+
+    .hero p{
+      max-width:820px;
+      margin:22px auto 0;
+      font-size:19px;
+      line-height:1.7;
+      color:#f6ddff;
+    }
+
+    .hero-buttons{
+      margin-top:30px;
+      display:flex;
+      justify-content:center;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    .button{
+      display:inline-block;
+      padding:14px 20px;
+      border-radius:16px;
+      font-weight:bold;
+      transition:0.25s;
+      border:1px solid rgba(255,255,255,0.22);
+    }
+
+    .button.primary{
+      background:white;
+      color:#7b003e;
+    }
+
+    .button.secondary{
+      background:rgba(255,255,255,0.14);
+      color:white;
+    }
+
+    .button:hover{
+      transform:translateY(-3px);
+      box-shadow:0 12px 24px rgba(0,0,0,0.35);
+    }
+
+    .notice-row{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:12px;
+      padding:18px 24px;
+      max-width:1300px;
+      margin:auto;
+    }
+
+    .notice{
+      padding:18px;
+      text-align:center;
+      border-radius:20px;
+      background:#2a0038;
+      border:1px solid rgba(255,255,255,0.16);
+      box-shadow:0 10px 28px rgba(0,0,0,0.25);
+      font-weight:bold;
+    }
+
+    .page-section{
+      max-width:1300px;
+      margin:auto;
+      padding:24px;
+    }
+
+    .section-title{
+      margin:22px 0;
+      padding:26px;
+      border-radius:28px;
+      background:#240030;
+      border:1px solid rgba(255,255,255,0.16);
+      box-shadow:0 16px 40px rgba(0,0,0,0.28);
+    }
+
+    .section-title h2{
+      margin:0 0 8px;
+      font-size:36px;
+    }
+
+    .section-title p{
+      margin:0;
+      color:#f4d9ff;
+      line-height:1.6;
+    }
+
+    .cabin-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:18px;
+    }
+
+    .cabin-card{
+      min-height:390px;
+      border-radius:30px;
+      overflow:hidden;
+      position:relative;
+      background:#240030;
+      border:1px solid rgba(255,255,255,0.14);
+      box-shadow:0 18px 45px rgba(0,0,0,0.32);
+      transition:0.25s;
+    }
+
+    .cabin-card:hover{
+      transform:translateY(-5px);
+      box-shadow:0 24px 55px rgba(0,0,0,0.42);
+    }
+
+    .cabin-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:rgba(0,0,0,0.50);
+      z-index:1;
+    }
+
+    .cabin-card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background-size:cover;
+      background-position:center;
+      opacity:0.72;
+    }
+
+    .economy::after{ background-image:url("Images/Economy.jpg"); }
+    .premium::after{ background-image:url("Images/PremiumEconomy.jpg"); }
+    .business::after{ background-image:url("Images/Business.jpg"); }
+    .first::after{ background-image:url("Images/FirstClass.jpg"); }
+    .otono-one::after{ background-image:url("Images/OtonoOne.jpg"); }
+    .lounge::after{ background-image:url("Images/OnboardLounge.jpg"); }
+    .shower::after{ background-image:url("Images/ShowerSpa.jpg"); }
+
+    .cabin-content{
+      position:relative;
+      z-index:2;
+      padding:26px;
+      display:flex;
+      flex-direction:column;
+      min-height:390px;
+    }
+
+    .cabin-content h3{
+      font-size:30px;
+      margin:0 0 8px;
+    }
+
+    .tag{
+      display:inline-block;
+      width:max-content;
+      padding:7px 11px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.15);
+      border:1px solid rgba(255,255,255,0.18);
+      font-size:12px;
+      font-weight:bold;
+      margin-bottom:12px;
+    }
+
+    .cabin-content p{
+      color:#f4d9ff;
+      line-height:1.6;
+      margin:0 0 16px;
+    }
+
+    .stat-list{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-top:auto;
+      margin-bottom:18px;
+    }
+
+    .stat{
+      padding:12px;
+      border-radius:16px;
+      background:rgba(0,0,0,0.28);
+      border:1px solid rgba(255,255,255,0.13);
+    }
+
+    .stat strong{
+      display:block;
+      font-size:20px;
+    }
+
+    .stat span{
+      color:#ffdfff;
+      font-size:12px;
+    }
+
+    .wide-card{
+      margin-top:18px;
+      border-radius:28px;
+      padding:28px;
+      background:#240030;
+      border:1px solid rgba(255,255,255,0.16);
+      box-shadow:0 16px 40px rgba(0,0,0,0.28);
+    }
+
+    .wide-card h3{
+      margin:0 0 10px;
+      font-size:28px;
+    }
+
+    .wide-card p{
+      color:#ffe7ff;
+      line-height:1.65;
+    }
+
+    .availability-table{
+      width:100%;
+      border-collapse:collapse;
+      overflow:hidden;
+      border-radius:22px;
+      margin-top:18px;
+      background:#240030;
+      box-shadow:0 16px 40px rgba(0,0,0,0.28);
+    }
+
+    .availability-table th,
+    .availability-table td{
+      padding:16px;
+      border:1px solid rgba(255,255,255,0.12);
+      text-align:center;
+      color:#ffe7ff;
+    }
+
+    .availability-table th{
+      background:#3a004d;
+      color:white;
+      font-size:14px;
+    }
+
+    .availability-table td:first-child{
+      font-weight:bold;
+      color:white;
+      text-align:left;
+    }
+
+    .yes{
+      color:#9dffb0;
+      font-weight:bold;
+    }
+
+    .no{
+      color:#ff9da9;
+      font-weight:bold;
+    }
+
+    .limited{
+      color:#ffe189;
+      font-weight:bold;
+    }
+
+    .footer{
+      text-align:center;
+      padding:28px;
+      background:#240030;
+      color:white;
+      font-weight:bold;
+      margin-top:30px;
+    }
+
+    @media only screen and (max-width: 1000px){
+      .cabin-grid,
+      .notice-row{
+        grid-template-columns:1fr;
+      }
+
+      .menu{
+        justify-content:flex-start;
+        overflow-x:auto;
+        flex-wrap:nowrap;
+      }
+
+      .hero-card{
+        padding:28px;
+      }
+
+      .availability-table{
+        display:block;
+        overflow-x:auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="menu otono-gradient">
+    <a href="https://otonoteam2.github.io/">Home</a>
+    <a href="#cabins">Cabins</a>
+    <a href="#signature-features">Lounge and Shower</a>
+    <a href="#otono-one">Otono One</a>
+    <a href="#availability">Aircraft Availability</a>
+    <a href="https://otonoteam2.github.io/Otono%20Airways%20Aircraft%20and%20Fleet.html">Fleet</a>
+    <a href="https://otonoteam2.github.io/contactus.html">Contact</a>
+  </nav>
+
+  <div class="top-space"></div>
+
+  <header class="hero">
+    <div class="hero-card">
+      <span class="badge">Otono Airways Cabin Experience</span>
+      <h1>Cabins</h1>
+      <p>
+        Explore every Otono Airways cabin: Economy, Premium Economy, Business, First,
+        Otono One, plus onboard lounges and shower spas on selected aircraft.
+      </p>
+      <div class="hero-buttons">
+        <a class="button primary" href="#cabins">Explore cabins</a>
+        <a class="button secondary" href="#otono-one">View Otono One</a>
+        <a class="button secondary" href="#availability">Check aircraft availability</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="notice-row">
+    <div class="notice">💺 Economy comfort</div>
+    <div class="notice">💼 Premium long-haul cabins</div>
+    <div class="notice">👑 Otono One suites</div>
+    <div class="notice">🚿 Lounge and Shower Spa</div>
+  </section>
+
+  <main>
+    <section id="cabins" class="page-section">
+      <div class="section-title">
+        <h2>Otono Airways Cabins</h2>
+        <p>
+          From generous Economy Class to ultra-exclusive Otono One, each cabin is designed for comfort,
+          long-haul travel and the signature Otono Airways red and purple experience.
+        </p>
+      </div>
+
+      <div class="cabin-grid">
+        <article class="cabin-card economy">
+          <div class="cabin-content">
+            <span class="tag">NO MORE FEAR of economy class!</span>
+            <h3>Economy</h3>
+            <p>
+              Otono Airways Economy is designed to be generous, comfortable and not terrifying on long-haul flights.
+              Every aircraft keeps strong comfort standards for all passengers.
+            </p>
+            <div class="stat-list">
+              <div class="stat"><strong>34–35in</strong><span>legroom</span></div>
+              <div class="stat"><strong>All</strong><span>aircraft</span></div>
+            </div>
+            <a class="button primary" href="#">Open Economy</a>
+          </div>
+        </article>
+
+        <article class="cabin-card premium">
+          <div class="cabin-content">
+            <span class="tag">Extra comfort</span>
+            <h3>Premium Economy</h3>
+            <p>
+              Premium Economy gives passengers a calmer cabin, more space, wider seats,
+              improved recline and upgraded food for long-haul journeys.
+            </p>
+            <div class="stat-list">
+              <div class="stat"><strong>More</strong><span>legroom</span></div>
+              <div class="stat"><strong>Long-haul</strong><span>comfort</span></div>
+            </div>
+            <a class="button primary" href="#">Open Premium Economy</a>
+          </div>
+        </article>
+
+        <article class="cabin-card business">
+          <div class="cabin-content">
+            <span class="tag">Long-haul premium</span>
+            <h3>Business</h3>
+            <p>
+              Business Class offers lie-flat comfort, premium meals and a proper long-haul experience
+              across Otono Airways widebody aircraft.
+            </p>
+            <div class="stat-list">
+              <div class="stat"><strong>Lie-flat</strong><span>seating</span></div>
+              <div class="stat"><strong>Premium</strong><span>service</span></div>
+            </div>
+            <a class="button primary" href="#">Open Business</a>
+          </div>
+        </article>
+
+        <article class="cabin-card first">
+          <div class="cabin-content">
+            <span class="tag">Luxury cabin</span>
+            <h3>First</h3>
+            <p>
+              First Class is a private luxury cabin with premium dining, priority service,
+              spacious seating and shower access on selected aircraft.
+            </p>
+            <div class="stat-list">
+              <div class="stat"><strong>Luxury</strong><span>privacy</span></div>
+              <div class="stat"><strong>Shower</strong><span>A380 and 777</span></div>
+            </div>
+            <a class="button primary" href="#">Open First</a>
+          </div>
+        </article>
+
+        <article class="cabin-card otono-one">
+          <div class="cabin-content">
+            <span class="tag">Ultra-exclusive suite</span>
+            <h3>Otono One</h3>
+            <p>
+              Otono One is the most exclusive Otono Airways cabin. Each suite can carry two passengers,
+              making it one of the rarest products in the fleet.
+            </p>
+            <div class="stat-list">
+              <div class="stat"><strong>2 pax</strong><span>per suite</span></div>
+              <div class="stat"><strong>Rare</strong><span>selected aircraft</span></div>
+            </div>
+            <a class="button primary" href="#">Open Otono One</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="signature-features" class="page-section">
+      <div class="section-title">
+        <h2>Signature Onboard Features</h2>
+        <p>
+          Selected Otono Airways aircraft include special onboard features such as lounges and shower spas.
+        </p>
+      </div>
+
+      <div class="cabin-grid">
+        <article class="cabin-card lounge">
+          <div class="cabin-content">
+            <span class="tag">Social space in the sky</span>
+            <h3>Onboard Lounge</h3>
+            <p>
+              The onboard lounge gives passengers space to stretch, relax, take photos and enjoy snacks or drinks
+              during long-haul flights.
+            </p>
+            <div class="stat-list">
+              <div class="stat"><strong>A380</strong><span>available</span></div>
+              <div class="stat"><strong>777 / A350</strong><span>selected aircraft</span></div>
+            </div>
+            <a class="button primary" href="#">Open Onboard Lounge</a>
+          </div>
+        </article>
+
+        <article class="cabin-card shower">
+          <div class="cabin-content">
+            <span class="tag">Rare luxury feature</span>
+            <h3>Shower Spa</h3>
+            <p>
+              The Shower Spa is available on the Airbus A380-800 and Boeing 777-300ER only.
+              It is not installed on the A350-1000ULR because the extra fuel tank reduces available space.
+            </p>
+            <div class="stat-list">
+              <div class="stat"><strong>A380</strong><span>available</span></div>
+              <div class="stat"><strong>777-300ER</strong><span>available</span></div>
+            </div>
+            <a class="button primary" href="#">Open Shower Spa</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="otono-one" class="page-section">
+      <div class="section-title">
+        <h2>Otono One Availability</h2>
+        <p>
+          Otono One is only installed on selected aircraft. It is extremely limited, especially on the Boeing 777-300ER
+          and Boeing 787-9 where only two suites are installed.
+        </p>
+      </div>
+
+      <div class="wide-card">
+        <h3>Aircraft with Otono One</h3>
+        <p>
+          ✅ Airbus A380-800: 4 suites only<br>
+          ✅ Boeing 777-300ER: selected aircraft, 2 suites only<br>
+          ✅ Boeing 787-9: selected aircraft, 2 suites only<br>
+          ✅ Airbus A350-1000ULR: 4 suites only
+        </p>
+
+        <h3>Aircraft without Otono One</h3>
+        <p>
+          ❌ Airbus A320 family<br>
+          ❌ Airbus A350-900<br>
+          ❌ Boeing 787-8<br>
+          ❌ Boeing 777-200<br>
+          ❌ Airbus A340-500 in normal service
+        </p>
+      </div>
+    </section>
+
+    <section id="availability" class="page-section">
+      <div class="section-title">
+        <h2>Aircraft Cabin Availability</h2>
+        <p>
+          Check which Otono Airways aircraft have Economy, Premium Economy, Business, First,
+          Otono One, onboard lounges and shower spas.
+        </p>
+      </div>
+
+      <table class="availability-table">
+        <tr>
+          <th>Aircraft</th>
+          <th>Economy</th>
+          <th>Premium Economy</th>
+          <th>Business</th>
+          <th>First</th>
+          <th>Otono One</th>
+          <th>Onboard Lounge</th>
+          <th>Shower Spa</th>
+        </tr>
+
+        <tr>
+          <td>Airbus A380-800</td>
+          <td class="yes">✅</td>
+          <td class="yes">✅</td>
+          <td class="yes">✅</td>
+          <td class="yes">✅</td>
+          <td class="yes">✅ 4 suites</td>
+          <td class="yes">✅</td>
+          <td class="yes">✅</td>
+        </tr>
+
+        <tr>
+          <td>Boeing 777-300ER</td>
+          <td class="yes">✅</td>
+          <td class="yes">✅</td>
+          <td class="yes">✅</td>
+          <td class="yes">✅</td>
+          <td class="limited">Selected, 2 suites</td>
+          <td class="yes">✅</td>
+          <td class="yes">✅</td>
+        </tr>
+
+        <tr>
+          <td>Boeing 777-200</td>
+          <td class="yes">✅</td>
+          <td class="yes">✅</td>
+          <td class="yes">✅</td>
+          <td class="limited">Selected</td>
+          <td class="no">❌</td>
+          <td class="no">❌</td>
+          <td class="no">❌</td>
+        </tr>
+
+        <tr>
+          <td>Boeing 787-9</td>
+          <td class="yes">✅</td>
+          <td class="yes">✅</td>
+          <td class="yes">✅</td>
+          <td class="limited">Selected</td>
+          <td class="limited">Selected, 2 suites</td>
+          <td class="no">❌</td>
+          <td class="no">❌</td>
+        </tr>
+
+        <tr>
+          <td>Boeing 787-8</td>
+          <td class="yes">✅</td>
+          <td class="yes">✅</td>
+          <td class="yes">✅</td>
+          <td class="limited">Selected / limited</td>
+          <td class="no">❌</td>
+          <td class="no">❌</td>
+          <td class="no">❌</td>
+        </tr>
+
+        <tr>
+          <td>Airbus A350-1000ULR</td>
+          <td class="yes">✅</td>
+          <td class="yes">✅</td>
+          <td class="yes">✅</td>
+          <td class="yes">✅</td>
+          <td class="yes">✅ 4 suites</td>
+          <td class="yes">✅</td>
+          <td class="no">❌</td>
+        </tr>
+
+        <tr>
+          <td>Airbus A350-900</td>
+          <td class="yes">✅</td>
+          <td class="yes">✅</td>
+          <td class="yes">✅</td>
+          <td class="limited">Selected</td>
+          <td class="no">❌</td>
+          <td class="no">❌</td>
+          <td class="no">❌</td>
+        </tr>
+
+        <tr>
+          <td>Airbus A320 family</td>
+          <td class="yes">✅</td>
+          <td class="limited">Club Europe style</td>
+          <td class="limited">Short-haul premium</td>
+          <td class="no">❌</td>
+          <td class="no">❌</td>
+          <td class="no">❌</td>
+          <td class="no">❌</td>
+        </tr>
+
+        <tr>
+          <td>Airbus A340-500</td>
+          <td class="limited">Legend</td>
+          <td class="limited">Legend</td>
+          <td class="limited">Legend</td>
+          <td class="limited">Legend</td>
+          <td class="no">❌ normal service</td>
+          <td class="no">❌</td>
+          <td class="no">❌</td>
+        </tr>
+      </table>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Copyright © SoterraOtono | Otono Airways Cabins</p>
+  </footer>
+</body>
+</html>
