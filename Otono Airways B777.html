@@ -571,7 +571,7 @@
       cabins.push({ name: 'Business Cabin 1', seats: c3, divider: 'The Otono Lounge' });
 
       const c4 = [];
-      [25, 26, 27, 28, 29, 30, 31].forEach(row => {
+      [25, 26, 27, 28, 29].forEach(row => {
         ['A','D','G','K'].forEach(col => c4.push(createSeat(`${row}${col}`, CLASS_BUSINESS, row, col, ['D','G'].includes(col), businessFeatures)));
       });
       cabins.push({ name: 'Business After Lounge', seats: c4, divider: 'Premium Economy' });
@@ -608,7 +608,7 @@
       cabins.push({ name: 'Business Cabin 1', seats: c2, divider: 'The Otono Lounge' });
 
       const c3 = [];
-      [31, 32].forEach(row => {
+      [29, 30, 31, 32].forEach(row => {
         ['A','D','G','K'].forEach(col => c3.push(createSeat(`${row}${col}`, CLASS_BUSINESS, row, col, ['D','G'].includes(col), businessFeatures)));
       });
       cabins.push({ name: 'Business After Lounge', seats: c3, divider: 'Premium Economy' });
