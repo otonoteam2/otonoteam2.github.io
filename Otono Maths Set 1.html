@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>🟣 Otono Maths — Paper 1 • GCSE to A-level Bridge</title>
+  <style>
+    :root{
+      --bg1:#2b0a3d; --bg2:#7a0036;
+      --card:#0f0b18cc; --card2:#120c22e6;
+      --text:#f4efff; --muted:#c9b9ff;
+      --accent:#b000ff; --accent2:#ff1b6a;
+      --good:#19ff9a; --warn:#ffd166; --bad:#ff4d6d;
+      --line:rgba(255,255,255,.12);
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:var(--sans); color:var(--text);
+      background:
+        radial-gradient(1000px 700px at 15% 10%, rgba(176,0,255,.22), transparent 60%),
+        radial-gradient(900px 650px at 80% 20%, rgba(255,27,106,.18), transparent 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+    }
+    .wrap{max-width:1100px; margin:0 auto; padding:22px;}
+    .topbar{
+      display:flex; gap:14px; align-items:center; justify-content:space-between;
+      padding:14px 16px; border:1px solid var(--line); border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      box-shadow:var(--shadow);
+      position:sticky; top:14px; z-index:20; backdrop-filter: blur(10px);
+    }
+    .brand{display:flex; flex-direction:column; gap:2px}
+    .brand h1{margin:0; font-size:16px; letter-spacing:.3px}
+    .brand .sub{font-size:12px; color:var(--muted)}
+    .pill{
+      padding:8px 10px; border-radius:999px; border:1px solid var(--line);
+      background:rgba(0,0,0,.25); font-family:var(--mono); font-size:12px;
+      display:flex; gap:10px; align-items:center;
+    }
+    .pill strong{color:#fff}
+    .btn{
+      border:1px solid var(--line); background:rgba(0,0,0,.25);
+      color:var(--text); padding:10px 12px; border-radius:14px; cursor:pointer;
+      transition:.15s transform, .15s background, .15s border;
+      font-weight:600;
+    }
+    .btn:hover{transform:translateY(-1px); background:rgba(0,0,0,.33); border-color:rgba(255,255,255,.22)}
+    .btn.primary{background:linear-gradient(135deg, rgba(176,0,255,.55), rgba(255,27,106,.45)); border-color:rgba(255,255,255,.22)}
+    .btn.danger{background:rgba(255,77,109,.18); border-color:rgba(255,77,109,.35)}
+    .grid{display:grid; grid-template-columns: 1.1fr .9fr; gap:16px; margin-top:16px;}
+    @media (max-width: 980px){ .grid{grid-template-columns:1fr} .topbar{position:static} }
+    .card{background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden;}
+    .card .hd{padding:14px 16px; border-bottom:1px solid var(--line); display:flex; align-items:flex-start; justify-content:space-between; gap:10px; background:linear-gradient(180deg, rgba(255,255,255,.06), transparent);}
+    .card .hd h2{margin:0; font-size:14px}
+    .card .hd .meta{font-size:12px; color:var(--muted); line-height:1.25}
+    .card .bd{padding:16px}
+    label{display:block; font-size:12px; color:var(--muted); margin:10px 0 6px}
+    input[type="text"], input[type="number"], textarea, select{width:100%; border:1px solid var(--line); background:rgba(0,0,0,.25); color:var(--text); padding:10px 12px; border-radius:14px; outline:none; font-family:var(--sans);}
+    textarea{min-height:90px; resize:vertical}
+    .row{display:flex; gap:10px; flex-wrap:wrap}.row > div{flex:1 1 180px}
+    .note{font-size:12px; color:var(--muted); line-height:1.4; padding:10px 12px; border-radius:14px; border:1px dashed rgba(255,255,255,.18); background:rgba(0,0,0,.18);}
+    .badge{font-family:var(--mono); font-size:12px; padding:6px 10px; border-radius:999px; border:1px solid var(--line); background:rgba(0,0,0,.20); display:inline-flex; align-items:center; gap:6px;}
+    .badge.good{border-color:rgba(25,255,154,.35); background:rgba(25,255,154,.12)}.badge.warn{border-color:rgba(255,209,102,.35); background:rgba(255,209,102,.12)}.badge.bad{border-color:rgba(255,77,109,.35); background:rgba(255,77,109,.12)}
+    .divider{height:1px; background:var(--line); margin:14px 0}
+    .passage{padding:12px 14px; border:1px solid var(--line); border-radius:16px; background:rgba(0,0,0,.22); line-height:1.5;}
+    .q{margin-top:14px; padding:12px 14px; border:1px solid var(--line); border-radius:16px; background:rgba(0,0,0,.20);}
+    .q h3{margin:0 0 8px; font-size:13px}.opts{display:grid; gap:8px; margin-top:8px}
+    .opt{display:flex; gap:10px; align-items:flex-start; padding:10px 10px; border-radius:14px; border:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.03); cursor:pointer;}.opt input{margin-top:3px}
+    .kpi{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}@media (max-width: 980px){ .kpi{grid-template-columns:repeat(2,1fr)} }
+    .kpi .box{border:1px solid var(--line); border-radius:16px; padding:10px 12px; background:rgba(0,0,0,.22);}.kpi .box .t{font-size:12px; color:var(--muted)}.kpi .box .v{font-size:18px; font-weight:800; margin-top:4px}
+    .small{font-size:12px; color:var(--muted)}.tabs{display:flex; gap:8px; flex-wrap:wrap}.tab{padding:10px 12px; border-radius:14px; border:1px solid var(--line); background:rgba(0,0,0,.22); cursor:pointer; font-weight:700}.tab.active{background:linear-gradient(135deg, rgba(176,0,255,.35), rgba(255,27,106,.22)); border-color:rgba(255,255,255,.22)}
+    .resultsList{display:grid; gap:10px}.attempt{border:1px solid var(--line); border-radius:16px; padding:12px 14px; background:rgba(0,0,0,.20);}.attempt .top{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap}.attempt .top strong{font-family:var(--mono)}.attempt .meta{font-size:12px; color:var(--muted); margin-top:6px; line-height:1.4}.copy{font-family:var(--mono); font-size:12px; white-space:pre-wrap; word-break:break-word}.hide{display:none !important}
+    .digitRow{display:flex; gap:8px; align-items:center; flex-wrap:wrap}.digitRow .digit{width:52px; text-align:center; font-family:var(--mono); font-size:18px; font-weight:900; padding:12px 0; border-radius:14px; border:1px solid var(--line); background:rgba(0,0,0,.25); color:var(--text); outline:none}.digitRow .hint{font-size:12px; color:var(--muted)}.miniRow{display:flex; gap:10px; flex-wrap:wrap; align-items:flex-end}.miniRow > *{flex:1 1 160px}
+    .sectionTitle{margin:18px 0 0; padding:12px 14px; border-radius:16px; border:1px solid rgba(255,255,255,.16); background:linear-gradient(135deg, rgba(176,0,255,.22), rgba(255,27,106,.12));}
+    .sectionTitle h3{margin:0 0 3px; font-size:14px}.sectionTitle div{font-size:12px; color:var(--muted); line-height:1.35}
+    .symbolPanel{display:grid; grid-template-columns: 180px 1fr; gap:10px; align-items:start;}
+    .symbolPanel strong{color:#fff}
+    .symbolGrid{display:flex; gap:8px; flex-wrap:wrap}
+    .symBtn{min-width:42px; padding:9px 10px; border-radius:14px; border:1px solid var(--line); background:rgba(0,0,0,.25); color:var(--text); cursor:pointer; font-family:var(--mono); font-weight:900; font-size:14px;}
+    .symBtn:hover{transform:translateY(-1px); background:rgba(0,0,0,.33); border-color:rgba(255,255,255,.22)}
+    .breakdownGrid{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:10px}
+    .breakdownGrid .box{border:1px solid var(--line); border-radius:16px; padding:10px 12px; background:rgba(0,0,0,.22);}
+    .breakdownGrid .box .t{font-size:12px; color:var(--muted)}
+    .breakdownGrid .box .v{font-size:18px; font-weight:800; margin-top:4px}
+    @media (max-width: 980px){ .symbolPanel{grid-template-columns:1fr}.breakdownGrid{grid-template-columns:repeat(2,1fr)} }
+    .cheatOverlay{position:fixed; inset:0; display:none; align-items:center; justify-content:center; padding:22px; z-index:99999; background:rgba(15,11,24,.96); color:var(--text); text-align:center;}
+    .cheatOverlay .box{max-width:640px; border:1px solid var(--line); border-radius:var(--radius); padding:18px; background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03)); box-shadow:var(--shadow)}
+    .cheatOverlay h2{margin:0 0 8px; font-size:18px}.cheatOverlay p{margin:0; color:var(--muted); line-height:1.45}
+    body.examLock, body.examLock *{-webkit-user-select:none; user-select:none;}
+    body.examLock input, body.examLock textarea{-webkit-user-select:text; user-select:text;}
+    @media print{body{display:none !important}}
+  </style>
+</head>
+<body oncontextmenu="return false" ondragstart="return false" ondrop="return false">
+  <div class="cheatOverlay" id="cheatOverlay"><div class="box"><h2>🔒 Otono test security</h2><p>Source viewing, printing and developer-tool shortcuts are disabled during the test. Return to the assessment window to continue.</p></div></div>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <h1>🟣 Otono Maths — Paper 1 • GCSE to A-level Bridge • Sample Assessment Material</h1>
+        <div class="sub">Auto marking • 4 random sections × 20 = 80 • Easy at the front → hard at the back • Centre: <strong id="centreTop">50749</strong></div>
+      </div>
+      <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end">
+        <div class="pill"><span>⏱️ Timer:</span><strong id="timerText">--:--</strong></div>
+        <button class="btn" id="btnResults">Results</button>
+        <button class="btn primary" id="btnHome">Test</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card" id="panelHome">
+        <div class="hd">
+          <div>
+            <h2>Candidate setup</h2>
+            <div class="meta">No calculator for most questions • Show working on paper • Auto marking checks final answers.</div>
+          </div>
+          <span class="badge" id="statusBadge">Ready</span>
+        </div>
+
+        <div class="bd" id="homeBody">
+          <div class="miniRow">
+            <div>
+              <label>Centre number</label>
+              <input type="text" id="centreNo" value="50749" disabled />
+              <div class="small" style="margin-top:6px">Default is <strong>50749</strong>. You can change it (optional) with the button.</div>
+            </div>
+            <div style="display:flex; gap:10px; align-items:flex-end; flex-wrap:wrap">
+              <button class="btn" id="btnEditCentre">Customise centre</button>
+              <button class="btn" id="btnResetCentre">Reset centre</button>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div>
+            <label>Candidate number (required, 4 digits)</label>
+            <div class="digitRow" aria-label="Candidate number 4 digits">
+              <input class="digit" id="candD1" inputmode="numeric" maxlength="1" />
+              <input class="digit" id="candD2" inputmode="numeric" maxlength="1" />
+              <input class="digit" id="candD3" inputmode="numeric" maxlength="1" />
+              <input class="digit" id="candD4" inputmode="numeric" maxlength="1" />
+              <span class="hint">Digits only • auto-advance</span>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top:6px">
+            <div><label>Candidate surname (optional)</label><input type="text" id="candSurname" placeholder="Surname" /></div>
+            <div><label>Candidate forename(s) (optional)</label><input type="text" id="candForenames" placeholder="Forename(s)" /></div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>How the random paper works (Maths Bridge SAM set 1):</strong><br/>
+            • The system selects <strong>4 random sections</strong>. Each section is worth <strong>20 marks</strong>, so the full paper is always <strong>80 marks</strong>.<br/>
+            • <strong>Section A — GCSE fluency:</strong> basic algebra, substitution, expanding, factorising, indices. <strong>20 marks</strong>.<br/>
+            • <strong>Section B — GCSE+ bridge:</strong> straight lines, functions, inverses, composites, rearranging. <strong>20 marks</strong>.<br/>
+            • <strong>Section C — First A-level skills:</strong> basic differentiation and gradient functions. <strong>20 marks</strong>.<br/>
+            • <strong>Section D — A-level bridge challenge:</strong> basic integration, definite integration and mixed harder questions. <strong>20 marks</strong>.<br/>
+            • The paper is ordered <strong>easy at the front</strong> and <strong>hard at the back</strong>, just like a proper bridge assessment.<br/>
+            • Your attempt is saved to this browser using <strong>localStorage</strong>.
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="row">
+            <div>
+              <label>Time allowed</label>
+              <select id="timeAllowed">
+                <option value="75" selected>75 minutes (recommended)</option>
+                <option value="60">60 minutes</option>
+                <option value="45">45 minutes</option>
+              </select>
+            </div>
+            <div>
+              <label>Question order</label>
+              <select id="shuffleMode">
+                <option value="ordered" selected>Keep section order: easy → hard</option>
+                <option value="sectionShuffle">Random inside each section only</option>
+              </select>
+            </div>
+            <div>
+              <label>On timer end</label>
+              <select id="autoSubmit"><option value="yes" selected>Auto-submit</option><option value="no">Do not auto-submit</option></select>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap">
+            <button class="btn primary" id="btnStart">Start Random Paper</button>
+            <button class="btn" id="btnPreview">Preview Random Selection</button>
+          </div>
+          <div id="previewBox" class="note hide" style="margin-top:12px"></div>
+        </div>
+
+        <div class="bd hide" id="testBody">
+          <div class="kpi">
+            <div class="box"><div class="t">Candidate</div><div class="v" id="kpiCandidate">—</div></div>
+            <div class="box"><div class="t">Selected sections</div><div class="v" id="kpiPassages">4 × 20</div></div>
+            <div class="box"><div class="t">Order</div><div class="v" id="kpiTranslation">Easy → Hard</div></div>
+            <div class="box"><div class="t">Max score</div><div class="v">80</div></div>
+          </div>
+          <div class="divider"></div>
+          <div class="note"><strong>Instructions reminder:</strong> Show working on paper. Enter the final answer only. You may use <strong>^</strong> or superscripts for powers, e.g. <strong>3x^2</strong> or <strong>3x²</strong>. Include <strong>+ C</strong> for indefinite integrals when asked.</div>
+          <div class="note symbolPanel" aria-label="Insert special characters" style="margin-top:12px">
+            <div>
+              <strong>Insert special characters column</strong><br/>
+              Select an answer box, then click a symbol. The marker accepts normal powers like <strong>x^2</strong>, superscripts like <strong>x²</strong>, and subscripts like <strong>x₁</strong>.
+            </div>
+            <div class="symbolGrid">
+              <button class="symBtn" type="button" data-symbol="∫">∫</button>
+              <button class="symBtn" type="button" data-symbol="²">x²</button>
+              <button class="symBtn" type="button" data-symbol="³">x³</button>
+              <button class="symBtn" type="button" data-symbol="⁴">x⁴</button>
+              <button class="symBtn" type="button" data-symbol="⁵">x⁵</button>
+              <button class="symBtn" type="button" data-symbol="⁻¹">⁻¹</button>
+              <button class="symBtn" type="button" data-symbol="₀">x₀</button>
+              <button class="symBtn" type="button" data-symbol="₁">x₁</button>
+              <button class="symBtn" type="button" data-symbol="₂">x₂</button>
+              <button class="symBtn" type="button" data-symbol="√">√</button>
+              <button class="symBtn" type="button" data-symbol="π">π</button>
+              <button class="symBtn" type="button" data-symbol="θ">θ</button>
+              <button class="symBtn" type="button" data-symbol="≤">≤</button>
+              <button class="symBtn" type="button" data-symbol="≥">≥</button>
+              <button class="symBtn" type="button" data-symbol="±">±</button>
+              <button class="symBtn" type="button" data-symbol="+ C">+ C</button>
+            </div>
+          </div>
+          <div id="paper"></div>
+          <div class="divider"></div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap"><button class="btn primary" id="btnSubmit">Submit & Auto-Mark</button><button class="btn" id="btnReset">Reset (new random paper)</button></div>
+          <div id="markingBox" class="hide" style="margin-top:14px"></div>
+        </div>
+      </div>
+
+      <div class="card" id="panelSide">
+        <div class="hd"><div><h2 id="sideTitle">Otono grading</h2><div class="meta" id="sideMeta">Score → Otono grade + GCSE/A-level bridge estimate + Pass/Merit/Distinction.</div></div></div>
+        <div class="bd" id="sideBody">
+          <div class="note"><strong>Paper breakdown</strong><br/>Section A: GCSE fluency — 20<br/>Section B: GCSE+ bridge — 20<br/>Section C: Differentiation — 20<br/>Section D: Integration + challenge — 20<br/><strong>Total: 80</strong></div>
+          <div class="divider"></div>
+          <div class="note"><strong>Pass/Merit/Distinction</strong><br/>PASS: 53+ / 80 (66%)<br/>MERIT: 64+ / 80 (80%)<br/>DISTINCTION: 72+ / 80 (90%)</div>
+          <div class="divider"></div>
+          <div class="note"><strong>Otono grades (A–H + secret S)</strong><br/>S: 81+ (secret)<br/>A*: 76–80<br/>A: 72–75<br/>B: 64–71<br/>C: 56–63<br/>D: 53–55<br/>E: 44–52<br/>F: 36–43<br/>G: 24–35<br/>H: 12–23<br/>U: 0–11</div>
+          <div class="divider"></div>
+          <div class="note"><strong>GCSE 9–1 estimate (simple mapping)</strong><br/>9: 72–80 • 8: 64–71 • 7: 56–63 • 6: 48–55 • 5: 40–47<br/>4: 32–39 • 3: 24–31 • 2: 16–23 • 1: 8–15 • U: 0–7</div>
+          <div class="divider"></div>
+          <div class="small">Tip: results are stored locally on this device/browser only. If you clear site data, they disappear.</div>
+        </div>
+
+        <div class="bd hide" id="resultsBody">
+          <div class="tabs"><div class="tab active" id="tabAll">All attempts</div><div class="tab" id="tabCandidate">By candidate</div></div>
+          <div class="row" style="margin-top:10px">
+            <div><label>Filter candidate number (4 digits)</label><input type="text" id="filterCandidate" placeholder="e.g. 1105" inputmode="numeric" /></div>
+            <div><label>Actions</label><div style="display:flex; gap:10px; flex-wrap:wrap"><button class="btn" id="btnExport">Export JSON</button><button class="btn danger" id="btnClear">Clear stored results</button></div></div>
+          </div>
+          <div class="divider"></div><div class="resultsList" id="resultsList"></div>
+          <div id="exportBox" class="note hide" style="margin-top:12px"><div><strong>Exported JSON</strong> (copy/save it):</div><div class="divider"></div><div class="copy" id="exportText"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* -----------------------------
+   OTONO MATHS BRIDGE BANK
+   Full paper = 80 marks
+   4 sections × 20 marks
+   Easy questions ALWAYS at the front; hard questions ALWAYS at the back.
+--------------------------------*/
+const STORAGE_KEY = "otono_maths_bridge_results_v4_exact_french_style_security_symbols";
+let timer = null, secondsLeft = 0, currentPaper = null, showingCandidate = false;
+const $ = (id) => document.getElementById(id);
+const rand = (a,b) => Math.floor(Math.random()*(b-a+1))+a;
+let lastAnswerInput = null;
+function shuffle(arr){ return [...arr].sort(()=>Math.random()-.5); }
+function normaliseMathSymbols(value){
+  const sup = {"⁰":"0","¹":"1","²":"2","³":"3","⁴":"4","⁵":"5","⁶":"6","⁷":"7","⁸":"8","⁹":"9","⁺":"+","⁻":"-","⁼":"="};
+  const sub = {"₀":"0","₁":"1","₂":"2","₃":"3","₄":"4","₅":"5","₆":"6","₇":"7","₈":"8","₉":"9","₊":"+","₋":"-","₌":"="};
+  let out = "", mode = null;
+  for(const ch of String(value||"")){
+    if(sup[ch]!==undefined){ if(mode!=="sup"){ out += "^"; mode="sup"; } out += sup[ch]; continue; }
+    if(sub[ch]!==undefined){ if(mode!=="sub"){ out += "_"; mode="sub"; } out += sub[ch]; continue; }
+    mode = null; out += ch;
+  }
+  return out;
+}
+function canonicalMath(s){
+  return normaliseMathSymbols(s).toLowerCase()
+    .replace(/\s+/g,"")
+    .replace(/[−–—]/g,"-")
+    .replace(/×/g,"*").replace(/÷/g,"/")
+    .replace(/∫/g,"integral")
+    .replace(/\*/g,"")
+    .replace(/\+constant/g,"+c")
+    .replace(/\+arbitraryconstant/g,"+c")
+    .replace(/constant/g,"c")
+    .replace(/\+?c$/,"+c")
+    .replace(/[{}\[\]]/g,"")
+    .replace(/\(([^()]+)\)/g,"($1)");
+}
+function clean(s){ return canonicalMath(s); }
+function acceptedVariants(v){
+  const c = clean(v);
+  const set = new Set([c, c.replace(/\^/g,""), c.replace(/_/g,"")]);
+  set.add(c.replace(/\^1(?!\d)/g,""));
+  return [...set];
+}
+function numVal(s){s=normaliseMathSymbols(String(s||"")).trim(); if(/^[-+]?\d+\/[-+]?\d+$/.test(s)){let [a,b]=s.split("/").map(Number); return a/b;} return Number(s);}
+function checkNumber(input, answer){const v=numVal(input); return Number.isFinite(v) && Math.abs(v-answer)<1e-9;}
+function checkText(input, accepted){const c=clean(input); return accepted.flatMap(acceptedVariants).includes(c);}
+function insertAtCursor(el, text){
+  if(!el || !/^ans_/.test(el.id)) return;
+  const start = el.selectionStart ?? el.value.length, end = el.selectionEnd ?? el.value.length;
+  el.value = el.value.slice(0,start) + text + el.value.slice(end);
+  el.focus(); el.selectionStart = el.selectionEnd = start + text.length;
+}
+function fmtSigned(n){ return n>=0 ? `+ ${n}` : `- ${Math.abs(n)}`; }
+function makeQ(title, prompt, display, checker){return {id:"q_"+Math.random().toString(36).slice(2), title, prompt, display, marks:5, checker};}
+function nq(title,prompt,ans){return makeQ(title,prompt,String(ans),(input)=>checkNumber(input,ans));}
+function tq(title,prompt,display,accepted){return makeQ(title,prompt,display,(input)=>checkText(input,accepted));}
+
+const SECTIONS = [
+  {id:"A", title:"Section A — GCSE fluency", level:"Easy", marks:20, note:"Basic algebra, substitution, expanding, factorising and indices.", bank:[
+    ()=>{let a=rand(2,9),x=rand(2,12),b=rand(1,20);return nq("Solving a linear equation",`Solve ${a}x + ${b} = ${a*x+b}.`,x);},
+    ()=>{let a=rand(2,8),b=rand(2,10),c=rand(1,8);return nq("Substitution",`If f(x) = ${a}x + ${c}, find f(${b}).`,a*b+c);},
+    ()=>{let r=rand(2,9),s=rand(2,9);return tq("Expanding brackets",`Expand and simplify (x + ${r})(x + ${s}).`,`x^2 + ${r+s}x + ${r*s}`,[`x^2+${r+s}x+${r*s}`]);},
+    ()=>{let r=rand(2,8),s=rand(2,8);return tq("Factorising",`Factorise x^2 + ${r+s}x + ${r*s}.`,`(x + ${r})(x + ${s})`,[`(x+${r})(x+${s})`,`(x+${s})(x+${r})`]);},
+    ()=>{let a=rand(2,5),b=rand(2,6);return tq("Indices",`Simplify x^${a} × x^${b}.`,`x^${a+b}`,[`x^${a+b}`,`x${a+b}`]);},
+    ()=>{let a=rand(2,7),b=rand(2,7);return tq("Expanding a single bracket",`Expand ${a}(x + ${b}).`,`${a}x + ${a*b}`,[`${a}x+${a*b}`]);}
+  ]},
+  {id:"B", title:"Section B — GCSE+ bridge", level:"Medium", marks:20, note:"Straight lines, rearranging, functions, inverse functions and composite functions.", bank:[
+    ()=>{let m=rand(2,6),x=rand(-5,7),c=rand(-8,8),y=m*x+c;return nq("Rearranging",`Make x the subject of y = ${m}x ${fmtSigned(c)}. Then find x when y = ${y}.`,x);},
+    ()=>{let x1=rand(-5,1),y1=rand(-5,5),dx=rand(2,7),m=rand(-4,5)||2,x2=x1+dx,y2=y1+m*dx;return nq("Gradient of a line",`Find the gradient of the line through (${x1}, ${y1}) and (${x2}, ${y2}).`,m);},
+    ()=>{let x1=rand(-6,2),y1=rand(-6,2),x2=x1+2*rand(1,5),y2=y1+2*rand(1,5);return makeQ("Midpoint",`Find the midpoint of (${x1}, ${y1}) and (${x2}, ${y2}). Type as (x,y).`,`(${(x1+x2)/2}, ${(y1+y2)/2})`,(input)=>checkText(input,[`(${(x1+x2)/2},${(y1+y2)/2})`]));},
+    ()=>{let a=rand(2,6),x=rand(-5,5),b=rand(-9,9);return nq("Quadratic function",`f(x) = ${a}x^2 ${fmtSigned(b)}. Find f(${x}).`,a*x*x+b);},
+    ()=>{let a=rand(2,5),b=rand(-6,6),x=rand(-5,5),y=a*x+b;return nq("Inverse functions",`f(x) = ${a}x ${fmtSigned(b)}. Find f⁻¹(${y}).`,x);},
+    ()=>{let a=rand(2,5),b=rand(1,7),x=rand(-4,5);return nq("Composite functions",`f(x) = ${a}x and g(x) = x + ${b}. Find f(g(${x})).`,a*(x+b));}
+  ]},
+  {id:"C", title:"Section C — First A-level skills", level:"Bridge", marks:20, note:"Basic differentiation, gradient functions and tangent gradients.", bank:[
+    ()=>{let a=rand(2,8),n=rand(2,5);return tq("Basic differentiation",`Differentiate y = ${a}x^${n}.`,`${a*n}x^${n-1}`,[`${a*n}x^${n-1}`,`${a*n}x${n-1}`]);},
+    ()=>{let a=rand(2,7),b=rand(-8,8);return tq("Differentiate a quadratic",`Differentiate y = ${a}x^2 ${fmtSigned(b)}x.`,`${2*a}x ${fmtSigned(b)}`,[`${2*a}x+${b}`,`${2*a}x${b>=0?"+":""}${b}`]);},
+    ()=>{let a=rand(1,5),b=rand(-6,6),x=rand(-3,4);return nq("Gradient at a point",`For y = ${a}x^2 ${fmtSigned(b)}x, find dy/dx at x = ${x}.`,2*a*x+b);},
+    ()=>{let k=rand(-5,5);return nq("Stationary point",`For y = x^2 ${fmtSigned(-2*k)}x + 7, find the x-coordinate of the stationary point.`,k);},
+    ()=>{let a=rand(1,4),r=rand(-4,4);return nq("Tangent gradient",`For y = ${a}x^2 ${fmtSigned(3)}x, find the gradient of the tangent at x = ${r}.`,2*a*r+3);},
+    ()=>{let a=rand(2,6),b=rand(1,7);return tq("Differentiate with a constant",`Differentiate y = ${a}x^3 + ${b}.`,`${3*a}x^2`,[`${3*a}x^2`,`${3*a}x2`]);}
+  ]},
+  {id:"D", title:"Section D — A-level bridge challenge", level:"Hard", marks:20, note:"Basic integration, definite integration and mixed harder bridge questions.", bank:[
+    ()=>{let a=rand(2,8),n=rand(1,4),den=n+1,coef=(a%den===0?`${a/den}`:`${a}/${den}`),display=`${coef}x^${den} + C`;let acc=[`${coef}x^${den}+c`,`${a}/${den}x^${den}+c`]; if(a%den===0) acc.push(`${a/den}x^${den}+c`);return tq("Basic integration",`Integrate ${a}x^${n} with respect to x. Include + C.`,display,acc);},
+    ()=>{let a=2*rand(1,5),b=rand(-6,6);return tq("Integrate a linear expression",`Integrate ${a}x ${fmtSigned(b)} with respect to x. Include + C.`,`${a/2}x^2 ${fmtSigned(b)}x + C`,[`${a/2}x^2${b>=0?"+":""}${b}x+c`,`${a/2}x2${b>=0?"+":""}${b}x+c`]);},
+    ()=>{let a=rand(1,6),b=rand(1,4);return nq("Definite integration",`Evaluate ∫ from 0 to 1 of (${2*a}x + ${b}) dx.`,a+b);},
+    ()=>{let a=rand(1,4),x=rand(1,5),k=rand(-6,6);return nq("Particular solution",`dy/dx = ${2*a}x and y = ${k} when x = 0. Find y when x = ${x}.`,a*x*x+k);},
+    ()=>{let a=rand(1,5),b=rand(1,7);return nq("Area under a curve",`Evaluate ∫ from 0 to 2 of (${a}x + ${b}) dx.`,2*a+2*b);},
+    ()=>{let r=rand(2,5),s=rand(2,5);return tq("Completing the square",`Write x^2 + ${2*r}x + ${r*r+s} in the form (x + a)^2 + b.`,`(x + ${r})^2 + ${s}`,[`(x+${r})^2+${s}`,`(x+${r})2+${s}`]);}
+  ]}
+];
+
+function makePaper(){
+  return SECTIONS.map(sec=>{
+    const chosen = shuffle(sec.bank).slice(0,4).map(fn=>fn());
+    return {...sec, questions: $("shuffleMode").value === "sectionShuffle" ? shuffle(chosen) : chosen};
+  });
+}
+function candidateNo(){return ["candD1","candD2","candD3","candD4"].map(id=>$(id).value).join("");}
+function award(score){ if(score>=72) return "Distinction 🏆"; if(score>=64) return "Merit ⭐"; if(score>=53) return "Pass ✅"; return "Fail ❌"; }
+function otono(score){ if(score>=81)return"S"; if(score>=76)return"A*"; if(score>=72)return"A"; if(score>=64)return"B"; if(score>=56)return"C"; if(score>=53)return"D"; if(score>=44)return"E"; if(score>=36)return"F"; if(score>=24)return"G"; if(score>=12)return"H"; return"U"; }
+function gcse(score){ const p=score/80*100; if(p>=90)return"9"; if(p>=80)return"8"; if(p>=70)return"7"; if(p>=60)return"6"; if(p>=50)return"5"; if(p>=40)return"4"; if(p>=30)return"3"; if(p>=20)return"2"; if(p>=10)return"1"; return"U"; }
+function renderPaper(){
+  const paper=$("paper"); paper.innerHTML=""; let n=1;
+  currentPaper.sections.forEach(sec=>{
+    const head=document.createElement("div"); head.className="sectionTitle";
+    head.innerHTML=`<h3>${sec.title} <span class="small">(${sec.marks} marks)</span></h3><div>${sec.note}<br/>Difficulty: <strong>${sec.level}</strong> • 4 questions × 5 marks</div>`;
+    paper.appendChild(head);
+    sec.questions.forEach(qq=>{
+      const div=document.createElement("div"); div.className="q";
+      div.innerHTML=`<h3>Q${n}. ${qq.title} <span class="small">(${qq.marks} marks)</span></h3><div class="passage"><strong>Question:</strong> ${qq.prompt}</div><label>Final answer</label><input type="text" class="answerInput" id="ans_${qq.id}" placeholder="Type your final answer" autocomplete="off" /><div class="small" id="mark_${qq.id}" style="margin-top:8px"></div>`;
+      paper.appendChild(div); n++;
+    });
+  });
+}
+function startTimer(minutes){clearInterval(timer); secondsLeft=minutes*60; tick(); timer=setInterval(()=>{secondsLeft--; tick(); if(secondsLeft<=0){clearInterval(timer); if($("autoSubmit").value==="yes") submitPaper();}},1000);}
+function tick(){const m=Math.max(0,Math.floor(secondsLeft/60)), s=Math.max(0,secondsLeft%60); $("timerText").textContent=String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");}
+function startPaper(){
+  const cand=candidateNo(); if(!/^\d{4}$/.test(cand)){ alert("Please enter a 4-digit candidate number."); return; }
+  currentPaper={centre:$("centreNo").value,candidate:cand,surname:$("candSurname").value,forenames:$("candForenames").value,started:new Date().toISOString(),sections:makePaper()};
+  document.body.classList.add("examLock");
+  $("homeBody").classList.add("hide"); $("testBody").classList.remove("hide"); $("statusBadge").textContent="In progress"; $("statusBadge").className="badge warn";
+  $("kpiCandidate").textContent=cand; $("kpiPassages").textContent="4 × 20"; $("kpiTranslation").textContent="Easy → Hard";
+  renderPaper(); startTimer(Number($("timeAllowed").value));
+}
+function submitPaper(){
+  if(!currentPaper) return; clearInterval(timer); let score=0, details=[], qNo=1, sectionBreakdown=[];
+  currentPaper.sections.forEach(sec=>{
+    let secScore=0, secQs=[];
+    sec.questions.forEach(qq=>{
+      const input=$("ans_"+qq.id).value, ok=qq.checker(input), marks=ok?5:0; score+=marks; secScore+=marks;
+      const line=$("mark_"+qq.id); line.innerHTML=ok?`✅ Correct — 5/5`:`❌ 0/5 — expected: <strong>${qq.display}</strong>`; line.style.color=ok?"var(--good)":"var(--bad)";
+      const record={q:qNo,section:sec.title,sectionId:sec.id,title:qq.title,prompt:qq.prompt,response:input,correctAnswer:qq.display,marks,max:5};
+      details.push(record); secQs.push(record); qNo++;
+    });
+    const secRecord={id:sec.id,title:sec.title,level:sec.level,note:sec.note,marks:secScore,max:20,questions:secQs};
+    sectionBreakdown.push(secRecord);
+    details.push({sectionTotal:sec.title,marks:secScore,max:20});
+  });
+  const percent=score/80*100, attempt={...currentPaper,finished:new Date().toISOString(),score,percent:Math.round(percent*10)/10,award:award(score),otono:otono(score),gcse:gcse(score),sectionBreakdown,details};
+  saveAttempt(attempt); $("markingBox").classList.remove("hide");
+
+  const sectionRows = sectionBreakdown.map(sec=>`
+    <div class="attempt">
+      <div class="top"><strong>${sec.title}</strong><span class="badge ${sec.marks>=16?'good':sec.marks>=10?'warn':'bad'}">${sec.marks}/20</span></div>
+      <div class="meta">Difficulty: ${sec.level} • ${sec.note}</div>
+      <div class="divider"></div>
+      ${sec.questions.map(q=>`<div class="meta"><strong>Q${q.q}.</strong> ${q.title} — <strong>${q.marks}/5</strong>${q.marks===5?' ✅':` ❌ Expected: <strong>${q.correctAnswer}</strong>`}</div>`).join("")}
+    </div>`).join("");
+
+  $("markingBox").innerHTML=`
+    <div class="note">
+      <strong>Result:</strong> ${score}/80 (${percent.toFixed(1)}%)<br/>
+      <strong>Otono grade:</strong> ${otono(score)}<br/>
+      <strong>GCSE estimate:</strong> ${gcse(score)}<br/>
+      <strong>Award:</strong> ${award(score)}
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="note">
+      <strong>Paper breakdown</strong><br/>
+      <div class="breakdownGrid">
+        <div class="box"><div class="t">Section A</div><div class="v">${sectionBreakdown.find(s=>s.id==='A')?.marks ?? 0}/20</div><div class="small">GCSE fluency</div></div>
+        <div class="box"><div class="t">Section B</div><div class="v">${sectionBreakdown.find(s=>s.id==='B')?.marks ?? 0}/20</div><div class="small">GCSE+ bridge</div></div>
+        <div class="box"><div class="t">Section C</div><div class="v">${sectionBreakdown.find(s=>s.id==='C')?.marks ?? 0}/20</div><div class="small">Differentiation</div></div>
+        <div class="box"><div class="t">Section D</div><div class="v">${sectionBreakdown.find(s=>s.id==='D')?.marks ?? 0}/20</div><div class="small">Integration + challenge</div></div>
+      </div>
+      <div class="divider"></div>
+      <strong>Total: ${score}/80</strong>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="note">
+      <strong>Pass/Merit/Distinction</strong><br/>
+      PASS: 53+ / 80 (66%)<br/>
+      MERIT: 64+ / 80 (80%)<br/>
+      DISTINCTION: 72+ / 80 (90%)
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="resultsList">
+      ${sectionRows}
+    </div>`;
+  document.body.classList.remove("examLock");
+  $("statusBadge").textContent="Submitted"; $("statusBadge").className="badge good"; renderResults();
+}
+function saveAttempt(a){let arr=JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]"); arr.unshift(a); localStorage.setItem(STORAGE_KEY,JSON.stringify(arr.slice(0,100)));}
+function getAttempts(){return JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]");}
+function renderResults(){let arr=getAttempts(); if(showingCandidate){let f=$("filterCandidate").value.trim(); if(f) arr=arr.filter(a=>a.candidate===f);} $("resultsList").innerHTML=arr.length?arr.map(a=>`<div class="attempt"><div class="top"><strong>${a.score}/80 • ${a.percent}% • ${a.award}</strong><span class="badge">${a.otono}</span></div><div class="meta">Candidate ${a.candidate} • Centre ${a.centre} • GCSE estimate ${a.gcse||"—"} • ${new Date(a.finished).toLocaleString()}<br/>${a.surname||""} ${a.forenames||""}</div></div>`).join(""):`<div class="note">No saved attempts yet.</div>`;}
+function showHome(){ $("sideBody").classList.remove("hide"); $("resultsBody").classList.add("hide"); }
+function showResults(){ $("sideBody").classList.add("hide"); $("resultsBody").classList.remove("hide"); renderResults(); }
+["candD1","candD2","candD3","candD4"].forEach((id,idx,ids)=>{$(id).addEventListener("input",e=>{e.target.value=e.target.value.replace(/\D/g,"").slice(0,1); if(e.target.value&&idx<3)$(ids[idx+1]).focus();});});
+document.addEventListener("focusin", e=>{ if(e.target && e.target.classList && e.target.classList.contains("answerInput")) lastAnswerInput = e.target; });
+document.querySelectorAll(".symBtn").forEach(btn=>btn.addEventListener("click",()=>insertAtCursor(lastAnswerInput || document.activeElement, btn.dataset.symbol || btn.textContent)));
+
+// Otono security deterrents: blocks common source/devtools/print shortcuts and right-click.
+// Note: a standalone browser HTML file cannot be made impossible to inspect by a determined user.
+function securityWarn(){
+  const overlay = $("cheatOverlay");
+  if(overlay){ overlay.style.display = "flex"; setTimeout(()=>overlay.style.display="none", 1600); }
+}
+document.addEventListener("contextmenu", e=>{ e.preventDefault(); securityWarn(); return false; }, true);
+document.addEventListener("copy", e=>{ if(document.body.classList.contains("examLock") && !(e.target && /^(INPUT|TEXTAREA)$/.test(e.target.tagName))){ e.preventDefault(); securityWarn(); }}, true);
+document.addEventListener("keydown", e=>{
+  const k = e.key.toLowerCase();
+  const blocked = e.key === "F12"
+    || (e.ctrlKey && ["u","s","p"].includes(k))
+    || (e.metaKey && ["u","s","p"].includes(k))
+    || ((e.ctrlKey || e.metaKey) && e.shiftKey && ["i","j","c","k"].includes(k))
+    || (e.altKey && e.metaKey && ["i","j","c"].includes(k));
+  if(blocked){ e.preventDefault(); e.stopPropagation(); securityWarn(); return false; }
+}, true);
+setInterval(()=>{
+  // Simple devtools-size detector: shows a warning if the viewport suddenly suggests tools are open.
+  if((window.outerWidth-window.innerWidth>180 || window.outerHeight-window.innerHeight>180) && currentPaper){ securityWarn(); }
+}, 1000);
+$("btnStart").onclick=startPaper; $("btnSubmit").onclick=submitPaper; $("btnReset").onclick=()=>location.reload(); $("btnHome").onclick=()=>showHome(); $("btnResults").onclick=showResults;
+$("btnPreview").onclick=()=>{const secs=makePaper(); $("previewBox").classList.remove("hide"); $("previewBox").innerHTML="<strong>Preview random selection:</strong><br/>"+secs.map(sec=>`<br/><strong>${sec.title} — 20 marks</strong><br/>`+sec.questions.map((q,i)=>`${i+1}. ${q.title}`).join("<br/>")).join("")+"<br/><br/><strong>Total = 80 marks</strong> • Order = easy at the front, hard at the back";};
+$("btnEditCentre").onclick=()=>{let v=prompt("Enter centre number",$("centreNo").value); if(v){$("centreNo").value=v;$("centreTop").textContent=v;}};
+$("btnResetCentre").onclick=()=>{$("centreNo").value="50749";$("centreTop").textContent="50749";};
+$("tabAll").onclick=()=>{showingCandidate=false;$("tabAll").classList.add("active");$("tabCandidate").classList.remove("active");renderResults();};
+$("tabCandidate").onclick=()=>{showingCandidate=true;$("tabCandidate").classList.add("active");$("tabAll").classList.remove("active");renderResults();};
+$("filterCandidate").oninput=renderResults; $("btnExport").onclick=()=>{$("exportBox").classList.remove("hide");$("exportText").textContent=JSON.stringify(getAttempts(),null,2);};
+$("btnClear").onclick=()=>{if(confirm("Clear all saved Otono Maths results on this browser?")){localStorage.removeItem(STORAGE_KEY);renderResults();}};
+</script>
+</body>
+</html>
