@@ -1,0 +1,1616 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>🟣 Otono Spanish — Reading (SAM)</title>
+  <style>
+    :root{
+      --bg1:#2b0a3d; --bg2:#7a0036;
+      --card:#0f0b18cc; --card2:#120c22e6;
+      --text:#f4efff; --muted:#c9b9ff;
+      --accent:#b000ff; --accent2:#ff1b6a;
+      --good:#19ff9a; --warn:#ffd166; --bad:#ff4d6d;
+      --line:rgba(255,255,255,.12);
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:var(--sans); color:var(--text);
+      background:
+        radial-gradient(1000px 700px at 15% 10%, rgba(176,0,255,.22), transparent 60%),
+        radial-gradient(900px 650px at 80% 20%, rgba(255,27,106,.18), transparent 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+    }
+    .wrap{max-width:1100px; margin:0 auto; padding:22px;}
+    .topbar{
+      display:flex; gap:14px; align-items:center; justify-content:space-between;
+      padding:14px 16px; border:1px solid var(--line); border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      box-shadow:var(--shadow);
+      position:sticky; top:14px; z-index:20; backdrop-filter: blur(10px);
+    }
+    .brand{display:flex; flex-direction:column; gap:2px}
+    .brand h1{margin:0; font-size:16px; letter-spacing:.3px}
+    .brand .sub{font-size:12px; color:var(--muted)}
+    .pill{
+      padding:8px 10px; border-radius:999px; border:1px solid var(--line);
+      background:rgba(0,0,0,.25); font-family:var(--mono); font-size:12px;
+      display:flex; gap:10px; align-items:center;
+    }
+    .pill strong{color:#fff}
+    .btn{
+      border:1px solid var(--line); background:rgba(0,0,0,.25);
+      color:var(--text); padding:10px 12px; border-radius:14px; cursor:pointer;
+      transition:.15s transform, .15s background, .15s border;
+      font-weight:600;
+    }
+    .btn:hover{transform:translateY(-1px); background:rgba(0,0,0,.33); border-color:rgba(255,255,255,.22)}
+    .btn.primary{
+      background:linear-gradient(135deg, rgba(176,0,255,.55), rgba(255,27,106,.45));
+      border-color:rgba(255,255,255,.22);
+    }
+    .btn.danger{background:rgba(255,77,109,.18); border-color:rgba(255,77,109,.35)}
+    .grid{display:grid; grid-template-columns: 1.1fr .9fr; gap:16px; margin-top:16px;}
+    @media (max-width: 980px){ .grid{grid-template-columns:1fr} .topbar{position:static} }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .card .hd{
+      padding:14px 16px; border-bottom:1px solid var(--line);
+      display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
+      background:linear-gradient(180deg, rgba(255,255,255,.06), transparent);
+    }
+    .card .hd h2{margin:0; font-size:14px}
+    .card .hd .meta{font-size:12px; color:var(--muted); line-height:1.25}
+    .card .bd{padding:16px}
+    label{display:block; font-size:12px; color:var(--muted); margin:10px 0 6px}
+
+    input[type="text"], input[type="number"], textarea, select{
+      width:100%; border:1px solid var(--line); background:rgba(0,0,0,.25);
+      color:var(--text); padding:10px 12px; border-radius:14px; outline:none;
+      font-family:var(--sans);
+    }
+    textarea{min-height:90px; resize:vertical}
+
+    .row{display:flex; gap:10px; flex-wrap:wrap}
+    .row > div{flex:1 1 180px}
+
+    .note{
+      font-size:12px; color:var(--muted); line-height:1.4;
+      padding:10px 12px; border-radius:14px; border:1px dashed rgba(255,255,255,.18);
+      background:rgba(0,0,0,.18);
+    }
+    .badge{
+      font-family:var(--mono); font-size:12px; padding:6px 10px; border-radius:999px;
+      border:1px solid var(--line); background:rgba(0,0,0,.20);
+      display:inline-flex; align-items:center; gap:6px;
+    }
+    .badge.good{border-color:rgba(25,255,154,.35); background:rgba(25,255,154,.12)}
+    .badge.warn{border-color:rgba(255,209,102,.35); background:rgba(255,209,102,.12)}
+    .badge.bad{border-color:rgba(255,77,109,.35); background:rgba(255,77,109,.12)}
+    .divider{height:1px; background:var(--line); margin:14px 0}
+    .passage{
+      padding:12px 14px; border:1px solid var(--line); border-radius:16px;
+      background:rgba(0,0,0,.22); line-height:1.5;
+    }
+    .q{
+      margin-top:14px; padding:12px 14px; border:1px solid var(--line);
+      border-radius:16px; background:rgba(0,0,0,.20);
+    }
+    .q h3{margin:0 0 8px; font-size:13px}
+    .opts{display:grid; gap:8px; margin-top:8px}
+    .opt{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:10px 10px; border-radius:14px; border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+      cursor:pointer;
+    }
+    .opt input{margin-top:3px}
+    .kpi{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
+    @media (max-width: 980px){ .kpi{grid-template-columns:repeat(2,1fr)} }
+    .kpi .box{
+      border:1px solid var(--line); border-radius:16px; padding:10px 12px;
+      background:rgba(0,0,0,.22);
+    }
+    .kpi .box .t{font-size:12px; color:var(--muted)}
+    .kpi .box .v{font-size:18px; font-weight:800; margin-top:4px}
+    .small{font-size:12px; color:var(--muted)}
+    .tabs{display:flex; gap:8px; flex-wrap:wrap}
+    .tab{padding:10px 12px; border-radius:14px; border:1px solid var(--line); background:rgba(0,0,0,.22); cursor:pointer; font-weight:700}
+    .tab.active{background:linear-gradient(135deg, rgba(176,0,255,.35), rgba(255,27,106,.22)); border-color:rgba(255,255,255,.22)}
+    .resultsList{display:grid; gap:10px}
+    .attempt{
+      border:1px solid var(--line); border-radius:16px; padding:12px 14px;
+      background:rgba(0,0,0,.20);
+    }
+    .attempt .top{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap}
+    .attempt .top strong{font-family:var(--mono)}
+    .attempt .meta{font-size:12px; color:var(--muted); margin-top:6px; line-height:1.4}
+    .copy{font-family:var(--mono); font-size:12px; white-space:pre-wrap; word-break:break-word}
+    .hide{display:none !important}
+
+    /* Candidate number 4 squares */
+    .digitRow{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
+    .digitRow .digit{
+      width:52px; text-align:center; font-family:var(--mono);
+      font-size:18px; font-weight:900; padding:12px 0;
+      border-radius:14px; border:1px solid var(--line);
+      background:rgba(0,0,0,.25); color:var(--text);
+      outline:none;
+    }
+    .digitRow .hint{font-size:12px; color:var(--muted)}
+    .miniRow{display:flex; gap:10px; flex-wrap:wrap; align-items:flex-end}
+    .miniRow > *{flex:1 1 160px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <h1>🟣 Otono Spanish — Paper 3 • Reading • Sample Assessment Material • Sample set 2</h1>
+        <div class="sub">
+          Auto marking • 4 random passages × 20 + 1 translation × 20 = 100 • Centre:
+          <strong id="centreTop">50749</strong>
+        </div>
+      </div>
+      <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end">
+        <div class="pill">
+          <span>⏱️ Timer:</span>
+          <strong id="timerText">--:--</strong>
+        </div>
+        <button class="btn" id="btnResults">Results</button>
+        <button class="btn primary" id="btnHome">Test</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- Left: main -->
+      <div class="card" id="panelHome">
+        <div class="hd">
+          <div>
+            <h2>Candidate setup</h2>
+            <div class="meta">No dictionary • No translator • Answer from the text • Auto marking for written answers uses keywords (not perfect).</div>
+          </div>
+          <span class="badge" id="statusBadge">Ready</span>
+        </div>
+
+        <div class="bd" id="homeBody">
+          <div class="miniRow">
+            <div>
+              <label>Centre number</label>
+              <input type="text" id="centreNo" value="50749" disabled />
+              <div class="small" style="margin-top:6px">
+                Default is <strong>50749</strong>. You can change it (optional) with the button.
+              </div>
+            </div>
+            <div style="display:flex; gap:10px; align-items:flex-end; flex-wrap:wrap">
+              <button class="btn" id="btnEditCentre">Customise centre</button>
+              <button class="btn" id="btnResetCentre">Reset centre</button>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div>
+            <label>Candidate number (required, 4 digits)</label>
+            <div class="digitRow" aria-label="Candidate number 4 digits">
+              <input class="digit" id="candD1" inputmode="numeric" maxlength="1" />
+              <input class="digit" id="candD2" inputmode="numeric" maxlength="1" />
+              <input class="digit" id="candD3" inputmode="numeric" maxlength="1" />
+              <input class="digit" id="candD4" inputmode="numeric" maxlength="1" />
+              <span class="hint">Digits only • auto-advance</span>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top:6px">
+            <div>
+              <label>Candidate surname (optional)</label>
+              <input type="text" id="candSurname" placeholder="Surname" />
+            </div>
+            <div>
+              <label>Candidate forename(s) (optional)</label>
+              <input type="text" id="candForenames" placeholder="Forename(s)" />
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>How the random paper works (SAM set 1):</strong><br/>
+            • The system selects <strong>4 random passages</strong> (each worth <strong>20</strong>) and <strong>1 random translation</strong> (worth <strong>20</strong>).<br/>
+            • You’ll get a mix of <strong>MCQ</strong>, <strong>P/N/P+N</strong>, <strong>True/False/Not mentioned</strong>, and <strong>written answers</strong>.<br/>
+            • Some passages include <strong>questions answered in Spanish</strong> (you must answer in Spanish).<br/>
+            • Written + translation answers are marked by <strong>keyword coverage</strong> (so write clear, direct answers).<br/>
+            • Your attempt is saved to this browser using <strong>localStorage</strong>.
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="row">
+            <div>
+              <label>Time allowed</label>
+              <select id="timeAllowed">
+                <option value="75" selected>75 minutes (recommended)</option>
+                <option value="60">60 minutes</option>
+                <option value="45">45 minutes</option>
+              </select>
+            </div>
+            <div>
+              <label>Question order</label>
+              <select id="shuffleMode">
+                <option value="shuffleAll" selected>Shuffle questions (harder)</option>
+                <option value="keepOrder">Keep original order</option>
+              </select>
+            </div>
+            <div>
+              <label>On timer end</label>
+              <select id="autoSubmit">
+                <option value="yes" selected>Auto-submit</option>
+                <option value="no">Do not auto-submit</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap">
+            <button class="btn primary" id="btnStart">Start Random Paper</button>
+            <button class="btn" id="btnPreview">Preview Random Selection</button>
+          </div>
+
+          <div id="previewBox" class="note hide" style="margin-top:12px"></div>
+        </div>
+
+        <!-- Test body -->
+        <div class="bd hide" id="testBody">
+          <div class="kpi">
+            <div class="box"><div class="t">Candidate</div><div class="v" id="kpiCandidate">—</div></div>
+            <div class="box"><div class="t">Selected passages</div><div class="v" id="kpiPassages">—</div></div>
+            <div class="box"><div class="t">Translation</div><div class="v" id="kpiTranslation">—</div></div>
+            <div class="box"><div class="t">Max score</div><div class="v">100</div></div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>Instructions reminder:</strong>
+            No dictionary. Do not copy from outside. Base answers on the passage. For written answers, include the key idea(s) clearly.
+          </div>
+
+          <div id="paper"></div>
+
+          <div class="divider"></div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap">
+            <button class="btn primary" id="btnSubmit">Submit & Auto-Mark</button>
+            <button class="btn" id="btnReset">Reset (new random paper)</button>
+          </div>
+
+          <div id="markingBox" class="hide" style="margin-top:14px"></div>
+        </div>
+      </div>
+
+      <!-- Right: results / help -->
+      <div class="card" id="panelSide">
+        <div class="hd">
+          <div>
+            <h2 id="sideTitle">Otono grading</h2>
+            <div class="meta" id="sideMeta">Score → Otono grade + GCSE estimate + Pass/Merit/Distinction.</div>
+          </div>
+        </div>
+
+        <div class="bd" id="sideBody">
+          <div class="note">
+            <strong>Pass/Merit/Distinction</strong><br/>
+            PASS: 66+<br/>
+            MERIT: 80+<br/>
+            DISTINCTION: 90+<br/>
+          </div>
+          <div class="divider"></div>
+          <div class="note">
+            <strong>Otono grades (A–H + secret S)</strong><br/>
+            S: 101+ (secret)<br/>
+            A*: 95–100<br/>
+            A: 90–94<br/>
+            B: 80–89<br/>
+            C: 70–79<br/>
+            D: 66–69<br/>
+            E: 55–65<br/>
+            F: 45–54<br/>
+            G: 30–44<br/>
+            H: 15–29<br/>
+            U: 0–14
+          </div>
+          <div class="divider"></div>
+          <div class="note">
+            <strong>GCSE 9–1 estimate (simple mapping)</strong><br/>
+            9: 90–100 • 8: 80–89 • 7: 70–79 • 6: 60–69 • 5: 50–59<br/>
+            4: 40–49 • 3: 30–39 • 2: 20–29 • 1: 10–19 • U: 0–9
+          </div>
+          <div class="divider"></div>
+          <div class="small">
+            Tip: results are stored locally on this device/browser only. If you clear site data, they disappear.
+          </div>
+        </div>
+
+        <!-- Results panel -->
+        <div class="bd hide" id="resultsBody">
+          <div class="tabs">
+            <div class="tab active" id="tabAll">All attempts</div>
+            <div class="tab" id="tabCandidate">By candidate</div>
+          </div>
+
+          <div class="row" style="margin-top:10px">
+            <div>
+              <label>Filter candidate number (4 digits)</label>
+              <input type="text" id="filterCandidate" placeholder="e.g. 1105" inputmode="numeric" />
+            </div>
+            <div>
+              <label>Actions</label>
+              <div style="display:flex; gap:10px; flex-wrap:wrap">
+                <button class="btn" id="btnExport">Export JSON</button>
+                <button class="btn danger" id="btnClear">Clear stored results</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+          <div class="resultsList" id="resultsList"></div>
+
+          <div id="exportBox" class="note hide" style="margin-top:12px">
+            <div><strong>Exported JSON</strong> (copy/save it):</div>
+            <div class="divider"></div>
+            <div class="copy" id="exportText"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* -----------------------------
+   OTONO BANK (STRAIGHTFORWARD TEXT, SIMILAR LENGTH)
+   Each passage total = 20 marks
+--------------------------------*/
+
+// ✅ UPDATED: P/N/P+N questions restored + each passage now totals 20 marks
+// ✅ NOT every passage has 6 questions anymore (some have 5, some 7)
+// ✅ ALL questions + rubrics are in ENGLISH (only prompts marked “En español” require Spanish answers)
+
+const PASSAGES = [
+  {
+    id: 1,
+    title: "Passage 1 — Original : le premier « POOP! »",
+    theme: "Guillermo Poops — Original",
+    unit: "Lantau glamping origin",
+    text: `Durante un viaje de glamping en la isla de Lantau, Guillermo está en el cuarto de baño. Jessica piensa que se está duchando y le hace una pregunta.
+
+Guillermo responde inmediatamente: « ¡POOP! ¿Por qué crees que me estoy duchando?! » Jessica se sorprende por su respuesta. En aquel momento, nadie piensa que este pequeño momento vaya a convertirse en el comienzo de una larguísima serie de historias.
+
+Vocabulario: glamping = camping cómodo • caca / poop = poop
+
+Después de esta respuesta, Jessica se queda delante de la puerta durante unos segundos. No hace otra pregunta y deja tranquilo a Guillermo. Más tarde, cuando todos vuelven a hablar de la historia, a Luke le parece especialmente divertida la respuesta. Guillermo, por su parte, prefiere que los demás dejen de hablar de ese momento. Sin embargo, es este sencillo acontecimiento el que más tarde se convierte en « el Original ».`,
+    questions: [
+      {id:"p1q1",type:"mcq",marks:2,prompt:"(E) Where is the family staying?",options:["On Lantau Island","In France","At Otono Mansion","At an airport"],answerIndex:0},
+      {id:"p1q2",type:"short",marks:4,prompt:"(E) What TWO things does Guillermo communicate in his famous reply?",rubric:"He is pooping; he asks why Jessica thinks he is showering.",keywords:[["poop","pooping","caca"],["shower","showering","douche"]]},
+      {id:"p1q3",type:"tfnm",marks:2,prompt:"(E) Jessica thinks Guillermo is having a shower. (True / False / Not mentioned)",correct:"True"},
+      {id:"p1q4",type:"pn",marks:2,prompt:"(E) Jessica's immediate reaction is… (P / N / P+N)",answer:"N"},
+      {id:"p1q5",type:"es_short",marks:4,prompt:"(M) En español: ¿Dónde está Guillermo y qué piensa Jessica?",rubric:"Guillermo está en el cuarto de baño; Jessica piensa que se está duchando.",keywords:[["cuarto de baño","baño","aseo"],["ducha","duchando","se está duchando"]]},
+      {id:"p1q6",type:"short",marks:2,prompt:"(E) At the time, do they expect this to become a long series?",rubric:"No.",keywords:[["no","non","do not","don't"]]},
+      {id:"p1q7",type:"short",marks:4,prompt:"(E) Why is this incident important?",rubric:"It became the original/start of the Guillermo Poops series.",keywords:[["original","first","start","beginning","origin"],["series","william poops","stories"]]}
+    ]
+  },
+  {
+    id: 2,title:"Passage 2 — Guillermo poops returns",theme:"Guillermo Poops — 2",unit:"Sign confusion returns",
+    text:`Después de un largo período de calma, Guillermo tiene que ir al baño. Luke ha cambiado los carteles: el cartel de « chicas » está ahora en el baño de los chicos. Guillermo confía en el cartel y utiliza por error el baño de las chicas.
+
+Más tarde, Luke pregunta cuántos trozos hay. La respuesta es siete. Jessica no está contenta con la broma de Luke, sobre todo porque Guillermo simplemente quería utilizar el baño correcto.
+
+Vocabulario: trozo = piece • cartel = sign
+
+Después del error, Guillermo explica que no eligió el baño equivocado a propósito: simplemente leyó el cartel que tenía delante. Luke reconoce que él creó la confusión, pero todavía encuentra divertida la situación. Jessica vuelve a colocar los carteles en su sitio. Dice que una broma puede ser divertida sin mandar a alguien al baño equivocado.`,
+    questions:[
+      {id:"p2q1",type:"mcq",marks:2,prompt:"(E) What did Luke change?",options:["The toilet signs","The lights","The doors","The clocks"],answerIndex:0},
+      {id:"p2q2",type:"short",marks:4,prompt:"(E) Give TWO results of Luke's joke.",rubric:"Guillermo used the girls' toilets by mistake; Jessica was unhappy.",keywords:[["girls","wrong toilet","by mistake"],["jessica","not happy","unhappy","angry"]]},
+      {id:"p2q3",type:"tfnm",marks:2,prompt:"(E) Guillermo ignores the sign. (True / False / Not mentioned)",correct:"False"},
+      {id:"p2q4",type:"pn",marks:2,prompt:"(E) Jessica's opinion of Luke's joke is… (P / N / P+N)",answer:"N"},
+      {id:"p2q5",type:"es_short",marks:4,prompt:"(M) En español: ¿Cuántos trozos hay?",rubric:"Siete.",keywords:[["siete","7"]]},
+      {id:"p2q6",type:"short",marks:2,prompt:"(E) Why does Guillermo use the wrong toilets?",rubric:"He trusts/follows the changed sign.",keywords:[["sign","panneau"],["trust","follow","changed","wrong"]]},
+      {id:"p2q7",type:"short",marks:4,prompt:"(E) What did Guillermo actually want to do?",rubric:"Simply use the correct toilets.",keywords:[["correct","right","proper"],["toilet","toilets"]]}
+    ]
+  },
+  {
+    id:3,title:"Passage 3 — Las matemáticas en el sótano",theme:"Guillermo Poops — 3",unit:"Basement Calculus Edition",
+    text:`Guillermo habla de cálculo con los demás. Poco después, tiene que ir al baño del sótano. Esta vez, la situación es un poco incómoda, pero nadie entra en su cabina y se respeta su privacidad.
+
+A Grandpa Belt le parece muy divertido el título y publica: « Guillermo hace caca 3 ». Red pide a Luke que no relacione la integración con las historias de Guillermo. Luke responde solamente: « Todavía no ».
+
+Vocabulario: sótano = basement • privacidad = privacy • cálculo = calculus
+
+Después del incidente, Luke quiere anotar dos cosas en su tabla: el lugar y el nivel de privacidad. OWing comprueba que nadie haya entrado en la cabina. Por eso Jessica está satisfecha con este aspecto. Red vuelve al tema de las matemáticas y dice que un símbolo de integración realmente no tiene nada que hacer en una historia sobre baños.`,
+    questions:[
+      {id:"p3q1",type:"mcq",marks:2,prompt:"(E) What subject is Guillermo talking about?",options:["Calculus","Geography","Art","Music"],answerIndex:0},
+      {id:"p3q2",type:"short",marks:4,prompt:"(E) Give TWO details about the toilet situation.",rubric:"It is in the basement; it is awkward; nobody enters; privacy is respected.",keywords:[["basement","sous sol"],["privacy","respected","nobody enters","awkward"]]},
+      {id:"p3q3",type:"tfnm",marks:2,prompt:"(E) Someone enters Guillermo's cubicle. (True / False / Not mentioned)",correct:"False"},
+      {id:"p3q4",type:"pn",marks:2,prompt:"(E) Red's reaction to connecting integration with Guillermo Poops is… (P / N / P+N)",answer:"N"},
+      {id:"p3q5",type:"es_short",marks:4,prompt:"(M) En español: ¿Adónde va Guillermo?",rubric:"Al baño del sótano.",keywords:[["baño","aseo"],["sótano","sotano"]]},
+      {id:"p3q6",type:"short",marks:2,prompt:"(E) Who posts « Guillermo fait caca 3 »?",rubric:"Grandpa Belt.",keywords:[["grandpa belt","grandpa","belt"]]},
+      {id:"p3q7",type:"short",marks:4,prompt:"(E) What does Luke's « Pas encore » suggest?",rubric:"He may connect integration/calculus to Guillermo Poops later.",keywords:[["later","future","eventually","may"],["integration","calculus","maths"]]}
+    ]
+  },
+  {
+    id:4,title:"Passage 4 — La piscina secreta",theme:"Guillermo Poops — 4",unit:"Secret Pool Prophecy",
+    text:`Durante una visita a la piscina secreta, Guillermo de repente no se encuentra bien. Tiene diarrea y va al baño. Luke utiliza su cronómetro, pero se queda fuera. El incidente dura veintitrés minutos y dieciséis segundos.
+
+Cuando Luke pregunta cuántos trozos hay, la respuesta es sencilla: imposible contarlos. Jessica acepta el cronómetro esta vez porque nadie entra y se sigue respetando la privacidad de Guillermo.
+
+Vocabulario: diarrea = diarrhoea • cronómetro = stopwatch • imposible de contar = uncountable
+
+Cuando Guillermo vuelve, solo dice que no quiere volver a vivir la misma situación. Luke enseña el cronómetro a los demás, pero no pide inmediatamente más detalles. OWing anota la hora y Jessica recuerda una regla sencilla: se puede registrar la duración desde fuera, pero no se debe molestar a Guillermo dentro de la cabina.`,
+    questions:[
+      {id:"p4q1",type:"mcq",marks:2,prompt:"(E) Where does the incident happen?",options:["At the secret pool","On an aircraft","At school","In Hong Kong"],answerIndex:0},
+      {id:"p4q2",type:"short",marks:4,prompt:"(E) Give the exact duration.",rubric:"23 minutes and 16 seconds.",keywords:[["23","twenty three","vingt trois"],["16","sixteen","seize"]]},
+      {id:"p4q3",type:"tfnm",marks:2,prompt:"(E) Luke goes inside during the incident. (True / False / Not mentioned)",correct:"False"},
+      {id:"p4q4",type:"pn",marks:2,prompt:"(E) Jessica's view of Luke using the stopwatch this time is… (P / N / P+N)",answer:"P"},
+      {id:"p4q5",type:"es_short",marks:4,prompt:"(M) En español: ¿Por qué no se puede dar un número de trozos?",rubric:"Porque Guillermo tiene diarrea / es imposible contarlos.",keywords:[["diarrea","imposible"],["contar","incontable"]]},
+      {id:"p4q6",type:"short",marks:2,prompt:"(E) Why is Jessica satisfied with the privacy?",rubric:"Nobody enters / Luke stays outside.",keywords:[["outside","stays outside","nobody enters","no one enters"]]},
+      {id:"p4q7",type:"short",marks:4,prompt:"(E) Give TWO things Luke records or tries to record.",rubric:"Time/duration and number of pieces.",keywords:[["time","duration","stopwatch"],["pieces","number","morceaux"]]}
+    ]
+  },
+  {
+    id:5,title:"Passage 5 — El récord morado",theme:"Guillermo Poops — 5",unit:"Purple Slide Record",
+    text:`Guillermo vuelve a la piscina secreta. Esta vez, el incidente dura cuarenta y siete minutos y cincuenta y dos segundos: es el récord en ese momento. Guillermo elige el asiento de adulto.
+
+Luke se queda fuera durante casi todo el incidente, pero entra brevemente. Jessica considera que esto es un problema grave de privacidad. Por eso Luke escribe en sus notas: « Récord de duración, mala privacidad ».
+
+Vocabulario: brevemente = briefly • asiento de adulto = adult seat • duración = duration
+
+Cuando Guillermo finalmente sale, está cansado y el récord no le parece divertido. Luke, en cambio, sigue mirando el cronómetro y piensa sobre todo en el nuevo máximo. OWing le recuerda que la duración es un dato, pero que la privacidad es más importante. Jessica insiste: entrar, aunque fuera por poco tiempo, fue una mala idea.`,
+    questions:[
+      {id:"p5q1",type:"mcq",marks:2,prompt:"(E) What is special about the duration?",options:["It is the record at that time","It is exactly ten minutes","Nobody times it","It is the shortest"],answerIndex:0},
+      {id:"p5q2",type:"short",marks:4,prompt:"(E) Give TWO exact time details.",rubric:"47 minutes; 52 seconds.",keywords:[["47","forty seven","quarante sept"],["52","fifty two","cinquante deux"]]},
+      {id:"p5q3",type:"tfnm",marks:2,prompt:"(E) Guillermo uses the child seat. (True / False / Not mentioned)",correct:"False"},
+      {id:"p5q4",type:"pn",marks:2,prompt:"(E) Jessica's opinion of the privacy is… (P / N / P+N)",answer:"N"},
+      {id:"p5q5",type:"es_short",marks:4,prompt:"(M) En español: ¿Qué asiento utiliza Guillermo?",rubric:"El asiento de adulto.",keywords:[["asiento de adulto","adulto"]]},
+      {id:"p5q6",type:"short",marks:2,prompt:"(E) What does Luke do wrong?",rubric:"He briefly enters.",keywords:[["enter","enters","goes in","inside"]]},
+      {id:"p5q7",type:"short",marks:4,prompt:"(E) Summarise Luke's final note in TWO ideas.",rubric:"Record/very long duration; bad privacy.",keywords:[["record","long","duration","time"],["bad privacy","privacy bad","intimacy","privacy"]]}
+    ]
+  },
+  {
+    id:6,title:"Passage 6 — 34 pulgadas",theme:"Guillermo Poops — 6",unit:"34-Inch Locked Cubicles",
+    text:`Luke cierra varias cabinas del baño de los chicos. Esto crea problemas con los asientos y las cisternas. Después Luke hace una comparación muy extraña con Otono Airways: en clase turista, los asientos tienen de treinta y cuatro a treinta y cinco pulgadas de espacio para las piernas.
+
+Luke dice el eslogan « NO MORE FEAR of economy class! ». Gary le pide inmediatamente que no utilice el eslogan de la compañía para hablar de los baños. Luke responde que, por desgracia, ya lo ha hecho.
+
+Vocabulario: cabina = cubicle • cisterna = flush • pulgadas = inches
+
+Gary oye el eslogan desde el pasillo y pide inmediatamente a Luke que deje de comparar los baños con los aviones. Red se ríe porque el número treinta y cuatro realmente le recuerda a la clase turista de Otono Airways. A Guillermo no le parece útil la comparación: su único objetivo es encontrar una cabina libre y cerrar bien la puerta.`,
+    questions:[
+      {id:"p6q1",type:"mcq",marks:2,prompt:"(E) What has Luke locked?",options:["Several boys' toilet cubicles","The aircraft doors","Room 47","The safe"],answerIndex:0},
+      {id:"p6q2",type:"short",marks:4,prompt:"(E) What TWO toilet problems are mentioned?",rubric:"Seats and flushes.",keywords:[["seat","seats","siege"],["flush","flushes","chasse"]]},
+      {id:"p6q3",type:"tfnm",marks:2,prompt:"(E) Otono Airways Economy has 34–35 inches of legroom. (True / False / Not mentioned)",correct:"True"},
+      {id:"p6q4",type:"pn",marks:2,prompt:"(E) Gary's reaction to Luke using the airline slogan is… (P / N / P+N)",answer:"N"},
+      {id:"p6q5",type:"es_short",marks:4,prompt:"(M) En español: ¿Qué cierra Luke?",rubric:"Varias cabinas del baño de los chicos.",keywords:[["cabinas"],["baño","chicos","aseos"]]},
+      {id:"p6q6",type:"short",marks:2,prompt:"(E) Which airline does Luke mention?",rubric:"Otono Airways.",keywords:[["otono airways","otono"]]},
+      {id:"p6q7",type:"short",marks:4,prompt:"(E) Why does Gary object? Give TWO ideas.",rubric:"It is an airline/company slogan; he does not want it connected to toilets.",keywords:[["airline","company","slogan","otono airways"],["toilet","toilets","poop"]]}
+    ]
+  },
+  {
+    id:7,title:"Passage 7 — Tres trozos, cero catástrofes",theme:"Guillermo Poops — 7",unit:"Old-Style Three-Piece",
+    text:`El incidente número 7 es mucho más tranquilo. Guillermo utiliza el baño con normalidad y hay tres trozos. Jessica está presente en la situación general, pero nadie molesta a Guillermo.
+
+Luke lleva un destornillador, pero no lo utiliza. Para Jessica, esto demuestra que una historia puede ser divertida sin convertirse en una catástrofe. Luke también anota que se respeta completamente la privacidad.
+
+Vocabulario: destornillador = screwdriver • molestar = to disturb
+
+Luke sigue teniendo el destornillador en su bolsa, pero no lo utiliza. Esto es importante para Jessica, que dice que esta vez nadie debe abrir una puerta cerrada. Guillermo utiliza el baño normalmente y luego sale sin problemas. OWing observa que el acontecimiento es mucho menos caótico que los anteriores, aunque Luke todavía anota el número de trozos.`,
+    questions:[
+      {id:"p7q1",type:"mcq",marks:2,prompt:"(E) How many pieces are there?",options:["Three","Seven","Twelve","Uncountable"],answerIndex:0},
+      {id:"p7q2",type:"short",marks:4,prompt:"(E) Give TWO reasons this incident is calmer.",rubric:"Guillermo uses toilets normally; nobody disturbs him; screwdriver is not used; privacy respected.",keywords:[["normally","normal","nobody disturbs","no one disturbs"],["screwdriver not used","does not use","privacy respected","private"]]},
+      {id:"p7q3",type:"tfnm",marks:2,prompt:"(E) Luke uses the screwdriver. (True / False / Not mentioned)",correct:"False"},
+      {id:"p7q4",type:"pn",marks:2,prompt:"(E) Jessica's opinion of this incident is… (P / N / P+N)",answer:"P"},
+      {id:"p7q5",type:"es_short",marks:4,prompt:"(M) En español: ¿Cuántos trozos hay y utiliza Luke el destornillador?",rubric:"Tres trozos; no, no lo utiliza.",keywords:[["tres","3"],["no","no lo utiliza","no lo usa"]]},
+      {id:"p7q6",type:"short",marks:2,prompt:"(E) Who is present in the general situation?",rubric:"Jessica.",keywords:[["jessica"]]},
+      {id:"p7q7",type:"short",marks:4,prompt:"(E) What lesson does Jessica take from this incident?",rubric:"It can be funny without causing a disaster/privacy problem.",keywords:[["funny","humour","drôle"],["without disaster","no disaster","privacy","without causing"]]}
+    ]
+  },
+  {
+    id:8,title:"Passage 8 — ¿Dónde están los carteles de chicos?",theme:"Guillermo Poops — 8",unit:"Girls Sign Confusion Edition",
+    text:`Un día, muchos carteles de « chicos » han desaparecido. Guillermo busca el baño correcto y ve varios carteles de « chicas ». Afortunadamente, todavía encuentra un cartel de « chicos » en la segunda planta y utiliza ese baño.
+
+Luke cuenta cinco trozos. OWing describe el incidente como « moderado »: los carteles crean confusión, pero Guillermo finalmente encuentra el baño correcto y la situación sigue siendo relativamente tranquila.
+
+Vocabulario: desaparecer = to disappear • moderado = moderate
+
+Guillermo no quiere elegir una puerta al azar. Mira los carteles en cada planta y busca una indicación clara. A Luke le parece divertida la confusión, pero Red le dice que los carteles deben ayudar a la gente, no mandarla en la dirección equivocada. Finalmente, Guillermo encuentra el baño de los chicos en la segunda planta y puede utilizarlo sin más problemas.`,
+    questions:[
+      {id:"p8q1",type:"mcq",marks:2,prompt:"(E) What has happened to many boys' signs?",options:["They have disappeared","They are purple","They are new","They are locked"],answerIndex:0},
+      {id:"p8q2",type:"short",marks:4,prompt:"(E) Give TWO details about where Guillermo finally goes.",rubric:"He finds a boys' sign; on floor 2; uses those toilets.",keywords:[["boys","garcons","garçons"],["floor 2","second floor","deuxieme","deuxième"]]},
+      {id:"p8q3",type:"tfnm",marks:2,prompt:"(E) Guillermo ends up using toilets marked « filles ». (True / False / Not mentioned)",correct:"False"},
+      {id:"p8q4",type:"pn",marks:2,prompt:"(E) OWing's description of the incident is… (P / N / P+N)",answer:"P+N"},
+      {id:"p8q5",type:"es_short",marks:4,prompt:"(M) En español: ¿Cuántos trozos hay?",rubric:"Cinco.",keywords:[["cinco","5"]]},
+      {id:"p8q6",type:"short",marks:2,prompt:"(E) Who calls the incident moderate?",rubric:"OWing.",keywords:[["owing"]]},
+      {id:"p8q7",type:"short",marks:4,prompt:"(E) Why is the incident only moderately chaotic? Give TWO ideas.",rubric:"Signs cause confusion, but Guillermo finds the correct toilets and things stay relatively calm.",keywords:[["sign","confusion"],["correct toilet","finds","calm","right toilet"]]}
+    ]
+  },
+  {
+    id:9,title:"Passage 9 — Le hot pot beaucoup trop épicé",theme:"Guillermo Poops — 9",unit:"Spicy Hot Pot Revenge",
+    text:`Durante una comida de hot pot, Guillermo elige él mismo demasiada comida picante. Más tarde se arrepiente: tiene diarrea y está en el baño durante treinta y un minutos y veintiocho segundos.
+
+Esta vez, Luke no es responsable del problema. Es imposible contar el número de trozos. A pesar de la incomodidad, se respeta la privacidad de Guillermo y nadie crea ningún problema con la puerta.
+
+Vocabulario: picante = spicy • arrepentirse = to regret • diarrea = diarrhoea
+
+Antes de la comida, nadie obliga a Guillermo a elegir tanta comida picante: es su propia decisión. Más tarde admite que probablemente fue una mala idea. Luke quiere anotar la hora exacta, pero Jessica le dice que se quede fuera. Después de treinta y un minutos, Guillermo vuelve y anuncia que la próxima vez elegirá algo mucho menos picante.`,
+    questions:[
+      {id:"p9q1",type:"mcq",marks:2,prompt:"(E) Who chooses the very spicy food?",options:["Guillermo","Luke","Jessica","Gary"],answerIndex:0},
+      {id:"p9q2",type:"short",marks:4,prompt:"(E) Give the exact duration.",rubric:"31 minutes and 28 seconds.",keywords:[["31","thirty one","trente et une"],["28","twenty eight","vingt huit"]]},
+      {id:"p9q3",type:"tfnm",marks:2,prompt:"(E) Luke causes the food problem. (True / False / Not mentioned)",correct:"False"},
+      {id:"p9q4",type:"pn",marks:2,prompt:"(E) Guillermo's later opinion of his spicy choice is… (P / N / P+N)",answer:"N"},
+      {id:"p9q5",type:"es_short",marks:4,prompt:"(M) En español: ¿Por qué va Guillermo al baño?",rubric:"Ha comido comida demasiado picante / tiene diarrea.",keywords:[["picante","diarrea"],["demasiado","mucho"]]},
+      {id:"p9q6",type:"short",marks:2,prompt:"(E) Can the pieces be counted?",rubric:"No, they are uncountable.",keywords:[["no","uncountable","impossible"]]},
+      {id:"p9q7",type:"short",marks:4,prompt:"(E) Give TWO ways this differs from some other incidents.",rubric:"Luke did not cause it; privacy is respected/no door problem.",keywords:[["luke not responsible","luke did not","food","william chose"],["privacy respected","no door problem","private"]]}
+    ]
+  },
+  {
+    id:10,title:"Passage X — Doce trozos",theme:"Guillermo Poops — X",unit:"Quantity Over Quality Edition",
+    text:`Luke se niega a llamar a este incidente « número 10 ». En su hoja, simplemente escribe X. Después de una enorme cantidad de hot pot, Guillermo va al baño. Esta vez hay exactamente doce trozos.
+
+Luke también ha preparado carteles para los baños en varios idiomas. A Red le parece muy divertido, pero Guillermo está mucho menos entusiasmado. Para Luke, doce trozos representan « la obra maestra de la cantidad ».
+
+Vocabulario: obra maestra = masterpiece • cantidad = quantity
+
+Luke está muy impresionado por el número doce y lo llama inmediatamente « cantidad antes que calidad ». Red también se ríe al ver todos los carteles en varios idiomas. Guillermo dice que doce no es un récord que quisiera conseguir. Jessica pide sobre todo a todos que no bloqueen el paso y que dejen a Guillermo terminar tranquilamente.`,
+    questions:[
+      {id:"p10q1",type:"mcq",marks:2,prompt:"(E) What is this incident called instead of 10?",options:["X","Z","A","Original"],answerIndex:0},
+      {id:"p10q2",type:"short",marks:4,prompt:"(E) Give TWO unusual features of this incident.",rubric:"It is called X; 12 pieces; international/multilingual signs.",keywords:[["x","not 10"],["12","twelve","international","languages","multilingual signs"]]},
+      {id:"p10q3",type:"tfnm",marks:2,prompt:"(E) There are exactly twelve pieces. (True / False / Not mentioned)",correct:"True"},
+      {id:"p10q4",type:"pn",marks:2,prompt:"(E) Red and Guillermo have the same opinion of the incident. (P / N / P+N)",answer:"P+N"},
+      {id:"p10q5",type:"es_short",marks:4,prompt:"(M) En español: ¿Qué prepara Luke?",rubric:"Carteles para los baños en varios idiomas.",keywords:[["carteles"],["idiomas","varios idiomas","baños"]]},
+      {id:"p10q6",type:"short",marks:2,prompt:"(E) What food is connected to the incident?",rubric:"Hot pot.",keywords:[["hot pot"]]},
+      {id:"p10q7",type:"short",marks:4,prompt:"(E) Explain the joke in Luke's description « masterpiece of quantity ». Give TWO details.",rubric:"There is a large quantity; exactly 12 pieces.",keywords:[["large","many","quantity"],["12","twelve","pieces"]]}
+    ]
+  },
+  {
+    id:11,title:"Passage 11 — La bolsa morada",theme:"Guillermo Poops — 11",unit:"Sleepover Morning Edition",
+    text:`La mañana de una fiesta de pijamas, Luke enseña por primera vez su bolsa morada de equipo. Contiene varios objetos que utiliza para sus notas y sus mediciones de tiempo. Guillermo va al baño durante veintiún minutos y seis segundos.
+
+Hay cuatro trozos. A pesar de la presencia de otras personas en la casa, se respeta la privacidad de Guillermo. Jessica mira la bolsa y dice que es « sospechosa ». Luke responde: « Es lo mismo que oficial ».
+
+Vocabulario: fiesta de pijamas = sleepover • equipo = equipment • sospechoso = suspicious
+
+La bolsa contiene varios objetos útiles para Luke: hojas, una pequeña pizarra blanca, bolígrafos negros, un cronómetro y un temporizador. Jessica mira la bolsa con desconfianza, sobre todo porque recuerda el destornillador. Guillermo simplemente pide que nadie utilice estos objetos para abrir su puerta. Luke promete esta vez quedarse en el pasillo.`,
+    questions:[
+      {id:"p11q1",type:"mcq",marks:2,prompt:"(E) What colour is Luke's equipment bag?",options:["Purple","Blue","Black","Green"],answerIndex:0},
+      {id:"p11q2",type:"short",marks:4,prompt:"(E) Give TWO numerical details.",rubric:"21 minutes 6 seconds; 4 pieces.",keywords:[["21","twenty one","6","six seconds"],["4","four","pieces"]]},
+      {id:"p11q3",type:"tfnm",marks:2,prompt:"(E) Guillermo's privacy is respected. (True / False / Not mentioned)",correct:"True"},
+      {id:"p11q4",type:"pn",marks:2,prompt:"(E) Jessica's opinion of Luke's bag is… (P / N / P+N)",answer:"N"},
+      {id:"p11q5",type:"es_short",marks:4,prompt:"(M) En español: ¿Cuánto dura el incidente?",rubric:"Veintiún minutos y seis segundos.",keywords:[["veintiún","veintiun","21"],["seis segundos","6"]]},
+      {id:"p11q6",type:"short",marks:2,prompt:"(E) What kind of event is happening that morning?",rubric:"A sleepover.",keywords:[["sleepover","soiree pyjama","soirée pyjama"]]},
+      {id:"p11q7",type:"short",marks:4,prompt:"(E) How do Jessica and Luke describe the bag differently?",rubric:"Jessica calls it suspicious; Luke treats suspicious as the same as official.",keywords:[["suspicious","suspect"],["official","same"]]}
+    ]
+  },
+  {
+    id:12,title:"Passage 12 — Chocolate y la película de Minecraft",theme:"Guillermo Poops — 12",unit:"Minecraft Movie Toilet Quest Edition",
+    text:`Durante una noche de cine con la película de Minecraft, la palabra « chocolate » se convierte en una pista en una búsqueda de baños. Por desgracia, Guillermo elige primero el baño equivocado y también hay un problema con una cerradura.
+
+El incidente dura veintiséis minutos y cuarenta y cuatro segundos. Luke anota seis trozos. Después Red dice que la palabra « chocolate » se ha convertido en un vocabulario peligroso en las historias de Guillermo.
+
+Vocabulario: pista = clue • cerradura = lock
+
+Mientras los demás siguen viendo la película, Guillermo busca el baño correcto. La palabra « chocolate » hace reír a Red, pero realmente no ayuda a Guillermo a encontrar una cabina. Luke quiere convertir la situación en una misión como en un videojuego. Jessica rechaza la idea y le dice que Guillermo solo necesita una puerta que funcione y un poco de tranquilidad.`,
+    questions:[
+      {id:"p12q1",type:"mcq",marks:2,prompt:"(E) Which film is being watched?",options:["Minecraft","A Spanish film","An aviation film","A maths film"],answerIndex:0},
+      {id:"p12q2",type:"short",marks:4,prompt:"(E) Give TWO problems Guillermo has.",rubric:"He chooses the wrong toilets; there is a lock problem.",keywords:[["wrong toilet","wrong toilets","mauvaises toilettes"],["lock","serrure"]]},
+      {id:"p12q3",type:"tfnm",marks:2,prompt:"(E) « Chocolat » is used as a clue. (True / False / Not mentioned)",correct:"True"},
+      {id:"p12q4",type:"pn",marks:2,prompt:"(E) Red's description of « chocolat » is… (P / N / P+N)",answer:"N"},
+      {id:"p12q5",type:"es_short",marks:4,prompt:"(M) En español: ¿Cuántos trozos hay y cuántos segundos después de los veintiséis minutos?",rubric:"Seis trozos; cuarenta y cuatro segundos.",keywords:[["seis","6"],["cuarenta y cuatro","44"]]},
+      {id:"p12q6",type:"short",marks:2,prompt:"(E) What word becomes the unusual clue?",rubric:"Chocolat.",keywords:[["chocolat","chocolate"]]},
+      {id:"p12q7",type:"short",marks:4,prompt:"(E) Why does Red call the word dangerous? Give TWO relevant ideas.",rubric:"It is linked to the toilet search; the search leads to wrong toilets/lock trouble.",keywords:[["clue","toilet search","search"],["wrong toilet","lock","problem","trouble"]]}
+    ]
+  },
+  {
+    id:13,title:"Passage 13 — La cerradura rota",theme:"Guillermo Poops — 13",unit:"Broken Lock Encounter Edition",
+    text:`Guillermo se da cuenta de que una cerradura no funciona correctamente. Gary está brevemente en la misma zona de los baños, pero utiliza los urinarios y se marcha rápidamente para respetar la privacidad de Guillermo.
+
+Después del incidente, Jessica dice que lo más importante es informar de una cerradura rota. Luke también escribe una nota: una pequeña avería puede convertirse en un verdadero problema si nadie informa de ella.
+
+Vocabulario: cerradura rota = broken lock • urinario = urinal • informar = to report
+
+Guillermo nota el problema antes de cerrar completamente la puerta. Gary comprueba la cerradura y confirma que no funciona correctamente. Después abandona la zona para dejar tranquilo a Guillermo. Más tarde, Ivy pide que se informe de la cerradura para que la reparen. Luke quiere añadir el incidente a la tabla de la sala 47, pero Jessica prefiere recordar sobre todo la lección de seguridad.`,
+    questions:[
+      {id:"p13q1",type:"mcq",marks:2,prompt:"(E) What problem does Guillermo notice?",options:["A broken lock","A missing phone","A broken piano","A late flight"],answerIndex:0},
+      {id:"p13q2",type:"short",marks:4,prompt:"(E) Give TWO things Gary does that respect Guillermo's privacy.",rubric:"He uses the urinals; he leaves quickly/respectfully.",keywords:[["urinal","urinals"],["leaves","left","quickly","rapidly"]]},
+      {id:"p13q3",type:"tfnm",marks:2,prompt:"(E) Gary stays for a long time. (True / False / Not mentioned)",correct:"False"},
+      {id:"p13q4",type:"pn",marks:2,prompt:"(E) Jessica's view of reporting the broken lock is… (P / N / P+N)",answer:"P"},
+      {id:"p13q5",type:"es_short",marks:4,prompt:"(M) En español: ¿Cuál es el problema?",rubric:"La cerradura está rota / no funciona correctamente.",keywords:[["cerradura"],["rota","no funciona"]]},
+      {id:"p13q6",type:"short",marks:2,prompt:"(E) What does Jessica say should happen?",rubric:"The broken lock should be reported.",keywords:[["report","reported","signaler","tell someone"]]},
+      {id:"p13q7",type:"short",marks:4,prompt:"(E) What lesson does Luke record? Give TWO ideas.",rubric:"A small fault can become a real problem if nobody reports it.",keywords:[["small","fault","problem","panne"],["report","reported","nobody reports","signale"]]}
+    ]
+  },
+  {
+    id:14,
+    title:"Passage 14 — Guillermo, el 90 % y el eclipse",
+    theme:"Guillermo Poops — 18",
+    unit:"The 90% Eclipse Ban",
+    text:`El día del eclipse solar, todo el equipo lleva preparándose desde la mañana. En el máximo, el 93,6 % del Sol quedará cubierto, lo que hace que el acontecimiento sea especialmente impresionante. Guillermo obviamente quiere observar el eclipse con los demás e insiste en que no quiere perdérselo. Sin embargo, Luke anuncia de repente una regla que acaba de inventar: según él, Guillermo no tiene derecho a observar un eclipse en el que esté cubierto más del 89,4 % del Sol. Guillermo no entiende por qué Luke ha elegido un número tan preciso.
+
+Luke explica entonces su razonamiento. No quiere en absoluto que Guillermo esté asociado con el número 90, ni siquiera indirectamente. Según él, si Guillermo observa un eclipse del 90 % o más, los demás podrían empezar a hablar de « Guillermo y el 90 % », algo que quiere evitar a toda costa. Por eso elige el 89,4 % como límite máximo. Guillermo responde que el eclipse real alcanza el 93,6 % y que esta regla le impediría ver la parte más espectacular del acontecimiento. Añade que Luke no tiene ninguna autoridad para decidirlo él solo.
+
+Gary oye la discusión y parece inmediatamente sorprendido. Aclara que nunca ha prohibido a Guillermo observar el eclipse y que nunca ha aprobado el límite del 89,4 %. Los demás están de acuerdo con él: puede que a Luke no le guste la asociación con el 90 %, pero eso no le da derecho a impedir que otra persona participe. Luke todavía intenta defender su idea diciendo que un límite inferior al 90 % es la única manera de evitar completamente el problema. Sin embargo, incluso quienes comprenden su lógica consideran que la regla es demasiado extrema.
+
+Finalmente, Guillermo sigue decidido a observar el eclipse. Para él, lo más importante es disfrutar de un acontecimiento astronómico poco común con los demás, y no satisfacer la regla personal de Luke. Gary recuerda a todos que las decisiones importantes no pueden ser tomadas por una sola persona sin el acuerdo del grupo. Luke sigue sin estar contento de ver a Guillermo tan cerca del famoso número 90, pero tiene que aceptar que su « límite del 89,4 % » no es una regla de verdad. Por lo tanto, Guillermo puede observar el 93,6 % como todos los demás.
+
+Vocabulario: cubrir = to cover • límite = limit • impedir = to prevent • aprobar = to approve • a toda costa = at all costs • razonamiento = reasoning`,
+    questions:[
+      {
+        id:"p14q1",
+        type:"mcq",
+        marks:2,
+        prompt:"(E) What percentage of the Sun will be covered at maximum?",
+        options:["93.6%","89.4%","90%","100%"],
+        answerIndex:0
+      },
+      {
+        id:"p14q2",
+        type:"short",
+        marks:4,
+        prompt:"(E) Explain TWO parts of Luke's reasoning for choosing 89.4%.",
+        rubric:"He wants Guillermo to remain below 90%; he wants to prevent Guillermo being associated with 90.",
+        keywords:[
+          ["below 90","under 90","less than 90","89.4"],
+          ["associated with 90","connection with 90","linked to 90","avoid 90"]
+        ]
+      },
+      {
+        id:"p14q3",
+        type:"tfnm",
+        marks:2,
+        prompt:"(E) Gary had already approved Luke's 89.4% rule. (True / False / Not mentioned)",
+        correct:"False"
+      },
+      {
+        id:"p14q4",
+        type:"pn",
+        marks:2,
+        prompt:"(E) The group's overall reaction to Luke's rule is… (P / N / P+N)",
+        answer:"N"
+      },
+      {
+        id:"p14q5",
+        type:"es_short",
+        marks:4,
+        prompt:"(M) En español: ¿Por qué piensa Guillermo que la regla de Luke es injusta? Da DOS razones.",
+        rubric:"Le impediría ver la parte más espectacular del eclipse; Luke no tiene autoridad para decidirlo solo.",
+        keywords:[["parte más espectacular","momento más espectacular","93 6","93,6"],["no tiene autoridad","sin autoridad","no puede decidir solo","decidirlo solo"]]
+      },
+      {
+        id:"p14q6",
+        type:"short",
+        marks:2,
+        prompt:"(E) What principle does Gary give about important decisions?",
+        rubric:"One person cannot make important decisions without the agreement of the group.",
+        keywords:[
+          ["agreement","group","everyone","one person","alone"]
+        ]
+      },
+      {
+        id:"p14q7",
+        type:"short",
+        marks:4,
+        prompt:"(E) By the end, how have Luke's position and Guillermo's situation changed? Give TWO details.",
+        rubric:"Luke has to accept that 89.4% is not a real rule; Guillermo is allowed to watch the 93.6% eclipse with everyone.",
+        keywords:[
+          ["not a real rule","accept","89.4","rule rejected","cannot ban"],
+          ["guillaume can watch","allowed to watch","93.6","with everyone","eclipse"]
+        ]
+      }
+    ]
+  },
+];
+
+const TRANSLATIONS = [
+  {
+    id:"T1",title:"Translation — Guillermo Poops 14",theme:"Guillermo Poops — 14",
+    text:"Guillermo used cubicle 2 in the basement. Luke was not allowed to create chaos, so he stayed outside the cubicle and waited in the corridor. While Guillermo was inside, he suddenly sneezed. Luke immediately shouted, 'Bless you, Guillermo!' Everyone heard him. Guillermo was not impressed by the loud comment. When the incident was finished, Luke asked for the number of pieces. The answer was four, and Jessica reminded Luke that privacy still mattered.",
+    keyIdeas:[["guillermo utilizo la cabina 2","guillermo usó la cabina 2","cabina 2"],["en el sotano","en el sótano"],["luke no tenia permitido","luke no podía","luke tenía prohibido"],["crear caos","hacer caos"],["guillermo estornudo","guillermo estornudó"],["luke grito","luke gritó"],["salud guillermo","salud, guillermo"],["cuatro trozos","4 trozos"]],
+    sampleAnswer:"Guillermo utilizó la cabina 2 en el sótano. Luke no tenía permitido crear caos, así que se quedó fuera de la cabina y esperó en el pasillo. Mientras Guillermo estaba dentro, de repente estornudó. Luke gritó inmediatamente: « ¡Salud, Guillermo! » Todo el mundo lo oyó. A Guillermo no le impresionó el comentario tan ruidoso. Cuando terminó el incidente, Luke preguntó por el número de trozos. La respuesta fue cuatro, y Jessica recordó a Luke que la privacidad seguía siendo importante."
+  },
+  {
+    id:"T2",title:"Translation — Guillermo Poops 15",theme:"Guillermo Poops — 15",
+    text:"Luke asked Guillermo to open the toilet door, but Guillermo clearly said no because he wanted privacy. Luke then made a very bad decision and used a screwdriver to unlock the door. Guillermo protected his privacy and refused to continue with the child seat. There were zero pieces during that first part. After Luke left, Guillermo used the adult seat instead and there were three pieces. Jessica was very unhappy and later wrote that the screwdriver must not be used again.",
+    keyIdeas:[["luke pidio a guillermo","luke pidió a guillermo"],["abrir la puerta"],["guillermo dijo no","pero guillermo dijo no"],["luke utilizo un destornillador","luke usó un destornillador","luke utilizó un destornillador"],["abrir la puerta","desbloquear"],["cero trozos","0 trozos"],["asiento infantil","asiento de niño"],["tres trozos","3 trozos"],["asiento de adulto","asiento adulto"]],
+    sampleAnswer:"Luke pidió a Guillermo que abriera la puerta del baño, pero Guillermo dijo claramente que no porque quería privacidad. Luke tomó entonces una decisión muy mala y utilizó un destornillador para abrir la puerta. Guillermo protegió su privacidad y se negó a continuar con el asiento infantil. Hubo cero trozos durante esa primera parte. Después de que Luke se marchara, Guillermo utilizó el asiento de adulto y hubo tres trozos. Jessica estaba muy descontenta y más tarde escribió que el destornillador no debía volver a utilizarse."
+  },
+  {
+    id:"T3",title:"Translation — Guillermo Poops 16",theme:"Guillermo Poops — 16",
+    text:"The signs said that the toilets on floor 2 were for girls and the toilets on floor 3 were for boys. Guillermo trusted the signs, but he also tried to remember where the correct toilets normally were. Gary's pink iPhone was nearby and accidentally made the signs look more official than they really were. Guillermo eventually chose cubicle 5. He checked the lock before using it and avoided a broken one. There were six pieces. Gary later insisted that his pink phone was not an official document.",
+    keyIdeas:[["los carteles decian","los carteles indicaban"],["segunda planta","planta 2"],["para chicas","baños de chicas"],["tercera planta","planta 3"],["para chicos","baños de chicos"],["iphone rosa de gary","telefono rosa de gary","teléfono rosa de gary"],["oficiales","oficial"],["cabina 5"],["seis trozos","6 trozos"]],
+    sampleAnswer:"Los carteles decían que los baños de la segunda planta eran para chicas y los de la tercera planta para chicos. Guillermo confió en los carteles, pero también intentó recordar dónde estaban normalmente los baños correctos. El iPhone rosa de Gary estaba cerca y, por accidente, hacía que los carteles parecieran más oficiales de lo que realmente eran. Guillermo finalmente eligió la cabina 5. Comprobó la cerradura antes de utilizarla y evitó una que estaba rota. Hubo seis trozos. Gary insistió más tarde en que su teléfono rosa no era un documento oficial."
+  },
+  {
+    id:"T4",title:"Translation — Guillermo Poops 17",theme:"Guillermo Poops — 17",
+    text:"This was Guillermo's most uncomfortable incident in the whole series. He had diarrhoea, so the number of pieces was impossible to count. He went to the boys' toilets on floor 3 and used cubicle 3. This time, however, the others were much more careful about privacy. Nobody entered the cubicle and Luke stayed outside. Gary's pink iPhone had also been hidden safely away, so it could not cause more sign confusion. Although Guillermo felt terrible physically, his privacy was respected much better than in several earlier incidents.",
+    keyIdeas:[["incidente mas incomodo","incidente más incómodo","el mas incomodo"],["guillermo tenia diarrea","guillermo tenía diarrea","tenia diarrea"],["imposible contar","imposible de contar","incontable"],["numero de trozos","número de trozos"],["cabina 3"],["baño de chicos","baños de chicos"],["tercera planta","planta 3"],["privacidad respetada","se respeto la privacidad","se respetó la privacidad"]],
+    sampleAnswer:"Este fue el incidente más incómodo de Guillermo de toda la serie. Tenía diarrea, así que era imposible contar el número de trozos. Fue al baño de los chicos de la tercera planta y utilizó la cabina 3. Esta vez, sin embargo, los demás tuvieron mucho más cuidado con su privacidad. Nadie entró en la cabina y Luke se quedó fuera. El iPhone rosa de Gary también había sido guardado de forma segura, así que no podía causar más confusión con los carteles. Aunque Guillermo se sentía fatal físicamente, su privacidad fue respetada mucho mejor que en varios incidentes anteriores."
+  }
+];
+
+/* -----------------------------
+   Utilities
+--------------------------------*/
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+function nowISO(){ return new Date().toISOString(); }
+
+function norm(s){
+  return (s ?? "")
+    .toString()
+    .toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .replace(/[^a-z0-9\s]/g," ")
+    .replace(/\s+/g," ")
+    .trim();
+}
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function hasPassage(selection, id){
+  return !!selection?.passages?.some(p => p.id === id);
+}
+
+function pickRandom(arr, n){
+  return shuffle(arr).slice(0, n);
+}
+
+function escapeHtml(str){
+  return (str ?? "").toString()
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+function otonoLetterGrade(score){
+  if(score >= 101) return "S";
+  if(score >= 97) return "A*";
+  if(score >= 92) return "A";
+  if(score >= 83) return "B";
+  if(score >= 74) return "C";
+  if(score >= 66) return "D";
+  if(score >= 56) return "E";
+  if(score >= 44) return "F";
+  if(score >= 33) return "G";
+  if(score >= 25) return "H";
+  return "U";
+}
+
+function passMeritDistinction(score){
+  if(score >= 90) return "DISTINCTION";
+  if(score >= 80) return "MERIT";
+  if(score >= 66) return "PASS";
+  return "FAIL";
+}
+
+function gcseEstimate(score){
+  if(score >= 101) return 10;
+  if(score >= 81) return 9;
+  if(score >= 72) return 8;
+  if(score >= 62) return 7;
+  if(score >= 52) return 6;
+  if(score >= 42) return 5;
+  if(score >= 32) return 4;
+  if(score >= 25) return 3;
+  if(score >= 17) return 2;
+  if(score >= 8) return 1;
+  return "U";
+}
+
+function badgeForScore(score){
+  if(score >= 101) return ["badge good","💯 SECRET SCORE"];
+  if(score >= 90) return ["badge good","🏆 Excellent"];
+  if(score >= 80) return ["badge good","⭐ Muy bien"];
+  if(score >= 66) return ["badge warn","✅ OK"];
+  return ["badge bad","❌ Mal"];
+}
+
+/* -----------------------------
+   Local storage
+--------------------------------*/
+const STORE_KEY = "otonoSpanishReadingSAM_williamPoops_v1";
+
+function loadResults(){
+  try{ return JSON.parse(localStorage.getItem(STORE_KEY) || "[]"); }
+  catch(e){ return []; }
+}
+function saveResults(list){
+  localStorage.setItem(STORE_KEY, JSON.stringify(list));
+}
+function addResult(attempt){
+  const list = loadResults();
+  list.unshift(attempt);
+  saveResults(list);
+}
+
+/* -----------------------------
+   App state
+--------------------------------*/
+let state = {
+  mode: "home",
+  timer: null,
+  remainingSec: 0,
+  startedAt: null,
+
+  centreNo: "50749",
+
+  candidateNo: null,         // 4 digits
+  candSurname: "",
+  candForenames: "",
+
+  selection: null,
+  answers: {},               // qid -> user answer (string)
+  mcqCorrectValue: {},       // qid -> correct radio value after shuffling
+  submitted: false
+};
+
+/* -----------------------------
+   Centre number controls
+--------------------------------*/
+function setCentre(no){
+  state.centreNo = String(no);
+  $("#centreNo").value = state.centreNo;
+  $("#centreTop").textContent = state.centreNo;
+}
+
+$("#btnEditCentre").addEventListener("click", () => {
+  const val = prompt("Enter centre number (digits only, e.g. 50749):", state.centreNo);
+  if(val === null) return;
+  const clean = String(val).replace(/\D/g,"").slice(0, 10);
+  if(clean.length < 5){
+    alert("Centre number must be digits only (at least 5 digits).");
+    return;
+  }
+  setCentre(clean);
+});
+
+$("#btnResetCentre").addEventListener("click", () => setCentre("50749"));
+
+/* -----------------------------
+   Candidate number 4 squares
+--------------------------------*/
+const digitIds = ["#candD1","#candD2","#candD3","#candD4"];
+
+function getCandidateNoFromSquares(){
+  const d = digitIds.map(id => ($(id).value || "").trim());
+  if(d.some(x => x.length !== 1 || !/^\d$/.test(x))) return "";
+  return d.join("");
+}
+
+function focusDigit(i){
+  const el = $(digitIds[i]);
+  if(el) el.focus();
+}
+
+function wireDigitSquares(){
+  digitIds.forEach((id, idx) => {
+    const el = $(id);
+
+    el.addEventListener("input", () => {
+      // keep digits only
+      el.value = (el.value || "").replace(/\D/g,"").slice(0,1);
+      if(el.value && idx < digitIds.length-1) focusDigit(idx+1);
+    });
+
+    el.addEventListener("keydown", (e) => {
+      if(e.key === "Backspace" && !el.value && idx > 0){
+        focusDigit(idx-1);
+      }
+      if(e.key === "ArrowLeft" && idx > 0){
+        e.preventDefault(); focusDigit(idx-1);
+      }
+      if(e.key === "ArrowRight" && idx < digitIds.length-1){
+        e.preventDefault(); focusDigit(idx+1);
+      }
+    });
+
+    el.addEventListener("paste", (e) => {
+      e.preventDefault();
+      const txt = (e.clipboardData || window.clipboardData).getData("text") || "";
+      const digits = txt.replace(/\D/g,"").slice(0,4).split("");
+      digits.forEach((ch, j) => {
+        const target = $(digitIds[j]);
+        if(target) target.value = ch;
+      });
+      // focus next empty
+      const joined = getCandidateNoFromSquares();
+      if(joined.length === 4) focusDigit(3);
+      else{
+        const firstEmpty = digitIds.findIndex(did => !$(did).value);
+        if(firstEmpty >= 0) focusDigit(firstEmpty);
+      }
+    });
+  });
+}
+wireDigitSquares();
+
+/* -----------------------------
+   Build paper (4 passages + 1 translation)
+--------------------------------*/
+function generateSelection(){
+  const passages = pickRandom(PASSAGES, 4);
+  const translation = pickRandom(TRANSLATIONS, 1)[0];
+  return { passages, translation };
+}
+function selectionSummary(sel){
+  const p = sel.passages.map(x=>`#${x.id}`).join(", ");
+  return `Passages: ${p} • Translation: ${sel.translation.id}`;
+}
+
+/* -----------------------------
+   Rendering
+--------------------------------*/
+function setBadge(text, cls="badge"){
+  const b = $("#statusBadge");
+  b.className = cls;
+  b.textContent = text;
+}
+
+function renderHome(){
+  $("#homeBody").classList.remove("hide");
+  $("#testBody").classList.add("hide");
+  $("#resultsBody").classList.add("hide");
+  $("#sideTitle").textContent = "Otono grading";
+  $("#sideMeta").textContent = "Score → Otono grade + GCSE estimate + Pass/Merit/Distinction.";
+  $("#sideBody").classList.remove("hide");
+  setBadge("Ready","badge");
+  $("#timerText").textContent = "--:--";
+}
+
+function renderResults(){
+  $("#homeBody").classList.add("hide");
+  $("#testBody").classList.add("hide");
+  $("#sideBody").classList.add("hide");
+  $("#resultsBody").classList.remove("hide");
+  $("#sideTitle").textContent = "Saved results";
+  $("#sideMeta").textContent = "Stored per candidate in this browser (localStorage).";
+  setBadge("Results","badge");
+  $("#timerText").textContent = "--:--";
+  drawResults();
+}
+
+function stopTimer(){
+  if(state.timer){
+    clearInterval(state.timer);
+    state.timer = null;
+  }
+}
+
+function startTimer(minutes){
+  stopTimer();
+  state.remainingSec = Math.max(1, Math.floor(minutes*60));
+  state.startedAt = Date.now();
+
+  const tick = () => {
+    if(state.submitted) return;
+    const m = Math.floor(state.remainingSec/60);
+    const s = state.remainingSec%60;
+    $("#timerText").textContent = `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+    state.remainingSec--;
+    if(state.remainingSec < 0){
+      stopTimer();
+      const auto = $("#autoSubmit").value === "yes";
+      if(auto) submitPaper(true);
+      else alert("Time is up. You can still submit manually.");
+    }
+  };
+
+  tick();
+  state.timer = setInterval(tick, 1000);
+}
+
+function renderTest(){
+  $("#homeBody").classList.add("hide");
+  $("#testBody").classList.remove("hide");
+  $("#resultsBody").classList.add("hide");
+  $("#sideBody").classList.remove("hide");
+
+  const candNameLine = [
+    state.candSurname ? state.candSurname : "",
+    state.candForenames ? state.candForenames : ""
+  ].filter(Boolean).join(", ");
+
+  const cand = `${state.candidateNo}${candNameLine ? " • " + candNameLine : ""}`;
+  $("#kpiCandidate").textContent = cand;
+  $("#kpiPassages").textContent = state.selection.passages.map(p=>`#${p.id}`).join(" ");
+  $("#kpiTranslation").textContent = state.selection.translation.id;
+
+  const shuffleMode = $("#shuffleMode").value;
+  const paper = $("#paper");
+  paper.innerHTML = "";
+
+  // reset per-paper MCQ mapping
+  state.mcqCorrectValue = {};
+
+  const sel = state.selection;
+  const themes = sel.passages.map(p => `${p.title} (${p.theme}, ${p.unit})`);
+  const head = document.createElement("div");
+  head.className = "note";
+  head.innerHTML = `<strong>Selected content</strong><br/>` +
+    themes.map(t => `• ${escapeHtml(t)}`).join("<br/>") +
+    `<br/>• ${escapeHtml(sel.translation.title)} (${escapeHtml(sel.translation.theme)})`;
+  paper.appendChild(head);
+
+  let allBlocks = [];
+
+  sel.passages.forEach(p => {
+    const block = document.createElement("div");
+    block.className = "card";
+    block.style.marginTop = "14px";
+
+    block.innerHTML = `
+      <div class="hd">
+        <div>
+          <h2>${escapeHtml(p.title)}</h2>
+          <div class="meta">${escapeHtml(p.theme)} • ${escapeHtml(p.unit)} • <strong>20 marks</strong></div>
+        </div>
+        <span class="badge">${escapeHtml("#"+p.id)}</span>
+      </div>
+      <div class="bd">
+        <div class="passage">${escapeHtml(p.text).replace(/\n/g,"<br/>")}</div>
+        <div class="divider"></div>
+        <div class="small">MCQ/choice options are always shuffled. Written answers are auto-marked using keyword coverage.</div>
+        <div class="qs"></div>
+      </div>
+    `;
+
+    const qs = block.querySelector(".qs");
+    let qsList = p.questions.slice();
+    if(shuffleMode === "shuffleAll") qsList = shuffle(qsList);
+
+    qsList.forEach(q => {
+      const qWrap = document.createElement("div");
+      qWrap.className = "q";
+      qWrap.dataset.qid = q.id;
+
+      const markTag = `<span class="badge" title="Marks for this question">${q.marks} marks</span>`;
+      const instruction = (q.type === "es_short")
+        ? "Answer in Spanish. Auto-mark uses keywords."
+        : (["mcq","pn","tfnm"].includes(q.type) ? "Select one option." : "Auto-mark uses keywords. Write concise, direct answers.");
+
+      qWrap.innerHTML = `
+        <h3>${escapeHtml(q.prompt)} ${markTag}</h3>
+        ${renderQuestion(q)}
+        <div class="small" style="margin-top:8px">${escapeHtml(instruction)}</div>
+      `;
+      qs.appendChild(qWrap);
+    });
+
+    allBlocks.push(block);
+  });
+
+  // Translation block
+  const t = sel.translation;
+  const tBlock = document.createElement("div");
+  tBlock.className = "card";
+  tBlock.style.marginTop = "14px";
+  tBlock.innerHTML = `
+    <div class="hd">
+      <div>
+        <h2>${escapeHtml(t.title)}</h2>
+        <div class="meta">${escapeHtml(t.theme)} • <strong>20 marks</strong></div>
+      </div>
+      <span class="badge">TRANSLATION</span>
+    </div>
+    <div class="bd">
+      <div class="passage">${escapeHtml(t.text)}</div>
+      <div class="divider"></div>
+      <div class="q" data-qid="translation">
+        <h3>Translate into Spanish (write naturally). <span class="badge">20 marks</span></h3>
+        <textarea id="ans_translation" placeholder="Type your Spanish translation here..."></textarea>
+        <div class="small" style="margin-top:8px">Auto-mark checks key ideas. It’s strict: include the meaning clearly.</div>
+      </div>
+    </div>
+  `;
+  allBlocks.push(tBlock);
+
+  allBlocks.forEach(b => paper.appendChild(b));
+
+  bindInputs();
+
+  const mins = parseInt($("#timeAllowed").value,10);
+  startTimer(mins);
+  state.submitted = false;
+
+  $("#markingBox").classList.add("hide");
+  $("#markingBox").innerHTML = "";
+  setBadge("In progress","badge warn");
+}
+
+function renderQuestion(q){
+  if(q.type === "mcq"){
+    const opts = q.options.map((text, idx) => ({ text, isCorrect: idx === q.answerIndex }));
+    return renderChoice(q, opts);
+  }
+  if(q.type === "pn"){
+  const key = q.correct ?? q.answer; // ✅ supports both
+  const opts = [
+    { text:"P", isCorrect: key === "P" },
+    { text:"N", isCorrect: key === "N" },
+    { text:"P+N", isCorrect: key === "P+N" }
+  ];
+  return renderChoice(q, opts);
+}
+  if(q.type === "tfnm"){
+    const opts = [
+      { text:"True", isCorrect: q.correct === "True" },
+      { text:"False", isCorrect: q.correct === "False" },
+      { text:"Not mentioned", isCorrect: q.correct === "Not mentioned" }
+    ];
+    return renderChoice(q, opts);
+  }
+  // short / es_short
+  return `<textarea id="ans_${q.id}" placeholder="${q.type === "es_short" ? "Responde en español..." : "Write your answer here..."}"></textarea>`;
+}
+
+function renderChoice(q, optionObjects){
+  const name = `ans_${q.id}`;
+
+  // ALWAYS shuffle choice options
+  const shuffled = shuffle(optionObjects);
+
+  // store which radio value is correct after shuffle
+  // value = index in shuffled array
+  const correctIndex = shuffled.findIndex(o => o.isCorrect);
+  state.mcqCorrectValue[q.id] = String(correctIndex);
+
+  return `
+    <div class="opts">
+      ${shuffled.map((opt, idx) => `
+        <label class="opt">
+          <input type="radio" name="${name}" value="${idx}" />
+          <div><div><strong>${String.fromCharCode(65+idx)}.</strong> ${escapeHtml(opt.text)}</div></div>
+        </label>
+      `).join("")}
+    </div>
+  `;
+}
+
+function bindInputs(){
+  $$("input[type='radio']").forEach(r => {
+    r.addEventListener("change", () => {
+      const qid = r.name.replace("ans_","");
+      state.answers[qid] = r.value;
+    });
+  });
+  $$("textarea").forEach(t => {
+    t.addEventListener("input", () => {
+      const id = t.id.replace("ans_","");
+      state.answers[id] = t.value;
+    });
+  });
+}
+
+/* -----------------------------
+   Auto marking
+--------------------------------*/
+function tokenOverlap(text, phrase){
+  const textTokens = new Set(norm(text).split(" ").filter(Boolean));
+  const phraseTokens = norm(phrase).split(" ").filter(Boolean);
+  const matched = phraseTokens.filter(tok => textTokens.has(tok)).length;
+  return phraseTokens.length ? matched / phraseTokens.length : 0;
+}
+
+function expectedDetailCount(marks){
+  if(marks === 2) return 1;
+  if(marks === 4) return 2;
+  if(marks === 6) return 3;
+  if(marks === 8) return 4;
+  return null;
+}
+function markShortAnswer(q, userText){
+  const t = norm(userText);
+  if(!t) return {score:0, max:q.marks, detail:"Blank."};
+
+  const groups = q.keywords || [];
+  if(groups.length === 0) return {score:0, max:q.marks, detail:"No keyword rubric set."};
+
+  let hits = 0;
+  let matchedGroups = [];
+
+  groups.forEach((group, i) => {
+    const found = group.some(k => {
+      const nk = norm(k);
+      return t.includes(nk) || tokenOverlap(t, k) >= 0.7;
+    });
+    if(found){
+      hits++;
+      matchedGroups.push(i + 1);
+    }
+  });
+
+  const expected = Math.min(expectedDetailCount(q.marks) || groups.length, groups.length);
+  const countedHits = Math.min(hits, expected);
+  const per = q.marks / expected;
+  const raw = countedHits * per;
+  const score = Math.max(0, Math.min(q.marks, Math.round(raw * 2) / 2));
+
+  let detail = `Keyword groups matched: ${hits}/${groups.length}; counted: ${countedHits}/${expected}.`;
+  if(matchedGroups.length) detail += ` Matched groups: ${matchedGroups.join(", ")}.`;
+  if(q.rubric) detail += ` Expected: ${q.rubric}`;
+
+  return {score, max:q.marks, detail};
+}
+
+function markChoice(qid, chosenValue, marks){
+  const correctValue = state.mcqCorrectValue[qid];
+  const ok = String(chosenValue ?? "") === String(correctValue);
+  return {
+    score: ok ? marks : 0,
+    max: marks,
+    detail: ok ? "Correct." : "Incorrect."
+  };
+}
+
+function markTranslation(tObj, userText){
+  const t = norm(userText);
+  if(!t) return {score:0, max:20, detail:"Blank."};
+
+  let hits = 0;
+  const ideas = tObj.keyIdeas || [];
+  ideas.forEach(group => {
+    const ok = group.some(k => t.includes(norm(k)));
+    if(ok) hits++;
+  });
+
+  // 5 ideas × 4 marks
+  const score = Math.min(20, hits * 4);
+  const detail = `Key ideas matched: ${hits}/${ideas.length}. (4 marks each)`;
+  return {score, max:20, detail};
+}
+
+function computeTotal(){
+  let total = 0;
+  let breakdown = [];
+
+  state.selection.passages.forEach(p => {
+    p.questions.forEach(q => {
+      const ans = state.answers[q.id];
+      let res;
+
+      if(["mcq","pn","tfnm"].includes(q.type)){
+        res = markChoice(q.id, ans, q.marks);
+      }else{
+        res = markShortAnswer(q, ans);
+      }
+
+      total += res.score;
+      breakdown.push({
+        qid: q.id,
+        passageId: p.id,
+        type: q.type,
+        prompt: q.prompt,
+        score: res.score,
+        max: res.max,
+        detail: res.detail
+      });
+    });
+  });
+
+  const tAns = state.answers["translation"] ?? $("#ans_translation")?.value ?? "";
+  const tRes = markTranslation(state.selection.translation, tAns);
+  total += tRes.score;
+  breakdown.push({
+    qid: "translation",
+    passageId: "translation",
+    type: "translation",
+    prompt: "Translate into Spanish",
+    score: tRes.score,
+    max: tRes.max,
+    detail: tRes.detail
+  });
+
+   const totalRounded = Math.round(total*10)/10;
+
+  // ✅ Secret S unlock: perfect paper + Passage 11 selected = +1 bonus
+  let finalTotal = totalRounded;
+  const unlockS = (finalTotal === 100) && hasPassage(state.selection, 11);
+
+  if(unlockS){
+    finalTotal = 101;
+    breakdown.push({
+      qid: "bonus_s",
+      passageId: 11,
+      type: "bonus",
+      prompt: "Secret bonus: perfect paper + Passage 11 selected",
+      score: 1,
+      max: 1,
+      detail: "Unlocked Grade S bonus (+1)."
+    });
+  }
+
+  // keep 'max' as 100 (base marks), bonus sits on top
+  return { total: finalTotal, max: 100, breakdown };
+}
+
+/* -----------------------------
+   Submission + saving
+--------------------------------*/
+function submitPaper(fromAutoTimer=false){
+  if(state.submitted) return;
+
+let { total, max, breakdown } = computeTotal();
+
+// Secret S bonus: only if perfect 100 AND Passage 11 selected
+const unlockS = (total === 100) && hasPassage(state.selection, 11);
+if (unlockS) {
+  total = 101;
+  breakdown.push({
+    qid: "bonus_s",
+    passageId: 11,
+    type: "bonus",
+    prompt: "Secret bonus: perfect paper + Passage 11 selected",
+    score: 1,
+    max: 1,
+    detail: "Unlocked Grade S bonus (+1)."
+  });
+}
+
+  state.submitted = true;
+  stopTimer();
+
+  const letter = otonoLetterGrade(total);
+  const pmd = passMeritDistinction(total);
+  const gcse = gcseEstimate(total);
+  const [badgeCls, badgeText] = badgeForScore(total);
+
+  const attempt = {
+    paper: "Otono Spanish Reading (SAM) • Sample set 2",
+    centre: state.centreNo,
+    candidateNo: String(state.candidateNo),
+    candidateSurname: state.candSurname || "",
+    candidateForenames: state.candForenames || "",
+    submittedAt: nowISO(),
+    timeAllowedMin: parseInt($("#timeAllowed").value,10),
+    selectedPassages: state.selection.passages.map(p=>p.id),
+    selectedTranslation: state.selection.translation.id,
+    score: total,
+    maxScore: max,
+    otonoGrade: letter,
+    gcseEstimated: gcse,
+    outcome: pmd,
+    breakdown
+  };
+  addResult(attempt);
+
+  const nameLine = [attempt.candidateSurname, attempt.candidateForenames].filter(Boolean).join(", ");
+
+  const box = $("#markingBox");
+  box.classList.remove("hide");
+  box.className = "";
+  box.innerHTML = `
+    <div class="card">
+      <div class="hd">
+        <div>
+          <h2>✅ Marked${fromAutoTimer ? " (auto-submitted)" : ""}</h2>
+          <div class="meta">Saved to Results • Centre ${escapeHtml(attempt.centre)} • Candidate ${escapeHtml(attempt.candidateNo)}${nameLine ? " • " + escapeHtml(nameLine) : ""}</div>
+        </div>
+        <span class="${badgeCls}">${escapeHtml(badgeText)}</span>
+      </div>
+      <div class="bd">
+        <div class="kpi">
+          <div class="box"><div class="t">Score</div><div class="v">${attempt.score} / ${attempt.maxScore}</div></div>
+          <div class="box"><div class="t">Otono grade</div><div class="v">${escapeHtml(attempt.otonoGrade)}</div></div>
+          <div class="box"><div class="t">GCSE estimate</div><div class="v">${escapeHtml(String(attempt.gcseEstimated))}</div></div>
+          <div class="box"><div class="t">Outcome</div><div class="v">${escapeHtml(attempt.outcome)}</div></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="note">
+          <strong>Marking notes</strong><br/>
+          • MCQ / P-N / TFNM are exact (options are shuffled).<br/>
+          • Written + translation are keyword-based. If you used very different wording, it may under-mark.
+        </div>
+
+        <div class="divider"></div>
+
+        <button class="btn" id="btnShowBreakdown">Show question breakdown</button>
+        <div id="breakdown" class="hide" style="margin-top:12px"></div>
+
+        <div class="divider"></div>
+
+        <div class="note">
+          <strong>Translation model answer (for reference)</strong><br/>
+          ${escapeHtml(state.selection.translation.sampleAnswer)}
+        </div>
+      </div>
+    </div>
+  `;
+
+  $("#btnShowBreakdown").addEventListener("click", () => {
+    const bd = $("#breakdown");
+    bd.classList.toggle("hide");
+    if(!bd.classList.contains("hide")){
+      bd.innerHTML = breakdown.map(b => `
+        <div class="attempt">
+          <div class="top">
+            <div><strong>${escapeHtml(b.qid)}</strong> • ${escapeHtml(String(b.type))}</div>
+            <div><span class="badge">${b.score} / ${b.max}</span></div>
+          </div>
+          <div class="meta">
+            <div><strong>Prompt:</strong> ${escapeHtml(b.prompt)}</div>
+            <div><strong>Marker:</strong> ${escapeHtml(b.detail)}</div>
+          </div>
+        </div>
+      `).join("");
+    }
+  });
+
+  setBadge("Submitted","badge good");
+}
+
+/* -----------------------------
+   Results UI
+--------------------------------*/
+function drawResults(){
+  const listEl = $("#resultsList");
+  const all = loadResults();
+  const filter = ($("#filterCandidate").value || "").replace(/\D/g,"").slice(0,4);
+
+  const filtered = filter ? all.filter(a => String(a.candidateNo) === String(filter)) : all;
+
+  if(filtered.length === 0){
+    listEl.innerHTML = `<div class="note">No stored attempts${filter ? " for this candidate" : ""} yet.</div>`;
+    return;
+  }
+
+  listEl.innerHTML = filtered.map(a => {
+    const [cls, txt] = badgeForScore(a.score);
+    const nameLine = [a.candidateSurname, a.candidateForenames].filter(Boolean).join(", ");
+    return `
+      <div class="attempt">
+        <div class="top">
+          <div>
+            <strong>${escapeHtml(a.candidateNo)}</strong>${nameLine ? " • " + escapeHtml(nameLine) : ""}
+            <span class="badge" style="margin-left:8px">Centre ${escapeHtml(a.centre)}</span>
+          </div>
+          <div class="${cls}">${escapeHtml(txt)} • ${escapeHtml(String(a.score))}/100</div>
+        </div>
+        <div class="meta">
+          <div><strong>Date:</strong> ${escapeHtml(new Date(a.submittedAt).toLocaleString())}</div>
+          <div><strong>Selection:</strong> Passages ${escapeHtml(a.selectedPassages.join(", "))} • Translation ${escapeHtml(a.selectedTranslation)}</div>
+          <div><strong>Grades:</strong> Otono ${escapeHtml(a.otonoGrade)} • GCSE ${escapeHtml(String(a.gcseEstimated))} • ${escapeHtml(a.outcome)}</div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function exportResults(){
+  const all = loadResults();
+  $("#exportText").textContent = JSON.stringify(all, null, 2);
+  $("#exportBox").classList.remove("hide");
+}
+
+function clearResults(){
+  if(!confirm("Clear ALL stored Otono Spanish results on this browser?")) return;
+  localStorage.removeItem(STORE_KEY);
+  drawResults();
+  $("#exportBox").classList.add("hide");
+}
+
+/* -----------------------------
+   Buttons / navigation
+--------------------------------*/
+$("#btnHome").addEventListener("click", () => {
+  state.mode = "home";
+  renderHome();
+});
+
+$("#btnResults").addEventListener("click", () => {
+  state.mode = "results";
+  renderResults();
+});
+
+$("#btnPreview").addEventListener("click", () => {
+  const c = getCandidateNoFromSquares();
+  if(!c){
+    alert("Enter a candidate number first.");
+    return;
+  }
+  const sel = generateSelection();
+  const box = $("#previewBox");
+  box.classList.remove("hide");
+  box.innerHTML = `<strong>Preview (not started):</strong><br/>${escapeHtml(selectionSummary(sel))}<br/>` +
+    sel.passages.map(p => `• ${escapeHtml(p.title)} (${escapeHtml(p.theme)})`).join("<br/>") +
+    `<br/>• ${escapeHtml(sel.translation.title)} (${escapeHtml(sel.translation.theme)})`;
+});
+
+$("#btnStart").addEventListener("click", () => {
+  const c = getCandidateNoFromSquares();
+  if(!c){
+    alert("Candidate number is required.");
+    focusDigit(0);
+    return;
+  }
+
+  state.candidateNo = c;
+  state.candSurname = ($("#candSurname").value || "").trim();
+  state.candForenames = ($("#candForenames").value || "").trim();
+
+  state.selection = generateSelection();
+  state.answers = {};
+  renderTest();
+});
+
+$("#btnSubmit").addEventListener("click", () => submitPaper(false));
+
+$("#btnReset").addEventListener("click", () => {
+  if(!confirm("Reset this paper and generate a NEW random test? Your current answers will be lost.")) return;
+  stopTimer();
+  state.answers = {};
+  state.submitted = false;
+  state.selection = generateSelection();
+  renderTest();
+});
+
+/* Results filters & tabs */
+$("#filterCandidate").addEventListener("input", (e) => {
+  e.target.value = e.target.value.replace(/\D/g,"").slice(0,4);
+  drawResults();
+});
+
+$("#tabAll").addEventListener("click", () => {
+  $("#tabAll").classList.add("active");
+  $("#tabCandidate").classList.remove("active");
+  $("#filterCandidate").value = "";
+  drawResults();
+});
+
+$("#tabCandidate").addEventListener("click", () => {
+  $("#tabCandidate").classList.add("active");
+  $("#tabAll").classList.remove("active");
+  $("#filterCandidate").focus();
+});
+
+$("#btnExport").addEventListener("click", exportResults);
+$("#btnClear").addEventListener("click", clearResults);
+
+/* Initial */
+setCentre("50749");
+renderHome();
+
+/* -----------------------------
+   Anti-cheat / source protection
+   (as requested)
+--------------------------------*/
+const disabledKeys = ["u", "I"];
+const showAlert = e => {
+  e.preventDefault();
+  return alert("Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!");
+};
+document.addEventListener("contextmenu", e => { showAlert(e); });
+document.addEventListener("keydown", e => {
+  if ((e.ctrlKey && disabledKeys.includes(e.key)) || e.key === "F12") {
+    showAlert(e);
+  }
+});
+</script>
+
+</body>
+</html>
