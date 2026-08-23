@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SydneyEclipse | Otono Team</title>
+<style>
+:root{--bg:#03050d;--panel:#0c1022;--white:#f7f7fa;--muted:#a6a8b8;--red:#d51c2f;--purple:#7628d8;--gold:#f2b24b;--sun:min(52vw,460px)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--white);font-family:Inter,"Segoe UI",Arial,sans-serif;overflow-x:hidden}
+a{color:inherit}
+nav{position:fixed;z-index:1000;top:0;left:0;right:0;height:70px;padding:0 4vw;display:flex;align-items:center;justify-content:space-between;background:#030611dc;backdrop-filter:blur(18px);border-bottom:1px solid #ffffff12}
+.logo{text-decoration:none;font-size:1.35rem;font-weight:900;white-space:nowrap}.logo span,.red{color:var(--red)}
+.navlinks{display:flex;gap:18px;align-items:center}.navlinks a{text-decoration:none;font-size:.76rem;letter-spacing:1.2px;color:#d5d6df;transition:.2s}.navlinks a:hover{color:#fff}.navlinks .active{font-weight:900;color:#fff}.navlinks .mystery{color:var(--gold);font-weight:900}.navlinks .live{color:#ff4b58;font-weight:900}
+.navdate{font-size:.78rem;color:var(--gold);white-space:nowrap}
+section{padding:100px 7vw;position:relative}
+.title{text-align:center;font-size:clamp(2.5rem,6vw,5rem);letter-spacing:-3px;margin:0 0 15px}
+.subtitle{text-align:center;color:var(--muted);max-width:820px;margin:0 auto 55px;line-height:1.7}
+.eyebrow{text-transform:uppercase;color:var(--gold);font-weight:900;letter-spacing:4px;font-size:.82rem}
+.button{display:inline-block;text-decoration:none;padding:14px 25px;border-radius:999px;background:linear-gradient(90deg,var(--red),var(--purple));font-weight:900}
+.button.secondary{background:#11152a;border:1px solid #ffffff20}
+.hero{min-height:100vh;padding:125px 6vw 65px;display:grid;grid-template-columns:1fr 1fr;gap:35px;align-items:center;background:radial-gradient(circle at 72% 35%,#7728d835,transparent 32%),radial-gradient(circle at 18% 80%,#d51c2f22,transparent 32%),linear-gradient(#070b1b,#02040b)}
+.hero h1{font-size:clamp(4.3rem,8.5vw,8.8rem);line-height:.87;letter-spacing:-6px;margin:18px 0 10px}.hero h1 span{color:var(--red)}
+.hero-location{margin-top:27px;color:var(--gold);font-size:clamp(1.3rem,2.5vw,2.2rem);font-weight:900;letter-spacing:3px}
+.hero-date{font-size:1.4rem;letter-spacing:2px;margin:7px 0}
+.hero-copy{max-width:570px;color:#c5c7d2;line-height:1.75;margin:25px 0}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap}
+.hero-visual{display:flex;justify-content:center}
+.hero-corona{width:min(34vw,390px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#000 0 44%,#fff 45%,#ffffffbb 48%,#ffd7af55 55%,transparent 68%);filter:drop-shadow(0 0 42px #ffffff88);animation:pulse 4s infinite alternate ease-in-out}
+@keyframes pulse{to{transform:scale(1.035);filter:drop-shadow(0 0 60px #ffffffaa)}}
+.aircraft-hero{grid-column:1/-1;width:min(1000px,92vw);margin:-35px auto 0}
+.a380-image,.aircraft-image,.map-image,.poster-image{display:block;object-fit:contain;margin:auto}
+.a380-image{width:100%;max-width:1050px;max-height:310px;filter:drop-shadow(0 25px 30px #000a)}
+.image-placeholder{min-height:220px;border:1px dashed #ffffff35;border-radius:25px;display:flex;align-items:center;justify-content:center;text-align:center;color:#85889e;background:linear-gradient(120deg,#d51c2f0d,#7628d812);padding:30px}
+.opportunity{min-height:62vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:radial-gradient(circle,#8b285a24,transparent 36%),#03040a}
+.opportunity-small{color:var(--gold);font-size:clamp(1.2rem,2.2vw,2rem);letter-spacing:2px;font-weight:800}
+.opportunity-big{font-size:clamp(3.8rem,9vw,8rem);line-height:.94;letter-spacing:-5px;font-weight:900;margin:16px 0}
+.opportunity-red{color:var(--red);font-size:clamp(2rem,5vw,4rem);font-weight:900}
+.countdown-section{background:linear-gradient(#0a0d1e,#03050c)}
+.countdown-label{text-align:center;color:var(--gold);font-weight:900;letter-spacing:4px;margin-bottom:22px}
+.countdown{max-width:1000px;margin:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+.time-box{padding:28px 10px;text-align:center;background:#0d1127;border:1px solid #f2b24b44;border-radius:18px}
+.time-number{font-size:clamp(2rem,5vw,4rem);font-weight:900}.time-label{margin-top:8px;color:var(--muted);font-size:.72rem;letter-spacing:2px}
+.target{text-align:center;color:#a6a8b8;margin-top:23px}
+.live-status{max-width:900px;margin:30px auto 0;padding:18px;text-align:center;border:1px solid #ffffff18;border-radius:17px;background:linear-gradient(90deg,#d51c2f15,#7628d818)}
+.live-status strong{color:var(--gold)}
+.simulator{background:radial-gradient(circle,#181c3b,#03050d 67%)}
+.eclipse-stage{min-height:630px;position:relative;overflow:hidden;border-radius:35px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,#172342,#02030a 72%)}
+.sun,.moon{width:var(--sun);height:var(--sun);position:absolute;border-radius:50%}
+.sun{background:radial-gradient(circle at 45% 42%,#fff7a5,#ffd84a 34%,#ff9b18 70%,#ff7000);box-shadow:0 0 35px #ffc84e,0 0 100px #ff910fa6,0 0 200px #ff780a45}
+.moon{background:radial-gradient(circle at 35% 35%,#141821,#05070b 55%,#000);transform:translate(var(--moon-x,-320px),var(--moon-y,285px))}
+.corona{width:calc(var(--sun)*1.35);height:calc(var(--sun)*1.35);position:absolute;border-radius:50%;opacity:var(--corona-opacity,0);background:radial-gradient(circle,transparent 36%,#fff 39%,#ffffff5e 44%,#ffcfaa1f 52%,transparent 67%)}
+.sim-status{position:absolute;bottom:28px;padding:12px 20px;border-radius:999px;background:#000a;font-weight:900;letter-spacing:1px}
+.controls{max-width:950px;margin:32px auto 0}input[type=range]{width:100%;accent-color:var(--red)}
+.phase-labels{display:flex;justify-content:space-between;color:#9496aa;font-size:.7rem;margin-top:9px}
+.buttons{text-align:center;margin-top:22px}.buttons button{margin:5px;padding:12px 22px;border:1px solid #ffffff25;border-radius:999px;background:#12162b;color:#fff;font-weight:800;cursor:pointer}
+.totality-banner{min-height:78vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:#000}
+.totality-banner h2{font-size:clamp(4rem,12vw,11rem);letter-spacing:-7px;line-height:.9;margin:12px 0}
+.totality-duration{font-size:clamp(2rem,6vw,5rem);font-weight:900;color:var(--gold)}
+.maximum{background:radial-gradient(circle,#f2b24b1c,transparent 38%),#05060d}
+.maximum-card{max-width:1000px;margin:auto;padding:55px 35px;text-align:center;border:1px solid #f2b24b88;border-radius:30px;background:linear-gradient(135deg,#f2b24b15,#7628d815)}
+.maximum-tag{color:var(--gold);font-weight:900;letter-spacing:4px}.maximum-duration{font-size:clamp(6rem,18vw,14rem);line-height:.82;letter-spacing:-7px;font-weight:900;color:var(--gold);margin:25px 0}
+.maximum-location{font-size:clamp(1.5rem,4vw,3rem);font-weight:900}
+.places{background:linear-gradient(#070a16,#03040b)}
+.place-controls{max-width:900px;margin:0 auto 30px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.filter-button{padding:10px 17px;border:1px solid #ffffff20;border-radius:999px;background:#11152a;color:#fff;cursor:pointer}.filter-button.active{background:linear-gradient(90deg,var(--red),var(--purple))}
+.place-grid{max-width:1250px;margin:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.place-card{padding:21px;border-radius:18px;background:#0d1126;border:1px solid #ffffff12;transition:.25s}.place-card:hover{transform:translateY(-4px);border-color:#f2b24b77}
+.place-card.sydney{border-color:#d51c2faa}.place-card.max{border-color:#f2b24baa}
+.place-name{font-size:1.12rem;font-weight:900}.place-duration{font-size:1.8rem;font-weight:900;color:var(--gold);margin-top:9px}.place-times{font-size:.8rem;line-height:1.7;color:#9699ad;margin-top:10px}
+.map-section{background:#060812}.map-wrap{max-width:1200px;margin:auto}.map-image{width:100%;max-height:760px;border-radius:25px}
+.timeline{max-width:850px;margin:auto}.timeline-item{padding:0 0 38px 50px;border-left:3px solid var(--purple);position:relative}.timeline-item:before{content:"";position:absolute;left:-10px;top:3px;width:17px;height:17px;border-radius:50%;background:var(--gold);box-shadow:0 0 18px #f2b24b88}
+.timeline-time{font-size:1.5rem;font-weight:900;color:var(--gold)}.timeline-title{font-size:1.15rem;font-weight:900;margin:4px 0}.timeline-note{color:#999cad;line-height:1.55}
+.sydney100{min-height:72vh;display:flex;align-items:center;justify-content:center;text-align:center;background:radial-gradient(circle,#d51c2f20,transparent 38%),#020309}
+.sydney100 .hundred{font-size:clamp(7rem,22vw,18rem);font-weight:900;letter-spacing:-10px;line-height:.85}.not-list{font-size:clamp(1.2rem,2.5vw,2rem);color:#aaa;line-height:1.7}
+.poster-section{background:radial-gradient(circle at center,#7628d81a,#03040b 62%);text-align:center}
+.poster-frame{width:fit-content;max-width:min(900px,95vw);margin:auto;padding:18px;border-radius:30px;background:#0b0e1d;border:1px solid #ffffff18;box-shadow:0 30px 80px #0009}
+.poster-image{width:auto;max-width:100%;height:auto;max-height:75vh;border-radius:18px;cursor:pointer}
+.poster-caption{color:#a7a9b8;margin-top:20px;line-height:1.6}
+.route{background:linear-gradient(135deg,#55147e24,#9d11261f)}
+.route-box{max-width:1100px;margin:auto;padding:45px;border:1px solid #f2b24b66;border-radius:25px;background:#02050fc9}
+.route-line{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:20px;align-items:center;text-align:center}.city{font-size:clamp(1.4rem,3vw,2.6rem);font-weight:900}.route-arrow{font-size:2.5rem;color:var(--red)}
+.route-flight{text-align:center;color:var(--gold);letter-spacing:4px;font-weight:900;margin:28px 0}
+.fleet-cameo{padding-top:65px}.fleet-intro{text-align:center;max-width:760px;margin:0 auto 35px;color:#a5a7b8;line-height:1.7}
+.fleet-grid{max-width:1150px;margin:auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:18px}
+.fleet-card{position:relative;overflow:hidden;padding:24px;background:#0b0f20;border:1px solid #ffffff15;border-radius:24px}
+.fleet-card.primary{border-color:#f2b24b55}.fleet-card h3{margin:5px 0 8px;color:var(--gold)}.fleet-card p{color:#9fa2b4;line-height:1.55;font-size:.9rem}
+.fleet-card img{width:100%;height:180px;object-fit:contain;display:block;margin-top:15px}
+.fleet-label{font-size:.7rem;letter-spacing:2px;font-weight:900;color:#777b90}
+.future-teaser{min-height:70vh;display:flex;align-items:center;justify-content:center;text-align:center;background:radial-gradient(circle,#6421b53a,#03040d 60%)}
+.future-question{font-size:clamp(4rem,11vw,9rem);line-height:.9;letter-spacing:-5px;margin:15px 0}
+.future-teaser p{max-width:700px;color:#aaaabd;line-height:1.7}
+.future-hint{font-size:clamp(1.3rem,3vw,2.2rem);color:var(--gold);font-weight:900;margin:25px 0}
+.explore-pages{background:linear-gradient(#050713,#090716)}
+.page-grid{max-width:1200px;margin:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+.page-card{display:block;padding:28px;text-decoration:none;background:#0d1126;border:1px solid #ffffff15;border-radius:22px;transition:.25s}
+.page-card:hover{transform:translateY(-6px);border-color:#f2b24b77;background:#11162e}
+.page-card h3{font-size:1.35rem;margin:12px 0 8px}.page-card p{color:#a3a5b7;line-height:1.6;min-height:70px}.page-card span{color:var(--gold);font-size:.8rem;font-weight:900;letter-spacing:1.5px}.page-icon{font-size:2.5rem}
+.final-section{min-height:78vh;display:flex;justify-content:center;align-items:center;text-align:center;background:radial-gradient(circle,#d51c2f22,transparent 34%),#020309}
+.final-date{font-size:clamp(4rem,10vw,8rem);font-weight:900;letter-spacing:-5px;line-height:.9;margin:15px 0}
+footer{padding:60px 6vw;text-align:center;color:#7d8091;border-top:1px solid #ffffff12}
+.lightbox{position:fixed;z-index:2000;inset:0;background:#000e;display:none;align-items:center;justify-content:center;padding:30px}.lightbox.open{display:flex}.lightbox img{max-width:95vw;max-height:94vh;object-fit:contain}.lightbox-close{position:absolute;right:30px;top:20px;font-size:2.4rem;background:none;border:0;color:#fff;cursor:pointer}
+@media(max-width:1000px){.navlinks{gap:10px}.navlinks a{font-size:.68rem}.fleet-grid{grid-template-columns:1fr 1fr}.fleet-card.primary{grid-column:1/-1}}
+@media(max-width:850px){.hero{grid-template-columns:1fr;text-align:center}.hero-copy{margin-left:auto;margin-right:auto}.hero-actions{justify-content:center}.hero h1{letter-spacing:-3px}.navlinks{display:none}.countdown{grid-template-columns:repeat(2,1fr)}.route-line{grid-template-columns:1fr}.route-arrow{transform:rotate(90deg)}.fleet-grid{grid-template-columns:1fr}.fleet-card.primary{grid-column:auto}.phase-labels span:nth-child(2),.phase-labels span:nth-child(4){display:none}}
+</style>
+</head>
+<body>
+
+<nav>
+<a class="logo" href="index.html">Sydney<span>Eclipse</span></a>
+<div class="navlinks">
+<a href="index.html" class="active">HOME</a>
+<a href="eclipse.html">ECLIPSE</a>
+<a href="australia.html">AUSTRALIA</a>
+<a href="sydney.html">SYDNEY</a>
+<a href="ot116.html">OT116</a>
+<a href="live.html" class="live">● LIVE</a>
+<a href="miss2028.html" class="mystery">NEXT TOTALITY?</a>
+</div>
+<div class="navdate">22.07.2028 🌑</div>
+</nav>
+
+<header class="hero">
+<div>
+<div class="eyebrow">OTONO TEAM • SYDNEY</div>
+<h1>TOTALITY.<br>ONLY IN<br><span>2028.</span></h1>
+<div class="hero-location">SYDNEY, AUSTRALIA</div>
+<div class="hero-date">22 JULY 2028</div>
+<p class="hero-copy">The Moon will completely block the Sun over Sydney. The lunar shadow will cross Australia before reaching one of the world's most recognisable cities.</p>
+<div class="hero-actions">
+<a class="button" href="#eclipse">EXPERIENCE THE ECLIPSE ↓</a>
+<a class="button secondary" href="miss2028.html">WHEN IS THE NEXT ONE? →</a>
+</div>
+</div>
+<div class="hero-visual"><div class="hero-corona"></div></div>
+<div class="aircraft-hero"><img src="Images/A388.png" class="a380-image" alt="Otono Airways Airbus A380"></div>
+</header>
+
+<section class="opportunity">
+<div class="opportunity-small">OPPORTUNITIES LIKE THIS</div>
+<div class="opportunity-big">DON'T COME<br>AROUND OFTEN.</div>
+<div class="opportunity-red">DON'T MISS IT.</div>
+</section>
+
+<section class="countdown-section">
+<div class="countdown-label">COUNTDOWN TO SYDNEY ECLIPSE MODE</div>
+<h2 class="title">22 JULY 2028</h2>
+<p class="subtitle">SydneyEclipse enters event mode at <strong>12:40 Sydney time</strong>, 40 seconds before first contact.</p>
+<div class="countdown">
+<div class="time-box"><div class="time-number" id="d28">--</div><div class="time-label">DAYS</div></div>
+<div class="time-box"><div class="time-number" id="h28">--</div><div class="time-label">HOURS</div></div>
+<div class="time-box"><div class="time-number" id="m28">--</div><div class="time-label">MINUTES</div></div>
+<div class="time-box"><div class="time-number" id="s28">--</div><div class="time-label">SECONDS</div></div>
+</div>
+<div class="target">Target: <strong>22 July 2028 • 12:40 AEST</strong></div>
+<div class="live-status">ECLIPSE STATUS: <strong id="liveStatus">WAITING FOR 2028</strong></div>
+</section>
+
+<section class="simulator" id="eclipse">
+<div class="eyebrow" style="text-align:center">INTERACTIVE ECLIPSE</div>
+<h2 class="title">WATCH THE MOON CROSS THE SUN</h2>
+<p class="subtitle">The first bite appears at the <strong>bottom-left</strong>. The Moon climbs diagonally across the solar disc, reaches totality, then leaves near the <strong>top, slightly to the right</strong>.</p>
+<div class="eclipse-stage" id="stage">
+<div class="corona" id="corona"></div>
+<div class="sun"></div>
+<div class="moon" id="moon"></div>
+<div class="sim-status" id="simStatus">FIRST CONTACT</div>
+</div>
+<div class="controls">
+<input type="range" id="slider" min="0" max="1000" value="0">
+<div class="phase-labels"><span>FIRST CONTACT</span><span>PARTIAL</span><span>TOTALITY</span><span>SUN RETURNS</span><span>FINAL CONTACT</span></div>
+<div class="buttons"><button id="play">▶ PLAY ECLIPSE</button><button id="jump">🌑 JUMP TO TOTALITY</button><button id="reset">↺ RESET</button></div>
+</div>
+<p style="text-align:center;margin-top:35px"><a href="eclipse.html" class="button secondary">EXPLORE THE ECLIPSE →</a></p>
+</section>
+
+<section class="totality-banner">
+<div class="eyebrow">SYDNEY • 22 JULY 2028</div>
+<h2>TOTALITY.</h2>
+<div class="totality-duration">3m 49s</div>
+<p>THE MOON COMPLETELY BLOCKS THE SUN.</p>
+</section>
+
+<section class="maximum">
+<h2 class="title">5 MINUTES. 10 SECONDS.</h2>
+<p class="subtitle">Sydney isn't where totality lasts longest. In northwestern Australia, the Moon's shadow produces an even longer experience.</p>
+<div class="maximum-card">
+<div class="maximum-tag">AUSTRALIAN MAXIMUM</div>
+<div class="maximum-duration">5m10s</div>
+<div class="maximum-location">DURACK RANGE – KIMBERLEY REGION</div>
+<p>Near Kununurra • Western Australia</p>
+<p class="gold"><strong>10:58:08 → 11:03:18</strong></p>
+<p>Maximum eclipse: <strong>11:00:43</strong></p>
+</div>
+<p style="text-align:center;margin-top:35px"><a class="button" href="australia.html">EXPLORE TOTALITY ACROSS AUSTRALIA →</a></p>
+</section>
+
+<section class="places" id="places">
+<h2 class="title">AUSTRALIA GETS TOTALITY.</h2>
+<p class="subtitle">Sydney is the destination of SydneyEclipse, but it isn't alone. The Moon's shadow crosses a remarkable chain of places from the northwest to Australia's east coast.</p>
+<div class="place-controls">
+<button class="filter-button active" data-filter="all">ALL LOCATIONS</button>
+<button class="filter-button" data-filter="long">3+ MINUTES</button>
+<button class="filter-button" data-filter="sydney">SYDNEY AREA</button>
+</div>
+<div class="place-grid" id="placeGrid"></div>
+</section>
+
+<section class="map-section" id="map">
+<h2 class="title">THE SHADOW CROSSES AUSTRALIA</h2>
+<p class="subtitle">The path runs from the Kimberley region across inland Australia and reaches the east coast through the Sydney region.</p>
+<div class="map-wrap">
+<img src="Images/Eclipse2028Path.jpg" class="map-image" alt="2028 total solar eclipse path across Australia">
+<p style="text-align:center;color:#aaaabd">5m10s maximum → totality corridor → Sydney</p>
+</div>
+</section>
+
+<section style="text-align:center;background:linear-gradient(#060812,#020309)">
+<div class="eyebrow">AFTER 2028</div>
+
+<h2 class="title">
+AUSTRALIA GETS<br>
+MORE TOTALITY.
+</h2>
+
+<div style="font-size:clamp(2.5rem,7vw,6rem);font-weight:900;color:var(--gold);letter-spacing:-2px;margin:30px 0">
+2030 • 2037 • 2038
+</div>
+
+<p style="font-size:clamp(1.3rem,3vw,2.2rem);font-weight:800;margin:0">
+MORE TOTAL SOLAR ECLIPSES CROSS AUSTRALIA.
+</p>
+
+<div style="font-size:clamp(2.3rem,6vw,5rem);font-weight:900;color:var(--red);margin:25px 0 15px">
+NONE HIT SYDNEY.
+</div>
+
+<p class="subtitle" style="margin-bottom:30px">
+Sydney's 2028 opportunity is different. Miss it, and the wait for another total solar eclipse over the city becomes extraordinary.
+</p>
+
+<a class="button secondary" href="miss2028.html">
+WHAT IF YOU MISSED 2028? →
+</a>
+</section>
+
+<section id="timeline">
+<h2 class="title">SYDNEY ECLIPSE TIMELINE</h2>
+<p class="subtitle">SydneyEclipse switches into event mode at 12:40. First contact follows only 40 seconds later.</p>
+<div class="timeline">
+<div class="timeline-item"><div class="timeline-time">12:40:00</div><div class="timeline-title">SYDNEYECLIPSE EVENT MODE</div><div class="timeline-note">The live site activates. 40 seconds remain until first contact.</div></div>
+<div class="timeline-item"><div class="timeline-time">12:40:40</div><div class="timeline-title">PARTIAL ECLIPSE BEGINS</div><div class="timeline-note">The Moon starts biting into the bottom-left edge of the Sun.</div></div>
+<div class="timeline-item"><div class="timeline-time">13:59:30</div><div class="timeline-title">TOTALITY BEGINS</div><div class="timeline-note">The bright solar surface disappears behind the Moon.</div></div>
+<div class="timeline-item"><div class="timeline-time">14:01:25</div><div class="timeline-title">MAXIMUM ECLIPSE</div><div class="timeline-note">Sydney reaches the midpoint of totality.</div></div>
+<div class="timeline-item"><div class="timeline-time">14:03:19</div><div class="timeline-title">TOTALITY ENDS</div><div class="timeline-note">Direct sunlight returns after 3 minutes 49 seconds.</div></div>
+<div class="timeline-item"><div class="timeline-time">15:14:36</div><div class="timeline-title">ECLIPSE ENDS</div><div class="timeline-note">The Moon clears the upper / slightly upper-right edge of the Sun.</div></div>
+</div>
+<p style="text-align:center;margin-top:30px"><a class="button secondary" href="sydney.html">EXPLORE SYDNEY →</a></p>
+</section>
+
+<section class="sydney100">
+<div>
+<div class="eyebrow">THIS ISN'T JUST A DEEP PARTIAL ECLIPSE</div>
+<div class="hundred">100%</div>
+<div class="not-list">NOT 90%.<br>NOT 99%.<br>NOT 99.9%.</div>
+<h2 class="opportunity-red">TOTALITY.</h2>
+</div>
+</section>
+
+<section class="poster-section" id="poster">
+<div class="eyebrow">THE ORIGINAL DESIGN</div>
+<h2 class="title">THE SYDNEY ECLIPSE POSTER</h2>
+<p class="subtitle">The original poster that helped establish the visual identity of SydneyEclipse.</p>
+<div class="poster-frame">
+<img src="Images/sydneyeclipse.png" class="poster-image" id="posterImage" alt="SydneyEclipse 2028 total solar eclipse poster">
+</div>
+<p class="poster-caption">Click the poster to view it full-screen.<br><strong>TOTALITY. ONLY IN 2028.</strong></p>
+</section>
+
+<section class="route" id="ot116">
+<div class="eyebrow" style="text-align:center">OTONO AIRWAYS</div>
+<h2 class="title">JOURNEY TO THE SHADOW</h2>
+<p class="subtitle">The A380 remains the signature aircraft of SydneyEclipse and carries the journey from London through Hong Kong to Sydney.</p>
+<div class="route-box">
+<div class="route-line"><div class="city">🇬🇧<br>LONDON</div><div class="route-arrow">→</div><div class="city">🇭🇰<br>HONG KONG</div><div class="route-arrow">→</div><div class="city">🇦🇺<br>SYDNEY</div></div>
+<div class="route-flight">OT116 • OTONO AIRWAYS • AIRBUS A380</div>
+<img src="Images/A388.png" class="a380-image" alt="Otono Airways Airbus A380">
+<div class="route-flight">OT117 • SYDNEY → HONG KONG → LONDON</div>
+</div>
+
+<div class="fleet-cameo">
+<h2 class="title" style="font-size:clamp(2rem,4vw,3.5rem)">MORE OTONO AIRWAYS.</h2>
+<p class="fleet-intro">SydneyEclipse is not a fleet website, so the A380 stays dominant. The 777 and A350 appear only as smaller cameos representing the wider Otono Airways fleet.</p>
+<div class="fleet-grid">
+
+<div class="fleet-card primary">
+<div class="fleet-label">SYDNEYECLIP SIGNATURE AIRCRAFT</div>
+<h3>AIRBUS A380</h3>
+<p>The aircraft most strongly associated with the Sydney eclipse journey and OT116.</p>
+<img src="Images/A388.png" alt="Otono Airways Airbus A380">
+</div>
+
+<div class="fleet-card">
+<div class="fleet-label">FLEET CAMEO</div>
+<h3>BOEING 777</h3>
+<p>A secondary Otono Airways appearance. It is deliberately smaller than the A380 and is not presented as the eclipse-service aircraft.</p>
+<img src="Images/B7779.png" alt="Otono Airways Boeing 777">
+</div>
+
+<div class="fleet-card">
+<div class="fleet-label">FLEET CAMEO</div>
+<h3>AIRBUS A350</h3>
+<p>A small modern long-haul cameo that fits the astronomy and travel theme without taking attention away from OT116.</p>
+<img src="Images/A359.png" alt="Otono Airways Airbus A350-900">
+</div>
+
+</div>
+<p style="text-align:center;margin-top:35px"><a class="button secondary" href="ot116.html">EXPLORE OT116 →</a></p>
+</div>
+</section>
+
+<section class="totality-banner">
+<div class="eyebrow">22 JULY 2028 • SYDNEY</div>
+<h2>THE DAY<br>GOES DARK.</h2>
+<div class="totality-duration">🌑</div>
+<p>OPPORTUNITIES LIKE THIS DON'T COME AROUND OFTEN.</p>
+</section>
+
+<section class="future-teaser" id="future">
+<div>
+<div class="eyebrow">BUT WHAT IF YOU MISS 2028?</div>
+<div class="future-question">NEXT<br>TOTALITY?</div>
+<div class="future-hint">THE ANSWER IS MUCH FURTHER AWAY THAN YOU MIGHT EXPECT.</div>
+<p>Sydney does get another major solar eclipse opportunity before then — but it isn't totality. The full answer belongs on a separate page.</p>
+<a class="button" href="miss2028.html">DISCOVER THE NEXT TOTALITY →</a>
+</div>
+</section>
+
+<section class="explore-pages">
+<div class="eyebrow" style="text-align:center">EXPLORE SYDNEYECLIPSE</div>
+<h2 class="title">DISCOVER MORE.</h2>
+<p class="subtitle">Dedicated pages can eventually hold the detailed information while the homepage remains the dramatic overview.</p>
+<div class="page-grid">
+
+<a class="page-card" href="eclipse.html">
+<div class="page-icon">🌑</div>
+<h3>THE ECLIPSE</h3>
+<p>Interactive phases, exact timings and the Moon's unusual diagonal path across the Sun.</p>
+<span>EXPLORE →</span>
+</a>
+
+<a class="page-card" href="australia.html">
+<div class="page-icon">🇦🇺</div>
+<h3>AUSTRALIA</h3>
+<p>The totality corridor, every featured location and the enormous 5m10s maximum.</p>
+<span>EXPLORE →</span>
+</a>
+
+<a class="page-card" href="sydney.html">
+<div class="page-icon">🌆</div>
+<h3>SYDNEY</h3>
+<p>3m49s of totality, the skyline, local timings and Sydney under the lunar shadow.</p>
+<span>EXPLORE →</span>
+</a>
+
+<a class="page-card" href="ot116.html">
+<div class="page-icon">✈️</div>
+<h3>OT116</h3>
+<p>The Otono Airways A380 journey from London through Hong Kong to Sydney.</p>
+<span>EXPLORE →</span>
+</a>
+
+<a class="page-card" href="live.html">
+<div class="page-icon">🔴</div>
+<h3>LIVE</h3>
+<p>A dedicated event page that transforms as the eclipse unfolds on 22 July 2028.</p>
+<span>LIVE IN 2028 →</span>
+</a>
+
+<a class="page-card" href="miss2028.html">
+<div class="page-icon">?</div>
+<h3>NEXT TOTALITY?</h3>
+<p>Missed 2028? Sydney's next central eclipse isn't necessarily another total eclipse...</p>
+<span>REVEAL THE ANSWER →</span>
+</a>
+
+</div>
+</section>
+
+<section class="final-section">
+<div>
+<div class="eyebrow">SYDNEY • AUSTRALIA</div>
+
+<div class="final-date">
+22 JULY<br>
+<span class="red">2028.</span>
+</div>
+
+<div class="opportunity-small">
+3 MINUTES 49 SECONDS OF TOTALITY
+</div>
+
+<div class="opportunity-red" style="margin-top:25px">
+TOTALITY. ONLY IN 2028.
+</div>
+
+<div style="margin-top:40px;color:#aaaabd;font-size:1.05rem;letter-spacing:2px;font-weight:800">
+MISSED 2028?
+</div>
+
+<div style="margin-top:10px;font-size:clamp(1.5rem,3vw,2.3rem);font-weight:900">
+WHEN DOES SYDNEY GET TOTALITY AGAIN?
+</div>
+
+<p style="margin-top:24px">
+<a class="button" href="miss2028.html">
+REVEAL THE ANSWER →
+</a>
+</p>
+</div>
+</section>
+
+<footer>
+<strong>SydneyEclipse</strong><br><br>
+Otono Team • Otono Airways • Sydney • 22 July 2028<br><br>
+🌑 TOTALITY. ONLY IN 2028.
+</footer>
+
+<div class="lightbox" id="lightbox">
+<button class="lightbox-close" id="lightboxClose">×</button>
+<img id="lightboxImage" alt="Expanded Sydney eclipse poster">
+</div>
+
+<script>
+const places=[
+["Kimberley Region","09:27:32","10:58:08","11:00:43","11:03:18","12:32:50","5m 10s","max"],
+["Kununurra","09:27:52","10:59:46","11:01:13","11:02:40","12:33:14","2m 54s",""],
+["Lake Argyle","09:28:19","10:59:29","11:01:39","11:03:48","12:33:36","4m 19s",""],
+["Tennant Creek","11:16:50","12:47:58","12:49:41","12:51:24","14:17:30","3m 26s",""],
+["Bourke","12:27:17","13:50:08","13:52:11","13:54:13","15:09:20","4m 05s",""],
+["Dubbo","12:34:34","13:55:20","13:57:16","13:59:11","15:12:17","3m 51s",""],
+["Orange","12:36:16","13:57:12","13:58:17","13:59:22","15:12:45","2m 10s",""],
+["Mudgee","12:36:45","13:56:52","13:58:49","14:00:46","15:13:12","3m 54s",""],
+["Bathurst","12:37:18","13:57:31","13:59:01","14:00:31","15:13:11","3m 00s",""],
+["Katoomba","12:38:53","13:58:23","14:00:08","14:01:53","15:13:50","3m 30s",""],
+["Penrith","12:39:39","13:58:48","14:00:41","14:02:34","15:14:11","3m 46s","sydneyarea"],
+["Campbelltown","12:40:03","13:59:09","14:00:55","14:02:39","15:14:15","3m 30s","sydneyarea"],
+["Blacktown","12:40:03","13:59:04","14:00:59","14:02:53","15:14:21","3m 49s","sydneyarea"],
+["Kiama","12:40:30","14:00:16","14:01:04","14:01:52","15:14:14","1m 36s",""],
+["Wollongong","12:40:25","13:59:40","14:01:05","14:02:30","15:14:17","2m 50s",""],
+["Pennant Hills","12:40:20","13:59:17","14:01:12","14:03:06","15:14:30","3m 49s","sydneyarea"],
+["Canterbury","12:40:32","13:59:24","14:01:18","14:03:12","15:14:32","3m 48s","sydneyarea"],
+["Sydney","12:40:40","13:59:30","14:01:25","14:03:19","15:14:36","3m 49s","sydney"],
+["Darlinghurst","12:40:42","13:59:31","14:01:26","14:03:20","15:14:37","3m 49s","sydneyarea"],
+["Mosman","12:40:43","13:59:33","14:01:28","14:03:21","15:14:38","3m 48s","sydneyarea"],
+["Gosford","12:40:40","13:59:51","14:01:31","14:03:10","15:14:44","3m 19s","sydneyarea"],
+["Norah Head","12:41:01","14:00:35","14:01:48","14:03:00","15:14:55","2m 25s",""]
+];
+
+const grid=document.getElementById("placeGrid");
+function durationSeconds(t){const m=t.match(/(\d+)m\s*(\d+)s/);return m?+m[1]*60 + +m[2]:0}
+function renderPlaces(filter="all"){
+grid.innerHTML="";
+places.forEach(p=>{
+const area=p[7]==="sydney"||p[7]==="sydneyarea";
+if(filter==="long"&&durationSeconds(p[6])<180)return;
+if(filter==="sydney"&&!area)return;
+const c=document.createElement("article");
+c.className="place-card"+(p[7]==="sydney"?" sydney":"")+(p[7]==="max"?" max":"");
+c.innerHTML=`<div class="place-name">${p[0]}${p[7]==="max"?' ⭐':p[7]==="sydney"?' 🌑':''}</div><div class="place-duration">${p[6]}</div><div class="place-times">Partial begins: ${p[1]}<br>Totality: ${p[2]} → ${p[4]}<br>Maximum: ${p[3]}<br>Eclipse ends: ${p[5]}</div>`;
+grid.appendChild(c);
+});
+}
+renderPlaces();
+
+document.querySelectorAll(".filter-button").forEach(btn=>btn.onclick=()=>{
+document.querySelectorAll(".filter-button").forEach(b=>b.classList.remove("active"));
+btn.classList.add("active");
+renderPlaces(btn.dataset.filter);
+});
+
+const eventStart=new Date("2028-07-22T12:40:00+10:00");
+const firstContact=new Date("2028-07-22T12:40:40+10:00");
+const totalityStart=new Date("2028-07-22T13:59:30+10:00");
+const maximum=new Date("2028-07-22T14:01:25+10:00");
+const totalityEnd=new Date("2028-07-22T14:03:19+10:00");
+const eclipseEnd=new Date("2028-07-22T15:14:36+10:00");
+const pad=n=>String(n).padStart(2,"0");
+
+function updateCountdown(){
+const now=new Date();
+let diff=Math.max(0,eventStart-now);
+const d=Math.floor(diff/86400000);diff%=86400000;
+const h=Math.floor(diff/3600000);diff%=3600000;
+const m=Math.floor(diff/60000);diff%=60000;
+const s=Math.floor(diff/1000);
+d28.textContent=d;h28.textContent=pad(h);m28.textContent=pad(m);s28.textContent=pad(s);
+let status="WAITING FOR 2028";
+if(now>=eventStart&&now<firstContact)status="GET READY — FIRST CONTACT IN SECONDS";
+else if(now>=firstContact&&now<totalityStart)status="PARTIAL ECLIPSE IN PROGRESS";
+else if(now>=totalityStart&&now<maximum)status="🌑 TOTALITY — APPROACHING MAXIMUM";
+else if(now>=maximum&&now<totalityEnd)status="🌑 TOTALITY — PAST MAXIMUM";
+else if(now>=totalityEnd&&now<eclipseEnd)status="SUNLIGHT HAS RETURNED — PARTIAL ECLIPSE CONTINUES";
+else if(now>=eclipseEnd)status="☀ ECLIPSE COMPLETE";
+liveStatus.textContent=status;
+}
+updateCountdown();
+setInterval(updateCountdown,1000);
+
+const slider=document.getElementById("slider"),moon=document.getElementById("moon"),corona=document.getElementById("corona"),simStatus=document.getElementById("simStatus"),stage=document.getElementById("stage");
+const lerp=(a,b,t)=>a+(b-a)*t;
+
+function updateSim(v){
+const p=v/1000;
+let x,y;
+if(p<=.5){const q=p/.5;x=lerp(-320,0,q);y=lerp(285,0,q)}
+else{const q=(p-.5)/.5;x=lerp(0,140,q);y=lerp(0,-325,q)}
+moon.style.setProperty("--moon-x",x+"px");
+moon.style.setProperty("--moon-y",y+"px");
+const dist=Math.abs(p-.5);
+corona.style.setProperty("--corona-opacity",Math.max(0,1-dist*38));
+const dark=Math.max(0,1-dist*2),b=Math.round(22-dark*19);
+stage.style.background=`radial-gradient(circle,rgb(${b},${b+3},${b+15}),#010208 72%)`;
+simStatus.textContent=p<.08?"FIRST CONTACT":p<.36?"PARTIAL ECLIPSE":p<.485?"DEEP PARTIAL":p<=.515?"🌑 TOTALITY":p<.75?"SUN RETURNS":p<.94?"PARTIAL ECLIPSE":"FINAL CONTACT";
+}
+
+slider.oninput=()=>updateSim(+slider.value);
+
+let running=false,frame;
+play.onclick=function(){
+if(running){running=false;cancelAnimationFrame(frame);this.textContent="▶ PLAY ECLIPSE";return}
+running=true;this.textContent="⏸ PAUSE";
+const start=+slider.value,t0=performance.now(),duration=26000;
+const animate=t=>{
+if(!running)return;
+const f=Math.min((t-t0)/duration,1),v=start+(1000-start)*f;
+slider.value=v;updateSim(v);
+if(f<1)frame=requestAnimationFrame(animate);
+else{running=false;this.textContent="▶ PLAY ECLIPSE"}
+};
+frame=requestAnimationFrame(animate);
+};
+
+jump.onclick=()=>{slider.value=500;updateSim(500)};
+reset.onclick=()=>{running=false;cancelAnimationFrame(frame);slider.value=0;updateSim(0);play.textContent="▶ PLAY ECLIPSE"};
+updateSim(0);
+
+const poster=document.getElementById("posterImage");
+const lightbox=document.getElementById("lightbox");
+const lightboxImage=document.getElementById("lightboxImage");
+poster.onclick=()=>{lightboxImage.src=poster.src;lightbox.classList.add("open")};
+lightboxClose.onclick=()=>lightbox.classList.remove("open");
+lightbox.onclick=e=>{if(e.target===lightbox)lightbox.classList.remove("open")};
+document.addEventListener("keydown",e=>{if(e.key==="Escape")lightbox.classList.remove("open")});
+</script>
+</body>
+</html>
