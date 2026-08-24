@@ -1,0 +1,1619 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>🟣 Otono Deutsch — Lesen (SAM)</title>
+  <style>
+    :root{
+      --bg1:#2b0a3d; --bg2:#7a0036;
+      --card:#0f0b18cc; --card2:#120c22e6;
+      --text:#f4efff; --muted:#c9b9ff;
+      --accent:#b000ff; --accent2:#ff1b6a;
+      --good:#19ff9a; --warn:#ffd166; --bad:#ff4d6d;
+      --line:rgba(255,255,255,.12);
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:var(--sans); color:var(--text);
+      background:
+        radial-gradient(1000px 700px at 15% 10%, rgba(176,0,255,.22), transparent 60%),
+        radial-gradient(900px 650px at 80% 20%, rgba(255,27,106,.18), transparent 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+    }
+    .wrap{max-width:1100px; margin:0 auto; padding:22px;}
+    .topbar{
+      display:flex; gap:14px; align-items:center; justify-content:space-between;
+      padding:14px 16px; border:1px solid var(--line); border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      box-shadow:var(--shadow);
+      position:sticky; top:14px; z-index:20; backdrop-filter: blur(10px);
+    }
+    .brand{display:flex; flex-direction:column; gap:2px}
+    .brand h1{margin:0; font-size:16px; letter-spacing:.3px}
+    .brand .sub{font-size:12px; color:var(--muted)}
+    .pill{
+      padding:8px 10px; border-radius:999px; border:1px solid var(--line);
+      background:rgba(0,0,0,.25); font-family:var(--mono); font-size:12px;
+      display:flex; gap:10px; align-items:center;
+    }
+    .pill strong{color:#fff}
+    .btn{
+      border:1px solid var(--line); background:rgba(0,0,0,.25);
+      color:var(--text); padding:10px 12px; border-radius:14px; cursor:pointer;
+      transition:.15s transform, .15s background, .15s border;
+      font-weight:600;
+    }
+    .btn:hover{transform:translateY(-1px); background:rgba(0,0,0,.33); border-color:rgba(255,255,255,.22)}
+    .btn.primary{
+      background:linear-gradient(135deg, rgba(176,0,255,.55), rgba(255,27,106,.45));
+      border-color:rgba(255,255,255,.22);
+    }
+    .btn.danger{background:rgba(255,77,109,.18); border-color:rgba(255,77,109,.35)}
+    .grid{display:grid; grid-template-columns: 1.1fr .9fr; gap:16px; margin-top:16px;}
+    @media (max-width: 980px){ .grid{grid-template-columns:1fr} .topbar{position:static} }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .card .hd{
+      padding:14px 16px; border-bottom:1px solid var(--line);
+      display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
+      background:linear-gradient(180deg, rgba(255,255,255,.06), transparent);
+    }
+    .card .hd h2{margin:0; font-size:14px}
+    .card .hd .meta{font-size:12px; color:var(--muted); line-height:1.25}
+    .card .bd{padding:16px}
+    label{display:block; font-size:12px; color:var(--muted); margin:10px 0 6px}
+
+    input[type="text"], input[type="number"], textarea, select{
+      width:100%; border:1px solid var(--line); background:rgba(0,0,0,.25);
+      color:var(--text); padding:10px 12px; border-radius:14px; outline:none;
+      font-family:var(--sans);
+    }
+    textarea{min-height:90px; resize:vertical}
+
+    .row{display:flex; gap:10px; flex-wrap:wrap}
+    .row > div{flex:1 1 180px}
+
+    .note{
+      font-size:12px; color:var(--muted); line-height:1.4;
+      padding:10px 12px; border-radius:14px; border:1px dashed rgba(255,255,255,.18);
+      background:rgba(0,0,0,.18);
+    }
+    .badge{
+      font-family:var(--mono); font-size:12px; padding:6px 10px; border-radius:999px;
+      border:1px solid var(--line); background:rgba(0,0,0,.20);
+      display:inline-flex; align-items:center; gap:6px;
+    }
+    .badge.good{border-color:rgba(25,255,154,.35); background:rgba(25,255,154,.12)}
+    .badge.warn{border-color:rgba(255,209,102,.35); background:rgba(255,209,102,.12)}
+    .badge.bad{border-color:rgba(255,77,109,.35); background:rgba(255,77,109,.12)}
+    .divider{height:1px; background:var(--line); margin:14px 0}
+    .passage{
+      padding:12px 14px; border:1px solid var(--line); border-radius:16px;
+      background:rgba(0,0,0,.22); line-height:1.5;
+    }
+    .q{
+      margin-top:14px; padding:12px 14px; border:1px solid var(--line);
+      border-radius:16px; background:rgba(0,0,0,.20);
+    }
+    .q h3{margin:0 0 8px; font-size:13px}
+    .opts{display:grid; gap:8px; margin-top:8px}
+    .opt{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:10px 10px; border-radius:14px; border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+      cursor:pointer;
+    }
+    .opt input{margin-top:3px}
+    .kpi{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
+    @media (max-width: 980px){ .kpi{grid-template-columns:repeat(2,1fr)} }
+    .kpi .box{
+      border:1px solid var(--line); border-radius:16px; padding:10px 12px;
+      background:rgba(0,0,0,.22);
+    }
+    .kpi .box .t{font-size:12px; color:var(--muted)}
+    .kpi .box .v{font-size:18px; font-weight:800; margin-top:4px}
+    .small{font-size:12px; color:var(--muted)}
+    .tabs{display:flex; gap:8px; flex-wrap:wrap}
+    .tab{padding:10px 12px; border-radius:14px; border:1px solid var(--line); background:rgba(0,0,0,.22); cursor:pointer; font-weight:700}
+    .tab.active{background:linear-gradient(135deg, rgba(176,0,255,.35), rgba(255,27,106,.22)); border-color:rgba(255,255,255,.22)}
+    .resultsList{display:grid; gap:10px}
+    .attempt{
+      border:1px solid var(--line); border-radius:16px; padding:12px 14px;
+      background:rgba(0,0,0,.20);
+    }
+    .attempt .top{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap}
+    .attempt .top strong{font-family:var(--mono)}
+    .attempt .meta{font-size:12px; color:var(--muted); margin-top:6px; line-height:1.4}
+    .copy{font-family:var(--mono); font-size:12px; white-space:pre-wrap; word-break:break-word}
+    .hide{display:none !important}
+
+    /* Candidate number 4 squares */
+    .digitRow{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
+    .digitRow .digit{
+      width:52px; text-align:center; font-family:var(--mono);
+      font-size:18px; font-weight:900; padding:12px 0;
+      border-radius:14px; border:1px solid var(--line);
+      background:rgba(0,0,0,.25); color:var(--text);
+      outline:none;
+    }
+    .digitRow .hint{font-size:12px; color:var(--muted)}
+    .miniRow{display:flex; gap:10px; flex-wrap:wrap; align-items:flex-end}
+    .miniRow > *{flex:1 1 160px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <h1>🟣 Otono Deutsch — Paper 3 • Lesen • Sample Assessment Material • Sample set 2</h1>
+        <div class="sub">
+          Auto marking • 4 random passages × 20 + 1 translation × 20 = 100 • Centre:
+          <strong id="centreTop">50749</strong>
+        </div>
+      </div>
+      <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end">
+        <div class="pill">
+          <span>⏱️ Timer:</span>
+          <strong id="timerText">--:--</strong>
+        </div>
+        <button class="btn" id="btnErgebnisse">Ergebnisse</button>
+        <button class="btn primary" id="btnHome">Test</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- Left: main -->
+      <div class="card" id="panelHome">
+        <div class="hd">
+          <div>
+            <h2>Kandidateneinstellungen</h2>
+            <div class="meta">Kein Wörterbuch • Kein Übersetzer • Antworte anhand des Textes • Schriftliche Antworten werden automatisch per Schlüsselwörtern bewertet (nicht perfekt).</div>
+          </div>
+          <span class="badge" id="statusBadge">Bereit</span>
+        </div>
+
+        <div class="bd" id="homeBody">
+          <div class="miniRow">
+            <div>
+              <label>Zentrumsnummer</label>
+              <input type="text" id="centreNo" value="50749" disabled />
+              <div class="small" style="margin-top:6px">
+                Default is <strong>50749</strong>. You can change it (optional) with the button.
+              </div>
+            </div>
+            <div style="display:flex; gap:10px; align-items:flex-end; flex-wrap:wrap">
+              <button class="btn" id="btnEditCentre">Zentrum anpassen</button>
+              <button class="btn" id="btnResetCentre">Zentrum zurücksetzen</button>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div>
+            <label>Kandidatennummer (erforderlich, 4 Ziffern)</label>
+            <div class="digitRow" aria-label="Candidate number 4 digits">
+              <input class="digit" id="candD1" inputmode="numeric" maxlength="1" />
+              <input class="digit" id="candD2" inputmode="numeric" maxlength="1" />
+              <input class="digit" id="candD3" inputmode="numeric" maxlength="1" />
+              <input class="digit" id="candD4" inputmode="numeric" maxlength="1" />
+              <span class="hint">Nur Ziffern • automatische Weitergabe</span>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top:6px">
+            <div>
+              <label>Nachname (optional)</label>
+              <input type="text" id="candNachname" placeholder="Nachname" />
+            </div>
+            <div>
+              <label>Vorname(n) (optional)</label>
+              <input type="text" id="candForenames" placeholder="Vorname(n)" />
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>How the random paper works (SAM set 1):</strong><br/>
+            • The system selects <strong>4 random passages</strong> (each worth <strong>20</strong>) and <strong>1 random translation</strong> (worth <strong>20</strong>).<br/>
+            • You’ll get a mix of <strong>MCQ</strong>, <strong>P/N/P+N</strong>, <strong>True/False/Not mentioned</strong>, and <strong>written answers</strong>.<br/>
+            • Some passages include <strong>questions answered in German</strong> (you must answer in German).<br/>
+            • Written + translation answers are marked by <strong>keyword coverage</strong> (so write clear, direct answers).<br/>
+            • Your attempt is saved to this browser using <strong>localStorage</strong>.
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="row">
+            <div>
+              <label>Bearbeitungszeit</label>
+              <select id="timeAllowed">
+                <option value="75" selected>75 minutes (recommended)</option>
+                <option value="60">60 minutes</option>
+                <option value="45">45 minutes</option>
+              </select>
+            </div>
+            <div>
+              <label>Reihenfolge der Fragen</label>
+              <select id="shuffleMode">
+                <option value="shuffleAll" selected>Shuffle questions (harder)</option>
+                <option value="keepOrder">Keep original order</option>
+              </select>
+            </div>
+            <div>
+              <label>Bei Ablauf der Zeit</label>
+              <select id="autoSubmit">
+                <option value="yes" selected>Auto-submit</option>
+                <option value="no">Do not auto-submit</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap">
+            <button class="btn primary" id="btnStart">Zufälligen Test starten</button>
+            <button class="btn" id="btnPreview">Zufällige Auswahl anzeigen</button>
+          </div>
+
+          <div id="previewBox" class="note hide" style="margin-top:12px"></div>
+        </div>
+
+        <!-- Test body -->
+        <div class="bd hide" id="testBody">
+          <div class="kpi">
+            <div class="box"><div class="t">Candidate</div><div class="v" id="kpiCandidate">—</div></div>
+            <div class="box"><div class="t">Ausgewählte Texte</div><div class="v" id="kpiPassages">—</div></div>
+            <div class="box"><div class="t">Übersetzung</div><div class="v" id="kpiÜbersetzung">—</div></div>
+            <div class="box"><div class="t">Maximalpunktzahl</div><div class="v">100</div></div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="note">
+            <strong>Hinweise:</strong>
+            No dictionary. Do not copy from outside. Base answers on the passage. For written answers, include the key idea(s) clearly.
+          </div>
+
+          <div id="paper"></div>
+
+          <div class="divider"></div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap">
+            <button class="btn primary" id="btnSubmit">Abgeben & automatisch bewerten</button>
+            <button class="btn" id="btnReset">Zurücksetzen (neuer Zufallstest)</button>
+          </div>
+
+          <div id="markingBox" class="hide" style="margin-top:14px"></div>
+        </div>
+      </div>
+
+      <!-- Right: results / help -->
+      <div class="card" id="panelSide">
+        <div class="hd">
+          <div>
+            <h2 id="sideTitle">Otono-Bewertung</h2>
+            <div class="meta" id="sideMeta">Punktzahl → Otono-Note + GCSE-Schätzung + Pass/Merit/Distinction.</div>
+          </div>
+        </div>
+
+        <div class="bd" id="sideBody">
+          <div class="note">
+            <strong>Pass/Merit/Distinction</strong><br/>
+            PASS: 66+<br/>
+            MERIT: 80+<br/>
+            DISTINCTION: 90+<br/>
+          </div>
+          <div class="divider"></div>
+          <div class="note">
+            <strong>Otono-Notes (A–H + secret S)</strong><br/>
+            S: 101+ (secret)<br/>
+            A*: 95–100<br/>
+            A: 90–94<br/>
+            B: 80–89<br/>
+            C: 70–79<br/>
+            D: 66–69<br/>
+            E: 55–65<br/>
+            F: 45–54<br/>
+            G: 30–44<br/>
+            H: 15–29<br/>
+            U: 0–14
+          </div>
+          <div class="divider"></div>
+          <div class="note">
+            <strong>GCSE 9–1 estimate (simple mapping)</strong><br/>
+            9: 90–100 • 8: 80–89 • 7: 70–79 • 6: 60–69 • 5: 50–59<br/>
+            4: 40–49 • 3: 30–39 • 2: 20–29 • 1: 10–19 • U: 0–9
+          </div>
+          <div class="divider"></div>
+          <div class="small">
+            Tip: results are stored locally on this device/browser only. If you clear site data, they disappear.
+          </div>
+        </div>
+
+        <!-- Ergebnisse panel -->
+        <div class="bd hide" id="resultsBody">
+          <div class="tabs">
+            <div class="tab active" id="tabAll">Alle Versuche</div>
+            <div class="tab" id="tabCandidate">Nach Kandidat</div>
+          </div>
+
+          <div class="row" style="margin-top:10px">
+            <div>
+              <label>Kandidatennummer filtern (4 Ziffern)</label>
+              <input type="text" id="filterCandidate" placeholder="e.g. 1105" inputmode="numeric" />
+            </div>
+            <div>
+              <label>Aktionen</label>
+              <div style="display:flex; gap:10px; flex-wrap:wrap">
+                <button class="btn" id="btnExport">JSON exportieren</button>
+                <button class="btn danger" id="btnClear">Gespeicherte Ergebnisse löschen</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+          <div class="resultsList" id="resultsList"></div>
+
+          <div id="exportBox" class="note hide" style="margin-top:12px">
+            <div><strong>Exportiertes JSON</strong> (copy/save it):</div>
+            <div class="divider"></div>
+            <div class="copy" id="exportText"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* -----------------------------
+   OTONO BANK (STRAIGHTFORWARD TEXT, SIMILAR LENGTH)
+   Each passage total = 20 marks
+--------------------------------*/
+
+// ✅ UPDATED: P/N/P+N questions restored + each passage now totals 20 marks
+// ✅ NOT every passage has 6 questions anymore (some have 5, some 7)
+// ✅ ALL questions + rubrics are in ENGLISH (only prompts marked “Auf Deutsch” require German answers)
+
+const PASSAGES = [
+  {
+    id: 1,
+    title: "Passage 1 — Original : le premier « POOP! »",
+    theme: "Wilhelm Poops — Original",
+    unit: "Lantau glamping origin",
+    text: `Pendant un voyage de glamping sur l'île de Lantau, Wilhelm est dans la salle de bains. Jessica pense qu'il prend une douche et elle lui pose une question.
+
+Wilhelm répond immédiatement : « POOP ! Pourquoi tu crois que je me douche ?! » Jessica est surprise par sa réponse. À cette époque, personne ne pense que ce petit moment va devenir le début d'une très longue série d'histoires.
+
+Vocabulaire : glamping = camping confortable • caca / poop = poop
+
+Après cette réponse, Jessica reste devant la porte pendant quelques secondes. Elle ne pose pas d'autre question et elle laisse Wilhelm tranquille. Plus tard, quand tout le monde reparle de l'histoire, Luke trouve surtout la réponse très drôle. Wilhelm, lui, préfère que les autres arrêtent de parler de ce moment. C'est pourtant cet événement simple qui devient plus tard « l'Original ».`,
+    questions: [
+      {id:"p1q1",type:"mcq",marks:2,prompt:"(E) Where is the family staying?",options:["On Lantau Island","In France","At Otono Mansion","At an airport"],answerIndex:0},
+      {id:"p1q2",type:"short",marks:4,prompt:"(E) What TWO things does Wilhelm communicate in his famous reply?",rubric:"He is pooping; he asks why Jessica thinks he is showering.",keywords:[["poop","pooping","caca"],["shower","showering","douche"]]},
+      {id:"p1q3",type:"tfnm",marks:2,prompt:"(E) Jessica thinks Wilhelm is having a shower. (True / False / Not mentioned)",correct:"True"},
+      {id:"p1q4",type:"pn",marks:2,prompt:"(E) Jessica's immediate reaction is… (P / N / P+N)",answer:"N"},
+      {id:"p1q5",type:"fr_short",marks:4,prompt:"(M) Auf Deutsch : Où est Wilhelm et que pense Jessica ?",rubric:"Wilhelm est dans la salle de bains; Jessica pense qu'il se douche.",keywords:[["salle de bains","toilettes"],["douche","se douche"]]},
+      {id:"p1q6",type:"short",marks:2,prompt:"(E) At the time, do they expect this to become a long series?",rubric:"No.",keywords:[["no","non","do not","don't"]]},
+      {id:"p1q7",type:"short",marks:4,prompt:"(E) Why is this incident important?",rubric:"It became the original/start of the Wilhelm Poops series.",keywords:[["original","first","start","beginning","origin"],["series","wilhelm poops","stories"]]}
+    ]
+  },
+  {
+    id: 2,title:"Passage 2 — Wilhelm poops returns",theme:"Wilhelm Poops — 2",unit:"Sign confusion returns",
+    text:`Après une longue période calme, Wilhelm doit aller aux toilettes. Luke a changé les panneaux : le panneau « filles » est maintenant sur les toilettes des garçons. Wilhelm fait confiance au panneau et utilise les toilettes des filles par erreur.
+
+Plus tard, Luke demande le nombre de morceaux. La réponse est sept. Jessica n'est pas contente de la blague de Luke, surtout parce que Wilhelm voulait simplement utiliser les bonnes toilettes.
+
+Vocabulaire : morceau = piece • panneau = sign
+
+Après l'erreur, Wilhelm explique qu'il n'a pas choisi les mauvaises toilettes volontairement : il a simplement lu le panneau devant lui. Luke reconnaît qu'il a créé la confusion, mais il trouve encore la situation amusante. Jessica remet les panneaux au bon endroit. Elle dit qu'une blague peut être drôle sans envoyer quelqu'un vers les mauvaises toilettes.`,
+    questions:[
+      {id:"p2q1",type:"mcq",marks:2,prompt:"(E) What did Luke change?",options:["The toilet signs","The lights","The doors","The clocks"],answerIndex:0},
+      {id:"p2q2",type:"short",marks:4,prompt:"(E) Give TWO results of Luke's joke.",rubric:"Wilhelm used the girls' toilets by mistake; Jessica was unhappy.",keywords:[["girls","wrong toilet","by mistake"],["jessica","not happy","unhappy","angry"]]},
+      {id:"p2q3",type:"tfnm",marks:2,prompt:"(E) Wilhelm ignores the sign. (True / False / Not mentioned)",correct:"False"},
+      {id:"p2q4",type:"pn",marks:2,prompt:"(E) Jessica's opinion of Luke's joke is… (P / N / P+N)",answer:"N"},
+      {id:"p2q5",type:"fr_short",marks:4,prompt:"(M) Auf Deutsch : Combien de morceaux ?",rubric:"Sept.",keywords:[["sept","7"]]},
+      {id:"p2q6",type:"short",marks:2,prompt:"(E) Why does Wilhelm use the wrong toilets?",rubric:"He trusts/follows the changed sign.",keywords:[["sign","panneau"],["trust","follow","changed","wrong"]]},
+      {id:"p2q7",type:"short",marks:4,prompt:"(E) What did Wilhelm actually want to do?",rubric:"Simply use the correct toilets.",keywords:[["correct","right","proper"],["toilet","toilets"]]}
+    ]
+  },
+  {
+    id:3,title:"Passage 3 — Les maths au sous-sol",theme:"Wilhelm Poops — 3",unit:"Basement Calculus Edition",
+    text:`Wilhelm parle de calcul avec les autres. Peu après, il doit aller aux toilettes du sous-sol. Cette fois, la situation est un peu gênante, mais personne n'entre dans sa cabine et son intimité est respectée.
+
+Grandpa Belt trouve le titre très drôle et publie : « Wilhelm fait caca 3 ». Red demande à Luke de ne pas connecter l'intégration aux histoires de Wilhelm. Luke répond seulement : « Pas encore. »
+
+Vocabulaire : sous-sol = basement • intimité = privacy • calcul = calculus
+
+Après l'incident, Luke veut noter deux choses dans son tableau : le lieu et le niveau d'intimité. OWing vérifie que personne n'est entré dans la cabine. Jessica est donc satisfaite sur ce point. Red, lui, revient au sujet des maths et dit qu'un symbole d'intégration n'a vraiment rien à faire dans une histoire de toilettes.`,
+    questions:[
+      {id:"p3q1",type:"mcq",marks:2,prompt:"(E) What subject is Wilhelm talking about?",options:["Calculus","Geography","Art","Music"],answerIndex:0},
+      {id:"p3q2",type:"short",marks:4,prompt:"(E) Give TWO details about the toilet situation.",rubric:"It is in the basement; it is awkward; nobody enters; privacy is respected.",keywords:[["basement","sous sol"],["privacy","respected","nobody enters","awkward"]]},
+      {id:"p3q3",type:"tfnm",marks:2,prompt:"(E) Someone enters Wilhelm's cubicle. (True / False / Not mentioned)",correct:"False"},
+      {id:"p3q4",type:"pn",marks:2,prompt:"(E) The attitudes towards recording the incident afterwards are… (P / N / P+N)",answer:"P+N"},
+      {id:"p3q5",type:"fr_short",marks:4,prompt:"(M) Auf Deutsch : Où va Wilhelm ?",rubric:"Aux toilettes du sous-sol.",keywords:[["toilettes"],["sous sol"]]},
+      {id:"p3q6",type:"short",marks:2,prompt:"(E) Who posts « Wilhelm fait caca 3 »?",rubric:"Grandpa Belt.",keywords:[["grandpa belt","grandpa","belt"]]},
+      {id:"p3q7",type:"short",marks:4,prompt:"(E) What does Luke's « Pas encore » suggest?",rubric:"He may connect integration/calculus to Wilhelm Poops later.",keywords:[["later","future","eventually","may"],["integration","calculus","maths"]]}
+    ]
+  },
+  {
+    id:4,title:"Passage 4 — La piscine secrète",theme:"Wilhelm Poops — 4",unit:"Secret Pool Prophecy",
+    text:`Pendant une visite à la piscine secrète, Wilhelm ne se sent soudainement pas bien. Il a la diarrhée et va aux toilettes. Luke utilise son chronomètre, mais il reste dehors. L'incident dure vingt-trois minutes et seize secondes.
+
+Quand Luke demande le nombre de morceaux, la réponse est simple : impossible à compter. Jessica accepte le chronomètre cette fois parce que personne n'entre et l'intimité de Wilhelm reste respectée.
+
+Vocabulaire : diarrhée = diarrhoea • chronomètre = stopwatch • impossible à compter = uncountable
+
+Quand Wilhelm revient, il dit seulement qu'il ne veut pas revivre la même situation. Luke montre le chronomètre aux autres, mais il ne demande pas plus de détails immédiatement. OWing note l'heure et Jessica rappelle une règle simple : on peut enregistrer la durée depuis l'extérieur, mais on ne doit pas déranger Wilhelm dans la cabine.`,
+    questions:[
+      {id:"p4q1",type:"mcq",marks:2,prompt:"(E) Where does the incident happen?",options:["At the secret pool","On an aircraft","At school","In Hong Kong"],answerIndex:0},
+      {id:"p4q2",type:"short",marks:4,prompt:"(E) Give the exact duration.",rubric:"23 minutes and 16 seconds.",keywords:[["23","twenty three","vingt trois"],["16","sixteen","seize"]]},
+      {id:"p4q3",type:"tfnm",marks:2,prompt:"(E) Luke goes inside during the incident. (True / False / Not mentioned)",correct:"False"},
+      {id:"p4q4",type:"pn",marks:2,prompt:"(E) Jessica's view of Luke using the stopwatch this time is… (P / N / P+N)",answer:"P"},
+      {id:"p4q5",type:"fr_short",marks:4,prompt:"(M) Auf Deutsch : Pourquoi on ne peut pas donner un nombre de morceaux ?",rubric:"Parce que Wilhelm a la diarrhée / c'est impossible à compter.",keywords:[["diarrhee","diarrhée","impossible"],["compter","incalculable"]]},
+      {id:"p4q6",type:"short",marks:2,prompt:"(E) Why is Jessica satisfied with the privacy?",rubric:"Nobody enters / Luke stays outside.",keywords:[["outside","stays outside","nobody enters","no one enters"]]},
+      {id:"p4q7",type:"short",marks:4,prompt:"(E) Give TWO things Luke records or tries to record.",rubric:"Time/duration and number of pieces.",keywords:[["time","duration","stopwatch"],["pieces","number","morceaux"]]}
+    ]
+  },
+  {
+    id:5,title:"Passage 5 — Le record violet",theme:"Wilhelm Poops — 5",unit:"Purple Slide Record",
+    text:`Wilhelm retourne à la piscine secrète. Cette fois, l'incident dure quarante-sept minutes et cinquante-deux secondes : c'est le record à ce moment-là. Wilhelm choisit le siège adulte.
+
+Luke reste dehors pendant presque tout l'incident, mais il entre brièvement. Jessica considère cela comme un problème sérieux d'intimité. Luke écrit donc dans ses notes : « Record de durée, intimité mauvaise. »
+
+Vocabulaire : brièvement = briefly • siège adulte = adult seat • durée = duration
+
+Quand Wilhelm sort enfin, il est fatigué et il ne trouve pas le record amusant. Luke, au contraire, regarde encore le chronomètre et pense surtout au nouveau maximum. OWing lui rappelle que la durée est une donnée, mais que l'intimité est plus importante. Jessica insiste : entrer, même pour un court moment, était une mauvaise idée.`,
+    questions:[
+      {id:"p5q1",type:"mcq",marks:2,prompt:"(E) What is special about the duration?",options:["It is the record at that time","It is exactly ten minutes","Nobody times it","It is the shortest"],answerIndex:0},
+      {id:"p5q2",type:"short",marks:4,prompt:"(E) Give TWO exact time details.",rubric:"47 minutes; 52 seconds.",keywords:[["47","forty seven","quarante sept"],["52","fifty two","cinquante deux"]]},
+      {id:"p5q3",type:"tfnm",marks:2,prompt:"(E) Wilhelm had used the adult seat in every previous incident. (True / False / Not mentioned)",correct:"Not mentioned"},
+      {id:"p5q4",type:"pn",marks:2,prompt:"(E) Jessica's opinion of the privacy is… (P / N / P+N)",answer:"N"},
+      {id:"p5q5",type:"fr_short",marks:4,prompt:"(M) Auf Deutsch : Quel siège utilise Wilhelm ?",rubric:"Le siège adulte.",keywords:[["siege adulte","siège adulte","adulte"]]},
+      {id:"p5q6",type:"short",marks:2,prompt:"(E) What does Luke do wrong?",rubric:"He briefly enters.",keywords:[["enter","enters","goes in","inside"]]},
+      {id:"p5q7",type:"short",marks:4,prompt:"(E) Summarise Luke's final note in TWO ideas.",rubric:"Record/very long duration; bad privacy.",keywords:[["record","long","duration","time"],["bad privacy","privacy bad","intimacy","privacy"]]}
+    ]
+  },
+  {
+    id:6,title:"Passage 6 — 34 pouces",theme:"Wilhelm Poops — 6",unit:"34-Inch Locked Cubicles",
+    text:`Luke ferme plusieurs cabines des toilettes des garçons. Cela crée des problèmes avec les sièges et les chasses d'eau. Puis Luke fait une comparaison très étrange avec Otono Airways : en classe économique, les sièges ont trente-quatre à trente-cinq pouces d'espace pour les jambes.
+
+Luke dit le slogan « NO MORE FEAR of economy class! » Gary lui demande immédiatement de ne pas utiliser le slogan de la compagnie pour parler des toilettes. Luke répond que c'est malheureusement déjà fait.
+
+Vocabulaire : cabine = cubicle • chasse d'eau = flush • pouces = inches
+
+Gary entend le slogan depuis le couloir et demande immédiatement à Luke d'arrêter de comparer les toilettes avec les avions. Red rit parce que le nombre trente-quatre lui rappelle vraiment la classe économique d'Otono Airways. Wilhelm ne trouve pas la comparaison utile : son seul objectif est de trouver une cabine libre et de fermer correctement la porte.`,
+    questions:[
+      {id:"p6q1",type:"mcq",marks:2,prompt:"(E) What has Luke locked?",options:["Several boys' toilet cubicles","The aircraft doors","Room 47","The safe"],answerIndex:0},
+      {id:"p6q2",type:"short",marks:4,prompt:"(E) What TWO toilet problems are mentioned?",rubric:"Seats and flushes.",keywords:[["seat","seats","siege"],["flush","flushes","chasse"]]},
+      {id:"p6q3",type:"tfnm",marks:2,prompt:"(E) Otono Airways Economy has 34–35 inches of legroom. (True / False / Not mentioned)",correct:"True"},
+      {id:"p6q4",type:"pn",marks:2,prompt:"(E) Gary's reaction to Luke using the airline slogan is… (P / N / P+N)",answer:"N"},
+      {id:"p6q5",type:"fr_short",marks:4,prompt:"(M) Auf Deutsch : Qu'est-ce que Luke ferme ?",rubric:"Plusieurs cabines des toilettes des garçons.",keywords:[["cabines"],["toilettes","garcons","garçons"]]},
+      {id:"p6q6",type:"short",marks:2,prompt:"(E) Which airline does Luke mention?",rubric:"Otono Airways.",keywords:[["otono airways","otono"]]},
+      {id:"p6q7",type:"short",marks:4,prompt:"(E) Why does Gary object? Give TWO ideas.",rubric:"It is an airline/company slogan; he does not want it connected to toilets.",keywords:[["airline","company","slogan","otono airways"],["toilet","toilets","poop"]]}
+    ]
+  },
+  {
+    id:7,title:"Passage 7 — Trois morceaux, zéro catastrophe",theme:"Wilhelm Poops — 7",unit:"Old-Style Three-Piece",
+    text:`L'incident numéro 7 est beaucoup plus calme. Wilhelm utilise les toilettes normalement et il y a trois morceaux. Jessica est présente dans la situation générale, mais personne ne dérange Wilhelm.
+
+Luke a un tournevis avec lui, mais il ne l'utilise pas. Pour Jessica, c'est la preuve qu'une histoire peut être drôle sans devenir une catastrophe. Luke note aussi que l'intimité est complètement respectée.
+
+Vocabulaire : tournevis = screwdriver • déranger = to disturb
+
+Luke a quand même son tournevis dans son sac, mais il ne l'utilise pas. C'est important pour Jessica, qui dit que cette fois personne ne doit ouvrir une porte fermée. Wilhelm utilise les toilettes normalement, puis sort sans problème. OWing remarque que l'événement est beaucoup moins chaotique que les précédents, même si Luke note encore le nombre de morceaux.`,
+    questions:[
+      {id:"p7q1",type:"mcq",marks:2,prompt:"(E) How many pieces are there?",options:["Three","Seven","Twelve","Uncountable"],answerIndex:0},
+      {id:"p7q2",type:"short",marks:4,prompt:"(E) Give TWO reasons this incident is calmer.",rubric:"Wilhelm uses toilets normally; nobody disturbs him; screwdriver is not used; privacy respected.",keywords:[["normally","normal","nobody disturbs","no one disturbs"],["screwdriver not used","does not use","privacy respected","private"]]},
+      {id:"p7q3",type:"tfnm",marks:2,prompt:"(E) Luke uses the screwdriver. (True / False / Not mentioned)",correct:"False"},
+      {id:"p7q4",type:"pn",marks:2,prompt:"(E) Jessica's opinion of this incident is… (P / N / P+N)",answer:"P"},
+      {id:"p7q5",type:"fr_short",marks:4,prompt:"(M) Auf Deutsch : Combien de morceaux et est-ce que Luke utilise le tournevis ?",rubric:"Trois morceaux; non, il ne l'utilise pas.",keywords:[["trois","3"],["non","ne l utilise pas","pas"]]},
+      {id:"p7q6",type:"short",marks:2,prompt:"(E) Who is present in the general situation?",rubric:"Jessica.",keywords:[["jessica"]]},
+      {id:"p7q7",type:"short",marks:4,prompt:"(E) What lesson does Jessica take from this incident?",rubric:"It can be funny without causing a disaster/privacy problem.",keywords:[["funny","humour","drôle"],["without disaster","no disaster","privacy","without causing"]]}
+    ]
+  },
+  {
+    id:8,title:"Passage 8 — Où sont les panneaux garçons ?",theme:"Wilhelm Poops — 8",unit:"Girls Sign Confusion Edition",
+    text:`Un jour, beaucoup de panneaux « garçons » ont disparu. Wilhelm cherche les bonnes toilettes et voit plusieurs panneaux « filles ». Heureusement, il trouve encore un panneau « garçons » au deuxième étage et il utilise ces toilettes.
+
+Luke compte cinq morceaux. OWing décrit l'incident comme « modéré » : les panneaux créent de la confusion, mais Wilhelm trouve finalement les bonnes toilettes et la situation reste relativement calme.
+
+Vocabulaire : disparaître = to disappear • modéré = moderate
+
+Wilhelm ne veut pas choisir une porte au hasard. Il regarde les panneaux à chaque étage et cherche une indication claire. Luke pense que la confusion est drôle, mais Red lui dit que les panneaux doivent aider les gens, pas les envoyer dans la mauvaise direction. Finalement, Wilhelm trouve les toilettes des garçons au deuxième étage et peut les utiliser sans autre problème.`,
+    questions:[
+      {id:"p8q1",type:"mcq",marks:2,prompt:"(E) What has happened to many boys' signs?",options:["They have disappeared","They are purple","They are new","They are locked"],answerIndex:0},
+      {id:"p8q2",type:"short",marks:4,prompt:"(E) Give TWO details about where Wilhelm finally goes.",rubric:"He finds a boys' sign; on floor 2; uses those toilets.",keywords:[["boys","garcons","garçons"],["floor 2","second floor","deuxieme","deuxième"]]},
+      {id:"p8q3",type:"tfnm",marks:2,prompt:"(E) Luke personally removed the missing boys' signs. (True / False / Not mentioned)",correct:"Not mentioned"},
+      {id:"p8q4",type:"pn",marks:2,prompt:"(E) OWing's description of the incident is… (P / N / P+N)",answer:"P+N"},
+      {id:"p8q5",type:"fr_short",marks:4,prompt:"(M) Auf Deutsch : Combien de morceaux ?",rubric:"Cinq.",keywords:[["cinq","5"]]},
+      {id:"p8q6",type:"short",marks:2,prompt:"(E) Who calls the incident moderate?",rubric:"OWing.",keywords:[["owing"]]},
+      {id:"p8q7",type:"short",marks:4,prompt:"(E) Why is the incident only moderately chaotic? Give TWO ideas.",rubric:"Signs cause confusion, but Wilhelm finds the correct toilets and things stay relatively calm.",keywords:[["sign","confusion"],["correct toilet","finds","calm","right toilet"]]}
+    ]
+  },
+  {
+    id:9,title:"Passage 9 — Le hot pot beaucoup trop épicé",theme:"Wilhelm Poops — 9",unit:"Spicy Hot Pot Revenge",
+    text:`Pendant un repas de hot pot, Wilhelm choisit lui-même beaucoup trop de nourriture épicée. Plus tard, il le regrette : il a la diarrhée et va aux toilettes pendant trente et une minutes et vingt-huit secondes.
+
+Cette fois, Luke n'est pas responsable du problème. Le nombre de morceaux est impossible à compter. Malgré l'inconfort, l'intimité de Wilhelm est respectée et personne ne crée de problème avec la porte.
+
+Vocabulaire : épicé = spicy • regretter = to regret • diarrhée = diarrhoea
+
+Avant le repas, personne ne force Wilhelm à choisir autant de nourriture épicée : c'est sa propre décision. Plus tard, il admet que c'était probablement une mauvaise idée. Luke veut noter l'heure exacte, mais Jessica lui dit de rester dehors. Après trente et une minutes, Wilhelm revient et annonce qu'il choisira quelque chose de beaucoup moins épicé la prochaine fois.`,
+    questions:[
+      {id:"p9q1",type:"mcq",marks:2,prompt:"(E) Who chooses the very spicy food?",options:["Wilhelm","Luke","Jessica","Gary"],answerIndex:0},
+      {id:"p9q2",type:"short",marks:4,prompt:"(E) Give the exact duration.",rubric:"31 minutes and 28 seconds.",keywords:[["31","thirty one","trente et une"],["28","twenty eight","vingt huit"]]},
+      {id:"p9q3",type:"tfnm",marks:2,prompt:"(E) Wilhelm had eaten this particular hot pot meal before. (True / False / Not mentioned)",correct:"Not mentioned"},
+      {id:"p9q4",type:"pn",marks:2,prompt:"(E) Wilhelm's later opinion of his spicy choice is… (P / N / P+N)",answer:"N"},
+      {id:"p9q5",type:"fr_short",marks:4,prompt:"(M) Auf Deutsch : Pourquoi Wilhelm va aux toilettes ?",rubric:"Il a mangé trop épicé / il a la diarrhée.",keywords:[["epice","épicé","diarrhee","diarrhée"],["trop","beaucoup"]]},
+      {id:"p9q6",type:"short",marks:2,prompt:"(E) Can the pieces be counted?",rubric:"No, they are uncountable.",keywords:[["no","uncountable","impossible"]]},
+      {id:"p9q7",type:"short",marks:4,prompt:"(E) Give TWO ways this differs from some other incidents.",rubric:"Luke did not cause it; privacy is respected/no door problem.",keywords:[["luke not responsible","luke did not","food","william chose"],["privacy respected","no door problem","private"]]}
+    ]
+  },
+  {
+    id:10,title:"Passage X — Douze morceaux",theme:"Wilhelm Poops — X",unit:"Quantity Over Quality Edition",
+    text:`Luke refuse d'appeler cet incident « numéro 10 ». Sur sa feuille, il écrit simplement X. Après une énorme quantité de hot pot, Wilhelm va aux toilettes. Cette fois, il y a exactement douze morceaux.
+
+Luke a aussi préparé des panneaux de toilettes dans plusieurs langues. Red trouve cela très drôle, mais Wilhelm est beaucoup moins enthousiaste. Pour Luke, douze morceaux représentent « le chef-d'œuvre de la quantité ».
+
+Vocabulaire : chef-d'œuvre = masterpiece • quantité = quantity
+
+Luke est très impressionné par le nombre douze et l'appelle immédiatement « quantité avant qualité ». Red rit aussi en voyant tous les panneaux dans plusieurs langues. Wilhelm, lui, dit que douze n'est pas un record qu'il voulait obtenir. Jessica demande surtout à tout le monde de ne pas bloquer le passage et de laisser Wilhelm finir tranquillement.`,
+    questions:[
+      {id:"p10q1",type:"mcq",marks:2,prompt:"(E) What is this incident called instead of 10?",options:["X","Z","A","Original"],answerIndex:0},
+      {id:"p10q2",type:"short",marks:4,prompt:"(E) Give TWO unusual features of this incident.",rubric:"It is called X; 12 pieces; international/multilingual signs.",keywords:[["x","not 10"],["12","twelve","international","languages","multilingual signs"]]},
+      {id:"p10q3",type:"tfnm",marks:2,prompt:"(E) There are exactly twelve pieces. (True / False / Not mentioned)",correct:"True"},
+      {id:"p10q4",type:"pn",marks:2,prompt:"(E) Red and Wilhelm have the same opinion of the incident. (P / N / P+N)",answer:"P+N"},
+      {id:"p10q5",type:"fr_short",marks:4,prompt:"(M) Auf Deutsch : Qu'est-ce que Luke prépare ?",rubric:"Des panneaux de toilettes dans plusieurs langues.",keywords:[["panneaux"],["langues","plusieurs langues","toilettes"]]},
+      {id:"p10q6",type:"short",marks:2,prompt:"(E) What food is connected to the incident?",rubric:"Hot pot.",keywords:[["hot pot"]]},
+      {id:"p10q7",type:"short",marks:4,prompt:"(E) Explain the joke in Luke's description « masterpiece of quantity ». Give TWO details.",rubric:"There is a large quantity; exactly 12 pieces.",keywords:[["large","many","quantity"],["12","twelve","pieces"]]}
+    ]
+  },
+  {
+    id:11,title:"Passage 11 — Le sac violet",theme:"Wilhelm Poops — 11",unit:"Sleepover Morning Edition",
+    text:`Le matin d'une soirée pyjama, Luke montre pour la première fois son sac violet d'équipement. Il contient plusieurs objets qu'il utilise pour ses notes et ses chronométrages. Wilhelm va aux toilettes pendant vingt et une minutes et six secondes.
+
+Il y a quatre morceaux. Malgré la présence d'autres personnes dans la maison, l'intimité de Wilhelm est respectée. Jessica regarde le sac et dit qu'il est « suspect ». Luke répond : « C'est la même chose qu'officiel. »
+
+Vocabulaire : soirée pyjama = sleepover • équipement = equipment • suspect = suspicious
+
+Le sac contient plusieurs objets utiles pour Luke : des feuilles, un petit tableau blanc, des stylos noirs, un chronomètre et une minuterie. Jessica regarde le sac avec méfiance, surtout parce qu'elle se souvient du tournevis. Wilhelm demande simplement que personne n'utilise ces objets pour ouvrir sa porte. Luke promet cette fois de rester dans le couloir.`,
+    questions:[
+      {id:"p11q1",type:"mcq",marks:2,prompt:"(E) What colour is Luke's equipment bag?",options:["Purple","Blue","Black","Green"],answerIndex:0},
+      {id:"p11q2",type:"short",marks:4,prompt:"(E) Give TWO numerical details.",rubric:"21 minutes 6 seconds; 4 pieces.",keywords:[["21","twenty one","6","six seconds"],["4","four","pieces"]]},
+      {id:"p11q3",type:"tfnm",marks:2,prompt:"(E) Wilhelm's privacy is respected. (True / False / Not mentioned)",correct:"True"},
+      {id:"p11q4",type:"pn",marks:2,prompt:"(E) Luke's attitude towards his equipment bag is… (P / N / P+N)",answer:"P"},
+      {id:"p11q5",type:"fr_short",marks:4,prompt:"(M) Auf Deutsch : Combien de temps dure l'incident ?",rubric:"Vingt et une minutes et six secondes.",keywords:[["vingt et une","21"],["six secondes","6"]]},
+      {id:"p11q6",type:"short",marks:2,prompt:"(E) What kind of event is happening that morning?",rubric:"A sleepover.",keywords:[["sleepover","soiree pyjama","soirée pyjama"]]},
+      {id:"p11q7",type:"short",marks:4,prompt:"(E) How do Jessica and Luke describe the bag differently?",rubric:"Jessica calls it suspicious; Luke treats suspicious as the same as official.",keywords:[["suspicious","suspect"],["official","same"]]}
+    ]
+  },
+  {
+    id:12,title:"Passage 12 — Chocolat et le film Minecraft",theme:"Wilhelm Poops — 12",unit:"Minecraft Movie Toilet Quest Edition",
+    text:`Pendant une soirée cinéma avec le film Minecraft, le mot « chocolat » devient un indice dans une recherche de toilettes. Malheureusement, Wilhelm choisit d'abord les mauvaises toilettes et il y a aussi un problème avec une serrure.
+
+L'incident dure vingt-six minutes et quarante-quatre secondes. Luke note six morceaux. Red dit ensuite que le mot « chocolat » est devenu un vocabulaire dangereux dans les histoires de Wilhelm.
+
+Vocabulaire : indice = clue • serrure = lock
+
+Pendant que les autres continuent le film, Wilhelm cherche les bonnes toilettes. Le mot « chocolat » fait rire Red, mais il n'aide pas vraiment Wilhelm à trouver une cabine. Luke veut transformer la situation en quête comme dans un jeu vidéo. Jessica refuse cette idée et lui dit que Wilhelm a seulement besoin d'une porte qui fonctionne et d'un peu de calme.`,
+    questions:[
+      {id:"p12q1",type:"mcq",marks:2,prompt:"(E) Which film is being watched?",options:["Minecraft","A French film","An aviation film","A maths film"],answerIndex:0},
+      {id:"p12q2",type:"short",marks:4,prompt:"(E) Give TWO problems Wilhelm has.",rubric:"He chooses the wrong toilets; there is a lock problem.",keywords:[["wrong toilet","wrong toilets","mauvaises toilettes"],["lock","serrure"]]},
+      {id:"p12q3",type:"tfnm",marks:2,prompt:"(E) Wilhelm had already seen the Minecraft film before this movie night. (True / False / Not mentioned)",correct:"Not mentioned"},
+      {id:"p12q4",type:"pn",marks:2,prompt:"(E) The attitudes towards turning the toilet search into something entertaining are… (P / N / P+N)",answer:"P+N"},
+      {id:"p12q5",type:"fr_short",marks:4,prompt:"(M) Auf Deutsch : Combien de morceaux et combien de secondes après les vingt-six minutes ?",rubric:"Six morceaux; quarante-quatre secondes.",keywords:[["six","6"],["quarante quatre","44"]]},
+      {id:"p12q6",type:"short",marks:2,prompt:"(E) What word becomes the unusual clue?",rubric:"Chocolat.",keywords:[["chocolat","chocolate"]]},
+      {id:"p12q7",type:"short",marks:4,prompt:"(E) Why does Red call the word dangerous? Give TWO relevant ideas.",rubric:"It is linked to the toilet search; the search leads to wrong toilets/lock trouble.",keywords:[["clue","toilet search","search"],["wrong toilet","lock","problem","trouble"]]}
+    ]
+  },
+  {
+    id:13,title:"Passage 13 — La serrure cassée",theme:"Wilhelm Poops — 13",unit:"Broken Lock Encounter Edition",
+    text:`Wilhelm remarque qu'une serrure ne fonctionne pas correctement. Gary est brièvement dans la même zone des toilettes, mais il utilise les urinoirs et part rapidement pour respecter l'intimité de Wilhelm.
+
+Après l'incident, Jessica dit que le plus important est de signaler une serrure cassée. Luke écrit aussi une note : une petite panne peut devenir un vrai problème si personne ne la signale.
+
+Vocabulaire : serrure cassée = broken lock • urinoir = urinal • signaler = to report
+
+Wilhelm remarque le problème avant de fermer complètement la porte. Gary vérifie la serrure et confirme qu'elle ne fonctionne pas correctement. Il quitte ensuite la zone pour laisser Wilhelm tranquille. Plus tard, Ivy demande que la serrure soit signalée pour réparation. Luke veut ajouter l'incident au tableau de la salle 47, mais Jessica préfère surtout retenir la leçon de sécurité.`,
+    questions:[
+      {id:"p13q1",type:"mcq",marks:2,prompt:"(E) What problem does Wilhelm notice?",options:["A broken lock","A missing phone","A broken piano","A late flight"],answerIndex:0},
+      {id:"p13q2",type:"short",marks:4,prompt:"(E) Give TWO things Gary does that respect Wilhelm's privacy.",rubric:"He uses the urinals; he leaves quickly/respectfully.",keywords:[["urinal","urinals"],["leaves","left","quickly","rapidly"]]},
+      {id:"p13q3",type:"tfnm",marks:2,prompt:"(E) Gary stays for a long time. (True / False / Not mentioned)",correct:"False"},
+      {id:"p13q4",type:"pn",marks:2,prompt:"(E) Jessica's view of reporting the broken lock is… (P / N / P+N)",answer:"P"},
+      {id:"p13q5",type:"fr_short",marks:4,prompt:"(M) Auf Deutsch : Quel est le problème ?",rubric:"La serrure est cassée / ne fonctionne pas correctement.",keywords:[["serrure"],["cassee","cassée","ne fonctionne pas"]]},
+      {id:"p13q6",type:"short",marks:2,prompt:"(E) What does Jessica say should happen?",rubric:"The broken lock should be reported.",keywords:[["report","reported","signaler","tell someone"]]},
+      {id:"p13q7",type:"short",marks:4,prompt:"(E) What lesson does Luke record? Give TWO ideas.",rubric:"A small fault can become a real problem if nobody reports it.",keywords:[["small","fault","problem","panne"],["report","reported","nobody reports","signale"]]}
+    ]
+  },
+  {
+    id:14,
+    title:"Passage 14 — Wilhelm, 90 % et l'éclipse",
+    theme:"Wilhelm Poops — 18",
+    unit:"The 90% Eclipse Ban",
+    text:`Le jour de l'éclipse solaire, toute l'équipe se prépare depuis le matin. Au maximum, 93,6 % du Soleil doit être caché, ce qui rend l'événement particulièrement impressionnant. Wilhelm veut évidemment regarder l'éclipse avec les autres et il insiste sur le fait qu'il ne veut surtout pas la manquer. Pourtant, Luke annonce soudain une règle qu'il vient d'inventer : selon lui, Wilhelm n'a pas le droit de regarder une éclipse où plus de 89,4 % du Soleil est couvert. Wilhelm ne comprend pas pourquoi Luke a choisi un nombre aussi précis.
+
+  Luke explique alors son raisonnement. Il ne veut absolument pas que Wilhelm soit associé au nombre 90, même indirectement. À ses yeux, si Wilhelm regarde une éclipse de 90 % ou davantage, les autres risquent ensuite de parler de « Wilhelm et 90 % », ce qu'il veut éviter à tout prix. Il choisit donc 89,4 % comme limite maximale. Wilhelm répond que l'éclipse réelle atteint 93,6 % et que cette règle l'empêcherait donc de voir la partie la plus spectaculaire de l'événement. Il ajoute que Luke n'a aucune autorité pour décider cela tout seul.
+
+  Gary entend la discussion et paraît immédiatement surpris. Il précise qu'il n'a jamais interdit à Wilhelm de regarder l'éclipse et qu'il n'a jamais approuvé la limite de 89,4 %. Les autres sont d'accord avec lui : Luke peut ne pas aimer l'association avec 90 %, mais cela ne lui donne pas le droit d'empêcher quelqu'un de participer. Luke essaie encore de défendre son idée en disant qu'une limite inférieure à 90 % est la seule façon d'éviter complètement le problème. Cependant, même ceux qui comprennent sa logique trouvent la règle beaucoup trop extrême.
+
+  Finalement, Wilhelm reste déterminé à regarder l'éclipse. Pour lui, le plus important est de profiter d'un événement astronomique rare avec les autres, et non de satisfaire la règle personnelle de Luke. Gary rappelle à tout le monde que les décisions importantes ne peuvent pas être prises par une seule personne sans l'accord du groupe. Luke n'est toujours pas content de voir Wilhelm si près du fameux nombre 90, mais il doit accepter que sa « limite de 89,4 % » n'est pas une véritable règle. Wilhelm peut donc regarder les 93,6 % comme tout le monde.
+
+  Vocabulaire : cacher = to cover/hide • limite = limit • empêcher = to prevent • approuver = to approve • à tout prix = at all costs • raisonnement = reasoning`,
+    questions:[
+      {
+        id:"p14q1",
+        type:"mcq",
+        marks:2,
+        prompt:"(E) What percentage of the Sun will be covered at maximum?",
+        options:["93.6%","89.4%","90%","100%"],
+        answerIndex:0
+      },
+      {
+        id:"p14q2",
+        type:"short",
+        marks:4,
+        prompt:"(E) Explain TWO parts of Luke's reasoning for choosing 89.4%.",
+        rubric:"He wants Wilhelm to remain below 90%; he wants to prevent Wilhelm being associated with 90.",
+        keywords:[
+          ["below 90","under 90","less than 90","89.4"],
+          ["associated with 90","connection with 90","linked to 90","avoid 90"]
+        ]
+      },
+      {
+        id:"p14q3",
+        type:"tfnm",
+        marks:2,
+        prompt:"(E) Gary had already approved Luke's 89.4% rule. (True / False / Not mentioned)",
+        correct:"False"
+      },
+      {
+        id:"p14q4",
+        type:"pn",
+        marks:2,
+        prompt:"(E) The group's attitude towards Wilhelm being allowed to watch the eclipse is… (P / N / P+N)",
+        answer:"P"
+      },
+      {
+        id:"p14q5",
+        type:"fr_short",
+        marks:4,
+        prompt:"(M) Auf Deutsch : Pourquoi Wilhelm pense que la règle de Luke est injuste ? Donnez DEUX raisons.",
+        rubric:"Elle l'empêcherait de voir la partie la plus spectaculaire de l'éclipse; Luke n'a pas l'autorité de décider seul.",
+        keywords:[
+          ["partie la plus spectaculaire","moment le plus spectaculaire","93 6","93,6"],
+          ["pas autorite","pas d autorite","ne peut pas decider seul","décider tout seul"]
+        ]
+      },
+      {
+        id:"p14q6",
+        type:"short",
+        marks:2,
+        prompt:"(E) What principle does Gary give about important decisions?",
+        rubric:"One person cannot make important decisions without the agreement of the group.",
+        keywords:[
+          ["agreement","group","everyone","one person","alone"]
+        ]
+      },
+      {
+        id:"p14q7",
+        type:"short",
+        marks:4,
+        prompt:"(E) By the end, how have Luke's position and Wilhelm's situation changed? Give TWO details.",
+        rubric:"Luke has to accept that 89.4% is not a real rule; Wilhelm is allowed to watch the 93.6% eclipse with everyone.",
+        keywords:[
+          ["not a real rule","accept","89.4","rule rejected","cannot ban"],
+          ["wilhelm can watch","allowed to watch","93.6","with everyone","eclipse"]
+        ]
+      }
+    ]
+  },
+];
+
+const ÜBERSETZUNGS = [
+  {
+    id:"T1",title:"Übersetzung — Wilhelm poops 14",theme:"Wilhelm Poops — 14",
+    text:"Wilhelm used cubicle 2 in the basement. Luke was not allowed to create chaos, so he stayed outside the cubicle and waited in the corridor. While Wilhelm was inside, he suddenly sneezed. Luke immediately shouted, 'Bless you, Wilhelm!' Everyone heard him. Wilhelm was not impressed by the loud comment. When the incident was finished, Luke asked for the number of pieces. The answer was four, and Jessica reminded Luke that privacy still mattered.",
+    keyIdeas:[["william a utilise la cabine 2","william a utilisé la cabine 2","cabine 2"],["au sous sol","dans le sous sol"],["luke n avait pas le droit","luke ne pouvait pas","luke etait interdit"],["creer du chaos","faire du chaos"],["william a eternue","william a éternué"],["luke a crie","luke a crié"],["a tes souhaits wilhelm","sante wilhelm","bless you wilhelm"],["quatre morceaux","4 morceaux"]],
+    sampleAnswer:"Wilhelm a utilisé la cabine 2 au sous-sol. Luke n'avait pas le droit de créer du chaos, alors il est resté à l'extérieur de la cabine et il a attendu dans le couloir. Pendant que Wilhelm était à l'intérieur, il a soudainement éternué. Luke a immédiatement crié : « À tes souhaits, Wilhelm ! » Tout le monde l'a entendu. Wilhelm n'était pas impressionné par le commentaire bruyant. Quand l'incident était terminé, Luke a demandé le nombre de morceaux. La réponse était quatre, et Jessica a rappelé à Luke que l'intimité restait importante."
+  },
+  {
+    id:"T2",title:"Übersetzung — Wilhelm poops 15",theme:"Wilhelm Poops — 15",
+    text:"Luke asked Wilhelm to open the toilet door, but Wilhelm clearly said no because he wanted privacy. Luke then made a very bad decision and used a screwdriver to unlock the door. Wilhelm protected his privacy and refused to continue with the child seat. There were zero pieces during that first part. After Luke left, Wilhelm used the adult seat instead and there were three pieces. Jessica was very unhappy and later wrote that the screwdriver must not be used again.",
+    keyIdeas:[["luke a demande a william","luke a demandé à william"],["ouvrir la porte"],["william a dit non","mais william a dit non"],["luke a utilise un tournevis","luke a utilisé un tournevis"],["deverrouiller","ouvrir la serrure"],["zero morceau","zéro morceau","0 morceau"],["siege enfant","siège enfant"],["trois morceaux","3 morceaux"],["siege adulte","siège adulte"]],
+    sampleAnswer:"Luke a demandé à Wilhelm d'ouvrir la porte des toilettes, mais Wilhelm a clairement dit non parce qu'il voulait de l'intimité. Luke a ensuite pris une très mauvaise décision et a utilisé un tournevis pour ouvrir la porte. Wilhelm a protégé son intimité et a refusé de continuer avec le siège pour enfant. Il y avait zéro morceau pendant cette première partie. Après le départ de Luke, Wilhelm a utilisé le siège adulte à la place et il y avait trois morceaux. Jessica était très mécontente et a écrit plus tard que le tournevis ne devait plus être utilisé."
+  },
+  {
+    id:"T3",title:"Übersetzung — Wilhelm poops 16",theme:"Wilhelm Poops — 16",
+    text:"The signs said that the toilets on floor 2 were for girls and the toilets on floor 3 were for boys. Wilhelm trusted the signs, but he also tried to remember where the correct toilets normally were. Gary's pink iPhone was nearby and accidentally made the signs look more official than they really were. Wilhelm eventually chose cubicle 5. He checked the lock before using it and avoided a broken one. There were six pieces. Gary later insisted that his pink phone was not an official document.",
+    keyIdeas:[["les panneaux disaient","les panneaux indiquaient"],["deuxieme etage","deuxième étage","etage 2"],["pour les filles","toilettes des filles"],["troisieme etage","troisième étage","etage 3"],["pour les garcons","pour les garçons","toilettes des garçons"],["iphone rose de gary","telephone rose de gary","téléphone rose de gary"],["officiels","officiel"],["cabine 5"],["six morceaux","6 morceaux"]],
+    sampleAnswer:"Les panneaux disaient que les toilettes du deuxième étage étaient pour les filles et celles du troisième étage pour les garçons. Wilhelm a fait confiance aux panneaux, mais il a aussi essayé de se rappeler où se trouvaient normalement les bonnes toilettes. L'iPhone rose de Gary était près des panneaux et leur donnait accidentellement un air plus officiel. Wilhelm a finalement choisi la cabine 5. Il a vérifié la serrure avant de l'utiliser et il a évité une serrure cassée. Il y avait six morceaux. Plus tard, Gary a insisté sur le fait que son téléphone rose n'était pas un document officiel."
+  },
+  {
+    id:"T4",title:"Übersetzung — Wilhelm poops 17",theme:"Wilhelm Poops — 17",
+    text:"This was Wilhelm's most uncomfortable incident in the whole series. He had diarrhoea, so the number of pieces was impossible to count. He went to the boys' toilets on floor 3 and used cubicle 3. This time, however, the others were much more careful about privacy. Nobody entered the cubicle and Luke stayed outside. Gary's pink iPhone had also been hidden safely away, so it could not cause more sign confusion. Although Wilhelm felt terrible physically, his privacy was respected much better than in several earlier incidents.",
+    keyIdeas:[["incident le plus inconfortable","le plus inconfortable"],["william avait la diarrhee","william avait la diarrhée","il avait la diarrhee"],["impossible a compter","impossible à compter","incalculable"],["nombre de morceaux"],["cabine 3"],["toilettes des garcons","toilettes des garçons"],["troisieme etage","troisième étage","etage 3"],["intimite respectee","intimité respectée","vie privee respectee"]],
+    sampleAnswer:"C'était l'incident le plus inconfortable de Wilhelm dans toute la série. Il avait la diarrhée, donc le nombre de morceaux était impossible à compter. Il est allé aux toilettes des garçons au troisième étage et a utilisé la cabine 3. Cette fois, cependant, les autres ont fait beaucoup plus attention à son intimité. Personne n'est entré dans la cabine et Luke est resté dehors. L'iPhone rose de Gary avait aussi été caché en sécurité, donc il ne pouvait pas créer une nouvelle confusion avec les panneaux. Même si Wilhelm se sentait très mal physiquement, son intimité a été beaucoup mieux respectée que pendant plusieurs incidents précédents."
+  }
+];
+
+/* -----------------------------
+   Utilities
+--------------------------------*/
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+function nowISO(){ return new Date().toISOString(); }
+
+function norm(s){
+  return (s ?? "")
+    .toString()
+    .toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .replace(/[^a-z0-9\s]/g," ")
+    .replace(/\s+/g," ")
+    .trim();
+}
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function hasPassage(selection, id){
+  return !!selection?.passages?.some(p => p.id === id);
+}
+
+function pickRandom(arr, n){
+  return shuffle(arr).slice(0, n);
+}
+
+function escapeHtml(str){
+  return (str ?? "").toString()
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+function otonoLetterGrade(score){
+  if(score >= 101) return "S";
+  if(score >= 97) return "A*";
+  if(score >= 92) return "A";
+  if(score >= 83) return "B";
+  if(score >= 74) return "C";
+  if(score >= 66) return "D";
+  if(score >= 56) return "E";
+  if(score >= 44) return "F";
+  if(score >= 33) return "G";
+  if(score >= 25) return "H";
+  return "U";
+}
+
+function passMeritDistinction(score){
+  if(score >= 90) return "DISTINCTION";
+  if(score >= 80) return "MERIT";
+  if(score >= 66) return "PASS";
+  return "FAIL";
+}
+
+function gcseEstimate(score){
+  if(score >= 101) return 10;
+  if(score >= 81) return 9;
+  if(score >= 72) return 8;
+  if(score >= 62) return 7;
+  if(score >= 52) return 6;
+  if(score >= 42) return 5;
+  if(score >= 32) return 4;
+  if(score >= 25) return 3;
+  if(score >= 17) return 2;
+  if(score >= 8) return 1;
+  return "U";
+}
+
+function badgeForPunktzahl(score){
+  if(score >= 101) return ["badge good","💯 SECRET SCORE"];
+  if(score >= 90) return ["badge good","🏆 Excellent"];
+  if(score >= 80) return ["badge good","⭐ Très bien"];
+  if(score >= 66) return ["badge warn","✅ OK"];
+  return ["badge bad","❌ Mal"];
+}
+
+/* -----------------------------
+   Local storage
+--------------------------------*/
+const STORE_KEY = "otonoGermanReadingSAM_wilhelmPoops_v1";
+
+function loadErgebnisse(){
+  try{ return JSON.parse(localStorage.getItem(STORE_KEY) || "[]"); }
+  catch(e){ return []; }
+}
+function saveErgebnisse(list){
+  localStorage.setItem(STORE_KEY, JSON.stringify(list));
+}
+function addResult(attempt){
+  const list = loadErgebnisse();
+  list.unshift(attempt);
+  saveErgebnisse(list);
+}
+
+/* -----------------------------
+   App state
+--------------------------------*/
+let state = {
+  mode: "home",
+  timer: null,
+  remainingSec: 0,
+  startedAt: null,
+
+  centreNo: "50749",
+
+  candidateNo: null,         // 4 digits
+  candNachname: "",
+  candForenames: "",
+
+  selection: null,
+  answers: {},               // qid -> user answer (string)
+  mcqCorrectValue: {},       // qid -> correct radio value after shuffling
+  submitted: false
+};
+
+/* -----------------------------
+   Zentrumsnummer controls
+--------------------------------*/
+function setCentre(no){
+  state.centreNo = String(no);
+  $("#centreNo").value = state.centreNo;
+  $("#centreTop").textContent = state.centreNo;
+}
+
+$("#btnEditCentre").addEventListener("click", () => {
+  const val = prompt("Enter centre number (digits only, e.g. 50749):", state.centreNo);
+  if(val === null) return;
+  const clean = String(val).replace(/\D/g,"").slice(0, 10);
+  if(clean.length < 5){
+    alert("Zentrumsnummer must be digits only (at least 5 digits).");
+    return;
+  }
+  setCentre(clean);
+});
+
+$("#btnResetCentre").addEventListener("click", () => setCentre("50749"));
+
+/* -----------------------------
+   Candidate number 4 squares
+--------------------------------*/
+const digitIds = ["#candD1","#candD2","#candD3","#candD4"];
+
+function getCandidateNoFromSquares(){
+  const d = digitIds.map(id => ($(id).value || "").trim());
+  if(d.some(x => x.length !== 1 || !/^\d$/.test(x))) return "";
+  return d.join("");
+}
+
+function focusDigit(i){
+  const el = $(digitIds[i]);
+  if(el) el.focus();
+}
+
+function wireDigitSquares(){
+  digitIds.forEach((id, idx) => {
+    const el = $(id);
+
+    el.addEventListener("input", () => {
+      // keep digits only
+      el.value = (el.value || "").replace(/\D/g,"").slice(0,1);
+      if(el.value && idx < digitIds.length-1) focusDigit(idx+1);
+    });
+
+    el.addEventListener("keydown", (e) => {
+      if(e.key === "Backspace" && !el.value && idx > 0){
+        focusDigit(idx-1);
+      }
+      if(e.key === "ArrowLeft" && idx > 0){
+        e.preventDefault(); focusDigit(idx-1);
+      }
+      if(e.key === "ArrowRight" && idx < digitIds.length-1){
+        e.preventDefault(); focusDigit(idx+1);
+      }
+    });
+
+    el.addEventListener("paste", (e) => {
+      e.preventDefault();
+      const txt = (e.clipboardData || window.clipboardData).getData("text") || "";
+      const digits = txt.replace(/\D/g,"").slice(0,4).split("");
+      digits.forEach((ch, j) => {
+        const target = $(digitIds[j]);
+        if(target) target.value = ch;
+      });
+      // focus next empty
+      const joined = getCandidateNoFromSquares();
+      if(joined.length === 4) focusDigit(3);
+      else{
+        const firstEmpty = digitIds.findIndex(did => !$(did).value);
+        if(firstEmpty >= 0) focusDigit(firstEmpty);
+      }
+    });
+  });
+}
+wireDigitSquares();
+
+/* -----------------------------
+   Build paper (4 passages + 1 translation)
+--------------------------------*/
+function generateSelection(){
+  const passages = pickRandom(PASSAGES, 4);
+  const translation = pickRandom(ÜBERSETZUNGS, 1)[0];
+  return { passages, translation };
+}
+function selectionSummary(sel){
+  const p = sel.passages.map(x=>`#${x.id}`).join(", ");
+  return `Passages: ${p} • Übersetzung: ${sel.translation.id}`;
+}
+
+/* -----------------------------
+   Rendering
+--------------------------------*/
+function setBadge(text, cls="badge"){
+  const b = $("#statusBadge");
+  b.className = cls;
+  b.textContent = text;
+}
+
+function renderHome(){
+  $("#homeBody").classList.remove("hide");
+  $("#testBody").classList.add("hide");
+  $("#resultsBody").classList.add("hide");
+  $("#sideTitle").textContent = "Otono-Bewertung";
+  $("#sideMeta").textContent = "Punktzahl → Otono-Note + GCSE-Schätzung + Pass/Merit/Distinction.";
+  $("#sideBody").classList.remove("hide");
+  setBadge("Bereit","badge");
+  $("#timerText").textContent = "--:--";
+}
+
+function renderErgebnisse(){
+  $("#homeBody").classList.add("hide");
+  $("#testBody").classList.add("hide");
+  $("#sideBody").classList.add("hide");
+  $("#resultsBody").classList.remove("hide");
+  $("#sideTitle").textContent = "Gespeicherte Ergebnisse";
+  $("#sideMeta").textContent = "Stored per candidate in this browser (localStorage).";
+  setBadge("Ergebnisse","badge");
+  $("#timerText").textContent = "--:--";
+  drawErgebnisse();
+}
+
+function stopTimer(){
+  if(state.timer){
+    clearInterval(state.timer);
+    state.timer = null;
+  }
+}
+
+function startTimer(minutes){
+  stopTimer();
+  state.remainingSec = Math.max(1, Math.floor(minutes*60));
+  state.startedAt = Date.now();
+
+  const tick = () => {
+    if(state.submitted) return;
+    const m = Math.floor(state.remainingSec/60);
+    const s = state.remainingSec%60;
+    $("#timerText").textContent = `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+    state.remainingSec--;
+    if(state.remainingSec < 0){
+      stopTimer();
+      const auto = $("#autoSubmit").value === "yes";
+      if(auto) submitPaper(true);
+      else alert("Time is up. You can still submit manually.");
+    }
+  };
+
+  tick();
+  state.timer = setInterval(tick, 1000);
+}
+
+function renderTest(){
+  $("#homeBody").classList.add("hide");
+  $("#testBody").classList.remove("hide");
+  $("#resultsBody").classList.add("hide");
+  $("#sideBody").classList.remove("hide");
+
+  const candNameLine = [
+    state.candNachname ? state.candNachname : "",
+    state.candForenames ? state.candForenames : ""
+  ].filter(Boolean).join(", ");
+
+  const cand = `${state.candidateNo}${candNameLine ? " • " + candNameLine : ""}`;
+  $("#kpiCandidate").textContent = cand;
+  $("#kpiPassages").textContent = state.selection.passages.map(p=>`#${p.id}`).join(" ");
+  $("#kpiÜbersetzung").textContent = state.selection.translation.id;
+
+  const shuffleMode = $("#shuffleMode").value;
+  const paper = $("#paper");
+  paper.innerHTML = "";
+
+  // reset per-paper MCQ mapping
+  state.mcqCorrectValue = {};
+
+  const sel = state.selection;
+  const themes = sel.passages.map(p => `${p.title} (${p.theme}, ${p.unit})`);
+  const head = document.createElement("div");
+  head.className = "note";
+  head.innerHTML = `<strong>Ausgewählte Inhalte</strong><br/>` +
+    themes.map(t => `• ${escapeHtml(t)}`).join("<br/>") +
+    `<br/>• ${escapeHtml(sel.translation.title)} (${escapeHtml(sel.translation.theme)})`;
+  paper.appendChild(head);
+
+  let allBlocks = [];
+
+  sel.passages.forEach(p => {
+    const block = document.createElement("div");
+    block.className = "card";
+    block.style.marginTop = "14px";
+
+    block.innerHTML = `
+      <div class="hd">
+        <div>
+          <h2>${escapeHtml(p.title)}</h2>
+          <div class="meta">${escapeHtml(p.theme)} • ${escapeHtml(p.unit)} • <strong>20 marks</strong></div>
+        </div>
+        <span class="badge">${escapeHtml("#"+p.id)}</span>
+      </div>
+      <div class="bd">
+        <div class="passage">${escapeHtml(p.text).replace(/\n/g,"<br/>")}</div>
+        <div class="divider"></div>
+        <div class="small">MCQ/choice options are always shuffled. Written answers are auto-marked using keyword coverage.</div>
+        <div class="qs"></div>
+      </div>
+    `;
+
+    const qs = block.querySelector(".qs");
+    let qsList = p.questions.slice();
+    if(shuffleMode === "shuffleAll") qsList = shuffle(qsList);
+
+    qsList.forEach(q => {
+      const qWrap = document.createElement("div");
+      qWrap.className = "q";
+      qWrap.dataset.qid = q.id;
+
+      const markTag = `<span class="badge" title="Marks for this question">${q.marks} marks</span>`;
+      const instruction = (q.type === "fr_short")
+        ? "Answer in German. Auto-mark uses keywords."
+        : (["mcq","pn","tfnm"].includes(q.type) ? "Select one option." : "Auto-mark uses keywords. Write concise, direct answers.");
+
+      qWrap.innerHTML = `
+        <h3>${escapeHtml(q.prompt)} ${markTag}</h3>
+        ${renderQuestion(q)}
+        <div class="small" style="margin-top:8px">${escapeHtml(instruction)}</div>
+      `;
+      qs.appendChild(qWrap);
+    });
+
+    allBlocks.push(block);
+  });
+
+  // Übersetzung block
+  const t = sel.translation;
+  const tBlock = document.createElement("div");
+  tBlock.className = "card";
+  tBlock.style.marginTop = "14px";
+  tBlock.innerHTML = `
+    <div class="hd">
+      <div>
+        <h2>${escapeHtml(t.title)}</h2>
+        <div class="meta">${escapeHtml(t.theme)} • <strong>20 marks</strong></div>
+      </div>
+      <span class="badge">ÜBERSETZUNG</span>
+    </div>
+    <div class="bd">
+      <div class="passage">${escapeHtml(t.text)}</div>
+      <div class="divider"></div>
+      <div class="q" data-qid="translation">
+        <h3>Translate into German (write naturally). <span class="badge">20 marks</span></h3>
+        <textarea id="ans_translation" placeholder="Type your German translation here..."></textarea>
+        <div class="small" style="margin-top:8px">Auto-mark checks key ideas. It’s strict: include the meaning clearly.</div>
+      </div>
+    </div>
+  `;
+  allBlocks.push(tBlock);
+
+  allBlocks.forEach(b => paper.appendChild(b));
+
+  bindInputs();
+
+  const mins = parseInt($("#timeAllowed").value,10);
+  startTimer(mins);
+  state.submitted = false;
+
+  $("#markingBox").classList.add("hide");
+  $("#markingBox").innerHTML = "";
+  setBadge("In Bearbeitung","badge warn");
+}
+
+function renderQuestion(q){
+  if(q.type === "mcq"){
+    const opts = q.options.map((text, idx) => ({ text, isCorrect: idx === q.answerIndex }));
+    return renderChoice(q, opts);
+  }
+  if(q.type === "pn"){
+  const key = q.correct ?? q.answer; // ✅ supports both
+  const opts = [
+    { text:"P", isCorrect: key === "P" },
+    { text:"N", isCorrect: key === "N" },
+    { text:"P+N", isCorrect: key === "P+N" }
+  ];
+  return renderChoice(q, opts);
+}
+  if(q.type === "tfnm"){
+    const opts = [
+      { text:"True", isCorrect: q.correct === "True" },
+      { text:"False", isCorrect: q.correct === "False" },
+      { text:"Not mentioned", isCorrect: q.correct === "Not mentioned" }
+    ];
+    return renderChoice(q, opts);
+  }
+  // short / fr_short
+  return `<textarea id="ans_${q.id}" placeholder="${q.type === "fr_short" ? "Antworte auf Deutsch..." : "Write your answer here..."}"></textarea>`;
+}
+
+function renderChoice(q, optionObjects){
+  const name = `ans_${q.id}`;
+
+  // ALWAYS shuffle choice options
+  const shuffled = shuffle(optionObjects);
+
+  // store which radio value is correct after shuffle
+  // value = index in shuffled array
+  const correctIndex = shuffled.findIndex(o => o.isCorrect);
+  state.mcqCorrectValue[q.id] = String(correctIndex);
+
+  return `
+    <div class="opts">
+      ${shuffled.map((opt, idx) => `
+        <label class="opt">
+          <input type="radio" name="${name}" value="${idx}" />
+          <div><div><strong>${String.fromCharCode(65+idx)}.</strong> ${escapeHtml(opt.text)}</div></div>
+        </label>
+      `).join("")}
+    </div>
+  `;
+}
+
+function bindInputs(){
+  $$("input[type='radio']").forEach(r => {
+    r.addEventListener("change", () => {
+      const qid = r.name.replace("ans_","");
+      state.answers[qid] = r.value;
+    });
+  });
+  $$("textarea").forEach(t => {
+    t.addEventListener("input", () => {
+      const id = t.id.replace("ans_","");
+      state.answers[id] = t.value;
+    });
+  });
+}
+
+/* -----------------------------
+   Auto marking
+--------------------------------*/
+function tokenOverlap(text, phrase){
+  const textTokens = new Set(norm(text).split(" ").filter(Boolean));
+  const phraseTokens = norm(phrase).split(" ").filter(Boolean);
+  const matched = phraseTokens.filter(tok => textTokens.has(tok)).length;
+  return phraseTokens.length ? matched / phraseTokens.length : 0;
+}
+
+function expectedDetailCount(marks){
+  if(marks === 2) return 1;
+  if(marks === 4) return 2;
+  if(marks === 6) return 3;
+  if(marks === 8) return 4;
+  return null;
+}
+function markShortAnswer(q, userText){
+  const t = norm(userText);
+  if(!t) return {score:0, max:q.marks, detail:"Blank."};
+
+  const groups = q.keywords || [];
+  if(groups.length === 0) return {score:0, max:q.marks, detail:"No keyword rubric set."};
+
+  let hits = 0;
+  let matchedGroups = [];
+
+  groups.forEach((group, i) => {
+    const found = group.some(k => {
+      const nk = norm(k);
+      return t.includes(nk) || tokenOverlap(t, k) >= 0.7;
+    });
+    if(found){
+      hits++;
+      matchedGroups.push(i + 1);
+    }
+  });
+
+  const expected = Math.min(expectedDetailCount(q.marks) || groups.length, groups.length);
+  const countedHits = Math.min(hits, expected);
+  const per = q.marks / expected;
+  const raw = countedHits * per;
+  const score = Math.max(0, Math.min(q.marks, Math.round(raw * 2) / 2));
+
+  let detail = `Keyword groups matched: ${hits}/${groups.length}; counted: ${countedHits}/${expected}.`;
+  if(matchedGroups.length) detail += ` Matched groups: ${matchedGroups.join(", ")}.`;
+  if(q.rubric) detail += ` Expected: ${q.rubric}`;
+
+  return {score, max:q.marks, detail};
+}
+
+function markChoice(qid, chosenValue, marks){
+  const correctValue = state.mcqCorrectValue[qid];
+  const ok = String(chosenValue ?? "") === String(correctValue);
+  return {
+    score: ok ? marks : 0,
+    max: marks,
+    detail: ok ? "Correct." : "Incorrect."
+  };
+}
+
+function markÜbersetzung(tObj, userText){
+  const t = norm(userText);
+  if(!t) return {score:0, max:20, detail:"Blank."};
+
+  let hits = 0;
+  const ideas = tObj.keyIdeas || [];
+  ideas.forEach(group => {
+    const ok = group.some(k => t.includes(norm(k)));
+    if(ok) hits++;
+  });
+
+  // 5 ideas × 4 marks
+  const score = Math.min(20, hits * 4);
+  const detail = `Key ideas matched: ${hits}/${ideas.length}. (4 marks each)`;
+  return {score, max:20, detail};
+}
+
+function computeTotal(){
+  let total = 0;
+  let breakdown = [];
+
+  state.selection.passages.forEach(p => {
+    p.questions.forEach(q => {
+      const ans = state.answers[q.id];
+      let res;
+
+      if(["mcq","pn","tfnm"].includes(q.type)){
+        res = markChoice(q.id, ans, q.marks);
+      }else{
+        res = markShortAnswer(q, ans);
+      }
+
+      total += res.score;
+      breakdown.push({
+        qid: q.id,
+        passageId: p.id,
+        type: q.type,
+        prompt: q.prompt,
+        score: res.score,
+        max: res.max,
+        detail: res.detail
+      });
+    });
+  });
+
+  const tAns = state.answers["translation"] ?? $("#ans_translation")?.value ?? "";
+  const tRes = markÜbersetzung(state.selection.translation, tAns);
+  total += tRes.score;
+  breakdown.push({
+    qid: "translation",
+    passageId: "translation",
+    type: "translation",
+    prompt: "Translate into German",
+    score: tRes.score,
+    max: tRes.max,
+    detail: tRes.detail
+  });
+
+   const totalRounded = Math.round(total*10)/10;
+
+  // ✅ Secret S unlock: perfect paper + Passage 11 selected = +1 bonus
+  let finalTotal = totalRounded;
+  const unlockS = (finalTotal === 100) && hasPassage(state.selection, 11);
+
+  if(unlockS){
+    finalTotal = 101;
+    breakdown.push({
+      qid: "bonus_s",
+      passageId: 11,
+      type: "bonus",
+      prompt: "Secret bonus: perfect paper + Passage 11 selected",
+      score: 1,
+      max: 1,
+      detail: "Unlocked Grade S bonus (+1)."
+    });
+  }
+
+  // keep 'max' as 100 (base marks), bonus sits on top
+  return { total: finalTotal, max: 100, breakdown };
+}
+
+/* -----------------------------
+   Submission + saving
+--------------------------------*/
+function submitPaper(fromAutoTimer=false){
+  if(state.submitted) return;
+
+let { total, max, breakdown } = computeTotal();
+
+// Secret S bonus: only if perfect 100 AND Passage 11 selected
+const unlockS = (total === 100) && hasPassage(state.selection, 11);
+if (unlockS) {
+  total = 101;
+  breakdown.push({
+    qid: "bonus_s",
+    passageId: 11,
+    type: "bonus",
+    prompt: "Secret bonus: perfect paper + Passage 11 selected",
+    score: 1,
+    max: 1,
+    detail: "Unlocked Grade S bonus (+1)."
+  });
+}
+
+  state.submitted = true;
+  stopTimer();
+
+  const letter = otonoLetterGrade(total);
+  const pmd = passMeritDistinction(total);
+  const gcse = gcseEstimate(total);
+  const [badgeCls, badgeText] = badgeForPunktzahl(total);
+
+  const attempt = {
+    paper: "Otono Deutsch Lesen (SAM) • Sample set 2",
+    centre: state.centreNo,
+    candidateNo: String(state.candidateNo),
+    candidateNachname: state.candNachname || "",
+    candidateForenames: state.candForenames || "",
+    submittedAt: nowISO(),
+    timeAllowedMin: parseInt($("#timeAllowed").value,10),
+    selectedPassages: state.selection.passages.map(p=>p.id),
+    selectedÜbersetzung: state.selection.translation.id,
+    score: total,
+    maxPunktzahl: max,
+    otonoGrade: letter,
+    gcseEstimated: gcse,
+    outcome: pmd,
+    breakdown
+  };
+  addResult(attempt);
+
+  const nameLine = [attempt.candidateNachname, attempt.candidateForenames].filter(Boolean).join(", ");
+
+  const box = $("#markingBox");
+  box.classList.remove("hide");
+  box.className = "";
+  box.innerHTML = `
+    <div class="card">
+      <div class="hd">
+        <div>
+          <h2>✅ Bewertet${fromAutoTimer ? " (auto-submitted)" : ""}</h2>
+          <div class="meta">Saved to Ergebnisse • Centre ${escapeHtml(attempt.centre)} • Candidate ${escapeHtml(attempt.candidateNo)}${nameLine ? " • " + escapeHtml(nameLine) : ""}</div>
+        </div>
+        <span class="${badgeCls}">${escapeHtml(badgeText)}</span>
+      </div>
+      <div class="bd">
+        <div class="kpi">
+          <div class="box"><div class="t">Punktzahl</div><div class="v">${attempt.score} / ${attempt.maxPunktzahl}</div></div>
+          <div class="box"><div class="t">Otono-Note</div><div class="v">${escapeHtml(attempt.otonoGrade)}</div></div>
+          <div class="box"><div class="t">GCSE-Schätzung</div><div class="v">${escapeHtml(String(attempt.gcseEstimated))}</div></div>
+          <div class="box"><div class="t">Ergebnis</div><div class="v">${escapeHtml(attempt.outcome)}</div></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="note">
+          <strong>Bewertungshinweise</strong><br/>
+          • MCQ / P-N / TFNM are exact (options are shuffled).<br/>
+          • Written + translation are keyword-based. If you used very different wording, it may under-mark.
+        </div>
+
+        <div class="divider"></div>
+
+        <button class="btn" id="btnShowBreakdown">Aufschlüsselung anzeigen</button>
+        <div id="breakdown" class="hide" style="margin-top:12px"></div>
+
+        <div class="divider"></div>
+
+        <div class="note">
+          <strong>Übersetzung model answer (for reference)</strong><br/>
+          ${escapeHtml(state.selection.translation.sampleAnswer)}
+        </div>
+      </div>
+    </div>
+  `;
+
+  $("#btnShowBreakdown").addEventListener("click", () => {
+    const bd = $("#breakdown");
+    bd.classList.toggle("hide");
+    if(!bd.classList.contains("hide")){
+      bd.innerHTML = breakdown.map(b => `
+        <div class="attempt">
+          <div class="top">
+            <div><strong>${escapeHtml(b.qid)}</strong> • ${escapeHtml(String(b.type))}</div>
+            <div><span class="badge">${b.score} / ${b.max}</span></div>
+          </div>
+          <div class="meta">
+            <div><strong>Prompt:</strong> ${escapeHtml(b.prompt)}</div>
+            <div><strong>Marker:</strong> ${escapeHtml(b.detail)}</div>
+          </div>
+        </div>
+      `).join("");
+    }
+  });
+
+  setBadge("Abgegeben","badge good");
+}
+
+/* -----------------------------
+   Ergebnisse UI
+--------------------------------*/
+function drawErgebnisse(){
+  const listEl = $("#resultsList");
+  const all = loadErgebnisse();
+  const filter = ($("#filterCandidate").value || "").replace(/\D/g,"").slice(0,4);
+
+  const filtered = filter ? all.filter(a => String(a.candidateNo) === String(filter)) : all;
+
+  if(filtered.length === 0){
+    listEl.innerHTML = `<div class="note">No stored attempts${filter ? " for this candidate" : ""} yet.</div>`;
+    return;
+  }
+
+  listEl.innerHTML = filtered.map(a => {
+    const [cls, txt] = badgeForPunktzahl(a.score);
+    const nameLine = [a.candidateNachname, a.candidateForenames].filter(Boolean).join(", ");
+    return `
+      <div class="attempt">
+        <div class="top">
+          <div>
+            <strong>${escapeHtml(a.candidateNo)}</strong>${nameLine ? " • " + escapeHtml(nameLine) : ""}
+            <span class="badge" style="margin-left:8px">Centre ${escapeHtml(a.centre)}</span>
+          </div>
+          <div class="${cls}">${escapeHtml(txt)} • ${escapeHtml(String(a.score))}/100</div>
+        </div>
+        <div class="meta">
+          <div><strong>Datum:</strong> ${escapeHtml(new Date(a.submittedAt).toLocaleString())}</div>
+          <div><strong>Auswahl:</strong> Passages ${escapeHtml(a.selectedPassages.join(", "))} • Übersetzung ${escapeHtml(a.selectedÜbersetzung)}</div>
+          <div><strong>Noten:</strong> Otono ${escapeHtml(a.otonoGrade)} • GCSE ${escapeHtml(String(a.gcseEstimated))} • ${escapeHtml(a.outcome)}</div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function exportErgebnisse(){
+  const all = loadErgebnisse();
+  $("#exportText").textContent = JSON.stringify(all, null, 2);
+  $("#exportBox").classList.remove("hide");
+}
+
+function clearErgebnisse(){
+  if(!confirm("Clear ALL stored Otono French results on this browser?")) return;
+  localStorage.removeItem(STORE_KEY);
+  drawErgebnisse();
+  $("#exportBox").classList.add("hide");
+}
+
+/* -----------------------------
+   Buttons / navigation
+--------------------------------*/
+$("#btnHome").addEventListener("click", () => {
+  state.mode = "home";
+  renderHome();
+});
+
+$("#btnErgebnisse").addEventListener("click", () => {
+  state.mode = "results";
+  renderErgebnisse();
+});
+
+$("#btnPreview").addEventListener("click", () => {
+  const c = getCandidateNoFromSquares();
+  if(!c){
+    alert("Enter a candidate number first.");
+    return;
+  }
+  const sel = generateSelection();
+  const box = $("#previewBox");
+  box.classList.remove("hide");
+  box.innerHTML = `<strong>Preview (not started):</strong><br/>${escapeHtml(selectionSummary(sel))}<br/>` +
+    sel.passages.map(p => `• ${escapeHtml(p.title)} (${escapeHtml(p.theme)})`).join("<br/>") +
+    `<br/>• ${escapeHtml(sel.translation.title)} (${escapeHtml(sel.translation.theme)})`;
+});
+
+$("#btnStart").addEventListener("click", () => {
+  const c = getCandidateNoFromSquares();
+  if(!c){
+    alert("Candidate number is required.");
+    focusDigit(0);
+    return;
+  }
+
+  state.candidateNo = c;
+  state.candNachname = ($("#candNachname").value || "").trim();
+  state.candForenames = ($("#candForenames").value || "").trim();
+
+  state.selection = generateSelection();
+  state.answers = {};
+  renderTest();
+});
+
+$("#btnSubmit").addEventListener("click", () => submitPaper(false));
+
+$("#btnReset").addEventListener("click", () => {
+  if(!confirm("Reset this paper and generate a NEW random test? Your current answers will be lost.")) return;
+  stopTimer();
+  state.answers = {};
+  state.submitted = false;
+  state.selection = generateSelection();
+  renderTest();
+});
+
+/* Ergebnisse filters & tabs */
+$("#filterCandidate").addEventListener("input", (e) => {
+  e.target.value = e.target.value.replace(/\D/g,"").slice(0,4);
+  drawErgebnisse();
+});
+
+$("#tabAll").addEventListener("click", () => {
+  $("#tabAll").classList.add("active");
+  $("#tabCandidate").classList.remove("active");
+  $("#filterCandidate").value = "";
+  drawErgebnisse();
+});
+
+$("#tabCandidate").addEventListener("click", () => {
+  $("#tabCandidate").classList.add("active");
+  $("#tabAll").classList.remove("active");
+  $("#filterCandidate").focus();
+});
+
+$("#btnExport").addEventListener("click", exportErgebnisse);
+$("#btnClear").addEventListener("click", clearErgebnisse);
+
+/* Initial */
+setCentre("50749");
+renderHome();
+
+/* -----------------------------
+   Anti-cheat / source protection
+   (as requested)
+--------------------------------*/
+const disabledKeys = ["u", "I"];
+const showAlert = e => {
+  e.preventDefault();
+  return alert("Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!");
+};
+document.addEventListener("contextmenu", e => { showAlert(e); });
+document.addEventListener("keydown", e => {
+  if ((e.ctrlKey && disabledKeys.includes(e.key)) || e.key === "F12") {
+    showAlert(e);
+  }
+});
+</script>
+
+</body>
+</html>
