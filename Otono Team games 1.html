@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Who Broke the Pot? — Otono Mansion Mystery</title>
+<style>
+:root{
+  --bg:#120d1d;--panel:#20162f;--card:#2a1c3c;--card2:#321f48;--text:#f8f4ff;
+  --muted:#c8b9d9;--red:#ef5350;--purple:#9b6cff;--gold:#ffd166;--green:#6ee7a8;
+  --line:#49355f;--shadow:0 18px 50px #0006;
+}
+*{box-sizing:border-box} body{margin:0;font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif;background:
+radial-gradient(circle at 10% 0%,#3b1749 0,transparent 34%),
+radial-gradient(circle at 100% 10%,#4a172d 0,transparent 32%),var(--bg);color:var(--text)}
+button,select{font:inherit} button{cursor:pointer}.wrap{width:min(1180px,94vw);margin:auto;padding:26px 0 70px}
+header{display:flex;gap:16px;justify-content:space-between;align-items:center;margin-bottom:20px}
+.logo small{color:var(--muted);letter-spacing:.18em}.logo h1{margin:.1rem 0;font-size:clamp(1.7rem,4vw,3rem)}
+.pill{border:1px solid var(--line);background:#1a1227;padding:9px 13px;border-radius:999px;color:var(--muted)}
+.panel{background:linear-gradient(180deg,#241833,#1b1328);border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:var(--shadow)}
+.grid{display:grid;gap:14px}.levels{grid-template-columns:repeat(4,1fr)}
+.level{min-height:145px;text-align:left;border:1px solid var(--line);border-radius:18px;padding:16px;background:var(--card);color:var(--text)}
+.level.locked{opacity:.45;cursor:not-allowed}.level.active{outline:3px solid var(--purple)}
+.level strong{display:block;font-size:1.2rem}.stars{color:var(--gold)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.between{justify-content:space-between}
+.btn{border:0;border-radius:13px;padding:11px 15px;background:linear-gradient(135deg,var(--purple),#d14f83);color:white;font-weight:800}
+.btn.secondary{background:var(--card2);border:1px solid var(--line)}.btn.danger{background:#56222a}
+.hidden{display:none!important}.hero{text-align:center;padding:36px 20px}.hero h2{font-size:clamp(2rem,6vw,4.5rem);margin:.2em}.hero p{color:var(--muted)}
+.game{margin-top:18px}.game h2{margin-bottom:4px}.sub{color:var(--muted);margin-top:0}
+.two{grid-template-columns:1.15fr .85fr}.people{grid-template-columns:repeat(2,1fr)}
+.person{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:14px;text-align:left;color:var(--text);min-height:116px}
+.person .name{font-weight:900;font-size:1.05rem}.person .move{font-size:.9rem;color:var(--muted);margin-top:5px}
+.person.suspect{outline:2px solid var(--gold);background:#3b2b26}.person.eliminated{opacity:.42;text-decoration:line-through}
+.person .state{font-size:.75rem;margin-top:8px;font-weight:800;color:#d7c7e9}
+.clue{border-left:4px solid var(--purple);background:#1a1227;border-radius:12px;padding:12px;margin:10px 0}
+.minute-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:7px}
+.minute{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:10px;padding:9px 3px}
+.minute.eliminated{opacity:.32;text-decoration:line-through}.minute.pinned{outline:2px solid var(--gold)}
+select{width:100%;background:#171020;color:var(--text);border:1px solid var(--line);border-radius:12px;padding:11px}
+.answer{margin-top:15px;padding:15px;border-radius:15px;background:#171020;border:1px solid var(--line)}
+.locations{grid-template-columns:repeat(3,1fr)}.loc{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:12px;padding:11px;text-align:left}
+.loc.eliminated{opacity:.34;text-decoration:line-through}.loc.pinned{outline:2px solid var(--gold)}
+.notice{padding:12px 14px;border-radius:13px;background:#182a25;border:1px solid #315c4e;color:#c9ffe9}
+.bad{background:#331a20;border-color:#67313d;color:#ffd7df}.rank{font-size:2rem;font-weight:1000;text-align:center;padding:22px}
+footer{color:var(--muted);text-align:center;margin-top:24px}
+@media(max-width:800px){.levels,.two,.people,.locations{grid-template-columns:1fr}.minute-grid{grid-template-columns:repeat(4,1fr)}header{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="logo"><small>OTONO MANSION</small><h1>🏺 WHO BROKE THE POT?</h1></div>
+  <div class="row"><span class="pill" id="progressPill">Level 1 unlocked</span><button class="btn secondary" onclick="resetGame()">Restart campaign</button></div>
+</header>
+
+<section id="intro" class="panel hero">
+  <div style="font-size:4rem">🏺💥</div>
+  <h2>A FOUR-LEVEL MYSTERY</h2>
+  <p>Ten pots existed. One shattered. Another disappeared. Everyone has a movement timeline. Mark suspects, eliminate people and times, change your mind, and solve the case.</p>
+  <button class="btn" onclick="openSelect()">BEGIN INVESTIGATION</button>
+</section>
+
+<section id="select" class="panel hidden">
+  <div class="between row"><div><h2>LEVEL SELECT</h2><p class="sub">Levels unlock only after solving the previous level.</p></div><span class="pill" id="bestRank">Best rank: —</span></div>
+  <div id="levelCards" class="grid levels"></div>
+</section>
+
+<main id="game" class="game hidden"></main>
+<footer>Otono Mansion Mystery • progress autosaves in this browser</footer>
+</div>
+
+<script>
+const PEOPLE=[
+["Grandpa Belt","Room 86 / mansion corridors","Often near mahjong areas; some periods have no continuous witness."],
+["Grandma Sleep","Room 84","Often resting; later becomes an important sound witness."],
+["Big Guy","Room 47 / downstairs","Moves between paperwork and shared areas."],
+["Middle Guy","Room 12 / upstairs","Timeline varies by level; sometimes strongly witnessed."],
+["Mr Ribbon Cutter","Room 33–35 / safe area","Often sorting belongings and passing the main safe."],
+["Gary","Rooms 44, 57 and shared areas","Usually has several sightings, but not every minute."],
+["Ivy","Rooms 46, 57 and shared areas","Moves between floors and often corroborates Gary."],
+["Lit","Secret pool / Room 69 / Room 12","Frequently linked with Red and OWing."],
+["OWing","Secret pool / Room 64 / Room 12","Often has a linked alibi with Red and Lit."],
+["Red","Secret pool / Room 66 / Room 12","Usually seen with the pool trio around key periods."],
+["Jessica","Room 68 / Room 12 / corridors","Moves around enough to remain a genuine possibility."],
+["Luke","Room 65 / second-floor corridors","Doing maths and moving around the mansion; several important gaps."],
+["William","Room 73 / downstairs","His exact route is sometimes vague. No automatic bathroom alibi."],
+["Jillian","Guest areas / Room 12 / upstairs","Moves between floors with some short gaps."]
+];
+const LEVELS=[
+ {n:1,title:"WHO BROKE THE POT?",stars:"★★",desc:"Identify who shattered Pot No. 10.",answer:"Luke"},
+ {n:2,title:"WHEN DID IT DISAPPEAR?",stars:"★★★★",desc:"Find the exact minute the intact pot vanished.",answer:"16:01"},
+ {n:3,title:"WHO + WHEN?",stars:"★★★★★",desc:"Solve two variables at once.",answer:["Luke","16:34"]},
+ {n:4,title:"WHERE IS THE POT?",stars:"★★★★★★★",desc:"Final investigation: location + concealment.",answer:["Room 70 — Arcade","Behind furniture"]}
+];
+let save=JSON.parse(localStorage.getItem("otonoPotSave")||'{"unlocked":1,"best":null}');
+let level4Start=null, level4Wrong=0;
+
+function persist(){localStorage.setItem("otonoPotSave",JSON.stringify(save));renderSelect()}
+function openSelect(){document.querySelector("#intro").classList.add("hidden");document.querySelector("#game").classList.add("hidden");document.querySelector("#select").classList.remove("hidden");renderSelect()}
+function renderSelect(){
+ const box=document.querySelector("#levelCards"); box.innerHTML="";
+ LEVELS.forEach(l=>{
+   const unlocked=l.n<=save.unlocked;
+   let b=document.createElement("button"); b.className="level "+(unlocked?"":"locked"); b.disabled=!unlocked;
+   b.innerHTML=`<span class="stars">${l.stars}</span><strong>LEVEL ${l.n}</strong><b>${l.title}</b><div class="sub">${unlocked?l.desc:"🔒 LOCKED"}</div>`;
+   if(unlocked)b.onclick=()=>loadLevel(l.n); box.appendChild(b);
+ });
+ document.querySelector("#progressPill").textContent=`Level ${Math.min(save.unlocked,4)} unlocked`;
+ document.querySelector("#bestRank").textContent="Best rank: "+(save.best||"—");
+}
+function resetGame(){if(confirm("Reset all unlocked levels and rank?")){save={unlocked:1,best:null};localStorage.removeItem("otonoPotSave");openSelect()}}
+function loadLevel(n){
+ document.querySelector("#select").classList.add("hidden");document.querySelector("#intro").classList.add("hidden");
+ const g=document.querySelector("#game");g.classList.remove("hidden");
+ if(n===1) level1(g); if(n===2) level2(g); if(n===3) level3(g); if(n===4) level4(g);
+}
+function personCards(custom={}){
+ return `<div class="grid people">${PEOPLE.map((p,i)=>{
+  let txt=custom[p[0]]||`${p[1]} — ${p[2]}`;
+  return `<button class="person" data-person="${p[0]}" onclick="cyclePerson(this)"><div class="name">${p[0]}</div><div class="move">${txt}</div><div class="state">○ POSSIBLE — click to mark</div></button>`;
+ }).join("")}</div>`;
+}
+function cyclePerson(el){
+ if(!el.classList.contains("suspect")&&!el.classList.contains("eliminated")){el.classList.add("suspect");el.querySelector(".state").textContent="🚨 SUSPICIOUS — click again";}
+ else if(el.classList.contains("suspect")){el.classList.remove("suspect");el.classList.add("eliminated");el.querySelector(".state").textContent="❌ ELIMINATED — click to restore";}
+ else{el.classList.remove("eliminated");el.querySelector(".state").textContent="○ POSSIBLE — click to mark";}
+}
+function minuteButtons(start,end){
+ let a=[],s=start.split(":").map(Number),e=end.split(":").map(Number),x=s[0]*60+s[1],z=e[0]*60+e[1];
+ for(;x<=z;x++){let t=String(Math.floor(x/60)).padStart(2,"0")+":"+String(x%60).padStart(2,"0");a.push(`<button class="minute" onclick="cycleMinute(this)">${t}</button>`)}
+ return `<div class="minute-grid">${a.join("")}</div>`;
+}
+function cycleMinute(el){if(!el.classList.contains("eliminated")&&!el.classList.contains("pinned"))el.classList.add("eliminated");else if(el.classList.contains("eliminated")){el.classList.remove("eliminated");el.classList.add("pinned")}else el.classList.remove("pinned")}
+function unlock(n){if(save.unlocked<n){save.unlocked=n;persist()}}
+function nav(){return `<div class="row" style="margin-bottom:12px"><button class="btn secondary" onclick="openSelect()">← Level Select</button></div>`}
+function options(arr){return `<option value="">Choose…</option>`+arr.map(x=>`<option>${x}</option>`).join("")}
+
+function level1(g){
+ const custom={
+ "Grandma Sleep":"14:30–15:00: asleep in Room 84 throughout the important period.",
+ "Lit":"14:30–15:00: with Red and OWing around the secret pool area.",
+ "Red":"14:30–15:00: with Lit and OWing around the secret pool area.",
+ "OWing":"14:30–15:00: with Lit and Red around the secret pool area.",
+ "Jessica":"Moves around; discovers the shards at about 14:47.",
+ "Luke":"Second floor doing maths. His exact route around Room 59 is incomplete.",
+ "William":"Bathroom before the likely incident and elsewhere afterwards.",
+ "Gary":"Mostly downstairs; briefly leaves the main lounge.",
+ "Ivy":"Rooms 46/57 area; hears movement but no clear smash."
+ };
+ g.innerHTML=nav()+`<section class="panel"><h2>LEVEL 1 — WHO BROKE THE POT?</h2><p class="sub">Incident window: 14:30–15:00. Everyone's movement is shown. Click people to mark <b>suspicious → eliminated → possible</b>.</p>
+ <div class="grid two"><div><h3>👥 Everyone's movement</h3>${personCards(custom)}</div>
+ <div><h3>🔎 Evidence</h3>
+ <div class="clue">Pot No. 10 shattered outside Room 59.</div><div class="clue">Jessica finds the shards around 14:47.</div>
+ <div class="clue">A maths sheet associated with Luke is found near the area, but possession alone does not prove who broke it.</div>
+ <div class="clue">The pool trio's accounts broadly support one another.</div>
+ <div class="answer"><b>Final accusation</b><select id="a1">${options(PEOPLE.map(p=>p[0]).concat(["Natural breakage"]))}</select><button class="btn" style="margin-top:10px" onclick="check1()">LOCK ANSWER</button><div id="r1"></div></div>
+ </div></div></section>`;
+}
+function check1(){let v=document.querySelector("#a1").value,r=document.querySelector("#r1");if(v==="Luke"){r.innerHTML='<p class="notice">✅ Correct. Luke broke Pot No. 10. But now only eight intact pots can be seen… Level 2 unlocked.</p>';unlock(2)}else r.innerHTML='<p class="notice bad">❌ That theory does not fit all the evidence. Keep investigating.</p>'}
+
+function level2(g){
+ const custom={
+ "Lit":"Leaves the secret pool at 15:47 after finishing a drink; briefly unverified afterward.",
+ "Red":"Leaves the pool at 15:52; OWing confirms he was there until then.",
+ "OWing":"Leaves last at about 15:56; exact departure lacks an independent witness.",
+ "Grandma Sleep":"Wakes around 15:55 and later remembers a heavy THUD around 16:00–16:03.",
+ "Mr Ribbon Cutter":"Near Rooms 33–35 and the safe around 15:47–15:55; sees no giant pot enter the safe area.",
+ "Luke":"Confirmed around 15:54, then unverified from roughly 15:55–16:04.",
+ "William":"Seen downstairs around 15:59; next confirmed sighting around 16:05.",
+ "Jessica":"Mostly downstairs around Room 12 after about 15:51.",
+ "Middle Guy":"Well witnessed for much of this version of the timeline."
+ };
+ g.innerHTML=nav()+`<section class="panel"><h2>LEVEL 2 — WHEN DID THE POT DISAPPEAR?</h2><p class="sub">15:42–16:15. You may eliminate and restore both people and times.</p>
+ <div class="grid two"><div><h3>👥 Everyone's movement</h3>${personCards(custom)}</div><div><h3>⏱️ Minute board</h3>${minuteButtons("15:42","16:15")}
+ <h3>🔎 Evidence</h3><div class="clue">The pot is independently confirmed present at 15:58.</div><div class="clue">Its position is definitely empty by 16:04.</div>
+ <div class="clue">15:59 and 16:03 are covered by nearby movement.</div><div class="clue">A timed event accounts for 16:02; another witness recalls the pot still untouched just after 16:00.</div>
+ <div class="answer"><b>Exact minute</b><select id="a2">${options(Array.from({length:34},(_,i)=>{let x=15*60+42+i;return String(Math.floor(x/60)).padStart(2,"0")+":"+String(x%60).padStart(2,"0")}))}</select><button class="btn" style="margin-top:10px" onclick="check2()">LOCK ANSWER</button><div id="r2"></div></div>
+ </div></div></section>`;
+}
+function check2(){let v=document.querySelector("#a2").value,r=document.querySelector("#r2");if(v==="16:01"){r.innerHTML='<p class="notice">✅ Correct — 16:01. But somebody later moved the pot again. Level 3 unlocked.</p>';unlock(3)}else r.innerHTML='<p class="notice bad">❌ Wrong minute. You can change any crossed-out time and try again.</p>'}
+
+function level3(g){
+ const custom={
+ "Luke":"16:32–16:37: no reliable account of his location. One of the four messiest timelines.",
+ "William":"Seen downstairs around 16:29; 16:30–16:37 becomes unclear.",
+ "Grandpa Belt":"16:31–16:36 unclear. He says only that he was “walking in mansion.”",
+ "Jessica":"Nobody independently sees her around 16:31–16:36; she says she was returning toward Room 68.",
+ "Middle Guy":"In Room 12 with multiple witnesses through the crucial period. Strong timeline.",
+ "OWing":"With Red and Lit for much of the crucial period. Stronger than Level 2.",
+ "Red":"Mostly with OWing and Lit around Room 12.",
+ "Lit":"Mostly with Red and OWing around Room 12.",
+ "Gary":"Several sightings around Rooms 44/57.",
+ "Ivy":"Movements between Rooms 46/57 are fairly well corroborated."
+ };
+ let times=Array.from({length:46},(_,i)=>{let x=16*60+15+i;return String(Math.floor(x/60)).padStart(2,"0")+":"+String(x%60).padStart(2,"0")});
+ g.innerHTML=nav()+`<section class="panel"><h2>LEVEL 3 — WHO + WHEN?</h2><p class="sub">Everyone remains possible, although Luke, William, Grandpa Belt and Jessica look especially suspicious.</p>
+ <div class="grid two"><div><h3>👥 Everyone's movement</h3>${personCards(custom)}</div><div><h3>⏱️ 16:15–17:00</h3>${minuteButtons("16:15","17:00")}
+ <h3>🔎 Evidence</h3><div class="clue">The pot has not reached its final hiding place at 16:27, but is already hidden by 16:38.</div>
+ <div class="clue">Independent events account for 16:31, 16:32, 16:33, 16:35, 16:36 and 16:37.</div>
+ <div class="clue">Later route details weaken the cases against William, Grandpa Belt and Jessica, but do not automatically eliminate them.</div>
+ <div class="answer"><b>WHO</b><select id="a3p">${options(PEOPLE.map(p=>p[0]))}</select><b>WHEN</b><select id="a3t">${options(times)}</select><button class="btn" style="margin-top:10px" onclick="check3()">LOCK BOTH</button><div id="r3"></div></div>
+ </div></div></section>`;
+}
+function check3(){let p=document.querySelector("#a3p").value,t=document.querySelector("#a3t").value,r=document.querySelector("#r3"),pc=p==="Luke",tc=t==="16:34";if(pc&&tc){r.innerHTML='<p class="notice">🏺 Correct — Luke at 16:34. You still have no idea where he put it. FINAL LEVEL unlocked.</p>';unlock(4)}else if(pc||tc)r.innerHTML='<p class="notice bad">🟡 Exactly ONE half is correct. The game will not tell you which.</p>';else r.innerHTML='<p class="notice bad">❌ Neither half is correct.</p>'}
+
+function level4(g){
+ level4Start=performance.now();level4Wrong=0;
+ const locs=["Room 9 — Casino","Room 12 — Main lounge","Room 19 — Cinema","Room 33","Inside the main safe","Beside the main safe","Room 35","Room 43 — Locked room","Room 44 — Gary’s room","Room 46 — Ivy’s room","Room 47 — Paperwork room","Room 57","Room 59 — Party room entrance","Room 59 — Party room interior","Room 64 — OWing’s room","Room 65 — Luke’s room","Room 66 — Red’s room","Room 68 — Jessica’s room","Room 70 — Arcade","Room 73 — William’s room","Room 84 — Grandparents’ room","Room 86 — Mahjong room","Room 91 — Clue shelf","Room 92 — Astronomy storage","Secret pool / onsen access"];
+ const custom={
+ "Luke":"Known mover. Unaccounted for around 16:34; reconstruct his route to find the destination.",
+ "Mr Ribbon Cutter":"Earlier near Rooms 33–35. Reports no large pot being taken through the safe area.",
+ "Gary":"His later route provides information about several central corridors.",
+ "Ivy":"Crosses shared areas and can help eliminate some routes.",
+ "Jessica":"Movement near Room 68 creates a useful bedroom-area witness.",
+ "OWing":"With Red and Lit around Room 12 during much of the relevant period.",
+ "Red":"With OWing and Lit around Room 12 during much of the relevant period.",
+ "Lit":"With Red and OWing around Room 12 during much of the relevant period."
+ };
+ g.innerHTML=nav()+`<section class="panel"><div class="between row"><div><h2>LEVEL 4 — FINAL: WHERE IS THE POT?</h2><p class="sub">★★★★★★★ • Timer started. Solve WHERE + HOW.</p></div><span class="pill" id="timer">00:00</span></div>
+ <div class="grid two"><div><h3>👥 Everyone's movement</h3><p class="sub">Even now, you can mark or eliminate people while reconstructing witness routes.</p>${personCards(custom)}</div>
+ <div><h3>🗺️ Locations</h3><div class="grid locations">${locs.map(x=>`<button class="loc" onclick="cycleLoc(this)">${x}</button>`).join("")}</div></div></div>
+ <h3>🔎 Physical + route evidence</h3>
+ <div class="clue">Luke had only a few unexplained minutes. Very distant routes become difficult.</div>
+ <div class="clue">No evidence shows the safe opening. No locked-room key use is recorded.</div>
+ <div class="clue">A muted scrape was followed by soft ceramic contact — not a cupboard or safe door.</div>
+ <div class="clue">A curved disturbance in dust is found near the base of substantial furniture.</div>
+ <div class="clue">No cloth fibres: fabric covering is weak. The pot was physically blocked from ordinary sight.</div>
+ <div class="clue">Arcade sounds were heard that afternoon, but nobody can prove who was inside at exactly 16:34.</div>
+ <div class="answer grid two"><label><b>WHERE</b><select id="a4w">${options(locs)}</select></label><label><b>HOW</b><select id="a4h">${options(["Behind furniture","Inside furniture/storage","Covered by fabric","Placed among similar objects","Left openly but visually disguised"])}</select></label><button class="btn" onclick="check4()">SUBMIT FINAL THEORY</button><div id="r4"></div></div>
+ </section>`;
+ clearInterval(window._potTimer);window._potTimer=setInterval(()=>{let e=Math.floor((performance.now()-level4Start)/1000);let el=document.querySelector("#timer");if(el)el.textContent=String(Math.floor(e/60)).padStart(2,"0")+":"+String(e%60).padStart(2,"0")},1000);
+}
+function cycleLoc(el){if(!el.classList.contains("eliminated")&&!el.classList.contains("pinned"))el.classList.add("eliminated");else if(el.classList.contains("eliminated")){el.classList.remove("eliminated");el.classList.add("pinned")}else el.classList.remove("pinned")}
+function rankFor(sec){
+ if(sec<180)return["👑 MASTER","Master"]; if(sec<270)return["🌟 LEGENDARY","Legendary"]; if(sec<360)return["💎 DIAMOND","Diamond"];
+ if(sec<480)return["❤️ RUBY","Ruby"]; if(sec<600)return["💜 AMETHYST","Amethyst"]; if(sec<780)return["💚 EMERALD","Emerald"];
+ if(sec<960)return["🔵 AZURE","Azure"]; if(sec<1200)return["🟡 GOLD","Gold"]; if(sec<1500)return["⚪ SILVER","Silver"];
+ if(sec<1800)return["🟤 BRONZE","Bronze"]; return["🍦 VANILLA","Vanilla"];
+}
+const rankOrder=["Vanilla","Bronze","Silver","Gold","Azure","Emerald","Amethyst","Ruby","Diamond","Legendary","Master"];
+function check4(){
+ let w=document.querySelector("#a4w").value,h=document.querySelector("#a4h").value,r=document.querySelector("#r4");
+ let wc=w==="Room 70 — Arcade",hc=h==="Behind furniture";
+ if(wc&&hc){
+  clearInterval(window._potTimer);let raw=Math.floor((performance.now()-level4Start)/1000),adjusted=raw+level4Wrong*60;
+  let [display,name]=rankFor(adjusted);if(!save.best||rankOrder.indexOf(name)>rankOrder.indexOf(save.best))save.best=name;persist();
+  r.innerHTML=`<div class="rank">🏆 CASE SOLVED<br>${display}</div><p class="notice">The pot was in <b>Room 70 — Arcade</b>, hidden <b>behind furniture</b>.<br>Raw time: ${Math.floor(raw/60)}:${String(raw%60).padStart(2,"0")} • Wrong theories: ${level4Wrong} • Ranked time: ${Math.floor(adjusted/60)}:${String(adjusted%60).padStart(2,"0")}</p>`;
+ }else{level4Wrong++;r.innerHTML=wc||hc?'<p class="notice bad">🟡 Exactly one half is correct. +60 seconds to ranked time.</p>':'<p class="notice bad">❌ Both halves are wrong. +60 seconds to ranked time.</p>'}
+}
+renderSelect();
+</script>
+</body>
+</html>
