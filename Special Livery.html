@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Otono Airways — Special Liveries</title>
+<style>
+:root{--bg:#08060c;--card:#15101d;--line:#3b2b47;--text:#fff;--muted:#c1b6ca;--red:#ef3c59;--purple:#9853ff;--green:#72e6aa;--yellow:#ffdc78;--blue:#8bc2ff}
+*{box-sizing:border-box} body{margin:0;font-family:Arial,Helvetica,sans-serif;background:radial-gradient(circle at 15% 0,#31143c 0,transparent 28%),radial-gradient(circle at 85% 0,#38121d 0,transparent 28%),var(--bg);color:var(--text)}
+.wrap{width:min(1500px,92%);margin:auto} header{text-align:center;padding:65px 20px 40px} header small{letter-spacing:.2em;font-weight:800;color:#d8cbe2}
+h1{font-size:clamp(2.8rem,6vw,5.6rem);line-height:.95;margin:14px 0} h1 span{background:linear-gradient(90deg,var(--red),#ff8ba0,var(--purple));-webkit-background-clip:text;background-clip:text;color:transparent}
+header p{max-width:800px;margin:20px auto;color:var(--muted);line-height:1.65}.legend{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}.legend span{padding:8px 13px;border:1px solid var(--line);border-radius:30px;background:#130e18}
+.help{padding:20px;border:1px solid #634679;background:#171020;border-radius:18px;margin-bottom:32px}.help h2{margin:0 0 8px;font-size:1.15rem}.help p{color:#d1c5d8;line-height:1.55;margin:6px 0}.help code{color:#e3a5ff}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;padding-bottom:70px}
+.card{background:linear-gradient(#191220,#100c15);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.card.group{grid-column:1/-1}.image-area{aspect-ratio:16/9;position:relative;background:linear-gradient(135deg,#24182e,#0d0911);overflow:hidden}
+.group .image-area{aspect-ratio:16/9}.image-area img{width:100%;height:100%;object-fit:cover;display:block}.group .image-area img{object-fit:contain}
+.missing{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:20px;color:#b5a6c0}.missing b{color:#fff;margin-bottom:7px}.missing code{color:#e0a0ff}
+.info{padding:18px}.title{font-size:1.3rem;font-weight:850}.type{color:#c9bed0;margin-top:5px}.desc{color:var(--muted);line-height:1.55;font-size:.92rem}
+.badges{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.badge{font-size:.68rem;font-weight:900;text-transform:uppercase;border-radius:20px;padding:6px 9px;border:1px solid}.active{color:#a0f2c7;border-color:#286146;background:#123123}.soon{color:#ffe08a;border-color:#705a22;background:#382e11}.future{color:#ff9aa8;border-color:#8b3040;background:#3b151d}.legacy{color:#afd2ff;border-color:#285582;background:#112a45}
+.members{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}.member{background:#ffffff08;border:1px solid #ffffff13;border-radius:12px;padding:12px}.member b{display:block}.member span{color:#c7bacf;font-size:.85rem}
+footer{text-align:center;padding:40px;border-top:1px solid var(--line);color:#bcaec5}
+@media(max-width:950px){.grid{grid-template-columns:repeat(2,1fr)}.members{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.grid{grid-template-columns:1fr}.members{grid-template-columns:1fr}.group .image-area{aspect-ratio:16/10}}
+</style>
+</head>
+<body>
+<header>
+<small>OTONO AIRWAYS • SPECIAL LIVERY COLLECTION</small>
+<h1>Every aircraft can <span>tell a story.</span></h1>
+<p>A gallery of Otono Airways special liveries. Some artworks show several aircraft together, so those liveries now share one large gallery card instead of repeating the same image.</p>
+<div class="legend"><span>🟢 Active</span><span>🟡 Coming soon</span><span>🔴 Future fleet</span><span>🔵 Legend fleet</span></div>
+</header>
+
+<main class="wrap">
+
+<section class="help">
+<h2>✈️ A Fleet Built for Special Liveries</h2>
+
+<p>
+Otono Airways' special livery collection spans almost every part of its fleet,
+from enormous superjumbos and ultra-long-haul aircraft to Dreamliners and
+narrowbody jets. Each aircraft offers a different canvas for Otono's distinctive
+red-and-purple identity.
+</p>
+
+<p>
+The <strong>Airbus A380 superjumbo</strong> provides the largest canvas in the
+current fleet, while the <strong>Airbus A350 family</strong> combines long,
+modern fuselages with designs inspired by astronomy, nature and the night sky.
+The <strong>Boeing 777 family</strong> carries some of Otono's most dramatic
+special liveries, with the future 777-9 and 777-10 creating even more room for
+large-scale artwork.
+</p>
+
+<p>
+Otono's <strong>Boeing 787 Dreamliners</strong> feature their own collection of
+nature and seasonal themes, while the A350-1000ULR represents the airline's
+ultra-long-haul network. Smaller Airbus narrowbodies bring special liveries to
+shorter routes, and selected aircraft from Otono Airways' past are preserved
+here as part of the <strong>Legend Fleet</strong>.
+</p>
+</section>
+
+<section class="grid" id="gallery"></section>
+
+</main>
+
+<footer>
+<b>OTONO AIRWAYS SPECIAL LIVERIES</b>
+<br><br>
+From superjumbos to Dreamliners — every aircraft can tell a story.
+</footer>
+
+<script>
+/* ================================================================
+   🖼️ START EDITING IMAGES HERE
+   THIS IS THE ONLY SECTION YOU NEED TO CHANGE.
+   ================================================================ */
+const IMAGES = {
+  aurora: "Liveries/aurora359.png",
+  tropicalOtono: "Liveries/tropical.png",
+  solarSystem: "Liveries/solar359.png",
+  eclipseA380: "Liveries/eclipse388.png",
+  winterTwilightA380: "Liveries/twilight388.png",
+  starlightStream: "Liveries/starlight.png",
+  eclipse7779: "Liveries/eclipse779.png",
+  winterTwilight7779: "Liveries/twilight779.png",
+  blackInk110: "Liveries/ink110.png",
+
+  // GROUP 1 — ONE IMAGE containing all three aircraft:
+  group1: "Liveries/combined1.png",
+
+  // GROUP 2 — ONE IMAGE containing both Halley's Comet variants:
+  group2Halley: "Liveries/halley.png",
+
+  // GROUP 3 — ONE IMAGE containing all four 777-10 liveries:
+  group3_77710: "Liveries/combined2.png",
+
+  fourSeasons: "Liveries/seasons.png",
+  infiniteOcean: "Liveries/infiniteocean.png",
+  midnightVoyage: "Liveries/midnight.png",
+  arcticNight: "Liveries/arctic.png",
+  laMarseillaise: "Liveries/lamarseillaise.png",
+  legacyCrown: "Liveries/legacy345.png",
+};
+
+const cards = [
+ {img:"aurora",name:"Aurora",type:"Airbus A350-900",status:"active",desc:"Deep night colours and flowing aurora ribbons celebrate spectacular northern skies while retaining Otono red and purple throughout the aircraft."},
+ {img:"tropicalOtono",name:"Tropical Otono",type:"Airbus A350-900",status:"active",desc:"A bright summer design inspired by tropical coastlines, lush vegetation and warm sunsets, mixed with Otono’s signature red and purple."},
+ {img:"solarSystem",name:"Solar System",type:"Airbus A350-900",status:"active",desc:"Planets and orbital details stretch along the fuselage, celebrating Otono Airways’ fascination with astronomy and exploration."},
+ {img:"eclipseA380",name:"Eclipse",type:"Airbus A380-800",status:"active",desc:"A flagship astronomical livery dominated by a dramatic solar eclipse, the corona and Otono’s red-and-purple identity."},
+ {img:"winterTwilightA380",name:"Winter Twilight",type:"Airbus A380-800",status:"active",desc:"A giant winter horizon transitions from fading evening light into purple twilight and a deep, cold night sky."},
+ {img:"starlightStream",name:"Starlight Stream",type:"Boeing 777-9",status:"soon",desc:"Streams of stars race along the long fuselage, turning a quiet night sky into a design built around speed and motion."},
+ {img:"eclipse7779",name:"Eclipse",type:"Boeing 777-9",status:"soon",desc:"The next-generation Eclipse interpretation uses the 777-9’s long body to stretch the shadow, corona and Otono colours across the aircraft."},
+ {img:"winterTwilight7779",name:"Winter Twilight",type:"Boeing 777-9",status:"soon",desc:"Warm sunset light gradually becomes purple twilight and a cold star-filled winter night along the 777-9."},
+ {img:"blackInk110",name:"Black Ink 110",type:"Boeing 777-300ER",status:"active",desc:"Deep black ink, crisp markings and the number 110 create one of Otono’s boldest liveries, finished with red and purple accents."},
+
+ {group:true,img:"group1",name:"Lunar Eclipse · Christmas Lights · Photosynthesis",type:"Three-aircraft special livery showcase",members:[
+   ["Lunar Eclipse","Boeing 777-9","soon"],
+   ["Christmas Lights","Airbus A350-2000","future"],
+   ["Photosynthesis","Boeing 787-9","soon"]
+ ],desc:"One shared artwork presents three completely different themes together: a copper-red lunar eclipse, a festive field of coloured lights, and a green science-inspired celebration of photosynthesis."},
+
+ {group:true,img:"group2Halley",name:"Halley’s Comet 2061",type:"Two-variant livery family",members:[
+   ["Halley’s Comet 2061","Airbus A350-2000","future"],
+   ["Halley’s Comet 2061","Boeing 777-10","future"]
+ ],desc:"A shared 2061 commemorative design for two future long-haul aircraft. Both variants celebrate the return of Halley’s Comet while adapting the celestial artwork to their different fuselage shapes."},
+
+ {group:true,img:"group3_77710",name:"The 777-10 Collection",type:"Four future Boeing 777-10 special liveries",members:[
+   ["Celestial Voyage","Boeing 777-10","future"],
+   ["Afterglow","Boeing 777-10","future"],
+   ["Winter Twilight","Boeing 777-10","future"],
+   ["Total Eclipse","Boeing 777-10","future"]
+ ],desc:"Four liveries designed around the future 777-10’s extreme length. Celestial Voyage explores deep space, Afterglow follows sunset, Winter Twilight crosses into night, and Total Eclipse culminates in totality."},
+
+ {img:"fourSeasons",name:"Four Seasons",type:"Boeing 787-10",status:"soon",desc:"Spring, summer, autumn and winter flow continuously along the 787-10, turning one aircraft into a journey through the entire year."},
+ {img:"infiniteOcean",name:"Infinite Ocean",type:"Airbus A350-2000",status:"future",desc:"Layered waves and changing ocean depths use the future 79-metre A350-2000 as an enormous canvas for an apparently endless sea."},
+ {img:"midnightVoyage",name:"Midnight Voyage",type:"Airbus A350-1000ULR",status:"active",desc:"Midnight blues, distant lights and Otono purple represent ultra-long-haul journeys continuing while much of the world below is asleep."},
+ {img:"legacyCrown",name:"Legacy Crown",type:"Airbus A340-500",status:"legacy",desc:"A tribute to an earlier generation of Otono Airways long-haul flying. The crown represents the A340-500’s former flagship role and preserves an important chapter of Otono Airways history."},
+ {img:"arcticNight",name:"Arctic Night",type:"Airbus A321neo",status:"active",desc:"A polar winter landscape of ice, deep night skies and subtle aurora illumination gives the narrowbody a striking cold-weather identity."},
+ {img:"laMarseillaise",name:"La Marseillaise",type:"Airbus A320neo",status:"active",desc:"A French-inspired blue, white and red celebration with subtle Otono purple, giving a small aircraft a highly recognisable cultural livery."}
+];
+
+const statusLabel={active:"Active",soon:"Coming soon",future:"Future fleet",legacy:"Legend fleet"};
+const gallery=document.getElementById("gallery");
+
+cards.forEach((c,i)=>{
+ const src=IMAGES[c.img], has=src && src!=="PASTE IMAGE HERE";
+ const el=document.createElement("article");
+ el.className="card"+(c.group?" group":"");
+ let details="";
+ if(c.group){
+   details=`<div class="members">${c.members.map(m=>`<div class="member"><b>${m[0]}</b><span>${m[1]}</span><div class="badges"><span class="badge ${m[2]}">${statusLabel[m[2]]}</span></div></div>`).join("")}</div>`;
+ }else{
+   details=`<div class="badges"><span class="badge ${c.status}">${statusLabel[c.status]}</span></div>`;
+ }
+ el.innerHTML=`
+ <div class="image-area">
+   ${has?`<img src="${src}" alt="${c.name}">`:""}
+   <div class="missing" ${has?'style="display:none"':""}>
+     <b>${c.group?"COMBINED IMAGE":"IMAGE"} — ${c.name.toUpperCase()}</b>
+     <span>Set this one line in the image section:</span>
+     <code>${c.img}: "your-image.jpg"</code>
+   </div>
+ </div>
+ <div class="info">
+   <div class="title">${c.name}</div>
+   <div class="type">${c.type}</div>
+   ${details}
+   <p class="desc">${c.desc}</p>
+ </div>`;
+ gallery.appendChild(el);
+});
+</script>
+</body>
+</html>
