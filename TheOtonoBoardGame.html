@@ -1,0 +1,3281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Otono Team — Journeys Beyond Ordinary</title>
+
+<style>
+/* =========================================================
+   OTONO TEAM BOARD GAME
+   Neon edition
+   ========================================================= */
+
+:root {
+    --black: #030104;
+    --black2: #09050c;
+    --purple: #7c19d4;
+    --red: #9d001d;
+    --hotred: #ff1744;
+    --text: #f7f2ff;
+    --muted: #bbaec5;
+    --panel: rgba(11, 5, 16, .93);
+    --line: rgba(255,255,255,.13);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--text);
+    font-family: Arial, Helvetica, sans-serif;
+
+    background:
+        radial-gradient(circle at 15% 10%, rgba(130,0,190,.26), transparent 25%),
+        radial-gradient(circle at 85% 20%, rgba(170,0,35,.24), transparent 28%),
+        linear-gradient(135deg, #050006, #160019 45%, #170005 100%);
+
+    background-attachment: fixed;
+}
+
+button,
+input,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+/* ================= HEADER ================= */
+
+.hero {
+    padding: 30px 24px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,.12);
+
+    background:
+        linear-gradient(110deg,
+        rgba(55,0,85,.94),
+        rgba(100,0,95,.88),
+        rgba(105,0,22,.92));
+}
+
+.hero .small {
+    font-size: .8rem;
+    letter-spacing: .35em;
+    opacity: .8;
+}
+
+.hero h1 {
+    margin: 8px 0 2px;
+    font-size: clamp(2rem, 5vw, 4rem);
+    letter-spacing: .04em;
+    text-shadow:
+        0 0 10px rgba(180,70,255,.8),
+        0 0 28px rgba(255,0,70,.5);
+}
+
+.hero h2 {
+    margin: 0;
+    font-size: clamp(1rem, 2vw, 1.6rem);
+    letter-spacing: .25em;
+    font-weight: 500;
+}
+
+.hero .icons {
+    margin-top: 13px;
+    font-size: 1.4rem;
+}
+
+/* ================= LAYOUT ================= */
+
+.layout {
+    display: grid;
+    grid-template-columns: 320px minmax(700px, 1fr) 340px;
+    gap: 15px;
+    padding: 15px;
+}
+
+.panel {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 16px;
+    box-shadow:
+        0 0 18px rgba(150,0,200,.08),
+        inset 0 0 18px rgba(255,255,255,.015);
+}
+
+.panel h2,
+.panel h3 {
+    margin-top: 0;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid var(--line);
+    margin: 18px 0;
+}
+
+small {
+    color: var(--muted);
+}
+
+.setting {
+    margin-bottom: 17px;
+}
+
+.setting-title {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: bold;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+select,
+input[type="text"],
+input[type="number"] {
+    color: white;
+    background: #120b16;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 9px;
+    padding: 8px;
+}
+
+input[type="number"] {
+    width: 70px;
+}
+
+/* ================= BUTTONS ================= */
+
+.btn {
+    border: 1px solid rgba(255,255,255,.22);
+    border-radius: 11px;
+    padding: 10px 14px;
+    color: white;
+    background: #170d1d;
+}
+
+.btn:hover {
+    box-shadow: 0 0 14px rgba(200,100,255,.25);
+}
+
+.btn-primary {
+    background: linear-gradient(100deg, #7514c5, #bd1539);
+    border: 0;
+    font-weight: bold;
+}
+
+.btn-function {
+    background: #06152a;
+    border-color: #1c7cff;
+}
+
+.btn:disabled {
+    opacity: .35;
+    cursor: not-allowed;
+}
+
+/* ================= PLAYER CONFIG ================= */
+
+.player-config-list {
+    display: grid;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.player-config {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 9px;
+}
+
+.player-config-top {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.player-config input[type="text"] {
+    min-width: 0;
+    flex: 1;
+}
+
+.colour-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 8px;
+}
+
+.colour-choice {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+.colour-choice.selected {
+    border-color: white;
+    box-shadow: 0 0 8px white;
+}
+
+/* ================= BOARD ================= */
+
+.board-panel {
+    min-width: 0;
+}
+
+.board-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.board-heading h2 {
+    margin-bottom: 3px;
+}
+
+.board-scroll {
+    height: 78vh;
+    overflow: auto;
+    padding: 16px;
+
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 16px;
+
+    background:
+        radial-gradient(circle at 30% 20%, rgba(93,0,150,.16), transparent 22%),
+        radial-gradient(circle at 75% 55%, rgba(150,0,30,.14), transparent 25%),
+        #020203;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(10, minmax(80px, 1fr));
+    gap: 9px;
+    min-width: 930px;
+}
+
+/* Every position can have ANY decorative colour.
+   White is reserved for guaranteed-normal spaces. */
+
+.space {
+    position: relative;
+    min-height: 100px;
+    padding: 7px;
+    border-radius: 13px;
+    background: #050507;
+    border: 2px solid var(--glow);
+    box-shadow:
+        0 0 5px var(--glow),
+        inset 0 0 9px color-mix(in srgb, var(--glow) 10%, transparent);
+    transition: .15s ease;
+}
+
+.space:hover {
+    transform: translateY(-3px) scale(1.025);
+    box-shadow:
+        0 0 8px var(--glow),
+        0 0 20px color-mix(in srgb, var(--glow) 50%, transparent);
+    z-index: 10;
+}
+
+.space.normal-white {
+    --glow: #f2f2f2 !important;
+    box-shadow: 0 0 4px rgba(255,255,255,.45);
+}
+
+.space-number {
+    font-weight: 900;
+    font-size: .85rem;
+}
+
+.space-icon {
+    font-size: 1.25rem;
+    margin-top: 5px;
+}
+
+.space-title {
+    font-size: .67rem;
+    line-height: 1.15;
+    margin-top: 4px;
+}
+
+.event-effect {
+    margin-top: 4px;
+    color: #d8cae2;
+    font-size: .58rem;
+    line-height: 1.12;
+}
+
+/* special emphasis without assigning good/bad colours */
+
+.space.best {
+    outline: 2px solid #ffd700;
+}
+
+.space.worst {
+    outline: 2px dashed #ff1744;
+}
+
+.space.function {
+    background:
+        radial-gradient(circle, rgba(0,100,255,.17), transparent 70%),
+        #050507;
+}
+
+.space.mix {
+    background:
+        radial-gradient(circle, rgba(180,60,255,.12), transparent 70%),
+        #050507;
+}
+
+.space.start {
+    background: linear-gradient(135deg, #160520, #240008);
+}
+
+.space.finish {
+    background:
+        radial-gradient(circle, rgba(255,215,0,.18), transparent 60%),
+        #070607;
+    outline: 2px solid #ffd700;
+}
+
+/* ================= TOKENS ================= */
+
+.tokens {
+    position: absolute;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+}
+
+.token {
+    min-width: 19px;
+    height: 19px;
+    padding: 0 3px;
+    border-radius: 999px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: .52rem;
+    font-weight: 900;
+
+    border: 2px solid white;
+    color: black;
+
+    box-shadow: 0 0 8px currentColor;
+}
+
+/* ================= IMAGE PLACEHOLDERS ================= */
+
+.image-placeholder {
+    margin: 13px 0;
+    min-height: 110px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+    padding: 15px;
+
+    border: 2px dashed rgba(255,255,255,.28);
+    border-radius: 14px;
+
+    color: #b9a8c5;
+    background: rgba(255,255,255,.025);
+}
+
+.image-placeholder strong {
+    color: white;
+}
+
+/* ================= CURRENT GAME ================= */
+
+.current-card {
+    text-align: center;
+    padding: 15px;
+    margin-bottom: 14px;
+
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 15px;
+
+    background:
+        radial-gradient(circle at 50% 0%, rgba(135,20,200,.18), transparent 55%),
+        rgba(255,255,255,.02);
+}
+
+.current-player {
+    font-size: 1.4rem;
+    font-weight: 900;
+}
+
+.die-result {
+    min-height: 65px;
+    margin: 8px 0;
+    font-size: 3.2rem;
+    font-weight: 900;
+}
+
+/* ================= PLAYER LOCATIONS ================= */
+
+.locations {
+    display: grid;
+    gap: 7px;
+}
+
+.location-card {
+    display: grid;
+    grid-template-columns: 18px 1fr auto;
+    align-items: center;
+    gap: 8px;
+
+    padding: 8px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.location-card:hover {
+    background: rgba(255,255,255,.05);
+}
+
+.location-dot {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 1px solid white;
+}
+
+/* ================= HISTORY ================= */
+
+.history {
+    height: 300px;
+    overflow-y: auto;
+    padding: 9px;
+
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: #050506;
+}
+
+.history-entry {
+    padding: 7px 3px;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+    font-size: .83rem;
+}
+
+/* ================= FINISH TABLE ================= */
+
+.finish-table {
+    display: grid;
+    gap: 6px;
+}
+
+.finish-entry {
+    padding: 8px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+}
+
+/* ================= EVENT MODAL ================= */
+
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(0,0,0,.82);
+    backdrop-filter: blur(5px);
+}
+
+.modal {
+    width: min(600px, 95vw);
+    max-height: 88vh;
+    overflow-y: auto;
+
+    padding: 25px;
+    text-align: center;
+
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 20px;
+
+    background:
+        radial-gradient(circle at top, rgba(100,0,160,.25), transparent 45%),
+        linear-gradient(140deg, #0a050e, #15050d);
+
+    box-shadow:
+        0 0 35px rgba(130,0,200,.25),
+        0 0 55px rgba(180,0,40,.16);
+}
+
+.modal-icon {
+    font-size: 4rem;
+}
+
+.modal h2 {
+    font-size: 2rem;
+    margin: 8px 0;
+}
+
+.modal-effect {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 14px 0;
+}
+
+.sydney-years {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+
+    margin: 18px 0;
+    font-size: 1.8rem;
+    font-weight: 900;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 1250px) {
+    .layout {
+        grid-template-columns: 300px 1fr;
+    }
+
+    .right-panel {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 800px) {
+    .layout {
+        display: block;
+    }
+
+    .panel {
+        margin-bottom: 13px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="hero">
+    <div class="small">OTONO TEAM</div>
+    <h1>JOURNEYS BEYOND ORDINARY</h1>
+    <h2>THE BOARD GAME</h2>
+    <div class="icons">🏎️ ✈️ 🌑 ∫ 🐑 🚽</div>
+</header>
+
+<div class="layout">
+
+<!-- ======================================================
+     SETTINGS
+     ====================================================== -->
+
+<aside class="panel">
+    <h2>⚙️ Game Setup</h2>
+
+    <div class="setting">
+        <label class="setting-title">Players</label>
+
+        <select id="playerCount">
+            <option value="3">3 players</option>
+            <option value="4" selected>4 players</option>
+            <option value="5">5 players</option>
+            <option value="6">6 players</option>
+            <option value="7">7 players</option>
+            <option value="8">8 players</option>
+            <option value="9">9 players</option>
+            <option value="10">10 players</option>
+            <option value="11">11 players</option>
+            <option value="12">12 players</option>
+        </select>
+    </div>
+
+    <div id="playerConfigList" class="player-config-list"></div>
+
+    <hr>
+
+    <div class="setting">
+        <label class="setting-title">🎲 Movement Die</label>
+
+        <select id="diePreset">
+            <option value="6">1–6</option>
+            <option value="8" selected>1–8 — DEFAULT</option>
+            <option value="custom">Custom</option>
+        </select>
+
+        <div id="customDieControls" class="row hidden" style="margin-top:8px;">
+            <label>
+                Min
+                <input id="dieMin" type="number" min="0" max="19" value="1">
+            </label>
+
+            <label>
+                Max
+                <input id="dieMax" type="number" min="1" max="20" value="8">
+            </label>
+        </div>
+    </div>
+
+    <div class="setting">
+        <label class="setting-title">
+            <input type="checkbox" id="functionEnabled" checked>
+            ƒ Function Die
+        </label>
+
+        <div id="functionOptions">
+            <label><input type="checkbox" value="plus" checked> +</label><br>
+            <label><input type="checkbox" value="minus" checked> −</label><br>
+            <label><input type="checkbox" value="double" checked> ×2</label><br>
+            <label><input type="checkbox" value="half" checked> ÷2</label><br>
+            <label><input type="checkbox" value="integral" checked> ∫ Integration</label><br>
+            <label><input type="checkbox" value="sohcahtoa" checked> SOHCAHTOA</label><br>
+            <label><input type="checkbox" value="reverse" checked> ⇄ Reverse order</label><br>
+            <label><input type="checkbox" value="plusminus" checked> ±</label><br>
+            <label><input type="checkbox" value="sqrt" checked> √</label><br>
+            <label><input type="checkbox" value="chaos" checked> ? Chaos</label>
+        </div>
+    </div>
+
+    <div class="setting">
+        <label>
+            <input type="checkbox" id="eventChaining" checked>
+            Event chaining
+        </label>
+
+        <br>
+        <small>Yes, this means 57 → 140 → 40.</small>
+    </div>
+
+    <div class="setting">
+        <label class="setting-title">🌑 Long penalties</label>
+
+        <select id="penaltyMode">
+            <option value="full" selected>Full Otono Chaos — 8 turns</option>
+            <option value="reduced">Reduced — 2 turns</option>
+            <option value="minimal">Minimal — 1 turn</option>
+        </select>
+    </div>
+
+    <div class="row">
+        <button id="startGame" class="btn btn-primary">START GAME</button>
+        <button id="resetDefaults" class="btn">RESET DEFAULTS</button>
+    </div>
+
+    <hr>
+</aside>
+
+<!-- ======================================================
+     BOARD
+     ====================================================== -->
+
+<main class="panel board-panel">
+
+    <div class="board-heading">
+        <div>
+            <h2>🌌 Otono Journey</h2>
+            <small>
+                0 → 434 • You MUST land on 434 exactly.
+                Overshoot = bounce backwards.
+            </small>
+        </div>
+    </div>
+
+    <div class="board-scroll">
+        <div id="board" class="board"></div>
+    </div>
+
+</main>
+
+<!-- ======================================================
+     GAME STATUS
+     ====================================================== -->
+
+<aside class="panel right-panel">
+
+    <h2>🎮 Current Turn</h2>
+
+    <div class="current-card">
+        <div id="currentPlayer" class="current-player">
+            Start a game!
+        </div>
+
+        <div id="dieResult" class="die-result">🎲</div>
+
+        <div class="row" style="justify-content:center;">
+            <button id="rollButton" class="btn btn-primary" disabled>
+                ROLL
+            </button>
+
+            <button id="functionButton" class="btn btn-function" disabled>
+                ƒ FUNCTION
+            </button>
+        </div>
+
+        <div id="status" style="margin-top:13px;">
+            Configure the game and press START GAME.
+        </div>
+    </div>
+
+    <h3>📍 Player Locations</h3>
+    <div id="locations" class="locations"></div>
+
+    <hr>
+
+    <h3>🏆 Finishing Order</h3>
+    <div id="finishTable" class="finish-table">
+        <small>Nobody has reached Room 12 yet.</small>
+    </div>
+
+    <hr>
+
+    <h3>📜 Game History</h3>
+    <div id="history" class="history"></div>
+
+</aside>
+
+</div>
+
+<!-- ======================================================
+     EVENT MODAL
+     ====================================================== -->
+
+<div id="modalBackdrop" class="modal-backdrop hidden">
+    <div class="modal">
+
+        <div id="modalIcon" class="modal-icon">🎲</div>
+
+        <h2 id="modalTitle">EVENT</h2>
+
+        <div id="modalText"></div>
+
+        <div id="modalExtra"></div>
+
+        <div id="modalEffect" class="modal-effect"></div>
+
+        <button id="closeModal" class="btn btn-primary">
+            CONTINUE
+        </button>
+
+    </div>
+</div>
+
+<script>
+/* ============================================================
+   CONSTANTS
+   ============================================================ */
+
+const FINISH = 434;
+
+/* Fixed selectable colours — NO unrestricted colour picker. */
+
+const COLOURS = [
+    { name: "Yellow", value: "#ffe600" },
+    { name: "Red",    value: "#ff1744" },
+    { name: "Blue",   value: "#2196ff" },
+    { name: "Green",  value: "#39ff88" },
+    { name: "White",  value: "#ffffff" },
+    { name: "Brown",  value: "#a76a45" },
+    { name: "Purple", value: "#b44cff" },
+    { name: "Pink",   value: "#ff63c3" },
+    { name: "Orange", value: "#ff8c24" }
+];
+
+/* Default order:
+   Yellow, Red, Blue, Green, White, Brown, Purple, Pink, Orange.
+   Players 10–12 repeat colours but remain identifiable by P-number.
+*/
+
+const DEFAULT_COLOUR_INDEXES =
+    [0,1,6,7,4,5,2,3,8,0,1,6];
+
+/* Decorative board borders.
+   White is NOT in this random pool because white spaces are guaranteed normal.
+*/
+
+const BOARD_GLOW_COLOURS = [
+    "#ffe600",
+    "#ff1744",
+    "#2196ff",
+    "#39ff88",
+    "#a76a45",
+    "#b44cff",
+    "#ff63c3",
+    "#ff8c24"
+];
+
+/* ============================================================
+   EVENT DATABASE
+
+   category is descriptive only.
+   Border colour does NOT tell players whether an event is good/bad.
+
+   Every event's title + effect is displayed ON THE BOARD even before
+   anybody lands on it.
+   ============================================================ */
+
+const EVENTS = {
+
+    8: {
+        category:"positive",
+        icon:"🏎️",
+        title:"Perfect Start",
+        text:"You nailed the racing launch.",
+        effectText:"+4",
+        move:4
+    },
+
+    14: {
+        category:"negative",
+        icon:"🏎️",
+        title:"False Start",
+        text:"That was not the start you wanted.",
+        effectText:"−4",
+        move:-4
+    },
+
+    19: {
+        category:"positive",
+        icon:"✈️",
+        title:"A380 Upper-Deck Economy",
+        text:"You got an excellent upper-deck Economy seat.",
+        effectText:"+8",
+        move:8,
+        imagePlaceholder:"INSERT IMAGE of Airbus A380"
+    },
+
+    25: {
+        category:"negative",
+        icon:"✈️",
+        title:"Gate Changed",
+        text:"Your departure gate suddenly changed.",
+        effectText:"−3",
+        move:-3
+    },
+
+    27: {
+        category:"positive",
+        icon:"🏁",
+        title:"Fastest Lap",
+        text:"Fastest lap of the race!",
+        effectText:"ROLL AGAIN",
+        extraTurn:true
+    },
+
+    32: {
+        category:"negative",
+        icon:"🏎️💥",
+        title:"BAD START!",
+        text:"You completely messed up the opening laps.",
+        effectText:"GO BACK TO 15",
+        goto:15
+    },
+
+    34: {
+        category:"positive",
+        icon:"✈️",
+        title:"Economy Legroom",
+        text:"You found an Economy seat with excellent legroom.",
+        effectText:"+5",
+        move:5
+    },
+
+    41: {
+        category:"negative",
+        icon:"🏎️",
+        title:"Missed Braking Point",
+        text:"You completely missed the braking point.",
+        effectText:"−8",
+        move:-8
+    },
+
+    47: {
+        category:"negative",
+        icon:"🍹✈️",
+        title:"Onboard Lounge",
+        text:"You spent too long in the onboard lounge!",
+        effectText:"SKIP 1 TURN",
+        skip:1
+    },
+
+    48: {
+        category:"positive",
+        icon:"🏎️",
+        title:"Clean Overtake",
+        text:"Perfect overtake.",
+        effectText:"+6",
+        move:6
+    },
+
+    57: {
+        category:"positive",
+        icon:"🐑",
+        title:"HELPED A SHEEP!",
+        text:"You helped a sheep to cross the road, PLEASE GO TO 140!",
+        effectText:"→ 140",
+        goto:140
+    },
+
+    62: {
+        category:"negative",
+        icon:"🏠",
+        title:"Wrong Lounge",
+        text:"You went to Room 62 instead of Room 12.",
+        effectText:"−10",
+        move:-10
+    },
+
+    69: {
+        category:"positive",
+        icon:"✈️",
+        title:"777 Economy",
+        text:"You found an empty 777 Economy window seat.",
+        effectText:"+7",
+        move:7,
+        imagePlaceholder:"INSERT IMAGE of Boeing 777"
+    },
+
+    73: {
+        category:"best",
+        icon:"🏆🏎️",
+        title:"OTONO GRAND PRIX!",
+        text:"YOU WON THE OTONO GRAND PRIX!",
+        effectText:"GO TO 121",
+        goto:121
+    },
+
+    76: {
+        category:"negative",
+        icon:"✈️",
+        title:"A380 Economy Boarding",
+        text:"Your Economy boarding group has not been called yet.",
+        effectText:"SKIP 1 TURN",
+        skip:1
+    },
+
+    83: {
+        category:"positive",
+        icon:"🏁",
+        title:"Amazing Pit Stop",
+        text:"Your pit crew completed an amazing stop.",
+        effectText:"ROLL AGAIN",
+        extraTurn:true
+    },
+
+    89: {
+        category:"negative",
+        icon:"🏎️",
+        title:"Slow Pit Stop",
+        text:"That pit stop took far too long.",
+        effectText:"−5",
+        move:-5
+    },
+
+    96: {
+        category:"positive",
+        icon:"✈️",
+        title:"A350 Premium Economy",
+        text:"Plenty of room in Premium Economy.",
+        effectText:"+5",
+        move:5,
+        imagePlaceholder:"INSERT IMAGE of Airbus A350"
+    },
+
+    103: {
+        category:"negative",
+        icon:"🛄",
+        title:"Back to Security",
+        text:"You left something behind at security.",
+        effectText:"−7",
+        move:-7
+    },
+
+    110: {
+        category:"special",
+        icon:"💯",
+        title:"110!",
+        text:"Luke is extremely pleased that you landed here.",
+        effectText:"ROLL AGAIN",
+        extraTurn:true
+    },
+
+    116: {
+        category:"positive",
+        icon:"✈️",
+        title:"OT116",
+        text:"OT116 is ready early!",
+        effectText:"+11",
+        move:11,
+        imagePlaceholder:"INSERT IMAGE of OT116 A380"
+    },
+
+    117: {
+        category:"positive",
+        icon:"✈️",
+        title:"OT117",
+        text:"OT117 has arrived.",
+        effectText:"+3",
+        move:3
+    },
+
+    121: {
+        category:"positive",
+        icon:"✈️",
+        title:"A380 Main-Deck Business",
+        text:"Upgrade to Main-Deck Business.",
+        effectText:"+12",
+        move:12
+    },
+
+    127: {
+        category:"negative",
+        icon:"✈️",
+        title:"777 Premium Economy",
+        text:"Your seat controls are not working properly.",
+        effectText:"−4",
+        move:-4
+    },
+
+    133: {
+        category:"positive",
+        icon:"🏎️",
+        title:"Crash Avoided",
+        text:"You avoided the crash ahead.",
+        effectText:"+5",
+        move:5
+    },
+
+    140: {
+        category:"mix",
+        icon:"🐑✈️",
+        title:"THE SHEEP INCIDENT",
+        text:"YOUR LANDING KILLED A SHEEP! PLEASE GO TO... 40.",
+        effectText:"→ 40",
+        goto:40
+    },
+
+    144: {
+        category:"positive",
+        icon:"✈️",
+        title:"A380 Upper-Deck Business",
+        text:"You found the Upper-Deck Business cabin.",
+        effectText:"+14",
+        move:14
+    },
+
+    151: {
+        category:"negative",
+        icon:"🏎️",
+        title:"Racing Penalty",
+        text:"Five-second penalty.",
+        effectText:"−5",
+        move:-5
+    },
+
+    153: {
+        category:"best",
+        icon:"🟣✈️",
+        title:"OTONO ONE!",
+        text:"FREE OTONO ONE UPGRADE!",
+        effectText:"GO TO 194",
+        goto:194
+    },
+
+    157: {
+        category:"positive",
+        icon:"✈️",
+        title:"777 Business",
+        text:"Your Business Class seat is ready.",
+        effectText:"+8",
+        move:8
+    },
+
+    166: {
+        category:"negative",
+        icon:"✈️",
+        title:"Wrong A380 Deck",
+        text:"You went to the wrong deck.",
+        effectText:"−6",
+        move:-6
+    },
+
+    171: {
+        category:"positive",
+        icon:"🏁",
+        title:"Pole Position",
+        text:"You earned pole position.",
+        effectText:"+10",
+        move:10
+    },
+
+    179: {
+        category:"positive",
+        icon:"✈️",
+        title:"A350 Business",
+        text:"You were upgraded from Economy to A350 Business.",
+        effectText:"+5",
+        move:5
+    },
+
+    183: {
+        category:"negative",
+        icon:"🏎️",
+        title:"Puncture!",
+        text:"Your racing car has a puncture.",
+        effectText:"SKIP 1 TURN",
+        skip:1
+    },
+
+    188: {
+        category:"worst",
+        icon:"⚠️✈️",
+        title:"ENGINEERING PROBLEM!",
+        text:"Your aircraft has an engineering problem.",
+        effectText:"GO BACK TO 121",
+        goto:121
+    },
+
+    194: {
+        category:"positive",
+        icon:"✨✈️",
+        title:"First Class",
+        text:"You got First Class!",
+        effectText:"+12",
+        move:12
+    },
+
+    201: {
+        category:"negative",
+        icon:"🏎️",
+        title:"Spin!",
+        text:"You spun but avoided the barrier.",
+        effectText:"−7",
+        move:-7
+    },
+
+    208: {
+        category:"positive",
+        icon:"🌑",
+        title:"SYDNEY ECLIPSE 2028",
+        text:"You planned ahead for the Sydney total solar eclipse!",
+        effectText:"+8",
+        move:8,
+        imagePlaceholder:"INSERT IMAGE of Sydney Eclipse 2028"
+    },
+
+    213: {
+        category:"best",
+        icon:"✈️",
+        title:"Perfect A380 Connection",
+        text:"Your connection is immediately beside your departing A380.",
+        effectText:"GO TO 258",
+        goto:258
+    },
+
+    217: {
+        category:"positive",
+        icon:"✈️",
+        title:"Neighbouring Gate",
+        text:"Your connecting flight is next door.",
+        effectText:"+7",
+        move:7
+    },
+
+    224: {
+        category:"negative",
+        icon:"✈️",
+        title:"Wrong Gate",
+        text:"You queued at the wrong gate.",
+        effectText:"−6",
+        move:-6
+    },
+
+    229: {
+        category:"positive",
+        icon:"✈️",
+        title:"Business+",
+        text:"A Business+ seat became available.",
+        effectText:"+9",
+        move:9
+    },
+
+    232: {
+        category:"mix",
+        icon:"🏎️",
+        title:"Slipstream",
+        text:"Move directly behind a randomly selected unfinished player.",
+        effectText:"RANDOM PLAYER",
+        special:"slipstream"
+    },
+
+    239: {
+        category:"negative",
+        icon:"💼✈️",
+        title:"Bag Left in Business",
+        text:"You left your bag in Business Class.",
+        effectText:"−9",
+        move:-9
+    },
+
+    244: {
+        category:"positive",
+        icon:"🏁",
+        title:"Safety Car Timing",
+        text:"The safety car ended at exactly the right moment.",
+        effectText:"+6",
+        move:6
+    },
+
+    255: {
+        category:"worst",
+        icon:"💥🏎️",
+        title:"RED FLAG!",
+        text:"Your race is over.",
+        effectText:"GO BACK TO 177",
+        goto:177
+    },
+
+    258: {
+        category:"positive",
+        icon:"🟣✈️",
+        title:"Otono One Suite",
+        text:"You got an Otono One suite!",
+        effectText:"+20",
+        move:20
+    },
+
+    267: {
+        category:"negative",
+        icon:"🏎️",
+        title:"Pit-Lane Speeding",
+        text:"Pit-lane speeding penalty.",
+        effectText:"−10",
+        move:-10
+    },
+
+    273: {
+        category:"best",
+        icon:"🏎️⚡",
+        title:"NEW LAP RECORD!",
+        text:"An incredible lap.",
+        effectText:"GO TO 318",
+        goto:318
+    },
+
+    276: {
+        category:"positive",
+        icon:"🏎️",
+        title:"Comeback Drive",
+        text:"An incredible comeback.",
+        effectText:"+8",
+        move:8
+    },
+
+    284: {
+        category:"negative",
+        icon:"✈️",
+        title:"Departure Slot",
+        text:"Your A350 is waiting for a departure slot.",
+        effectText:"SKIP 1 TURN",
+        skip:1
+    },
+
+    291: {
+        category:"positive",
+        icon:"✈️",
+        title:"A350 Early Arrival",
+        text:"Your A350 arrived ahead of schedule.",
+        effectText:"+6",
+        move:6
+    },
+
+    301: {
+        category:"negative",
+        icon:"☁️🔭",
+        title:"Clouds!",
+        text:"Clouds appeared just as you set up the telescope.",
+        effectText:"−5",
+        move:-5
+    },
+
+    303: {
+        category:"positive",
+        icon:"🌑🔭",
+        title:"Eclipse Equipment Ready",
+        text:"You prepared all the correct eclipse observation equipment.",
+        effectText:"+5",
+        move:5
+    },
+
+    307: {
+        category:"special",
+        icon:"🚽",
+        title:"WILLIAM POOPS!",
+        text:"William suddenly left for the toilet in the middle of everything.",
+        effectText:"EVERYONE ELSE SKIPS 1 TURN",
+        special:"william"
+    },
+
+    318: {
+        category:"negative",
+        icon:"✈️",
+        title:"Wrong 777 Cabin",
+        text:"You forgot which 777 cabin you were sitting in.",
+        effectText:"−7",
+        move:-7
+    },
+
+    322: {
+        category:"positive",
+        icon:"🍹✈️",
+        title:"Lounge Available",
+        text:"The onboard lounge has space immediately.",
+        effectText:"ROLL AGAIN",
+        extraTurn:true
+    },
+
+    328: {
+        category:"worst",
+        icon:"🌑😭",
+        title:"YOU MISSED THE SYDNEY ECLIPSE!",
+        text:
+            "You missed totality in Sydney on 22 July 2028. " +
+            "The next total solar eclipse visible from Sydney isn't until 2858. " +
+            "THAT'S OVER 8 CENTURIES AWAY!",
+        effectText:"MISS 8 TURNS",
+        special:"sydney",
+        imagePlaceholder:"INSERT IMAGE of Sydney Eclipse 2028"
+    },
+
+    337: {
+        category:"positive",
+        icon:"🏆🏎️",
+        title:"Race Victory",
+        text:"You won the race!",
+        effectText:"+12",
+        move:12
+    },
+
+    342: {
+        category:"best",
+        icon:"✈️✨",
+        title:"Perfect A350 Flight",
+        text:"Perfect conditions and an extremely early arrival.",
+        effectText:"GO TO 386",
+        goto:386,
+        imagePlaceholder:"INSERT IMAGE of Airbus A350"
+    },
+
+    349: {
+        category:"negative",
+        icon:"⛽🏎️",
+        title:"Out of Fuel",
+        text:"You ran out of fuel just after the finish line.",
+        effectText:"−4",
+        move:-4
+    },
+
+    350: {
+        category:"special",
+        icon:"✈️",
+        title:"A350!",
+        text:"An Otono Airways A350 is ready.",
+        effectText:"+8",
+        move:8,
+        imagePlaceholder:"INSERT IMAGE of Airbus A350-900"
+    },
+
+    356: {
+        category:"positive",
+        icon:"✈️",
+        title:"777 Early Arrival",
+        text:"Your Boeing 777 arrived early.",
+        effectText:"+7",
+        move:7,
+        imagePlaceholder:"INSERT IMAGE of Boeing 777"
+    },
+
+    361: {
+        category:"mix",
+        icon:"🎟️✈️",
+        title:"Standby Upgrade",
+        text:"Even roll gives +12. Odd roll gives −8.",
+        effectText:"ROLL FOR FATE",
+        special:"standby"
+    },
+
+    367: {
+        category:"negative",
+        icon:"📷✈️",
+        title:"Too Many A380 Photos",
+        text:"You spent too long taking photographs of the A380.",
+        effectText:"SKIP 1 TURN",
+        skip:1
+    },
+
+    374: {
+        category:"positive",
+        icon:"🌌",
+        title:"Perfect Astronomy Night",
+        text:"Perfectly clear skies.",
+        effectText:"+6",
+        move:6
+    },
+
+    377: {
+        category:"worst",
+        icon:"✈️❌",
+        title:"WRONG FLIGHT!",
+        text:"You boarded the wrong Otono Airways aircraft.",
+        effectText:"GO TO 291",
+        goto:291
+    },
+
+    380: {
+        category:"special",
+        icon:"✈️✈️",
+        title:"A380 — DOUBLE DECKER!",
+        text:
+            "Choose your deck. UPPER DECK triggers the Function Die. " +
+            "MAIN DECK gives +8.",
+        effectText:"CHOOSE YOUR DECK",
+        special:"a380",
+        imagePlaceholder:"INSERT IMAGE of Airbus A380"
+    },
+
+    386: {
+        category:"negative",
+        icon:"🏠",
+        title:"Forgot Something Upstairs",
+        text:"You have to go back.",
+        effectText:"−6",
+        move:-6
+    },
+
+    397: {
+        category:"positive",
+        icon:"🧳",
+        title:"First Suitcase!",
+        text:"Your luggage came out first.",
+        effectText:"+8",
+        move:8
+    },
+
+    399: {
+        category:"best",
+        icon:"🏠✨",
+        title:"Express Route Home",
+        text:"Everything is going perfectly.",
+        effectText:"GO TO 425",
+        goto:425
+    },
+
+    401: {
+        category:"worst",
+        icon:"🏎️❌",
+        title:"DISQUALIFIED!",
+        text:"You were disqualified from the race.",
+        effectText:"GO TO 307",
+        goto:307
+    },
+
+    406: {
+        category:"negative",
+        icon:"🧳",
+        title:"Wrong Baggage Belt",
+        text:"Your suitcase went to the wrong belt.",
+        effectText:"−10",
+        move:-10
+    },
+
+    421: {
+        category:"worst",
+        icon:"🛂✈️",
+        title:"PASSPORT LEFT ON AIRCRAFT!",
+        text:"The aircraft has already departed.",
+        effectText:"GO BACK TO 374",
+        goto:374
+    },
+
+    425: {
+        category:"positive",
+        icon:"⚡",
+        title:"Final Express",
+        text:"You're getting very close.",
+        effectText:"+4",
+        move:4
+    },
+
+    427: {
+        category:"negative",
+        icon:"🏎️",
+        title:"Late Spin!",
+        text:"A terrible time to spin.",
+        effectText:"−5",
+        move:-5
+    },
+
+    429: {
+        category:"positive",
+        icon:"🛬",
+        title:"Final Approach",
+        text:"Perfect final approach.",
+        effectText:"ROLL AGAIN",
+        extraTurn:true
+    },
+
+    431: {
+        category:"worst",
+        icon:"↩️",
+        title:"WRONG TURN!",
+        text:"You were nearly there...",
+        effectText:"GO TO 406",
+        goto:406
+    }
+};
+
+/* ============================================================
+   FUNCTION SPACES
+   52 and 92 MUST remain.
+   433 is the terrifying final Function space.
+   ============================================================ */
+
+const FUNCTION_SPACES = [
+    52, 92, 132, 172,
+    212, 252, 292, 312,
+    332, 352, 372, 392,
+    402, 412, 422, 433
+];
+
+FUNCTION_SPACES.forEach(position => {
+    EVENTS[position] = {
+        category:"function",
+        icon:"ƒ",
+        title:
+            position === 433
+            ? "FINAL FUNCTION!"
+            : "FUNCTION!",
+        text:
+            position === 433
+            ? "ONE POSITION FROM ROOM 12. Roll the Function Die."
+            : "Roll the Function Die.",
+        effectText:"ROLL ƒ",
+        special:"function"
+    };
+});
+
+/* ============================================================
+   STATE
+   ============================================================ */
+
+let players = [];
+let currentPlayerIndex = 0;
+let direction = 1;
+let gameStarted = false;
+let finishingOrder = [];
+let pendingFunction = false;
+let pendingExtraTurn = false;
+let pendingModalAction = null;
+
+/* ============================================================
+   ELEMENTS
+   ============================================================ */
+
+const boardEl = document.getElementById("board");
+const playerCountEl = document.getElementById("playerCount");
+const playerConfigListEl = document.getElementById("playerConfigList");
+
+const currentPlayerEl = document.getElementById("currentPlayer");
+const dieResultEl = document.getElementById("dieResult");
+const statusEl = document.getElementById("status");
+
+const rollButton = document.getElementById("rollButton");
+const functionButton = document.getElementById("functionButton");
+
+const locationsEl = document.getElementById("locations");
+const historyEl = document.getElementById("history");
+const finishTableEl = document.getElementById("finishTable");
+
+const modalBackdrop = document.getElementById("modalBackdrop");
+const modalIcon = document.getElementById("modalIcon");
+const modalTitle = document.getElementById("modalTitle");
+const modalText = document.getElementById("modalText");
+const modalExtra = document.getElementById("modalExtra");
+const modalEffect = document.getElementById("modalEffect");
+const closeModalButton = document.getElementById("closeModal");
+
+/* ============================================================
+   PLAYER CONFIGURATION
+   ============================================================ */
+
+function buildPlayerConfig() {
+
+    const count = Number(playerCountEl.value);
+
+    const previous = [];
+
+    document.querySelectorAll(".player-config").forEach((box, index) => {
+        previous[index] = {
+            name: box.querySelector(".player-name")?.value,
+            colourIndex: Number(box.dataset.colourIndex)
+        };
+    });
+
+    playerConfigListEl.innerHTML = "";
+
+    for (let i = 0; i < count; i++) {
+
+        const colourIndex =
+            Number.isInteger(previous[i]?.colourIndex)
+            ? previous[i].colourIndex
+            : DEFAULT_COLOUR_INDEXES[i];
+
+        const box = document.createElement("div");
+
+        box.className = "player-config";
+        box.dataset.colourIndex = colourIndex;
+
+        box.innerHTML = `
+            <div class="player-config-top">
+                <strong>P${i + 1}</strong>
+
+                <input
+                    class="player-name"
+                    type="text"
+                    maxlength="20"
+                    value="${previous[i]?.name || `Player ${i + 1}`}"
+                >
+            </div>
+
+            <div class="colour-options"></div>
+        `;
+
+        const colourOptions =
+            box.querySelector(".colour-options");
+
+        COLOURS.forEach((colour, index) => {
+
+            const choice = document.createElement("button");
+
+            choice.type = "button";
+            choice.className =
+                "colour-choice" +
+                (index === colourIndex ? " selected" : "");
+
+            choice.style.background = colour.value;
+            choice.title = colour.name;
+
+            choice.addEventListener("click", () => {
+
+                box.dataset.colourIndex = index;
+
+                colourOptions
+                    .querySelectorAll(".colour-choice")
+                    .forEach(c => c.classList.remove("selected"));
+
+                choice.classList.add("selected");
+            });
+
+            colourOptions.appendChild(choice);
+        });
+
+        playerConfigListEl.appendChild(box);
+    }
+}
+
+/* ============================================================
+   BOARD DECORATION
+   ============================================================ */
+
+function deterministicGlow(position) {
+
+    /* White spaces are intentionally guaranteed normal.
+       Roughly one white space every 17 positions if no event exists.
+    */
+
+    if (!EVENTS[position] && position !== 0 && position !== FINISH) {
+        if (position % 17 === 0) {
+            return "#ffffff";
+        }
+    }
+
+    return BOARD_GLOW_COLOURS[
+        (position * 7 + 3) % BOARD_GLOW_COLOURS.length
+    ];
+}
+
+function buildBoard() {
+
+    boardEl.innerHTML = "";
+
+    for (let position = 0; position <= FINISH; position++) {
+
+        const event = EVENTS[position];
+
+        const cell = document.createElement("div");
+        cell.className = "space";
+        cell.id = `space-${position}`;
+
+        const glow = deterministicGlow(position);
+        cell.style.setProperty("--glow", glow);
+
+        if (glow === "#ffffff" && !event) {
+            cell.classList.add("normal-white");
+        }
+
+        if (event?.category) {
+            cell.classList.add(event.category);
+        }
+
+        if (position === 0) {
+            cell.classList.add("start");
+        }
+
+        if (position === FINISH) {
+            cell.classList.add("finish");
+        }
+
+        let content = `
+            <div class="space-number">${position}</div>
+        `;
+
+        if (position === 0) {
+
+            content += `
+                <div class="space-icon">🏁</div>
+                <div class="space-title">START</div>
+            `;
+
+        } else if (position === FINISH) {
+
+            content += `
+                <div class="space-icon">🏠🏆</div>
+                <div class="space-title">
+                    ROOM 12 — FINISH
+                </div>
+                <div class="event-effect">
+                    MUST LAND EXACTLY HERE
+                </div>
+            `;
+
+        } else if (event) {
+
+            content += `
+                <div class="space-icon">${event.icon}</div>
+                <div class="space-title">${event.title}</div>
+                <div class="event-effect">${event.effectText}</div>
+            `;
+
+            /* This means players can inspect what happens BEFORE
+               anybody lands on the position.
+            */
+
+            cell.addEventListener("click", () => {
+                showEventPreview(position);
+            });
+        }
+
+        content += `
+            <div class="tokens" id="tokens-${position}"></div>
+        `;
+
+        cell.innerHTML = content;
+
+        boardEl.appendChild(cell);
+    }
+
+    renderTokens();
+}
+
+/* ============================================================
+   EVENT PREVIEW
+
+   Allows players to click an event space at ANY time and see exactly
+   what happens even if nobody has landed there.
+   ============================================================ */
+
+function showEventPreview(position) {
+
+    const event = EVENTS[position];
+
+    if (!event) return;
+
+    showModal(
+        event.icon,
+        `${position} — ${event.title}`,
+        event.text,
+        event.effectText,
+        event,
+        null
+    );
+}
+
+/* ============================================================
+   TOKENS
+   ============================================================ */
+
+function renderTokens() {
+
+    document
+        .querySelectorAll(".tokens")
+        .forEach(container => container.innerHTML = "");
+
+    players.forEach((player, index) => {
+
+        const holder =
+            document.getElementById(`tokens-${player.position}`);
+
+        if (!holder) return;
+
+        const token = document.createElement("div");
+
+        token.className = "token";
+        token.style.background = player.colour;
+        token.title =
+            `${player.name} — Position ${player.position}`;
+
+        token.textContent = `P${index + 1}`;
+
+        holder.appendChild(token);
+    });
+
+    renderLocations();
+}
+
+/* ============================================================
+   PLAYER LOCATIONS
+   ============================================================ */
+
+function renderLocations() {
+
+    locationsEl.innerHTML = "";
+
+    players.forEach((player, index) => {
+
+        const card = document.createElement("div");
+        card.className = "location-card";
+
+        let extra = "";
+
+        if (player.finished) {
+            extra = `🏆 ${ordinal(player.finishPlace)}`;
+        } else if (player.skipTurns > 0) {
+            extra = `⏭ ${player.skipTurns}`;
+        }
+
+        card.innerHTML = `
+            <div
+                class="location-dot"
+                style="background:${player.colour}">
+            </div>
+
+            <div>
+                <strong>${player.name}</strong><br>
+                <small>
+                    Position ${player.position}
+                    ${EVENTS[player.position]
+                        ? ` — ${EVENTS[player.position].title}`
+                        : ""}
+                </small>
+            </div>
+
+            <strong>${extra}</strong>
+        `;
+
+        card.addEventListener("click", () => {
+
+            document
+                .getElementById(`space-${player.position}`)
+                ?.scrollIntoView({
+                    behavior:"smooth",
+                    block:"center",
+                    inline:"center"
+                });
+        });
+
+        locationsEl.appendChild(card);
+    });
+}
+
+/* ============================================================
+   START GAME
+   ============================================================ */
+
+function startGame() {
+
+    const configs =
+        [...document.querySelectorAll(".player-config")];
+
+    players = configs.map((box, index) => {
+
+        const colourIndex =
+            Number(box.dataset.colourIndex);
+
+        return {
+            name:
+                box.querySelector(".player-name").value.trim()
+                || `Player ${index + 1}`,
+
+            colour:
+                COLOURS[colourIndex].value,
+
+            colourName:
+                COLOURS[colourIndex].name,
+
+            position:0,
+            skipTurns:0,
+            doubleNext:false,
+            halfNext:false,
+            reverseNext:false,
+            finished:false,
+            finishPlace:null
+        };
+    });
+
+    currentPlayerIndex = 0;
+    direction = 1;
+
+    gameStarted = true;
+    finishingOrder = [];
+    pendingFunction = false;
+    pendingExtraTurn = false;
+
+    historyEl.innerHTML = "";
+    dieResultEl.textContent = "🎲";
+
+    rollButton.disabled = false;
+    functionButton.disabled = true;
+
+    addHistory(
+        "🎲 <strong>JOURNEYS BEYOND ORDINARY begins!</strong>"
+    );
+
+    buildBoard();
+    renderFinishTable();
+    updateCurrentPlayer();
+
+    statusEl.innerHTML =
+        "The journey begins at position 0.";
+}
+
+/* ============================================================
+   MOVEMENT DIE
+   ============================================================ */
+
+function getMovementRange() {
+
+    const preset =
+        document.getElementById("diePreset").value;
+
+    if (preset === "6") return [1,6];
+    if (preset === "8") return [1,8];
+
+    let min =
+        Number(document.getElementById("dieMin").value);
+
+    let max =
+        Number(document.getElementById("dieMax").value);
+
+    min = Math.max(0, Math.min(19, min));
+    max = Math.max(1, Math.min(20, max));
+
+    if (max <= min) {
+        max = Math.min(20, min + 1);
+    }
+
+    return [min,max];
+}
+
+function randomInt(min,max) {
+    return Math.floor(
+        Math.random() * (max - min + 1)
+    ) + min;
+}
+
+/* ============================================================
+   EXACT FINISH / BOUNCE RULE
+
+   Example:
+   431 + 5:
+   431 → 432 → 433 → 434 → 433 → 432
+
+   Events passed over are NOT activated.
+   Only the final landing position matters.
+   ============================================================ */
+
+function calculateMovement(start, movement) {
+
+    let position = start;
+    let directionOfMovement =
+        movement >= 0 ? 1 : -1;
+
+    let steps = Math.abs(movement);
+
+    for (let i = 0; i < steps; i++) {
+
+        position += directionOfMovement;
+
+        if (position > FINISH) {
+
+            const excess =
+                position - FINISH;
+
+            position =
+                FINISH - excess;
+
+            directionOfMovement = -1;
+        }
+
+        if (position < 0) {
+            position = 0;
+        }
+    }
+
+    return position;
+}
+
+/* ============================================================
+   ROLL MOVEMENT
+   ============================================================ */
+
+function rollMovement() {
+
+    if (!gameStarted) return;
+
+    const player = players[currentPlayerIndex];
+
+    if (!player || player.finished) {
+        nextPlayer();
+        return;
+    }
+
+    if (player.skipTurns > 0) {
+
+        player.skipTurns--;
+
+        dieResultEl.textContent = "⏭";
+
+        statusEl.innerHTML =
+            `<strong>${player.name}</strong> skips this turn.
+             ${player.skipTurns} skipped turn(s) remaining.`;
+
+        addHistory(
+            `⏭ <strong>${player.name}</strong> skipped a turn.`
+        );
+
+        renderLocations();
+
+        nextPlayer();
+        return;
+    }
+
+    const [min,max] = getMovementRange();
+
+    let roll = randomInt(min,max);
+    let movement = roll;
+
+    dieResultEl.textContent = roll;
+
+    if (player.doubleNext) {
+
+        movement *= 2;
+        player.doubleNext = false;
+
+        addHistory(
+            `×2 ${player.name}'s movement became ${movement}.`
+        );
+    }
+
+    if (player.halfNext) {
+
+        movement =
+            Math.ceil(movement / 2);
+
+        player.halfNext = false;
+
+        addHistory(
+            `÷2 ${player.name}'s movement became ${movement}.`
+        );
+    }
+
+    if (player.reverseNext) {
+
+        movement *= -1;
+        player.reverseNext = false;
+
+        addHistory(
+            `± ${player.name}'s movement went BACKWARDS.`
+        );
+    }
+
+    const oldPosition = player.position;
+
+    player.position =
+        calculateMovement(
+            player.position,
+            movement
+        );
+
+    addHistory(
+        `🎲 <strong>${player.name}</strong>
+         rolled ${roll}: ${oldPosition} → ${player.position}`
+    );
+
+    renderTokens();
+
+    if (player.position === FINISH) {
+        finishPlayer(player);
+        return;
+    }
+
+    resolveLanding(player);
+}
+
+/* ============================================================
+   LANDING EVENTS
+   ============================================================ */
+
+function resolveLanding(player) {
+
+    const event = EVENTS[player.position];
+
+    if (!event) {
+
+        statusEl.innerHTML =
+            `<strong>${player.name}</strong> landed on
+             ${player.position}. Nothing happens.`;
+
+        nextPlayer();
+        return;
+    }
+
+    showModal(
+        event.icon,
+        `${player.position} — ${event.title}`,
+        event.text,
+        event.effectText,
+        event,
+        () => applyEvent(player,event)
+    );
+}
+
+/* ============================================================
+   APPLY EVENT
+   ============================================================ */
+
+function applyEvent(player,event) {
+
+    addHistory(
+        `${event.icon} <strong>${player.name}</strong>:
+         ${event.title} — ${event.effectText}`
+    );
+
+    if (event.special === "function") {
+
+        if (!document.getElementById("functionEnabled").checked) {
+
+            addHistory(
+                "ƒ Function Die is disabled. Nothing happens."
+            );
+
+            nextPlayer();
+            return;
+        }
+
+        pendingFunction = true;
+
+        rollButton.disabled = true;
+        functionButton.disabled = false;
+
+        statusEl.innerHTML =
+            `<strong>${player.name}</strong> must roll the Function Die.`;
+
+        return;
+    }
+
+    if (event.special === "sydney") {
+
+        const mode =
+            document.getElementById("penaltyMode").value;
+
+        const turns =
+            mode === "full"
+            ? 8
+            : mode === "reduced"
+            ? 2
+            : 1;
+
+        player.skipTurns += turns;
+
+        addHistory(
+            `🌑😭 <strong>${player.name}</strong>
+             missed the Sydney Eclipse 2028.
+             ${turns} skipped turn(s).
+             2028 → 2858. THAT'S OVER 8 CENTURIES AWAY!`
+        );
+
+        renderLocations();
+        nextPlayer();
+        return;
+    }
+
+    if (event.special === "william") {
+
+        players.forEach(other => {
+
+            if (
+                other !== player &&
+                !other.finished
+            ) {
+                other.skipTurns++;
+            }
+        });
+
+        addHistory(
+            `🚽 WILLIAM POOPS:
+             every unfinished player except
+             ${player.name} skips one turn.`
+        );
+
+        renderLocations();
+        nextPlayer();
+        return;
+    }
+
+    if (event.special === "standby") {
+
+        const roll = randomInt(1,8);
+
+        dieResultEl.textContent = roll;
+
+        if (roll % 2 === 0) {
+
+            player.position =
+                calculateMovement(
+                    player.position,
+                    12
+                );
+
+            addHistory(
+                `🎟️ Even ${roll}: ${player.name} moves +12.`
+            );
+
+        } else {
+
+            player.position =
+                Math.max(
+                    0,
+                    player.position - 8
+                );
+
+            addHistory(
+                `🎟️ Odd ${roll}: ${player.name} moves −8.`
+            );
+        }
+
+        renderTokens();
+
+        if (player.position === FINISH) {
+            finishPlayer(player);
+            return;
+        }
+
+        nextPlayer();
+        return;
+    }
+
+    if (event.special === "slipstream") {
+
+        const candidates =
+            players.filter(
+                p => p !== player && !p.finished
+            );
+
+        if (candidates.length) {
+
+            const target =
+                candidates[
+                    randomInt(0,candidates.length - 1)
+                ];
+
+            player.position =
+                Math.max(0,target.position - 1);
+
+            addHistory(
+                `🏎️ ${player.name} slipstreams
+                 ${target.name} → ${player.position}.`
+            );
+        }
+
+        renderTokens();
+        nextPlayer();
+        return;
+    }
+
+    if (event.special === "a380") {
+
+        chooseA380Deck(player);
+        return;
+    }
+
+    if (event.skip) {
+        player.skipTurns += event.skip;
+    }
+
+    let movedByEvent = false;
+
+    if (typeof event.goto === "number") {
+
+        player.position = event.goto;
+        movedByEvent = true;
+
+    } else if (typeof event.move === "number") {
+
+        player.position =
+            calculateMovement(
+                player.position,
+                event.move
+            );
+
+        movedByEvent = true;
+    }
+
+    renderTokens();
+
+    if (player.position === FINISH) {
+        finishPlayer(player);
+        return;
+    }
+
+    /* Chaining.
+       Only destination events trigger.
+       Merely passing over an event never triggers it.
+    */
+
+    if (
+        movedByEvent &&
+        document.getElementById("eventChaining").checked &&
+        EVENTS[player.position]
+    ) {
+
+        setTimeout(
+            () => resolveLanding(player),
+            350
+        );
+
+        return;
+    }
+
+    if (event.extraTurn) {
+
+        pendingExtraTurn = true;
+
+        statusEl.innerHTML =
+            `<strong>${player.name}</strong> gets another roll!`;
+
+        addHistory(
+            `🔁 ${player.name} gets another turn.`
+        );
+
+        return;
+    }
+
+    nextPlayer();
+}
+
+/* ============================================================
+   A380 CHOICE
+   ============================================================ */
+
+function chooseA380Deck(player) {
+
+    modalBackdrop.classList.remove("hidden");
+
+    modalIcon.textContent = "✈️";
+    modalTitle.textContent = "380 — A380 DOUBLE-DECKER";
+    modalText.innerHTML =
+        "Choose your deck.";
+
+    modalEffect.textContent = "";
+    closeModalButton.classList.add("hidden");
+
+    document
+        .getElementById("upperDeckChoice")
+        .onclick = () => {
+
+            modalBackdrop.classList.add("hidden");
+            closeModalButton.classList.remove("hidden");
+
+            pendingFunction = true;
+
+            rollButton.disabled = true;
+            functionButton.disabled = false;
+
+            statusEl.textContent =
+                "Upper Deck selected — roll the Function Die.";
+
+            addHistory(
+                `✈️ ${player.name} chose A380 UPPER DECK.`
+            );
+        };
+
+    document
+        .getElementById("mainDeckChoice")
+        .onclick = () => {
+
+            modalBackdrop.classList.add("hidden");
+            closeModalButton.classList.remove("hidden");
+
+            player.position =
+                calculateMovement(
+                    player.position,
+                    8
+                );
+
+            addHistory(
+                `✈️ ${player.name} chose A380 MAIN DECK → +8.`
+            );
+
+            renderTokens();
+
+            if (player.position === FINISH) {
+                finishPlayer(player);
+            } else {
+                nextPlayer();
+            }
+        };
+}
+
+/* ============================================================
+   FUNCTION DIE
+   ============================================================ */
+
+function getEnabledFunctions() {
+
+    return [
+        ...document.querySelectorAll(
+            "#functionOptions input[type=checkbox]:checked"
+        )
+    ].map(input => input.value);
+}
+
+function rollFunction() {
+
+    if (!pendingFunction) return;
+
+    const enabled = getEnabledFunctions();
+
+    if (!enabled.length) {
+
+        statusEl.textContent =
+            "No Function Die outcomes are enabled.";
+
+        nextPlayer();
+        return;
+    }
+
+    const player =
+        players[currentPlayerIndex];
+
+    const result =
+        enabled[
+            randomInt(0,enabled.length - 1)
+        ];
+
+    const labels = {
+        plus:"+",
+        minus:"−",
+        double:"×2",
+        half:"÷2",
+        integral:"∫",
+        sohcahtoa:"SOHCAHTOA",
+        reverse:"⇄",
+        plusminus:"±",
+        sqrt:"√",
+        chaos:"?"
+    };
+
+    dieResultEl.textContent =
+        labels[result];
+
+    switch(result) {
+
+        case "plus":
+            functionPlus(player);
+            break;
+
+        case "minus":
+            functionMinus(player);
+            break;
+
+        case "double":
+            player.doubleNext = true;
+
+            statusEl.textContent =
+                "×2 — Your next movement is doubled.";
+
+            addHistory(
+                `×2 ${player.name}'s next movement will be doubled.`
+            );
+            break;
+
+        case "half":
+            player.halfNext = true;
+
+            statusEl.textContent =
+                "÷2 — Your next movement is halved.";
+
+            addHistory(
+                `÷2 ${player.name}'s next movement will be halved.`
+            );
+            break;
+
+        case "integral":
+            functionIntegral(player);
+            break;
+
+        case "sohcahtoa":
+            functionSOHCAHTOA(player);
+            break;
+
+        case "reverse":
+            direction *= -1;
+
+            statusEl.textContent =
+                "⇄ TURN ORDER REVERSED!";
+
+            addHistory(
+                "⇄ <strong>TURN ORDER REVERSED!</strong>"
+            );
+            break;
+
+        case "plusminus":
+            player.reverseNext =
+                Math.random() < .5;
+
+            statusEl.textContent =
+                player.reverseNext
+                ? "± Your next movement goes BACKWARDS!"
+                : "± Your next movement remains FORWARD.";
+
+            addHistory(
+                `± ${player.name}: ${
+                    player.reverseNext
+                    ? "next roll backwards"
+                    : "next roll forwards"
+                }.`
+            );
+            break;
+
+        case "sqrt":
+            functionSquareRoot(player);
+            break;
+
+        case "chaos":
+            chaosCard(player);
+            break;
+    }
+
+    pendingFunction = false;
+    functionButton.disabled = true;
+
+    renderTokens();
+
+    if (player.position === FINISH) {
+        finishPlayer(player);
+        return;
+    }
+
+    setTimeout(nextPlayer,300);
+}
+
+/* ============================================================
+   INDIVIDUAL FUNCTIONS
+   ============================================================ */
+
+function functionPlus(player) {
+
+    const [min,max] = getMovementRange();
+    const roll = randomInt(min,max);
+
+    player.position =
+        calculateMovement(
+            player.position,
+            roll
+        );
+
+    statusEl.textContent =
+        `+ FUNCTION: move forward ${roll}.`;
+
+    addHistory(
+        `➕ ${player.name} moves +${roll}.`
+    );
+}
+
+function functionMinus(player) {
+
+    const [min,max] = getMovementRange();
+    const roll = randomInt(min,max);
+
+    player.position =
+        Math.max(
+            0,
+            player.position - roll
+        );
+
+    statusEl.textContent =
+        `− FUNCTION: move backwards ${roll}.`;
+
+    addHistory(
+        `➖ ${player.name} moves −${roll}.`
+    );
+}
+
+/* Integration:
+   RANDOM unfinished player.
+   It is NOT simply the next player.
+   Destination event deliberately DOES NOT reactivate.
+*/
+
+function functionIntegral(player) {
+
+    const candidates =
+        players.filter(
+            p => p !== player && !p.finished
+        );
+
+    if (!candidates.length) {
+
+        statusEl.textContent =
+            "∫ No other unfinished player is available.";
+
+        return;
+    }
+
+    const target =
+        candidates[
+            randomInt(0,candidates.length - 1)
+        ];
+
+    player.position = target.position;
+
+    statusEl.innerHTML =
+        `∫ <strong>INTEGRATION!</strong><br>
+         Random player selected:
+         <strong>${target.name}</strong><br>
+         Move to position ${target.position}.`;
+
+    addHistory(
+        `∫ ${player.name} integrated into
+         ${target.name}'s position (${target.position}).`
+    );
+}
+
+function functionSOHCAHTOA(player) {
+
+    const [min,max] = getMovementRange();
+
+    const soh = randomInt(min,max);
+    const cah = randomInt(min,max);
+    const toa = randomInt(min,max);
+
+    const chosen =
+        Math.max(soh,cah,toa);
+
+    player.position =
+        calculateMovement(
+            player.position,
+            chosen
+        );
+
+    statusEl.innerHTML =
+        `📐 <strong>SOHCAHTOA</strong><br>
+         SOH = ${soh}<br>
+         CAH = ${cah}<br>
+         TOA = ${toa}<br>
+         Highest = ${chosen}`;
+
+    addHistory(
+        `📐 ${player.name} rolled
+         SOH ${soh}, CAH ${cah}, TOA ${toa}
+         → +${chosen}.`
+    );
+}
+
+function functionSquareRoot(player) {
+
+    const [min,max] = getMovementRange();
+
+    const roll =
+        randomInt(min,max);
+
+    const result =
+        Math.ceil(Math.sqrt(roll));
+
+    player.position =
+        calculateMovement(
+            player.position,
+            result
+        );
+
+    statusEl.textContent =
+        `√${roll} rounded up = ${result}. Move +${result}.`;
+
+    addHistory(
+        `√ ${player.name}: √${roll} → ${result}.`
+    );
+}
+
+/* ============================================================
+   CHAOS CARDS
+   ============================================================ */
+
+function chaosCard(player) {
+
+    const cards = [
+
+        {
+            text:"OT116/117 EXPRESS — move +11.",
+            action:() => {
+                player.position =
+                    calculateMovement(
+                        player.position,
+                        11
+                    );
+            }
+        },
+
+        {
+            text:"A380 LOUNGE — you stayed too long. Skip one turn.",
+            action:() => {
+                player.skipTurns++;
+            }
+        },
+
+        {
+            text:"RACING BOOST — move +10.",
+            action:() => {
+                player.position =
+                    calculateMovement(
+                        player.position,
+                        10
+                    );
+            }
+        },
+
+        {
+            text:"WRONG GATE — move −7.",
+            action:() => {
+                player.position =
+                    Math.max(
+                        0,
+                        player.position - 7
+                    );
+            }
+        },
+
+        {
+            text:"110! Luke requested a movement of 110. Request denied. +1.",
+            action:() => {
+                player.position =
+                    calculateMovement(
+                        player.position,
+                        1
+                    );
+            }
+        },
+
+        {
+            text:"PERFECT LANDING — move +8.",
+            action:() => {
+                player.position =
+                    calculateMovement(
+                        player.position,
+                        8
+                    );
+            }
+        },
+
+        {
+            text:"PIT STOP — skip one turn, but your next movement is ×2.",
+            action:() => {
+                player.skipTurns++;
+                player.doubleNext = true;
+            }
+        },
+
+        {
+            text:"ROOM 12 DISTRACTION — move −4.",
+            action:() => {
+                player.position =
+                    Math.max(
+                        0,
+                        player.position - 4
+                    );
+            }
+        }
+    ];
+
+    const card =
+        cards[
+            randomInt(0,cards.length - 1)
+        ];
+
+    card.action();
+
+    statusEl.innerHTML =
+        `❓ <strong>OTONO CHAOS</strong><br>${card.text}`;
+
+    addHistory(
+        `❓ ${player.name}: ${card.text}`
+    );
+}
+
+/* ============================================================
+   FINISHING
+
+   Reaching 434 does NOT end the whole game.
+   The player locks in their finishing place.
+   Everyone else continues.
+   ============================================================ */
+
+function finishPlayer(player) {
+
+    if (player.finished) return;
+
+    player.finished = true;
+    player.position = FINISH;
+
+    finishingOrder.push(player);
+
+    player.finishPlace =
+        finishingOrder.length;
+
+    const medal =
+        medalFor(player.finishPlace);
+
+    addHistory(
+        `${medal} <strong>${player.name}</strong>
+         FINISHED ${ordinal(player.finishPlace)}!`
+    );
+
+    statusEl.innerHTML =
+        `${medal} <strong>${player.name}</strong>
+         finished ${ordinal(player.finishPlace)}!`;
+
+    renderTokens();
+    renderFinishTable();
+
+    const unfinished =
+        players.filter(p => !p.finished);
+
+    if (!unfinished.length) {
+        completeGame();
+        return;
+    }
+
+    nextPlayer();
+}
+
+function medalFor(place) {
+
+    if (place === 1) return "🥇";
+    if (place === 2) return "🥈";
+    if (place === 3) return "🥉";
+
+    return "🏁";
+}
+
+function ordinal(number) {
+
+    const mod100 = number % 100;
+
+    if (mod100 >= 11 && mod100 <= 13) {
+        return `${number}th`;
+    }
+
+    switch(number % 10) {
+
+        case 1: return `${number}st`;
+        case 2: return `${number}nd`;
+        case 3: return `${number}rd`;
+        default:return `${number}th`;
+    }
+}
+
+function renderFinishTable() {
+
+    finishTableEl.innerHTML = "";
+
+    if (!finishingOrder.length) {
+
+        finishTableEl.innerHTML =
+            "<small>Nobody has reached Room 12 yet.</small>";
+
+        return;
+    }
+
+    finishingOrder.forEach(
+        (player,index) => {
+
+            const place = index + 1;
+
+            const entry =
+                document.createElement("div");
+
+            entry.className =
+                "finish-entry";
+
+            entry.innerHTML =
+                `${medalFor(place)}
+                 <strong>${ordinal(place)}</strong>
+                 — ${player.name}`;
+
+            finishTableEl.appendChild(entry);
+        }
+    );
+}
+
+function completeGame() {
+
+    gameStarted = false;
+
+    rollButton.disabled = true;
+    functionButton.disabled = true;
+
+    currentPlayerEl.textContent =
+        "GAME COMPLETE 🏆";
+
+    let results = "";
+
+    finishingOrder.forEach(
+        (player,index) => {
+
+            const place = index + 1;
+
+            results += `
+                <div style="margin:6px;">
+                    ${medalFor(place)}
+                    <strong>${ordinal(place)}</strong>
+                    — ${player.name}
+                </div>
+            `;
+        }
+    );
+
+    showModal(
+        "🏆",
+        "JOURNEYS BEYOND ORDINARY",
+        "Everyone has reached Room 12!",
+        "GAME COMPLETE",
+        null,
+        null,
+        results
+    );
+}
+
+/* ============================================================
+   TURN MANAGEMENT
+   ============================================================ */
+
+function nextPlayer() {
+
+    if (!gameStarted) return;
+
+    pendingFunction = false;
+    functionButton.disabled = true;
+    rollButton.disabled = false;
+
+    let attempts = 0;
+
+    do {
+
+        currentPlayerIndex =
+            (
+                currentPlayerIndex +
+                direction +
+                players.length
+            ) % players.length;
+
+        attempts++;
+
+        if (attempts > players.length + 1) {
+            return;
+        }
+
+    } while (
+        players[currentPlayerIndex].finished
+    );
+
+    updateCurrentPlayer();
+}
+
+function updateCurrentPlayer() {
+
+    if (!gameStarted) return;
+
+    const player =
+        players[currentPlayerIndex];
+
+    currentPlayerEl.textContent =
+        player.name;
+
+    currentPlayerEl.style.color =
+        player.colour;
+
+    if (player.skipTurns > 0) {
+
+        statusEl.innerHTML =
+            `${player.name} currently has
+             <strong>${player.skipTurns}</strong>
+             skipped turn(s).`;
+    }
+}
+
+/* ============================================================
+   HISTORY
+   ============================================================ */
+
+function addHistory(html) {
+
+    const entry =
+        document.createElement("div");
+
+    entry.className =
+        "history-entry";
+
+    entry.innerHTML = html;
+
+    historyEl.appendChild(entry);
+
+    historyEl.scrollTop =
+        historyEl.scrollHeight;
+}
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+
+function showModal(
+    icon,
+    title,
+    text,
+    effect,
+    event = null,
+    action = null,
+    customExtra = ""
+) {
+
+    modalIcon.textContent = icon;
+    modalTitle.textContent = title;
+    modalText.textContent = text;
+    modalEffect.textContent = effect;
+
+    modalExtra.innerHTML = "";
+
+    if (
+        event?.special === "sydney"
+    ) {
+
+        modalExtra.innerHTML += `
+            <div class="sydney-years">
+                <span>2028</span>
+                <span>━━━━━━━━</span>
+                <span>2858</span>
+            </div>
+
+            <div style="
+                font-size:1.35rem;
+                font-weight:900;
+                margin-bottom:12px;
+            ">
+                THAT'S OVER 8 CENTURIES AWAY!
+            </div>
+        `;
+    }
+
+    if (event?.imagePlaceholder) {
+
+        modalExtra.innerHTML += `
+            <div class="image-placeholder">
+                <strong>
+                    ${event.imagePlaceholder}
+                </strong>
+            </div>
+        `;
+    }
+
+    if (customExtra) {
+        modalExtra.innerHTML += customExtra;
+    }
+
+    pendingModalAction = action;
+
+    modalBackdrop.classList.remove("hidden");
+}
+
+closeModalButton.addEventListener(
+    "click",
+    () => {
+
+        modalBackdrop.classList.add("hidden");
+
+        const action =
+            pendingModalAction;
+
+        pendingModalAction = null;
+
+        if (action) {
+            action();
+        }
+    }
+);
+
+/* ============================================================
+   SETTINGS
+   ============================================================ */
+
+playerCountEl.addEventListener(
+    "change",
+    buildPlayerConfig
+);
+
+document
+    .getElementById("diePreset")
+    .addEventListener(
+        "change",
+        event => {
+
+            document
+                .getElementById("customDieControls")
+                .classList.toggle(
+                    "hidden",
+                    event.target.value !== "custom"
+                );
+        }
+    );
+
+document
+    .getElementById("functionEnabled")
+    .addEventListener(
+        "change",
+        event => {
+
+            document
+                .getElementById("functionOptions")
+                .classList.toggle(
+                    "hidden",
+                    !event.target.checked
+                );
+        }
+    );
+
+document
+    .getElementById("startGame")
+    .addEventListener(
+        "click",
+        startGame
+    );
+
+rollButton.addEventListener(
+    "click",
+    rollMovement
+);
+
+functionButton.addEventListener(
+    "click",
+    rollFunction
+);
+
+/* ============================================================
+   RESET DEFAULTS
+   ============================================================ */
+
+document
+    .getElementById("resetDefaults")
+    .addEventListener(
+        "click",
+        () => {
+
+            playerCountEl.value = "4";
+
+            document.getElementById("diePreset").value = "8";
+
+            document
+                .getElementById("customDieControls")
+                .classList.add("hidden");
+
+            document.getElementById("dieMin").value = 1;
+            document.getElementById("dieMax").value = 8;
+
+            document.getElementById("functionEnabled").checked = true;
+
+            document
+                .getElementById("functionOptions")
+                .classList.remove("hidden");
+
+            document
+                .querySelectorAll(
+                    "#functionOptions input[type=checkbox]"
+                )
+                .forEach(
+                    checkbox => checkbox.checked = true
+                );
+
+            document.getElementById("eventChaining").checked = true;
+            document.getElementById("penaltyMode").value = "full";
+
+            buildPlayerConfig();
+        }
+    );
+
+/* ============================================================
+   INITIAL PAGE
+   ============================================================ */
+
+buildPlayerConfig();
+buildBoard();
+
+</script>
+
+</body>
+</html>
