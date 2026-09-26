@@ -1461,17 +1461,6 @@ const EVENTS = {
         goto:291
     },
 
-    380: {
-        category:"special",
-        icon:"✈️✈️",
-        title:"A380 — DOUBLE DECKER!",
-        text:
-            "Choose your deck. UPPER DECK triggers the Function Die. " +
-            "MAIN DECK gives +8.",
-        effectText:"CHOOSE YOUR DECK",
-        special:"a380",
-    },
-
     386: {
         category:"negative",
         icon:"🏠",
@@ -2341,12 +2330,6 @@ function applyEvent(player,event) {
         return;
     }
 
-    if (event.special === "a380") {
-
-        chooseA380Deck(player);
-        return;
-    }
-
     if (event.skip) {
         player.skipTurns += event.skip;
     }
@@ -2411,73 +2394,6 @@ function applyEvent(player,event) {
 
     nextPlayer();
 }
-
-/* ============================================================
-   A380 CHOICE
-   ============================================================ */
-
-function chooseA380Deck(player) {
-
-    modalBackdrop.classList.remove("hidden");
-
-    modalIcon.textContent = "✈️";
-    modalTitle.textContent = "380 — A380 DOUBLE-DECKER";
-    modalText.innerHTML =
-        "Choose your deck.";
-
-    modalEffect.textContent = "";
-    closeModalButton.classList.add("hidden");
-
-    document
-        .getElementById("upperDeckChoice")
-        .onclick = () => {
-
-            modalBackdrop.classList.add("hidden");
-            closeModalButton.classList.remove("hidden");
-
-            pendingFunction = true;
-
-            rollButton.disabled = true;
-            functionButton.disabled = false;
-
-            statusEl.textContent =
-                "Upper Deck selected — roll the Function Die.";
-
-            addHistory(
-                `✈️ ${player.name} chose A380 UPPER DECK.`
-            );
-        };
-
-    document
-        .getElementById("mainDeckChoice")
-        .onclick = () => {
-
-            modalBackdrop.classList.add("hidden");
-            closeModalButton.classList.remove("hidden");
-
-            player.position =
-                calculateMovement(
-                    player.position,
-                    8
-                );
-
-            addHistory(
-                `✈️ ${player.name} chose A380 MAIN DECK → +8.`
-            );
-
-            renderTokens();
-
-            if (player.position === FINISH) {
-                finishPlayer(player);
-            } else {
-                nextPlayer();
-            }
-        };
-}
-
-/* ============================================================
-   FUNCTION DIE
-   ============================================================ */
 
 function getEnabledFunctions() {
 
