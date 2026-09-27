@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SydneyEclipse | Otono Airways Flight Tracker</title>
+<style>
+:root{
+  --bg:#03050d;--panel:#0c1022;--panel2:#11162d;--panel3:#080b18;
+  --white:#f7f7fa;--muted:#a6a8b8;--red:#d51c2f;--purple:#7628d8;
+  --gold:#f2b24b;--green:#50d890;--orange:#ff9f43;--bad:#ff5967;
+  --line:#ffffff16;--line2:#ffffff24;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--white);font-family:Inter,"Segoe UI",Arial,sans-serif;overflow-x:hidden}
+button,input{font:inherit}
+button{color:#fff;background:#11152a;border:1px solid #ffffff20;padding:10px 16px;border-radius:999px;font-weight:850;cursor:pointer;transition:.18s}
+button:hover{border-color:#f2b24b77;transform:translateY(-1px)}
+button.active{background:linear-gradient(90deg,var(--red),var(--purple));border-color:transparent}
+nav{height:70px;position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:0 4vw;background:#030611e8;backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.logo{font-size:1.35rem;font-weight:900;white-space:nowrap}.logo span{color:var(--red)}
+.navright{display:flex;align-items:center;gap:10px;font-size:.76rem;color:var(--gold);font-weight:900;letter-spacing:1px}
+.live-dot{width:8px;height:8px;border-radius:50%;background:#ff4252;box-shadow:0 0 13px #ff4252;display:inline-block}
+.hero{padding:55px 6vw 50px;background:radial-gradient(circle at 76% 24%,#7628d835,transparent 31%),radial-gradient(circle at 16% 86%,#d51c2f22,transparent 31%),linear-gradient(#070b1b,#03050d)}
+.eyebrow{color:var(--gold);font-size:.74rem;font-weight:900;letter-spacing:3px;text-transform:uppercase}
+.hero h1{font-size:clamp(3rem,7vw,6.7rem);letter-spacing:-5px;line-height:.88;margin:12px 0}
+.hero h1 span{color:var(--red)}
+.hero p{max-width:900px;color:#c4c6d2;line-height:1.65;margin-bottom:0}
+.wrap{max-width:1480px;margin:auto;padding:24px 4vw 85px}
+.tabs,.sector-tabs,.chips,.tools{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.tabs{margin:-23px 0 12px}.sector-tabs{margin:0 0 18px}
+.tools{margin-bottom:18px;padding:13px;background:#090d1c;border:1px solid var(--line);border-radius:16px}
+.tools input{color:#fff;background:#11152a;border:1px solid #ffffff20;border-radius:10px;padding:8px}
+.tools label{font-size:.73rem;color:var(--muted)}
+.card{background:linear-gradient(145deg,#0d1126,#080b18);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:0 25px 70px #0005}
+.pad{padding:22px}
+.flighttop{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(310px,.5fr);gap:18px;margin-bottom:18px}
+.routehead{display:flex;align-items:end;justify-content:space-between;gap:15px}
+.routehead h2{font-size:clamp(2.3rem,4.5vw,4.5rem);letter-spacing:-3px;margin:4px 0}
+.routehead .arrow{color:var(--red)}
+.status{font-weight:900;letter-spacing:1px}.green{color:var(--green)}.gold{color:var(--gold)}.orange{color:var(--orange)}.red{color:var(--bad)}
+.muted{color:var(--muted)}.tiny{font-size:.72rem}
+.identity{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}
+.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line2);background:#0a0e1d;border-radius:999px;padding:5px 9px;font-size:.68rem;font-weight:900}
+.pill.gold{border-color:#f2b24b55;background:#f2b24b0c}.pill.red{border-color:#d51c2f66;background:#d51c2f0d}
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px}
+.metric{padding:15px;background:#11152a;border:1px solid #ffffff0f;border-radius:15px;min-height:105px}
+.metric span{display:block;color:#8f92a5;font-size:.67rem;letter-spacing:1.45px;font-weight:900}
+.metric b{display:block;font-size:1.18rem;margin-top:7px;line-height:1.18}
+.metric small{display:block;margin-top:6px}
+.timelinebar{position:relative;height:38px;margin:17px 8px 8px}
+.timelinebar:before{content:"";position:absolute;left:2%;right:2%;top:15px;height:3px;background:#232940;border-radius:99px}
+.timelinefill{position:absolute;left:2%;top:15px;height:3px;background:linear-gradient(90deg,var(--red),var(--purple),var(--gold));border-radius:99px}
+.tdot{position:absolute;top:8px;width:17px;height:17px;border-radius:50%;background:#1a2038;border:3px solid #4b5066;transform:translateX(-50%)}
+.tdot.done{background:var(--gold);border-color:#ffe0a4;box-shadow:0 0 14px #f2b24b70}.tdot.active{background:#fff;border-color:var(--gold);box-shadow:0 0 18px #fff8}
+.events{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:6px}
+.event{padding:14px;border-left:2px solid var(--purple);background:#090d1c;min-height:108px}
+.event strong{display:block;font-size:1.12rem;margin:5px 0}.event small{color:var(--muted);line-height:1.4}
+.photo{height:100%;min-height:300px;display:flex;flex-direction:column;justify-content:center;background:radial-gradient(circle,#7628d824,transparent 55%),#070a16}
+.photo img{width:100%;max-height:285px;object-fit:contain;padding:14px}.placeholder{text-align:center;padding:45px 30px;color:#7e8298;font-weight:900;line-height:1.7}
+.photo-meta{padding:14px 18px 18px;border-top:1px solid var(--line);background:#070a16}
+.photo-meta b{color:var(--gold);display:block;margin-bottom:5px}
+.mapcard{margin-bottom:18px}.maptitle{display:flex;justify-content:space-between;gap:14px;align-items:center}
+.map-actions{display:flex;gap:9px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.map{height:545px;position:relative;overflow:hidden;background:radial-gradient(circle at center,#172342,#02030a 72%)}
+.map>img{width:100%;height:100%;object-fit:cover;opacity:.80}.mapfallback{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:#85889e;font-weight:900;background:radial-gradient(circle,#172342,#02030a 72%);z-index:0}
+.map svg{position:absolute;inset:0;width:100%;height:100%;z-index:2}
+.marker,.airport{position:absolute;z-index:4;transform:translate(-50%,-50%)}.marker{font-size:31px;filter:drop-shadow(0 0 8px #fff)}
+.airport{padding:5px 8px;border-radius:7px;background:#030611e8;border:1px solid #ffffff44;font-size:.7rem;font-weight:900}
+.planeLabel{position:absolute;z-index:5;transform:translate(-50%,-135%);background:#050714ee;border:1px solid #f2b24b66;padding:7px 9px;border-radius:8px;font-size:.7rem;white-space:nowrap}
+.map-progress{height:6px;background:#151a31;border-radius:99px;overflow:hidden;margin-top:12px}.map-progress i{display:block;height:100%;background:linear-gradient(90deg,var(--red),var(--purple),var(--gold))}
+.performance{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:0 0 18px}
+.perf{padding:16px;background:#0b0f20;border:1px solid var(--line);border-radius:16px}.perf span{display:block;color:#8f92a5;font-size:.66rem;letter-spacing:1.3px;font-weight:900}.perf b{display:block;font-size:1.55rem;margin-top:7px}
+.historyhead{display:flex;align-items:end;justify-content:space-between;gap:15px}.history{overflow:auto;margin-top:15px}
+table{width:100%;min-width:1050px;border-collapse:collapse}th,td{text-align:left;padding:12px;border-bottom:1px solid #ffffff10}
+th{font-size:.66rem;letter-spacing:1.2px;color:#8f92a5}tbody tr{cursor:pointer}tbody tr:hover{background:#ffffff05}
+.badge{display:inline-block;padding:3px 7px;border-radius:999px;background:#1b203b;font-size:.64rem;font-weight:900}.badge.special{color:var(--gold);border:1px solid #f2b24b44}.badge.swap{color:#ffbd70}.badge.early{color:var(--green)}
+.detail{margin-top:18px;padding-top:18px;border-top:1px solid var(--line)}
+.detailhead{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+footer{text-align:center;color:#777b90;padding:45px 20px;border-top:1px solid #ffffff10}
+@media(max-width:1000px){.flighttop{grid-template-columns:1fr}.summary,.events,.performance{grid-template-columns:1fr 1fr}.map{height:410px}}
+@media(max-width:620px){.summary,.events,.performance{grid-template-columns:1fr}.hero h1{letter-spacing:-2px}.routehead{align-items:flex-start;flex-direction:column}.maptitle{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">Sydney<span>Eclipse</span> · Otono Airways</div>
+  <div class="navright"><span class="live-dot"></span> AUSTRALIA FLIGHT TRACKER</div>
+</nav>
+
+<header class="hero">
+  <div class="eyebrow">OTONO AIRWAYS • FLIGHT OPERATIONS</div>
+  <h1>TRACK THE<br><span>FLIGHT.</span></h1>
+  <p>Each sector is independent. Total travel time always means that sector's gate departure to gate arrival — never the full London–Hong Kong–Sydney or Melbourne–Singapore–London journey.</p>
+</header>
+
+<main class="wrap">
+  <div class="tabs" id="tabs"></div>
+  <div class="sector-tabs" id="sectorTabs"></div>
+
+  <div class="tools">
+    <label>SIMULATION DATE / TIME <input id="sim" type="datetime-local"></label>
+    <button id="now">USE CURRENT TIME</button>
+    <button id="reroll">REROLL OPERATIONS</button>
+    <span class="tiny muted">Flight/sector switches keep the same simulation. Reloading or REROLL changes it.</span>
+  </div>
+
+  <section class="flighttop">
+    <article class="card"><div class="pad" id="top"></div></article>
+    <aside class="card" id="photo"></aside>
+  </section>
+
+  <section class="card mapcard">
+    <div class="pad maptitle">
+      <div><div class="eyebrow">WORLD MAP</div><h2 style="margin:5px 0">FLIGHT PATH</h2></div>
+      <div class="map-actions"><div id="mapStatus" class="status"></div><button id="returnLive" style="display:none">RETURN TO CURRENT</button></div>
+    </div>
+    <div class="map">
+      <!-- Replace this with YOUR equirectangular world map. -->
+      <img src="world-map.jpg" alt="" onerror="this.style.display='none'">
+      <div class="mapfallback">INSERT WORLD MAP IMAGE<br><span class="tiny">Save it beside this file as world-map.jpg</span></div>
+      <svg id="svg" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
+      <div id="objects"></div>
+    </div>
+    <div class="pad"><div class="map-progress"><i id="mapProgress" style="width:0"></i></div><div class="tiny muted" id="mapCaption" style="margin-top:8px"></div></div>
+  </section>
+
+  <div class="performance" id="performance"></div>
+
+  <section class="card">
+    <div class="pad">
+      <div class="historyhead">
+        <div><div class="eyebrow">OPERATIONS ARCHIVE</div><h2 style="margin:5px 0">FLIGHT HISTORY</h2></div>
+        <div class="chips"><button data-days="7">7 DAYS</button><button data-days="30">30 DAYS</button><button class="active" data-days="90">90 DAYS</button></div>
+      </div>
+      <div class="history" id="history"></div>
+      <div id="detail"></div>
+    </div>
+  </section>
+</main>
+
+<footer>Otono Airways • SydneyEclipse • Simulated flight tracker</footer>
+
+<script>
+"use strict";
+
+/* =========================================================
+   🖼️ AIRCRAFT PHOTOS
+   Add your own image paths here. Exact special-livery photos
+   override generic aircraft-type photos.
+   ========================================================= */
+const AIRCRAFT_IMAGES={
+  "G-OTLJ":null, // "Images/a380-eclipse.png"
+  "G-OTLR":null, // "Images/a380-winter-twilight.png"
+  "G-OTDK":null, // "Images/787-aurora-ribbon.png"
+  "G-OTDQ":null, // "Images/787-violet-horizon.png"
+  "G-OTEK":null, // "Images/777-black-ink-110.png"
+  "G-OTER":null, // "Images/777-ribbon-flow.png"
+  "G-OTXD":null, // "Images/7779-starlight-stream.png"
+  "G-OTXJ":null, // "Images/7779-eclipse.png"
+  "G-OTXM":null, // "Images/7779-lunar-eclipse.png"
+  "G-OTXT":null, // "Images/7779-winter-twilight.png"
+  "G-OTXAC":null // "Images/7779-future-horizon.png"
+};
+const TYPE_IMAGES={
+  A388:null, // "Images/A388.png"
+  B77W:null, // "Images/B77W.png"
+  B779:null, // "Images/B779.png"
+  B789:null  // "Images/B789.png"
+};
+/* ========================================================= */
+
+const A={
+  LHR:{name:"London Heathrow",tz:"Europe/London",terminal:"5",lat:51.47,lon:-0.4543},
+  HKG:{name:"Hong Kong Intl",tz:"Asia/Hong_Kong",terminal:"1",lat:22.308,lon:113.9185},
+  SYD:{name:"Sydney Kingsford Smith",tz:"Australia/Sydney",terminal:"1",lat:-33.9461,lon:151.1772},
+  SIN:{name:"Singapore Changi",tz:"Asia/Singapore",terminal:"1",lat:1.3644,lon:103.9915},
+  MEL:{name:"Melbourne",tz:"Australia/Melbourne",terminal:"2",lat:-37.6733,lon:144.8433}
+};
+
+const S={
+  summer:{
+    OT116:[["LHR","HKG","22:15",755],["HKG","SYD","20:50",555]],
+    OT117:[["SYD","HKG","14:00",595],["HKG","LHR","23:55",830]],
+    OT124:[["LHR","SIN","21:00",820],["SIN","MEL","20:55",440]],
+    OT125:[["MEL","SIN","13:35",495],["SIN","LHR","23:05",865]]
+  },
+  winter:{
+    OT116:[["LHR","HKG","21:20",755],["HKG","SYD","20:25",560]],
+    OT117:[["SYD","HKG","15:15",595],["HKG","LHR","00:15",840]],
+    OT124:[["LHR","SIN","21:05",820],["SIN","MEL","20:20",445]],
+    OT125:[["MEL","SIN","15:15",495],["SIN","LHR","22:45",880]]
+  }
+};
+
+function regs(prefix,n){
+  const letters="ABCDEFGHJKLMNPQRSTUVWXYZ",out=[];
+  for(const a of letters)if(out.length<n)out.push(prefix+a);
+  for(const a of letters)for(const b of letters)if(out.length<n)out.push(prefix+a+b);
+  return out;
+}
+const F={A388:regs("G-OTL",19),B789:regs("G-OTD",18),B77W:regs("G-OTE",22),B779:regs("G-OTX",36)};
+const LIV={
+  "G-OTLJ":"Eclipse","G-OTLR":"Winter Twilight",
+  "G-OTDK":"Aurora Ribbon","G-OTDQ":"Violet Horizon",
+  "G-OTEK":"Black Ink 110","G-OTER":"Ribbon Flow",
+  "G-OTXD":"Starlight Stream","G-OTXJ":"Eclipse","G-OTXM":"Lunar Eclipse",
+  "G-OTXT":"Winter Twilight","G-OTXAC":"Future Horizon"
+};
+
+let flight="OT116", sectorMode="auto", days=90, seed=Math.floor(Math.random()*2**31), realNow=true, archiveView=null;
+const $=id=>document.getElementById(id);
+const pad=n=>String(n).padStart(2,"0");
+
+function hash(s){let h=2166136261;for(const c of s){h^=c.charCodeAt(0);h=Math.imul(h,16777619)}return h>>>0}
+function R(s){let x=s||1;return()=>((x=Math.imul(x,1664525)+1013904223>>>0)/4294967296)}
+function pick(r,a){return a[Math.floor(r()*a.length)]}
+function duration(m){m=Math.max(0,Math.round(m));return m<60?`${m}m`:`${Math.floor(m/60)}h ${pad(m%60)}m`}
+function nowMS(){return realNow?Date.now():new Date($("sim").value).getTime()}
+
+function time(ms,tz){
+  return new Intl.DateTimeFormat("en-GB",{timeZone:tz,hour:"2-digit",minute:"2-digit",hourCycle:"h23",timeZoneName:"short"}).format(new Date(ms));
+}
+function date(ms,tz){
+  return new Intl.DateTimeFormat("en-GB",{timeZone:tz,weekday:"short",day:"2-digit",month:"short",year:"numeric"}).format(new Date(ms));
+}
+function dateKey(ms,tz){
+  return new Intl.DateTimeFormat("en-CA",{timeZone:tz,year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date(ms));
+}
+function parts(ms,tz){
+  return Object.fromEntries(new Intl.DateTimeFormat("en-GB",{timeZone:tz,year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).formatToParts(new Date(ms)).filter(x=>x.type!=="literal").map(x=>[x.type,+x.value]));
+}
+function localInstant(y,m,d,clock,tz){
+  const [hh,mm]=clock.split(":").map(Number);
+  let g=Date.UTC(y,m-1,d,hh,mm);
+  for(let i=0;i<5;i++){
+    const p=parts(g,tz);
+    g+=Date.UTC(y,m-1,d,hh,mm)-Date.UTC(p.year,p.month-1,p.day,p.hour,p.minute);
+  }
+  return g;
+}
+function londonSeason(ms){
+  const zone=new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/London",timeZoneName:"short"}).formatToParts(new Date(ms)).find(x=>x.type==="timeZoneName")?.value||"";
+  return /BST|GMT\+1|UTC\+1/.test(zone)?"summer":"winter";
+}
+
+function status(delta){
+  delta=Math.round(delta);
+  if(delta<0)return{t:`${Math.abs(delta)} MINUTE${Math.abs(delta)===1?"":"S"} EARLY`,c:"green"};
+  if(delta<30)return{t:"ON TIME",c:"green"};
+  return{t:`${duration(delta).toUpperCase()} LATE`,c:delta>=120?"red":"orange"};
+}
+
+/* Most flights should NOT be delayed.
+   ~85% depart early or within the 0–29 minute "on time" band.
+   Multi-hour delays still exist, but are deliberately uncommon. */
+function departureDelay(r){
+  const q=r();
+  if(q<.15)return -(1+Math.floor(r()*20));     // 15% early departure
+  if(q<.85)return Math.floor(r()*30);          // 70% 0–29m: still on time
+  if(q<.95)return 30+Math.floor(r()*30);       // 10% 30–59m
+  if(q<.985)return 60+Math.floor(r()*60);      // 3.5% 1–2h
+  if(q<.997)return 120+Math.floor(r()*120);    // 1.2% 2–4h
+  return 240+Math.floor(r()*241);              // 0.3% 4–8h
+}
+
+function normalBlockVariation(r){
+  // Slightly biased toward time recovery / early arrival.
+  return Math.round((r()-.62)*50);             // about -31m to +19m
+}
+function planeFor(f,d,r){
+  const y=d.getUTCFullYear(),m=d.getUTCMonth()+1;
+  if(f==="OT116"||f==="OT117"){
+    if(y===2026&&r()<.09)return{type:"B77W",swap:true};
+    if(y>2027||(y===2027&&m>=6)){if(r()<.18)return{type:"B779",swap:false}}
+    return{type:"A388",swap:false};
+  }
+  return r()<.13?{type:"B77W",swap:true}:{type:"B789",swap:false};
+}
+function gates(code,type,r){
+  if(code==="LHR"){
+    if(type==="A388"){
+      const q=r();
+      if(q<.03)return"A10";
+      if(q<.10)return"B"+(32+Math.floor(r()*17));
+      if(q<.40)return"C"+(52+Math.floor(r()*15));
+      return"D"+(72+Math.floor(r()*17));
+    }
+    return pick(r,["B35","B38","C54","C58","C62","D74","D79","D83","D87"]);
+  }
+  if(code==="HKG"){
+    if(type==="A388")return pick(r,["5","23","60","62","64","66"]);
+    return String(5+Math.floor(r()*62));
+  }
+  if(code==="SIN"){
+    const p=["B8","B9","B10"];
+    for(let i=1;i<=26;i++)p.push("C"+i);
+    for(let i=30;i<=38;i++)p.push("D"+i);
+    for(let i=40;i<=49;i++)p.push("D"+i);
+    for(let i=26;i<=28;i++)p.push("E"+i);
+    return pick(r,p);
+  }
+  if(code==="SYD")return pick(r,["8","9","10","24","25","31","32","33","34","35"]);
+  return pick(r,["5","7","9","11","14","16","18","20"]);
+}
+
+function makeDay(f,d){
+  const key=`${seed}|${f}|${d.toISOString().slice(0,10)}`;
+  const r=R(hash(key));
+  const serviceNoon=Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate(),12);
+  const season=londonSeason(serviceNoon);
+  const defs=S[season][f];
+  const ac=planeFor(f,d,r),reg=pick(r,F[ac.type]);
+  const out=[];
+  let prevArrival=null;
+
+  defs.forEach((x,idx)=>{
+    const [from,to,clock,scheduled]=x;
+    let sd;
+
+    if(idx===0){
+      sd=localInstant(d.getUTCFullYear(),d.getUTCMonth()+1,d.getUTCDate(),clock,A[from].tz);
+    }else{
+      const p=parts(prevArrival,A[from].tz);
+      sd=localInstant(p.year,p.month,p.day,clock,A[from].tz);
+      while(sd<prevArrival+35*60000)sd+=86400000;
+    }
+
+    let dd=departureDelay(r);
+    const localDate=dateKey(sd,A[from].tz);
+    const eclipse=f==="OT117"&&from==="SYD"&&localDate==="2028-07-22";
+    if(eclipse)dd=Math.max(30,45+Math.floor(r()*151));
+
+    const gateDep=sd+dd*60000;
+    const taxiOut=10+Math.floor(r()*27);
+    const taxiIn=5+Math.floor(r()*17);
+
+    let air;
+    if(from==="LHR"&&to==="HKG"){
+      // Usually below 12h. Over 13h is allowed, but rare.
+      const q=r();
+      if(q<.86)air=675+Math.floor(r()*45);         // 11h15–11h59
+      else if(q<.985)air=720+Math.floor(r()*60);   // 12h00–12h59
+      else air=780+Math.floor(r()*56);             // rare 13h00–13h55
+    }else{
+      let block=scheduled+normalBlockVariation(r);
+      // Late departures can recover some time, without magically erasing large disruption.
+      if(dd>=30){
+        const recover=Math.min(55,Math.round(dd*(.18+r()*.20)));
+        block-=recover;
+      }
+      block=Math.max(300,block);
+      air=Math.max(250,block-taxiOut-taxiIn);
+    }
+
+    let gateBlock=air+taxiOut+taxiIn;
+
+    // LHR-HKG can also recover modestly after a delayed departure through a quicker sector.
+    if(from==="LHR"&&to==="HKG"&&dd>=30){
+      const recovery=Math.min(35,Math.round(dd*(.12+r()*.15)));
+      air=Math.max(650,air-recovery);
+      gateBlock=air+taxiOut+taxiIn;
+    }
+
+    const takeoff=gateDep+taxiOut*60000;
+    const landing=takeoff+air*60000;
+    const gateArr=landing+taxiIn*60000;
+    const schedArr=sd+scheduled*60000;
+
+    out.push({
+      idx,f,from,to,season,type:ac.type,swap:ac.swap,reg,livery:LIV[reg]||"Standard",
+      sd,gateDep,takeoff,landing,gateArr,schedArr,scheduled,dd,
+      arrDelta:(gateArr-schedArr)/60000,air,gateBlock,
+      depGate:gates(from,ac.type,r),arrGate:gates(to,ac.type,r),eclipse
+    });
+    prevArrival=gateArr;
+  });
+  return out;
+}
+
+function recordsAround(){
+  const n=new Date(nowMS()),out=[];
+  for(let k=-2;k<=2;k++)out.push(...makeDay(flight,new Date(Date.UTC(n.getUTCFullYear(),n.getUTCMonth(),n.getUTCDate()+k))));
+  return out.sort((a,b)=>a.gateDep-b.gateDep);
+}
+function phase(r,n){
+  if(n<r.gateDep)return"UPCOMING";
+  if(n<r.takeoff)return"TAXIING";
+  if(n<r.landing)return"AIRBORNE";
+  if(n<r.gateArr)return"LANDED";
+  return"ARRIVED";
+}
+function selectedRecord(){
+  const n=nowMS();
+  let all=recordsAround();
+  if(sectorMode!=="auto")all=all.filter(r=>r.idx===Number(sectorMode));
+  return all.find(r=>n>=r.gateDep&&n<r.gateArr) ||
+         all.filter(r=>r.gateDep>n)[0] ||
+         all.filter(r=>r.gateArr<=n).sort((a,b)=>b.gateArr-a.gateArr)[0] ||
+         all[0];
+}
+function elapsedText(r,n){
+  const ph=phase(r,n);
+  if(ph==="UPCOMING")return{total:`${duration(r.gateBlock)} estimated`,air:`${duration(r.air)} estimated`};
+  if(ph==="TAXIING")return{total:`${duration((n-r.gateDep)/60000)} elapsed · ${duration(r.gateBlock)} est. total`,air:`Not airborne · ${duration(r.air)} est.`};
+  if(ph==="AIRBORNE")return{total:`${duration((n-r.gateDep)/60000)} elapsed · ${duration(r.gateBlock)} est. total`,air:`${duration((n-r.takeoff)/60000)} elapsed · ${duration(r.air)} est. total`};
+  return{total:duration(r.gateBlock),air:duration(r.air)};
+}
+function phaseProgress(r,n){
+  if(n<r.gateDep)return 0;
+  if(n<r.takeoff)return Math.min(.18,(n-r.gateDep)/(r.takeoff-r.gateDep)*.18);
+  if(n<r.landing)return .18+Math.min(.67,(n-r.takeoff)/(r.landing-r.takeoff)*.67);
+  if(n<r.gateArr)return .85+Math.min(.15,(n-r.landing)/(r.gateArr-r.landing)*.15);
+  return 1;
+}
+
+function renderPhoto(r){
+  const exact=AIRCRAFT_IMAGES[r.reg],generic=TYPE_IMAGES[r.type];
+  let body;
+  if(exact)body=`<img src="${exact}" alt="${r.reg} ${r.livery}">`;
+  else if(r.livery!=="Standard")body=`<div class="placeholder">📷 SPECIAL LIVERY PHOTO SLOT<br>${r.reg}<br><span class="tiny">${r.livery.toUpperCase()}</span></div>`;
+  else if(generic)body=`<img src="${generic}" alt="${r.type}">`;
+  else body=`<div class="placeholder">📷 AIRCRAFT PHOTO SLOT<br>${r.type}<br><span class="tiny">Add a generic or registration-specific image</span></div>`;
+  $("photo").innerHTML=`<div class="photo">${body}<div class="photo-meta"><b>${r.reg} · ${r.livery}</b>${r.type} · ${A[r.from].name} → ${A[r.to].name}</div></div>`;
+}
+
+function renderTop(){
+  const r=selectedRecord(),n=nowMS(),ph=phase(r,n),dep=status(r.dd),arr=status(r.arrDelta),e=elapsedText(r,n);
+  const pc=ph==="AIRBORNE"||ph==="ARRIVED"?"green":ph==="UPCOMING"?"gold":"orange";
+  const prog=phaseProgress(r,n);
+
+  $("top").innerHTML=`
+    <div class="eyebrow">${r.f} • ${r.season==="summer"?"BRITISH SUMMER TIMETABLE":"BRITISH WINTER TIMETABLE"}</div>
+    <div class="routehead"><h2>${r.from} <span class="arrow">→</span> ${r.to}</h2><div class="status ${pc}">${ph}</div></div>
+    <div class="muted">${A[r.from].name} → ${A[r.to].name}</div>
+    <div class="identity">
+      <span class="pill">${r.type}</span><span class="pill">${r.reg}</span>
+      <span class="pill ${r.livery!=="Standard"?"gold":""}">${r.livery}</span>
+      ${r.swap?'<span class="pill red">LAST-MINUTE SWAP</span>':""}
+      ${r.eclipse?'<span class="pill gold">🌑 ECLIPSE-DAY DELAY RULE</span>':""}
+    </div>
+
+    <div class="summary">
+      <div class="metric"><span>TOTAL TRAVEL TIME</span><b>${e.total}</b><small class="muted">Gate departure → gate arrival</small></div>
+      <div class="metric"><span>IN-AIR FLIGHT TIME</span><b>${e.air}</b><small class="muted">Takeoff → landing</small></div>
+      <div class="metric"><span>DEPARTURE PERFORMANCE</span><b class="${dep.c}">${dep.t}</b><small class="muted">Scheduled ${time(r.sd,A[r.from].tz)}</small></div>
+      <div class="metric"><span>ARRIVAL PERFORMANCE</span><b class="${arr.c}">${arr.t}</b><small class="muted">Scheduled ${time(r.schedArr,A[r.to].tz)}</small></div>
+    </div>
+
+    <div class="timelinebar">
+      <div class="timelinefill" style="width:${Math.max(0,Math.min(96,prog*96))}%"></div>
+      <i class="tdot ${prog>0?"done":""}" style="left:2%"></i>
+      <i class="tdot ${prog>=.18?"done":prog>0?"active":""}" style="left:27%"></i>
+      <i class="tdot ${prog>=.85?"done":prog>.18?"active":""}" style="left:73%"></i>
+      <i class="tdot ${prog>=1?"done":prog>.85?"active":""}" style="left:98%"></i>
+    </div>
+
+    <div class="events">
+      <div class="event"><span class="tiny muted">GATE DEPARTURE · T${A[r.from].terminal} · GATE ${r.depGate}</span><strong>${time(r.gateDep,A[r.from].tz)}</strong><small>${date(r.gateDep,A[r.from].tz)}<br>Scheduled ${time(r.sd,A[r.from].tz)}</small></div>
+      <div class="event"><span class="tiny muted">TAKEOFF</span><strong>${time(r.takeoff,A[r.from].tz)}</strong><small>${date(r.takeoff,A[r.from].tz)}<br>Taxi out ${duration((r.takeoff-r.gateDep)/60000)}</small></div>
+      <div class="event"><span class="tiny muted">LANDING</span><strong>${time(r.landing,A[r.to].tz)}</strong><small>${date(r.landing,A[r.to].tz)}<br>Airborne ${duration(r.air)}</small></div>
+      <div class="event"><span class="tiny muted">GATE ARRIVAL · T${A[r.to].terminal} · GATE ${r.arrGate}</span><strong>${time(r.gateArr,A[r.to].tz)}</strong><small>${date(r.gateArr,A[r.to].tz)}<br>Taxi in ${duration((r.gateArr-r.landing)/60000)}</small></div>
+    </div>`;
+
+  renderPhoto(r);
+  if(!archiveView)renderMap(r,false);
+}
+
+function xy(a){return{x:(a.lon+180)/360*100,y:(90-a.lat)/180*100}}
+function bezier(P,C,Q,t){
+  const u=1-t;
+  return{x:u*u*P.x+2*u*t*C.x+t*t*Q.x,y:u*u*P.y+2*u*t*C.y+t*t*Q.y};
+}
+function renderMap(r,isArchive){
+  const n=isArchive?r.gateArr:nowMS(),ph=isArchive?"ARRIVED":phase(r,n),a=A[r.from],b=A[r.to],P=xy(a),Q=xy(b);
+  let t=ph==="UPCOMING"||ph==="TAXIING"?0:ph==="AIRBORNE"?Math.max(0,Math.min(1,(n-r.takeoff)/(r.landing-r.takeoff))):1;
+  const C={x:(P.x+Q.x)/2,y:Math.max(8,(P.y+Q.y)/2-12)};
+  const M=bezier(P,C,Q,t);
+
+  $("svg").innerHTML=`
+    <path d="M ${P.x} ${P.y} Q ${C.x} ${C.y} ${Q.x} ${Q.y}" pathLength="100" fill="none" stroke="#ffffff2e" stroke-width="1.15" stroke-dasharray="2.2 2.2" vector-effect="non-scaling-stroke"/>
+    <path d="M ${P.x} ${P.y} Q ${C.x} ${C.y} ${Q.x} ${Q.y}" pathLength="100" fill="none" stroke="#f2b24b" stroke-width="2" stroke-dasharray="${Math.max(.1,t*100)} ${100-Math.max(.1,t*100)}" vector-effect="non-scaling-stroke"/>`;
+
+  $("objects").innerHTML=`
+    <div class="airport" style="left:${P.x}%;top:${P.y}%">${r.from}</div>
+    <div class="airport" style="left:${Q.x}%;top:${Q.y}%">${r.to}</div>
+    <div class="planeLabel" style="left:${M.x}%;top:${M.y}%">${r.f} · ${r.reg}<br>${ph}${ph==="AIRBORNE"?` · ${Math.round(t*100)}%`:""}</div>
+    <div class="marker" style="left:${M.x}%;top:${M.y}%">✈</div>`;
+
+  $("mapProgress").style.width=`${Math.round(t*100)}%`;
+  $("mapStatus").className="status "+(ph==="AIRBORNE"||ph==="ARRIVED"?"green":"gold");
+  $("mapStatus").textContent=isArchive?"ARCHIVE · COMPLETED FLIGHT PATH":ph==="ARRIVED"?"COMPLETED FLIGHT PATH":ph==="AIRBORNE"?`LIVE POSITION · ${Math.round(t*100)}%`:`${ph} · ${r.from} → ${r.to}`;
+  $("mapCaption").textContent=isArchive?`${date(r.gateDep,A[r.from].tz)} · ${r.f} ${r.from} → ${r.to} · complete sector route shown`:`${r.from} → ${r.to} · position and progress use the same simulated timestamps as the flight details above`;
+  $("returnLive").style.display=isArchive?"inline-block":"none";
+}
+
+function historyRows(){
+  const n=nowMS(),D=new Date(n),out=[];
+  for(let k=0;k<90;k++)out.push(...makeDay(flight,new Date(Date.UTC(D.getUTCFullYear(),D.getUTCMonth(),D.getUTCDate()-k))));
+  let rows=out.filter(r=>r.gateDep<=n&&r.gateDep>=n-days*86400000);
+  if(sectorMode!=="auto")rows=rows.filter(r=>r.idx===Number(sectorMode));
+  return rows.sort((a,b)=>b.gateDep-a.gateDep);
+}
+
+function renderPerformance(rows){
+  if(!rows.length){$("performance").innerHTML="";return}
+  const onTime=rows.filter(r=>r.arrDelta<30).length;
+  const delayed=rows.length-onTime;
+  const early=rows.filter(r=>r.arrDelta<0).length;
+  const worst=Math.max(...rows.map(r=>Math.max(0,r.arrDelta)));
+  $("performance").innerHTML=`
+    <div class="perf"><span>ON TIME / EARLY</span><b class="green">${Math.round(onTime/rows.length*100)}%</b></div>
+    <div class="perf"><span>30+ MIN LATE</span><b class="${delayed/rows.length>.25?"orange":"gold"}">${Math.round(delayed/rows.length*100)}%</b></div>
+    <div class="perf"><span>EARLY ARRIVALS</span><b>${Math.round(early/rows.length*100)}%</b></div>
+    <div class="perf"><span>WORST DELAY IN VIEW</span><b>${worst?duration(worst):"None"}</b></div>`;
+}
+
+function renderHistory(){
+  const rows=historyRows();
+  renderPerformance(rows);
+  let h=`<table><thead><tr><th>DATE</th><th>ROUTE</th><th>GATE DEPARTURE</th><th>GATE ARRIVAL</th><th>PLANE</th><th>TOTAL TRAVEL</th><th>IN AIR</th><th>ARRIVAL STATUS</th></tr></thead><tbody>`;
+  rows.forEach((r,i)=>{
+    const s=status(r.arrDelta);
+    h+=`<tr data-i="${i}">
+      <td>${date(r.gateDep,A[r.from].tz)}</td>
+      <td><b>${r.from} → ${r.to}</b></td>
+      <td>${time(r.gateDep,A[r.from].tz)} · ${r.depGate}</td>
+      <td>${time(r.gateArr,A[r.to].tz)} · ${r.arrGate}</td>
+      <td><b>${r.type}</b> · ${r.reg}${r.livery!=="Standard"?` <span class="badge special">${r.livery}</span>`:""}${r.swap?' <span class="badge swap">SWAP</span>':""}</td>
+      <td>${duration(r.gateBlock)}</td>
+      <td>${duration(r.air)}</td>
+      <td class="${s.c}"><b>${s.t}</b></td>
+    </tr>`;
+  });
+  h+="</tbody></table>";
+  $("history").innerHTML=h;
+  document.querySelectorAll("tbody tr[data-i]").forEach(tr=>tr.onclick=()=>{
+    const r=rows[Number(tr.dataset.i)];
+    archiveView=r; renderDetail(r); renderMap(r,true);
+  });
+}
+
+function renderDetail(r){
+  const d=status(r.dd),a=status(r.arrDelta);
+  $("detail").innerHTML=`
+    <div class="detail">
+      <div class="detailhead"><div><div class="eyebrow">COMPLETED SECTOR DETAILS</div><h2>${r.f} · ${r.from} → ${r.to}</h2></div><span class="pill">${r.reg} · ${r.livery}</span></div>
+      <div class="summary">
+        <div class="metric"><span>TOTAL TRAVEL TIME</span><b>${duration(r.gateBlock)}</b><small class="muted">Gate-to-gate</small></div>
+        <div class="metric"><span>IN-AIR FLIGHT TIME</span><b>${duration(r.air)}</b><small class="muted">Takeoff-to-landing</small></div>
+        <div class="metric"><span>DEPARTURE</span><b class="${d.c}">${d.t}</b><small class="muted">Scheduled ${time(r.sd,A[r.from].tz)}</small></div>
+        <div class="metric"><span>ARRIVAL</span><b class="${a.c}">${a.t}</b><small class="muted">Scheduled ${time(r.schedArr,A[r.to].tz)}</small></div>
+      </div>
+      <div class="events">
+        <div class="event">GATE DEPARTURE<strong>${time(r.gateDep,A[r.from].tz)}</strong><small>${date(r.gateDep,A[r.from].tz)}<br>T${A[r.from].terminal} · Gate ${r.depGate}</small></div>
+        <div class="event">TAKEOFF<strong>${time(r.takeoff,A[r.from].tz)}</strong><small>${date(r.takeoff,A[r.from].tz)}</small></div>
+        <div class="event">LANDING<strong>${time(r.landing,A[r.to].tz)}</strong><small>${date(r.landing,A[r.to].tz)}</small></div>
+        <div class="event">GATE ARRIVAL<strong>${time(r.gateArr,A[r.to].tz)}</strong><small>${date(r.gateArr,A[r.to].tz)}<br>T${A[r.to].terminal} · Gate ${r.arrGate}</small></div>
+      </div>
+    </div>`;
+}
+
+function renderTabs(){
+  $("tabs").innerHTML=["OT116","OT117","OT124","OT125"].map(f=>`<button data-f="${f}" class="${f===flight?"active":""}">${f}</button>`).join("");
+  document.querySelectorAll("[data-f]").forEach(b=>b.onclick=()=>{
+    flight=b.dataset.f; sectorMode="auto"; archiveView=null; $("detail").innerHTML=""; render();
+  });
+
+  const pairs=S.summer[flight].map(x=>`${x[0]} → ${x[1]}`);
+  $("sectorTabs").innerHTML=`<button data-sector="auto" class="${sectorMode==="auto"?"active":""}">AUTO SECTOR</button>`+
+    pairs.map((p,i)=>`<button data-sector="${i}" class="${sectorMode===String(i)?"active":""}">${p}</button>`).join("");
+  document.querySelectorAll("[data-sector]").forEach(b=>b.onclick=()=>{
+    sectorMode=b.dataset.sector; archiveView=null; $("detail").innerHTML=""; render();
+  });
+}
+function render(){
+  renderTabs();
+  renderTop();
+  renderHistory();
+}
+document.querySelectorAll("[data-days]").forEach(b=>b.onclick=()=>{
+  days=Number(b.dataset.days);
+  document.querySelectorAll("[data-days]").forEach(x=>x.classList.toggle("active",x===b));
+  renderHistory();
+});
+$("sim").onchange=()=>{realNow=false;archiveView=null;render()};
+$("now").onclick=()=>{realNow=true;$("sim").value="";archiveView=null;render()};
+$("reroll").onclick=()=>{seed=Math.floor(Math.random()*2**31);archiveView=null;$("detail").innerHTML="";render()};
+$("returnLive").onclick=()=>{archiveView=null;renderTop()};
+setInterval(()=>{if(realNow){renderTop();}},1000);
+render();
+</script>
+</body>
+</html>
