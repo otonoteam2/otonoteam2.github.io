@@ -119,7 +119,7 @@ footer{text-align:center;color:#777b90;padding:45px 20px;border-top:1px solid #f
     <div class="map">
       <!-- Replace this with YOUR equirectangular world map. -->
       <img src="world-map.jpg" alt="" onerror="this.style.display='none'">
-      <div class="mapfallback">INSERT WORLD MAP IMAGE<br><span class="tiny">Save it beside this file as world-map.jpg</span></div>
+      <div class="mapfallback"><br><span class="tiny"></span></div>
       <svg id="svg" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
       <div id="objects"></div>
     </div>
@@ -144,12 +144,6 @@ footer{text-align:center;color:#777b90;padding:45px 20px;border-top:1px solid #f
 
 <script>
 "use strict";
-
-/* =========================================================
-   🖼️ AIRCRAFT PHOTOS
-   Add your own image paths here. Exact special-livery photos
-   override generic aircraft-type photos.
-   ========================================================= */
 const AIRCRAFT_IMAGES={
   "G-OTLJ":null, // "Images/a380-eclipse.png"
   "G-OTLR":null, // "Images/a380-winter-twilight.png"
