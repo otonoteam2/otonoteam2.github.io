@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Australia's Eclipse Era | SydneyEclipse</title>
+
+<style>
+:root{
+  --bg:#03050d;
+  --panel:#0d1126;
+  --white:#f7f7fa;
+  --muted:#a6a8b8;
+  --red:#d51c2f;
+  --purple:#7628d8;
+  --gold:#f2b24b;
+  --cyan:#42d7ff;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--white);
+  font-family:Inter,"Segoe UI",Arial,sans-serif;overflow-x:hidden
+}
+a{color:inherit}
+nav{
+  position:fixed;z-index:1000;top:0;left:0;right:0;height:70px;padding:0 4vw;
+  display:flex;align-items:center;justify-content:space-between;
+  background:#030611dc;backdrop-filter:blur(18px);border-bottom:1px solid #ffffff12
+}
+.logo{text-decoration:none;font-size:1.35rem;font-weight:900}.logo span,.red{color:var(--red)}
+.navlinks{display:flex;gap:18px;align-items:center}
+.navlinks a{text-decoration:none;font-size:.76rem;letter-spacing:1.2px;color:#d5d6df}
+.navlinks a:hover{color:#fff}.navlinks .active{color:var(--gold);font-weight:900}
+.navlinks .live{color:#ff4b58;font-weight:900}.navdate{font-size:.78rem;color:var(--gold)}
+section{padding:105px 7vw;position:relative}
+.eyebrow{text-transform:uppercase;color:var(--gold);font-weight:900;letter-spacing:4px;font-size:.82rem}
+.title{text-align:center;font-size:clamp(2.8rem,7vw,6rem);letter-spacing:-4px;line-height:.92;margin:15px 0}
+.subtitle{text-align:center;color:var(--muted);max-width:850px;margin:0 auto 45px;line-height:1.75;font-size:1.08rem}
+.button{
+  display:inline-block;text-decoration:none;padding:14px 25px;border-radius:999px;
+  background:linear-gradient(90deg,var(--red),var(--purple));font-weight:900
+}
+.button.secondary{background:#11152a;border:1px solid #ffffff20}
+
+/* HERO */
+.hero{
+  min-height:100vh;padding:130px 7vw 70px;display:flex;align-items:center;
+  justify-content:center;text-align:center;
+  background:radial-gradient(circle at 50% 35%,#7628d84a,transparent 35%),
+             radial-gradient(circle at 50% 90%,#d51c2f24,transparent 35%),#02040b
+}
+.hero h1{font-size:clamp(4.7rem,13vw,11rem);line-height:.82;letter-spacing:-7px;margin:22px 0}
+.hero-copy{max-width:850px;margin:25px auto;color:#c2c4d1;font-size:1.18rem;line-height:1.75}
+.hero-five{font-size:clamp(1.4rem,3vw,2.5rem);font-weight:900;color:var(--gold);margin:30px 0}
+.timeline-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:35px}
+.timeline-nav a{text-decoration:none;padding:10px 16px;border-radius:999px;background:#0d1126;border:1px solid #ffffff1c;font-weight:900}
+
+/* FIVE */
+.intro{background:linear-gradient(#060812,#03040a);text-align:center}
+.five-big{font-size:clamp(5rem,15vw,12rem);font-weight:900;line-height:.8;color:var(--gold);letter-spacing:-7px;margin:25px 0}
+.five-years{font-size:clamp(1.8rem,4vw,3.5rem);font-weight:900;line-height:1.5}
+
+/* ECLIPSE SECTIONS */
+.eclipse{min-height:90vh}
+.eclipse:nth-of-type(even){background:#050713}
+.eclipse-grid{max-width:1180px;margin:auto;display:grid;grid-template-columns:.92fr 1.08fr;gap:55px;align-items:center}
+.year{
+  font-size:clamp(6rem,16vw,12rem);font-weight:900;line-height:.8;
+  letter-spacing:-7px;margin:15px 0;color:var(--gold)
+}
+.eclipse h2{font-size:clamp(2rem,4vw,3.8rem);line-height:1;margin:15px 0}
+.eclipse p{color:#adb0c0;line-height:1.75}
+.tag{display:inline-block;margin:4px 5px 4px 0;padding:8px 12px;border-radius:999px;background:#ffffff0c;border:1px solid #ffffff18;font-size:.78rem;font-weight:900;letter-spacing:1px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:28px 0}
+.stat{padding:20px;border-radius:18px;background:#0b0e1d;border:1px solid #ffffff15}
+.stat-label{font-size:.68rem;letter-spacing:2px;color:#85889b;font-weight:900}
+.stat-value{font-size:1.5rem;font-weight:900;color:var(--gold);margin-top:8px}
+.route{padding:22px;border-left:4px solid var(--gold);background:#f2b24b0b;border-radius:0 18px 18px 0;margin-top:25px}
+.route strong{color:#fff}.route span{color:#aeb1c1;line-height:1.65}
+.map-slot{
+  min-height:430px;border-radius:30px;border:1px dashed #ffffff3b;
+  background:radial-gradient(circle,#7628d826,transparent 48%),#090c19;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:35px;box-shadow:0 25px 70px #0007
+}
+.map-slot .map-icon{font-size:4.5rem}.map-slot strong{font-size:1.4rem;margin-top:15px}
+.map-slot span{color:#898c9d;margin-top:10px;line-height:1.5}
+
+/* 2028 STATIC RAINBOW */
+.e2028{
+  background:radial-gradient(circle at 15% 50%,#d51c2f20,transparent 35%),
+             radial-gradient(circle at 85% 50%,#7628d820,transparent 35%),#03050d
+}
+.e2028 .year{
+  color:transparent;
+  background:linear-gradient(110deg,#fff,#a462ff,#42d7ff,#ff6277,#f7c85a,#fff);
+  background-clip:text;-webkit-background-clip:text;
+  filter:drop-shadow(0 0 28px #8f44ff66)
+}
+
+/* 2089 */
+.e2089{
+  min-height:90vh;text-align:center;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 50% 35%,#f2b24b20,transparent 35%),#04040a
+}
+.e2089 .year{font-size:clamp(8rem,23vw,18rem);color:var(--gold);margin:25px 0}
+.annular-heading{font-size:clamp(2rem,5vw,4rem);margin:20px 0}
+.good-news-box{max-width:900px;margin:60px auto 0;padding:45px 30px;border-radius:30px;background:#0d1126;border:1px solid #f2b24b55}
+.good-small{color:var(--gold);font-weight:900;letter-spacing:4px;margin-bottom:18px}
+.good-big{font-size:clamp(2.8rem,7vw,6rem);font-weight:900;line-height:.95;letter-spacing:-3px}
+
+/* PROBLEM REVEAL */
+.problem-reveal{
+  min-height:90vh;display:flex;align-items:center;justify-content:center;text-align:center;
+  background:radial-gradient(circle,#d51c2f20,transparent 40%),#000
+}
+.problem-reveal-big{font-size:clamp(4rem,11vw,9rem);font-weight:900;line-height:.88;letter-spacing:-6px;margin:25px 0}
+.problem-reveal-big span{color:var(--red)}
+.problem-reveal-small{color:#aaaabd;font-size:clamp(1.4rem,3vw,2.3rem);font-weight:900;margin-top:30px}
+
+/* PROBLEMS */
+.e2089-problems{
+  background:radial-gradient(circle at 50% 10%,#f2b24b17,transparent 30%),linear-gradient(#06060d,#020309)
+}
+.problem-main-title{text-align:center;font-size:clamp(3rem,8vw,7rem);line-height:.9;letter-spacing:-4px;margin:20px 0 25px}
+.problem-grid{max-width:1180px;margin:60px auto;display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.problem{padding:38px;background:#0d1126;border:1px solid #ffffff16;border-radius:25px;text-align:left}
+.problem-number{color:#777b91;font-size:.72rem;font-weight:900;letter-spacing:3px;margin-bottom:22px}
+.problem .emoji{font-size:3.5rem}
+.problem .number{font-size:clamp(2.8rem,6vw,5rem);font-weight:900;color:var(--gold);line-height:1;margin:15px 0}
+.problem h3{font-size:1.6rem;margin:12px 0}
+.problem p{color:#aaadbd;line-height:1.65}
+.pain{margin-top:25px;padding-top:20px;border-top:1px solid #ffffff12;color:#ff5364;font-weight:900;letter-spacing:1px}
+.almost{max-width:950px;margin:80px auto 0;padding:50px 35px;border-radius:30px;border:1px solid #d51c2f66;background:#d51c2f0d;text-align:center}
+.almost-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:35px}
+.almost-grid>div{padding:25px;background:#080a14;border-radius:20px;border:1px solid #ffffff13}
+.almost-grid span{display:block;color:#8f92a3;font-size:.78rem;font-weight:900;letter-spacing:2px;margin-bottom:10px}
+.almost-grid strong{display:block;font-size:clamp(1.8rem,4vw,3rem)}
+.almost-grid .yes{color:var(--gold)}.almost-grid .no{color:var(--red)}
+.final-pain{font-size:clamp(2.8rem,7vw,6rem);font-weight:900;line-height:.95;letter-spacing:-3px;margin-top:55px}
+.final-pain span{color:var(--red)}
+.end-map{max-width:1000px;margin:55px auto 0}
+
+/* 2858 */
+.e2858{
+  min-height:100vh;text-align:center;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle,#5f1faf55,#03040d 58%)
+}
+.future-year{
+  font-size:clamp(8rem,25vw,21rem);font-weight:900;line-height:.8;margin:25px 0;
+  background:linear-gradient(110deg,#fff,#a462ff,#42d7ff,#ff6277,#f7c85a,#fff);
+  background-size:220% 100%;background-clip:text;-webkit-background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 35px #8f44ff77);animation:gradientMove 5s linear infinite
+}
+.centuries{font-size:clamp(2rem,5vw,4rem);font-weight:900;color:var(--gold);margin:35px 0}
+.centuries strong{color:#ff3b4b;text-decoration:underline;text-decoration-thickness:5px;text-underline-offset:10px}
+.explore{background:linear-gradient(#050713,#090716);text-align:center}
+footer{padding:60px 6vw;text-align:center;color:#7c7f91;border-top:1px solid #ffffff12}
+@keyframes gradientMove{from{background-position:0% 50%}to{background-position:220% 50%}}
+@media(max-width:900px){
+  .navlinks{display:none}.eclipse-grid,.problem-grid,.almost-grid{grid-template-columns:1fr}
+  .hero h1,.year{letter-spacing:-4px}.eclipse-grid{gap:30px}.map-slot{min-height:330px}
+  .problem-reveal-big{letter-spacing:-3px}.stats{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+<a class="logo" href="index.html">Sydney<span>Eclipse</span></a>
+<div class="navlinks">
+<a href="index.html">MAIN MENU</a>
+<a href="sydneyeclipse.html">HOME</a>
+<a href="eclipse.html">ECLIPSE</a>
+<a href="australia-eclipses.html" class="active">AUSTRALIA</a>
+<a href="sydney.html">SYDNEY</a>
+<a href="ot116.html">OT116</a>
+<a href="live.html" class="live">● LIVE</a>
+</div>
+<div class="navdate">22.07.2028 🌑</div>
+</nav>
+
+<header class="hero">
+<div>
+<div class="eyebrow">SYDNEYECLIPSE • AUSTRALIA</div>
+<h1>AUSTRALIA'S<br><span class="red">ECLIPSE ERA.</span></h1>
+<p class="hero-copy">
+Five total solar eclipses cross Australia between 2023 and 2038.
+Then Sydney gets an eclipse in 2089 that is almost painfully close to totality.
+And after that? The timeline becomes ridiculous.
+</p>
+<div class="hero-five">2023 • 2028 • 2030 • 2037 • 2038 → 2089 → 2858</div>
+<div class="timeline-nav">
+<a href="#y2023">2023</a><a href="#y2028">2028</a><a href="#y2030">2030</a>
+<a href="#y2037">2037</a><a href="#y2038">2038</a><a href="#y2089">2089 😭</a><a href="#y2858">2858 💎</a>
+</div>
+</div>
+</header>
+
+<section class="intro">
+<div class="eyebrow">THE AUSTRALIAN FIVE</div>
+<div class="five-big">5</div>
+<h2 class="title">TOTAL SOLAR ECLIPSES.<br>IN JUST OVER 15 YEARS.</h2>
+<div class="five-years">2023 → 2028 → 2030 → 2037 → 2038</div>
+<p class="subtitle">
+The first five entries form Australia's extraordinary modern run of total solar eclipses.
+The duration shown on each card is the <strong>maximum anywhere along the entire eclipse path</strong>,
+unless a local duration is specifically labelled.
+</p>
+</section>
+
+<section class="eclipse" id="y2023">
+<div class="eclipse-grid">
+<div>
+<div class="eyebrow">1 OF 5 • THE BEGINNING</div>
+<div class="year">2023</div>
+<h2>20 APRIL • HYBRID SOLAR ECLIPSE</h2>
+<div><span class="tag">WESTERN AUSTRALIA</span><span class="tag">EXMOUTH</span><span class="tag">HYBRID GLOBALLY</span></div>
+<div class="stats">
+<div class="stat"><div class="stat-label">GLOBAL MAXIMUM CENTRAL PHASE</div><div class="stat-value">1m 16s</div></div>
+<div class="stat"><div class="stat-label">EXMOUTH TOTALITY</div><div class="stat-value">~1 minute</div></div>
+</div>
+<p>The first eclipse barely clips mainland Australia. The narrow path reaches the North West Cape around Exmouth, Western Australia. It is a hybrid eclipse globally, with totality visible from the Australian path.</p>
+<div class="route"><strong>WHERE IT HITS AUSTRALIA</strong><br><span>North West Cape / Exmouth region, Western Australia. The rest of Australia sees a partial eclipse.</span></div>
+<div class="map-image-frame">
+  <img
+    src="Eclipsepaths/SE2023.png"
+    class="eclipse-map"
+    alt="Map of the 20 April 2023 solar eclipse path across Western Australia"
+  >
+</div>
+</section>
+
+<section class="eclipse e2028" id="y2028">
+<div class="eclipse-grid">
+<div>
+<div class="eyebrow">2 OF 5 • THE SYDNEY ECLIPSE</div>
+<div class="year">2028</div>
+<h2>22 JULY • TOTAL SOLAR ECLIPSE 🌑</h2>
+<div><span class="tag">WESTERN AUSTRALIA</span><span class="tag">NT</span><span class="tag">QUEENSLAND</span><span class="tag">NSW</span><span class="tag">SYDNEY</span></div>
+<div class="stats">
+<div class="stat"><div class="stat-label">MAXIMUM TOTALITY</div><div class="stat-value">5m 10s</div></div>
+<div class="stat"><div class="stat-label">SYDNEY</div><div class="stat-value">3m 49s</div></div>
+</div>
+<p>The centrepiece. The shadow crosses a huge section of the Australian continent and finishes its mainland journey by passing directly over Greater Sydney.</p>
+<div class="route"><strong>WHERE IT HITS AUSTRALIA</strong><br><span>Kimberley, Western Australia → Northern Territory → south-west Queensland → New South Wales → Greater Sydney.</span></div>
+<p><a class="button" href="sydneyeclipse.html">EXPLORE SYDNEY 2028 →</a></p>
+<div class="map-image-frame">
+  <img
+    src="Eclipsepaths/SE2028T.gif"
+    class="eclipse-map"
+    alt="Map of the 20 April 2023 solar eclipse path across Western Australia"
+  >
+</div>
+</section>
+
+<section class="eclipse" id="y2030">
+<div class="eclipse-grid">
+<div>
+<div class="eyebrow">3 OF 5 • ONLY TWO YEARS LATER</div>
+<div class="year">2030</div>
+<h2>25 NOVEMBER • TOTAL SOLAR ECLIPSE</h2>
+<div><span class="tag">SOUTH AUSTRALIA</span><span class="tag">NSW</span><span class="tag">QUEENSLAND</span></div>
+<div class="stats">
+<div class="stat"><div class="stat-label">GLOBAL MAXIMUM TOTALITY</div><div class="stat-value">3m 44s</div></div>
+<div class="stat"><div class="stat-label">SYDNEY</div><div class="stat-value">NOT IN TOTALITY 😭</div></div>
+</div>
+<p>Australia barely has time to recover from 2028. Just over two years later, the Moon's umbra crosses the country again.</p>
+<div class="route"><strong>WHERE IT HITS AUSTRALIA</strong><br><span>South Australia → north-west New South Wales → southern Queensland, ending around sunset in south-east Queensland.</span></div>
+<div class="map-image-frame">
+  <img
+    src="Eclipsepaths/SE2030-11-25T.gif"
+    class="eclipse-map"
+    alt="Map of the 20 April 2023 solar eclipse path across Western Australia"
+  >
+</div>
+</section>
+
+<section class="eclipse" id="y2037">
+<div class="eclipse-grid">
+<div>
+<div class="eyebrow">4 OF 5 • QUEENSLAND'S TURN</div>
+<div class="year">2037</div>
+<h2>13 JULY • TOTAL SOLAR ECLIPSE</h2>
+<div><span class="tag">WESTERN AUSTRALIA</span><span class="tag">NT</span><span class="tag">QUEENSLAND</span><span class="tag">BRISBANE</span><span class="tag">GOLD COAST</span></div>
+<div class="stats">
+<div class="stat"><div class="stat-label">MAXIMUM TOTALITY</div><div class="stat-value">3m 58s</div></div>
+<div class="stat"><div class="stat-label">BRISBANE CBD</div><div class="stat-value">~1m 12s</div></div>
+</div>
+<p>The fourth eclipse sweeps across Australia and gives south-east Queensland its turn. Brisbane, the Gold Coast and several surrounding communities lie within the path.</p>
+<div class="route"><strong>WHERE IT HITS AUSTRALIA</strong><br><span>Western Australia near Geraldton → southern Northern Territory → western and southern Queensland → Brisbane / Gold Coast → northern NSW near Byron Bay.</span></div>
+<div class="map-image-frame">
+  <img
+    src="Eclipsepaths/SE2037-07-13T.gif"
+    class="eclipse-map"
+    alt="Map of the 20 April 2023 solar eclipse path across Western Australia"
+  >
+</div>
+</section>
+
+<section class="eclipse" id="y2038">
+<div class="eclipse-grid">
+<div>
+<div class="eyebrow">5 OF 5 • THE FINALE</div>
+<div class="year">2038</div>
+<h2>26 DECEMBER • TOTAL SOLAR ECLIPSE</h2>
+<div><span class="tag">WESTERN AUSTRALIA</span><span class="tag">SOUTH AUSTRALIA</span><span class="tag">NSW / VICTORIA</span></div>
+<div class="stats">
+<div class="stat"><div class="stat-label">GLOBAL MAXIMUM TOTALITY</div><div class="stat-value">2m 18s</div></div>
+<div class="stat"><div class="stat-label">POSITION IN SERIES</div><div class="stat-value">5 OF 5</div></div>
+</div>
+<p>The Australian Five ends on Boxing Day 2038. The shadow crosses southern Australia and then straddles the New South Wales–Victoria border before heading across the Tasman Sea.</p>
+<div class="route"><strong>WHERE IT HITS AUSTRALIA</strong><br><span>Pilbara / Onslow region, Western Australia → South Australia north of Adelaide → NSW/Victoria border → exits near Mallacoota.</span></div>
+<div class="map-image-frame">
+  <img
+    src="Eclipsepaths/SE2038-12-26T.gif"
+    class="eclipse-map"
+    alt="Map of the 20 April 2023 solar eclipse path across Western Australia"
+  >
+</div>
+</section>
+
+<!-- 2089 GOOD NEWS -->
+<section class="e2089" id="y2089">
+<div>
+<div class="eyebrow">SYDNEY'S NEXT CENTRAL SOLAR ECLIPSE</div>
+<div class="year">2089</div>
+<h2 class="annular-heading">11 APRIL • ANNULAR SOLAR ECLIPSE 💍</h2>
+<p class="subtitle">Sydney finally gets another central solar eclipse. The Moon crosses directly in front of the Sun.</p>
+<div class="good-news-box">
+<div class="good-small">SO YES...</div>
+<div class="good-big">SYDNEY GETS<br>ANOTHER CENTRAL ECLIPSE.</div>
+</div>
+</div>
+</section>
+
+<!-- EXACT MISS2028-LIKE TURN -->
+<section class="problem-reveal">
+<div>
+<div class="eyebrow">BUT...</div>
+<div class="problem-reveal-big">THERE IS<br><span>A PROBLEM.</span></div>
+<div class="problem-reveal-small">Actually... there are four. 😭</div>
+</div>
+</section>
+
+<section class="e2089-problems">
+<div class="eyebrow" style="text-align:center">THE PROBLEM WITH 2089</div>
+<h2 class="problem-main-title">THIS ECLIPSE IS<br>PAINFULLY CLOSE. 😭</h2>
+
+<div class="problem-grid">
+
+<div class="problem">
+<div class="problem-number">PROBLEM 01 • THE BIG ONE</div>
+<div class="emoji">💍😭</div>
+<div class="number">ANNULAR.</div>
+<h3>THE MOON IS TOO SMALL.</h3>
+<p>The Moon crosses directly in front of the Sun, but it appears too small to cover the solar disc completely. A bright ring remains visible.</p>
+<p>That means this is a central eclipse — but <strong>not totality.</strong></p>
+<div class="pain">THE RING NEVER DISAPPEARS. 😭</div>
+</div>
+
+<div class="problem">
+<div class="problem-number">PROBLEM 02 • AND IT GETS WORSE</div>
+<div class="emoji">💍🔥😭😭</div>
+<div class="number">0.992</div>
+<h3>THE RING IS INSANELY THIN.</h3>
+<p>The eclipse magnitude is about <strong>0.992</strong>. The Moon is therefore extraordinarily close to being large enough to cover the Sun completely.</p>
+<p>It is the kind of number that makes the word <strong>ANNULAR</strong> hurt even more.</p>
+<div class="pain">SO. RIDICULOUSLY. CLOSE. 😭😭</div>
+</div>
+
+<div class="problem">
+<div class="problem-number">PROBLEM 03 • SUNRISE</div>
+<div class="emoji">🌅😭😭😭</div>
+<div class="number">~7 AM</div>
+<h3>THE SUN IS VERY, VERY LOW.</h3>
+<p>The eclipse occurs around sunrise. More than half of the Sun is already eclipsed around sunrise, so the event begins with the Sun sitting extremely low above the horizon.</p>
+<p>A clear, unobstructed horizon becomes especially important.</p>
+<div class="pain">YOU WAIT UNTIL 2089... AND IT'S ON THE HORIZON. 😭😭😭</div>
+</div>
+
+<div class="problem">
+<div class="problem-number">PROBLEM 04 • ONE LAST INSULT</div>
+<div class="emoji">⏱️🌆😭😭😭😭</div>
+<div class="number">~1m 20s</div>
+<h3>SHORT — AND NOT EVEN ALL OF SYDNEY.</h3>
+<p>The annular phase lasts only around <strong>one minute and twenty seconds</strong> at the Sydney location being highlighted by SydneyEclipse.</p>
+<p>And the annular path does not cover the entire Sydney metropolitan area. Where you stand within Sydney matters.</p>
+<div class="pain">SERIOUSLY?! 😭😭😭😭</div>
+</div>
+
+</div>
+
+<div class="almost">
+<div class="eyebrow">SO LET'S SUMMARISE 2089.</div>
+<div class="almost-grid">
+<div><span>CENTRAL ECLIPSE?</span><strong class="yes">YES.</strong></div>
+<div><span>MAGNITUDE?</span><strong>0.992.</strong></div>
+<div><span>THIN RING?</span><strong class="yes">VERY.</strong></div>
+<div><span>TOTALITY?</span><strong class="no">NO. 😭</strong></div>
+</div>
+<div class="final-pain">SYDNEY GOT <span>THAT CLOSE.</span></div>
+</div>
+
+<div class="map-image-frame">
+  <img
+    src="Eclipsepaths/SE2089-04-10A.gif"
+    class="eclipse-map"
+    alt="Map of the 20 April 2023 solar eclipse path across Western Australia"
+  >
+</div>
+</section>
+
+<section class="e2858" id="y2858">
+<div>
+<div class="eyebrow">AND IF YOU INSIST ON TOTALITY OVER SYDNEY...</div>
+<div class="future-year">2858</div>
+<h2 style="font-size:clamp(1.8rem,4vw,3rem);margin:15px 0;color:var(--gold)">3 JUNE • TOTAL SOLAR ECLIPSE</h2>
+
+<div class="stats" style="max-width:700px;margin:35px auto">
+<div class="stat"><div class="stat-label">GLOBAL MAXIMUM TOTALITY</div><div class="stat-value">5m 39s</div></div>
+<div class="stat"><div class="stat-label">ECLIPSE MAGNITUDE</div><div class="stat-value">1.066</div></div>
+</div>
+
+<div class="centuries">THAT'S OVER <strong>8 CENTURIES</strong> AWAY!!</div>
+<p class="subtitle">The distant eclipse finally restores totality to Sydney's story. Its global maximum lasts about five minutes and thirty-nine seconds.</p>
+
+<div class="end-map map-image-frame">
+  <img
+    src="Eclipsepaths/SE2858-06-03T.gif"
+    class="eclipse-map"
+    alt="Map of the 3 June 2858 total solar eclipse path"
+  >
+</div>
+</section>
+
+<section class="explore">
+<div class="eyebrow">BACK TO 2028</div>
+<h2 class="title">SUDDENLY. 2028 LOOKS<br>VERY IMPORTANT.</h2>
+<p class="subtitle">2023 starts the Australian Five. 2028 gives Sydney totality. 2030, 2037 and 2038 continue Australia's run. 2089 comes painfully close. 2858 finally brings the story back to Sydney totality.</p>
+<a class="button" href="sydneyeclipse.html">← RETURN TO SYDNEY 2028</a>
+&nbsp;
+<a class="button secondary" href="miss2028.html">MISSED 2028? →</a>
+</section>
+
+<footer>
+<strong>SydneyEclipse</strong><br><br>
+Australia's Eclipse Era • 2023 → 2028 → 2030 → 2037 → 2038 → 2089 → 2858<br><br>
+🌑 TOTALITY. ONLY IN 2028.
+</footer>
+
+</body>
+</html>
