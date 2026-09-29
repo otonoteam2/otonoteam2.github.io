@@ -1,0 +1,5760 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>🟡 Otono Spanish — Reading • June 2026</title>
+
+<style>
+:root{
+  --bg1:#2b0a3d;
+  --bg2:#7a0036;
+  --card:#0f0b18cc;
+  --card2:#120c22e6;
+  --text:#f4efff;
+  --muted:#c9b9ff;
+  --accent:#b000ff;
+  --accent2:#ff1b6a;
+  --good:#19ff9a;
+  --warn:#ffd166;
+  --bad:#ff4d6d;
+  --line:rgba(255,255,255,.12);
+  --shadow:0 18px 50px rgba(0,0,0,.35);
+  --radius:18px;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,
+         "Liberation Mono","Courier New",monospace;
+  --sans:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,
+         Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
+}
+
+*{box-sizing:border-box}
+
+html{-webkit-text-size-adjust:100%}
+
+body{
+  margin:0;
+  font-family:var(--sans);
+  color:var(--text);
+  background:
+    radial-gradient(
+      1000px 700px at 15% 10%,
+      rgba(176,0,255,.22),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 650px at 80% 20%,
+      rgba(255,27,106,.18),
+      transparent 55%
+    ),
+    linear-gradient(
+      135deg,
+      var(--bg1),
+      var(--bg2)
+    );
+  min-height:100vh;
+}
+
+.wrap{
+  max-width:1100px;
+  margin:0 auto;
+  padding:22px;
+}
+
+.topbar{
+  display:flex;
+  gap:14px;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 16px;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  background:linear-gradient(
+    180deg,
+    rgba(255,255,255,.08),
+    rgba(255,255,255,.03)
+  );
+  box-shadow:var(--shadow);
+  position:sticky;
+  top:14px;
+  z-index:20;
+  backdrop-filter:blur(10px);
+}
+
+.brand{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+
+.brand h1{
+  margin:0;
+  font-size:16px;
+  letter-spacing:.3px;
+}
+
+.brand .sub{
+  font-size:12px;
+  color:var(--muted);
+}
+
+.pill{
+  padding:8px 10px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:rgba(0,0,0,.25);
+  font-family:var(--mono);
+  font-size:12px;
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.pill strong{color:#fff}
+
+.btn{
+  border:1px solid var(--line);
+  background:rgba(0,0,0,.25);
+  color:var(--text);
+  padding:10px 12px;
+  border-radius:14px;
+  cursor:pointer;
+  transition:.15s transform,.15s background,.15s border;
+  font-weight:600;
+}
+
+.btn:hover{
+  transform:translateY(-1px);
+  background:rgba(0,0,0,.33);
+  border-color:rgba(255,255,255,.22);
+}
+
+.btn.primary{
+  background:linear-gradient(
+    135deg,
+    rgba(176,0,255,.55),
+    rgba(255,27,106,.45)
+  );
+  border-color:rgba(255,255,255,.22);
+}
+
+.btn.danger{
+  background:rgba(255,77,109,.18);
+  border-color:rgba(255,77,109,.35);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:16px;
+  margin-top:16px;
+}
+
+.card{
+  background:linear-gradient(
+    180deg,
+    rgba(255,255,255,.06),
+    rgba(255,255,255,.03)
+  );
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+
+.card .hd{
+  padding:14px 16px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:10px;
+  background:linear-gradient(
+    180deg,
+    rgba(255,255,255,.06),
+    transparent
+  );
+}
+
+.card .hd h2{
+  margin:0;
+  font-size:14px;
+}
+
+.card .hd .meta{
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.25;
+}
+
+.card .bd{
+  padding:16px;
+}
+
+label{
+  display:block;
+  font-size:12px;
+  color:var(--muted);
+  margin:10px 0 6px;
+}
+
+input[type=text],
+input[type=number],
+textarea,
+select{
+  width:100%;
+  border:1px solid var(--line);
+  background:rgba(0,0,0,.25);
+  color:var(--text);
+  padding:10px 12px;
+  border-radius:14px;
+  outline:none;
+  font-family:var(--sans);
+  font-size:16px;
+}
+
+textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+.row{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.row>div{
+  flex:1 1 180px;
+}
+
+.note{
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.45;
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px dashed rgba(255,255,255,.18);
+  background:rgba(0,0,0,.18);
+}
+
+.badge{
+  font-family:var(--mono);
+  font-size:12px;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:rgba(0,0,0,.20);
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+}
+
+.badge.good{
+  border-color:rgba(25,255,154,.35);
+  background:rgba(25,255,154,.12);
+}
+
+.badge.warn{
+  border-color:rgba(255,209,102,.35);
+  background:rgba(255,209,102,.12);
+}
+
+.badge.bad{
+  border-color:rgba(255,77,109,.35);
+  background:rgba(255,77,109,.12);
+}
+
+.divider{
+  height:1px;
+  background:var(--line);
+  margin:14px 0;
+}
+
+.passage{
+  padding:12px 14px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:rgba(0,0,0,.22);
+  line-height:1.55;
+}
+
+.q{
+  margin-top:14px;
+  padding:12px 14px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:rgba(0,0,0,.20);
+}
+
+.q h3{
+  margin:0 0 8px;
+  font-size:13px;
+}
+
+.opts{
+  display:grid;
+  gap:8px;
+  margin-top:8px;
+}
+
+.opt{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  padding:10px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.03);
+  cursor:pointer;
+}
+
+.opt input{
+  margin-top:3px;
+}
+
+.kpi{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+.kpi .box{
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:10px 12px;
+  background:rgba(0,0,0,.22);
+}
+
+.kpi .box .t{
+  font-size:12px;
+  color:var(--muted);
+}
+
+.kpi .box .v{
+  font-size:18px;
+  font-weight:800;
+  margin-top:4px;
+}
+
+.small{
+  font-size:12px;
+  color:var(--muted);
+}
+
+.tabs{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.tab{
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid var(--line);
+  background:rgba(0,0,0,.22);
+  cursor:pointer;
+  font-weight:700;
+}
+
+.tab.active{
+  background:linear-gradient(
+    135deg,
+    rgba(176,0,255,.35),
+    rgba(255,27,106,.22)
+  );
+  border-color:rgba(255,255,255,.22);
+}
+
+.resultsList{
+  display:grid;
+  gap:10px;
+}
+
+.attempt{
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:12px 14px;
+  background:rgba(0,0,0,.20);
+}
+
+.attempt .top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.attempt .top strong{
+  font-family:var(--mono);
+}
+
+.attempt .meta{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:6px;
+  line-height:1.4;
+}
+
+.copy{
+  font-family:var(--mono);
+  font-size:12px;
+  white-space:pre-wrap;
+  word-break:break-word;
+}
+
+.hide{
+  display:none!important;
+}
+
+.digitRow{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+.digitRow .digit{
+  width:52px;
+  text-align:center;
+  font-family:var(--mono);
+  font-size:18px;
+  font-weight:900;
+  padding:12px 0;
+  border-radius:14px;
+  border:1px solid var(--line);
+  background:rgba(0,0,0,.25);
+  color:var(--text);
+  outline:none;
+}
+
+.digitRow .hint{
+  font-size:12px;
+  color:var(--muted);
+}
+
+.sectionTitle{
+  margin:20px 0 8px;
+  font-size:15px;
+}
+
+/* Phone support without changing the familiar design */
+
+@media(max-width:900px){
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .topbar{
+    position:static;
+  }
+
+}
+
+@media(max-width:600px){
+
+  .wrap{
+    padding:10px;
+  }
+
+  .topbar{
+    padding:12px;
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .topbar>div:last-child{
+    display:flex;
+    width:100%;
+  }
+
+  .topbar .btn{
+    flex:1;
+  }
+
+  .kpi{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .digitRow{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+  }
+
+  .digitRow .digit{
+    width:100%;
+  }
+
+  .digitRow .hint{
+    grid-column:1/-1;
+  }
+
+  .row{
+    display:block;
+  }
+
+  .row>div{
+    width:100%;
+  }
+
+  .card .bd{
+    padding:12px;
+  }
+
+  .opt{
+    min-height:46px;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+<div class="topbar">
+
+  <div class="brand">
+
+    <h1>
+      🟡 Otono Spanish — Paper 3 • Reading • June 2026 (SECURED)
+    </h1>
+
+    <div class="sub">
+      Auto marking • Higher / Foundation • Centre:
+      <strong id="centreTop">50709</strong>
+    </div>
+
+  </div>
+
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+
+    <div class="pill">
+      <span>⏱️ Timer:</span>
+      <strong id="timerText">--:--</strong>
+    </div>
+
+    <button class="btn" id="btnResults">
+      Results
+    </button>
+
+    <button class="btn primary" id="btnHome">
+      Test
+    </button>
+
+  </div>
+
+</div>
+
+
+<div class="grid">
+
+<div class="card" id="panelHome">
+
+<div class="hd">
+
+  <div>
+
+    <h2>Candidate setup</h2>
+
+    <div class="meta">
+      No dictionary • No translator • Answer from the text
+    </div>
+
+  </div>
+
+  <span class="badge" id="statusBadge">
+    Ready
+  </span>
+
+</div>
+
+
+<div class="bd" id="homeBody">
+
+<div class="row">
+
+  <div>
+
+    <label>Centre number</label>
+
+    <input
+      type="text"
+      id="centreNo"
+      value="50709"
+      disabled
+    >
+
+    <div class="small" style="margin-top:6px">
+      Default is <strong>50709</strong>.
+    </div>
+
+  </div>
+
+  <div style="display:flex;gap:10px;align-items:flex-end">
+
+    <button class="btn" id="btnEditCentre">
+      Customise centre
+    </button>
+
+    <button class="btn" id="btnResetCentre">
+      Reset centre
+    </button>
+
+  </div>
+
+</div>
+
+
+<div class="divider"></div>
+
+
+<div>
+
+  <label>
+    Candidate number (required, 4 digits)
+  </label>
+
+  <div class="digitRow">
+
+    <input class="digit"
+           id="candD1"
+           inputmode="numeric"
+           maxlength="1">
+
+    <input class="digit"
+           id="candD2"
+           inputmode="numeric"
+           maxlength="1">
+
+    <input class="digit"
+           id="candD3"
+           inputmode="numeric"
+           maxlength="1">
+
+    <input class="digit"
+           id="candD4"
+           inputmode="numeric"
+           maxlength="1">
+
+    <span class="hint">
+      Digits only • auto-advance
+    </span>
+
+  </div>
+
+</div>
+
+
+<div class="row">
+
+  <div>
+
+    <label>
+      Candidate surname (optional)
+    </label>
+
+    <input
+      type="text"
+      id="candSurname"
+    >
+
+  </div>
+
+  <div>
+
+    <label>
+      Candidate forename(s) (optional)
+    </label>
+
+    <input
+      type="text"
+      id="candForenames"
+    >
+
+  </div>
+
+</div>
+
+
+<div class="divider"></div>
+
+
+<div class="note">
+
+  <strong>Paper information</strong><br>
+
+  • Maximum mark: <strong>100</strong><br>
+  • Higher is selected by default.<br>
+  • Foundation candidates cannot select 75 minutes.<br>
+  • Written answers are marked for meaning.<br>
+  • Attempts are saved locally in this browser.
+
+</div>
+
+
+<div class="divider"></div>
+
+
+<div class="row">
+
+  <div>
+
+    <label>Tier</label>
+
+    <select id="tier">
+
+      <option value="higher" selected>
+        Higher
+      </option>
+
+      <option value="foundation">
+        Foundation
+      </option>
+
+    </select>
+
+  </div>
+
+
+  <div>
+
+    <label>Time allowed</label>
+
+    <select id="timeAllowed"></select>
+
+  </div>
+
+
+  <div>
+
+    <label>On timer end</label>
+
+    <select id="autoSubmit">
+
+      <option value="yes" selected>
+        Auto-submit
+      </option>
+
+      <option value="no">
+        Do not auto-submit
+      </option>
+
+    </select>
+
+  </div>
+
+</div>
+
+
+<div style="display:flex;gap:10px;margin-top:14px">
+
+  <button class="btn primary" id="btnStart">
+    Start Paper
+  </button>
+
+</div>
+
+</div>
+
+
+<div class="bd hide" id="testBody">
+
+<div class="kpi">
+
+  <div class="box">
+
+    <div class="t">
+      Candidate
+    </div>
+
+    <div class="v" id="kpiCandidate">
+      —
+    </div>
+
+  </div>
+
+
+  <div class="box">
+
+    <div class="t">
+      Tier
+    </div>
+
+    <div class="v" id="kpiTier">
+      —
+    </div>
+
+  </div>
+
+
+  <div class="box">
+
+    <div class="t">
+      Questions
+    </div>
+
+    <div class="v">
+      10
+    </div>
+
+  </div>
+
+
+  <div class="box">
+
+    <div class="t">
+      Maximum
+    </div>
+
+    <div class="v">
+      100
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="divider"></div>
+
+
+<div class="note">
+
+  <strong>Instructions reminder</strong><br>
+
+  No dictionary. Answer all questions.
+  Short answers are acceptable unless the question asks
+  for more than one detail.
+
+</div>
+
+
+<div id="paper"></div>
+
+
+<div class="divider"></div>
+
+
+<button class="btn primary" id="btnSubmit">
+  Submit & Auto-Mark
+</button>
+
+<button class="btn" id="btnReset">
+  Reset paper
+</button>
+
+
+<div
+  id="markingBox"
+  class="hide"
+  style="margin-top:14px">
+</div>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="hd">
+
+  <div>
+
+    <h2 id="sideTitle">
+      Otono grading
+    </h2>
+
+    <div class="meta" id="sideMeta">
+      Grade boundaries
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="bd" id="sideBody"></div>
+
+
+<div class="bd hide" id="resultsBody">
+
+<div class="tabs">
+
+  <div class="tab active" id="tabAll">
+    All attempts
+  </div>
+
+  <div class="tab" id="tabCandidate">
+    By candidate
+  </div>
+
+</div>
+
+
+<label>
+  Filter candidate number
+</label>
+
+<input
+  type="text"
+  id="filterCandidate"
+  maxlength="4"
+  inputmode="numeric"
+>
+
+
+<div class="divider"></div>
+
+
+<div
+  class="resultsList"
+  id="resultsList">
+</div>
+
+
+<div class="divider"></div>
+
+
+<button class="btn" id="btnExport">
+  Export JSON
+</button>
+
+<button class="btn danger" id="btnClear">
+  Clear stored results
+</button>
+
+
+<div
+  id="exportBox"
+  class="note hide"
+  style="margin-top:12px">
+
+  <div
+    class="copy"
+    id="exportText">
+  </div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   BASIC SETTINGS
+========================================================= */
+
+const CENTRE_DEFAULT = "50709";
+
+const STORAGE_KEY =
+  "otonoSpanishReadingJune2026Results";
+
+const $ =
+  id => document.getElementById(id);
+
+
+function escapeHtml(s){
+
+  return String(s ?? "").replace(
+    /[&<>"']/g,
+    m => ({
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#39;"
+    }[m])
+  );
+
+}
+
+
+/*
+  Spanish accents are deliberately normalised.
+
+  Therefore:
+  avion / avión
+  tambien / también
+  despues / después
+
+  can still be recognised where appropriate.
+*/
+
+function normalise(s){
+
+  return String(s ?? "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g,"")
+    .replace(/[’']/g,"")
+    .replace(/[^a-z0-9\s]/g," ")
+    .replace(/\s+/g," ")
+    .trim();
+
+}
+
+
+/* =========================================================
+   GRADES
+========================================================= */
+
+const HIGHER_GRADES = [
+
+  ["S",101],
+  ["A*",97],
+  ["A",92],
+  ["B",82],
+  ["C",72],
+  ["D",62],
+  ["E",52],
+  ["F",47],
+  ["U",0]
+
+];
+
+
+const FOUNDATION_GRADES = [
+
+  ["C",82],
+  ["D",70],
+  ["E",58],
+  ["F",46],
+  ["G",34],
+  ["H",22],
+  ["U",0]
+
+];
+
+
+function gradeFor(score,tier){
+
+  const table =
+    tier === "foundation"
+      ? FOUNDATION_GRADES
+      : HIGHER_GRADES;
+
+  for(const [grade,boundary] of table){
+
+    if(score >= boundary){
+      return grade;
+    }
+
+  }
+
+  return "U";
+
+}
+
+
+function outcomeFor(score){
+
+  if(score >= 90){
+    return "DISTINCTION";
+  }
+
+  if(score >= 80){
+    return "MERIT";
+  }
+
+  if(score >= 66){
+    return "PASS";
+  }
+
+  return "—";
+
+}
+
+
+function gcseEstimate(score,tier){
+
+  if(tier === "foundation"){
+
+    if(score >= 82) return "5";
+    if(score >= 70) return "4";
+    if(score >= 58) return "3";
+    if(score >= 46) return "2";
+    if(score >= 34) return "1";
+
+    return "U";
+
+  }
+
+  if(score >= 92) return "9";
+  if(score >= 82) return "8";
+  if(score >= 72) return "7";
+  if(score >= 62) return "6";
+  if(score >= 52) return "5";
+  if(score >= 47) return "4";
+
+  return "U";
+
+}
+
+
+function badgeForScore(score){
+
+  if(score >= 90){
+    return [
+      "badge good",
+      "DISTINCTION"
+    ];
+  }
+
+  if(score >= 80){
+    return [
+      "badge good",
+      "MERIT"
+    ];
+  }
+
+  if(score >= 66){
+    return [
+      "badge warn",
+      "PASS"
+    ];
+  }
+
+  return [
+    "badge bad",
+    "BELOW PASS"
+  ];
+
+}
+
+
+function renderBoundaries(){
+
+  const tier =
+    $("tier").value;
+
+  if(tier === "foundation"){
+
+    $("sideBody").innerHTML = `
+
+      <div class="note">
+
+        <strong>Foundation Tier</strong><br><br>
+
+        C: 82–100<br>
+        D: 70–81<br>
+        E: 58–69<br>
+        F: 46–57<br>
+        G: 34–45<br>
+        H: 22–33<br>
+        U: 0–21
+
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="note">
+
+        <strong>Outcomes</strong><br>
+
+        PASS: 66+<br>
+        MERIT: 80+<br>
+        DISTINCTION: 90+
+
+      </div>
+
+    `;
+
+  }else{
+
+    $("sideBody").innerHTML = `
+
+      <div class="note">
+
+        <strong>Higher Tier</strong><br><br>
+
+        S: 101 — impossible<br>
+        A*: 97–100<br>
+        A: 92–96<br>
+        B: 82–91<br>
+        C: 72–81<br>
+        D: 62–71<br>
+        E: 52–61<br>
+        F: 47–51<br>
+        U: 0–46
+
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="note">
+
+        <strong>Outcomes</strong><br>
+
+        PASS: 66+<br>
+        MERIT: 80+<br>
+        DISTINCTION: 90+
+
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+/* =========================================================
+   QUESTION HELPERS
+========================================================= */
+
+function MCQ(
+  id,
+  prompt,
+  marks,
+  options,
+  answer
+){
+
+  return {
+    id,
+    type:"mcq",
+    prompt,
+    marks,
+    options,
+    answer
+  };
+
+}
+
+
+function TFNM(
+  id,
+  prompt,
+  marks,
+  answer
+){
+
+  return {
+    id,
+    type:"tfnm",
+    prompt,
+    marks,
+    answer
+  };
+
+}
+
+
+function PN(
+  id,
+  prompt,
+  marks,
+  answer
+){
+
+  return {
+    id,
+    type:"pn",
+    prompt,
+    marks,
+    answer
+  };
+
+}
+
+
+function SHORT(
+  id,
+  prompt,
+  marks,
+  accepted,
+  model
+){
+
+  return {
+    id,
+    type:"short",
+    prompt,
+    marks,
+    accepted,
+    model
+  };
+
+}
+
+
+function TRANS(
+  id,
+  prompt,
+  marks,
+  units,
+  model
+){
+
+  return {
+    id,
+    type:"translation",
+    prompt,
+    marks,
+    units,
+    model
+  };
+
+}
+
+
+/* =========================================================
+   HIGHER PAPER
+   SECTION A = 65
+   SECTION B = 15
+   SECTION C = 20
+   TOTAL = 100
+========================================================= */
+
+const HIGHER = [
+
+/* ---------------------------------------------------------
+   QUESTION 1 — 6
+--------------------------------------------------------- */
+
+{
+n:1,
+section:"A",
+title:"En el aeropuerto",
+difficulty:"🟢",
+marks:6,
+
+text:`
+
+A. El vuelo OT205 sale a las 19:15.
+Los pasajeros deben estar
+en la puerta 14 a las 18:45.<br><br>
+
+B. La cafetería está
+al lado de la puerta 6
+y cierra a las nueve de la noche.<br><br>
+
+C. El vuelo a Madrid
+sale cuarenta minutos tarde.<br><br>
+
+D. Si ha perdido una maleta,
+vaya a la oficina
+que está enfrente de la salida.<br><br>
+
+E. El autobús para los hoteles
+sale cada veinte minutos.<br><br>
+
+F. Hace frío en Londres,
+pero en Sídney hace sol.
+
+`,
+
+questions:[
+
+MCQ(
+"s1a",
+"What time should OT205 passengers be at the gate?",
+1,
+[
+"18:45",
+"19:00",
+"19:15",
+"21:00"
+],
+0
+),
+
+MCQ(
+"s1b",
+"Where is the café?",
+1,
+[
+"Opposite the exit",
+"Next to gate 6",
+"At the hotel",
+"Next to gate 14"
+],
+1
+),
+
+MCQ(
+"s1c",
+"What has happened to the Madrid flight?",
+1,
+[
+"It is cancelled",
+"It is forty minutes late",
+"It is early",
+"It has changed gate"
+],
+1
+),
+
+MCQ(
+"s1d",
+"Where should somebody go about a lost suitcase?",
+1,
+[
+"The hotel bus",
+"Gate 6",
+"The office opposite the exit",
+"The café"
+],
+2
+),
+
+MCQ(
+"s1e",
+"How often does the hotel bus leave?",
+1,
+[
+"Every ten minutes",
+"Every twenty minutes",
+"Every hour",
+"Once a day"
+],
+1
+),
+
+MCQ(
+"s1f",
+"What is the weather like in Sydney?",
+1,
+[
+"Sunny",
+"Cold",
+"Snowy",
+"Stormy"
+],
+0
+)
+
+]
+
+},
+
+
+/* ---------------------------------------------------------
+   QUESTION 2 — 7
+--------------------------------------------------------- */
+
+{
+n:2,
+section:"A",
+title:"La sala 12",
+difficulty:"🟢",
+marks:7,
+
+text:`
+
+A Red le encanta la sala 12
+porque normalmente hay gente allí
+y puede ver películas
+con los demás.<br><br>
+
+A OWing también le gusta
+porque es grande y cómoda.
+Sin embargo,
+cuando quiere concentrarse en los deberes,
+prefiere estar solo en su habitación.<br><br>
+
+Luke suele ir allí por la tarde.
+A veces juega
+y otras veces ve la televisión.<br><br>
+
+Jessica entra de vez en cuando,
+pero normalmente busca
+un lugar más tranquilo para leer.
+
+`,
+
+questions:[
+
+PN(
+"s2a",
+"Red's view is…",
+1,
+"P"
+),
+
+PN(
+"s2b",
+"OWing's view is…",
+1,
+"P+N"
+),
+
+PN(
+"s2c",
+"Luke's view is…",
+1,
+"P"
+),
+
+PN(
+"s2d",
+"Jessica's view is…",
+1,
+"N"
+),
+
+MCQ(
+"s2e",
+"Why does OWing sometimes go to his bedroom?",
+1,
+[
+"To watch television",
+"To concentrate on homework",
+"To eat",
+"To play games"
+],
+1
+),
+
+MCQ(
+"s2f",
+"When does Luke usually go to Room 12?",
+1,
+[
+"In the afternoon",
+"Before sunrise",
+"Only at weekends",
+"At midnight"
+],
+0
+),
+
+MCQ(
+"s2g",
+"What does Jessica prefer doing somewhere quieter?",
+1,
+[
+"Sleeping",
+"Cooking",
+"Reading",
+"Watching films"
+],
+2
+)
+
+]
+
+},
+
+
+/* ---------------------------------------------------------
+   QUESTION 3 — 8
+--------------------------------------------------------- */
+
+{
+n:3,
+section:"A",
+title:"Un viaje largo",
+difficulty:"🟡",
+marks:8,
+
+text:`
+
+El año pasado,
+Red viajó a Hong Kong con OWing.<br><br>
+
+Llegaron al aeropuerto
+dos horas y media antes de la salida.
+Red pensó que era demasiado pronto,
+pero OWing estaba contento
+porque odia tener prisa.<br><br>
+
+Después de subir al avión,
+Red escuchó música
+y luego vio una película.<br><br>
+
+OWing empezó a leer,
+pero después de una hora
+decidió dormir.<br><br>
+
+Más tarde fueron al salón.
+Como estaba bastante tranquilo,
+se quedaron allí
+unos cuarenta minutos.<br><br>
+
+Red durmió durante tres horas.
+OWing durmió casi cinco.<br><br>
+
+Al llegar,
+Red estaba más cansado
+que OWing.
+
+`,
+
+questions:[
+
+TFNM(
+"s3a",
+"Red travelled with OWing.",
+1,
+"True"
+),
+
+TFNM(
+"s3b",
+"They arrived exactly three hours early.",
+1,
+"False"
+),
+
+TFNM(
+"s3c",
+"Red ate a burger on the plane.",
+1,
+"Not mentioned"
+),
+
+TFNM(
+"s3d",
+"Red listened to music.",
+1,
+"True"
+),
+
+TFNM(
+"s3e",
+"The lounge was very crowded.",
+1,
+"False"
+),
+
+TFNM(
+"s3f",
+"They spent about forty minutes in the lounge.",
+1,
+"True"
+),
+
+TFNM(
+"s3g",
+"OWing slept for longer than Red.",
+1,
+"True"
+),
+
+TFNM(
+"s3h",
+"OWing was more tired on arrival.",
+1,
+"False"
+)
+
+]
+
+},
+
+
+/* ---------------------------------------------------------
+   QUESTION 4 — 9
+--------------------------------------------------------- */
+
+{
+n:4,
+section:"A",
+title:"Las cosas de Luke",
+difficulty:"🟡",
+marks:9,
+
+text:`
+
+Luke lleva dos estuches al colegio.<br><br>
+
+En el primero guarda
+lápices,
+bolígrafos negros,
+dos bolígrafos azules,
+una regla
+y tres gomas.<br><br>
+
+Normalmente escribe
+con bolígrafo negro,
+pero para hacer dibujos
+usa un lápiz.<br><br>
+
+El segundo estuche
+contiene material de tinta negra:
+varias plumas,
+pinceles
+y una botella de tinta.<br><br>
+
+Luke no lleva la botella
+a todas las clases
+porque a veces resulta poco práctica.<br><br>
+
+Una mañana,
+se dejó el primer estuche en casa.
+Por suerte,
+tenía un lápiz
+y varios bolígrafos de reserva
+en el segundo.<br><br>
+
+Desde entonces,
+mira dentro de su mochila
+antes de salir de casa.
+
+`,
+
+questions:[
+
+MCQ(
+"s4a",
+"How many pencil cases does Luke take to school?",
+1,
+[
+"One",
+"Two",
+"Three",
+"Four"
+],
+1
+),
+
+MCQ(
+"s4b",
+"What does he normally write with?",
+1,
+[
+"A black pen",
+"A pencil",
+"A blue pen",
+"A brush"
+],
+0
+),
+
+MCQ(
+"s4c",
+"What does he use for drawing?",
+1,
+[
+"Black ink",
+"A ruler",
+"A pencil",
+"A blue pen"
+],
+2
+),
+
+SHORT(
+"s4d",
+"Why doesn't Luke take the ink bottle to every lesson?",
+1,
+[
+[
+"not practical",
+"impractical",
+"not always practical",
+"poco practica"
+]
+],
+"It is not always practical."
+),
+
+SHORT(
+"s4e",
+"Give TWO spare items that helped Luke.",
+2,
+[
+[
+"pencil",
+"lapiz"
+],
+[
+"pens",
+"pen",
+"boligrafos",
+"boligrafo"
+]
+],
+"A pencil and spare pens."
+),
+
+SHORT(
+"s4f",
+"What does Luke now do before leaving home, and why?",
+3,
+[
+[
+"check bag",
+"checks bag",
+"looks in bag",
+"checks backpack",
+"mira mochila"
+],
+[
+"before leaving",
+"before leaving home",
+"antes de salir"
+],
+[
+"not forget",
+"avoid forgetting",
+"because he forgot",
+"remember equipment"
+]
+],
+"He checks his bag before leaving so that he does not forget his equipment."
+)
+
+]
+
+},
+
+
+/* ---------------------------------------------------------
+   QUESTION 5 — 10
+--------------------------------------------------------- */
+
+{
+n:5,
+section:"A",
+title:"Un vuelo cómodo",
+difficulty:"🟠",
+marks:10,
+
+text:`
+
+Red:
+Para mí,
+lo más importante es tener espacio.
+También me encanta ver películas
+durante los vuelos largos.
+Si hay un salón,
+quiero visitarlo.<br><br>
+
+OWing:
+Prefiero sentarme junto a la ventana.
+No necesito ver muchas películas
+porque normalmente intento dormir.
+Para mí,
+la comodidad es más importante
+que el entretenimiento.<br><br>
+
+Luke:
+Me gusta explorar el avión
+y mirar el mapa del vuelo.
+Una buena cantidad de espacio
+es útil,
+pero no es lo más importante.<br><br>
+
+Jessica:
+Durante un vuelo largo,
+prefiero leer.
+No me gusta mirar una pantalla
+durante muchas horas.
+También quiero un lugar tranquilo.
+
+`,
+
+questions:[
+
+MCQ(
+"s5a",
+"Who mentions the flight map?",
+1,
+[
+"Red",
+"OWing",
+"Luke",
+"Jessica"
+],
+2
+),
+
+MCQ(
+"s5b",
+"Who prefers a window seat?",
+1,
+[
+"Red",
+"OWing",
+"Luke",
+"Jessica"
+],
+1
+),
+
+MCQ(
+"s5c",
+"Who wants to visit a lounge?",
+1,
+[
+"Red",
+"OWing",
+"Luke",
+"Jessica"
+],
+0
+),
+
+MCQ(
+"s5d",
+"Who prefers reading?",
+1,
+[
+"Red",
+"OWing",
+"Luke",
+"Jessica"
+],
+3
+),
+
+MCQ(
+"s5e",
+"Who says space is useful but not the most important thing?",
+1,
+[
+"Red",
+"OWing",
+"Luke",
+"Jessica"
+],
+2
+),
+
+SHORT(
+"s5f",
+"Give TWO things that matter to OWing.",
+2,
+[
+[
+"window",
+"window seat"
+],
+[
+"comfort",
+"comfortable",
+"sleep"
+]
+],
+"A window seat and comfort/sleep."
+),
+
+SHORT(
+"s5g",
+"How are Red and Jessica different in their entertainment preferences?",
+3,
+[
+[
+"red films",
+"red watches films",
+"films"
+],
+[
+"jessica read",
+"jessica reads",
+"reading"
+],
+[
+"screen",
+"does not like screens",
+"doesnt like screens"
+]
+],
+"Red enjoys films, whereas Jessica prefers reading and dislikes spending hours looking at a screen."
+)
+
+]
+
+},
+
+
+/* ---------------------------------------------------------
+   QUESTION 6 — 11
+--------------------------------------------------------- */
+
+{
+n:6,
+section:"A",
+title:"Guillermo y la película",
+difficulty:"🟠",
+marks:11,
+
+text:`
+
+Una noche,
+todos estaban preparados
+para ver una película
+en la sala 12.<br><br>
+
+Guillermo estaba sentado
+con los demás,
+pero cinco minutos
+antes de empezar
+salió de la sala.<br><br>
+
+Red pensaba
+que Guillermo quería
+buscar una bebida.<br><br>
+
+Después de diez minutos,
+todavía no había vuelto.<br><br>
+
+Luke quería empezar sin él.
+OWing dijo que podían esperar
+cinco minutos más.<br><br>
+
+Finalmente,
+Guillermo volvió
+y explicó que había ido al baño.<br><br>
+
+Red se echó a reír
+y Luke dijo
+que ahora tenían que empezar
+la película inmediatamente.<br><br>
+
+Al día siguiente,
+los demás todavía hablaban
+de lo ocurrido,
+pero Guillermo no entendía
+por qué era tan gracioso.
+
+`,
+
+questions:[
+
+TFNM(
+"s6a",
+"William left before the film started.",
+1,
+"True"
+),
+
+TFNM(
+"s6b",
+"Red initially thought William wanted a drink.",
+1,
+"True"
+),
+
+TFNM(
+"s6c",
+"Luke wanted to wait for William.",
+1,
+"False"
+),
+
+TFNM(
+"s6d",
+"OWing wanted to wait another five minutes.",
+1,
+"True"
+),
+
+TFNM(
+"s6e",
+"William had been outside the mansion.",
+1,
+"Not mentioned"
+),
+
+SHORT(
+"s6f",
+"Where had William actually gone?",
+1,
+[
+[
+"toilet",
+"bathroom",
+"loo",
+"bano"
+]
+],
+"To the toilet."
+),
+
+SHORT(
+"s6g",
+"How did Red react?",
+1,
+[
+[
+"laugh",
+"laughed",
+"laughing",
+"rio"
+]
+],
+"He laughed."
+),
+
+SHORT(
+"s6h",
+"How did Luke and OWing disagree?",
+2,
+[
+[
+"luke start",
+"luke wanted to start",
+"start without him"
+],
+[
+"owing wait",
+"wait five minutes",
+"wanted to wait"
+]
+],
+"Luke wanted to start, while OWing wanted to wait another five minutes."
+),
+
+SHORT(
+"s6i",
+"Why was William different from the others the next day?",
+2,
+[
+[
+"others funny",
+"others found it funny",
+"everyone talked",
+"thought it funny"
+],
+[
+"william did not understand",
+"didnt understand",
+"not understand why funny"
+]
+],
+"The others still found the event funny, but William did not understand why."
+)
+
+]
+
+},
+
+
+/* ---------------------------------------------------------
+   QUESTION 7 — 14
+--------------------------------------------------------- */
+
+{
+n:7,
+section:"A",
+title:"La caja fuerte",
+difficulty:"🔴",
+marks:14,
+
+text:`
+
+Hay una caja fuerte
+cerca de la sala 33.<br><br>
+
+Red la ha visto muchas veces,
+pero nunca ha tenido
+mucho interés
+en saber qué contiene.<br><br>
+
+OWing,
+en cambio,
+cree que puede guardar
+papeles importantes
+y algunas cosas antiguas.<br><br>
+
+Nunca ha intentado abrirla,
+aunque a veces
+se pregunta por qué está allí.<br><br>
+
+Un día,
+Luke se queda delante
+de la caja fuerte
+y estudia el teclado
+durante varios minutos.<br><br>
+
+Le sorprende
+la gran cantidad de botones.<br><br>
+
+Jessica llega
+y al principio piensa
+que Luke está esperando
+a otra persona.<br><br>
+
+Después comprende
+que está mirando
+la caja fuerte.<br><br>
+
+Le pregunta:
+«¿Sabes la contraseña?»<br><br>
+
+Luke sonríe,
+mira otra vez el teclado
+y no contesta.<br><br>
+
+Red dice que
+una caja fuerte normal
+no merece tanta atención.<br><br>
+
+OWing responde
+que la reacción de Luke
+ha hecho el misterio
+mucho más interesante.
+
+`,
+
+questions:[
+
+MCQ(
+"s7a",
+"Where is the safe?",
+1,
+[
+"Near Room 12",
+"Near Room 33",
+"Inside Room 33",
+"Near the entrance"
+],
+1
+),
+
+MCQ(
+"s7b",
+"How does Red feel about what is inside?",
+1,
+[
+"Very interested",
+"Not very interested",
+"Frightened",
+"Certain he knows"
+],
+1
+),
+
+MCQ(
+"s7c",
+"What does OWing think might be inside?",
+1,
+[
+"Food",
+"Important papers and old things",
+"Only money",
+"School books"
+],
+1
+),
+
+TFNM(
+"s7d",
+"OWing has previously tried to open the safe.",
+1,
+"False"
+),
+
+TFNM(
+"s7e",
+"Luke is surprised by the number of buttons.",
+1,
+"True"
+),
+
+TFNM(
+"s7f",
+"Jessica knows the password.",
+1,
+"Not mentioned"
+),
+
+SHORT(
+"s7g",
+"What did Jessica FIRST think Luke was doing?",
+2,
+[
+[
+"waiting",
+"waiting for someone",
+"esperando"
+],
+[
+"another person",
+"someone",
+"otra persona"
+]
+],
+"She thought he was waiting for somebody."
+),
+
+SHORT(
+"s7h",
+"What TWO things does Luke do after Jessica asks about the password?",
+2,
+[
+[
+"smile",
+"smiles",
+"sonrie"
+],
+[
+"not answer",
+"does not answer",
+"doesnt answer",
+"says nothing"
+]
+],
+"He smiles and does not answer."
+),
+
+SHORT(
+"s7i",
+"Explain how Red and OWing react differently to Luke's behaviour.",
+4,
+[
+[
+"red normal",
+"ordinary safe",
+"not worth attention",
+"red not interested"
+],
+[
+"red too much attention",
+"overthinking",
+"too much interest"
+],
+[
+"owing more interested",
+"owing curious",
+"mystery"
+],
+[
+"luke reaction",
+"silence",
+"not answering"
+]
+],
+"Red thinks an ordinary safe does not deserve so much attention, whereas Luke's reaction makes OWing even more curious."
+)
+
+]
+
+},
+
+
+/* ---------------------------------------------------------
+   QUESTION 8 — 8
+   SECTION B — QUESTIONS IN SPANISH
+--------------------------------------------------------- */
+
+{
+n:8,
+section:"B",
+title:"Un reto de matemáticas",
+difficulty:"🔴",
+marks:8,
+
+text:`
+
+Red,
+OWing,
+Luke y Jessica
+participan en un reto de matemáticas.<br><br>
+
+Luke empieza con una pregunta
+sobre un triángulo
+porque le parece fácil.<br><br>
+
+OWing trabaja con cuidado
+y comprueba cada respuesta
+antes de continuar.<br><br>
+
+Más tarde,
+Red encuentra una pregunta
+sobre el área debajo de una curva.<br><br>
+
+Reconoce la integración
+inmediatamente,
+ya que la estudió
+durante las vacaciones.<br><br>
+
+Jessica no esperaba
+ver cálculo en el reto
+y se queda sorprendida.<br><br>
+
+Después de unos minutos,
+OWing entiende
+lo que tiene que hacer.<br><br>
+
+Luke decide dejar
+la pregunta de integración
+hasta el final.<br><br>
+
+Red dice que fue
+su pregunta favorita,
+pero Jessica prefiere
+las otras preguntas.
+
+`,
+
+questions:[
+
+MCQ(
+"s8a",
+"¿Qué pregunta hace Luke primero?",
+1,
+[
+"Una pregunta sobre un triángulo",
+"Una pregunta sobre un avión",
+"Una pregunta sobre una película",
+"Una pregunta sobre Sídney"
+],
+0
+),
+
+SHORT(
+"s8b",
+"¿Qué hace OWing antes de continuar?",
+1,
+[
+[
+"comprueba",
+"respuestas",
+"comprueba cada respuesta"
+]
+],
+"Comprueba cada respuesta."
+),
+
+SHORT(
+"s8c",
+"¿Qué reconoce Red?",
+1,
+[
+[
+"integracion",
+"integration"
+]
+],
+"La integración."
+),
+
+SHORT(
+"s8d",
+"¿Cuándo había estudiado Red la integración?",
+1,
+[
+[
+"vacaciones",
+"during the holidays",
+"holidays"
+]
+],
+"Durante las vacaciones."
+),
+
+SHORT(
+"s8e",
+"¿Por qué está sorprendida Jessica?",
+2,
+[
+[
+"no esperaba",
+"did not expect"
+],
+[
+"calculo",
+"integration",
+"reto"
+]
+],
+"No esperaba ver cálculo en el reto."
+),
+
+SHORT(
+"s8f",
+"¿Cuándo quiere hacer Luke la pregunta de integración?",
+1,
+[
+[
+"final",
+"al final",
+"last"
+]
+],
+"Al final."
+),
+
+SHORT(
+"s8g",
+"¿Es la integración la pregunta favorita de Jessica?",
+1,
+[
+[
+"no",
+"prefiere otras",
+"otras preguntas"
+]
+],
+"No."
+)
+
+]
+
+},
+
+
+/* ---------------------------------------------------------
+   QUESTION 9 — 7
+   SECTION B
+--------------------------------------------------------- */
+
+{
+n:9,
+section:"B",
+title:"Sídney 2028",
+difficulty:"🟣",
+marks:7,
+
+text:`
+
+En 2028,
+el equipo Otono
+quiere viajar a Sídney
+para observar
+un eclipse total de Sol.<br><br>
+
+Red espera especialmente
+el momento
+en que la luz del día
+desaparezca durante unos minutos.<br><br>
+
+OWing quiere llegar
+con varios días de antelación
+para conocer un poco la ciudad
+antes del gran día.<br><br>
+
+Luke prepara una lista
+de todo lo necesario
+para el viaje.<br><br>
+
+Jessica quiere ver
+cómo reaccionará la gente
+cuando empiece la totalidad.<br><br>
+
+Sin embargo,
+el tiempo podría causar problemas.
+Si hay demasiadas nubes,
+será difícil ver el Sol.<br><br>
+
+Por eso,
+el equipo piensa consultar
+las previsiones meteorológicas
+antes de decidir
+el lugar exacto.
+
+`,
+
+questions:[
+
+SHORT(
+"s9a",
+"¿Qué momento espera especialmente Red?",
+1,
+[
+[
+"luz desaparezca",
+"se haga oscuro",
+"dark",
+"oscuridad"
+]
+],
+"El momento en que desaparezca la luz del día."
+),
+
+SHORT(
+"s9b",
+"¿Por qué quiere llegar OWing varios días antes?",
+1,
+[
+[
+"conocer ciudad",
+"visitar ciudad",
+"see the city",
+"visit sydney"
+]
+],
+"Para conocer la ciudad."
+),
+
+SHORT(
+"s9c",
+"¿Qué prepara Luke?",
+1,
+[
+[
+"lista",
+"list"
+]
+],
+"Una lista."
+),
+
+SHORT(
+"s9d",
+"¿Qué quiere observar Jessica?",
+1,
+[
+[
+"reaccion",
+"gente",
+"people reaction"
+]
+],
+"La reacción de la gente."
+),
+
+SHORT(
+"s9e",
+"¿Qué podría dificultar la observación?",
+1,
+[
+[
+"nubes",
+"cloud",
+"clouds"
+]
+],
+"Las nubes."
+),
+
+SHORT(
+"s9f",
+"¿Qué consultará el equipo?",
+1,
+[
+[
+"previsiones",
+"tiempo",
+"weather forecast",
+"forecast"
+]
+],
+"Las previsiones meteorológicas."
+),
+
+SHORT(
+"s9g",
+"¿Han decidido ya el lugar exacto?",
+1,
+[
+[
+"no",
+"todavia no",
+"not yet"
+]
+],
+"No."
+)
+
+]
+
+},
+
+
+/* ---------------------------------------------------------
+   QUESTION 10 — 20
+   TRANSLATION
+--------------------------------------------------------- */
+
+{
+n:10,
+section:"C",
+title:"Traducción — El eclipse",
+difficulty:"🟣",
+marks:20,
+
+text:`
+
+Dentro de dos años,
+viajaremos a Sídney
+para ver un eclipse total de Sol.
+
+Queremos llegar
+unos días antes
+para conocer la ciudad.
+
+Esperamos que no haya muchas nubes.
+
+Durante la totalidad,
+el cielo se oscurecerá
+en pleno día.
+
+Después,
+recordaremos esta experiencia
+durante muchos años.
+
+`,
+
+questions:[
+
+TRANS(
+"s10",
+"Translate the passage into English.",
+20,
+
+[
+{
+marks:2,
+accepted:[
+"in two years",
+"two years from now"
+]
+},
+
+{
+marks:2,
+accepted:[
+"we will travel to sydney",
+"we will go to sydney",
+"we are going to sydney"
+]
+},
+
+{
+marks:2,
+accepted:[
+"see a total solar eclipse",
+"see a total eclipse",
+"total solar eclipse"
+]
+},
+
+{
+marks:2,
+accepted:[
+"arrive a few days early",
+"arrive several days early",
+"get there a few days early"
+]
+},
+
+{
+marks:2,
+accepted:[
+"see the city",
+"visit the city",
+"get to know the city"
+]
+},
+
+{
+marks:2,
+accepted:[
+"we hope",
+"hopefully"
+]
+},
+
+{
+marks:2,
+accepted:[
+"not many clouds",
+"there will not be many clouds",
+"few clouds"
+]
+},
+
+{
+marks:2,
+accepted:[
+"during totality",
+"during the total eclipse"
+]
+},
+
+{
+marks:2,
+accepted:[
+"sky will get dark during the day",
+"sky will become dark in the daytime",
+"dark in broad daylight"
+]
+},
+
+{
+marks:2,
+accepted:[
+"remember this experience for many years",
+"remember the experience for many years"
+]
+}
+],
+
+`In two years, we will travel to Sydney to see a total solar eclipse.
+We want to arrive a few days early to see the city.
+We hope there will not be many clouds.
+During totality, the sky will become dark in broad daylight.
+Afterwards, we will remember this experience for many years.`
+
+)
+
+]
+
+}
+
+];
+
+
+/* =========================================================
+   FOUNDATION PAPER
+   SECTION A = 75
+   SECTION B = 10
+   SECTION C = 15
+   TOTAL = 100
+========================================================= */
+
+const FOUNDATION = [
+
+/* ---------------------------------------------------------
+   QUESTION 1 — 10
+--------------------------------------------------------- */
+
+{
+n:1,
+section:"A",
+title:"En el aeropuerto",
+difficulty:"🟢",
+marks:10,
+
+text:`
+
+El vuelo OT205
+sale a las 19:15.<br><br>
+
+Los pasajeros van
+a la puerta 14.<br><br>
+
+Hay una cafetería
+cerca de la puerta 6.<br><br>
+
+El vuelo a Madrid
+sale cuarenta minutos tarde.<br><br>
+
+Para ir al hotel,
+hay un autobús.
+
+`,
+
+questions:[
+
+MCQ(
+"sf1a",
+"What time does OT205 leave?",
+2,
+[
+"18:15",
+"18:45",
+"19:15",
+"20:15"
+],
+2
+),
+
+MCQ(
+"sf1b",
+"What is the gate number?",
+2,
+[
+"6",
+"10",
+"14",
+"19"
+],
+2
+),
+
+MCQ(
+"sf1c",
+"Where is the café?",
+2,
+[
+"Near gate 6",
+"At the hotel",
+"Near gate 14",
+"In Madrid"
+],
+0
+),
+
+MCQ(
+"sf1d",
+"What has happened to the Madrid flight?",
+2,
+[
+"It is cancelled",
+"It is late",
+"It is early",
+"It is full"
+],
+1
+),
+
+MCQ(
+"sf1e",
+"How can passengers get to the hotel?",
+2,
+[
+"By train",
+"By bus",
+"By boat",
+"By bicycle"
+],
+1
+)
+
+]
+
+},
+
+
+/* ---------------------------------------------------------
+   QUESTION 2 — 10
+--------------------------------------------------------- */
+
+{
+n:2,
+section:"A",
+title:"La sala 12",
+difficulty:"🟢",
+marks:10,
+
+text:`
+
+A Red le encanta
+la sala 12
+porque puede ver películas.<br><br>
+
+A OWing le gusta
+porque es grande,
+pero prefiere su habitación
+para estudiar.<br><br>
+
+Luke va allí
+por la tarde
+para ver la televisión.<br><br>
+
+Jessica prefiere
+un lugar tranquilo
+para leer.
+
+`,
+
+questions:[
+
+PN(
+"sf2a",
+"Red's view is…",
+2,
+"P"
+),
+
+PN(
+"sf2b",
+"OWing's view is…",
+2,
+"P+N"
+),
+
+PN(
+"sf2c",
+"Luke's view is…",
+2,
+"P"
+),
+
+PN(
+"sf2d",
+"Jessica's view is…",
+2,
+"N"
+),
+
+MCQ(
+"sf2e",
+"What does Jessica prefer doing?",
+2,
+[
+"Reading",
+"Cooking",
+"Playing games",
+"Watching television"
+],
+0
+)
+
+]
+
+},
+
+
+/* ---------------------------------------------------------
+   QUESTION 3 — 10
+--------------------------------------------------------- */
+
+{
+n:3,
+section:"A",
+title:"Los estuches de Luke",
+difficulty:"🟢🟡",
+marks:10,
+
+text:`
+
+Luke lleva dos estuches.<br><br>
+
+En el primero
+tiene lápices,
+bolígrafos negros,
+dos bolígrafos azules,
+una regla
+y tres gomas.<br><br>
+
+Para dibujar,
+prefiere un lápiz.<br><br>
+
+En el segundo estuche
+tiene tinta negra
+y varios bolígrafos de reserva.
+
+`,
+
+questions:[
+
+MCQ(
+"sf3a",
+"How many pencil cases does Luke have?",
+2,
+[
+"One",
+"Two",
+"Three",
+"Four"
+],
+1
+),
+
+MCQ(
+"sf3b",
+"How many blue pens are mentioned?",
+2,
+[
+"One",
+"Two",
+"Three",
+"Four"
+],
+1
+),
+
+MCQ(
+"sf3c",
+"What does Luke prefer for drawing?",
+2,
+[
+"A ruler",
+"A pencil",
+"A black pen",
+"A brush"
+],
+1
+),
+
+MCQ(
+"sf3d",
+"What colour is the ink?",
+2,
+[
+"Blue",
+"Purple",
+"Black",
+"Red"
+],
+2
+),
+
+SHORT(
+"sf3e",
+"Give ONE item Luke keeps as a spare.",
+2,
+[
+[
+"pen",
+"pens",
+"boligrafo",
+"boligrafos"
+]
+],
+"Pens."
+)
+
+]
+
+},
+
+
+/* ---------------------------------------------------------
+   QUESTION 4 — 10
+--------------------------------------------------------- */
+
+{
+n:4,
+section:"A",
+title:"Un viaje",
+difficulty:"🟡",
+marks:10,
+
+text:`
+
+Red viaja a Hong Kong
+con OWing.<br><br>
+
+Llegan al aeropuerto
+dos horas antes del vuelo.<br><br>
+
+Red escucha música
+y después duerme
+durante tres horas.<br><br>
+
+OWing lee un libro
+y duerme durante cuatro horas.<br><br>
+
+También pasan
+treinta minutos
+en el salón.
+
+`,
+
+questions:[
+
+TFNM(
+"sf4a",
+"Red travels with OWing.",
+2,
+"True"
+),
+
+TFNM(
+"sf4b",
+"They arrive three hours early.",
+2,
+"False"
+),
+
+TFNM(
+"sf4c",
+"Red listens to music.",
+2,
+"True"
+),
+
+TFNM(
+"sf4d",
+"OWing sleeps for longer than Red.",
+2,
+"True"
+),
+
+TFNM(
+"sf4e",
+"They eat pizza in the lounge.",
+2,
+"Not mentioned"
+)
+
+]
+
+},
+
+
+/* ---------------------------------------------------------
+   QUESTION 5 — 10
+--------------------------------------------------------- */
+
+{
+n:5,
+section:"A",
+title:"En el avión",
+difficulty:"🟡🟠",
+marks:10,
+
+text:`
+
+Red disfruta
+de las películas
+y quiere mucho espacio.<br><br>
+
+OWing prefiere
+una ventana
+y quiere dormir.<br><br>
+
+Luke mira
+el mapa del vuelo
+y explora el avión.<br><br>
+
+Jessica prefiere
+leer en un lugar tranquilo.
+
+`,
+
+questions:[
+
+MCQ(
+"sf5a",
+"Who likes films?",
+2,
+[
+"Red",
+"OWing",
+"Luke",
+"Jessica"
+],
+0
+),
+
+MCQ(
+"sf5b",
+"Who wants a window?",
+2,
+[
+"Red",
+"OWing",
+"Luke",
+"Jessica"
+],
+1
+),
+
+MCQ(
+"sf5c",
+"Who looks at the flight map?",
+2,
+[
+"Red",
+"OWing",
+"Luke",
+"Jessica"
+],
+2
+),
+
+MCQ(
+"sf5d",
+"Who prefers reading?",
+2,
+[
+"Red",
+"OWing",
+"Luke",
+"Jessica"
+],
+3
+),
+
+SHORT(
+"sf5e",
+"Give ONE thing Luke likes doing.",
+2,
+[
+[
+"flight map",
+"map",
+"explore",
+"exploring",
+"mapa"
+]
+],
+"Looking at the flight map or exploring the aircraft."
+)
+
+]
+
+},
+
+
+/* ---------------------------------------------------------
+   QUESTION 6 — 10
+--------------------------------------------------------- */
+
+{
+n:6,
+section:"A",
+title:"Guillermo y la película",
+difficulty:"🟠",
+marks:10,
+
+text:`
+
+Todos quieren
+ver una película
+en la sala 12.<br><br>
+
+Antes de empezar,
+Guillermo sale de la sala.<br><br>
+
+Red piensa
+que va a volver pronto.<br><br>
+
+Luke quiere empezar,
+pero OWing quiere esperar.<br><br>
+
+Después,
+Guillermo vuelve
+y dice que ha ido al baño.<br><br>
+
+Red se ríe.
+
+`,
+
+questions:[
+
+TFNM(
+"sf6a",
+"William leaves before the film starts.",
+2,
+"True"
+),
+
+TFNM(
+"sf6b",
+"Red thinks William will return soon.",
+2,
+"True"
+),
+
+TFNM(
+"sf6c",
+"Luke wants to wait.",
+2,
+"False"
+),
+
+TFNM(
+"sf6d",
+"William went to the toilet.",
+2,
+"True"
+),
+
+SHORT(
+"sf6e",
+"How does Red react?",
+2,
+[
+[
+"laugh",
+"laughs",
+"laughed",
+"rie"
+]
+],
+"He laughs."
+)
+
+]
+
+},
+
+
+/* ---------------------------------------------------------
+   QUESTION 7 — 8
+--------------------------------------------------------- */
+
+{
+n:7,
+section:"A",
+title:"La caja fuerte",
+difficulty:"🟠",
+marks:8,
+
+text:`
+
+La caja fuerte
+está cerca de la sala 33.<br><br>
+
+Red no tiene
+mucho interés.<br><br>
+
+OWing cree
+que hay documentos
+dentro.<br><br>
+
+Luke mira
+el teclado.<br><br>
+
+Jessica pregunta
+si Luke sabe
+la contraseña.<br><br>
+
+Luke sonríe
+pero no responde.
+
+`,
+
+questions:[
+
+MCQ(
+"sf7a",
+"Where is the safe?",
+2,
+[
+"Near Room 12",
+"Near Room 33",
+"At school",
+"Outside"
+],
+1
+),
+
+MCQ(
+"sf7b",
+"Who thinks there are documents inside?",
+2,
+[
+"Red",
+"OWing",
+"Luke",
+"Jessica"
+],
+1
+),
+
+TFNM(
+"sf7c",
+"Luke looks at the keypad.",
+2,
+"True"
+),
+
+SHORT(
+"sf7d",
+"What does Luke do when Jessica asks about the password?",
+2,
+[
+[
+"smile",
+"smiles",
+"sonrie",
+"not answer",
+"does not answer",
+"doesnt answer"
+]
+],
+"He smiles but does not answer."
+)
+
+]
+
+},
+
+
+/* ---------------------------------------------------------
+   QUESTION 8 — 7
+--------------------------------------------------------- */
+
+{
+n:8,
+section:"A",
+title:"Un reto de matemáticas",
+difficulty:"🔴",
+marks:7,
+
+text:`
+
+Red,
+OWing,
+Luke y Jessica
+hacen un reto de matemáticas.<br><br>
+
+Luke empieza
+con una pregunta
+sobre un triángulo.<br><br>
+
+Red ve una curva
+y reconoce
+la integración.<br><br>
+
+La reconoce
+porque ya la ha estudiado.<br><br>
+
+Jessica piensa
+que las preguntas
+son interesantes,
+pero la integración
+no es su parte favorita.
+
+`,
+
+questions:[
+
+MCQ(
+"sf8a",
+"What does Luke see in his first question?",
+2,
+[
+"A triangle",
+"A plane",
+"A suitcase",
+"A film"
+],
+0
+),
+
+SHORT(
+"sf8b",
+"Why does Red recognise integration?",
+2,
+[
+[
+"already studied",
+"studied before",
+"learnt before",
+"learned before",
+"ya estudiado"
+]
+],
+"He has studied it before."
+),
+
+MCQ(
+"sf8c",
+"What does Red see?",
+1,
+[
+"A curve",
+"A window",
+"A map",
+"A café"
+],
+0
+),
+
+TFNM(
+"sf8d",
+"Integration is Jessica's favourite part.",
+2,
+"False"
+)
+
+]
+
+},
+
+
+/* ---------------------------------------------------------
+   QUESTION 9 — 10
+   QUESTIONS IN SPANISH
+--------------------------------------------------------- */
+
+{
+n:9,
+section:"B",
+title:"El eclipse de Sídney",
+difficulty:"🔴",
+marks:10,
+
+text:`
+
+En 2028,
+el equipo Otono
+irá a Sídney
+para ver
+un eclipse total de Sol.<br><br>
+
+Red quiere ver
+el cielo oscuro.<br><br>
+
+OWing quiere llegar
+unos días antes.<br><br>
+
+Luke prepara una lista.<br><br>
+
+Jessica piensa
+que será
+una experiencia especial.<br><br>
+
+Las nubes
+pueden esconder el Sol,
+así que el equipo
+mirará el tiempo
+antes de elegir el lugar.
+
+`,
+
+questions:[
+
+SHORT(
+"sf9a",
+"¿Adónde irá el equipo Otono?",
+2,
+[
+[
+"sydney",
+"sidney"
+]
+],
+"A Sídney."
+),
+
+SHORT(
+"sf9b",
+"¿En qué año?",
+2,
+[
+[
+"2028"
+]
+],
+"En 2028."
+),
+
+SHORT(
+"sf9c",
+"¿Qué quiere ver Red?",
+2,
+[
+[
+"cielo oscuro",
+"oscuro",
+"dark sky"
+]
+],
+"El cielo oscuro."
+),
+
+SHORT(
+"sf9d",
+"¿Qué prepara Luke?",
+2,
+[
+[
+"lista",
+"list"
+]
+],
+"Una lista."
+),
+
+SHORT(
+"sf9e",
+"¿Qué puede esconder el Sol?",
+2,
+[
+[
+"nubes",
+"cloud",
+"clouds"
+]
+],
+"Las nubes."
+)
+
+]
+
+},
+
+
+/* ---------------------------------------------------------
+   QUESTION 10 — 15
+--------------------------------------------------------- */
+
+{
+n:10,
+section:"C",
+title:"Traducción — Sídney",
+difficulty:"🔴",
+marks:15,
+
+text:`
+
+El próximo año,
+iremos a Sídney
+para ver un eclipse total.
+
+Queremos llegar
+antes del gran día.
+
+Esperamos tener
+buen tiempo.
+
+Durante unos minutos,
+el cielo estará oscuro.
+
+Después del eclipse,
+visitaremos la ciudad
+antes de volver a casa.
+
+`,
+
+questions:[
+
+TRANS(
+"sf10",
+"Translate the passage into English.",
+15,
+
+[
+{
+marks:2,
+accepted:[
+"next year"
+]
+},
+
+{
+marks:2,
+accepted:[
+"we will go to sydney",
+"we are going to sydney"
+]
+},
+
+{
+marks:2,
+accepted:[
+"see a total eclipse",
+"total eclipse"
+]
+},
+
+{
+marks:2,
+accepted:[
+"arrive before the big day",
+"get there before the big day"
+]
+},
+
+{
+marks:2,
+accepted:[
+"good weather",
+"have good weather"
+]
+},
+
+{
+marks:1,
+accepted:[
+"few minutes",
+"for a few minutes"
+]
+},
+
+{
+marks:2,
+accepted:[
+"sky will be dark",
+"the sky will be dark"
+]
+},
+
+{
+marks:2,
+accepted:[
+"visit the city before going home",
+"visit the city before returning home"
+]
+}
+],
+
+`Next year, we will go to Sydney to see a total eclipse.
+We want to arrive before the big day.
+We hope to have good weather.
+For a few minutes, the sky will be dark.
+After the eclipse, we will visit the city before going home.`
+
+)
+
+]
+
+}
+
+];
+
+
+/* =========================================================
+   STATE / TIMER
+========================================================= */
+
+let state = null;
+
+let timerHandle = null;
+
+let timerSeconds = 0;
+
+
+/* =========================================================
+   TIER / TIME
+========================================================= */
+
+function updateTier(){
+
+  const tier =
+    $("tier").value;
+
+  if(tier === "foundation"){
+
+    $("timeAllowed").innerHTML = `
+
+      <option value="60" selected>
+        60 minutes (recommended)
+      </option>
+
+      <option value="45">
+        45 minutes
+      </option>
+
+    `;
+
+  }else{
+
+    $("timeAllowed").innerHTML = `
+
+      <option value="75" selected>
+        75 minutes (recommended)
+      </option>
+
+      <option value="60">
+        60 minutes
+      </option>
+
+      <option value="45">
+        45 minutes
+      </option>
+
+    `;
+
+  }
+
+  renderBoundaries();
+
+}
+
+
+/* =========================================================
+   CANDIDATE NUMBER
+========================================================= */
+
+function candidateNumber(){
+
+  return [
+
+    $("candD1").value,
+    $("candD2").value,
+    $("candD3").value,
+    $("candD4").value
+
+  ].join("");
+
+}
+
+
+[
+  "candD1",
+  "candD2",
+  "candD3",
+  "candD4"
+].forEach((id,index)=>{
+
+  $(id).addEventListener(
+    "input",
+    event=>{
+
+      event.target.value =
+        event.target.value
+          .replace(/\D/g,"")
+          .slice(0,1);
+
+      if(
+        event.target.value &&
+        index < 3
+      ){
+
+        $(
+          `candD${index+2}`
+        ).focus();
+
+      }
+
+    }
+  );
+
+});
+
+
+/* =========================================================
+   RENDER QUESTIONS
+========================================================= */
+
+function renderQuestion(q){
+
+  let answerHTML = "";
+
+  if(q.type === "mcq"){
+
+    answerHTML = `
+
+      <div class="opts">
+
+        ${q.options.map(
+          (option,index)=>`
+
+          <label class="opt">
+
+            <input
+              type="radio"
+              name="${q.id}"
+              value="${index}"
+            >
+
+            <span>
+              ${escapeHtml(option)}
+            </span>
+
+          </label>
+
+        `).join("")}
+
+      </div>
+
+    `;
+
+  }
+
+
+  if(q.type === "pn"){
+
+    answerHTML = `
+
+      <div class="opts">
+
+        ${[
+          "P",
+          "N",
+          "P+N"
+        ].map(option=>`
+
+          <label class="opt">
+
+            <input
+              type="radio"
+              name="${q.id}"
+              value="${option}"
+            >
+
+            <span>
+              ${option}
+            </span>
+
+          </label>
+
+        `).join("")}
+
+      </div>
+
+    `;
+
+  }
+
+
+  if(q.type === "tfnm"){
+
+    answerHTML = `
+
+      <div class="opts">
+
+        ${[
+          "True",
+          "False",
+          "Not mentioned"
+        ].map(option=>`
+
+          <label class="opt">
+
+            <input
+              type="radio"
+              name="${q.id}"
+              value="${option}"
+            >
+
+            <span>
+              ${option}
+            </span>
+
+          </label>
+
+        `).join("")}
+
+      </div>
+
+    `;
+
+  }
+
+
+  if(
+    q.type === "short" ||
+    q.type === "translation"
+  ){
+
+    answerHTML = `
+
+      <textarea
+        id="${q.id}"
+        placeholder="${
+          q.type === "translation"
+            ? "Write your English translation here…"
+            : "Write your answer here…"
+        }"
+      ></textarea>
+
+    `;
+
+  }
+
+
+  return `
+
+    <div class="q">
+
+      <h3>
+
+        ${escapeHtml(q.prompt)}
+
+        <span class="small">
+          [${q.marks}]
+        </span>
+
+      </h3>
+
+      ${answerHTML}
+
+    </div>
+
+  `;
+
+}
+
+
+function renderPaper(){
+
+  $("paper").innerHTML =
+
+    state.paper.map(p=>`
+
+      <h3 class="sectionTitle">
+
+        Question ${p.n}
+        — ${escapeHtml(p.title)}
+        ${p.difficulty}
+
+        <span class="small">
+          (${p.marks} marks • Section ${p.section})
+        </span>
+
+      </h3>
+
+      <div class="passage">
+        ${p.text}
+      </div>
+
+      ${p.questions
+        .map(renderQuestion)
+        .join("")}
+
+    `).join("");
+
+}
+
+
+/* =========================================================
+   GET ANSWER
+========================================================= */
+
+function getAnswer(q){
+
+  if(
+    q.type === "mcq" ||
+    q.type === "pn" ||
+    q.type === "tfnm"
+  ){
+
+    const selected =
+      document.querySelector(
+        `input[name="${q.id}"]:checked`
+      );
+
+    return selected
+      ? selected.value
+      : "";
+
+  }
+
+  return $(q.id)
+    ? $(q.id).value
+    : "";
+
+}
+
+
+/* =========================================================
+   FORGIVING WRITTEN ANSWER MATCHING
+========================================================= */
+
+function phraseMatch(
+  answer,
+  accepted
+){
+
+  const a =
+    normalise(answer);
+
+  const b =
+    normalise(accepted);
+
+  if(!a || !b){
+    return false;
+  }
+
+
+  /*
+    Exact phrase contained in answer.
+  */
+
+  if(
+    a.includes(b) ||
+    b.includes(a)
+  ){
+    return true;
+  }
+
+
+  const answerWords =
+    a.split(" ")
+      .filter(Boolean);
+
+  const acceptedWords =
+    b.split(" ")
+      .filter(Boolean);
+
+
+  /*
+    Single words:
+    allow a minor spelling difference
+    where the first four letters still agree.
+
+    This helps with small mistakes without
+    awarding completely unrelated answers.
+  */
+
+  if(
+    acceptedWords.length === 1
+  ){
+
+    const target =
+      acceptedWords[0];
+
+    return answerWords.some(
+      word=>{
+
+        if(word === target){
+          return true;
+        }
+
+        if(
+          target.length >= 5 &&
+          word.length >= 5 &&
+          word.slice(0,4) ===
+          target.slice(0,4)
+        ){
+          return true;
+        }
+
+        return false;
+
+      }
+    );
+
+  }
+
+
+  /*
+    Multi-word idea:
+    65% of important words matching
+    is enough.
+
+    This deliberately makes the marker
+    less harsh than November 2025.
+  */
+
+  const matches =
+    acceptedWords.filter(
+      word =>
+        answerWords.includes(word)
+    ).length;
+
+  return (
+    matches /
+    acceptedWords.length
+  ) >= .65;
+
+}
+
+
+/* =========================================================
+   SHORT ANSWER MARKING
+========================================================= */
+
+function markShort(
+  q,
+  answer
+){
+
+  /*
+    ABSOLUTE RULE:
+    unanswered = ZERO.
+  */
+
+  if(!normalise(answer)){
+    return 0;
+  }
+
+
+  let hits = 0;
+
+
+  for(
+    const group
+    of q.accepted
+  ){
+
+    const matched =
+      group.some(
+        accepted =>
+          phraseMatch(
+            answer,
+            accepted
+          )
+      );
+
+    if(matched){
+      hits++;
+    }
+
+  }
+
+
+  if(hits === 0){
+    return 0;
+  }
+
+
+  const fraction =
+    hits /
+    q.accepted.length;
+
+
+  return Math.min(
+
+    q.marks,
+
+    Math.max(
+
+      1,
+
+      Math.round(
+        fraction *
+        q.marks
+      )
+
+    )
+
+  );
+
+}
+
+
+/* =========================================================
+   TRANSLATION MARKING
+========================================================= */
+
+function markTranslation(
+  q,
+  answer
+){
+
+  if(!normalise(answer)){
+    return 0;
+  }
+
+
+  let score = 0;
+
+
+  for(
+    const unit
+    of q.units
+  ){
+
+    const matched =
+      unit.accepted.some(
+        accepted =>
+          phraseMatch(
+            answer,
+            accepted
+          )
+      );
+
+
+    if(matched){
+      score += unit.marks;
+    }
+
+  }
+
+
+  return Math.min(
+    q.marks,
+    score
+  );
+
+}
+
+
+/* =========================================================
+   MARK ONE QUESTION
+
+   IMPORTANT BUG FIX:
+   Number("") === 0 in JavaScript.
+
+   Therefore blank answers MUST be rejected
+   before checking the answer index.
+========================================================= */
+
+function markQuestion(
+  q,
+  answer
+){
+
+  if(
+    answer === undefined ||
+    answer === null ||
+    normalise(answer) === ""
+  ){
+
+    return 0;
+
+  }
+
+
+  if(q.type === "mcq"){
+
+    return (
+      Number(answer) === q.answer
+    )
+      ? q.marks
+      : 0;
+
+  }
+
+
+  if(
+    q.type === "pn" ||
+    q.type === "tfnm"
+  ){
+
+    return (
+      answer === q.answer
+    )
+      ? q.marks
+      : 0;
+
+  }
+
+
+  if(q.type === "short"){
+
+    return markShort(
+      q,
+      answer
+    );
+
+  }
+
+
+  if(q.type === "translation"){
+
+    return markTranslation(
+      q,
+      answer
+    );
+
+  }
+
+
+  return 0;
+
+}
+
+
+/* =========================================================
+   DISPLAY CORRECT ANSWER
+========================================================= */
+
+function correctAnswerDisplay(q){
+
+  if(q.type === "mcq"){
+
+    return q.options[
+      q.answer
+    ];
+
+  }
+
+
+  if(
+    q.type === "pn" ||
+    q.type === "tfnm"
+  ){
+
+    return q.answer;
+
+  }
+
+
+  return q.model || "";
+
+}
+
+
+/* =========================================================
+   TIMER
+========================================================= */
+
+function timerTick(){
+
+  const minutes =
+    Math.max(
+      0,
+      Math.floor(
+        timerSeconds / 60
+      )
+    );
+
+  const seconds =
+    Math.max(
+      0,
+      timerSeconds % 60
+    );
+
+
+  $("timerText").textContent =
+
+    String(minutes)
+      .padStart(2,"0")
+
+    +
+
+    ":"
+
+    +
+
+    String(seconds)
+      .padStart(2,"0");
+
+}
+
+
+function startTimer(minutes){
+
+  clearInterval(
+    timerHandle
+  );
+
+
+  timerSeconds =
+    minutes * 60;
+
+
+  timerTick();
+
+
+  timerHandle =
+    setInterval(()=>{
+
+      timerSeconds--;
+
+      timerTick();
+
+
+      if(
+        timerSeconds <= 0
+      ){
+
+        clearInterval(
+          timerHandle
+        );
+
+
+        if(
+          $("autoSubmit").value ===
+          "yes"
+        ){
+
+          submitPaper(true);
+
+        }
+
+      }
+
+    },1000);
+
+}
+
+
+/* =========================================================
+   START PAPER
+========================================================= */
+
+function startPaper(){
+
+  const candidate =
+    candidateNumber();
+
+
+  if(
+    !/^\d{4}$/.test(
+      candidate
+    )
+  ){
+
+    alert(
+      "Please enter a 4-digit candidate number."
+    );
+
+    return;
+
+  }
+
+
+  const tier =
+    $("tier").value;
+
+
+  state = {
+
+    tier,
+
+    paper:
+      tier === "foundation"
+        ? FOUNDATION
+        : HIGHER,
+
+    centreNo:
+      $("centreNo").value ||
+      CENTRE_DEFAULT,
+
+    candidateNo:
+      candidate,
+
+    candSurname:
+      $("candSurname")
+        .value
+        .trim(),
+
+    candForenames:
+      $("candForenames")
+        .value
+        .trim(),
+
+    submitted:false
+
+  };
+
+
+  $("homeBody")
+    .classList
+    .add("hide");
+
+
+  $("testBody")
+    .classList
+    .remove("hide");
+
+
+  $("kpiCandidate")
+    .textContent =
+    candidate;
+
+
+  $("kpiTier")
+    .textContent =
+    tier === "foundation"
+      ? "Foundation"
+      : "Higher";
+
+
+  $("statusBadge")
+    .textContent =
+    "In progress";
+
+
+  $("statusBadge")
+    .className =
+    "badge warn";
+
+
+  $("markingBox")
+    .classList
+    .add("hide");
+
+
+  $("markingBox")
+    .innerHTML =
+    "";
+
+
+  renderPaper();
+
+
+  startTimer(
+
+    parseInt(
+      $("timeAllowed").value,
+      10
+    )
+
+  );
+
+}
+
+
+/* =========================================================
+   RESULT STORAGE
+========================================================= */
+
+function loadResults(){
+
+  try{
+
+    return JSON.parse(
+
+      localStorage.getItem(
+        STORAGE_KEY
+      )
+
+      ||
+
+      "[]"
+
+    );
+
+  }catch{
+
+    return [];
+
+  }
+
+}
+
+
+function saveResults(results){
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(results)
+  );
+
+}
+
+
+function addResult(result){
+
+  const results =
+    loadResults();
+
+  results.unshift(
+    result
+  );
+
+  saveResults(
+    results
+  );
+
+}
+
+
+/* =========================================================
+   SUBMIT AND AUTO-MARK
+
+   Uses familiar November-style result card.
+========================================================= */
+
+function submitPaper(
+  fromAutoTimer=false
+){
+
+  if(
+    !state ||
+    state.submitted
+  ){
+
+    return;
+
+  }
+
+
+  let total = 0;
+
+  const breakdown = [];
+
+
+  for(
+    const passage
+    of state.paper
+  ){
+
+    for(
+      const q
+      of passage.questions
+    ){
+
+      const answer =
+        getAnswer(q);
+
+
+      const score =
+        markQuestion(
+          q,
+          answer
+        );
+
+
+      total += score;
+
+
+      breakdown.push({
+
+        qid:q.id,
+
+        passageId:
+          passage.n,
+
+        type:
+          q.type,
+
+        prompt:
+          q.prompt,
+
+        answer,
+
+        score,
+
+        max:
+          q.marks,
+
+        detail:
+          answer
+            ? `Accepted answer / meaning: ${correctAnswerDisplay(q)}`
+            : "No answer given."
+
+      });
+
+    }
+
+  }
+
+
+  /*
+    No hidden marks.
+    No blank-answer marks.
+    No bonus.
+
+    100 means 100.
+  */
+
+  total =
+    Math.min(
+      100,
+      total
+    );
+
+
+  state.submitted =
+    true;
+
+
+  clearInterval(
+    timerHandle
+  );
+
+
+  const letter =
+    gradeFor(
+      total,
+      state.tier
+    );
+
+
+  const pmd =
+    outcomeFor(
+      total
+    );
+
+
+  const gcse =
+    gcseEstimate(
+      total,
+      state.tier
+    );
+
+
+  const [
+    badgeCls,
+    badgeText
+  ] =
+    badgeForScore(
+      total
+    );
+
+
+  const attempt = {
+
+    paper:
+      "Otono Spanish Reading • June 2026",
+
+    tier:
+      state.tier,
+
+    centre:
+      state.centreNo,
+
+    candidateNo:
+      state.candidateNo,
+
+    candidateSurname:
+      state.candSurname,
+
+    candidateForenames:
+      state.candForenames,
+
+    submittedAt:
+      new Date()
+        .toISOString(),
+
+    timeAllowedMin:
+      parseInt(
+        $("timeAllowed").value,
+        10
+      ),
+
+    score:
+      total,
+
+    maxScore:
+      100,
+
+    otonoGrade:
+      letter,
+
+    gcseEstimated:
+      gcse,
+
+    outcome:
+      pmd,
+
+    breakdown
+
+  };
+
+
+  addResult(
+    attempt
+  );
+
+
+  const nameLine = [
+
+    attempt.candidateSurname,
+    attempt.candidateForenames
+
+  ]
+    .filter(Boolean)
+    .join(", ");
+
+
+  const box =
+    $("markingBox");
+
+
+  box.classList
+    .remove("hide");
+
+
+  box.className =
+    "";
+
+
+  box.innerHTML = `
+
+    <div class="card">
+
+      <div class="hd">
+
+        <div>
+
+          <h2>
+
+            ✅ Marked${
+              fromAutoTimer
+                ? " (auto-submitted)"
+                : ""
+            }
+
+          </h2>
+
+          <div class="meta">
+
+            Saved to Results
+
+            • Centre
+            ${escapeHtml(
+              attempt.centre
+            )}
+
+            • Candidate
+            ${escapeHtml(
+              attempt.candidateNo
+            )}
+
+            ${
+              nameLine
+                ? " • " +
+                  escapeHtml(
+                    nameLine
+                  )
+                : ""
+            }
+
+          </div>
+
+        </div>
+
+
+        <span class="${badgeCls}">
+          ${escapeHtml(
+            badgeText
+          )}
+        </span>
+
+      </div>
+
+
+      <div class="bd">
+
+
+        <div class="kpi">
+
+
+          <div class="box">
+
+            <div class="t">
+              Score
+            </div>
+
+            <div class="v">
+
+              ${attempt.score}
+              /
+              ${attempt.maxScore}
+
+            </div>
+
+          </div>
+
+
+          <div class="box">
+
+            <div class="t">
+              Otono grade
+            </div>
+
+            <div class="v">
+
+              ${escapeHtml(
+                attempt.otonoGrade
+              )}
+
+            </div>
+
+          </div>
+
+
+          <div class="box">
+
+            <div class="t">
+              GCSE estimate
+            </div>
+
+            <div class="v">
+
+              ${escapeHtml(
+                String(
+                  attempt.gcseEstimated
+                )
+              )}
+
+            </div>
+
+          </div>
+
+
+          <div class="box">
+
+            <div class="t">
+              Outcome
+            </div>
+
+            <div class="v">
+
+              ${escapeHtml(
+                attempt.outcome
+              )}
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+        <div class="divider"></div>
+
+
+        <div class="note">
+
+          <strong>
+            Marking notes
+          </strong><br>
+
+          • Multiple choice,
+          P/N and True/False/Not Mentioned
+          are marked exactly.<br>
+
+          • Written answers are marked
+          for meaning and allow
+          reasonable alternative wording.<br>
+
+          • Minor spelling and accent errors
+          do not automatically lose marks
+          where the intended answer is clear.<br>
+
+          • Unanswered questions score zero.
+
+        </div>
+
+
+        <div class="divider"></div>
+
+
+        <button
+          class="btn"
+          id="btnShowBreakdown">
+
+          Show question breakdown
+
+        </button>
+
+
+        <div
+          id="breakdown"
+          class="hide"
+          style="margin-top:12px">
+        </div>
+
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  $("btnShowBreakdown")
+    .addEventListener(
+      "click",
+      ()=>{
+
+        const bd =
+          $("breakdown");
+
+
+        bd.classList
+          .toggle("hide");
+
+
+        if(
+          !bd.classList
+            .contains("hide")
+        ){
+
+          bd.innerHTML =
+
+            breakdown.map(b=>`
+
+              <div class="attempt">
+
+                <div class="top">
+
+                  <div>
+
+                    <strong>
+                      ${escapeHtml(
+                        b.qid
+                      )}
+                    </strong>
+
+                    •
+
+                    ${escapeHtml(
+                      String(
+                        b.type
+                      )
+                    )}
+
+                  </div>
+
+
+                  <div>
+
+                    <span class="badge">
+
+                      ${b.score}
+                      /
+                      ${b.max}
+
+                    </span>
+
+                  </div>
+
+                </div>
+
+
+                <div class="meta">
+
+                  <div>
+
+                    <strong>
+                      Prompt:
+                    </strong>
+
+                    ${escapeHtml(
+                      b.prompt
+                    )}
+
+                  </div>
+
+
+                  <div>
+
+                    <strong>
+                      Your answer:
+                    </strong>
+
+                    ${escapeHtml(
+                      b.answer ||
+                      "—"
+                    )}
+
+                  </div>
+
+
+                  <div>
+
+                    <strong>
+                      Marker:
+                    </strong>
+
+                    ${escapeHtml(
+                      b.detail
+                    )}
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            `).join("");
+
+        }
+
+      }
+    );
+
+
+  $("statusBadge")
+    .textContent =
+    "Submitted";
+
+
+  $("statusBadge")
+    .className =
+    "badge good";
+
+}
+
+
+/* =========================================================
+   RESULTS SCREEN
+========================================================= */
+
+function drawResults(){
+
+  const list =
+    loadResults();
+
+
+  const filter =
+    $("filterCandidate")
+      .value
+      .replace(/\D/g,"")
+      .slice(0,4);
+
+
+  const filtered =
+
+    filter
+
+      ? list.filter(
+          attempt =>
+            String(
+              attempt.candidateNo
+            ) === filter
+        )
+
+      : list;
+
+
+  if(
+    filtered.length === 0
+  ){
+
+    $("resultsList")
+      .innerHTML = `
+
+        <div class="note">
+
+          No stored attempts${
+            filter
+              ? " for this candidate"
+              : ""
+          } yet.
+
+        </div>
+
+      `;
+
+    return;
+
+  }
+
+
+  $("resultsList")
+    .innerHTML =
+
+    filtered.map(attempt=>`
+
+      <div class="attempt">
+
+        <div class="top">
+
+          <div>
+
+            <strong>
+
+              Candidate
+              ${escapeHtml(
+                attempt.candidateNo
+              )}
+
+            </strong>
+
+          </div>
+
+
+          <span class="badge">
+
+            ${attempt.score}
+            /
+            ${attempt.maxScore}
+
+          </span>
+
+        </div>
+
+
+        <div class="meta">
+
+          Centre
+          ${escapeHtml(
+            attempt.centre
+          )}
+
+          • Otono grade
+          ${escapeHtml(
+            attempt.otonoGrade
+          )}
+
+          • GCSE estimate
+          ${escapeHtml(
+            String(
+              attempt.gcseEstimated
+            )
+          )}
+
+          •
+          ${escapeHtml(
+            attempt.outcome
+          )}
+
+          <br>
+
+          ${escapeHtml(
+
+            new Date(
+              attempt.submittedAt
+            ).toLocaleString()
+
+          )}
+
+        </div>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function showResults(){
+
+  $("homeBody")
+    .classList
+    .add("hide");
+
+
+  $("testBody")
+    .classList
+    .add("hide");
+
+
+  $("sideBody")
+    .classList
+    .add("hide");
+
+
+  $("resultsBody")
+    .classList
+    .remove("hide");
+
+
+  $("sideTitle")
+    .textContent =
+    "Stored results";
+
+
+  $("sideMeta")
+    .textContent =
+    "Saved locally on this browser.";
+
+
+  drawResults();
+
+}
+
+
+function showTest(){
+
+  $("resultsBody")
+    .classList
+    .add("hide");
+
+
+  $("sideBody")
+    .classList
+    .remove("hide");
+
+
+  $("sideTitle")
+    .textContent =
+    "Otono grading";
+
+
+  $("sideMeta")
+    .textContent =
+    "Grade boundaries";
+
+
+  if(state){
+
+    $("homeBody")
+      .classList
+      .add("hide");
+
+    $("testBody")
+      .classList
+      .remove("hide");
+
+  }else{
+
+    $("homeBody")
+      .classList
+      .remove("hide");
+
+    $("testBody")
+      .classList
+      .add("hide");
+
+  }
+
+
+  renderBoundaries();
+
+}
+
+
+/* =========================================================
+   RESET PAPER
+========================================================= */
+
+function resetPaper(){
+
+  if(
+    !confirm(
+      "Reset this paper and return to candidate setup?"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  clearInterval(
+    timerHandle
+  );
+
+
+  state =
+    null;
+
+
+  $("timerText")
+    .textContent =
+    "--:--";
+
+
+  $("testBody")
+    .classList
+    .add("hide");
+
+
+  $("homeBody")
+    .classList
+    .remove("hide");
+
+
+  $("markingBox")
+    .classList
+    .add("hide");
+
+
+  $("markingBox")
+    .innerHTML =
+    "";
+
+
+  $("statusBadge")
+    .textContent =
+    "Ready";
+
+
+  $("statusBadge")
+    .className =
+    "badge";
+
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+$("tier")
+  .addEventListener(
+    "change",
+    updateTier
+  );
+
+
+$("btnStart")
+  .addEventListener(
+    "click",
+    startPaper
+  );
+
+
+$("btnSubmit")
+  .addEventListener(
+    "click",
+    ()=>submitPaper(false)
+  );
+
+
+$("btnReset")
+  .addEventListener(
+    "click",
+    resetPaper
+  );
+
+
+$("btnResults")
+  .addEventListener(
+    "click",
+    showResults
+  );
+
+
+$("btnHome")
+  .addEventListener(
+    "click",
+    showTest
+  );
+
+
+$("btnEditCentre")
+  .addEventListener(
+    "click",
+    ()=>{
+
+      $("centreNo")
+        .disabled =
+        false;
+
+      $("centreNo")
+        .focus();
+
+    }
+  );
+
+
+$("btnResetCentre")
+  .addEventListener(
+    "click",
+    ()=>{
+
+      $("centreNo")
+        .value =
+        CENTRE_DEFAULT;
+
+      $("centreNo")
+        .disabled =
+        true;
+
+      $("centreTop")
+        .textContent =
+        CENTRE_DEFAULT;
+
+    }
+  );
+
+
+$("centreNo")
+  .addEventListener(
+    "input",
+    ()=>{
+
+      $("centreTop")
+        .textContent =
+        $("centreNo").value ||
+        CENTRE_DEFAULT;
+
+    }
+  );
+
+
+$("filterCandidate")
+  .addEventListener(
+    "input",
+    ()=>{
+
+      $("filterCandidate").value =
+
+        $("filterCandidate")
+          .value
+          .replace(/\D/g,"")
+          .slice(0,4);
+
+
+      drawResults();
+
+    }
+  );
+
+
+$("btnExport")
+  .addEventListener(
+    "click",
+    ()=>{
+
+      $("exportBox")
+        .classList
+        .remove("hide");
+
+
+      $("exportText")
+        .textContent =
+
+        JSON.stringify(
+          loadResults(),
+          null,
+          2
+        );
+
+    }
+  );
+
+
+$("btnClear")
+  .addEventListener(
+    "click",
+    ()=>{
+
+      if(
+        confirm(
+          "Clear all stored June 2026 Spanish results?"
+        )
+      ){
+
+        localStorage.removeItem(
+          STORAGE_KEY
+        );
+
+        drawResults();
+
+      }
+
+    }
+  );
+
+
+$("tabAll")
+  .addEventListener(
+    "click",
+    ()=>{
+
+      $("filterCandidate")
+        .value =
+        "";
+
+      drawResults();
+
+    }
+  );
+
+
+$("tabCandidate")
+  .addEventListener(
+    "click",
+    ()=>{
+
+      $("filterCandidate")
+        .focus();
+
+    }
+  );
+
+
+/* -----------------------------
+   Anti-cheat / source protection
+   (as requested)
+--------------------------------*/
+
+const disabledKeys = [
+  "u",
+  "i"
+];
+
+const showAlert = e => {
+
+  e.preventDefault();
+
+  return alert(
+    "Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!"
+  );
+
+};
+
+
+document.addEventListener(
+  "contextmenu",
+  e => {
+
+    showAlert(e);
+
+  }
+);
+
+
+document.addEventListener(
+  "keydown",
+  e => {
+
+    const key =
+      (e.key || "")
+        .toLowerCase();
+
+
+    if(
+
+      (
+        e.ctrlKey &&
+        disabledKeys.includes(key)
+      )
+
+      ||
+
+      key === "f12"
+
+    ){
+
+      showAlert(e);
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   INITIALISE
+========================================================= */
+
+updateTier();
+
+</script>
+
+</body>
+</html>
