@@ -1,0 +1,3850 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>🔴 Otono German — Reading • June 2026</title>
+
+<style>
+:root{
+  --bg1:#2b0a3d;
+  --bg2:#7a0036;
+  --card:#0f0b18cc;
+  --card2:#120c22e6;
+  --text:#f4efff;
+  --muted:#c9b9ff;
+  --accent:#b000ff;
+  --accent2:#ff1b6a;
+  --good:#19ff9a;
+  --warn:#ffd166;
+  --bad:#ff4d6d;
+  --line:rgba(255,255,255,.12);
+  --shadow:0 18px 50px rgba(0,0,0,.35);
+  --radius:18px;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,
+         "Liberation Mono","Courier New",monospace;
+  --sans:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,
+         Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
+}
+
+*{box-sizing:border-box}
+
+html{-webkit-text-size-adjust:100%}
+
+body{
+  margin:0;
+  font-family:var(--sans);
+  color:var(--text);
+  background:
+    radial-gradient(1000px 700px at 15% 10%,rgba(176,0,255,.22),transparent 60%),
+    radial-gradient(900px 650px at 80% 20%,rgba(255,27,106,.18),transparent 55%),
+    linear-gradient(135deg,var(--bg1),var(--bg2));
+  min-height:100vh;
+}
+
+.wrap{
+  max-width:1100px;
+  margin:0 auto;
+  padding:22px;
+}
+
+.topbar{
+  display:flex;
+  gap:14px;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 16px;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));
+  box-shadow:var(--shadow);
+  position:sticky;
+  top:14px;
+  z-index:20;
+  backdrop-filter:blur(10px);
+}
+
+.brand{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+
+.brand h1{
+  margin:0;
+  font-size:16px;
+  letter-spacing:.3px;
+}
+
+.brand .sub{
+  font-size:12px;
+  color:var(--muted);
+}
+
+.pill{
+  padding:8px 10px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:rgba(0,0,0,.25);
+  font-family:var(--mono);
+  font-size:12px;
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.pill strong{color:#fff}
+
+.btn{
+  border:1px solid var(--line);
+  background:rgba(0,0,0,.25);
+  color:var(--text);
+  padding:10px 12px;
+  border-radius:14px;
+  cursor:pointer;
+  transition:.15s transform,.15s background,.15s border;
+  font-weight:600;
+}
+
+.btn:hover{
+  transform:translateY(-1px);
+  background:rgba(0,0,0,.33);
+  border-color:rgba(255,255,255,.22);
+}
+
+.btn.primary{
+  background:linear-gradient(135deg,rgba(176,0,255,.55),rgba(255,27,106,.45));
+  border-color:rgba(255,255,255,.22);
+}
+
+.btn.danger{
+  background:rgba(255,77,109,.18);
+  border-color:rgba(255,77,109,.35);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:16px;
+  margin-top:16px;
+}
+
+.card{
+  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+
+.card .hd{
+  padding:14px 16px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:10px;
+  background:linear-gradient(180deg,rgba(255,255,255,.06),transparent);
+}
+
+.card .hd h2{
+  margin:0;
+  font-size:14px;
+}
+
+.card .hd .meta{
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.25;
+}
+
+.card .bd{padding:16px}
+
+label{
+  display:block;
+  font-size:12px;
+  color:var(--muted);
+  margin:10px 0 6px;
+}
+
+input[type=text],
+input[type=number],
+textarea,
+select{
+  width:100%;
+  border:1px solid var(--line);
+  background:rgba(0,0,0,.25);
+  color:var(--text);
+  padding:10px 12px;
+  border-radius:14px;
+  outline:none;
+  font-family:var(--sans);
+  font-size:16px;
+}
+
+textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+.row{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.row>div{
+  flex:1 1 180px;
+}
+
+.note{
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.45;
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px dashed rgba(255,255,255,.18);
+  background:rgba(0,0,0,.18);
+}
+
+.badge{
+  font-family:var(--mono);
+  font-size:12px;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:rgba(0,0,0,.20);
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+}
+
+.badge.good{
+  border-color:rgba(25,255,154,.35);
+  background:rgba(25,255,154,.12);
+}
+
+.badge.warn{
+  border-color:rgba(255,209,102,.35);
+  background:rgba(255,209,102,.12);
+}
+
+.badge.bad{
+  border-color:rgba(255,77,109,.35);
+  background:rgba(255,77,109,.12);
+}
+
+.divider{
+  height:1px;
+  background:var(--line);
+  margin:14px 0;
+}
+
+.passage{
+  padding:12px 14px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:rgba(0,0,0,.22);
+  line-height:1.55;
+}
+
+.q{
+  margin-top:14px;
+  padding:12px 14px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:rgba(0,0,0,.20);
+}
+
+.q h3{
+  margin:0 0 8px;
+  font-size:13px;
+}
+
+.opts{
+  display:grid;
+  gap:8px;
+  margin-top:8px;
+}
+
+.opt{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  padding:10px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.03);
+  cursor:pointer;
+}
+
+.opt input{margin-top:3px}
+
+.kpi{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+.kpi .box{
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:10px 12px;
+  background:rgba(0,0,0,.22);
+}
+
+.kpi .box .t{
+  font-size:12px;
+  color:var(--muted);
+}
+
+.kpi .box .v{
+  font-size:18px;
+  font-weight:800;
+  margin-top:4px;
+}
+
+.small{
+  font-size:12px;
+  color:var(--muted);
+}
+
+.tabs{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.tab{
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid var(--line);
+  background:rgba(0,0,0,.22);
+  cursor:pointer;
+  font-weight:700;
+}
+
+.tab.active{
+  background:linear-gradient(135deg,rgba(176,0,255,.35),rgba(255,27,106,.22));
+  border-color:rgba(255,255,255,.22);
+}
+
+.resultsList{
+  display:grid;
+  gap:10px;
+}
+
+.attempt{
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:12px 14px;
+  background:rgba(0,0,0,.20);
+}
+
+.attempt .top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.attempt .top strong{
+  font-family:var(--mono);
+}
+
+.attempt .meta{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:6px;
+  line-height:1.4;
+}
+
+.copy{
+  font-family:var(--mono);
+  font-size:12px;
+  white-space:pre-wrap;
+  word-break:break-word;
+}
+
+.hide{display:none!important}
+
+.digitRow{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+.digitRow .digit{
+  width:52px;
+  text-align:center;
+  font-family:var(--mono);
+  font-size:18px;
+  font-weight:900;
+  padding:12px 0;
+  border-radius:14px;
+  border:1px solid var(--line);
+  background:rgba(0,0,0,.25);
+  color:var(--text);
+  outline:none;
+}
+
+.digitRow .hint{
+  font-size:12px;
+  color:var(--muted);
+}
+
+.sectionTitle{
+  margin:20px 0 8px;
+  font-size:15px;
+}
+
+@media(max-width:900px){
+  .grid{grid-template-columns:1fr}
+  .topbar{position:static}
+}
+
+@media(max-width:600px){
+  .wrap{padding:10px}
+  .topbar{
+    padding:12px;
+    flex-direction:column;
+    align-items:stretch;
+  }
+  .topbar>div:last-child{
+    display:flex;
+    width:100%;
+  }
+  .topbar .btn{flex:1}
+  .kpi{grid-template-columns:1fr 1fr}
+  .digitRow{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+  }
+  .digitRow .digit{width:100%}
+  .digitRow .hint{grid-column:1/-1}
+  .row{display:block}
+  .row>div{width:100%}
+  .card .bd{padding:12px}
+  .opt{min-height:46px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+<div class="topbar">
+
+  <div class="brand">
+    <h1>🔴 Otono German — Paper 3 • Reading • June 2026 (SECURED)</h1>
+    <div class="sub">
+      Auto marking • Higher / Foundation • Centre:
+      <strong id="centreTop">50709</strong>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+    <div class="pill">
+      <span>⏱️ Timer:</span>
+      <strong id="timerText">--:--</strong>
+    </div>
+    <button class="btn" id="btnResults">Results</button>
+    <button class="btn primary" id="btnHome">Test</button>
+  </div>
+
+</div>
+
+<div class="grid">
+
+<div class="card" id="panelHome">
+
+<div class="hd">
+  <div>
+    <h2>Candidate setup</h2>
+    <div class="meta">No dictionary • No translator • Answer from the text</div>
+  </div>
+  <span class="badge" id="statusBadge">Ready</span>
+</div>
+
+<div class="bd" id="homeBody">
+
+<div class="row">
+  <div>
+    <label>Centre number</label>
+    <input type="text" id="centreNo" value="50709" disabled>
+    <div class="small" style="margin-top:6px">
+      Default is <strong>50709</strong>.
+    </div>
+  </div>
+
+  <div style="display:flex;gap:10px;align-items:flex-end">
+    <button class="btn" id="btnEditCentre">Customise centre</button>
+    <button class="btn" id="btnResetCentre">Reset centre</button>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div>
+  <label>Candidate number (required, 4 digits)</label>
+
+  <div class="digitRow">
+    <input class="digit" id="candD1" inputmode="numeric" maxlength="1">
+    <input class="digit" id="candD2" inputmode="numeric" maxlength="1">
+    <input class="digit" id="candD3" inputmode="numeric" maxlength="1">
+    <input class="digit" id="candD4" inputmode="numeric" maxlength="1">
+    <span class="hint">Digits only • auto-advance</span>
+  </div>
+</div>
+
+<div class="row">
+  <div>
+    <label>Candidate surname (optional)</label>
+    <input type="text" id="candSurname">
+  </div>
+
+  <div>
+    <label>Candidate forename(s) (optional)</label>
+    <input type="text" id="candForenames">
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="note">
+  <strong>Paper information</strong><br>
+  • Maximum mark: <strong>100</strong><br>
+  • Higher is selected by default.<br>
+  • Foundation candidates cannot select 75 minutes.<br>
+  • Written answers are marked for meaning.<br>
+  • Attempts are saved locally in this browser.
+</div>
+
+<div class="divider"></div>
+
+<div class="row">
+
+  <div>
+    <label>Tier</label>
+    <select id="tier">
+      <option value="higher" selected>Higher</option>
+      <option value="foundation">Foundation</option>
+    </select>
+  </div>
+
+  <div>
+    <label>Time allowed</label>
+    <select id="timeAllowed"></select>
+  </div>
+
+  <div>
+    <label>On timer end</label>
+    <select id="autoSubmit">
+      <option value="yes" selected>Auto-submit</option>
+      <option value="no">Do not auto-submit</option>
+    </select>
+  </div>
+
+</div>
+
+<div style="display:flex;gap:10px;margin-top:14px">
+  <button class="btn primary" id="btnStart">Start Paper</button>
+</div>
+
+</div>
+
+<div class="bd hide" id="testBody">
+
+<div class="kpi">
+  <div class="box">
+    <div class="t">Candidate</div>
+    <div class="v" id="kpiCandidate">—</div>
+  </div>
+
+  <div class="box">
+    <div class="t">Tier</div>
+    <div class="v" id="kpiTier">—</div>
+  </div>
+
+  <div class="box">
+    <div class="t">Questions</div>
+    <div class="v">10</div>
+  </div>
+
+  <div class="box">
+    <div class="t">Maximum</div>
+    <div class="v">100</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="note">
+  <strong>Instructions reminder</strong><br>
+  No dictionary. Answer all questions.
+  Short answers are acceptable unless the question asks for more than one detail.
+</div>
+
+<div id="paper"></div>
+
+<div class="divider"></div>
+
+<button class="btn primary" id="btnSubmit">Submit & Auto-Mark</button>
+<button class="btn" id="btnReset">Reset paper</button>
+
+<div id="markingBox" class="hide" style="margin-top:14px"></div>
+
+</div>
+</div>
+
+<div class="card">
+
+<div class="hd">
+  <div>
+    <h2 id="sideTitle">Otono grading</h2>
+    <div class="meta" id="sideMeta">Grade boundaries</div>
+  </div>
+</div>
+
+<div class="bd" id="sideBody"></div>
+
+<div class="bd hide" id="resultsBody">
+
+<div class="tabs">
+  <div class="tab active" id="tabAll">All attempts</div>
+  <div class="tab" id="tabCandidate">By candidate</div>
+</div>
+
+<label>Filter candidate number</label>
+<input type="text" id="filterCandidate" maxlength="4" inputmode="numeric">
+
+<div class="divider"></div>
+
+<div class="resultsList" id="resultsList"></div>
+
+<div class="divider"></div>
+
+<button class="btn" id="btnExport">Export JSON</button>
+<button class="btn danger" id="btnClear">Clear stored results</button>
+
+<div id="exportBox" class="note hide" style="margin-top:12px">
+  <div class="copy" id="exportText"></div>
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+
+
+<script>
+
+/* =========================================================
+   BASIC SETTINGS
+========================================================= */
+
+const CENTRE_DEFAULT = "50709";
+const STORAGE_KEY = "otonoGermanReadingJune2026Results";
+
+const $ = id => document.getElementById(id);
+
+function escapeHtml(s){
+  return String(s ?? "").replace(
+    /[&<>"']/g,
+    m => ({
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#39;"
+    }[m])
+  );
+}
+
+/*
+  German diacritics are normalised for forgiving marking.
+
+  für / fur
+  später / spater
+  Sídney / Sidney
+
+  can therefore be recognised where appropriate.
+*/
+
+function normalise(s){
+  return String(s ?? "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g,"")
+    .replace(/ß/g,"ss")
+    .replace(/[’']/g,"")
+    .replace(/[^a-z0-9\s]/g," ")
+    .replace(/\s+/g," ")
+    .trim();
+}
+
+
+/* =========================================================
+   GRADES
+========================================================= */
+
+const HIGHER_GRADES = [
+  ["S",101],
+  ["A*",97],
+  ["A",92],
+  ["B",82],
+  ["C",72],
+  ["D",62],
+  ["E",52],
+  ["F",47],
+  ["U",0]
+];
+
+const FOUNDATION_GRADES = [
+  ["C",82],
+  ["D",70],
+  ["E",58],
+  ["F",46],
+  ["G",34],
+  ["H",22],
+  ["U",0]
+];
+
+function gradeFor(score,tier){
+
+  const table =
+    tier === "foundation"
+      ? FOUNDATION_GRADES
+      : HIGHER_GRADES;
+
+  for(const [grade,boundary] of table){
+    if(score >= boundary){
+      return grade;
+    }
+  }
+
+  return "U";
+}
+
+function outcomeFor(score){
+
+  if(score >= 90) return "DISTINCTION";
+  if(score >= 80) return "MERIT";
+  if(score >= 66) return "PASS";
+
+  return "—";
+}
+
+function gcseEstimate(score,tier){
+
+  if(tier === "foundation"){
+    if(score >= 82) return "5";
+    if(score >= 70) return "4";
+    if(score >= 58) return "3";
+    if(score >= 46) return "2";
+    if(score >= 34) return "1";
+    return "U";
+  }
+
+  if(score >= 92) return "9";
+  if(score >= 82) return "8";
+  if(score >= 72) return "7";
+  if(score >= 62) return "6";
+  if(score >= 52) return "5";
+  if(score >= 47) return "4";
+
+  return "U";
+}
+
+function badgeForScore(score){
+  if(score >= 101) return ["badge good","💯 SECRET SCORE"];
+  if(score >= 90) return ["badge good","🏆 Ausgezeichnet"];
+  if(score >= 80) return ["badge good","⭐ Sehr gut"];
+  if(score >= 66) return ["badge warn","✅ OK"];
+  return ["badge bad","❌ Schlecht"];
+}
+
+function renderBoundaries(){
+
+  const tier = $("tier").value;
+
+  if(tier === "foundation"){
+
+    $("sideBody").innerHTML = `
+      <div class="note">
+        <strong>Foundation Tier</strong><br><br>
+        C: 82–100<br>
+        D: 70–81<br>
+        E: 58–69<br>
+        F: 46–57<br>
+        G: 34–45<br>
+        H: 22–33<br>
+        U: 0–21
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="note">
+        <strong>Outcomes</strong><br>
+        PASS: 66+<br>
+        MERIT: 80+<br>
+        DISTINCTION: 90+
+      </div>
+    `;
+
+  }else{
+
+    $("sideBody").innerHTML = `
+      <div class="note">
+        <strong>Higher Tier</strong><br><br>
+        S: 101 — impossible<br>
+        A*: 97–100<br>
+        A: 92–96<br>
+        B: 82–91<br>
+        C: 72–81<br>
+        D: 62–71<br>
+        E: 52–61<br>
+        F: 47–51<br>
+        U: 0–46
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="note">
+        <strong>Outcomes</strong><br>
+        PASS: 66+<br>
+        MERIT: 80+<br>
+        DISTINCTION: 90+
+      </div>
+    `;
+
+  }
+}
+
+
+/* =========================================================
+   QUESTION HELPERS
+========================================================= */
+
+function MCQ(id,prompt,marks,options,answer){
+  return {id,type:"mcq",prompt,marks,options,answer};
+}
+
+function TFNM(id,prompt,marks,answer){
+  return {id,type:"tfnm",prompt,marks,answer};
+}
+
+function PN(id,prompt,marks,answer){
+  return {id,type:"pn",prompt,marks,answer};
+}
+
+function SHORT(id,prompt,marks,accepted,model){
+  return {id,type:"short",prompt,marks,accepted,model};
+}
+
+function TRANS(id,prompt,marks,units,model){
+  return {id,type:"translation",prompt,marks,units,model};
+}
+
+
+/* =========================================================
+   HIGHER
+   SECTION A = 65
+   SECTION B = 15
+   SECTION C = 20
+   TOTAL = 100
+========================================================= */
+
+const HIGHER = [
+
+{
+n:1,
+section:"A",
+title:"Am Flughafen",
+difficulty:"🟢",
+marks:6,
+
+text:`
+Der Otono-Flug OT318 nach Berlin
+fliegt um 17:40 Uhr ab.
+Die Passagiere sollen um 17:05 Uhr
+am Flugsteig 11 sein.<br><br>
+
+Das Café neben Flugsteig 8
+ist bis 20:30 Uhr geöffnet.<br><br>
+
+Der Flug nach München
+hat fünfundzwanzig Minuten Verspätung.<br><br>
+
+Das Fundbüro befindet sich
+neben der Information.<br><br>
+
+Der Hotelbus fährt
+alle dreißig Minuten.<br><br>
+
+In London regnet es,
+aber in Berlin ist es sonnig.
+`,
+
+questions:[
+
+MCQ(
+"g1a",
+"What time should OT318 passengers be at the gate?",
+1,
+["17:05","17:40","18:05","20:30"],
+0
+),
+
+MCQ(
+"g1b",
+"Where is the café?",
+1,
+["Next to gate 8","Next to gate 11","At the hotel","Next to information"],
+0
+),
+
+MCQ(
+"g1c",
+"What has happened to the Munich flight?",
+1,
+["It is cancelled","It is 25 minutes late","It is early","It leaves tomorrow"],
+1
+),
+
+MCQ(
+"g1d",
+"Where is lost property?",
+1,
+["Next to information","At gate 8","Outside","At the hotel"],
+0
+),
+
+MCQ(
+"g1e",
+"How often does the hotel bus leave?",
+1,
+["Every 15 minutes","Every 20 minutes","Every 30 minutes","Every hour"],
+2
+),
+
+MCQ(
+"g1f",
+"What is the weather like in Berlin?",
+1,
+["Rainy","Snowy","Sunny","Windy"],
+2
+)
+
+]
+
+},
+
+{
+n:2,
+section:"A",
+title:"Zimmer 12",
+difficulty:"🟢",
+marks:7,
+
+text:`
+Red verbringt gern Zeit in Zimmer 12,
+weil er dort mit den anderen
+Filme sehen und Spiele spielen kann.<br><br>
+
+OWing findet das Zimmer bequem
+und ziemlich groß.
+Wenn er aber lernen muss,
+geht er lieber in ein ruhigeres Zimmer.<br><br>
+
+Luke kommt oft am Wochenende
+und hört dort Musik.<br><br>
+
+Jessica mag Zimmer 12 manchmal,
+aber wenn viele Leute dort sind,
+ist es ihr zu laut.
+`,
+
+questions:[
+
+PN("g2a","Red's opinion is…",1,"P"),
+
+PN("g2b","OWing's opinion is…",1,"P+N"),
+
+PN("g2c","Luke's opinion is…",1,"P"),
+
+PN("g2d","Jessica's opinion is…",1,"P+N"),
+
+MCQ(
+"g2e",
+"Why does OWing sometimes leave Room 12?",
+1,
+["To eat","To study somewhere quieter","To sleep","To watch a film"],
+1
+),
+
+MCQ(
+"g2f",
+"When does Luke often visit?",
+1,
+["At weekends","Only in the morning","On Mondays","At midnight"],
+0
+),
+
+MCQ(
+"g2g",
+"What is Jessica's problem when lots of people are there?",
+1,
+["It is too cold","It is too small","It is too loud","There is no television"],
+2
+)
+
+]
+
+},
+
+{
+n:3,
+section:"A",
+title:"Die lange Reise",
+difficulty:"🟡",
+marks:8,
+
+text:`
+Letzten Sommer
+flogen Red und OWing nach Japan.<br><br>
+
+Sie kamen drei Stunden
+vor dem Abflug am Flughafen an.
+OWing fand das vernünftig,
+aber Red meinte,
+dass zwei Stunden genug gewesen wären.<br><br>
+
+Im Flugzeug spielte Red
+zuerst ein Spiel
+und sah danach einen Film.<br><br>
+
+OWing las ungefähr
+vierzig Minuten lang
+und schlief dann ein.<br><br>
+
+Später gingen beide
+in die Bordlounge.
+Dort waren nur wenige Passagiere.<br><br>
+
+Red blieb dort eine halbe Stunde,
+während OWing
+nach zwanzig Minuten
+zu seinem Sitz zurückging.<br><br>
+
+Nach der Landung
+war Red müde,
+aber OWing wollte sofort
+etwas essen.
+`,
+
+questions:[
+
+TFNM("g3a","Red and OWing travelled to Japan.",1,"True"),
+
+TFNM("g3b","Red thought they needed to arrive three hours early.",1,"False"),
+
+TFNM("g3c","Red watched two films.",1,"Not mentioned"),
+
+TFNM("g3d","OWing read before sleeping.",1,"True"),
+
+TFNM("g3e","The lounge was crowded.",1,"False"),
+
+TFNM("g3f","Red stayed in the lounge longer than OWing.",1,"True"),
+
+TFNM("g3g","Red was tired after landing.",1,"True"),
+
+TFNM("g3h","OWing wanted to go straight to bed.",1,"False")
+
+]
+
+},
+
+{
+n:4,
+section:"A",
+title:"Lukes Schulsachen",
+difficulty:"🟡",
+marks:9,
+
+text:`
+Luke nimmt normalerweise
+zwei Federmäppchen mit zur Schule.<br><br>
+
+Im ersten hat er
+Bleistifte,
+schwarze Stifte,
+zwei blaue Stifte,
+ein Lineal,
+einen Spitzer
+und drei Radiergummis.<br><br>
+
+Er schreibt meistens
+mit schwarzer Tinte.
+Für Diagramme
+benutzt er jedoch oft einen Bleistift.<br><br>
+
+Sein zweites Federmäppchen
+ist für besondere Tintensachen.
+Darin sind Füller,
+Pinsel und eine Flasche
+mit schwarzer Tinte.<br><br>
+
+Die Flasche bleibt manchmal zu Hause,
+weil Luke sie nicht
+für jede Unterrichtsstunde braucht.<br><br>
+
+Einmal vergaß er sein Lineal.
+Seitdem kontrolliert er
+seine Schultasche jeden Morgen.
+`,
+
+questions:[
+
+MCQ(
+"g4a",
+"How many pencil cases does Luke normally take?",
+1,
+["One","Two","Three","Four"],
+1
+),
+
+MCQ(
+"g4b",
+"What colour ink does he normally use?",
+1,
+["Blue","Black","Red","Purple"],
+1
+),
+
+MCQ(
+"g4c",
+"What does he often use for diagrams?",
+1,
+["A brush","A pencil","A blue pen","Ink bottle"],
+1
+),
+
+SHORT(
+"g4d",
+"Why does the ink bottle sometimes stay at home?",
+1,
+[
+["does not need it every lesson","not needed every lesson","doesnt need it","not every lesson"]
+],
+"He does not need it for every lesson."
+),
+
+SHORT(
+"g4e",
+"What item did Luke once forget?",
+1,
+[
+["ruler","lineal"]
+],
+"His ruler."
+),
+
+SHORT(
+"g4f",
+"Give TWO things found in his special ink pencil case.",
+2,
+[
+["fountain pen","fountain pens","pen","fuller"],
+["brush","brushes","pinsel","ink bottle","bottle of ink","tinte"]
+],
+"Fountain pens and brushes/black ink."
+),
+
+SHORT(
+"g4g",
+"What new routine did Luke develop, and when does he do it?",
+3,
+[
+["check bag","checks bag","check school bag","controls bag"],
+["every morning","morning","jeden morgen"],
+["after forgetting","because forgot","not forget"]
+],
+"He checks his school bag every morning so that he does not forget equipment."
+)
+
+]
+
+},
+
+{
+n:5,
+section:"A",
+title:"Mein perfekter Flug",
+difficulty:"🟠",
+marks:10,
+
+text:`
+Red:
+Auf einem langen Flug
+brauche ich viel Beinfreiheit.
+Ich sehe auch gern Filme.
+Das Essen ist mir wichtig,
+aber ich muss nicht
+am Fenster sitzen.<br><br>
+
+OWing:
+Ich möchte einen Fensterplatz,
+weil ich gern hinaussehe.
+Später versuche ich meistens zu schlafen.
+Ein ruhiger Sitzplatz ist deshalb wichtig.<br><br>
+
+Luke:
+Ich interessiere mich
+besonders für das Flugzeug selbst.
+Ich sehe mir die Flugkarte an
+und gehe gern durch die Kabine.
+Filme sind für mich weniger wichtig.<br><br>
+
+Jessica:
+Ich nehme immer etwas zum Lesen mit.
+Außerdem möchte ich
+einen ruhigen Platz.
+Wenn ich schlafen will,
+stört mich laute Musik.
+`,
+
+questions:[
+
+MCQ(
+"g5a",
+"Who says legroom is important?",
+1,
+["Red","OWing","Luke","Jessica"],
+0
+),
+
+MCQ(
+"g5b",
+"Who wants a window seat?",
+1,
+["Red","OWing","Luke","Jessica"],
+1
+),
+
+MCQ(
+"g5c",
+"Who is especially interested in the aircraft itself?",
+1,
+["Red","OWing","Luke","Jessica"],
+2
+),
+
+MCQ(
+"g5d",
+"Who takes something to read?",
+1,
+["Red","OWing","Luke","Jessica"],
+3
+),
+
+SHORT(
+"g5e",
+"Give TWO things Red likes or values on a long flight.",
+2,
+[
+["legroom","space","room"],
+["films","movies","food"]
+],
+"Legroom and films/food."
+),
+
+SHORT(
+"g5f",
+"Why is a quiet seat important to OWing?",
+2,
+[
+["sleep","schlafen"],
+["later","usually","tries"]
+],
+"He usually tries to sleep later in the flight."
+),
+
+SHORT(
+"g5g",
+"Give TWO ways Luke's priorities differ from Red's.",
+2,
+[
+["aircraft","plane itself","flugzeug"],
+["flight map","map","flugkarte","walk cabin","cabin"],
+["films less important","less interested in films"]
+],
+"Luke focuses on the aircraft and flight map/cabin, while films are less important to him."
+)
+
+]
+
+},
+
+{
+n:6,
+section:"A",
+title:"William und der Filmabend",
+difficulty:"🟠",
+marks:11,
+
+text:`
+An einem Samstagabend
+wollten alle in Zimmer 12
+einen Film sehen.<br><br>
+
+William hatte schon
+auf dem Sofa gesessen,
+stand aber kurz vor Beginn
+plötzlich auf und ging hinaus.<br><br>
+
+Jessica dachte,
+er wolle nur sein Handy holen.
+Red glaubte dagegen,
+dass William etwas trinken wollte.<br><br>
+
+Nach zwölf Minuten
+war er immer noch nicht zurück.<br><br>
+
+Luke wollte den Film starten.
+OWing meinte,
+sie sollten noch drei Minuten warten.<br><br>
+
+Dann kam William zurück.
+Er erklärte,
+dass er auf der Toilette gewesen war.<br><br>
+
+Red fing sofort an zu lachen.
+Jessica fragte,
+warum es so lange gedauert hatte.<br><br>
+
+William fand die ganze Reaktion
+völlig übertrieben.
+Am nächsten Morgen
+machte Luke immer noch Witze darüber.
+`,
+
+questions:[
+
+TFNM("g6a","William had already been sitting on the sofa.",1,"True"),
+
+TFNM("g6b","Jessica thought William wanted a drink.",1,"False"),
+
+TFNM("g6c","Red thought William wanted a drink.",1,"True"),
+
+TFNM("g6d","William was gone for exactly twelve minutes.",1,"Not mentioned"),
+
+TFNM("g6e","Luke wanted to start the film.",1,"True"),
+
+SHORT(
+"g6f",
+"How long did OWing suggest waiting?",
+1,
+[
+["three minutes","3 minutes","drei minuten"]
+],
+"Three more minutes."
+),
+
+SHORT(
+"g6g",
+"Where had William been?",
+1,
+[
+["toilet","bathroom","loo","toilette"]
+],
+"To the toilet."
+),
+
+SHORT(
+"g6h",
+"How did Red react?",
+1,
+[
+["laugh","laughed","laughing","lachen"]
+],
+"He laughed."
+),
+
+SHORT(
+"g6i",
+"How did William feel about everybody's reaction?",
+2,
+[
+["overreaction","over the top","exaggerated","ubertrieben","unnecessary"],
+["did not find funny","not amused","thought reaction too much"]
+],
+"He thought their reaction was completely over the top."
+),
+
+SHORT(
+"g6j",
+"What shows that the incident had not been forgotten the next morning?",
+1,
+[
+["luke jokes","luke still joked","still making jokes","witze"]
+],
+"Luke was still joking about it."
+)
+
+]
+
+},
+
+{
+n:7,
+section:"A",
+title:"Der Safe bei Zimmer 33",
+difficulty:"🔴",
+marks:14,
+
+text:`
+Neben Zimmer 33
+befindet sich ein Safe,
+an dem die meisten Leute
+einfach vorbeigehen.<br><br>
+
+Red hat ihn oft gesehen,
+findet ihn aber normalerweise
+nicht besonders interessant.<br><br>
+
+OWing fragt sich,
+ob dort alte Dokumente
+oder wichtige Gegenstände liegen.<br><br>
+
+Jessica hat keine Ahnung,
+was sich im Safe befindet,
+möchte es aber irgendwann wissen.<br><br>
+
+Eines Nachmittags
+sieht sie Luke
+vor dem Tastenfeld stehen.<br><br>
+
+Er drückt keine Taste.
+Stattdessen zählt er
+offenbar die Knöpfe
+und schaut sehr genau hin.<br><br>
+
+Jessica fragt scherzhaft,
+ob er den Code kenne.<br><br>
+
+Luke antwortet nicht sofort.
+Er lächelt nur
+und geht schließlich weg.<br><br>
+
+Red sagt später,
+dass Lukes Verhalten
+wahrscheinlich gar nichts bedeutet.<br><br>
+
+OWing ist anderer Meinung:
+Wenn Luke nichts weiß,
+warum hat er dann
+so lange auf das Tastenfeld geschaut?
+`,
+
+questions:[
+
+MCQ(
+"g7a",
+"Where is the safe?",
+1,
+["Inside Room 12","Beside Room 33","Inside Room 33","Outside the mansion"],
+1
+),
+
+MCQ(
+"g7b",
+"What does OWing wonder about?",
+1,
+["Whether the safe is broken","Whether it contains documents or important objects","Whether it belongs to Jessica","Whether it can be moved"],
+1
+),
+
+TFNM("g7c","Jessica knows what is inside the safe.",1,"False"),
+
+TFNM("g7d","Luke presses several buttons.",1,"False"),
+
+TFNM("g7e","Luke appears to count the buttons.",1,"True"),
+
+TFNM("g7f","Luke tells Jessica the code.",1,"False"),
+
+SHORT(
+"g7g",
+"What TWO things does Luke do after Jessica asks about the code?",
+2,
+[
+["smile","smiles","lächelt","lachelt"],
+["walk away","leaves","goes away","geht weg"]
+],
+"He smiles and eventually walks away."
+),
+
+SHORT(
+"g7h",
+"What does Red think about Luke's behaviour?",
+2,
+[
+["means nothing","probably nothing","not important","nothing special"],
+["behaviour","reaction"]
+],
+"He thinks Luke's behaviour probably means nothing."
+),
+
+SHORT(
+"g7i",
+"Explain why OWing becomes more suspicious or curious.",
+4,
+[
+["luke looked","watched keypad","tastenfeld","keypad"],
+["long time","so long","lange"],
+["if knows nothing","nothing knows","doesnt know"],
+["questions why","wonder","curious","suspicious"]
+],
+"OWing wonders why Luke stared at the keypad for so long if he really knows nothing."
+)
+
+]
+
+},
+
+{
+n:8,
+section:"B",
+title:"Mathematik",
+difficulty:"🔴",
+marks:8,
+
+text:`
+In einer Mathematikstunde
+bekommt die Klasse
+mehrere schwierige Aufgaben.<br><br>
+
+Luke freut sich zuerst
+über eine Trigonometrieaufgabe.<br><br>
+
+OWing schreibt seine Lösung auf
+und kontrolliert sie zweimal.<br><br>
+
+Dann entdeckt Red
+eine Aufgabe über Integration.
+Er lächelt sofort,
+weil er dieses Thema
+schon in den Sommerferien
+gelernt hat.<br><br>
+
+Jessica findet die Aufgabe
+interessant,
+aber sie braucht mehr Zeit.<br><br>
+
+Luke lässt die Integration
+zunächst aus
+und macht sie später.<br><br>
+
+Am Ende sagt Red,
+dass die Integrationsaufgabe
+leichter war als erwartet.
+`,
+
+questions:[
+
+SHORT(
+"g8a",
+"Worüber freut sich Luke zuerst?",
+1,
+[
+["trigonometrie","trigonometry","trig"]
+],
+"Über eine Trigonometrieaufgabe."
+),
+
+SHORT(
+"g8b",
+"Wie oft kontrolliert OWing seine Lösung?",
+1,
+[
+["zweimal","two times","twice","2"]
+],
+"Zweimal."
+),
+
+SHORT(
+"g8c",
+"Welches Thema entdeckt Red?",
+1,
+[
+["integration"]
+],
+"Integration."
+),
+
+SHORT(
+"g8d",
+"Wann hat Red dieses Thema schon gelernt?",
+1,
+[
+["sommerferien","summer holiday","summer holidays","summer"]
+],
+"In den Sommerferien."
+),
+
+SHORT(
+"g8e",
+"Wie findet Jessica die Aufgabe?",
+1,
+[
+["interessant","interesting"]
+],
+"Interessant."
+),
+
+SHORT(
+"g8f",
+"Was macht Luke mit der Integrationsaufgabe?",
+2,
+[
+["lasst aus","skips","leave until later","does later"],
+["spater","later"]
+],
+"Er lässt sie zunächst aus und macht sie später."
+),
+
+SHORT(
+"g8g",
+"Wie findet Red die Aufgabe am Ende?",
+1,
+[
+["leichter","easier","easier than expected"]
+],
+"Leichter als erwartet."
+)
+
+]
+
+},
+
+{
+n:9,
+section:"B",
+title:"Die Sonnenfinsternis 2028",
+difficulty:"🟣",
+marks:7,
+
+text:`
+Im Jahr 2028
+möchte das Otono-Team
+nach Sydney reisen,
+um eine totale Sonnenfinsternis
+zu erleben.<br><br>
+
+Red interessiert sich besonders
+für die Minuten,
+in denen es am Tag
+plötzlich dunkel wird.<br><br>
+
+OWing möchte schon
+einige Tage vorher ankommen,
+damit er die Stadt besuchen kann.<br><br>
+
+Luke erstellt eine Liste
+für die Reise.<br><br>
+
+Jessica möchte beobachten,
+wie die Menschen
+auf die Dunkelheit reagieren.<br><br>
+
+Das Wetter bleibt jedoch
+ein wichtiger Faktor.
+Viele Wolken könnten
+die Beobachtung erschweren.<br><br>
+
+Deshalb will das Team
+kurz vor dem Ereignis
+den Wetterbericht prüfen.
+`,
+
+questions:[
+
+SHORT(
+"g9a",
+"Wohin möchte das Team reisen?",
+1,
+[
+["sydney","sidney"]
+],
+"Nach Sydney."
+),
+
+SHORT(
+"g9b",
+"Was interessiert Red besonders?",
+1,
+[
+["dunkel","darkness","dark","minutes of darkness"]
+],
+"Die Minuten, in denen es dunkel wird."
+),
+
+SHORT(
+"g9c",
+"Warum möchte OWing früher ankommen?",
+1,
+[
+["stadt","city","visit city","city besuchen"]
+],
+"Um die Stadt zu besuchen."
+),
+
+SHORT(
+"g9d",
+"Was erstellt Luke?",
+1,
+[
+["liste","list"]
+],
+"Eine Liste."
+),
+
+SHORT(
+"g9e",
+"Was möchte Jessica beobachten?",
+1,
+[
+["reaktion","menschen","people react","reaction"]
+],
+"Wie die Menschen reagieren."
+),
+
+SHORT(
+"g9f",
+"Was könnte die Beobachtung erschweren?",
+1,
+[
+["wolken","cloud","clouds"]
+],
+"Viele Wolken."
+),
+
+SHORT(
+"g9g",
+"Was will das Team kurz vorher prüfen?",
+1,
+[
+["wetterbericht","weather","weather forecast","forecast"]
+],
+"Den Wetterbericht."
+)
+
+]
+
+},
+
+{
+n:10,
+section:"C",
+title:"Übersetzung — Sydney",
+difficulty:"🟣",
+marks:20,
+
+text:`
+In zwei Jahren
+werden wir nach Sydney reisen,
+um eine totale Sonnenfinsternis zu sehen.
+
+Wir möchten einige Tage früher ankommen
+und die Stadt besuchen.
+
+Wenn das Wetter gut ist,
+werden wir die Sonne sehen können.
+
+Während der Totalität
+wird es mitten am Tag dunkel.
+
+Diese Reise werden wir
+lange nicht vergessen.
+`,
+
+questions:[
+
+TRANS(
+"g10",
+"Translate the passage into English.",
+20,
+
+[
+{
+marks:2,
+accepted:[
+"in two years",
+"two years from now"
+]
+},
+{
+marks:2,
+accepted:[
+"we will travel to sydney",
+"we will go to sydney",
+"we are going to sydney"
+]
+},
+{
+marks:2,
+accepted:[
+"see a total solar eclipse",
+"see a total eclipse"
+]
+},
+{
+marks:2,
+accepted:[
+"arrive a few days earlier",
+"arrive a few days early",
+"get there a few days early"
+]
+},
+{
+marks:2,
+accepted:[
+"visit the city",
+"see the city"
+]
+},
+{
+marks:2,
+accepted:[
+"if the weather is good",
+"if we have good weather"
+]
+},
+{
+marks:2,
+accepted:[
+"we will be able to see the sun",
+"we can see the sun"
+]
+},
+{
+marks:2,
+accepted:[
+"during totality",
+"during the total eclipse"
+]
+},
+{
+marks:2,
+accepted:[
+"dark in the middle of the day",
+"it will get dark during the day",
+"dark in broad daylight"
+]
+},
+{
+marks:2,
+accepted:[
+"we will not forget this trip for a long time",
+"we will remember this trip for a long time",
+"not forget the trip for a long time"
+]
+}
+],
+
+`In two years, we will travel to Sydney to see a total solar eclipse.
+We want to arrive a few days early and visit the city.
+If the weather is good, we will be able to see the Sun.
+During totality, it will become dark in the middle of the day.
+We will not forget this trip for a long time.`
+)
+
+]
+
+}
+
+];
+
+
+/* =========================================================
+   FOUNDATION
+   SECTION A = 75
+   SECTION B = 10
+   SECTION C = 15
+   TOTAL = 100
+========================================================= */
+
+const FOUNDATION = [
+
+{
+n:1,
+section:"A",
+title:"Am Flughafen",
+difficulty:"🟢",
+marks:10,
+
+text:`
+Der Flug OT318
+fliegt um 17:40 Uhr ab.<br><br>
+
+Die Passagiere gehen
+zu Flugsteig 11.<br><br>
+
+Neben Flugsteig 8
+gibt es ein Café.<br><br>
+
+Der Flug nach München
+hat Verspätung.<br><br>
+
+Der Hotelbus fährt
+alle dreißig Minuten.
+`,
+
+questions:[
+
+MCQ(
+"gf1a",
+"What time does OT318 leave?",
+2,
+["16:40","17:05","17:40","18:40"],
+2
+),
+
+MCQ(
+"gf1b",
+"What is the gate number?",
+2,
+["8","11","17","30"],
+1
+),
+
+MCQ(
+"gf1c",
+"What is next to gate 8?",
+2,
+["A hotel","A café","A train","A school"],
+1
+),
+
+MCQ(
+"gf1d",
+"What has happened to the Munich flight?",
+2,
+["It is early","It is delayed","It is cancelled","It is full"],
+1
+),
+
+MCQ(
+"gf1e",
+"How often does the hotel bus leave?",
+2,
+["Every 10 minutes","Every 20 minutes","Every 30 minutes","Every hour"],
+2
+)
+
+]
+
+},
+
+{
+n:2,
+section:"A",
+title:"Zimmer 12",
+difficulty:"🟢",
+marks:10,
+
+text:`
+Red mag Zimmer 12,
+weil er dort Filme sieht.<br><br>
+
+OWing findet es bequem,
+aber zum Lernen
+möchte er einen ruhigen Ort.<br><br>
+
+Luke hört dort gern Musik.<br><br>
+
+Jessica findet Zimmer 12 gut,
+wenn nicht zu viele Leute dort sind.
+`,
+
+questions:[
+
+PN("gf2a","Red's opinion is…",2,"P"),
+
+PN("gf2b","OWing's opinion is…",2,"P+N"),
+
+PN("gf2c","Luke's opinion is…",2,"P"),
+
+PN("gf2d","Jessica's opinion is…",2,"P+N"),
+
+MCQ(
+"gf2e",
+"What does OWing want when studying?",
+2,
+["A quiet place","Music","A film","More people"],
+0
+)
+
+]
+
+},
+
+{
+n:3,
+section:"A",
+title:"Lukes Federmäppchen",
+difficulty:"🟢",
+marks:10,
+
+text:`
+Luke hat zwei Federmäppchen.<br><br>
+
+Im ersten sind
+Bleistifte,
+schwarze Stifte,
+zwei blaue Stifte,
+ein Lineal
+und drei Radiergummis.<br><br>
+
+Im zweiten hat er
+Füller,
+Pinsel
+und schwarze Tinte.<br><br>
+
+Für Diagramme
+benutzt Luke oft
+einen Bleistift.
+`,
+
+questions:[
+
+MCQ(
+"gf3a",
+"How many pencil cases does Luke have?",
+2,
+["One","Two","Three","Four"],
+1
+),
+
+MCQ(
+"gf3b",
+"How many blue pens are mentioned?",
+2,
+["One","Two","Three","Four"],
+1
+),
+
+MCQ(
+"gf3c",
+"How many erasers are mentioned?",
+2,
+["One","Two","Three","Four"],
+2
+),
+
+MCQ(
+"gf3d",
+"What colour is the ink?",
+2,
+["Blue","Black","Red","Yellow"],
+1
+),
+
+MCQ(
+"gf3e",
+"What does Luke often use for diagrams?",
+2,
+["A pencil","A brush","The ink bottle","A blue pen"],
+0
+)
+
+]
+
+},
+
+{
+n:4,
+section:"A",
+title:"Die Reise",
+difficulty:"🟡",
+marks:10,
+
+text:`
+Red und OWing
+fliegen nach Japan.<br><br>
+
+Sie kommen drei Stunden
+vor dem Flug
+am Flughafen an.<br><br>
+
+Red spielt ein Spiel
+und sieht einen Film.<br><br>
+
+OWing liest
+und schläft danach.<br><br>
+
+Später gehen beide
+in die Bordlounge.
+`,
+
+questions:[
+
+TFNM("gf4a","Red travels with OWing.",2,"True"),
+
+TFNM("gf4b","They travel to Spain.",2,"False"),
+
+TFNM("gf4c","Red plays a game.",2,"True"),
+
+TFNM("gf4d","OWing reads before sleeping.",2,"True"),
+
+TFNM("gf4e","They eat burgers in the lounge.",2,"Not mentioned")
+
+]
+
+},
+
+{
+n:5,
+section:"A",
+title:"Im Flugzeug",
+difficulty:"🟡",
+marks:10,
+
+text:`
+Red mag Filme
+und viel Beinfreiheit.<br><br>
+
+OWing möchte
+einen Fensterplatz
+und schläft gern.<br><br>
+
+Luke interessiert sich
+für die Flugkarte.<br><br>
+
+Jessica liest gern
+und möchte einen ruhigen Platz.
+`,
+
+questions:[
+
+MCQ(
+"gf5a",
+"Who likes films?",
+2,
+["Red","OWing","Luke","Jessica"],
+0
+),
+
+MCQ(
+"gf5b",
+"Who wants a window seat?",
+2,
+["Red","OWing","Luke","Jessica"],
+1
+),
+
+MCQ(
+"gf5c",
+"Who likes the flight map?",
+2,
+["Red","OWing","Luke","Jessica"],
+2
+),
+
+MCQ(
+"gf5d",
+"Who likes reading?",
+2,
+["Red","OWing","Luke","Jessica"],
+3
+),
+
+SHORT(
+"gf5e",
+"Give ONE thing Jessica wants or likes.",
+2,
+[
+["reading","read","quiet","quiet place","lesen","ruhig"]
+],
+"Reading or a quiet place."
+)
+
+]
+
+},
+
+{
+n:6,
+section:"A",
+title:"William und der Film",
+difficulty:"🟠",
+marks:10,
+
+text:`
+Alle wollen
+in Zimmer 12
+einen Film sehen.<br><br>
+
+William geht
+vor dem Film hinaus.<br><br>
+
+Red denkt,
+dass William bald zurückkommt.<br><br>
+
+Luke möchte anfangen,
+aber OWing möchte warten.<br><br>
+
+Dann kommt William zurück.
+Er war auf der Toilette.<br><br>
+
+Red lacht.
+`,
+
+questions:[
+
+TFNM("gf6a","William leaves before the film.",2,"True"),
+
+TFNM("gf6b","Red thinks William will return soon.",2,"True"),
+
+TFNM("gf6c","Luke wants to wait.",2,"False"),
+
+TFNM("gf6d","William had been to the toilet.",2,"True"),
+
+SHORT(
+"gf6e",
+"How does Red react?",
+2,
+[
+["laugh","laughs","laughed","lacht"]
+],
+"He laughs."
+)
+
+]
+
+},
+
+{
+n:7,
+section:"A",
+title:"Der Safe",
+difficulty:"🟠",
+marks:8,
+
+text:`
+Der Safe ist
+neben Zimmer 33.<br><br>
+
+Red findet ihn
+nicht besonders interessant.<br><br>
+
+OWing denkt,
+dass Dokumente
+darin sein könnten.<br><br>
+
+Luke sieht
+das Tastenfeld an.<br><br>
+
+Jessica fragt,
+ob Luke den Code kennt.<br><br>
+
+Luke lächelt,
+aber er antwortet nicht.
+`,
+
+questions:[
+
+MCQ(
+"gf7a",
+"Where is the safe?",
+2,
+["Near Room 12","Beside Room 33","At school","Outside"],
+1
+),
+
+MCQ(
+"gf7b",
+"Who thinks documents might be inside?",
+2,
+["Red","OWing","Luke","Jessica"],
+1
+),
+
+TFNM(
+"gf7c",
+"Luke looks at the keypad.",
+2,
+"True"
+),
+
+SHORT(
+"gf7d",
+"What does Luke do when Jessica asks about the code?",
+2,
+[
+["smile","smiles","lächelt","lachelt","does not answer","doesnt answer"]
+],
+"He smiles but does not answer."
+)
+
+]
+
+},
+
+{
+n:8,
+section:"A",
+title:"Mathematik",
+difficulty:"🔴",
+marks:7,
+
+text:`
+Red,
+OWing,
+Luke und Jessica
+machen Mathematikaufgaben.<br><br>
+
+Luke beginnt
+mit Trigonometrie.<br><br>
+
+Red findet
+eine Integrationsaufgabe.<br><br>
+
+Er kennt das Thema schon,
+weil er es
+in den Ferien gelernt hat.<br><br>
+
+Jessica findet
+die Aufgabe interessant,
+aber nicht einfach.
+`,
+
+questions:[
+
+MCQ(
+"gf8a",
+"What topic does Luke begin with?",
+2,
+["Trigonometry","Integration","Languages","Geography"],
+0
+),
+
+SHORT(
+"gf8b",
+"Why does Red already know integration?",
+2,
+[
+["learned in holidays","learnt in holidays","studied in holidays","ferien"]
+],
+"He learned it during the holidays."
+),
+
+MCQ(
+"gf8c",
+"What topic does Red find?",
+1,
+["Integration","Art","History","Statistics"],
+0
+),
+
+TFNM(
+"gf8d",
+"Jessica thinks the question is easy.",
+2,
+"False"
+)
+
+]
+
+},
+
+{
+n:9,
+section:"B",
+title:"Sydney 2028",
+difficulty:"🔴",
+marks:10,
+
+text:`
+Im Jahr 2028
+reist das Otono-Team
+nach Sydney.<br><br>
+
+Dort möchte das Team
+eine totale Sonnenfinsternis sehen.<br><br>
+
+Red möchte
+den dunklen Himmel sehen.<br><br>
+
+OWing will
+einige Tage früher ankommen.<br><br>
+
+Luke macht eine Liste.<br><br>
+
+Wolken könnten
+die Sonne verstecken.
+Deshalb wird das Team
+den Wetterbericht prüfen.
+`,
+
+questions:[
+
+SHORT(
+"gf9a",
+"Wann reist das Team nach Sydney?",
+2,
+[
+["2028"]
+],
+"Im Jahr 2028."
+),
+
+SHORT(
+"gf9b",
+"Was möchte das Team sehen?",
+2,
+[
+["totale sonnenfinsternis","sonnenfinsternis","total eclipse","solar eclipse"]
+],
+"Eine totale Sonnenfinsternis."
+),
+
+SHORT(
+"gf9c",
+"Was möchte Red sehen?",
+2,
+[
+["dunklen himmel","dark sky","dunkel"]
+],
+"Den dunklen Himmel."
+),
+
+SHORT(
+"gf9d",
+"Was macht Luke?",
+2,
+[
+["liste","list"]
+],
+"Eine Liste."
+),
+
+SHORT(
+"gf9e",
+"Was wird das Team prüfen?",
+2,
+[
+["wetterbericht","weather forecast","weather","forecast"]
+],
+"Den Wetterbericht."
+)
+
+]
+
+},
+
+{
+n:10,
+section:"C",
+title:"Übersetzung — Die Reise",
+difficulty:"🔴",
+marks:15,
+
+text:`
+Nächstes Jahr
+werden wir nach Sydney reisen.
+
+Wir möchten
+eine Sonnenfinsternis sehen.
+
+Wir werden
+einige Tage früher ankommen.
+
+Hoffentlich ist das Wetter gut.
+
+Nach dem Ereignis
+werden wir die Stadt besuchen
+und dann nach Hause fliegen.
+`,
+
+questions:[
+
+TRANS(
+"gf10",
+"Translate the passage into English.",
+15,
+
+[
+{
+marks:2,
+accepted:["next year"]
+},
+{
+marks:2,
+accepted:[
+"we will travel to sydney",
+"we will go to sydney"
+]
+},
+{
+marks:2,
+accepted:[
+"we want to see an eclipse",
+"we would like to see an eclipse",
+"see a solar eclipse"
+]
+},
+{
+marks:2,
+accepted:[
+"arrive a few days early",
+"arrive several days early"
+]
+},
+{
+marks:2,
+accepted:[
+"hopefully the weather is good",
+"we hope the weather is good",
+"hopefully good weather"
+]
+},
+{
+marks:2,
+accepted:[
+"after the event",
+"afterwards"
+]
+},
+{
+marks:2,
+accepted:[
+"visit the city",
+"we will visit the city"
+]
+},
+{
+marks:1,
+accepted:[
+"fly home",
+"fly back home",
+"then fly home"
+]
+}
+],
+
+`Next year, we will travel to Sydney.
+We want to see a solar eclipse.
+We will arrive a few days early.
+Hopefully the weather will be good.
+After the event, we will visit the city and then fly home.`
+)
+
+]
+
+}
+
+];
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let state = null;
+let timerHandle = null;
+let timerSeconds = 0;
+
+
+/* =========================================================
+   TIER / TIME
+========================================================= */
+
+function updateTier(){
+
+  const tier = $("tier").value;
+
+  if(tier === "foundation"){
+
+    $("timeAllowed").innerHTML = `
+      <option value="60" selected>
+        60 minutes (recommended)
+      </option>
+      <option value="45">
+        45 minutes
+      </option>
+    `;
+
+  }else{
+
+    $("timeAllowed").innerHTML = `
+      <option value="75" selected>
+        75 minutes (recommended)
+      </option>
+      <option value="60">
+        60 minutes
+      </option>
+      <option value="45">
+        45 minutes
+      </option>
+    `;
+
+  }
+
+  renderBoundaries();
+}
+
+
+/* =========================================================
+   CANDIDATE NUMBER
+========================================================= */
+
+function candidateNumber(){
+
+  return [
+    $("candD1").value,
+    $("candD2").value,
+    $("candD3").value,
+    $("candD4").value
+  ].join("");
+
+}
+
+[
+  "candD1",
+  "candD2",
+  "candD3",
+  "candD4"
+].forEach((id,index)=>{
+
+  $(id).addEventListener("input",event=>{
+
+    event.target.value =
+      event.target.value
+        .replace(/\D/g,"")
+        .slice(0,1);
+
+    if(event.target.value && index < 3){
+      $(`candD${index+2}`).focus();
+    }
+
+  });
+
+});
+
+
+/* =========================================================
+   RENDER QUESTIONS
+========================================================= */
+
+function renderQuestion(q){
+
+  let answerHTML = "";
+
+  if(q.type === "mcq"){
+
+    answerHTML = `
+      <div class="opts">
+        ${q.options.map((option,index)=>`
+          <label class="opt">
+            <input
+              type="radio"
+              name="${q.id}"
+              value="${index}"
+            >
+            <span>${escapeHtml(option)}</span>
+          </label>
+        `).join("")}
+      </div>
+    `;
+
+  }
+
+  if(q.type === "pn"){
+
+    answerHTML = `
+      <div class="opts">
+        ${["P","N","P+N"].map(option=>`
+          <label class="opt">
+            <input
+              type="radio"
+              name="${q.id}"
+              value="${option}"
+            >
+            <span>${option}</span>
+          </label>
+        `).join("")}
+      </div>
+    `;
+
+  }
+
+  if(q.type === "tfnm"){
+
+    answerHTML = `
+      <div class="opts">
+        ${["True","False","Not mentioned"].map(option=>`
+          <label class="opt">
+            <input
+              type="radio"
+              name="${q.id}"
+              value="${option}"
+            >
+            <span>${option}</span>
+          </label>
+        `).join("")}
+      </div>
+    `;
+
+  }
+
+  if(q.type === "short" || q.type === "translation"){
+
+    answerHTML = `
+      <textarea
+        id="${q.id}"
+        placeholder="${
+          q.type === "translation"
+            ? "Write your English translation here…"
+            : "Write your answer here…"
+        }"
+      ></textarea>
+    `;
+
+  }
+
+  return `
+    <div class="q">
+      <h3>
+        ${escapeHtml(q.prompt)}
+        <span class="small">[${q.marks}]</span>
+      </h3>
+      ${answerHTML}
+    </div>
+  `;
+
+}
+
+function renderPaper(){
+
+  $("paper").innerHTML =
+    state.paper.map(p=>`
+
+      <h3 class="sectionTitle">
+        Question ${p.n}
+        — ${escapeHtml(p.title)}
+        ${p.difficulty}
+        <span class="small">
+          (${p.marks} marks • Section ${p.section})
+        </span>
+      </h3>
+
+      <div class="passage">
+        ${p.text}
+      </div>
+
+      ${p.questions.map(renderQuestion).join("")}
+
+    `).join("");
+
+}
+
+
+/* =========================================================
+   GET ANSWER
+========================================================= */
+
+function getAnswer(q){
+
+  if(
+    q.type === "mcq" ||
+    q.type === "pn" ||
+    q.type === "tfnm"
+  ){
+
+    const selected =
+      document.querySelector(
+        `input[name="${q.id}"]:checked`
+      );
+
+    return selected
+      ? selected.value
+      : "";
+
+  }
+
+  return $(q.id)
+    ? $(q.id).value
+    : "";
+
+}
+
+
+/* =========================================================
+   FORGIVING WRITTEN ANSWER MATCHING
+========================================================= */
+
+function phraseMatch(answer,accepted){
+
+  const a = normalise(answer);
+  const b = normalise(accepted);
+
+  if(!a || !b){
+    return false;
+  }
+
+  if(a.includes(b) || b.includes(a)){
+    return true;
+  }
+
+  const answerWords =
+    a.split(" ").filter(Boolean);
+
+  const acceptedWords =
+    b.split(" ").filter(Boolean);
+
+  if(acceptedWords.length === 1){
+
+    const target =
+      acceptedWords[0];
+
+    return answerWords.some(word=>{
+
+      if(word === target){
+        return true;
+      }
+
+      if(
+        target.length >= 5 &&
+        word.length >= 5 &&
+        word.slice(0,4) === target.slice(0,4)
+      ){
+        return true;
+      }
+
+      return false;
+
+    });
+
+  }
+
+  const matches =
+    acceptedWords.filter(
+      word => answerWords.includes(word)
+    ).length;
+
+  return (
+    matches /
+    acceptedWords.length
+  ) >= .65;
+
+}
+
+
+/* =========================================================
+   SHORT ANSWERS
+========================================================= */
+
+function markShort(q,answer){
+
+  /*
+    CRITICAL:
+    Blank answers ALWAYS score zero.
+  */
+
+  if(!normalise(answer)){
+    return 0;
+  }
+
+  let hits = 0;
+
+  for(const group of q.accepted){
+
+    const matched =
+      group.some(
+        accepted =>
+          phraseMatch(answer,accepted)
+      );
+
+    if(matched){
+      hits++;
+    }
+
+  }
+
+  if(hits === 0){
+    return 0;
+  }
+
+  const fraction =
+    hits / q.accepted.length;
+
+  return Math.min(
+    q.marks,
+    Math.max(
+      1,
+      Math.round(
+        fraction * q.marks
+      )
+    )
+  );
+
+}
+
+
+/* =========================================================
+   TRANSLATION
+========================================================= */
+
+function markTranslation(q,answer){
+
+  if(!normalise(answer)){
+    return 0;
+  }
+
+  let score = 0;
+
+  for(const unit of q.units){
+
+    const matched =
+      unit.accepted.some(
+        accepted =>
+          phraseMatch(answer,accepted)
+      );
+
+    if(matched){
+      score += unit.marks;
+    }
+
+  }
+
+  return Math.min(q.marks,score);
+
+}
+
+
+/* =========================================================
+   MARK QUESTION
+
+   THE IMPORTANT BLANK-ANSWER FIX IS RETAINED.
+
+   Number("") === 0, so we MUST check for a blank
+   BEFORE converting MCQ values to numbers.
+========================================================= */
+
+function markQuestion(q,answer){
+
+  if(
+    answer === undefined ||
+    answer === null ||
+    normalise(answer) === ""
+  ){
+    return 0;
+  }
+
+  if(q.type === "mcq"){
+
+    return (
+      Number(answer) === q.answer
+    )
+      ? q.marks
+      : 0;
+
+  }
+
+  if(
+    q.type === "pn" ||
+    q.type === "tfnm"
+  ){
+
+    return (
+      answer === q.answer
+    )
+      ? q.marks
+      : 0;
+
+  }
+
+  if(q.type === "short"){
+    return markShort(q,answer);
+  }
+
+  if(q.type === "translation"){
+    return markTranslation(q,answer);
+  }
+
+  return 0;
+
+}
+
+
+/* =========================================================
+   CORRECT ANSWER DISPLAY
+========================================================= */
+
+function correctAnswerDisplay(q){
+
+  if(q.type === "mcq"){
+    return q.options[q.answer];
+  }
+
+  if(
+    q.type === "pn" ||
+    q.type === "tfnm"
+  ){
+    return q.answer;
+  }
+
+  return q.model || "";
+
+}
+
+
+/* =========================================================
+   TIMER
+========================================================= */
+
+function timerTick(){
+
+  const minutes =
+    Math.max(
+      0,
+      Math.floor(timerSeconds / 60)
+    );
+
+  const seconds =
+    Math.max(
+      0,
+      timerSeconds % 60
+    );
+
+  $("timerText").textContent =
+    String(minutes).padStart(2,"0")
+    + ":" +
+    String(seconds).padStart(2,"0");
+
+}
+
+function startTimer(minutes){
+
+  clearInterval(timerHandle);
+
+  timerSeconds =
+    minutes * 60;
+
+  timerTick();
+
+  timerHandle =
+    setInterval(()=>{
+
+      timerSeconds--;
+
+      timerTick();
+
+      if(timerSeconds <= 0){
+
+        clearInterval(timerHandle);
+
+        if($("autoSubmit").value === "yes"){
+          submitPaper(true);
+        }
+
+      }
+
+    },1000);
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+function startPaper(){
+
+  const candidate =
+    candidateNumber();
+
+  if(!/^\d{4}$/.test(candidate)){
+
+    alert(
+      "Please enter a 4-digit candidate number."
+    );
+
+    return;
+
+  }
+
+  const tier =
+    $("tier").value;
+
+  state = {
+
+    tier,
+
+    paper:
+      tier === "foundation"
+        ? FOUNDATION
+        : HIGHER,
+
+    centreNo:
+      $("centreNo").value ||
+      CENTRE_DEFAULT,
+
+    candidateNo:
+      candidate,
+
+    candSurname:
+      $("candSurname").value.trim(),
+
+    candForenames:
+      $("candForenames").value.trim(),
+
+    submitted:false
+
+  };
+
+  $("homeBody").classList.add("hide");
+  $("testBody").classList.remove("hide");
+
+  $("kpiCandidate").textContent =
+    candidate;
+
+  $("kpiTier").textContent =
+    tier === "foundation"
+      ? "Foundation"
+      : "Higher";
+
+  $("statusBadge").textContent =
+    "In progress";
+
+  $("statusBadge").className =
+    "badge warn";
+
+  $("markingBox").classList.add("hide");
+  $("markingBox").innerHTML = "";
+
+  renderPaper();
+
+  startTimer(
+    parseInt(
+      $("timeAllowed").value,
+      10
+    )
+  );
+
+}
+
+
+/* =========================================================
+   STORAGE
+========================================================= */
+
+function loadResults(){
+
+  try{
+
+    return JSON.parse(
+      localStorage.getItem(STORAGE_KEY)
+      || "[]"
+    );
+
+  }catch{
+
+    return [];
+
+  }
+
+}
+
+function saveResults(results){
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(results)
+  );
+
+}
+
+function addResult(result){
+
+  const results =
+    loadResults();
+
+  results.unshift(result);
+
+  saveResults(results);
+
+}
+
+
+/* =========================================================
+   SUBMIT
+========================================================= */
+
+function submitPaper(fromAutoTimer=false){
+
+  if(!state || state.submitted){
+    return;
+  }
+
+  let total = 0;
+  const breakdown = [];
+
+  for(const passage of state.paper){
+
+    for(const q of passage.questions){
+
+      const answer =
+        getAnswer(q);
+
+      const score =
+        markQuestion(q,answer);
+
+      total += score;
+
+      breakdown.push({
+
+        qid:q.id,
+        passageId:passage.n,
+        type:q.type,
+        prompt:q.prompt,
+        answer,
+        score,
+        max:q.marks,
+
+        detail:
+          answer
+            ? `Accepted answer / meaning: ${correctAnswerDisplay(q)}`
+            : "No answer given."
+
+      });
+
+    }
+
+  }
+
+  total =
+    Math.min(100,total);
+
+  state.submitted =
+    true;
+
+  clearInterval(timerHandle);
+
+  const letter =
+    gradeFor(total,state.tier);
+
+  const pmd =
+    outcomeFor(total);
+
+  const gcse =
+    gcseEstimate(total,state.tier);
+
+  const [badgeCls,badgeText] =
+    badgeForScore(total);
+
+  const attempt = {
+
+    paper:
+      "Otono German Reading • June 2026",
+
+    tier:
+      state.tier,
+
+    centre:
+      state.centreNo,
+
+    candidateNo:
+      state.candidateNo,
+
+    candidateSurname:
+      state.candSurname,
+
+    candidateForenames:
+      state.candForenames,
+
+    submittedAt:
+      new Date().toISOString(),
+
+    timeAllowedMin:
+      parseInt(
+        $("timeAllowed").value,
+        10
+      ),
+
+    score:total,
+    maxScore:100,
+    otonoGrade:letter,
+    gcseEstimated:gcse,
+    outcome:pmd,
+    breakdown
+
+  };
+
+  addResult(attempt);
+
+  const nameLine = [
+    attempt.candidateSurname,
+    attempt.candidateForenames
+  ]
+    .filter(Boolean)
+    .join(", ");
+
+  const box =
+    $("markingBox");
+
+  box.classList.remove("hide");
+  box.className = "";
+
+  box.innerHTML = `
+
+    <div class="card">
+
+      <div class="hd">
+
+        <div>
+
+          <h2>
+            ✅ Marked${
+              fromAutoTimer
+                ? " (auto-submitted)"
+                : ""
+            }
+          </h2>
+
+          <div class="meta">
+
+            Saved to Results
+            • Centre ${escapeHtml(attempt.centre)}
+            • Candidate ${escapeHtml(attempt.candidateNo)}
+
+            ${
+              nameLine
+                ? " • " + escapeHtml(nameLine)
+                : ""
+            }
+
+          </div>
+
+        </div>
+
+        <span class="${badgeCls}">
+          ${escapeHtml(badgeText)}
+        </span>
+
+      </div>
+
+      <div class="bd">
+
+        <div class="kpi">
+
+          <div class="box">
+            <div class="t">Score</div>
+            <div class="v">
+              ${attempt.score}/${attempt.maxScore}
+            </div>
+          </div>
+
+          <div class="box">
+            <div class="t">Otono grade</div>
+            <div class="v">
+              ${escapeHtml(attempt.otonoGrade)}
+            </div>
+          </div>
+
+          <div class="box">
+            <div class="t">GCSE estimate</div>
+            <div class="v">
+              ${escapeHtml(String(attempt.gcseEstimated))}
+            </div>
+          </div>
+
+          <div class="box">
+            <div class="t">Outcome</div>
+            <div class="v">
+              ${escapeHtml(attempt.outcome)}
+            </div>
+          </div>
+
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="note">
+
+          <strong>Marking notes</strong><br>
+
+          • Multiple choice, P/N and
+          True/False/Not Mentioned are marked exactly.<br>
+
+          • Written answers are marked for meaning
+          and allow reasonable alternative wording.<br>
+
+          • Minor spelling, umlaut and ß errors
+          do not automatically lose marks where
+          the intended meaning is clear.<br>
+
+          • Unanswered questions score zero.
+
+        </div>
+
+        <div class="divider"></div>
+
+        <button class="btn" id="btnShowBreakdown">
+          Show question breakdown
+        </button>
+
+        <div
+          id="breakdown"
+          class="hide"
+          style="margin-top:12px">
+        </div>
+
+      </div>
+
+    </div>
+  `;
+
+  $("btnShowBreakdown")
+    .addEventListener("click",()=>{
+
+      const bd =
+        $("breakdown");
+
+      bd.classList.toggle("hide");
+
+      if(!bd.classList.contains("hide")){
+
+        bd.innerHTML =
+          breakdown.map(b=>`
+
+            <div class="attempt">
+
+              <div class="top">
+
+                <div>
+                  <strong>${escapeHtml(b.qid)}</strong>
+                  •
+                  ${escapeHtml(String(b.type))}
+                </div>
+
+                <div>
+                  <span class="badge">
+                    ${b.score}/${b.max}
+                  </span>
+                </div>
+
+              </div>
+
+              <div class="meta">
+
+                <div>
+                  <strong>Prompt:</strong>
+                  ${escapeHtml(b.prompt)}
+                </div>
+
+                <div>
+                  <strong>Your answer:</strong>
+                  ${escapeHtml(b.answer || "—")}
+                </div>
+
+                <div>
+                  <strong>Marker:</strong>
+                  ${escapeHtml(b.detail)}
+                </div>
+
+              </div>
+
+            </div>
+
+          `).join("");
+
+      }
+
+    });
+
+  $("statusBadge").textContent =
+    "Submitted";
+
+  $("statusBadge").className =
+    "badge good";
+
+}
+
+
+/* =========================================================
+   RESULTS
+========================================================= */
+
+function drawResults(){
+
+  const list =
+    loadResults();
+
+  const filter =
+    $("filterCandidate")
+      .value
+      .replace(/\D/g,"")
+      .slice(0,4);
+
+  const filtered =
+    filter
+      ? list.filter(
+          attempt =>
+            String(attempt.candidateNo) === filter
+        )
+      : list;
+
+  if(filtered.length === 0){
+
+    $("resultsList").innerHTML = `
+      <div class="note">
+        No stored attempts${
+          filter
+            ? " for this candidate"
+            : ""
+        } yet.
+      </div>
+    `;
+
+    return;
+  }
+
+  $("resultsList").innerHTML =
+    filtered.map(attempt=>`
+
+      <div class="attempt">
+
+        <div class="top">
+
+          <div>
+            <strong>
+              Candidate
+              ${escapeHtml(attempt.candidateNo)}
+            </strong>
+          </div>
+
+          <span class="badge">
+            ${attempt.score}/${attempt.maxScore}
+          </span>
+
+        </div>
+
+        <div class="meta">
+
+          Centre ${escapeHtml(attempt.centre)}
+          • Otono grade ${escapeHtml(attempt.otonoGrade)}
+          • GCSE estimate ${escapeHtml(String(attempt.gcseEstimated))}
+          • ${escapeHtml(attempt.outcome)}
+
+          <br>
+
+          ${escapeHtml(
+            new Date(attempt.submittedAt).toLocaleString()
+          )}
+
+        </div>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function showResults(){
+
+  $("homeBody").classList.add("hide");
+  $("testBody").classList.add("hide");
+  $("sideBody").classList.add("hide");
+  $("resultsBody").classList.remove("hide");
+
+  $("sideTitle").textContent =
+    "Stored results";
+
+  $("sideMeta").textContent =
+    "Saved locally on this browser.";
+
+  drawResults();
+
+}
+
+function showTest(){
+
+  $("resultsBody").classList.add("hide");
+  $("sideBody").classList.remove("hide");
+
+  $("sideTitle").textContent =
+    "Otono grading";
+
+  $("sideMeta").textContent =
+    "Grade boundaries";
+
+  if(state){
+
+    $("homeBody").classList.add("hide");
+    $("testBody").classList.remove("hide");
+
+  }else{
+
+    $("homeBody").classList.remove("hide");
+    $("testBody").classList.add("hide");
+
+  }
+
+  renderBoundaries();
+
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+function resetPaper(){
+
+  if(
+    !confirm(
+      "Reset this paper and return to candidate setup?"
+    )
+  ){
+    return;
+  }
+
+  clearInterval(timerHandle);
+
+  state = null;
+
+  $("timerText").textContent =
+    "--:--";
+
+  $("testBody").classList.add("hide");
+  $("homeBody").classList.remove("hide");
+
+  $("markingBox").classList.add("hide");
+  $("markingBox").innerHTML = "";
+
+  $("statusBadge").textContent =
+    "Ready";
+
+  $("statusBadge").className =
+    "badge";
+
+}
+
+
+/* =========================================================
+   BUTTON EVENTS
+========================================================= */
+
+$("tier").addEventListener(
+  "change",
+  updateTier
+);
+
+$("btnStart").addEventListener(
+  "click",
+  startPaper
+);
+
+$("btnSubmit").addEventListener(
+  "click",
+  ()=>submitPaper(false)
+);
+
+$("btnReset").addEventListener(
+  "click",
+  resetPaper
+);
+
+$("btnResults").addEventListener(
+  "click",
+  showResults
+);
+
+$("btnHome").addEventListener(
+  "click",
+  showTest
+);
+
+$("btnEditCentre").addEventListener(
+  "click",
+  ()=>{
+
+    $("centreNo").disabled =
+      false;
+
+    $("centreNo").focus();
+
+  }
+);
+
+$("btnResetCentre").addEventListener(
+  "click",
+  ()=>{
+
+    $("centreNo").value =
+      CENTRE_DEFAULT;
+
+    $("centreNo").disabled =
+      true;
+
+    $("centreTop").textContent =
+      CENTRE_DEFAULT;
+
+  }
+);
+
+$("centreNo").addEventListener(
+  "input",
+  ()=>{
+
+    $("centreTop").textContent =
+      $("centreNo").value ||
+      CENTRE_DEFAULT;
+
+  }
+);
+
+$("filterCandidate").addEventListener(
+  "input",
+  ()=>{
+
+    $("filterCandidate").value =
+      $("filterCandidate")
+        .value
+        .replace(/\D/g,"")
+        .slice(0,4);
+
+    drawResults();
+
+  }
+);
+
+$("btnExport").addEventListener(
+  "click",
+  ()=>{
+
+    $("exportBox")
+      .classList
+      .remove("hide");
+
+    $("exportText").textContent =
+      JSON.stringify(
+        loadResults(),
+        null,
+        2
+      );
+
+  }
+);
+
+$("btnClear").addEventListener(
+  "click",
+  ()=>{
+
+    if(
+      confirm(
+        "Clear all stored June 2026 German results?"
+      )
+    ){
+
+      localStorage.removeItem(
+        STORAGE_KEY
+      );
+
+      drawResults();
+
+    }
+
+  }
+);
+
+$("tabAll").addEventListener(
+  "click",
+  ()=>{
+
+    $("filterCandidate").value =
+      "";
+
+    drawResults();
+
+  }
+);
+
+$("tabCandidate").addEventListener(
+  "click",
+  ()=>{
+
+    $("filterCandidate").focus();
+
+  }
+);
+
+
+/* -----------------------------
+   Anti-cheat / source protection
+   (same Otono version)
+--------------------------------*/
+
+const disabledKeys = ["u","i"];
+
+const showAlert = e => {
+
+  e.preventDefault();
+
+  return alert(
+    "Hahaha, I challenge you, valiant soldier, to uproot the source codes yourself!!!"
+  );
+
+};
+
+document.addEventListener(
+  "contextmenu",
+  e => {
+    showAlert(e);
+  }
+);
+
+document.addEventListener(
+  "keydown",
+  e => {
+
+    const key =
+      (e.key || "")
+        .toLowerCase();
+
+    if(
+      (
+        e.ctrlKey &&
+        disabledKeys.includes(key)
+      )
+      ||
+      key === "f12"
+    ){
+      showAlert(e);
+    }
+
+  }
+);
+
+
+/* =========================================================
+   INITIALISE
+========================================================= */
+
+updateTier();
+
+</script>
+
+</body>
+</html>
