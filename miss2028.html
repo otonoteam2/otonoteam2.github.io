@@ -635,25 +635,336 @@ footer{
   .hero h1{letter-spacing:-4px}
   .guess-title,.reveal-line{letter-spacing:-2px}
 }
+/* =========================
+   PHONE LAYOUT
+   ========================= */
+@media (max-width: 600px) {
+
+  /* GENERAL */
+  section {
+    padding: 70px 20px;
+  }
+
+  nav {
+    height: 60px;
+    padding: 0 16px;
+  }
+
+  .logo {
+    font-size: 1.05rem;
+  }
+
+  .navdate {
+    font-size: .65rem;
+  }
+
+  .title {
+    font-size: clamp(2.2rem, 12vw, 3.5rem);
+    letter-spacing: -2px;
+  }
+
+  .subtitle {
+    font-size: .95rem;
+    margin-bottom: 35px;
+  }
+
+  .eyebrow {
+    font-size: .68rem;
+    letter-spacing: 2px;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100svh;
+    padding: 100px 20px 55px;
+  }
+
+  .hero h1 {
+    font-size: clamp(4rem, 22vw, 6rem);
+    line-height: .85;
+    letter-spacing: -4px;
+  }
+
+  .hero-copy {
+    font-size: .95rem;
+    line-height: 1.65;
+  }
+
+  .scroll-hint {
+    font-size: .75rem;
+    letter-spacing: 1px;
+  }
+
+  /* FIRST REVEAL */
+  .first-reveal {
+    min-height: 60vh;
+  }
+
+  .first-reveal .big {
+    font-size: clamp(3rem, 15vw, 5rem);
+    letter-spacing: -3px;
+  }
+
+  /* 2089 */
+  .annular-year {
+    font-size: clamp(6rem, 32vw, 10rem);
+    letter-spacing: -5px;
+  }
+
+  .annular-label {
+    font-size: 1.5rem;
+  }
+
+  .image-frame {
+    padding: 7px;
+    border-radius: 18px;
+  }
+
+  .feature-image {
+    border-radius: 12px;
+  }
+
+  /* TOTAL vs ANNULAR */
+  .comparison {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  .compare-card {
+    padding: 24px 20px;
+  }
+
+  .compare-icon {
+    font-size: 3rem;
+  }
+
+  .compare-card h3 {
+    font-size: 1.5rem;
+  }
+
+  /* NOT TOTALITY */
+  .not-totality {
+    min-height: 60vh;
+  }
+
+  .not-totality h2 {
+    font-size: clamp(3rem, 14vw, 5rem);
+    letter-spacing: -3px;
+  }
+
+  /* AUSTRALIA YEARS */
+  .years-big {
+    font-size: clamp(2.7rem, 14vw, 4.5rem);
+    letter-spacing: -2px;
+  }
+
+  .year-strip {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .year-card {
+    padding: 25px 18px;
+  }
+
+  .year-card .year {
+    font-size: 2.5rem;
+  }
+
+  .none-sydney {
+    margin-top: 45px;
+  }
+
+  .none-sydney .big {
+    font-size: clamp(3rem, 15vw, 5rem);
+  }
+
+  /* HISTORY */
+  .history-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .history-copy h2 {
+    font-size: clamp(2.5rem, 13vw, 4rem);
+    letter-spacing: -2px;
+  }
+
+  .history-copy p {
+    font-size: .95rem;
+  }
+
+  /* PRE-2858 */
+  .pre2858 {
+    min-height: 65vh;
+  }
+
+  .pre2858 .big {
+    font-size: clamp(3rem, 15vw, 5rem);
+    letter-spacing: -3px;
+  }
+
+  /* GUESSING GAME */
+  .guess-section {
+    min-height: 100svh;
+  }
+
+  .guess-title {
+    font-size: clamp(2.8rem, 14vw, 4.5rem);
+    letter-spacing: -2px;
+  }
+
+  .guess-intro {
+    font-size: .95rem;
+  }
+
+  .choice-row {
+    flex-direction: column;
+  }
+
+  .choice-row .button {
+    width: 100%;
+  }
+
+  .game-panel {
+    padding: 25px 16px;
+    border-radius: 20px;
+  }
+
+  .guess-input-row {
+    flex-direction: column;
+  }
+
+  .year-input {
+    width: 100%;
+  }
+
+  .guess-input-row .button {
+    width: 100%;
+  }
+
+  .feedback {
+    font-size: 1.1rem;
+  }
+
+  /* REVEAL SEQUENCE */
+  .reveal-gate {
+    min-height: 100svh;
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .reveal-inner {
+    width: 100%;
+  }
+
+  .warning-word {
+    font-size: clamp(4rem, 20vw, 7rem);
+    letter-spacing: -4px;
+  }
+
+  .reveal-line {
+    font-size: clamp(2.7rem, 14vw, 4.5rem);
+    letter-spacing: -2px;
+  }
+
+  .reveal-step .button {
+    width: 100%;
+    max-width: 360px;
+  }
+
+  /* 2858 FINAL REVEAL */
+  .future {
+    min-height: 100svh;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .future-year {
+    font-size: clamp(6rem, 32vw, 11rem);
+    line-height: .85;
+  }
+
+  .future-date {
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+  }
+
+  .days2858 {
+    font-size: clamp(2.3rem, 12vw, 4rem);
+    overflow-wrap: anywhere;
+  }
+
+  .days-label {
+    font-size: .7rem;
+    letter-spacing: 2px;
+  }
+
+  .centuries {
+    font-size: clamp(1.5rem, 8vw, 2.5rem);
+  }
+
+  .day-note {
+    font-size: .9rem;
+  }
+
+  /* RETURN TO 2028 */
+  .return2028 {
+    min-height: 70vh;
+  }
+
+  .return2028 .date {
+    font-size: clamp(4rem, 20vw, 6rem);
+    letter-spacing: -3px;
+  }
+
+  /* EXPLORE CARDS */
+  .page-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-card {
+    padding: 22px;
+  }
+
+  .page-card p {
+    min-height: auto;
+  }
+
+  /* TOUCH TARGETS */
+  .button,
+  button {
+    min-height: 44px;
+  }
+
+  /* PREVENT IMAGE OVERFLOW */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
 </style>
 </head>
 
 <body>
 
 <nav>
-  <a class="logo" href="index.html">Sydney<span>Eclipse</span></a>
-  <div class="navlinks">
-    <a href="index.html" class="active">MAIN MENU</a>
-    <a href="sydneyeclipse.html" class="active">HOME</a>
-    <a href="eclipse.html">ECLIPSE</a>
-    <a href="eclipseglasses.html">ECLIPSE GLASSES</a>
-    <a href="sydney.html">SYDNEY</a>
-    <a href="australiaeclipse.html">AUSTRALIA</a>
-    <a href="ot116.html">OT116</a>
-    <a href="live.html" class="live">● LIVE</a>
-    <a href="#guess" class="mystery">NEXT TOTALITY?</a>
-  </div>
-  <div class="navdate">22.07.2028 🌑</div>
+<a class="logo" href="sydneyeclipse.html">Sydney<span>Eclipse</span></a>
+<div class="navlinks">
+<a href="index.html" class="active">MAIN MENU</a>
+<a href="sydneyeclipse.html" class="active">HOME</a>
+<a href="eclipse.html">ECLIPSE</a>
+<a href="eclipseglasses.html">ECLIPSE GLASSES</a>
+<a href="sydney.html">SYDNEY</a>
+<a href="australiaeclipse.html">AUSTRALIA</a>
+<a href="ot116.html">OT116</a>
+<a href="live.html" class="live">● LIVE</a>
+<a href="miss2028.html" class="mystery">NEXT TOTALITY?</a>
+<a href="sydneyeclipseFAQ.html" class="faq">FAQ</a>
+<a href="sydneyeclipsehotels.html" class="hotels">HOTELS</a>
+</div>
+<div class="navdate">22.07.2028 🌑</div>
 </nav>
 
 <header class="hero">
