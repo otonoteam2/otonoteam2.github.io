@@ -78,8 +78,17 @@ th{font-size:.66rem;letter-spacing:1.2px;color:#8f92a5}tbody tr{cursor:pointer}t
 .badge{display:inline-block;padding:3px 7px;border-radius:999px;background:#1b203b;font-size:.64rem;font-weight:900}.badge.special{color:var(--gold);border:1px solid #f2b24b44}.badge.swap{color:#ffbd70}.badge.early{color:var(--green)}
 .detail{margin-top:18px;padding-top:18px;border-top:1px solid var(--line)}
 .detailhead{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.eclipse-program{margin:0 0 18px;border-color:#f2b24b45;background:radial-gradient(circle at 85% 10%,#7628d82f,transparent 35%),linear-gradient(145deg,#0d1126,#080b18)}
+.eclipse-program-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.eclipse-countdown{font-size:clamp(1.45rem,3vw,2.4rem);font-weight:950;letter-spacing:-1px;color:var(--gold);margin-top:6px}
+.eclipse-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+.eclipse-item{padding:15px;background:#090d1c;border:1px solid #ffffff12;border-radius:15px;min-height:125px}
+.eclipse-item span{display:block;color:#8f92a5;font-size:.66rem;letter-spacing:1.3px;font-weight:900}
+.eclipse-item b{display:block;font-size:1.15rem;margin:7px 0;line-height:1.25}
+.eclipse-item small{color:var(--muted);line-height:1.45}
+.badge.eclipse{color:#ffe7a8;border:1px solid #f2b24b66;background:#f2b24b12}.badge.eclipse-day{color:#fff;border:1px solid #d51c2f88;background:#d51c2f1f}
 footer{text-align:center;color:#777b90;padding:45px 20px;border-top:1px solid #ffffff10}
-@media(max-width:1000px){.flighttop{grid-template-columns:1fr}.summary,.events,.performance{grid-template-columns:1fr 1fr}.map{height:410px}}
+@media(max-width:1000px){.flighttop{grid-template-columns:1fr}.summary,.events,.performance{grid-template-columns:1fr 1fr}.eclipse-grid{grid-template-columns:1fr}.map{height:410px}}
 @media(max-width:620px){.summary,.events,.performance{grid-template-columns:1fr}.hero h1{letter-spacing:-2px}.routehead{align-items:flex-start;flex-direction:column}.maptitle{align-items:flex-start;flex-direction:column}}
 </style>
 </head>
@@ -105,6 +114,8 @@ footer{text-align:center;color:#777b90;padding:45px 20px;border-top:1px solid #f
     <button id="reroll">REROLL OPERATIONS</button>
     <span class="tiny muted">Flight/sector switches keep the same simulation. Reloading or REROLL changes it.</span>
   </div>
+
+  <section class="card eclipse-program"><div class="pad" id="eclipseProgram"></div></section>
 
   <section class="flighttop">
     <article class="card"><div class="pad" id="top"></div></article>
@@ -259,12 +270,45 @@ function departureDelay(r){
   return 240+Math.floor(r()*241);              // 0.3% 4–8h
 }
 
-function normalBlockVariation(r){
-  // Slightly biased toward time recovery / early arrival.
-  return Math.round((r()-.62)*50);             // about -31m to +19m
+const AIR_PROFILES={
+  summer:{
+    "OT116|LHR|HKG":[[650,659,.15],[660,670,1.85],[671,679,5],[680,689,14],[690,699,26],[700,710,29],[711,719,12],[720,739,6],[740,759,3],[760,779,1.5],[780,799,.7],[800,825,.8]],
+    "OT116|HKG|SYD":[[495,504,.5],[505,514,2.5],[515,519,5],[520,529,27],[530,540,36],[541,550,17],[551,560,7],[561,579,3],[580,595,2]],
+    "OT117|SYD|HKG":[[510,519,.3],[520,539,1.2],[540,554,5.5],[555,569,16],[570,584,29],[585,599,29],[600,609,11],[610,619,5],[620,630,3]],
+    "OT117|HKG|LHR":[[760,769,1],[770,779,2],[780,794,12],[795,819,34],[820,840,34],[841,859,10],[860,879,5],[880,880,2]],
+    "OT124|LHR|SIN":[[755,774,5],[775,830,88],[831,870,7]],
+    "OT124|SIN|MEL":[[400,414,4],[415,450,90],[451,475,6]],
+    "OT125|MEL|SIN":[[440,459,5],[460,505,88],[506,535,7]],
+    "OT125|SIN|LHR":[[790,814,5],[815,875,88],[876,915,7]]
+  },
+  winter:{
+    "OT116|LHR|HKG":[[650,659,.05],[660,670,.95],[671,679,3],[680,689,10],[690,699,23],[700,710,26],[711,719,15],[720,739,10],[740,759,5.5],[760,779,3],[780,799,1.2],[800,830,2.3]],
+    "OT116|HKG|SYD":[[495,504,.2],[505,514,1.5],[515,519,3.5],[520,529,23],[530,540,35],[541,550,20],[551,560,9],[561,579,4],[580,600,3.8]],
+    "OT117|SYD|HKG":[[510,519,.15],[520,539,.85],[540,554,4],[555,569,13],[570,584,27],[585,599,30],[600,609,13],[610,619,7],[620,635,5]],
+    "OT117|HKG|LHR":[[800,809,.3],[810,819,2.7],[820,834,18],[835,850,38],[851,865,27],[866,879,9],[880,884,5]],
+    "OT124|LHR|SIN":[[765,784,5],[785,835,88],[836,875,7]],
+    "OT124|SIN|MEL":[[405,419,4],[420,455,90],[456,480,6]],
+    "OT125|MEL|SIN":[[445,464,5],[465,510,88],[511,540,7]],
+    "OT125|SIN|LHR":[[810,834,5],[835,890,88],[891,930,7]]
+  }
+};
+
+function weightedAir(r,season,f,from,to){
+  const bands=AIR_PROFILES[season][`${f}|${from}|${to}`];
+  let q=r()*100,chosen=bands[bands.length-1];
+  for(const band of bands){q-=band[2];if(q<0){chosen=band;break}}
+  return chosen[0]+Math.floor(r()*(chosen[1]-chosen[0]+1));
+}
+
+function eclipseServiceDate(f,d){
+  const k=d.toISOString().slice(0,10);
+  if(f==="OT116")return k>="2028-07-16"&&k<="2028-07-28";
+  if(f==="OT117")return k>="2028-07-16"&&k<="2028-07-29";
+  return false;
 }
 function planeFor(f,d,r){
   const y=d.getUTCFullYear(),m=d.getUTCMonth()+1;
+  if(eclipseServiceDate(f,d))return{type:"A388",swap:false};
   if(f==="OT116"||f==="OT117"){
     if(y===2026&&r()<.09)return{type:"B77W",swap:true};
     if(y>2027||(y===2027&&m>=6)){if(r()<.18)return{type:"B779",swap:false}}
@@ -305,6 +349,7 @@ function makeDay(f,d){
   const serviceNoon=Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate(),12);
   const season=londonSeason(serviceNoon);
   const defs=S[season][f];
+  const eclipseService=eclipseServiceDate(f,d);
   const ac=planeFor(f,d,r),reg=pick(r,F[ac.type]);
   const out=[];
   let prevArrival=null;
@@ -330,30 +375,24 @@ function makeDay(f,d){
     const taxiOut=10+Math.floor(r()*27);
     const taxiIn=5+Math.floor(r()*17);
 
-    let air;
-    if(from==="LHR"&&to==="HKG"){
-      // Usually below 12h. Over 13h is allowed, but rare.
-      const q=r();
-      if(q<.86)air=675+Math.floor(r()*45);         // 11h15–11h59
-      else if(q<.985)air=720+Math.floor(r()*60);   // 12h00–12h59
-      else air=780+Math.floor(r()*56);             // rare 13h00–13h55
-    }else{
-      let block=scheduled+normalBlockVariation(r);
-      // Late departures can recover some time, without magically erasing large disruption.
-      if(dd>=30){
-        const recover=Math.min(55,Math.round(dd*(.18+r()*.20)));
-        block-=recover;
-      }
-      block=Math.max(300,block);
-      air=Math.max(250,block-taxiOut-taxiIn);
+    let air=weightedAir(r,season,f,from,to);
+
+    // Delayed departures can recover a little time, but never enough to create
+    // unrealistic ultra-fast sectors. Extreme fast flights come from the
+    // weighted route profile itself.
+    if(dd>=30){
+      const maxRecover=scheduled>=800?20:scheduled>=550?15:10;
+      const recover=Math.min(maxRecover,Math.round(dd*(.05+r()*.07)));
+      const hardMin=AIR_PROFILES[season][`${f}|${from}|${to}`][0][0];
+      air=Math.max(hardMin,air-recover);
     }
 
     let gateBlock=air+taxiOut+taxiIn;
 
-    // LHR-HKG can also recover modestly after a delayed departure through a quicker sector.
-    if(from==="LHR"&&to==="HKG"&&dd>=30){
-      const recovery=Math.min(35,Math.round(dd*(.12+r()*.15)));
-      air=Math.max(650,air-recovery);
+    // OT117 HKG-LHR may never exceed 14h59 gate-to-gate.
+    if(f==="OT117"&&from==="HKG"&&to==="LHR"&&gateBlock>899){
+      const hardMin=AIR_PROFILES[season][`${f}|${from}|${to}`][0][0];
+      air=Math.max(hardMin,899-taxiOut-taxiIn);
       gateBlock=air+taxiOut+taxiIn;
     }
 
@@ -366,7 +405,7 @@ function makeDay(f,d){
       idx,f,from,to,season,type:ac.type,swap:ac.swap,reg,livery:LIV[reg]||"Standard",
       sd,gateDep,takeoff,landing,gateArr,schedArr,scheduled,dd,
       arrDelta:(gateArr-schedArr)/60000,air,gateBlock,
-      depGate:gates(from,ac.type,r),arrGate:gates(to,ac.type,r),eclipse
+      depGate:gates(from,ac.type,r),arrGate:gates(to,ac.type,r),eclipse,eclipseService
     });
     prevArrival=gateArr;
   });
@@ -432,7 +471,8 @@ function renderTop(){
       <span class="pill">${r.type}</span><span class="pill">${r.reg}</span>
       <span class="pill ${r.livery!=="Standard"?"gold":""}">${r.livery}</span>
       ${r.swap?'<span class="pill red">LAST-MINUTE SWAP</span>':""}
-      ${r.eclipse?'<span class="pill gold">🌑 ECLIPSE-DAY DELAY RULE</span>':""}
+      ${r.eclipseService?'<span class="pill gold">🌑 ECLIPSE SERVICE · A388</span>':""}
+      ${r.eclipse?'<span class="pill red">🌑 ECLIPSE DAY · GUARANTEED DELAY</span>':""}
     </div>
 
     <div class="summary">
@@ -513,10 +553,11 @@ function renderPerformance(rows){
 function renderHistory(){
   const rows=historyRows();
   renderPerformance(rows);
-  let h=`<table><thead><tr><th>DATE</th><th>ROUTE</th><th>GATE DEPARTURE</th><th>GATE ARRIVAL</th><th>PLANE</th><th>TOTAL TRAVEL</th><th>IN AIR</th><th>ARRIVAL STATUS</th></tr></thead><tbody>`;
+  let h=`<table><thead><tr><th>SERVICE</th><th>DATE</th><th>ROUTE</th><th>GATE DEPARTURE</th><th>GATE ARRIVAL</th><th>PLANE</th><th>TOTAL TRAVEL</th><th>IN AIR</th><th>ARRIVAL STATUS</th></tr></thead><tbody>`;
   rows.forEach((r,i)=>{
     const s=status(r.arrDelta);
     h+=`<tr data-i="${i}">
+      <td>${r.eclipse?'<span class="badge eclipse-day">ECLIPSE DAY</span>':r.eclipseService?'<span class="badge eclipse">ECLIPSE SERVICE</span>':'<span class="badge">REGULAR</span>'}</td>
       <td>${date(r.gateDep,A[r.from].tz)}</td>
       <td><b>${r.from} → ${r.to}</b></td>
       <td>${time(r.gateDep,A[r.from].tz)} · ${r.depGate}</td>
@@ -539,7 +580,7 @@ function renderDetail(r){
   const d=status(r.dd),a=status(r.arrDelta);
   $("detail").innerHTML=`
     <div class="detail">
-      <div class="detailhead"><div><div class="eyebrow">COMPLETED SECTOR DETAILS</div><h2>${r.f} · ${r.from} → ${r.to}</h2></div><span class="pill">${r.reg} · ${r.livery}</span></div>
+      <div class="detailhead"><div><div class="eyebrow">COMPLETED SECTOR DETAILS</div><h2>${r.f} · ${r.from} → ${r.to}</h2></div><div class="identity"><span class="pill">${r.reg} · ${r.livery}</span>${r.eclipseService?'<span class="pill gold">🌑 ECLIPSE SERVICE</span>':''}${r.eclipse?'<span class="pill red">GUARANTEED DELAY</span>':''}</div></div>
       <div class="summary">
         <div class="metric"><span>TOTAL TRAVEL TIME</span><b>${duration(r.gateBlock)}</b><small class="muted">Gate-to-gate</small></div>
         <div class="metric"><span>IN-AIR FLIGHT TIME</span><b>${duration(r.air)}</b><small class="muted">Takeoff-to-landing</small></div>
@@ -568,8 +609,44 @@ function renderTabs(){
     sectorMode=b.dataset.sector; archiveView=null; $("detail").innerHTML=""; render();
   });
 }
+function eclipseCountdown(ms){
+  if(ms<=0)return"00d 00h 00m 00s";
+  let sec=Math.floor(ms/1000);
+  const d=Math.floor(sec/86400);sec%=86400;
+  const h=Math.floor(sec/3600);sec%=3600;
+  const m=Math.floor(sec/60),s=sec%60;
+  return `${d}d ${pad(h)}h ${pad(m)}m ${pad(s)}s`;
+}
+
+function renderEclipseProgram(){
+  const first=localInstant(2028,7,16,"22:15","Europe/London");
+  const eclipseDep=localInstant(2028,7,22,"14:00","Australia/Sydney");
+  const finalDep=localInstant(2028,7,29,"14:00","Australia/Sydney");
+  const n=nowMS();
+  let state,headline,sub;
+  if(n<first){
+    state="SCHEDULED";headline="COUNTDOWN TO FIRST ECLIPSE SERVICE";sub=eclipseCountdown(first-n);
+  }else if(n<=finalDep){
+    state="ACTIVE";headline="ECLIPSE SERVICE IN OPERATION";
+    sub=n<eclipseDep?`Eclipse-day OT117 in ${eclipseCountdown(eclipseDep-n)}`:n<finalDep?`Final Sydney departure in ${eclipseCountdown(finalDep-n)}`:"FINAL SERVICE DAY";
+  }else{
+    state="COMPLETED";headline="2028 ECLIPSE SERVICE COMPLETED";sub="16–29 JULY 2028";
+  }
+  $("eclipseProgram").innerHTML=`
+    <div class="eclipse-program-head">
+      <div><div class="eyebrow">🌑 OTONO AIRWAYS • 2028 ECLIPSE SERVICE</div><h2 style="margin:5px 0">${headline}</h2><div class="eclipse-countdown">${sub}</div></div>
+      <span class="pill gold">${state} · A388 GUARANTEED</span>
+    </div>
+    <div class="eclipse-grid">
+      <div class="eclipse-item"><span>FIRST ECLIPSE SERVICE · SCHEDULED</span><b>OT116 · LHR → HKG → SYD</b><small>16 Jul 2028 · 22:15 London<br>A388 · countdown uses the scheduled gate departure.</small></div>
+      <div class="eclipse-item"><span>ECLIPSE DAY · GUARANTEED DELAY</span><b>OT117 · SYD → HKG</b><small>22 Jul 2028 · scheduled 14:00 Sydney<br>Totality overlaps the timetable, so actual departure is forced 45–195 minutes late.</small></div>
+      <div class="eclipse-item"><span>FINAL ECLIPSE SERVICE · SCHEDULED</span><b>OT117 · SYD → HKG → LHR</b><small>29 Jul 2028 · 14:00 Sydney<br>Programme ends with the final scheduled Sydney departure.</small></div>
+    </div>`;
+}
+
 function render(){
   renderTabs();
+  renderEclipseProgram();
   renderTop();
   renderHistory();
 }
@@ -582,7 +659,7 @@ $("sim").onchange=()=>{realNow=false;archiveView=null;render()};
 $("now").onclick=()=>{realNow=true;$("sim").value="";archiveView=null;render()};
 $("reroll").onclick=()=>{seed=Math.floor(Math.random()*2**31);archiveView=null;$("detail").innerHTML="";render()};
 $("returnLive").onclick=()=>{archiveView=null;renderTop()};
-setInterval(()=>{if(realNow){renderTop();}},1000);
+setInterval(()=>{if(realNow){renderTop();renderEclipseProgram();}},1000);
 render();
 </script>
 </body>
