@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>History | SydneyEclipse</title>
+<style>
+:root{--bg:#03050d;--panel:#0c1022;--white:#f7f7fa;--muted:#a6a8b8;--red:#d51c2f;--purple:#7628d8;--gold:#f2b24b;--paper:#e8dcc0;--ink:#30281e;--old:#8b7759}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--white);font-family:Inter,"Segoe UI",Arial,sans-serif;overflow-x:hidden}a{color:inherit}nav{position:fixed;z-index:1000;top:0;left:0;right:0;height:70px;padding:0 4vw;display:flex;align-items:center;justify-content:space-between;background:#030611e8;backdrop-filter:blur(18px);border-bottom:1px solid #ffffff12}.logo{text-decoration:none;font-size:1.35rem;font-weight:900;white-space:nowrap}.logo span{color:var(--red)}.navlinks{display:flex;gap:17px;align-items:center}.navlinks a{text-decoration:none;font-size:.73rem;letter-spacing:1.1px;color:#d5d6df}.navlinks a:hover,.navlinks .active{color:#fff}.navlinks .active{font-weight:900}.navlinks .mystery{color:var(--gold);font-weight:900}.navdate{font-size:.76rem;color:var(--gold);white-space:nowrap}section{position:relative;padding:110px 7vw}.eyebrow{font-size:.78rem;letter-spacing:4px;text-transform:uppercase;font-weight:900;color:var(--gold)}.btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 20px;border-radius:999px;text-decoration:none;font-weight:900;font-size:.78rem;letter-spacing:1.3px;border:1px solid #ffffff24;background:#ffffff0a;transition:.25s}.btn:hover{transform:translateY(-2px);background:#ffffff13}.btn.primary{background:linear-gradient(90deg,var(--purple),var(--red));border:0}.hero{min-height:92vh;padding-top:150px;display:grid;place-items:center;text-align:center;background:radial-gradient(circle at 50% 35%,#7628d82c,transparent 28%),radial-gradient(circle at 60% 65%,#d51c2f1d,transparent 35%),#03050d}.hero h1{font-size:clamp(4rem,11vw,10rem);line-height:.82;letter-spacing:-7px;margin:18px 0}.hero h1 span{display:block;color:var(--red)}.hero p{max-width:730px;color:var(--muted);line-height:1.8;margin:25px auto 34px}.scrollhint{position:absolute;bottom:28px;color:#8e91a4;font-size:.72rem;letter-spacing:3px}.modern{background:linear-gradient(180deg,#050711,#090b19)}.section-title{font-size:clamp(2.6rem,6vw,5.5rem);line-height:.95;letter-spacing:-4px;margin:15px 0}.center{text-align:center}.intro-grid{max-width:1100px;margin:55px auto 0;display:grid;grid-template-columns:1fr 1fr;gap:22px}.modern-card{border:1px solid #ffffff16;border-radius:26px;background:linear-gradient(145deg,#10142a,#080a15);padding:32px;min-height:220px}.modern-card strong{display:block;font-size:clamp(2rem,5vw,4.2rem);line-height:1;color:var(--gold);margin:10px 0 18px}.modern-card p{color:var(--muted);line-height:1.7;margin:0}.red-card{background:radial-gradient(circle at 100% 0,#d51c2f2d,transparent 50%),#0b0d1a}.purple-card{background:radial-gradient(circle at 0 0,#7628d83b,transparent 50%),#0b0d1a}
+/* The deliberately ancient chapter */
+.archive{color:var(--ink);font-family:Georgia,"Times New Roman",serif;background-color:var(--paper);background-image:linear-gradient(#00000008 1px,transparent 1px),radial-gradient(circle at 20% 10%,#fff8df75,transparent 32%),radial-gradient(circle at 80% 75%,#715d3b1c,transparent 35%);background-size:100% 32px,auto,auto;border-top:10px solid #5c4b35;border-bottom:10px solid #5c4b35}.archive::before{content:"";position:absolute;inset:20px;border:1px solid #6c5b4266;pointer-events:none}.archive-inner{max-width:1050px;margin:auto;position:relative;z-index:1}.archive .eyebrow{color:#725e40;font-family:Georgia,"Times New Roman",serif}.archive h2{font-size:clamp(4.5rem,12vw,9.5rem);line-height:.8;letter-spacing:-5px;margin:25px 0 16px}.archive-sub{font-style:italic;font-size:clamp(1.15rem,2.5vw,1.7rem);color:#655640}.old-rule{height:1px;background:#5c4b35;margin:42px 0;position:relative}.old-rule::after{content:"✦";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--paper);padding:0 15px}.archive-columns{display:grid;grid-template-columns:1.15fr .85fr;gap:55px;align-items:start}.archive-copy{font-size:1.08rem;line-height:1.9}.archive-copy p:first-child:first-letter{float:left;font-size:4.8rem;line-height:.78;padding:8px 10px 0 0;color:#4b3d2c}.observation{border:2px solid #5d4c35;padding:25px;background:#f3e8cc77;box-shadow:8px 8px 0 #5d4c351c}.observation h3{text-align:center;text-transform:uppercase;letter-spacing:2px;margin:0 0 22px;font-size:1rem}.logrow{display:flex;justify-content:space-between;gap:20px;padding:11px 0;border-bottom:1px dotted #725e40}.logrow:last-child{border-bottom:0}.cloud-chapter{margin-top:65px;padding:55px 6%;text-align:center;background:#5a554d;color:#f0e6d0;box-shadow:inset 0 0 80px #24211d66}.cloud-chapter .clouds{font-size:3.2rem;filter:grayscale(1)}.cloud-chapter h3{font-size:clamp(2.2rem,5vw,4.5rem);line-height:.95;margin:15px 0}.cloud-chapter p{max-width:720px;margin:auto;line-height:1.8;color:#e3d8c2}.archive-note{font-size:.86rem;line-height:1.6;color:#6e5e47;margin-top:22px;font-style:italic}
+.gap-section{min-height:90vh;display:flex;align-items:center;justify-content:center;text-align:center;background:radial-gradient(circle,#7628d82d,transparent 32%),#03050d}.gap-wrap{width:min(1050px,100%)}.gap-years{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:28px;margin:55px 0}.gap-year{font-size:clamp(4rem,11vw,9rem);font-weight:900;letter-spacing:-7px}.gap-year.old{color:#7e7466}.gap-year.new{color:var(--gold);text-shadow:0 0 45px #f2b24b32}.gap-line{min-width:180px;height:2px;background:linear-gradient(90deg,#756b5d,var(--purple),var(--red),var(--gold));position:relative}.gap-line span{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:#03050d;padding:10px 15px;white-space:nowrap;font-size:.72rem;font-weight:900;letter-spacing:2px}.decades{color:#73768a;letter-spacing:2px;line-height:2.2;font-size:.75rem}.return{background:radial-gradient(circle at 30% 50%,#7628d83c,transparent 30%),radial-gradient(circle at 75% 50%,#d51c2f32,transparent 30%),#060814;text-align:center}.return h2{font-size:clamp(4rem,10vw,9rem);line-height:.82;letter-spacing:-7px;margin:20px 0}.return h2 span{color:var(--red)}.return .duration{font-size:clamp(1.5rem,4vw,3rem);font-weight:900;color:var(--gold);margin:30px 0}.comparison{max-width:1050px;margin:55px auto 0;display:grid;grid-template-columns:1fr 1fr;gap:20px;text-align:left}.compare{border-radius:28px;padding:35px;border:1px solid #ffffff18;background:#0c1022}.compare.old{border-color:#8b775955}.compare.new{background:linear-gradient(145deg,#14102b,#130912);border-color:#7628d866}.compare .year{font-size:4rem;font-weight:900;letter-spacing:-3px}.compare.old .year{color:#9c8b71}.compare.new .year{color:var(--gold)}.compare ul{padding-left:20px;color:var(--muted);line-height:2}.mystery-end{min-height:82vh;display:grid;place-items:center;text-align:center;background:radial-gradient(circle at 50% 48%,#7628d842,transparent 28%),#020309}.mystery-end .question{font-size:clamp(9rem,24vw,20rem);font-weight:900;line-height:.65;color:var(--purple);text-shadow:0 0 80px #7628d86b}.mystery-end h2{font-size:clamp(2.4rem,5vw,4.5rem);margin:35px 0 12px;letter-spacing:-2px}.mystery-end p{color:var(--muted);max-width:620px;line-height:1.7;margin:0 auto 30px}.locked{display:inline-block;margin:18px 0 28px;padding:12px 20px;border:1px solid #ffffff1b;background:#090b16;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:7px;color:#8d90a0}footer{padding:40px 7vw;border-top:1px solid #ffffff12;color:#777b8e;text-align:center;font-size:.78rem}.reveal{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease}.reveal.visible{opacity:1;transform:none}@media(max-width:900px){.navlinks{display:none}.intro-grid,.archive-columns,.comparison{grid-template-columns:1fr}.gap-years{grid-template-columns:1fr}.gap-line{width:2px;height:100px;min-width:0;margin:auto;background:linear-gradient(#756b5d,var(--purple),var(--red),var(--gold))}.hero h1,.return h2{letter-spacing:-4px}.archive::before{inset:10px}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="sydneyeclipse.html">SYDNEY<span>ECLIPSE</span></a>
+  <div class="navlinks">
+    <a href="index.html">MAIN MENU</a><a href="sydneyeclipse.html">HOME</a><a href="eclipse.html">ECLIPSE</a><a href="sydney.html">SYDNEY</a><a href="australiaeclipse.html">AUSTRALIA</a><a class="active" href="history.html">HISTORY</a><a href="OT116.html">OT116</a><a class="mystery" href="miss2028.html">NEXT TOTALITY?</a>
+  </div>
+  <div class="navdate">22 JUL 2028</div>
+</nav>
+
+<section class="hero">
+  <div class="reveal">
+    <div class="eyebrow">SYDNEY ECLIPSE ARCHIVE</div>
+    <h1>BEFORE<span>2028.</span></h1>
+    <p>Sydney's 2028 total solar eclipse has a history. Step out of the modern SydneyEclipse world for a moment and return to the city's previous totality.</p>
+    <a class="btn primary" href="#archive1857">ENTER THE ARCHIVE ↓</a>
+  </div>
+  <div class="scrollhint">HISTORY • TOTALITY • SYDNEY</div>
+</section>
+
+<section class="modern">
+  <div class="center reveal">
+    <div class="eyebrow">THE STORY IN THREE CHAPTERS</div>
+    <h2 class="section-title">PAST. RETURN. MYSTERY.</h2>
+  </div>
+  <div class="intro-grid">
+    <div class="modern-card purple-card reveal"><div class="eyebrow">CHAPTER I</div><strong>1857</strong><p>The previous Sydney totality. This chapter deliberately changes into an old archival style.</p></div>
+    <div class="modern-card red-card reveal"><div class="eyebrow">CHAPTER II</div><strong>2028</strong><p>After a 171-year gap, the modern red-and-purple SydneyEclipse identity returns with totality.</p></div>
+  </div>
+</section>
+
+<section class="archive" id="archive1857">
+  <div class="archive-inner">
+    <div class="reveal">
+      <div class="eyebrow">THE SYDNEY ECLIPSE ARCHIVE • HISTORICAL RECORD</div>
+      <h2>1857</h2>
+      <div class="archive-sub">The previous total solar eclipse over Sydney.</div>
+      <div class="old-rule"></div>
+    </div>
+
+    <div class="archive-columns reveal">
+      <div class="archive-copy">
+        <p>Before aircraft, live event centres, digital countdowns and SydneyEclipse, the city had already experienced totality. In 1857, the Moon's shadow reached Sydney around sunrise, bringing a total solar eclipse during the early morning.</p>
+
+        <p>For about two minutes around sunrise, Sydney experienced totality — a very different setting from the afternoon eclipse that will cross the city in 2028.</p>
+
+        <p>The event belongs to a very different era of eclipse observation. This part of the site therefore leaves the modern Otono red and purple behind: parchment, ink, serif type and an astronomical-record layout take over.</p>
+
+        <p>For Sydney, it became the beginning of an extraordinary wait. The next total solar eclipse over the city would not arrive until 2028.</p>
+      </div>
+      <aside class="observation">
+        <h3>Observational Record</h3>
+        <div class="logrow"><span>Location</span><b>Sydney</b></div>
+        <div class="logrow"><span>Eclipse type</span><b>Total</b></div>
+        <div class="logrow"><span>Year</span><b>1857</b></div>
+        <div class="logrow"><span>Conditions</span><b>Heavy cloud</b></div>
+        <div class="logrow"><span>Corona</span><b>Obscured</b></div>
+        <div class="logrow"><span>Totality</span><b>2 minutes</b></div>
+        <div class="logrow"><span>Next Sydney totality</span><b>2028</b></div>
+      </aside>
+    </div>
+
+    <div class="cloud-chapter reveal">
+      <div class="clouds">☁︎ ☁︎ ● ☁︎ ☁︎</div>
+      <h3>THE CLOUDS WON.</h3>
+      <p>Heavy cloud covered the Sun and Moon during totality, hiding the corona from view. Rather than presenting 1857 as a perfect predecessor to 2028, the archive remembers it as a total eclipse whose most dramatic sight was concealed by the weather.</p>
+      <div class="archive-note">Historical timings and additional primary-source details can be added here once you have the exact records you want to use.</div>
+    </div>
+
+    <div class="old-rule"></div>
+    <div class="center reveal">
+      <div class="archive-sub">And then Sydney waited.</div>
+    </div>
+  </div>
+</section>
+
+<section class="gap-section">
+  <div class="gap-wrap reveal">
+    <div class="eyebrow">THE WAIT</div>
+    <h2 class="section-title">ONE CITY. TWO TOTALITIES.</h2>
+    <div class="gap-years">
+      <div class="gap-year old">1857</div>
+      <div class="gap-line"><span>171 YEARS</span></div>
+      <div class="gap-year new">2028</div>
+    </div>
+    <div class="decades">1860 • 1880 • 1900 • 1920 • 1940 • 1960 • 1980 • 2000 • 2020 • 2028</div>
+  </div>
+</section>
+
+<section class="return">
+  <div class="reveal">
+    <div class="eyebrow">22 JULY 2028 • SYDNEY, AUSTRALIA</div>
+    <h2>TOTALITY<br><span>RETURNS.</span></h2>
+    <p style="max-width:720px;margin:auto;color:var(--muted);line-height:1.8">The archive closes. The modern SydneyEclipse world returns. Sydney reaches totality again, 171 years after 1857.</p>
+    <div class="duration">3 MINUTES 49 SECONDS</div>
+    <a class="btn primary" href="sydneyeclipse.html">BACK TO SYDNEYECLIPSE →</a>
+  </div>
+
+  <div class="comparison">
+    <div class="compare old reveal"><div class="eyebrow" style="color:#9c8b71">THEN</div><div class="year">1857</div><ul><li>Total solar eclipse over Sydney</li><li>Historical observation era</li><li>Heavy cloud obscured the corona</li><li>The beginning of a 171-year wait</li></ul></div>
+    <div class="compare new reveal"><div class="eyebrow">NOW</div><div class="year">2028</div><ul><li>Total solar eclipse over Sydney</li><li>22 July 2028</li><li>3 minutes 49 seconds of totality</li><li>Weather on the day will decide the view</li></ul></div>
+  </div>
+</section>
+
+<section class="mystery-end">
+  <div class="reveal">
+    <div class="eyebrow">THE RECORD CONTINUES</div>
+    <div class="question">?</div>
+    <h2>AND AFTER 2028?</h2>
+    <p>Sydney waited 171 years between 1857 and 2028. And when will the next one happen?</p>
+    <div class="locked">NEXT SYDNEY TOTALITY: ████</div><br>
+    <a class="btn primary" href="miss2028.html">DISCOVER THE NEXT CHAPTER →</a>
+  </div>
+</section>
+
+<footer>SYDNEYECLIPSE • HISTORY ARCHIVE • 1857 → 2028 → ?</footer>
+<script>
+const observer=new IntersectionObserver(entries=>{for(const e of entries){if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
