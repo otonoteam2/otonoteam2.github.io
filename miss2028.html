@@ -140,6 +140,102 @@ section{padding:100px 7vw;position:relative}
   letter-spacing:2px
 }
 
+/* CREW HERO — entire image always visible */
+.missed-moment{
+  position:relative;
+  width:100%;
+  padding:0;
+  overflow:hidden;
+  isolation:isolate;
+  background:#020309;
+}
+
+/* Blurred background only fills any spare visual space */
+.missed-moment::before{
+  content:"";
+  position:absolute;
+  inset:-35px;
+  z-index:-3;
+
+  background:
+    url("Images/Totality Over Sydney 2028(2).png")
+    center center / cover no-repeat;
+
+  filter:blur(28px) brightness(.32);
+  transform:scale(1.08);
+}
+
+/* THE IMPORTANT PART:
+   width 100% + height auto = entire image visible */
+.missed-moment-image{
+  position:relative;
+  z-index:-2;
+
+  display:block;
+  width:100%;
+  height:auto;
+
+  object-fit:contain;
+}
+
+/* Darken ONLY the lower area for readable overlay text */
+.missed-moment::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+
+  background:linear-gradient(
+    180deg,
+    rgba(2,3,9,0) 0%,
+    rgba(2,3,9,0) 48%,
+    rgba(2,3,9,.20) 63%,
+    rgba(2,3,9,.70) 82%,
+    rgba(2,3,9,.96) 100%
+  );
+}
+
+.missed-moment-copy{
+  position:absolute;
+  z-index:2;
+  left:50%;
+  bottom:5%;
+  transform:translateX(-50%);
+
+  width:min(1000px,92vw);
+  padding:20px;
+  text-align:center;
+  text-shadow:0 3px 28px #000;
+}
+
+.missed-moment-copy h2{
+  margin:12px 0 8px;
+  font-size:clamp(3rem,7vw,7rem);
+  line-height:.88;
+  letter-spacing:-5px;
+}
+
+.missed-duration{
+  margin:15px 0 4px;
+  font-size:clamp(3.5rem,8vw,7rem);
+  line-height:.85;
+  font-weight:900;
+  color:var(--gold);
+}
+
+.missed-place{
+  font-size:clamp(.9rem,1.8vw,1.4rem);
+  font-weight:900;
+  letter-spacing:3px;
+}
+
+.missed-note{
+  max-width:680px;
+  margin:15px auto 0;
+  color:#d7d8e0;
+  line-height:1.6;
+}
 /* FIRST REVEAL */
 .first-reveal{
   min-height:70vh;
@@ -635,314 +731,80 @@ footer{
   .hero h1{letter-spacing:-4px}
   .guess-title,.reveal-line{letter-spacing:-2px}
 }
-/* =========================
-   PHONE LAYOUT
-   ========================= */
+
 @media (max-width: 600px) {
+  section {padding:70px 20px}
+  nav {height:60px;padding:0 16px}
+  .logo {font-size:1.05rem}
+  .navdate {font-size:.65rem}
+  .title {font-size:clamp(2.2rem,12vw,3.5rem);letter-spacing:-2px}
+  .subtitle {font-size:.95rem;margin-bottom:35px}
+  .eyebrow {font-size:.68rem;letter-spacing:2px}
+  .hero {min-height:100svh;padding:100px 20px 55px}
+  .hero h1 {font-size:clamp(4rem,22vw,6rem);line-height:.85;letter-spacing:-4px}
+  .hero-copy {font-size:.95rem;line-height:1.65}
+  .scroll-hint {font-size:.75rem;letter-spacing:1px}
 
-  /* GENERAL */
-  section {
-    padding: 70px 20px;
-  }
+  .missed-moment{min-height:88svh}
+  .missed-moment-image{object-position:center top}
+  .missed-moment-copy{padding:0 16px 7vh}
+  .missed-moment-copy h2{font-size:clamp(3rem,16vw,5rem);letter-spacing:-3px}
+  .missed-duration{font-size:clamp(4rem,25vw,7rem)}
+  .missed-place{font-size:.82rem;letter-spacing:2px}
+  .missed-note{font-size:.9rem}
 
-  nav {
-    height: 60px;
-    padding: 0 16px;
-  }
-
-  .logo {
-    font-size: 1.05rem;
-  }
-
-  .navdate {
-    font-size: .65rem;
-  }
-
-  .title {
-    font-size: clamp(2.2rem, 12vw, 3.5rem);
-    letter-spacing: -2px;
-  }
-
-  .subtitle {
-    font-size: .95rem;
-    margin-bottom: 35px;
-  }
-
-  .eyebrow {
-    font-size: .68rem;
-    letter-spacing: 2px;
-  }
-
-  /* HERO */
-  .hero {
-    min-height: 100svh;
-    padding: 100px 20px 55px;
-  }
-
-  .hero h1 {
-    font-size: clamp(4rem, 22vw, 6rem);
-    line-height: .85;
-    letter-spacing: -4px;
-  }
-
-  .hero-copy {
-    font-size: .95rem;
-    line-height: 1.65;
-  }
-
-  .scroll-hint {
-    font-size: .75rem;
-    letter-spacing: 1px;
-  }
-
-  /* FIRST REVEAL */
-  .first-reveal {
-    min-height: 60vh;
-  }
-
-  .first-reveal .big {
-    font-size: clamp(3rem, 15vw, 5rem);
-    letter-spacing: -3px;
-  }
-
-  /* 2089 */
-  .annular-year {
-    font-size: clamp(6rem, 32vw, 10rem);
-    letter-spacing: -5px;
-  }
-
-  .annular-label {
-    font-size: 1.5rem;
-  }
-
-  .image-frame {
-    padding: 7px;
-    border-radius: 18px;
-  }
-
-  .feature-image {
-    border-radius: 12px;
-  }
-
-  /* TOTAL vs ANNULAR */
-  .comparison {
-    grid-template-columns: 1fr;
-    gap: 12px;
-    margin-top: 30px;
-  }
-
-  .compare-card {
-    padding: 24px 20px;
-  }
-
-  .compare-icon {
-    font-size: 3rem;
-  }
-
-  .compare-card h3 {
-    font-size: 1.5rem;
-  }
-
-  /* NOT TOTALITY */
-  .not-totality {
-    min-height: 60vh;
-  }
-
-  .not-totality h2 {
-    font-size: clamp(3rem, 14vw, 5rem);
-    letter-spacing: -3px;
-  }
-
-  /* AUSTRALIA YEARS */
-  .years-big {
-    font-size: clamp(2.7rem, 14vw, 4.5rem);
-    letter-spacing: -2px;
-  }
-
-  .year-strip {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-
-  .year-card {
-    padding: 25px 18px;
-  }
-
-  .year-card .year {
-    font-size: 2.5rem;
-  }
-
-  .none-sydney {
-    margin-top: 45px;
-  }
-
-  .none-sydney .big {
-    font-size: clamp(3rem, 15vw, 5rem);
-  }
-
-  /* HISTORY */
-  .history-grid {
-    grid-template-columns: 1fr;
-    gap: 30px;
-  }
-
-  .history-copy h2 {
-    font-size: clamp(2.5rem, 13vw, 4rem);
-    letter-spacing: -2px;
-  }
-
-  .history-copy p {
-    font-size: .95rem;
-  }
-
-  /* PRE-2858 */
-  .pre2858 {
-    min-height: 65vh;
-  }
-
-  .pre2858 .big {
-    font-size: clamp(3rem, 15vw, 5rem);
-    letter-spacing: -3px;
-  }
-
-  /* GUESSING GAME */
-  .guess-section {
-    min-height: 100svh;
-  }
-
-  .guess-title {
-    font-size: clamp(2.8rem, 14vw, 4.5rem);
-    letter-spacing: -2px;
-  }
-
-  .guess-intro {
-    font-size: .95rem;
-  }
-
-  .choice-row {
-    flex-direction: column;
-  }
-
-  .choice-row .button {
-    width: 100%;
-  }
-
-  .game-panel {
-    padding: 25px 16px;
-    border-radius: 20px;
-  }
-
-  .guess-input-row {
-    flex-direction: column;
-  }
-
-  .year-input {
-    width: 100%;
-  }
-
-  .guess-input-row .button {
-    width: 100%;
-  }
-
-  .feedback {
-    font-size: 1.1rem;
-  }
-
-  /* REVEAL SEQUENCE */
-  .reveal-gate {
-    min-height: 100svh;
-    padding-left: 18px;
-    padding-right: 18px;
-  }
-
-  .reveal-inner {
-    width: 100%;
-  }
-
-  .warning-word {
-    font-size: clamp(4rem, 20vw, 7rem);
-    letter-spacing: -4px;
-  }
-
-  .reveal-line {
-    font-size: clamp(2.7rem, 14vw, 4.5rem);
-    letter-spacing: -2px;
-  }
-
-  .reveal-step .button {
-    width: 100%;
-    max-width: 360px;
-  }
-
-  /* 2858 FINAL REVEAL */
-  .future {
-    min-height: 100svh;
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-
-  .future-year {
-    font-size: clamp(6rem, 32vw, 11rem);
-    line-height: .85;
-  }
-
-  .future-date {
-    font-size: 1.3rem;
-    letter-spacing: 2px;
-  }
-
-  .days2858 {
-    font-size: clamp(2.3rem, 12vw, 4rem);
-    overflow-wrap: anywhere;
-  }
-
-  .days-label {
-    font-size: .7rem;
-    letter-spacing: 2px;
-  }
-
-  .centuries {
-    font-size: clamp(1.5rem, 8vw, 2.5rem);
-  }
-
-  .day-note {
-    font-size: .9rem;
-  }
-
-  /* RETURN TO 2028 */
-  .return2028 {
-    min-height: 70vh;
-  }
-
-  .return2028 .date {
-    font-size: clamp(4rem, 20vw, 6rem);
-    letter-spacing: -3px;
-  }
-
-  /* EXPLORE CARDS */
-  .page-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .page-card {
-    padding: 22px;
-  }
-
-  .page-card p {
-    min-height: auto;
-  }
-
-  /* TOUCH TARGETS */
-  .button,
-  button {
-    min-height: 44px;
-  }
-
-  /* PREVENT IMAGE OVERFLOW */
-  img {
-    max-width: 100%;
-    height: auto;
-  }
+  .first-reveal {min-height:60vh}
+  .first-reveal .big {font-size:clamp(3rem,15vw,5rem);letter-spacing:-3px}
+  .annular-year {font-size:clamp(6rem,32vw,10rem);letter-spacing:-5px}
+  .annular-label {font-size:1.5rem}
+  .image-frame {padding:7px;border-radius:18px}
+  .feature-image {border-radius:12px}
+  .comparison {grid-template-columns:1fr;gap:12px;margin-top:30px}
+  .compare-card {padding:24px 20px}
+  .compare-icon {font-size:3rem}
+  .compare-card h3 {font-size:1.5rem}
+  .not-totality {min-height:60vh}
+  .not-totality h2 {font-size:clamp(3rem,14vw,5rem);letter-spacing:-3px}
+  .years-big {font-size:clamp(2.7rem,14vw,4.5rem);letter-spacing:-2px}
+  .year-strip {grid-template-columns:1fr;gap:12px}
+  .year-card {padding:25px 18px}
+  .year-card .year {font-size:2.5rem}
+  .none-sydney {margin-top:45px}
+  .none-sydney .big {font-size:clamp(3rem,15vw,5rem)}
+  .history-grid {grid-template-columns:1fr;gap:30px}
+  .history-copy h2 {font-size:clamp(2.5rem,13vw,4rem);letter-spacing:-2px}
+  .history-copy p {font-size:.95rem}
+  .pre2858 {min-height:65vh}
+  .pre2858 .big {font-size:clamp(3rem,15vw,5rem);letter-spacing:-3px}
+  .guess-section {min-height:100svh}
+  .guess-title {font-size:clamp(2.8rem,14vw,4.5rem);letter-spacing:-2px}
+  .guess-intro {font-size:.95rem}
+  .choice-row {flex-direction:column}
+  .choice-row .button {width:100%}
+  .game-panel {padding:25px 16px;border-radius:20px}
+  .guess-input-row {flex-direction:column}
+  .year-input {width:100%}
+  .guess-input-row .button {width:100%}
+  .feedback {font-size:1.1rem}
+  .reveal-gate {min-height:100svh;padding-left:18px;padding-right:18px}
+  .reveal-inner {width:100%}
+  .warning-word {font-size:clamp(4rem,20vw,7rem);letter-spacing:-4px}
+  .reveal-line {font-size:clamp(2.7rem,14vw,4.5rem);letter-spacing:-2px}
+  .reveal-step .button {width:100%;max-width:360px}
+  .future {min-height:100svh;padding-left:16px;padding-right:16px}
+  .future-year {font-size:clamp(6rem,32vw,11rem);line-height:.85}
+  .future-date {font-size:1.3rem;letter-spacing:2px}
+  .days2858 {font-size:clamp(2.3rem,12vw,4rem);overflow-wrap:anywhere}
+  .days-label {font-size:.7rem;letter-spacing:2px}
+  .centuries {font-size:clamp(1.5rem,8vw,2.5rem)}
+  .day-note {font-size:.9rem}
+  .return2028 {min-height:70vh}
+  .return2028 .date {font-size:clamp(4rem,20vw,6rem);letter-spacing:-3px}
+  .page-grid {grid-template-columns:1fr}
+  .page-card {padding:22px}
+  .page-card p {min-height:auto}
+  .button,button {min-height:44px}
+  img {max-width:100%;height:auto}
 }
 </style>
 </head>
@@ -975,12 +837,35 @@ footer{
       Sydney gets a total solar eclipse on 22 July 2028. But what happens if you miss it?
       Sydney does get another major solar eclipse later... just not the kind you might be hoping for.
     </p>
-    <a class="button" href="#2089">REVEAL WHAT COMES NEXT ↓</a>
+    <a class="button" href="#missed-moment">SEE WHAT YOU MISSED ↓</a>
     <div class="scroll-hint">IT'S SOONER THAN YOU MIGHT THINK...</div>
   </div>
 </header>
 
-<section class="first-reveal">
+
+<section class="missed-moment" id="missed-moment">
+  <img
+    class="missed-moment-image"
+    src="Images/sydneyeclipsecrew1.png"
+    alt="Otono Airways crew watching the total solar eclipse over Sydney"
+  >
+
+  <div class="missed-moment-copy">
+    <div class="eyebrow">SYDNEY • 22 JULY 2028</div>
+    <h2>THIS IS WHAT<br>YOU MISSED.</h2>
+    <div class="missed-duration">3:49</div>
+    <div class="missed-place">TOTALITY OVER SYDNEY</div>
+    <p class="missed-note">
+      Three minutes and forty-nine seconds beneath the Moon's shadow.
+      And if you missed it, the next chapter sounds promising at first...
+    </p>
+    <p style="margin-top:28px">
+      <a class="button" href="#good-news">WHAT COMES NEXT? ↓</a>
+    </p>
+  </div>
+</section>
+
+<section class="first-reveal" id="good-news">
   <div>
     <div class="eyebrow">FIRST, SOME GOOD NEWS.</div>
     <div class="big">SYDNEY GETS<br>ANOTHER CENTRAL ECLIPSE.</div>
@@ -1028,43 +913,23 @@ footer{
 <section class="australia-more">
   <div class="eyebrow" style="text-align:center">BUT WAIT...</div>
   <h2 class="title">AUSTRALIA GETS MORE TOTALITY.</h2>
-
   <p class="subtitle">
     Missing Sydney 2028 does not mean Australia itself has to wait for centuries.
     More total solar eclipses cross the country relatively soon.
   </p>
-
   <div class="years-big">2030 • 2037 • 2038</div>
-
   <div class="year-strip">
-    <div class="year-card">
-      <div class="year">2030</div>
-      <h3>TOTALITY RETURNS.</h3>
-      <p>Another total solar eclipse crosses part of Australia only two years after Sydney 2028.</p>
-    </div>
-
-    <div class="year-card">
-      <div class="year">2037</div>
-      <h3>AUSTRALIA GETS ANOTHER.</h3>
-      <p>Another total eclipse reaches Australia.</p>
-    </div>
-
-    <div class="year-card">
-      <div class="year">2038</div>
-      <h3>AND AGAIN.</h3>
-      <p>Australia receives yet another total solar eclipse.</p>
-    </div>
+    <div class="year-card"><div class="year">2030</div><h3>TOTALITY RETURNS.</h3><p>Another total solar eclipse crosses part of Australia only two years after Sydney 2028.</p></div>
+    <div class="year-card"><div class="year">2037</div><h3>AUSTRALIA GETS ANOTHER.</h3><p>Another total eclipse reaches Australia.</p></div>
+    <div class="year-card"><div class="year">2038</div><h3>AND AGAIN.</h3><p>Australia receives yet another total solar eclipse.</p></div>
   </div>
-
   <div class="none-sydney">
     <div class="small">THREE MORE AUSTRALIAN TOTAL SOLAR ECLIPSES.</div>
     <div class="big">NONE<br>HIT SYDNEY.</div>
-
     <p class="subtitle" style="margin-bottom:30px">
       Australia gets more opportunities. Sydney doesn't. If you specifically want totality over Sydney itself again,
       the wait becomes extraordinary.
     </p>
-
     <a class="button" href="#history">KEEP GOING ↓</a>
   </div>
 </section>
@@ -1074,39 +939,20 @@ footer{
     <div class="history-copy">
       <div class="eyebrow">THE ROAD TO SYDNEY</div>
       <h2>2026 CAME FIRST.</h2>
-      <p>
-        The 2026 UK eclipse was a remarkably deep partial eclipse — an important event in its own right,
-        not just a preview of Sydney 2028.
-      </p>
-      <p>
-        Sydney will experience partial solar eclipses again, but very deep partial eclipses are much less common.
-        That makes events like 2026 worth remembering alongside totality itself.
-      </p>
-      <p>
-        It is not a Sydney photograph. It is a reminder that SydneyEclipse sits within a much longer eclipse story:
-        <strong>2026 → 2028 → what comes next?</strong>
-      </p>
+      <p>The 2026 UK eclipse was a remarkably deep partial eclipse — an important event in its own right, not just a preview of Sydney 2028.</p>
+      <p>Sydney will experience partial solar eclipses again, but very deep partial eclipses are much less common. That makes events like 2026 worth remembering alongside totality itself.</p>
+      <p>It is not a Sydney photograph. It is a reminder that SydneyEclipse sits within a much longer eclipse story: <strong>2026 → 2028 → what comes next?</strong></p>
       <a class="button secondary" href="eclipse.html">EXPLORE THE ECLIPSE STORY →</a>
     </div>
-
-    <div>
-      <img src="Images/partial26UK.jpeg" class="history-image" alt="2026 partial solar eclipse in the United Kingdom">
-    </div>
+    <div><img src="Images/partial26UK.jpeg" class="history-image" alt="2026 partial solar eclipse in the United Kingdom"></div>
   </div>
 </section>
 
 <section class="pre2858">
   <div>
     <div class="eyebrow">SYDNEY'S NEXT TOTAL SOLAR ECLIPSE</div>
-
-    <div class="big">
-      MUCH FURTHER<br>
-      THAN YOU WOULD EXPECT.
-    </div>
-
-    <div class="small">
-      Not 2030. Not 2037. Not 2038. Not even 2089.
-    </div>
+    <div class="big">MUCH FURTHER<br>THAN YOU WOULD EXPECT.</div>
+    <div class="small">Not 2030. Not 2037. Not 2038. Not even 2089.</div>
   </div>
 </section>
 
@@ -1114,38 +960,18 @@ footer{
   <div class="guess-wrap">
     <div class="eyebrow">DON'T SCROLL FOR THE ANSWER — THERE ISN'T ONE YET.</div>
     <h2 class="guess-title">WHEN DOES TOTALITY<br>RETURN TO SYDNEY?</h2>
-
-    <p class="guess-intro">
-      You get <strong>four guesses</strong>. We'll tell you how close you are without revealing the answer.
-      Or, if you don't want to play, you can skip the guessing game completely.
-    </p>
-
+    <p class="guess-intro">You get <strong>four guesses</strong>. We'll tell you how close you are without revealing the answer. Or, if you don't want to play, you can skip the guessing game completely.</p>
     <div class="choice-row" id="initialChoices">
       <button class="button gold" id="startGuess">🎯 TAKE A GUESS</button>
       <button class="button" id="skipGuess">🌑 JUST REVEAL IT</button>
     </div>
-
     <div class="game-panel" id="gamePanel">
       <div class="guesses-left" id="guessesLeft">GUESSES REMAINING: 4</div>
-
       <div class="guess-input-row">
-        <input
-          class="year-input"
-          id="yearGuess"
-          type="number"
-          inputmode="numeric"
-          min="2029"
-          max="9999"
-          placeholder="ENTER A YEAR"
-          aria-label="Guess the year of Sydney's next total solar eclipse"
-        >
+        <input class="year-input" id="yearGuess" type="number" inputmode="numeric" min="2029" max="9999" placeholder="ENTER A YEAR" aria-label="Guess the year of Sydney's next total solar eclipse">
         <button class="button gold" id="submitGuess">SUBMIT GUESS</button>
       </div>
-
-      <div class="feedback" id="feedback" aria-live="polite">
-        MAKE YOUR FIRST GUESS... 👀
-      </div>
-
+      <div class="feedback" id="feedback" aria-live="polite">MAKE YOUR FIRST GUESS... 👀</div>
       <button class="give-up" id="giveUp">I GIVE UP — REVEAL IT</button>
     </div>
   </div>
@@ -1153,136 +979,45 @@ footer{
 
 <section class="reveal-gate" id="revealGate">
   <div class="reveal-inner">
-
-    <div class="reveal-step active" id="step1">
-      <div class="eyebrow">READY?</div>
-      <div class="warning-word">WARNING.</div>
-      <p class="reveal-small">Sydney's next totality is much further away than 2089.</p>
-      <button class="button" data-next="step2">CONTINUE →</button>
-    </div>
-
-    <div class="reveal-step" id="step2">
-      <div class="eyebrow">THE WAIT IS...</div>
-      <div class="reveal-line">LONGER THAN<br>A LIFETIME.</div>
-      <button class="button" data-next="step3">KEEP GOING →</button>
-    </div>
-
-    <div class="reveal-step" id="step3">
-      <div class="eyebrow">AND ACTUALLY...</div>
-      <div class="reveal-line">LONGER THAN<br>SEVERAL LIFETIMES.</div>
-      <button class="button" data-next="step4">HOW MUCH LONGER? →</button>
-    </div>
-
-    <div class="reveal-step" id="step4">
-      <div class="eyebrow">SYDNEY'S NEXT TOTALITY IS...</div>
-      <div class="reveal-line">NOT THIS CENTURY.</div>
-      <div class="reveal-line" style="color:#a6a8b8">NOT THE NEXT.</div>
-      <div class="reveal-line" style="color:#737687">OR THE NEXT.</div>
-      <button class="button gold" id="finalRevealButton">REVEAL THE YEAR 🌑</button>
-    </div>
-
+    <div class="reveal-step active" id="step1"><div class="eyebrow">READY?</div><div class="warning-word">WARNING.</div><p class="reveal-small">Sydney's next totality is much further away than 2089.</p><button class="button" data-next="step2">CONTINUE →</button></div>
+    <div class="reveal-step" id="step2"><div class="eyebrow">THE WAIT IS...</div><div class="reveal-line">LONGER THAN<br>A LIFETIME.</div><button class="button" data-next="step3">KEEP GOING →</button></div>
+    <div class="reveal-step" id="step3"><div class="eyebrow">AND ACTUALLY...</div><div class="reveal-line">LONGER THAN<br>SEVERAL LIFETIMES.</div><button class="button" data-next="step4">HOW MUCH LONGER? →</button></div>
+    <div class="reveal-step" id="step4"><div class="eyebrow">SYDNEY'S NEXT TOTALITY IS...</div><div class="reveal-line">NOT THIS CENTURY.</div><div class="reveal-line" style="color:#a6a8b8">NOT THE NEXT.</div><div class="reveal-line" style="color:#737687">OR THE NEXT.</div><button class="button gold" id="finalRevealButton">REVEAL THE YEAR 🌑</button></div>
   </div>
 </section>
 
 <section class="future" id="next-totality">
   <div class="exact-banner" id="exactBanner">💎 EXACTLY. YOU GOT IT.</div>
   <div class="eyebrow">NEXT TOTAL SOLAR ECLIPSE VISIBLE FROM SYDNEY</div>
-
   <div class="future-year">2858</div>
-
   <div class="future-date">3 JUNE 2858</div>
-
   <div class="days2858" id="days2858">-- DAYS</div>
   <div class="days-label">UNTIL SYDNEY TOTALITY RETURNS</div>
-
-  <div class="centuries">
-    THAT'S OVER <strong>8 CENTURIES</strong> AWAY!!
-  </div>
-
-  <p class="day-note">
-    SydneyEclipse deliberately keeps this countdown in <strong>DAYS</strong>.
-    No years. No months. The enormous number is the whole point.
-  </p>
+  <div class="centuries">THAT'S OVER <strong>8 CENTURIES</strong> AWAY!!</div>
+  <p class="day-note">SydneyEclipse deliberately keeps this countdown in <strong>DAYS</strong>. No years. No months. The enormous number is the whole point.</p>
 </section>
 
 <section class="return2028">
   <div>
     <div class="eyebrow">SUDDENLY, 2028 LOOKS VERY IMPORTANT.</div>
-
-    <div class="date">
-      22 JULY<br>
-      <span class="red">2028.</span>
-    </div>
-
-    <div style="font-size:clamp(1.5rem,3vw,2.5rem);font-weight:900;color:var(--gold)">
-      3 MINUTES 49 SECONDS
-    </div>
-
-    <div class="message">
-      TOTALITY. ONLY IN 2028.
-    </div>
-
-    <p style="margin-top:30px">
-      <a class="button" href="index.html">← BACK TO SYDNEY 2028</a>
-    </p>
+    <div class="date">22 JULY<br><span class="red">2028.</span></div>
+    <div style="font-size:clamp(1.5rem,3vw,2.5rem);font-weight:900;color:var(--gold)">3 MINUTES 49 SECONDS</div>
+    <div class="message">TOTALITY. ONLY IN 2028.</div>
+    <p style="margin-top:30px"><a class="button" href="sydneyeclipse.html">← BACK TO SYDNEY 2028</a></p>
   </div>
 </section>
 
 <section class="explore">
   <div class="eyebrow" style="text-align:center">EXPLORE SYDNEYECLIPSE</div>
   <h2 class="title">WHERE NEXT?</h2>
-
   <div class="page-grid">
-
-    <a class="page-card" href="sydneyeclipse.html">
-      <div class="page-icon">🌑</div>
-      <h3>HOME</h3>
-      <p>Return to the main SydneyEclipse experience and countdown.</p>
-      <span>RETURN →</span>
-    </a>
-
-    <a class="page-card" href="eclipse.html">
-      <div class="page-icon">☀️</div>
-      <h3>THE ECLIPSE</h3>
-      <p>Explore the phases, contact times and Moon path across the Sun.</p>
-      <span>EXPLORE →</span>
-    </a>
-
-    <a class="page-card" href="australiaeclipse.html">
-      <div class="page-icon">🇦🇺</div>
-      <h3>AUSTRALIA ECLIPSES</h3>
-      <p>Follow the 2028 totality corridor and the 5m10s maximum.</p>
-      <span>EXPLORE →</span>
-    </a>
-
-    <a class="page-card" href="sydney.html">
-      <div class="page-icon">🌆</div>
-      <h3>SYDNEY</h3>
-      <p>3m49s of totality and the detailed Sydney eclipse experience.</p>
-      <span>EXPLORE →</span>
-    </a>
-
-    <a class="page-card" href="OT116.html">
-      <div class="page-icon">✈️</div>
-      <h3>OT116</h3>
-      <p>The Otono Airways A380 journey to Sydney.</p>
-      <span>EXPLORE →</span>
-    </a>
-
-    <a class="page-card" href="sydneyeclipsehistory.html">
-      <div class="page-icon">🕰️</div>
-      <h3>HISTORY</h3>
-      <p>Before 2028, Sydney had already experienced totality. Discover what happened — and how long the city has waited for it to return.</p>
-      <span>EXPLORE →</span>
-    </a>
-
-    <a class="page-card" href="sydneyeclipselive.html">
-      <div class="page-icon">🔴</div>
-      <h3>LIVE</h3>
-      <p>The dedicated live eclipse experience for 22 July 2028.</p>
-      <span>LIVE IN 2028 →</span>
-    </a>
-
+    <a class="page-card" href="sydneyeclipse.html"><div class="page-icon">🌑</div><h3>HOME</h3><p>Return to the main SydneyEclipse experience and countdown.</p><span>RETURN →</span></a>
+    <a class="page-card" href="eclipse.html"><div class="page-icon">☀️</div><h3>THE ECLIPSE</h3><p>Explore the phases, contact times and Moon path across the Sun.</p><span>EXPLORE →</span></a>
+    <a class="page-card" href="australiaeclipse.html"><div class="page-icon">🇦🇺</div><h3>AUSTRALIA ECLIPSES</h3><p>Follow the 2028 totality corridor and the 5m10s maximum.</p><span>EXPLORE →</span></a>
+    <a class="page-card" href="sydney.html"><div class="page-icon">🌆</div><h3>SYDNEY</h3><p>3m49s of totality and the detailed Sydney eclipse experience.</p><span>EXPLORE →</span></a>
+    <a class="page-card" href="OT116.html"><div class="page-icon">✈️</div><h3>OT116</h3><p>The Otono Airways A380 journey to Sydney.</p><span>EXPLORE →</span></a>
+    <a class="page-card" href="sydneyeclipsehistory.html"><div class="page-icon">🕰️</div><h3>HISTORY</h3><p>Before 2028, Sydney had already experienced totality. Discover what happened — and how long the city has waited for it to return.</p><span>EXPLORE →</span></a>
+    <a class="page-card" href="sydneyeclipselive.html"><div class="page-icon">🔴</div><h3>LIVE</h3><p>The dedicated live eclipse experience for 22 July 2028.</p><span>LIVE IN 2028 →</span></a>
   </div>
 </section>
 
@@ -1295,13 +1030,10 @@ footer{
 <script>
 const ANSWER = 2858;
 const MAX_GUESSES = 4;
-
 let guessesRemaining = MAX_GUESSES;
 let exactGuess = false;
 let revealed = false;
-
 const target2858 = new Date("2858-06-03T00:00:00+10:00");
-
 const startGuess = document.getElementById("startGuess");
 const skipGuess = document.getElementById("skipGuess");
 const initialChoices = document.getElementById("initialChoices");
@@ -1318,245 +1050,64 @@ const footerMystery = document.getElementById("footerMystery");
 const finalRevealButton = document.getElementById("finalRevealButton");
 
 function update2858(){
-  const diff = target2858.getTime() - Date.now();
-  const days = Math.max(0, Math.ceil(diff / 86400000));
-  document.getElementById("days2858").textContent =
-    days.toLocaleString() + " DAYS";
+  const diff=target2858.getTime()-Date.now();
+  const days=Math.max(0,Math.ceil(diff/86400000));
+  document.getElementById("days2858").textContent=days.toLocaleString()+" DAYS";
 }
-
-function setFeedback(message, className=""){
-  feedback.className = "feedback";
-  if(className) feedback.classList.add(className);
-  feedback.innerHTML = message;
-}
-
-function updateGuessCounter(){
-  guessesLeft.textContent =
-    "GUESSES REMAINING: " + guessesRemaining;
-}
-
-function openGuessingGame(){
-  initialChoices.style.display = "none";
-  gamePanel.classList.add("open");
-  setTimeout(() => yearGuess.focus(), 150);
-}
-
+function setFeedback(message,className=""){feedback.className="feedback";if(className)feedback.classList.add(className);feedback.innerHTML=message}
+function updateGuessCounter(){guessesLeft.textContent="GUESSES REMAINING: "+guessesRemaining}
+function openGuessingGame(){initialChoices.style.display="none";gamePanel.classList.add("open");setTimeout(()=>yearGuess.focus(),150)}
 function feedbackForGuess(year){
-  const difference = year - ANSWER;
-  const distance = Math.abs(difference);
-
-  if(year === ANSWER){
-    return {
-      message:"💎 EXACTLY. HOW DID YOU DO THAT?!",
-      className:"exact"
-    };
-  }
-
-  if(year < 2089){
-    return {
-      message:"🧊 WAY, WAY TOO EARLY.",
-      className:"too-early"
-    };
-  }
-
-  if(year <= 2199){
-    return {
-      message:"❄️ STILL CENTURIES TOO EARLY.",
-      className:"too-early"
-    };
-  }
-
-  if(year <= 2499){
-    return {
-      message:"😭 NOT EVEN CLOSE YET.",
-      className:"too-early"
-    };
-  }
-
-  if(year <= 2699){
-    return {
-      message:"👀 YOU'RE GETTING WARMER... BUT STILL TOO EARLY.",
-      className:"warm"
-    };
-  }
-
-  if(year <= 2799){
-    return {
-      message:"🔥 GETTING CLOSE. STILL TOO EARLY.",
-      className:"warm"
-    };
-  }
-
-  if(year <= 2849){
-    return {
-      message:"🔥🔥 VERY CLOSE — BUT STILL TOO EARLY.",
-      className:"hot"
-    };
-  }
-
-  if(year <= 2857){
-    return {
-      message:"🔥🔥🔥 EXTREMELY CLOSE — JUST A LITTLE TOO EARLY.",
-      className:"hot"
-    };
-  }
-
-  if(year <= 2870){
-    return {
-      message:"🔥🔥🔥 EXTREMELY CLOSE — BUT TOO LATE.",
-      className:"hot"
-    };
-  }
-
-  if(distance <= 50){
-    return {
-      message:"🔥 VERY CLOSE — BUT TOO LATE.",
-      className:"hot"
-    };
-  }
-
-  if(distance <= 150){
-    return {
-      message:"👀 WARM — BUT YOU'VE GONE TOO FAR.",
-      className:"warm"
-    };
-  }
-
-  if(distance <= 350){
-    return {
-      message:"❄️ TOO LATE. COME BACK QUITE A BIT.",
-      className:"too-late"
-    };
-  }
-
-  return {
-    message:"🧊 WAY TOO LATE.",
-    className:"too-late"
-  };
+  const difference=year-ANSWER,distance=Math.abs(difference);
+  if(year===ANSWER)return{message:"💎 EXACTLY. HOW DID YOU DO THAT?!",className:"exact"};
+  if(year<2089)return{message:"🧊 WAY, WAY TOO EARLY.",className:"too-early"};
+  if(year<=2199)return{message:"❄️ STILL CENTURIES TOO EARLY.",className:"too-early"};
+  if(year<=2499)return{message:"😭 NOT EVEN CLOSE YET.",className:"too-early"};
+  if(year<=2699)return{message:"👀 YOU'RE GETTING WARMER... BUT STILL TOO EARLY.",className:"warm"};
+  if(year<=2799)return{message:"🔥 GETTING CLOSE. STILL TOO EARLY.",className:"warm"};
+  if(year<=2849)return{message:"🔥🔥 VERY CLOSE — BUT STILL TOO EARLY.",className:"hot"};
+  if(year<=2857)return{message:"🔥🔥🔥 EXTREMELY CLOSE — JUST A LITTLE TOO EARLY.",className:"hot"};
+  if(year<=2870)return{message:"🔥🔥🔥 EXTREMELY CLOSE — BUT TOO LATE.",className:"hot"};
+  if(distance<=50)return{message:"🔥 VERY CLOSE — BUT TOO LATE.",className:"hot"};
+  if(distance<=150)return{message:"👀 WARM — BUT YOU'VE GONE TOO FAR.",className:"warm"};
+  if(distance<=350)return{message:"❄️ TOO LATE. COME BACK QUITE A BIT.",className:"too-late"};
+  return{message:"🧊 WAY TOO LATE.",className:"too-late"};
 }
-
 function submitYearGuess(){
-  if(guessesRemaining <= 0 || revealed) return;
-
-  const raw = yearGuess.value.trim();
-  const year = Number(raw);
-
-  if(!raw || !Number.isInteger(year)){
-    setFeedback("ENTER A WHOLE YEAR FIRST. 👀");
-    return;
-  }
-
-  if(year < 2029 || year > 9999){
-    setFeedback("TRY A YEAR BETWEEN 2029 AND 9999.");
-    return;
-  }
-
-  guessesRemaining--;
-  updateGuessCounter();
-
-  const result = feedbackForGuess(year);
-  setFeedback(result.message,result.className);
-
-  if(year === ANSWER){
-    exactGuess = true;
-    submitGuess.disabled = true;
-    yearGuess.disabled = true;
-    giveUp.style.display = "none";
-
-    setTimeout(() => {
-      revealFinal(true);
-    }, 1100);
-
-    return;
-  }
-
-  yearGuess.value = "";
-
-  if(guessesRemaining === 0){
-    submitGuess.disabled = true;
-    yearGuess.disabled = true;
-
-    setTimeout(() => {
-      setFeedback(
-        "0 GUESSES REMAINING.<br>READY FOR THE ANSWER? 🌑",
-        "exact"
-      );
-      giveUp.textContent = "REVEAL THE YEAR 🌑";
-    }, 450);
-  }else{
-    setTimeout(() => yearGuess.focus(), 100);
-  }
+  if(guessesRemaining<=0||revealed)return;
+  const raw=yearGuess.value.trim(),year=Number(raw);
+  if(!raw||!Number.isInteger(year)){setFeedback("ENTER A WHOLE YEAR FIRST. 👀");return}
+  if(year<2029||year>9999){setFeedback("TRY A YEAR BETWEEN 2029 AND 9999.");return}
+  guessesRemaining--;updateGuessCounter();
+  const result=feedbackForGuess(year);setFeedback(result.message,result.className);
+  if(year===ANSWER){exactGuess=true;submitGuess.disabled=true;yearGuess.disabled=true;giveUp.style.display="none";setTimeout(()=>revealFinal(true),1100);return}
+  yearGuess.value="";
+  if(guessesRemaining===0){submitGuess.disabled=true;yearGuess.disabled=true;setTimeout(()=>{setFeedback("0 GUESSES REMAINING.<br>READY FOR THE ANSWER? 🌑","exact");giveUp.textContent="REVEAL THE YEAR 🌑"},450)}
+  else setTimeout(()=>yearGuess.focus(),100);
 }
-
 function beginRevealSequence(){
-  if(revealed) return;
-
-  initialChoices.style.display = "none";
-  gamePanel.classList.remove("open");
-  revealGate.classList.add("active");
-
-  document.querySelectorAll(".reveal-step").forEach(step => {
-    step.classList.remove("active");
-  });
-
+  if(revealed)return;
+  initialChoices.style.display="none";gamePanel.classList.remove("open");revealGate.classList.add("active");
+  document.querySelectorAll(".reveal-step").forEach(step=>step.classList.remove("active"));
   document.getElementById("step1").classList.add("active");
-
-  setTimeout(() => {
-    revealGate.scrollIntoView({behavior:"smooth",block:"start"});
-  }, 50);
+  setTimeout(()=>revealGate.scrollIntoView({behavior:"smooth",block:"start"}),50);
 }
-
-function showRevealStep(nextId){
-  document.querySelectorAll(".reveal-step").forEach(step => {
-    step.classList.remove("active");
-  });
-
-  document.getElementById(nextId).classList.add("active");
-}
-
+function showRevealStep(nextId){document.querySelectorAll(".reveal-step").forEach(step=>step.classList.remove("active"));document.getElementById(nextId).classList.add("active")}
 function revealFinal(fromExactGuess=false){
-  if(revealed) return;
-  revealed = true;
-
-  revealGate.classList.remove("active");
-  future.classList.add("revealed");
-
-  if(fromExactGuess || exactGuess){
-    exactBanner.classList.add("show");
-  }
-
-  footerMystery.textContent =
-    "Missed 2028? • Next Sydney totality: 3 June 2858";
-
-  update2858();
-
-  setTimeout(() => {
-    future.scrollIntoView({behavior:"smooth",block:"start"});
-  }, 50);
+  if(revealed)return;revealed=true;revealGate.classList.remove("active");future.classList.add("revealed");
+  if(fromExactGuess||exactGuess)exactBanner.classList.add("show");
+  footerMystery.textContent="Missed 2028? • Next Sydney totality: 3 June 2858";
+  update2858();setTimeout(()=>future.scrollIntoView({behavior:"smooth",block:"start"}),50);
 }
-
 startGuess.addEventListener("click",openGuessingGame);
 skipGuess.addEventListener("click",beginRevealSequence);
 submitGuess.addEventListener("click",submitYearGuess);
 giveUp.addEventListener("click",beginRevealSequence);
-
-yearGuess.addEventListener("keydown",event => {
-  if(event.key === "Enter"){
-    submitYearGuess();
-  }
-});
-
-document.querySelectorAll("[data-next]").forEach(button => {
-  button.addEventListener("click",() => {
-    showRevealStep(button.dataset.next);
-  });
-});
-
-finalRevealButton.addEventListener("click",() => revealFinal(false));
-
+yearGuess.addEventListener("keydown",event=>{if(event.key==="Enter")submitYearGuess()});
+document.querySelectorAll("[data-next]").forEach(button=>button.addEventListener("click",()=>showRevealStep(button.dataset.next)));
+finalRevealButton.addEventListener("click",()=>revealFinal(false));
 update2858();
 setInterval(update2858,60000);
 </script>
-
 </body>
 </html>

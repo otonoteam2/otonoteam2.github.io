@@ -163,6 +163,29 @@ footer{padding:60px 6vw;text-align:center;color:#7c7f91;border-top:1px solid #ff
   .hero h1,.year{letter-spacing:-4px}.eclipse-grid{gap:30px}.map-slot{min-height:330px}
   .problem-reveal-big{letter-spacing:-3px}.stats{grid-template-columns:1fr}
 }
+
+.next-mystery{
+  min-height:90vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  background:
+    radial-gradient(circle at 50% 45%,#7628d835,transparent 35%),
+    #020309;
+}
+
+.mystery-year{
+  margin:35px 0;
+  font-size:clamp(7rem,22vw,18rem);
+  font-weight:900;
+  line-height:.8;
+  letter-spacing:-8px;
+  color:#fff;
+  text-shadow:
+    0 0 30px #7628d8aa,
+    0 0 80px #d51c2f44;
+}
 </style>
 </head>
 
@@ -191,10 +214,18 @@ Five total solar eclipses cross Australia between 2023 and 2038.
 Then Sydney gets an eclipse in 2089 that is almost painfully close to totality.
 And after that? The timeline becomes ridiculous.
 </p>
-<div class="hero-five">2023 • 2028 • 2030 • 2037 • 2038 → 2089 → 2858</div>
+<div class="hero-five">
+  2023 • 2028 • 2030 • 2037 • 2038 → 2089 → ???
+</div>
+
 <div class="timeline-nav">
-<a href="#y2023">2023</a><a href="#y2028">2028</a><a href="#y2030">2030</a>
-<a href="#y2037">2037</a><a href="#y2038">2038</a><a href="#y2089">2089 😭</a><a href="#y2858">2858 💎</a>
+  <a href="#y2023">2023</a>
+  <a href="#y2028">2028</a>
+  <a href="#y2030">2030</a>
+  <a href="#y2037">2037</a>
+  <a href="#y2038">2038</a>
+  <a href="#y2089">2089 😭</a>
+  <a href="#next">??? 👀</a>
 </div>
 </div>
 </header>
@@ -413,6 +444,28 @@ unless a local duration is specifically labelled.
 </div>
 </section>
 
+<section class="next-mystery" id="next">
+  <div>
+    <div class="eyebrow">AFTER 2089...</div>
+
+    <h2 class="title">
+      WHEN DOES SYDNEY<br>
+      GET <span class="red">TOTALITY</span> AGAIN?
+    </h2>
+
+    <div class="mystery-year">????</div>
+
+    <p class="subtitle">
+      2089 gets painfully close.
+      But it still isn't totality.
+    </p>
+
+    <a class="button" href="miss2028.html">
+      FIND OUT →
+    </a>
+  </div>
+</section>
+
 <section class="e2858" id="y2858">
 <div>
 <div class="eyebrow">AND IF YOU INSIST ON TOTALITY OVER SYDNEY...</div>
@@ -439,7 +492,7 @@ unless a local duration is specifically labelled.
 <section class="explore">
 <div class="eyebrow">BACK TO 2028</div>
 <h2 class="title">SUDDENLY. 2028 LOOKS<br>VERY IMPORTANT.</h2>
-<p class="subtitle">2023 starts the Australian Five. 2028 gives Sydney totality. 2030, 2037 and 2038 continue Australia's run. 2089 comes painfully close. 2858 finally brings the story back to Sydney totality.</p>
+<p class="subtitle">2023 starts the Australian Five. 2028 gives Sydney totality. 2030, 2037 and 2038 continue Australia's extraordinary run. Then 2089 brings Sydney painfully close — but not close enough. What happens after that?</p>
 <a class="button" href="sydneyeclipse.html">← RETURN TO SYDNEY 2028</a>
 &nbsp;
 <a class="button secondary" href="miss2028.html">MISSED 2028? →</a>
