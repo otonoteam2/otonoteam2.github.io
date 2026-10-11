@@ -149,6 +149,32 @@ section{padding:100px 7vw;position:relative}
   isolation:isolate;
   background:#020309;
 }
+/* Missed 2028 — white date label, no background */
+.missed-moment-copy .missed-date {
+  display: inline-block;
+
+  color: #ffffff;
+  font-size: clamp(0.85rem, 1.4vw, 1.05rem);
+  font-weight: 900;
+  letter-spacing: 3px;
+
+  /* No background covering the Opera House */
+  background: transparent;
+  border: none;
+
+  padding: 0;
+  border-radius: 0;
+
+  /* Strong contrast without a visible box */
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 1),
+    0 4px 12px rgba(0, 0, 0, 0.95),
+    0 0 25px rgba(0, 0, 0, 0.85);
+
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
 
 /* Blurred background only fills any spare visual space */
 .missed-moment::before{
@@ -846,12 +872,12 @@ footer{
 <section class="missed-moment" id="missed-moment">
   <img
     class="missed-moment-image"
-    src="Images/sydneyeclipsecrew1.png"
+    src="Images/sydneyeclipsecrew2.png"
     alt="Otono Airways crew watching the total solar eclipse over Sydney"
   >
 
   <div class="missed-moment-copy">
-    <div class="eyebrow">SYDNEY • 22 JULY 2028</div>
+    <div class="eyebrow missed-date">SYDNEY • 22 JULY 2028</div>
     <h2>THIS IS WHAT<br>YOU MISSED.</h2>
     <div class="missed-duration">3:49</div>
     <div class="missed-place">TOTALITY OVER SYDNEY</div>
