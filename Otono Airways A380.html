@@ -505,12 +505,23 @@
       cabins.push({ name: 'Cabin 1', seats: c1 });
 
       const c2 = [];
-      for (let row = 5; row <= 7; row++) {
-        ['A', 'D', 'G', 'K'].forEach(col => c2.push(createSeat(`${row}${col}`, CLASS_FIRST, row, col, ['D','G'].includes(col), [
-          'Shower Access', 'Private suite', 'Larger IFE screen'
-        ])));
-      }
-      cabins.push({ name: 'Cabin 2', seats: c2 });
+        for (let row = 5; row <= 7; row++) {
+          ['A', 'D', 'K'].forEach(col =>
+            c2.push(createSeat(
+              `${row}${col}`,
+              CLASS_FIRST,
+              row,
+              col,
+              col === 'D',
+              [
+                'Shower Access',
+                'Private suite',
+                'Larger IFE screen'
+              ]
+            ))
+          );
+        }
+        cabins.push({ name: 'Cabin 2', seats: c2 });
 
       const c3 = [];
       for (let row = 25; row <= 38; row++) {
@@ -560,12 +571,11 @@
       cabins.push({ name: 'Cabin 2', seats: c2 });
 
       const c3 = [];
-      for (let row = 42; row <= 52; row++) {
+      for (let row = 45; row <= 52; row++) {
         let cols = ['A','C','D','E','F','G','H','K'];
-        if (row === 52) cols = ['D','E','F','G'];
         cols.forEach(col => {
           const feats = [];
-          if (row === 42) feats.push('Extra Legroom');
+          if (row === 45) feats.push('Extra Legroom');
           c3.push(createSeat(`${row}${col}`, CLASS_PREM_ECO, row, col, ['C','D','G','H'].includes(col), feats));
         });
       }
@@ -574,11 +584,9 @@
       const c4 = [];
       for (let row = 53; row <= 62; row++) {
         let cols = ['A','B','C','D','E','F','G','H','J','K'];
-        if (row === 62) cols = ['B','C','D','E','F','G','H','J'];
         cols.forEach(col => {
           const feats = [];
           if (row === 53) feats.push('Extra Legroom');
-          if (row === 62) feats.push('Extra Bag Room');
           c4.push(createSeat(`${row}${col}`, CLASS_ECONOMY, row, col, ['C','D','G','H'].includes(col), feats));
         });
       }
