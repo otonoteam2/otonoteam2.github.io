@@ -1,0 +1,477 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hotels in Sydney | SydneyEclipse</title>
+<style>
+:root{
+  --bg:#03050d;
+  --panel:#0d1126;
+  --white:#f7f7fa;
+  --muted:#a6a8b8;
+  --red:#d51c2f;
+  --purple:#7628d8;
+  --gold:#f2b24b;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--white);
+  font-family:Inter,"Segoe UI",Arial,sans-serif;
+  overflow-x:hidden;
+}
+a{color:inherit}
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  height:70px;padding:0 5vw;
+  display:flex;align-items:center;justify-content:space-between;
+  background:#030611e8;
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid #ffffff18;
+}
+.logo{text-decoration:none;font-size:1.35rem;font-weight:900}
+.logo span,.red{color:var(--red)}
+.navlinks{display:flex;align-items:center;gap:19px}
+.navlinks a{
+  text-decoration:none;font-size:.75rem;
+  letter-spacing:1px;color:#d5d6df;
+}
+.navlinks a:hover,.navlinks .active{color:var(--gold)}
+.navlinks .live{color:#ff4b58;font-weight:900}
+.navdate{font-size:.8rem;color:var(--gold)}
+section{padding:100px 7vw;position:relative}
+.eyebrow{
+  color:var(--gold);font-size:.8rem;font-weight:900;
+  letter-spacing:3px;text-transform:uppercase;
+}
+.title{
+  font-size:clamp(2.7rem,7vw,6rem);
+  line-height:.94;letter-spacing:-4px;margin:18px 0;
+}
+.subtitle{color:var(--muted);line-height:1.8;max-width:780px}
+.button{
+  display:inline-block;padding:14px 25px;border-radius:999px;
+  background:linear-gradient(90deg,var(--red),var(--purple));
+  color:#fff;text-decoration:none;font-weight:900;
+  border:0;cursor:pointer;
+}
+.button.secondary{background:#121629;border:1px solid #ffffff25}
+.hero{
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;
+  background:
+    radial-gradient(circle at 50% 25%,#7628d84a,transparent 42%),
+    radial-gradient(circle at 50% 90%,#d51c2f25,transparent 40%),
+    #02040b;
+}
+.hero h1{
+  font-size:clamp(4rem,11vw,10rem);
+  line-height:.88;letter-spacing:-6px;margin:22px 0;
+}
+.hero p{
+  max-width:750px;margin:24px auto;
+  color:#c2c4d1;line-height:1.8;font-size:1.08rem;
+}
+.countdown-panel{
+  margin:40px auto 25px;
+  padding:32px;
+  max-width:850px;
+  border:1px solid #f2b24b44;
+  border-radius:26px;
+  background:#0d1126bb;
+  box-shadow:0 25px 80px #0006;
+}
+.countdown-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:12px;margin-top:24px;
+}
+.countdown-unit{
+  padding:20px 8px;border-radius:16px;
+  background:#050713;border:1px solid #ffffff13;
+}
+.countdown-number{
+  display:block;
+  font-size:clamp(2rem,5vw,4rem);
+  font-weight:900;color:var(--gold);
+  font-variant-numeric:tabular-nums;
+}
+.countdown-label{
+  font-size:.72rem;letter-spacing:2px;
+  font-weight:900;color:#9a9db0;
+}
+.countdown-note{font-size:.84rem;color:#a6a8b8;margin-top:20px}
+.section-center{text-align:center}
+.section-center .subtitle{margin:0 auto 45px}
+.area-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:20px;max-width:1200px;margin:40px auto 0;
+}
+.area-card{
+  padding:32px;border-radius:24px;
+  background:var(--panel);border:1px solid #ffffff18;
+  transition:transform .25s,border-color .25s;
+}
+.area-card:hover{
+  transform:translateY(-6px);
+  border-color:#f2b24b70;
+}
+.area-icon{font-size:2.5rem}
+.area-card h3{font-size:1.5rem;margin:20px 0 10px}
+.area-card p{color:#aeb1c1;line-height:1.75}
+.tag{
+  display:inline-block;margin-top:15px;
+  padding:8px 12px;border-radius:999px;
+  color:var(--gold);background:#f2b24b12;
+  font-size:.72rem;font-weight:900;letter-spacing:1px;
+}
+.warning{
+  max-width:1050px;margin:auto;
+  padding:38px;border:1px solid #f2b24b55;
+  border-radius:25px;background:#f2b24b0b;
+}
+.warning h2{font-size:clamp(2rem,4vw,3rem);margin:12px 0}
+.warning p{color:#c1c2cc;line-height:1.8}
+.tips{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:20px;max-width:1100px;margin:40px auto 0;
+}
+.tip{
+  padding:30px;background:#0d1126;
+  border-radius:22px;border:1px solid #ffffff15;
+}
+.tip h3{color:var(--gold)}
+.tip p{color:#adb0c0;line-height:1.75}
+.final{
+  text-align:center;min-height:65vh;
+  display:flex;flex-direction:column;
+  justify-content:center;align-items:center;
+  background:radial-gradient(circle,#7628d82e,transparent 55%),#020309;
+}
+.final h2{
+  font-size:clamp(3.2rem,9vw,8rem);
+  line-height:.9;letter-spacing:-5px;margin:20px 0;
+}
+.final p{color:#bbbcca;line-height:1.8}
+footer{
+  padding:50px 6vw;text-align:center;
+  color:#85889b;border-top:1px solid #ffffff15;
+}
+@media(max-width:900px){
+  .navlinks{display:none}
+  .area-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+  section{padding:85px 6vw}
+  .hero h1{letter-spacing:-3px}
+  .area-grid,.tips{grid-template-columns:1fr}
+  .countdown-panel{padding:20px 12px}
+  .countdown-grid{gap:6px}
+  .countdown-unit{padding:14px 3px}
+  .countdown-number{font-size:clamp(1.5rem,7vw,2.5rem)}
+  .countdown-label{font-size:.55rem;letter-spacing:1px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="sydneyeclipse.html">Sydney<span>Eclipse</span></a>
+  <div class="navlinks">
+    <a href="sydneyeclipse.html">HOME</a>
+    <a href="eclipse.html">ECLIPSE</a>
+    <a href="sydney.html">SYDNEY</a>
+    <a href="australiaeclipse.html">AUSTRALIA</a>
+    <a href="ot116.html">OT116</a>
+    <a href="hotels.html" class="active">HOTELS</a>
+    <a href="live.html" class="live">● LIVE</a>
+  </div>
+  <div class="navdate">22.07.2028 🌑</div>
+</nav>
+
+<header class="hero" id="top">
+  <div>
+    <div class="eyebrow">SYDNEYECLIPSE • TRAVEL</div>
+    <h1>STAY IN<br><span class="red">SYDNEY.</span></h1>
+    <p>
+      The Moon's shadow arrives on 22 July 2028.
+      Explore where to stay in Sydney and prepare for an
+      extraordinary afternoon.
+    </p>
+
+    <div class="countdown-panel">
+      <div class="eyebrow">COUNTDOWN TO FIRST CONTACT</div>
+      <div style="font-size:1.2rem;font-weight:900;margin-top:12px">
+        22 JULY 2028 • 12:40 AEST
+      </div>
+
+      <div class="countdown-grid" role="timer" aria-label="Time remaining until the eclipse begins">
+        <div class="countdown-unit">
+          <span class="countdown-number" id="days">---</span>
+          <span class="countdown-label">DAYS</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-number" id="hours">--</span>
+          <span class="countdown-label">HOURS</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-number" id="minutes">--</span>
+          <span class="countdown-label">MINUTES</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-number" id="seconds">--</span>
+          <span class="countdown-label">SECONDS</span>
+        </div>
+      </div>
+      <div class="countdown-note" id="countdownStatus">
+        Counting down to the beginning of the partial eclipse in Sydney.
+      </div>
+    </div>
+
+    <a class="button" href="#areas">EXPLORE WHERE TO STAY ↓</a>
+  </div>
+</header>
+
+<section class="section-center" id="areas">
+  <div class="eyebrow">CHOOSE YOUR BASE</div>
+  <h2 class="title">WHERE TO<br><span class="red">STAY?</span></h2>
+  <p class="subtitle">
+    Sydney offers different neighbourhoods for different trips.
+    These are areas to explore, not confirmed hotel bookings
+    or guaranteed eclipse viewing locations.
+  </p>
+
+  <div class="area-grid">
+    <article class="area-card">
+      <div class="area-icon">🌉</div>
+      <h3>Crown Towers Sydney</h3>
+      <p>
+        Sydney's ultimate "six-star" experience. The sculptured tower dominates the skyline, and its west- and north-facing villas offer private, floor-to-ceiling glass views of the eclipse over the water.
+        Web Guide Highlight: Feature their private open-air cabanas by the infinity pool deck as the most exclusive, low-crowd VIP viewing location in the city.
+      </p>
+      <a class="button"
+         href="https://www.crownhotels.com.au/sydney/crown-towers/"
+         target="_blank"
+         rel="noopener noreferrer">
+        EXPLORE →
+      </a>
+    </article>
+
+    <article class="area-card">
+      <div class="area-icon">🌉</div>
+      <h3>Park Hyatt Sydney</h3>
+      <p>
+        Arguably the most expensive real estate in the city, sitting directly on the water between the Opera House and the Harbour Bridge.
+        Advice: Book the Cove Suite or Rooftop Suite. These feature expansive private terraces where guests can view the eclipse right under the shadow of the Harbour Bridge without leaving their rooms.
+      </p>
+      <a class="button"
+         href="https://www.hyatt.com/park-hyatt/en-US/sydph-park-hyatt-sydney?src=corp_lclb_google_seo_sydph&utm_source=google&utm_medium=organic&utm_campaign=lmr"
+         target="_blank"
+         rel="noopener noreferrer">
+        EXPLORE →
+      </a>
+    </article>
+
+    <article class="area-card">
+      <div class="area-icon">🏙️</div>
+      <h3>Four Seasons Hotel Sydney</h3>
+      <p>
+        Booking a 'Full Harbour View' room gives you a direct, private vantage point looking north over the water toward the eclipse path.
+        Located right at the edge of The Rocks, it is a short, flat walk to major public viewing spots.
+      </p>
+      <a class="button"
+         href="https://www.fourseasons.com/sydney/?utm_source=google&utm_medium=organicsearch&utm_campaign=tor-syd-hre-mid-seo-na&utm_content=na-na&utm_term=na"
+         target="_blank"
+         rel="noopener noreferrer">
+        EXPLORE →
+      </a>
+    </article>
+
+    <article class="area-card">
+      <div class="area-icon">🌊</div>
+      <h3>InterContinental Sydney</h3>
+      <p>
+         Positioned steps from the Royal Botanic Gardens. It features a spectacular rooftop lounge with panoramic northward sightlines over the harbour.
+        Situated in a restored 19th-century Treasury building, making it a favorite choice for premium international eclipse tour operators.
+      </p>
+      <a class="button"
+         href="https://www.ihg.com/intercontinental/hotels/us/en/sydney/sydic/hoteldetail?cm_mmc=GoogleMaps-_-IC-_-AU-_-SYDIC"
+         target="_blank"
+         rel="noopener noreferrer">
+        EXPLORE →
+      </a>
+    </article>
+
+    <article class="area-card">
+      <div class="area-icon">🚆</div>
+      <h3>Shangri La Sydney</h3>
+      <p>
+        Famous for having some of the highest and steepest views in the city. The upper-tier rooms and the iconic Blu Bar on 36 look straight out across the Harbour Bridge and Opera House.
+        Elevated high on the hills of The Rocks, providing clear clearance over surrounding high-rises.
+      </p>
+      <a class="button"
+         href="shangri-la.com/sydney"
+         target="_blank"
+         rel="noopener noreferrer">
+        EXPLORE →
+      </a>
+    </article>
+
+    <article class="area-card">
+      <div class="area-icon">🌳</div>
+      <h3>Pier One Sydney Harbour</h3>
+      <p>
+        This heritage hotel is built on a pier extending directly over the water, sitting right alongside the southern pylon of the Harbour Bridge.
+        Unmatched if you plan to charter a viewing vessel or want to experience the eclipse directly from a private over-water balcony.
+      </p>
+      <a class="button"
+         href="https://www.marriott.com/en-us/hotels/sydak-pier-one-sydney-harbour-autograph-collection/overview/?scid=f2ae0541-1279-4f24-b197-a979c79310b0"
+         target="_blank"
+         rel="noopener noreferrer">
+        EXPLORE →
+      </a>
+    </article>
+</section>
+
+<section>
+  <div class="warning">
+    <div class="eyebrow">IMPORTANT BEFORE BOOKING</div>
+    <h2>YOUR HOTEL IS NOT YOUR VIEWING PLAN.</h2>
+    <p>
+      A hotel room does not automatically provide an unobstructed
+      view of the eclipse. Nearby buildings, terrain, access
+      restrictions and weather may affect visibility.
+    </p>
+    <p>
+      Choose accommodation based on your travel needs,
+      then separately identify an appropriate viewing location.
+      Check cancellation policies and travel arrangements before booking.
+    </p>
+  </div>
+</section>
+
+<section class="section-center">
+  <div class="eyebrow">PLAN AHEAD</div>
+  <h2 class="title">FOUR THINGS<br>TO CONSIDER.</h2>
+
+  <div class="tips">
+    <div class="tip">
+      <h3>01 • Arrive early</h3>
+      <p>
+        Consider arriving before eclipse day so you have time
+        to explore Sydney and prepare your viewing plans.
+      </p>
+    </div>
+
+    <div class="tip">
+      <h3>02 • Check transport</h3>
+      <p>
+        Plan how you will reach your viewing location.
+        Allow extra time for possible event-related crowds.
+      </p>
+    </div>
+
+    <div class="tip">
+      <h3>03 • Watch the weather</h3>
+      <p>
+        Check reliable forecasts closer to 22 July 2028.
+        Cloud cover can prevent a clear view even inside
+        the path of totality.
+      </p>
+    </div>
+
+    <div class="tip">
+      <h3>04 • Prepare eye protection</h3>
+      <p>
+        Use proper solar eclipse viewers during the partial phases.
+        Follow established eclipse-viewing safety guidance.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="eyebrow">SYDNEY • AUSTRALIA</div>
+  <h2>YOUR STAY.<br><span class="red">YOUR ECLIPSE.</span></h2>
+  <p>
+    22 JULY 2028<br>
+    THREE MINUTES AND FORTY-NINE SECONDS OF TOTALITY.
+  </p>
+  <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:25px">
+    <a class="button" href="sydney.html">EXPLORE SYDNEY →</a>
+    <a class="button secondary" href="ot116.html">EXPLORE OT116 →</a>
+  </div>
+</section>
+
+<footer style="padding: 20px; text-align: center; border-top: 1px solid #222;">
+    <strong style="color: #fff; font-size: 1.1rem;">SydneyEclipse</strong><br><br>
+    
+    <span style="color: #ccc; font-size: 0.95rem;">
+        Otono Team • Otono Airways • Sydney • 22 July 2028
+    </span><br><br>
+    
+    <span style="color: #aaa; font-size: 0.9rem;">🌑 TOTALITY. ONLY IN 2028.</span><br><br>
+    
+    <hr style="border: 0; border-top: 1px solid #333; margin: 15px auto; width: 50%;">
+    
+    <p style="color: #888; font-size: 0.85rem; line-height: 1.5; margin: 0;">
+        <strong>Notice:</strong> This website is an independent community project created by the Otono Team regarding the Sydney Eclipse in 2028. We have no relation, affiliation, or association with the official owners of sydneyeclipse.com. <br>
+        © 2026 Otono Team. <strong>Some rights reserved.</strong> Licensed under CC BY-NC.
+    </p>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  // Sydney is UTC+10 on 22 July 2028 (AEST).
+  // 12:40:00 AEST = 02:40:00 UTC.
+  const eclipseStart = Date.parse("2028-07-22T12:40:00+10:00");
+
+  const daysEl = document.getElementById("days");
+  const hoursEl = document.getElementById("hours");
+  const minutesEl = document.getElementById("minutes");
+  const secondsEl = document.getElementById("seconds");
+  const statusEl = document.getElementById("countdownStatus");
+
+  const pad = number => String(number).padStart(2,"0");
+
+  function updateCountdown(){
+    const remaining = Math.max(0, eclipseStart - Date.now());
+    const totalSeconds = Math.ceil(remaining / 1000);
+
+    const days = Math.floor(totalSeconds / 86400);
+    const hours = Math.floor((totalSeconds % 86400) / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+
+    daysEl.textContent = String(days);
+    hoursEl.textContent = pad(hours);
+    minutesEl.textContent = pad(minutes);
+    secondsEl.textContent = pad(seconds);
+
+    if(remaining === 0){
+      statusEl.textContent =
+        "The countdown has ended. First contact has arrived in Sydney!";
+    }
+  }
+
+  updateCountdown();
+
+  // Recalculate against the actual target timestamp each time.
+  // This avoids accumulating drift from interval delays.
+  setInterval(updateCountdown, 250);
+
+  // Refresh immediately when the visitor returns to the tab.
+  document.addEventListener("visibilitychange", function(){
+    if(!document.hidden) updateCountdown();
+  });
+})();
+</script>
+
+</body>
+</html>
