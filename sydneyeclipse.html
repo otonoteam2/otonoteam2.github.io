@@ -73,9 +73,17 @@ section{padding:100px 7vw;position:relative}
 .filter-button{padding:10px 17px;border:1px solid #ffffff20;border-radius:999px;background:#11152a;color:#fff;cursor:pointer}.filter-button.active{background:linear-gradient(90deg,var(--red),var(--purple))}
 .place-grid{max-width:1250px;margin:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
 .place-card{padding:21px;border-radius:18px;background:#0d1126;border:1px solid #ffffff12;transition:.25s}.place-card:hover{transform:translateY(-4px);border-color:#f2b24b77}
-.place-card.sydney{border-color:#d51c2faa}.place-card.max{border-color:#f2b24baa}
-.place-name{font-size:1.12rem;font-weight:900}.place-duration{font-size:1.8rem;font-weight:900;color:var(--gold);margin-top:9px}.place-times{font-size:.8rem;line-height:1.7;color:#9699ad;margin-top:10px}
-.map-section{background:#060812}.map-wrap{max-width:1200px;margin:auto}.map-image{width:100%;max-height:760px;border-radius:25px}
+.place-card.sydney{border-color:#d51c2faa}
+.place-card.max{border-color:#f2b24baa}
+.place-name{font-size:1.12rem;font-weight:900}
+.place-duration{font-size:1.8rem;font-weight:900;color:var(--gold);margin-top:9px}
+.place-times{font-size:.8rem;line-height:1.7;color:#9699ad;margin-top:10px}
+
+/* PASTE ALL YOUR NEW ECLIPSE CLASSIFICATION CSS HERE */
+
+.map-section{background:#060812}
+.map-wrap{max-width:1200px;margin:auto}
+.map-image{width:100%;max-height:760px;border-radius:25px}
 .timeline{max-width:850px;margin:auto}.timeline-item{padding:0 0 38px 50px;border-left:3px solid var(--purple);position:relative}.timeline-item:before{content:"";position:absolute;left:-10px;top:3px;width:17px;height:17px;border-radius:50%;background:var(--gold);box-shadow:0 0 18px #f2b24b88}
 .timeline-time{font-size:1.5rem;font-weight:900;color:var(--gold)}.timeline-title{font-size:1.15rem;font-weight:900;margin:4px 0}.timeline-note{color:#999cad;line-height:1.55}
 .sydney100{min-height:72vh;display:flex;align-items:center;justify-content:center;text-align:center;background:radial-gradient(circle,#d51c2f20,transparent 38%),#020309}
@@ -459,9 +467,25 @@ footer{padding:60px 6vw;text-align:center;color:#7d8091;border-top:1px solid #ff
 <h2 class="title">AUSTRALIA GETS TOTALITY.</h2>
 <p class="subtitle">Sydney is the destination of SydneyEclipse, but it isn't alone. The Moon's shadow crosses a remarkable chain of places from the northwest to Australia's east coast.</p>
 <div class="place-controls">
-<button class="filter-button active" data-filter="all">ALL LOCATIONS</button>
-<button class="filter-button" data-filter="long">3+ MINUTES</button>
-<button class="filter-button" data-filter="sydney">SYDNEY AREA</button>
+  <button class="filter-button active" data-filter="all">
+    ALL LOCATIONS
+  </button>
+
+  <button class="filter-button" data-filter="total">
+    🌑 TOTAL ECLIPSES
+  </button>
+
+  <button class="filter-button" data-filter="partial">
+    🌒 PARTIAL ECLIPSES
+  </button>
+
+  <button class="filter-button" data-filter="long">
+    3+ MINUTES
+  </button>
+
+  <button class="filter-button" data-filter="sydney">
+    SYDNEY AREA
+  </button>
 </div>
 <div class="place-grid" id="placeGrid"></div>
 </section>
@@ -609,6 +633,13 @@ WHAT IF YOU MISSED 2028? →
 <span>EXPLORE →</span>
 </a>
 
+<a class="page-card" href="partialeclipse2028.html">
+<div class="page-icon">🌒</div>
+<h3>REST OF AUSTRALIA</h3>
+<p>Not inside path of totality? What will you get...</p>
+<span>REVEAL THE ANSWER →</span>
+</a>
+
 <a class="page-card" href="australia.html">
 <div class="page-icon">🇦🇺</div>
 <h3>AUSTRALIA</h3>
@@ -620,6 +651,13 @@ WHAT IF YOU MISSED 2028? →
 <div class="page-icon">🌆</div>
 <h3>SYDNEY</h3>
 <p>3m49s of totality, the skyline, local timings and Sydney under the lunar shadow.</p>
+<span>EXPLORE →</span>
+</a>
+
+<a class="page-card" href="sydneyeclipsehotels.html">
+<div class="page-icon">🌆</div>
+<h3>HOTELS (SYDNEY AREA)</h3>
+<p>Choose the hotel that suits you the best for one extrodinary afternoon!</p>
 <span>EXPLORE →</span>
 </a>
 
@@ -710,45 +748,128 @@ REVEAL THE ANSWER →
 </div>
 
 <script>
-const places=[
-["Kimberley Region","09:27:32","10:58:08","11:00:43","11:03:18","12:32:50","5m 10s","max"],
-["Kununurra","09:27:52","10:59:46","11:01:13","11:02:40","12:33:14","2m 54s",""],
-["Lake Argyle","09:28:19","10:59:29","11:01:39","11:03:48","12:33:36","4m 19s",""],
-["Tennant Creek","11:16:50","12:47:58","12:49:41","12:51:24","14:17:30","3m 26s",""],
-["Bourke","12:27:17","13:50:08","13:52:11","13:54:13","15:09:20","4m 05s",""],
-["Dubbo","12:34:34","13:55:20","13:57:16","13:59:11","15:12:17","3m 51s",""],
-["Orange","12:36:16","13:57:12","13:58:17","13:59:22","15:12:45","2m 10s",""],
-["Mudgee","12:36:45","13:56:52","13:58:49","14:00:46","15:13:12","3m 54s",""],
-["Bathurst","12:37:18","13:57:31","13:59:01","14:00:31","15:13:11","3m 00s",""],
-["Katoomba","12:38:53","13:58:23","14:00:08","14:01:53","15:13:50","3m 30s",""],
-["Penrith","12:39:39","13:58:48","14:00:41","14:02:34","15:14:11","3m 46s","sydneyarea"],
-["Campbelltown","12:40:03","13:59:09","14:00:55","14:02:39","15:14:15","3m 30s","sydneyarea"],
-["Blacktown","12:40:03","13:59:04","14:00:59","14:02:53","15:14:21","3m 49s","sydneyarea"],
-["Kiama","12:40:30","14:00:16","14:01:04","14:01:52","15:14:14","1m 36s",""],
-["Wollongong","12:40:25","13:59:40","14:01:05","14:02:30","15:14:17","2m 50s",""],
-["Pennant Hills","12:40:20","13:59:17","14:01:12","14:03:06","15:14:30","3m 49s","sydneyarea"],
-["Canterbury","12:40:32","13:59:24","14:01:18","14:03:12","15:14:32","3m 48s","sydneyarea"],
-["Sydney","12:40:40","13:59:30","14:01:25","14:03:19","15:14:36","3m 49s","sydney"],
-["Darlinghurst","12:40:42","13:59:31","14:01:26","14:03:20","15:14:37","3m 49s","sydneyarea"],
-["Mosman","12:40:43","13:59:33","14:01:28","14:03:21","15:14:38","3m 48s","sydneyarea"],
-["Gosford","12:40:40","13:59:51","14:01:31","14:03:10","15:14:44","3m 19s","sydneyarea"],
-["Norah Head","12:41:01","14:00:35","14:01:48","14:03:00","15:14:55","2m 25s",""]
+const places = [
+  // TOTAL SOLAR ECLIPSE — ORIGINAL ORDER PRESERVED
+  ["Kimberley Region","09:27:32","10:58:08","11:00:43","11:03:18","12:32:50","5m 10s","max"],
+  ["Kununurra","09:27:52","10:59:46","11:01:13","11:02:40","12:33:14","2m 54s",""],
+  ["Lake Argyle","09:28:19","10:59:29","11:01:39","11:03:48","12:33:36","4m 19s",""],
+  ["Tennant Creek","11:16:50","12:47:58","12:49:41","12:51:24","14:17:30","3m 26s",""],
+  ["Bourke","12:27:17","13:50:08","13:52:11","13:54:13","15:09:20","4m 05s",""],
+  ["Dubbo","12:34:34","13:55:20","13:57:16","13:59:11","15:12:17","3m 51s",""],
+  ["Orange","12:36:16","13:57:12","13:58:17","13:59:22","15:12:45","2m 10s",""],
+  ["Mudgee","12:36:45","13:56:52","13:58:49","14:00:46","15:13:12","3m 54s",""],
+  ["Bathurst","12:37:18","13:57:31","13:59:01","14:00:31","15:13:11","3m 00s",""],
+  ["Katoomba","12:38:53","13:58:23","14:00:08","14:01:53","15:13:50","3m 30s",""],
+  ["Penrith","12:39:39","13:58:48","14:00:41","14:02:34","15:14:11","3m 46s","sydneyarea"],
+  ["Campbelltown","12:40:03","13:59:09","14:00:55","14:02:39","15:14:15","3m 30s","sydneyarea"],
+  ["Blacktown","12:40:03","13:59:04","14:00:59","14:02:53","15:14:21","3m 49s","sydneyarea"],
+  ["Kiama","12:40:30","14:00:16","14:01:04","14:01:52","15:14:14","1m 36s",""],
+  ["Wollongong","12:40:25","13:59:40","14:01:05","14:02:30","15:14:17","2m 50s",""],
+  ["Pennant Hills","12:40:20","13:59:17","14:01:12","14:03:06","15:14:30","3m 49s","sydneyarea"],
+  ["Canterbury","12:40:32","13:59:24","14:01:18","14:03:12","15:14:32","3m 48s","sydneyarea"],
+  ["Sydney","12:40:40","13:59:30","14:01:25","14:03:19","15:14:36","3m 49s","sydney"],
+  ["Darlinghurst","12:40:42","13:59:31","14:01:26","14:03:20","15:14:37","3m 49s","sydneyarea"],
+  ["Mosman","12:40:43","13:59:33","14:01:28","14:03:21","15:14:38","3m 48s","sydneyarea"],
+  ["Gosford","12:40:40","13:59:51","14:01:31","14:03:10","15:14:44","3m 19s","sydneyarea"],
+  ["Norah Head","12:41:01","14:00:35","14:01:48","14:03:00","15:14:55","2m 25s",""],
+
+  // PARTIAL SOLAR ECLIPSE — NEW LOCATIONS
+  // Format: [city, begins, "", maximum, "", ends, magnitude, "partial"]
+  ["Melbourne","12:32","","13:53","","15:07","0.845","partial"],
+  ["Brisbane","12:41","","14:02","","15:14","0.844","partial"],
+  ["Perth","09:30","","10:47","","12:08","0.591","partial"],
+  ["Alice Springs","11:21","","12:53","","14:20","0.956","partial"],
+  ["Adelaide","11:48","","13:11","","14:29","0.803","partial"],
+  ["Canberra","12:38","","13:59","","15:13","0.961","partial"],
+  ["Hobart","12:40","","13:56","","15:07","0.781","partial"],
+  ["Darwin","10:59","","12:32","","14:03","0.895","partial"],
+  ["Newcastle","12:41","","14:02","","15:15","0.994","partial"],
+  ["Gold Coast","12:42","","14:02","","15:15","0.850","partial"]
 ];
 
-const grid=document.getElementById("placeGrid");
-function durationSeconds(t){const m=t.match(/(\d+)m\s*(\d+)s/);return m?+m[1]*60 + +m[2]:0}
-function renderPlaces(filter="all"){
-grid.innerHTML="";
-places.forEach(p=>{
-const area=p[7]==="sydney"||p[7]==="sydneyarea";
-if(filter==="long"&&durationSeconds(p[6])<180)return;
-if(filter==="sydney"&&!area)return;
-const c=document.createElement("article");
-c.className="place-card"+(p[7]==="sydney"?" sydney":"")+(p[7]==="max"?" max":"");
-c.innerHTML=`<div class="place-name">${p[0]}${p[7]==="max"?' ⭐':p[7]==="sydney"?' 🌑':''}</div><div class="place-duration">${p[6]}</div><div class="place-times">Partial begins: ${p[1]}<br>Totality: ${p[2]} → ${p[4]}<br>Maximum: ${p[3]}<br>Eclipse ends: ${p[5]}</div>`;
-grid.appendChild(c);
-});
+const grid = document.getElementById("placeGrid");
+
+function durationSeconds(t) {
+  const m = t.match(/(\d+)m\s*(\d+)s/);
+  return m ? +m[1] * 60 + +m[2] : 0;
 }
+
+function renderPlaces(filter = "all") {
+  grid.innerHTML = "";
+
+  places.forEach(p => {
+    const isPartial = p[7] === "partial";
+    const magnitude = isPartial ? Number(p[6]) : null;
+    const area = p[7] === "sydney" || p[7] === "sydneyarea";
+
+    if (filter === "long" &&
+        (isPartial || durationSeconds(p[6]) < 180)) return;
+
+    if (filter === "sydney" && !area) return;
+
+    if (filter === "partial" && !isPartial) return;
+    if (filter === "total" && isPartial) return;
+
+    const c = document.createElement("article");
+
+    c.className =
+      "place-card" +
+      (p[7] === "sydney" ? " sydney" : "") +
+      (p[7] === "max" ? " max" : "") +
+      (isPartial ? " partial" : "") +
+      (isPartial && magnitude >= 0.85 ? " near-miss" : "") +
+      (isPartial && magnitude >= 0.98 ? " extreme-near-miss" : "");
+
+    const symbol =
+      p[7] === "max" ? " ⭐" :
+      p[7] === "sydney" ? " 🌑" :
+      isPartial ? " 🌒" : "";
+
+    const eclipseType = isPartial
+      ? "PARTIAL SOLAR ECLIPSE"
+      : "TOTAL SOLAR ECLIPSE";
+
+    const details = isPartial
+      ? `
+        Partial begins: ${p[1]}<br>
+        Maximum: ${p[3]}<br>
+        Eclipse ends: ${p[5]}
+      `
+      : `
+        Partial begins: ${p[1]}<br>
+        Totality: ${p[2]} → ${p[4]}<br>
+        Maximum: ${p[3]}<br>
+        Eclipse ends: ${p[5]}
+      `;
+
+    let note = "";
+
+    if (isPartial && magnitude >= 0.995) {
+      note = `<div class="partial-note">
+        ⚠️ EXTREME NEAR MISS — 0.995+
+      </div>`;
+    } else if (isPartial && magnitude >= 0.98) {
+      note = `<div class="partial-note">
+        ⚠️ VERY CLOSE TO TOTALITY
+      </div>`;
+    } else if (isPartial && magnitude >= 0.85) {
+      note = `<div class="partial-note">
+        NEAR MISS
+      </div>`;
+    }
+
+    c.innerHTML = `
+      <div class="place-name">${p[0]}${symbol}</div>
+      <div class="eclipse-type">${eclipseType}</div>
+      <div class="place-duration">${p[6]}</div>
+      ${note}
+      <div class="place-times">${details}</div>
+    `;
+
+    grid.appendChild(c);
+  });
+}
+
 renderPlaces();
 
 document.querySelectorAll(".filter-button").forEach(btn=>btn.onclick=()=>{
