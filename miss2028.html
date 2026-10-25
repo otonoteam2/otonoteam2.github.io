@@ -585,15 +585,22 @@ section{padding:100px 7vw;position:relative}
 }
 
 /* FINAL 2858 */
-.future{
-  display:none;
-  min-height:100vh;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  background:radial-gradient(circle,#5f1faf55,#03040d 58%);
-  overflow:hidden
+.future {
+  display: none;
+  min-height: calc(100svh - 70px);
+  padding: 22px 20px 28px;
+
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  background: radial-gradient(circle, #5f1faf55, #03040d 58%);
+  overflow: visible;
+}
+
+.future.revealed {
+  display: flex;
 }
 .future.revealed{display:flex}
 .future-year{
@@ -771,6 +778,7 @@ section{padding:100px 7vw;position:relative}
 }
 .page-icon{font-size:2.5rem}
 
+
 footer{
   padding:60px 6vw;
   text-align:center;
@@ -880,6 +888,117 @@ footer{
   .button,button {min-height:44px}
   img {max-width:100%;height:auto}
 }
+
+/* 2858 — FIT THE COMPLETE REVEAL ON SCREEN */
+
+.future {
+  gap: 0;
+  scroll-margin-top: 70px;
+}
+
+.future .eyebrow {
+  font-size: clamp(.65rem, 1.4vh, .82rem);
+  letter-spacing: 3px;
+}
+
+.future-year {
+  font-size: clamp(8rem, 24vw, 20rem);
+  line-height: .78;
+  margin: 4px 0 8px;
+}
+
+.future-date {
+  font-size: clamp(1.1rem, 2.8vh, 2rem);
+  letter-spacing: 2px;
+}
+
+.future-duration {
+  margin: clamp(8px, 1.8vh, 18px) auto;
+  gap: 3px;
+}
+
+.duration-number {
+  font-size: clamp(2rem, 6vh, 4rem);
+  line-height: 1;
+}
+
+.duration-caption {
+  font-size: .7rem;
+}
+
+.days2858 {
+  font-size: clamp(2rem, min(7vw, 9vh), 5.5rem);
+  line-height: 1;
+  margin-top: clamp(10px, 2vh, 20px);
+}
+
+.days-label {
+  font-size: clamp(.65rem, 1.3vh, .85rem);
+  letter-spacing: 3px;
+  margin-top: 8px;
+}
+
+.centuries {
+  font-size: clamp(1.3rem, min(4vw, 4.5vh), 2.8rem);
+  line-height: 1.15;
+  margin-top: clamp(12px, 2.5vh, 24px);
+}
+
+.day-note {
+  font-size: clamp(.75rem, 1.5vh, .9rem);
+  line-height: 1.45;
+  margin: clamp(10px, 2vh, 20px) auto 0;
+}
+
+/* Short laptop screens */
+@media (max-height: 750px) {
+  .future-year {
+    font-size: min(18vw, 23vh);
+  }
+
+  .future-duration {
+    margin: 8px auto;
+  }
+
+  .days2858 {
+    font-size: min(6vw, 8vh);
+  }
+
+  .centuries {
+    margin-top: 12px;
+  }
+}
+
+/* Small phones */
+
+@media (max-width: 600px) {
+  .future {
+    min-height: calc(100svh - 60px);
+    padding: 16px 14px;
+    scroll-margin-top: 60px;
+  }
+
+  .future-year {
+    font-size: clamp(6rem, 30vw, 11rem);
+    line-height: .8;
+    margin: 8px 0 12px;
+  }
+
+  .days2858 {
+    font-size: clamp(1.5rem, 8vw, 3rem);
+    overflow-wrap: anywhere;
+  }
+
+  .centuries {
+    font-size: clamp(1.2rem, 5vw, 2rem);
+  }
+
+  .days-label {
+    letter-spacing: 1.5px;
+  }
+}
+
+
 </style>
 </head>
 
