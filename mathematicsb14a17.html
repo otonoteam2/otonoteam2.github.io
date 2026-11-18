@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mr Bent's Seating Plan Creator</title>
+<style>
+
+:root{--p:#7A2682;--light:#F3E8F5;--bg:#F8F5F9;--ink:#241D28;--line:#D8C9DC}
+*{box-sizing:border-box}body{margin:0;font:15px system-ui,Arial;color:var(--ink);background:var(--bg)}header{background:var(--p);color:white;padding:25px max(20px,calc((100vw - 1220px)/2))}h1{margin:0;font-size:clamp(23px,4vw,38px)}header p{margin:5px 0 0}main{max-width:1250px;margin:auto;padding:18px}.tabs,.actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.tab{background:white;color:var(--p);border:1px solid var(--line)}.tab.active{background:var(--p);color:white}.panel{display:none}.panel.active{display:block}.card{background:white;border:1px solid var(--line);border-radius:15px;padding:20px;margin-bottom:15px}h2,h3{color:var(--p)}button{border:0;border-radius:9px;background:var(--p);color:white;padding:10px 13px;font-weight:700;cursor:pointer}button.secondary{background:#EEE7F0;color:var(--p)}button.danger{background:#AE244C}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #E9A6EF}input,select{width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;margin-top:4px;background:white}label{font-size:13px;font-weight:700}.fields{display:grid;grid-template-columns:repeat(4,minmax(130px,1fr));gap:10px}.hint{color:#716576;font-size:13px}.notice{padding:12px;background:var(--light);border-left:5px solid var(--p);border-radius:8px;margin:12px 0}.scroll{overflow:auto}.diagram{min-width:max-content;width:max-content;margin:0 auto;display:flex;flex-direction:column;gap:10px}.board{background:var(--p);color:white;text-align:center;padding:12px;border-radius:8px;margin:0 auto 16px;max-width:400px}.seatrow{display:flex;align-items:stretch;justify-content:center;gap:7px}.block{display:flex;gap:7px}.aisle{width:25px;display:grid;place-items:center;color:#8A7D90;font-size:9px;writing-mode:vertical-rl}.seat,.furniture{width:100px;height:84px;border:2px solid var(--line);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-align:center;background:white;padding:5px;overflow:hidden}.seat{color:var(--ink);font-weight:400}.seat.occupied{background:var(--light);border-color:var(--p)}.seat.priority:not(.occupied){border-style:dashed;border-color:#B78ABC}.seat strong{font-size:12px;overflow-wrap:anywhere;line-height:1.1}.seat small{font-size:10px;color:#695B6F}.furniture{background:#EAE3EC;font-size:12px;font-weight:700}.furniture.entrance{background:#E7F2F8}.stats{display:flex;flex-wrap:wrap;gap:10px;margin:15px 0}.stat{flex:1;min-width:120px;background:var(--light);border-radius:9px;padding:12px}.stat b{display:block;font-size:25px;color:var(--p)}table{width:100%;border-collapse:collapse;min-width:550px}th,td{padding:9px;border-bottom:1px solid var(--line);text-align:left}th{background:var(--light);color:var(--p)}.modal{position:fixed;inset:0;background:#211329a8;display:none;align-items:center;justify-content:center;padding:15px}.modal.open{display:flex}.modal article{background:white;padding:22px;border-radius:14px;width:min(460px,100%)}.printonly{display:none}@media(max-width:750px){.fields{grid-template-columns:repeat(2,minmax(0,1fr))}.card{padding:13px}}@media print{@page{size:landscape;margin:9mm}header,.tabs,.noprint,.modal{display:none!important}.panel{display:none!important}#seating{display:block!important}.card{border:0;padding:0}.scroll{overflow:visible}.seat,.furniture{width:75px;height:64px;border-width:1px}.seatrow,.block{gap:3px}.aisle{width:14px}.printonly{display:block}.stats{display:none}body{background:white}.diagram{margin:0}}
+</style></head><body>
+<header><h1>🟣 Mr Bent's Seating Plan Creator</h1><p>Otono Purple #7A2682 · B17 &amp; B14A</p></header>
+<main><nav class="tabs noprint"><button class="tab active" data-tab="setup">1 · Setup</button><button class="tab" data-tab="students">2 · Students</button><button class="tab" data-tab="seating">3 · Seating Plan</button><button class="tab" data-tab="save">4 · Save / Defaults</button></nav>
+<section class="panel active card" id="setup"><h2>Classroom Setup</h2><div class="fields"><label>Room<select id="roomChoice"><option>B17</option><option>B14A</option></select></label><label>Plan title<input id="titleInput" value="Mr Bent's Class"></label></div><div class="notice">B17: 3–5–3, rows 1–3. B14A: entrance, six seats and teacher desk in row 1; two 4–6 rows below. Every seat is the same size.</div><button data-go="students">Continue to Students →</button></section>
+<section class="panel card" id="students"><h2>Student Management</h2><p class="hint">Student number is required and unique. Candidate number is optional. Add, edit or remove students directly here.</p><form id="studentForm" class="fields"><label>Forename *<input id="first" required maxlength="60"></label><label>Surname<input id="last" maxlength="60"></label><label>Student number *<input id="number" required maxlength="12"></label><label>Candidate number (optional)<input id="candidate" maxlength="20"></label><button id="submitStudent">Add Student</button><button type="button" id="cancelEdit" class="secondary" hidden>Cancel edit</button></form><div class="scroll"><table><thead><tr><th>Student no.</th><th>Name</th><th>Candidate no.</th><th>Seat</th><th>Actions</th></tr></thead><tbody id="studentTable"></tbody></table></div></section>
+<section class="panel card" id="seating"><div class="printonly"><h1 id="printTitle"></h1><p id="printRoom"></p></div><h2>Seating Plan · <span id="roomName">B17</span></h2><div class="actions noprint"><label>Room<select id="roomSeat"><option>B17</option><option>B14A</option></select></label><button id="random">🔀 Random Assign</button><button class="secondary" id="clear">Clear Seats</button><button class="secondary" id="loadFactory">Load Built-in Default</button><button id="print">🖨 Print</button></div><div class="stats"><div class="stat"><b id="cap">0</b>Capacity</div><div class="stat"><b id="occupied">0</b>Occupied</div><div class="stat"><b id="empty">0</b>Empty seats</div><div class="stat"><b id="unassigned">0</b>Unassigned students</div></div><p class="hint noprint">Click any seat to assign a student. Random Assign prioritises B17's middle block (D–H).</p><div class="scroll"><div class="board">FRONT · WHITEBOARD</div><div id="diagram" class="diagram"></div></div><h3>Assigned Students</h3><div class="scroll"><table><thead><tr><th>Seat</th><th>Student no.</th><th>Student</th><th>Candidate no.</th></tr></thead><tbody id="assignTable"></tbody></table></div></section>
+<section class="panel card" id="save"><h2>Save &amp; Absolute Defaults</h2><div class="notice"><b>Generate Absolute Default HTML:</b> Arrange both rooms exactly as you want, then click the button below. A NEW HTML file is downloaded with your current student list and BOTH room seating plans embedded as its factory defaults. Anyone opening that new file for the first time sees your exact arrangement — not student-number order.</div><div class="actions"><button id="generate">⭐ Generate Absolute Default HTML</button><button id="personalDefault" class="secondary">Set My Browser Default</button><button id="loadPersonal" class="secondary">Load My Browser Default</button></div><p class="hint">Browser defaults only affect your own browser. Generated HTML defaults are shareable. On an already-used browser, a previous autosave can override new built-in defaults; use Reset to Built-in Defaults or open in a fresh browser.</p><div class="actions"><button id="saveNow">Save in Browser</button><button id="loadSaved" class="secondary">Load Browser Save</button><button id="exportJson">Export JSON</button><button id="importJson" class="secondary">Import JSON</button><button id="resetFactory" class="danger">Reset Everything to Built-in Defaults</button><input type="file" id="jsonFile" accept=".json,application/json" hidden></div><p class="hint">The generated HTML is self-contained and does not need a server. Publish the newly generated file if you want the absolute default to appear on your website.</p></section><p id="status" role="status" class="hint"></p></main>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><article><h2 id="modalTitle">Assign seat</h2><p id="occupant"></p><label>Student<select id="seatStudent"></select></label><div class="actions"><button id="assign">Assign</button><button id="emptySeat" class="secondary">Empty Seat</button><button id="closeModal" class="secondary">Cancel</button></div></article></div>
+<script id="built-in-defaults" type="application/json">
+{
+ "room":"B17",
+ "title":"Mr Bent's Class",
+ "students":[
+ {"num":"001","first":"George","last":"Caron","candidate":""},
+ {"num":"002","first":"Tin Chun","last":"Cheung","candidate":""},
+ {"num":"003","first":"Felix","last":"Devlin","candidate":""},
+ {"num":"004","first":"Nick","last":"Eldridge","candidate":""},
+ {"num":"005","first":"Millie","last":"Feldman","candidate":""},
+ {"num":"006","first":"Adam","last":"Gore","candidate":""},
+ {"num":"007","first":"Cai Hua","last":"Chi","candidate":""},
+ {"num":"008","first":"Lily","last":"Hunt","candidate":""},
+ {"num":"009","first":"Esme","last":"Janson","candidate":""},
+ {"num":"010","first":"Amy","last":"Keast","candidate":""},
+ {"num":"011","first":"Spencer","last":"Mowat","candidate":""},
+ {"num":"012","first":"Benjamin","last":"Nelson","candidate":""},
+ {"num":"013","first":"Hermione","last":"Packman","candidate":""},
+ {"num":"014","first":"Micah","last":"Robson","candidate":""},
+ {"num":"015","first":"Andreea","last":"Suruceanu","candidate":""},
+ {"num":"016","first":"Élodie","last":"Thomson","candidate":""},
+ {"num":"017","first":"Molly","last":"Veale","candidate":""},
+ {"num":"018","first":"Lucy","last":"Walton","candidate":""},
+ {"num":"019","first":"Maisie","last":"White","candidate":""},
+ {"num":"020","first":"Ida","last":"Windsor","candidate":""},
+ {"num":"021","first":"Eliza","last":"Zubrickaite","candidate":""}
+ ],
+ "assignments":{
+"B17": {
+  "1B": "009",
+  "1C": "008",
+  "1D": "002",
+  "1E": "012",
+  "1F": "010",
+  "1G": "015",
+  "1H": "007",
+
+  "2B": "011",
+  "2C": "016",
+  "2D": "019",
+  "2E": "004",
+  "2F": "017",
+  "2G": "003",
+  "2H": "013",
+  "2J": "014",
+  "2K": "005",
+
+  "3D": "021",
+  "3E": "018",
+  "3F": "001",
+  "3G": "006",
+  "3H": "020"
+},
+
+ "B14A":{
+  "1C": "008",
+  "1D": "002",
+  "1E": "012",
+  "1F": "010",
+  "1G": "015",
+  "1H": "007",
+
+  "2A": "009",
+  "2B": "011",
+  "2C": "016",
+  "2D": "019",
+  "2E": "004",
+  "2F": "017",
+  "2G": "003",
+  "2H": "013",
+  "2J": "014",
+  "2K": "005",
+
+  "3E": "021",
+  "3F": "018",
+  "3G": "001",
+  "3H": "006",
+  "3J": "020"
+    }
+ }
+}
+</script>
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+const STORE='mrBentAbsoluteV3', PERSONAL='mrBentPersonalDefaultV3';
+const B17=[1,2,3].map(row=>({row,groups:[['A','B','C'],['D','E','F','G','H'],['J','K','L']]}));
+const B14A=[{row:1,groups:[['ENTRANCE'],['C','D','E','F','G','H'],['TEACHER']]},{row:2,groups:[['A','B','C','D'],['E','F','G','H','J','K']]},{row:3,groups:[['A','B','C','D'],['E','F','G','H','J','K']]}];
+const rows=room=>room==='B17'?B17:B14A;
+const seats=room=>rows(room).flatMap(r=>r.groups.flatMap(g=>g.filter(c=>c!=='ENTRANCE'&&c!=='TEACHER').map(c=>r.row+c)));
+const deep=x=>JSON.parse(JSON.stringify(x));
+const BUILTIN=JSON.parse($('built-in-defaults').textContent);
+let state=deep(BUILTIN),editing=null,selected=null;
+const name=s=>[s.first,s.last].filter(Boolean).join(' ');
+const find=num=>state.students.find(s=>s.num===num);
+const message=m=>$('status').textContent=m;
+function validate(x){if(!x||!['B17','B14A'].includes(x.room)||!Array.isArray(x.students)||!x.assignments)throw Error('Invalid seating file');
+const students=x.students.map(s=>({num:String(s.num||''),first:String(s.first||''),last:String(s.last||''),candidate:String(s.candidate||'')}));
+if(students.length>500||students.some(s=>!s.num||!s.first)||new Set(students.map(s=>s.num)).size!==students.length)throw Error('Invalid or duplicate student numbers');
+const maps={B17:{},B14A:{}};for(const room of ['B17','B14A']){const seen=new Set();for(const [seat,n] of Object.entries(x.assignments[room]||{})){const num=String(n);if(seats(room).includes(seat)&&students.some(s=>s.num===num)&&!seen.has(num)){maps[room][seat]=num;seen.add(num)}}}return {room:x.room,title:String(x.title||"Mr Bent's Class").slice(0,80),students,assignments:maps};}
+function save(){try{localStorage.setItem(STORE,JSON.stringify(state))}catch(e){message('Browser storage unavailable. Export JSON for backup.');}}
+function update(){save();render()}
+function nextNumber(){const used=new Set(state.students.map(s=>s.num));let n=1;while(used.has(String(n).padStart(3,'0')))n++;return String(n).padStart(3,'0')}
+function tab(id){document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id===id));document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===id))}
+function setRoom(room){state.room=room;update()}
+function render(){ ('roomChoice').value=('roomSeat').value=state.room;('roomName').textContent=state.room;('titleInput').value=state.title;('printTitle').textContent=state.title;('printRoom').textContent='Room '+state.room;renderStudents();renderSeats();if(!editing)$('number').value=nextNumber();}
+function renderStudents(){const body=$('studentTable');body.replaceChildren();for(const s of [...state.students].sort((a,b)=>a.num.localeCompare(b.num,undefined,{numeric:true}))){const tr=document.createElement('tr');const seat=Object.keys(state.assignments[state.room]).find(k=>state.assignments[state.room][k]===s.num)||'Unassigned';for(const v of [s.num,name(s),s.candidate||'—',seat]){const td=document.createElement('td');td.textContent=v;tr.append(td)}const td=document.createElement('td');const edit=document.createElement('button');edit.textContent='Edit';edit.className='secondary';edit.onclick=()=>editStudent(s.num);const del=document.createElement('button');del.textContent='Remove';del.className='danger';del.onclick=()=>removeStudent(s.num);td.append(edit,' ',del);tr.append(td);body.append(tr)}}
+function priority(room,id){return room==='B17'?['D','E','F','G','H'].includes(id.slice(1)):id.startsWith('1')||['2D','2E','2F','3D','3E','3F'].includes(id)}
+function renderSeats(){const room=state.room,diagram=$('diagram');diagram.replaceChildren();for(const r of rows(room)){const row=document.createElement('div');row.className='seatrow';r.groups.forEach((group,index)=>{if(index){const aisle=document.createElement('div');aisle.className='aisle';aisle.textContent='AISLE';row.append(aisle)}const block=document.createElement('div');block.className='block';for(const c of group){if(c==='ENTRANCE'||c==='TEACHER'){const f=document.createElement('div');f.className='furniture'+(c==='ENTRANCE'?' entrance':'');f.textContent=c==='TEACHER'?'TEACHER DESK':'ENTRANCE';block.append(f);continue}const id=r.row+c,s=find(state.assignments[room][id]),b=document.createElement('button');b.className='seat'+(s?' occupied':'')+(priority(room,id)?' priority':'');b.type='button';const title=document.createElement('small');title.textContent=id;const middle=document.createElement('strong');middle.textContent=s?name(s):'Empty';b.append(title,middle);if(s){const small=document.createElement('small');small.textContent='#'+s.num+(s.candidate?' · C'+s.candidate:'');b.append(small)}b.onclick=()=>openSeat(id);block.append(b)}row.append(block)});diagram.append(row)}
+const all=seats(room),used=all.filter(id=>find(state.assignments[room][id])).length;('cap').textContent=all.length;('occupied').textContent=used;('empty').textContent=all.length-used;('unassigned').textContent=state.students.length-used;const body=$('assignTable');body.replaceChildren();for(const id of all){const s=find(state.assignments[room][id]);if(!s)continue;const tr=document.createElement('tr');for(const v of [id,s.num,name(s),s.candidate||'—']){const td=document.createElement('td');td.textContent=v;tr.append(td)}body.append(tr)}}
+function resetForm(){editing=null;('studentForm').reset();('number').value=nextNumber();('submitStudent').textContent='AddStudent';('cancelEdit').hidden=true}
+function editStudent(num){const s=find(num);if(!s)return;editing=num;('first').value=s.first;('last').value=s.last;('number').value=s.num;('candidate').value=s.candidate;('submitStudent').textContent='SaveChanges';('cancelEdit').hidden=false;tab('students')}
+function removeStudent(num){const s=find(num);if(!s||!confirm('Remove '+name(s)+' from the student list and both rooms?'))return;state.students=state.students.filter(s=>s.num!==num);for(const room of ['B17','B14A'])for(const id of Object.keys(state.assignments[room]))if(state.assignments[room][id]===num)delete state.assignments[room][id];resetForm();update()}
+$('studentForm').onsubmit=e=>{e.preventDefault();const first=$('first').value.trim(),last=('last').value.trim(),num=('number').value.trim(),candidate=$('candidate').value.trim();if(!first||!num)return;if(state.students.some(s=>s.num===num&&s.num!==editing))return alert('Student number already exists');if(editing){const s=find(editing);if(!s)return;s.first=first;s.last=last;s.candidate=candidate;if(editing!==num){for(const room of ['B17','B14A'])for(const seat of Object.keys(state.assignments[room]))if(state.assignments[room][seat]===editing)state.assignments[room][seat]=num;s.num=num}}else state.students.push({num,first,last,candidate});resetForm();update();message('Student saved.')};
+function openSeat(id){selected=id;const current=find(state.assignments[state.room][id]);('modalTitle').textContent='Seat'+id+'·'+state.room;('occupant').textContent=current?'Currently: '+name(current):'Empty seat';const select=('seatStudent');select.replaceChildren();constempty=newOption('—Empty—','');select.add(empty);for(constsof[...state.students].sort((a,b)=>a.num.localeCompare(b.num,undefined,numeric:true)))select.add(newOption(s.num+'·'+name(s),s.num));select.value=current?.num||'';('modal').classList.add('open')}
+function closeModal(){selected=null;$('modal').classList.remove('open')}
+function assign(num){if(!selected)return;const map=state.assignments[state.room];for(const id of Object.keys(map))if(map[id]===num&&num)delete map[id];if(num)map[selected]=num;else delete map[selected];closeModal();update()}
+('assign').onclick=()=>assign(('seatStudent').value);('emptySeat').onclick=()=>assign('');('closeModal').onclick=closeModal;$('modal').onclick=e=>{if(e.target===$('modal'))closeModal()};document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function order(room){if(room==='B17'){const all=seats(room);return [...shuffle(all.filter(id=>priority(room,id))),...shuffle(all.filter(id=>!priority(room,id)))]}const front=['1C','1D','1E','1F','1G','1H'],inner=['2D','2E','2F','3D','3E','3F'];return [...shuffle(front),...shuffle(inner),...shuffle(seats(room).filter(s=>!front.includes(s)&&!inner.includes(s)))]}
+$('random').onclick=()=>{const places=order(state.room),students=shuffle([...state.students]);state.assignments[state.room]={};students.slice(0,places.length).forEach((s,i)=>state.assignments[state.room][places[i]]=s.num);update();if(students.length>places.length)alert('Room full: '+(students.length-places.length)+' students unassigned')};
+$('clear').onclick=()=>{if(confirm('Clear all seats in '+state.room+'?')){state.assignments[state.room]={};update()}};
+$('loadFactory').onclick=()=>{if(confirm('Restore built-in seating for '+state.room+'?')){state.assignments[state.room]=deep(BUILTIN.assignments[state.room]);for(const id of Object.keys(state.assignments[state.room]))if(!find(state.assignments[state.room][id]))delete state.assignments[state.room][id];update()}};
+$('resetFactory').onclick=()=>{if(confirm('Replace ALL students and BOTH rooms with built-in defaults?')){state=validate(deep(BUILTIN));resetForm();update()}};
+$('generate').onclick=()=>{const clone=document.documentElement.cloneNode(true);const script=clone.querySelector('#built-in-defaults');const safe=JSON.stringify(validate(state),null,2).replace(/</g,'\\u003c');script.textContent='\n'+safe+'\n';const html='<!DOCTYPE html>\n'+clone.outerHTML;download('mr-bent-ABSOLUTE-DEFAULT.html',html,'text/html');message('New HTML generated! Your exact student list and both seating plans are embedded.')};
+function download(filename,data,type){const url=URL.createObjectURL(new Blob([data],{type})),a=document.createElement('a');a.href=url;a.download=filename;a.click();setTimeout(()=>URL.revokeObjectURL(url),1500)}
+$('personalDefault').onclick=()=>{localStorage.setItem(PERSONAL,JSON.stringify(state));message('Personal default saved in this browser.')};
+$('loadPersonal').onclick=()=>{const data=localStorage.getItem(PERSONAL);if(!data)return alert('No personal default saved');try{state=validate(JSON.parse(data));resetForm();update()}catch(e){alert(e.message)}};
+('saveNow').onclick=()=>save();message('Savedinbrowser.');('loadSaved').onclick=()=>{try{const data=localStorage.getItem(STORE);if(!data)return alert('No save found');state=validate(JSON.parse(data));resetForm();render()}catch(e){alert(e.message)}};
+$('exportJson').onclick=()=>download('mr-bent-seating.json',JSON.stringify(state,null,2),'application/json');
+('importJson').onclick=()=>('jsonFile').click();$('jsonFile').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{state=validate(JSON.parse(await file.text()));resetForm();update()}catch(err){alert(err.message)}e.target.value=''};
+('print').onclick=()=>window.print();('cancelEdit').onclick=resetForm;
+('roomChoice').onchange=e=>setRoom(e.target.value);('roomSeat').onchange=e=>setRoom(e.target.value);$('titleInput').oninput=e=>{state.title=e.target.value;save();$('printTitle').textContent=state.title};
+document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>tab(b.dataset.tab));document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>tab(b.dataset.go));
+try{const saved=localStorage.getItem(STORE);if(saved)state=validate(JSON.parse(saved))}catch(e){message('Could not load browser save. Using built-in defaults.')}
+resetForm();render();
+</script></body></html>
+
+
